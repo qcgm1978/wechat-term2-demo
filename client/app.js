@@ -50,7 +50,7 @@ App({
             this.getUserInfo({ success, error })
           }
         },
-        fail: () => {
+        fail: (error) => {
           error && error()
         }
       })
@@ -75,8 +75,11 @@ App({
             error && error()
           }
         },
-        fail: () => {
-          error && error()
+        fail: (err) => {
+          error && error();
+          if(err instanceof Error){
+            throw err;
+          }
         }
       })
     },
