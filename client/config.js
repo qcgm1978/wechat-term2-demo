@@ -3,7 +3,7 @@
  */
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
-var host = 'https://ty1qcd36.qcloud.la';
+var host = 'http://localhost:5757';
 
 var config = {
 
@@ -49,7 +49,7 @@ var config = {
 
         // 添加评论
         addComment: `${host}/weapp/comment`,
-        
+
         // 获取评论列表
         commentList: `${host}/weapp/comment`,
 

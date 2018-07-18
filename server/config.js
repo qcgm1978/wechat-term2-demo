@@ -1,9 +1,9 @@
 const CONF = {
     port: '5757',
-    rootPathname: '',
+    rootPathname: 'store',
 
     // 微信小程序 App ID
-    appId: '',
+    appId: 'wx00d1d53802723dab',
 
     // 微信小程序 App Secret
     appSecret: '',
@@ -20,8 +20,8 @@ const CONF = {
         host: 'localhost',
         port: 3306,
         user: 'root',
-        db: 'cAuth',
-        pass: '',
+        db: 'store',
+        pass: 'china.com',
         char: 'utf8mb4'
     },
 
@@ -39,7 +39,13 @@ const CONF = {
 
     // 微信登录态有效期
     wxLoginExpires: 7200,
-    wxMessageToken: 'abcdefgh'
+    wxMessageToken: 'abcdefgh',
+    serverHost: '',
+    tunnelServerUrl: '',
+    tunnelSignatureKey: '',
+    qcloudAppId: '',
+    qcloudSecretId: '',
+    qcloudSecretKey: ''
 }
 
 module.exports = CONF
