@@ -93,18 +93,19 @@ App({
 
       wx.checkSession({
         success: () => {
-          this.getUserInfo({
-            success: res => {
-              userInfo = res.userInfo
+          // 注意：此接口有调整，使用该接口将不再出现授权弹窗，请使用 <button open-type="getUserInfo"></button> 引导用户主动进行授权操作
+          // this.getUserInfo({
+          //   success: res => {
+          //     userInfo = res.userInfo
 
-              success && success({
-                userInfo
-              })
-            },
-            fail: () => {
-              error && error()
-            }
-          })
+          //     success && success({
+          //       userInfo
+          //     })
+          //   },
+          //   fail: () => {
+          //     error && error()
+          //   }
+          // })
         },
         fail: () => {
           error && error()

@@ -99,7 +99,7 @@ var login = function login(options) {
             url: options.loginUrl,
             header: header,
             method: options.method,
-            // data: options.data,
+            data: wxLoginResult.code,
             success: function (result) {
                 var data = result.data;
 
