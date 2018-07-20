@@ -51,7 +51,9 @@ App({
           }
         },
         fail: (error) => {
-          error && error()
+          if(error){
+            // throw error;
+          }
         }
       })
     },

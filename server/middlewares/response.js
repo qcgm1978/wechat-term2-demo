@@ -5,6 +5,7 @@ const debug = require('debug')('koa-weapp-demo')
  */
 module.exports = async function (ctx, next) {
     try {
+        console.log(`ctx is ${ctx}`)
         // console.log({
         //     code: ctx.state.code !== undefined ? ctx.state.code : 0,
         //     data: ctx.state.data !== undefined ? ctx.state.data : {}

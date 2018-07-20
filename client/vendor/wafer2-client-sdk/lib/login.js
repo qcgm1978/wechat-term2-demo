@@ -95,6 +95,7 @@ var login = function login(options) {
         header[constants.WX_HEADER_IV] = iv;
 
         // 请求服务器登录地址，获得会话信息
+        console.log(`code is ${code}`)
         wx.request({
             url: options.loginUrl,
             header: header,

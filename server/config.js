@@ -3,10 +3,10 @@ const CONF = {
     rootPathname: 'store',
 
     // 微信小程序 App ID
-    appId: 'wxcb754b6f12773e5c',
+    appId: 'wx00d1d53802723dab',
 
     // 微信小程序 App Secret
-    appSecret: 'a474f0661a8dad5beb666836ddc8b7b3',
+    appSecret: '0054c524615772331ef1f2b5a027bc36',
 
     // 是否使用腾讯云代理登录小程序
     useQcloudLogin: false,
