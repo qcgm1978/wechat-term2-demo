@@ -1,17 +1,20 @@
 // pages/home/home.js
+// const io = require('/socket.io/socket.io.js')
+const websocket = require('./index').default;
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config.js')
 
 Page({
-
+  ...websocket,
   /**
    * 页面的初始数据
    */
   data: {
+    ...websocket.data,
     productList: [], // 商品列表
   },
 
-  getProductList(){
+  getProductList() {
     wx.showLoading({
       title: '商品数据加载中...',
     })
@@ -36,7 +39,7 @@ Page({
 
       fail: () => {
         wx.hideLoading()
-        
+
         wx.showToast({
           icon: 'none',
           title: '商品数据加载错误',
@@ -45,7 +48,7 @@ Page({
     })
   },
 
-  addToTrolley(event){
+  addToTrolley(event) {
     let productId = event.currentTarget.dataset.id
     let productList = this.data.productList
     let product
@@ -57,7 +60,7 @@ Page({
       }
     }
 
-    if (product){
+    if (product) {
       qcloud.request({
         url: config.service.addTrolley,
         login: true,
@@ -84,7 +87,7 @@ Page({
           })
         }
       })
-      
+
     }
 
 
@@ -93,56 +96,58 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.getProductList()
+  onLoad: function(options) {
+    this.getProductList();
+    this.runWebSocket()  // 加载websocket操作
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })
