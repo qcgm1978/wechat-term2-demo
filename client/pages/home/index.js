@@ -1,20 +1,20 @@
 const app = getApp()
-let that  // 针对this引用
-let socket_is_open = false  // 判断是否开启websocket
-let chosed_id = ""  // 选中对在线用户id
+let that // 针对this引用
+let socket_is_open = false // 判断是否开启websocket
+let chosed_id = "" // 选中对在线用户id
 
 export default {
   data: {
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    msgs: [],  // 信息列表
-    users: [],  // 在线用户列表
+    msgs: [], // 信息列表
+    users: [], // 在线用户列表
     scrollTop: 100,
-    txt_val: "",  // 请输入信息框的值
+    txt_val: "", // 请输入信息框的值
   },
 
-  onLoad: function () {
+  onLoad: function() {
     that = this
     if (app.globalData.userInfo) {
       this.setData({
@@ -42,45 +42,46 @@ export default {
         }
       })
     }
-    that.runWebSocket()  // 加载websocket操作
+    that.runWebSocket() // 加载websocket操作
   },
 
-  runWebSocket: function () {
-    const that=this;
-    this.wsConnect()  // 连接
-
-    wx.onSocketOpen((res) => {  // 监听WebSocket连接打开事件
+  runWebSocket: function() {
+    const that = this;
+    this.wsConnect() // 连接
+    wx.onSocketOpen((res) => { // 监听WebSocket连接打开事件
       console.log('WebSocket连接已打开！')
       socket_is_open = true
-      setTimeout(() => {  // 自动改名操作
+      setTimeout(() => { // 自动改名操作
         let my_name = that.data.userInfo.nickName
         if (my_name) {
-          wx.sendSocketMessage({ data: "#改名 " + my_name })
+          wx.sendSocketMessage({
+            data: "#改名 " + my_name
+          })
         }
       }, 2000)
     })
 
-    function appendLog(type, nickname, msg) {  // 聊天室更新函数
+    function appendLog(type, nickname, msg) { // 聊天室更新函数
       let item = {}
       let prefix
       if (type === 'notification') {
-        prefix = "通知"  // blue
-        item.style = 'notification'  // 用于设置样式
+        prefix = "通知" // blue
+        item.style = 'notification' // 用于设置样式
       } else if (type == 'nick_update') {
-        prefix = "注意"  // green
+        prefix = "注意" // green
         item.style = 'nick_update'
       } else if (type == 'reward') {
-        prefix = "恭喜"  // red
+        prefix = "恭喜" // red
         item.style = "reward_congradulation"
       } else {
-        prefix = nickname  // black
+        prefix = nickname // black
         item.style = 'normal'
       }
-      item.msg_txt = (prefix || msg) ? (prefix + "：" + msg) : ""  // 确定在聊天室显示什么
-      let msgs = that.data.msgs  // data引用
+      item.msg_txt = (prefix || msg) ? (prefix + "：" + msg) : "" // 确定在聊天室显示什么
+      let msgs = that.data.msgs // data引用
       // 更新聊天室
       msgs.push(item)
-      let scrollTop = that.data.scrollTop  // 自动滑动
+      let scrollTop = that.data.scrollTop // 自动滑动
       scrollTop += 30
       that.setData({
         msgs: msgs,
@@ -88,16 +89,18 @@ export default {
       })
     }
 
-    wx.onSocketMessage((res) => {  // 监听服务器的消息事件
+    wx.onSocketMessage((res) => { // 监听服务器的消息事件
       let data = JSON.parse(res.data);
-      if (data.type == "refresh") {  // 在线用户更新操作：获取非本人用户的用户信息，并置顶本人信息
+      if (data.type == "refresh") { // 在线用户更新操作：获取非本人用户的用户信息，并置顶本人信息
         let users = data.users
         users.unshift(that.data.users[0])
-        that.setData({ users: users })
+        that.setData({
+          users: users
+        })
         return
       }
-      appendLog(data.type, data.nickname, data.message);  // 聊天室内更新信息
-      if (data.type == "notification" || data.type == "nick_update") {  // 更新在线用户列表的用户信息
+      appendLog(data.type, data.nickname, data.message); // 聊天室内更新信息
+      if (data.type == "notification" || data.type == "nick_update") { // 更新在线用户列表的用户信息
         that.updateUsers(data)
       }
       console.log("ID: [%s] = %s", data.id, data.message);
@@ -108,46 +111,63 @@ export default {
       console.log('WebSocket 已关闭！')
     })
 
-    function disconnect() {  // 关闭链接操作，待使用
+    function disconnect() { // 关闭链接操作，待使用
       wx.closeSocket()
     }
   },
 
-  updateUsers: function (data) {  // 处理在线用户上下线、改昵称更新，以更新在线用户列表
+  updateUsers: function(data) { // 处理在线用户上下线、改昵称更新，以更新在线用户列表
     let users = this.data.users
     if (data.type == "notification") {
       let msg = data.message
       let substr = msg.substring(msg.length - 3)
-      if (substr === '已连接') {  // 增加在线用户列表
-        users.push({ id: data.id, nickname: data.nickname, style: "" })
-      } else if (substr === '已下线') {  // 删除在线用户列表
+      if (substr === '已连接') { // 增加在线用户列表
+        users.push({
+          id: data.id,
+          nickname: data.nickname,
+          style: ""
+        })
+      } else if (substr === '已下线') { // 删除在线用户列表
         for (let i = 0; i < users.length; i++) {
           if (users.id == data.id) {
             users.splice(i, 1)
           }
         }
       }
-    } else {  // 改昵称操作
+    } else { // 改昵称操作
       for (let i = 0; i < users.length; i++) {
         if (users[i].id == data.id) {
           users[i].nickname = data.nickname
         }
       }
     }
-    this.setData({ users: users })
+    this.setData({
+      users: users
+    })
   },
-
+  GetLocalIPAddress() {
+    const that=this;
+    wx.request({
+      url: 'http://ip-api.com/json',
+      success(e) {
+        // public IP address
+        // console.log(e.data);
+        that.setData({
+          motto: e.data
+        })
+      }
+    })
+  },
   // 创建websocket连接
-  wsConnect: function () {
+  wsConnect: function() {
     wx.connectSocket({
       // url: 'ws://192.168.14.179:8181',  // 请求的域名
-      url: 'ws://192.168.16.71:8181',
-      data: {
-      },
+      url: 'ws://10.3.0.98:8181',
+      data: {},
       method: "POST",
       fail: () => {
         let item = {}
-        let msgs = that.data.msgs  // data引用
+        let msgs = that.data.msgs // data引用
         item.msg_txt = '连接失败，可能因为：1、域名未经认证；2、重复上线。---->打开右上调试窗口可以测试'
         item.style = 'fail'
         msgs.push(item)
@@ -162,15 +182,19 @@ export default {
   },
 
   // 提交表单
-  formSubmit: function (e) {
+  formSubmit: function(e) {
     let msg = e.detail.value.msg
     if (socket_is_open) {
-      wx.sendSocketMessage({ data: msg })
-      that.setData({ txt_val: "" })  // 清空输入框
+      wx.sendSocketMessage({
+        data: msg
+      })
+      that.setData({
+        txt_val: ""
+      }) // 清空输入框
     }
   },
 
-  getUserInfo: function (e) {
+  getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
     this.setData({
@@ -179,7 +203,7 @@ export default {
     })
   },
 
-  chooseUser: function (e) {  // 选择在线用户，选中的用户样式改变，并记录选中用户id
+  chooseUser: function(e) { // 选择在线用户，选中的用户样式改变，并记录选中用户id
     let i = e.target.dataset.index
     let users = that.data.users
     for (let j = 0; j < users.length; j++) {
@@ -190,15 +214,22 @@ export default {
         users[j].style = ""
       }
     }
-    that.setData({ users: users })
+    that.setData({
+      users: users
+    })
   },
 
-  rewardOne: function () {  // 打赏选中的在线用户，其他用户无法看见打赏提示信息
+  rewardOne: function() { // 打赏选中的在线用户，其他用户无法看见打赏提示信息
     let msg = that.data.userInfo.nickName + "打赏了您1元钱"
     let id = chosed_id
     if (id) {
-      let data = JSON.stringify({ "msg": msg, "id": id });
-      wx.sendSocketMessage({ data: data })
+      let data = JSON.stringify({
+        "msg": msg,
+        "id": id
+      });
+      wx.sendSocketMessage({
+        data: data
+      })
       wx.showToast({
         title: '打赏成功',
         icon: 'success',
@@ -207,9 +238,9 @@ export default {
     }
   },
 
-  refresh: function () {  // 刷新在线用户，针对新用户无法看见在他之前进入小程序的用户的情况
+  refresh: function() { // 刷新在线用户，针对新用户无法看见在他之前进入小程序的用户的情况
     let data = ""
-    try {  // 发送指令信息
+    try { // 发送指令信息
       let users = that.data.users
       data = JSON.stringify({
         "order": 'refresh',
@@ -219,6 +250,8 @@ export default {
       console.log(e)
       return
     }
-    wx.sendSocketMessage({ data: data })
+    wx.sendSocketMessage({
+      data: data
+    })
   }
 }
