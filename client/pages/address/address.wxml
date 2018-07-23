@@ -1,7 +1,7 @@
 <view class='box' style='width:{{windowWidth}}rpx;'>
   <view bindtap='cascadeDismiss'>
     <view class="line" style='height:72rpx; display: flex;'>
-      <view style='padding-left: 35rpx; font-size: small;line-height:72rpx;'>必填项目</view>
+      <view style='padding-left: 35rpx; font-size: small;line-height:72rpx;'>自动定位</view>
       <image src="images/arrow-down.png" style='margin-left:8rpx; width: 20rpx; height: 10rpx;line-height:72rpx; align-self:center;' />
     </view>
 
@@ -10,7 +10,7 @@
 
 
     <view class="line" style='height:72rpx; display: flex;' bindtap='toggleOptional'>
-      <view style='padding-left: 35rpx; font-size: small;line-height:72rpx;'>选填项目</view>
+      <view style='padding-left: 35rpx; font-size: small;line-height:72rpx;'>选择门店</view>
       <image src="images/arrow-down.png" style='margin-left:8rpx; width: 20rpx; height: 10rpx;line-height:72rpx; align-self:center;' />
     </view>
     <view hidden="{{optionalShow}}">

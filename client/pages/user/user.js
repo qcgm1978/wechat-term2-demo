@@ -23,10 +23,13 @@ Page({
   },
 
   onTapAddress() {
-    wx.showToast({
-      icon: 'none',
-      title: '此功能暂未开放'
+    wx.navigateTo({
+      url: '../address/address',
     })
+    // wx.showToast({
+    //   icon: 'none',
+    //   title: '此功能暂未开放'
+    // })
   },
 
   onTapKf() {
