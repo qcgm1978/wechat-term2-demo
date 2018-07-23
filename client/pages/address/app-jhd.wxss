@@ -1,0 +1,52 @@
+/**app.wxss**/
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  box-sizing: border-box;
+} 
+
+@font-face {
+  font-family: 'iconfont';  /* project id 625845 */
+  src: url('//at.alicdn.com/t/font_625845_19qlzsi705p.eot');
+  src: url('//at.alicdn.com/t/font_625845_19qlzsi705p.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_625845_19qlzsi705p.woff') format('woff'),
+  url('//at.alicdn.com/t/font_625845_19qlzsi705p.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_625845_19qlzsi705p.svg#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-style:normal;
+  font-size:x-small;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-wephone:before { content: "\e637"; }
+.icon-wechat:before { content: "\e600"; }
+.icon-search:before { content: "\e621"; }
+.icon-woman:before { content: "\e6a7"; }
+.icon-man:before { content: "\e6a6"; }
+.icon-phone:before { content: "\e683"; }
+.icon-refresh:before { content: "\e626"; }
+.icon-rmb:before { content: "\e60b"; }
+.icon-edit:before { content: "\e604"; }
+
+.line{
+  width:100%;
+  height:2rpx;
+  background:rgb(236,236,236);
+}
+.clearfix { display: inline-block!important; }
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}

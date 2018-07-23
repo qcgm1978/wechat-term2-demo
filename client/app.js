@@ -6,7 +6,10 @@ let userInfo
 
 App({
   globalData: {
-    userInfo: null
+    userInfo: null,
+    'token': {
+      accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzIyNTIwNzIsIm1lbWJlcklkIjoiMTUyOTg5OTMyMDEzNDYxMSJ9.ldc4QQ9H5Ep8oHsgrX_606eSg_61pkwdIYWCTmiCuuk"
+    }
   },
   onLaunch: function() {
     qcloud.setLoginUrl(config.service.loginUrl)

@@ -1,0 +1,235 @@
+<view class='box' style='width:{{windowWidth}}rpx;'>
+  <view bindtap='cascadeDismiss'>
+    <view class="line" style='height:72rpx; display: flex;'>
+      <view style='padding-left: 35rpx; font-size: small;line-height:72rpx;'>必填项目</view>
+      <image src="images/arrow-down.png" style='margin-left:8rpx; width: 20rpx; height: 10rpx;line-height:72rpx; align-self:center;' />
+    </view>
+
+
+
+
+
+    <view class="line" style='height:72rpx; display: flex;' bindtap='toggleOptional'>
+      <view style='padding-left: 35rpx; font-size: small;line-height:72rpx;'>选填项目</view>
+      <image src="images/arrow-down.png" style='margin-left:8rpx; width: 20rpx; height: 10rpx;line-height:72rpx; align-self:center;' />
+    </view>
+    <view hidden="{{optionalShow}}">
+
+      <view animation="{{animationData}}" class="modal-content" catch:tap='catchEvt' hidden='{{ishidden}}'>
+        <view class="modal-header">
+          <text class="modal-title">所在地区</text>
+          <text class="modal-close" bindtap="cascadeDismiss">X</text>
+        </view>
+        <view class="modal-body">
+
+          <text class="viewpager-title {{current == 0 ? 'area-selected' : ''}}" bindtap="changeCurrent" data-current="0">{{province.options.areaName[province.index]}}</text>
+          <text class="viewpager-title {{current == 1 ? 'area-selected' : ''}}" bindtap="changeCurrent" data-current="1">{{city.options.areaName[city.index]}}</text>
+          <text class="viewpager-title {{current == 2 ? 'area-selected' : ''}}" bindtap="changeCurrent" data-current="2">{{district.options.areaName[district.index]}}</text>
+          <text class="viewpager-title {{current == 3 ? 'area-selected' : ''}}" bindtap="changeCurrent" data-current="3">{{town.options.areaName[town.index]}}</text>
+          <text class="viewpager-title {{current == 4 ? 'area-selected' : ''}}" bindtap="changeCurrent" data-current="4">{{shop.options.areaName[shop.index]}}</text>
+          <view class="viewpager-divider"></view>
+          <swiper class="swiper-area" current="{{current}}" bindchange="currentChanged">
+            <block wx:if="{{province.options.areaName.length > 0}}">
+              <swiper-item>
+                <scroll-view scroll-y="true" class="viewpager-listview">
+                  <view wx:for="{{province.options.areaName}}" wx:key="index" data-index="{{index}}" bindtap="bindProvinceChange" value="{{index}}">
+                    <text wx:if="{{index == province.index}}" class="area-selected">{{item}}</text>
+                    <text wx:else>{{item}}</text>
+                  </view>
+                </scroll-view>
+              </swiper-item>
+            </block>
+            <block wx:if="{{city.options.areaName.length > 0}}">
+              <swiper-item>
+                <scroll-view scroll-y="true" class="viewpager-listview">
+                  <view wx:for="{{city.options.areaName}}" wx:key="index" data-index="{{index}}" bindtap="bindCityChange">
+                    <text wx:if="{{index == city.index}}" class="area-selected">{{item}}</text>
+                    <text wx:else>{{item}}</text>
+                  </view>
+                </scroll-view>
+              </swiper-item>
+            </block>
+            <block wx:if="{{district.options.areaName.length > 0}}">
+              <swiper-item>
+                <scroll-view scroll-y="true" class="viewpager-listview">
+                  <view wx:for="{{district.options.areaName}}" wx:key="index" data-index="{{index}}" bindtap="bindDistrictChange">
+                    <text wx:if="{{index == district.index}}" class="area-selected">{{item}}</text>
+                    <text wx:else>{{item}}</text>
+                  </view>
+                </scroll-view>
+              </swiper-item>
+            </block>
+            <block wx:if="{{town.options.areaName.length > 0}}">
+              <swiper-item>
+                <scroll-view scroll-y="true" class="viewpager-listview">
+                  <view wx:for="{{town.options.areaName}}" wx:key="index" data-index="{{index}}" bindtap="townTapped">
+                    <text wx:if="{{index == town.index}}" class="area-selected">{{item}}</text>
+                    <text wx:else>{{item}}</text>
+                  </view>
+                </scroll-view>
+              </swiper-item>
+            </block>
+            <block wx:if="{{shop.options.areaName.length > 0}}">
+              <swiper-item>
+                <scroll-view scroll-y="true" class="viewpager-listview">
+                  <view wx:for="{{shop.options.areaName}}" wx:key="index" data-index="{{index}}" bindtap="shopTapped">
+                    <text wx:if="{{index == shop.index}}" class="area-selected">{{item}}</text>
+                    <text wx:else>{{item}}</text>
+                  </view>
+                </scroll-view>
+              </swiper-item>
+            </block>
+          </swiper>
+        </view>
+      </view>
+
+      <!-- 家庭地址 -->
+      <view class='foot-container' catchtap="cascadePopup">
+        <view class='foot-row'>
+          <view class='foot-row-left'>
+            <view class='name-lable'>{{familyAddressLable}}</view>
+            <view class='foot-row-left'>
+              <!--省份  -->
+              <view class="name-value" style=' display: flex; align-items:center; '>
+                <picker mode="selector" style='width:100%;' bindchange="bindProvinceChange" value="{{province.index}}" range="{{province.options.areaName}}" disabled='{{true}}'>
+                  <view class="picker" style='width:100%; font-size:{{province.index == 0 ? "24rpx":"30rpx"}};color:{{province.index == 0 ?"rgb(132,132,132)":"rgb(0,0,0)"}};'>
+                    {{province.options.areaName[province.index]}}
+                    <image src="images/arrow.png" class='foot-row-right-icon' />
+                  </view>
+                </picker>
+              </view>
+
+              <!--城市  -->
+              <view style=' display: flex; align-items:center; font-size: 32rpx; align-self: center; margin-left:0rpx; flex-grow:1;'>
+                <picker mode="selector" style='width:100%;' bindchange="bindCityChange" value="{{city.index}}" range="{{city.options.areaName}}" disabled='{{true}}'>
+                  <view class="picker" style='width:100%; font-size:{{city.index == 0 ?"24rpx":"30rpx"}};color:{{city.index == 0 ?"rgb(132,132,132)":"rgb(0,0,0)"}};'>
+                    {{city.options.areaName[city.index]}}
+                    <image src="images/arrow.png" class='foot-row-right-icon' />
+
+                  </view>
+                </picker>
+              </view>
+              <!--区县  -->
+              <view class="" style=' display: flex; align-items:center; font-size: 32rpx; align-self: center; margin-left:0rpx; flex-grow:1;'>
+                <picker mode="selector" style='width:100%;' bindchange="bindDistrictChange" value="{{district.index}}" range="{{district.options.areaName}}" disabled='{{true}}'>
+                  <view class="picker" style='width:100%; font-size:{{district.index == 0 ?"24rpx":"30rpx"}};color:{{district.index == 0 ?"rgb(132,132,132)":"rgb(0,0,0)"}};'>
+                    {{district.options.areaName[district.index]}}
+                    <image class='foot-row-right' src="images/arrow.png" class='foot-row-right-icon' />
+
+                  </view>
+                </picker>
+              </view>
+            </view>
+          </view>
+        </view>
+
+
+        <view style='display: flex; justify-content: flex-end;'>
+          <view class="line" style='width: 550rpx; height:1rpx;'></view>
+        </view>
+
+
+
+        <view style='display: flex; height:200rpx;'>
+
+          <!--镇  -->
+          <view style=' display: flex;  font-size: 32rpx;  margin-left:210rpx;'>
+            <picker mode="selector" style='width:141rpx; margin-top:-2rpx;' bindchange="bindTownChange" value="{{town.index}}" range="{{town.options.areaName}}" disabled='{{true}}'>
+              <view class="picker" style='width:100%; font-size:{{town.index == 0?"24rpx":"30rpx"}};color:{{town.index == 0?"rgb(132,132,132)":"rgb(0,0,0)"}};'>
+                {{town.options.areaName[town.index]}}
+              </view>
+            </picker>
+            <image src="images/arrow.png" class='foot-row-right-icon' style='margin-right: 0rpx;align-self:initial;' />
+          </view>
+
+          <!--shop  -->
+          <view style=' display: flex;  font-size: 32rpx; '>
+            <picker mode="selector" style='width:141rpx; margin-top:-2rpx;' bindchange="bindTownChange" value="{{shop.index}}" range="{{shop.options.areaName}}" disabled='{{true}}'>
+              <view class="picker" style='width:100%; font-size:{{town.index == 0?"24rpx":"30rpx"}};color:{{town.index == 0?"rgb(132,132,132)":"rgb(0,0,0)"}};'>
+                {{shop.options.areaName[shop.index]}}
+              </view>
+            </picker>
+            <image src="images/arrow.png" class='foot-row-right-icon' style='margin-right: 0rpx;align-self:initial;' />
+          </view>
+
+
+          <view class="line" style='display: flex; flex-direction: column;'></view>
+        </view>
+
+        <view class='foot-row' style='margin-top:0;'>
+          <view class='foot-row-left clearfix'>
+            <textarea wrap="soft" maxlength="40" class="name-value " style='height:180rpx;overflow:hidden; resize:none; font-size:{{detailedAddress?"30rpx":"24rpx"}}; width:350rpx;; margin-left: 0rpx;margin-right:0rpx;' maxlength="60" type='text' placeholder="请输入村镇详细地址"
+              bindinput="bindDetailAddressInput" value='{{detailedAddress}}'></textarea>
+            <!-- <textarea name="text" rows="14" cols="10" wrap="soft" maxlength="40" style="overflow:hidden; resize:none;"></textarea>  -->
+
+          </view>
+        </view>
+
+      </view>
+
+      <!-- 门店编号 -->
+      <!-- <view class='foot-container' >
+      <view class='foot-row'>
+        <view class='foot-row-left'>
+          <view class='name-lable' style='width: 220rpx;'>门店编号</view>
+          <input class="name-value" style='font-size:24rpx; width: 100%' maxlength="18" type='text' placeholder="请填写数字和字母的组合" bindinput="bindShopIDInput" value='{{shopIDValue}}' />
+        </view>
+      </view>
+    </view> -->
+    </view>
+  </view>
+
+
+
+  <view class="line" style='height:34rpx; ' hidden="{{optionalShow}}"></view>
+  <view style='display: flex; justify-content: center;'>
+    <view style='height:96rpx; width:50%; position: relative;' bindtap="exitLogin">
+      <image style='height:96rpx; width:100%;position: absolute; top:0; left:0;' src="images/button-esc.png" />
+      <view class='exit-login-content'>退出登录</view>
+    </view>
+    <view style='height:96rpx; width:50%; position: relative;' bindtap="submitChanges">
+      <image style='height:100%; width:100%; position: absolute; top:0; left:0;' src="images/button-complete.png" />
+      <view class='complete-login-content'>完成</view>
+    </view>
+  </view>
+</view>
+
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showNameModal}}"></view>
+<view class="modal-dialog" wx:if="{{showNameModal}}">
+  <view class="modal-title">修改会员姓名</view>
+  <view style='margin-top: 20rpx;'>
+    <view class="line" style='height:1rpx; '></view>
+  </view>
+
+
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onNameCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onNameConfirm" data-status="confirm">确认</view>
+  </view>
+</view>
+
+
+<view class="modal-mask" catchtouchmove="preventTouchMove" wx:if="{{showBirthdayModal}}"></view>
+<view class="modal-dialog" wx:if="{{showBirthdayModal}}">
+  <view class="modal-title">修改出生日期</view>
+  <view style='margin-top: 20rpx;'>
+    <view class="line" style='height:1rpx; '></view>
+  </view>
+  <view style='margin-left: 80rpx;'>
+    <picker-view indicator-style="height: 40px;" style="font-size: 32rpx;width: 100%; height: 280rpx;" value="{{value}}" bindchange="bindChange">
+      <picker-view-column>
+        <view wx:for="{{years}}" style="line-height: 40px">{{item}}年</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{months}}" style="line-height: 40px">{{item}}月</view>
+      </picker-view-column>
+      <picker-view-column>
+        <view wx:for="{{days}}" style="line-height: 40px">{{item}}日</view>
+      </picker-view-column>
+    </picker-view>
+  </view>
+  <view class="modal-footer">
+    <view class="btn-cancel" bindtap="onBirthdayCancel" data-status="cancel">取消</view>
+    <view class="btn-confirm" bindtap="onBirthdayConfirm" data-status="confirm">确认</view>
+  </view>
+</view>
