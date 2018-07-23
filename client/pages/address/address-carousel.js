@@ -1,4 +1,4 @@
-const shopsData=require('./shops.js').default;
+const shopsData = require('./shops.js').default;
 var utils = require("../../utils/util.js");
 var URLs = require("../../utils/envConf.js").Api;
 const backendUrlAddress = URLs.backendUrlAddress
@@ -406,11 +406,13 @@ export default {
     });
   },
   cascadeDismiss: function() {
-    this.animation.translateY(285).step();
-    this.setData({
-      animationData: this.animation.export(),
-      maskVisual: 'hidden'
-    });
+    if (this.animation) {
+      this.animation.translateY(285).step();
+      this.setData({
+        animationData: this.animation.export(),
+        maskVisual: 'hidden'
+      });
+    }
   },
   provinceTapped: function(e) {
     // 标识当前点击省份，记录其名称与主键id都依赖它
@@ -540,11 +542,11 @@ export default {
     });
     var areaSelectedStr = addr.province + addr.city + addr.county + addr.town;
     this.setData({
-          areaSelectedStr: areaSelectedStr,
-          current: 4,
-          shop:shopsData
-        });
-    
+      areaSelectedStr: areaSelectedStr,
+      current: 4,
+      shop: shopsData
+    });
+
     // todo shop test data
     // wx.request({
     //   url: './address.json', //仅为示例，并非真实的接口地址

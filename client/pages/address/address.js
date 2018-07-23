@@ -1,3 +1,4 @@
+const map=require('./map.js').default;
 var URLs = require("../../utils/envConf.js").Api;
 var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessToken;
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
@@ -389,6 +390,7 @@ Page({
     // .catch((err) => {
     //   debugger;
     // })
+    this.getPos()
   },
 
   getShopList(){
@@ -844,5 +846,6 @@ Page({
         })
     })
   },
-  ...addressObj
+  ...addressObj,
+  ...map
 })

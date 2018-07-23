@@ -5,6 +5,7 @@
       <image src="images/arrow-down.png" style='margin-left:8rpx; width: 20rpx; height: 10rpx;line-height:72rpx; align-self:center;' />
     </view>
 
+    <map id="map" longitude="{{pos.longitude}}" latitude="{{pos.latitude}}" scale="14" controls="{{controls}}" bindTap='bindMapTap' bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" polyline="{{polyline}}" bindregionchange="regionchange" show-location style="width: 100%; height: 300px;"></map>
 
 
 
@@ -130,7 +131,7 @@
 
 
 
-        <view style='display: flex; height:200rpx;'>
+        <view style='display: flex; '>
 
           <!--镇  -->
           <view style=' display: flex;  font-size: 32rpx;  margin-left:210rpx;'>
@@ -167,21 +168,13 @@
 
       </view>
 
-      <!-- 门店编号 -->
-      <!-- <view class='foot-container' >
-      <view class='foot-row'>
-        <view class='foot-row-left'>
-          <view class='name-lable' style='width: 220rpx;'>门店编号</view>
-          <input class="name-value" style='font-size:24rpx; width: 100%' maxlength="18" type='text' placeholder="请填写数字和字母的组合" bindinput="bindShopIDInput" value='{{shopIDValue}}' />
-        </view>
-      </view>
-    </view> -->
+     
     </view>
   </view>
 
 
 
-  <view class="line" style='height:34rpx; ' hidden="{{optionalShow}}"></view>
+  <!-- <view class="line" style='height:34rpx; ' hidden="{{optionalShow}}"></view> -->
   <view style='display: flex; justify-content: center;'>
     <view style='height:96rpx; width:50%; position: relative;' bindtap="exitLogin">
       <image style='height:96rpx; width:100%;position: absolute; top:0; left:0;' src="images/button-esc.png" />
