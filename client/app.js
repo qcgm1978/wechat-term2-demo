@@ -110,6 +110,7 @@ App({
     success,
     error
   }) {
+    const userInfo = this.globalData.userInfo;
     if (userInfo) {
       return success && success({
         userInfo
