@@ -101,7 +101,7 @@ Page({
   onLoad: function (options) {
     this.getProductList();
     this.onLaunch()
-    this.runWebSocket()  // 加载websocket操作
+    // this.runWebSocket()  // 加载websocket操作
 
   },
 

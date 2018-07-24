@@ -11,7 +11,7 @@
 		"newFeature": true
 	},
 	"appid": "wx00d1d53802723dab",
-	"projectname": "%E5%95%86%E5%9F%8E%E5%B0%8F%E7%A8%8B%E5%BA%8F",
+	"projectname": "store-wechat",
 	"condition": {
 		"search": {
 			"current": -1,
@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
 				{
 					"id": -1,

@@ -84,7 +84,7 @@
         </view>
       </view>
 
-      <!-- 家庭地址 -->
+      <!-- 门店地址 -->
       <view class='foot-container' catchtap="cascadePopup">
         <view class='foot-row'>
           <view class='foot-row-left'>

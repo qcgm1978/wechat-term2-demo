@@ -45,9 +45,9 @@ Page({
    */
   onLoad: function(options) {
     // debugger;
-    this.setData({
-      userInfo: getApp().globalData.userInfo
-    })
+    // this.setData({
+    //   userInfo: getApp().globalData.userInfo
+    // })
   },
 
   /**
