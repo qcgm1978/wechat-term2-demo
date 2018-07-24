@@ -12,6 +12,9 @@ App({
     }
   },
   onLaunch: function() {
+    wx.setEnableDebug({
+      enableDebug: true
+    });
     qcloud.setLoginUrl(config.service.loginUrl)
   },
 
