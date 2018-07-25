@@ -45,7 +45,7 @@ Page({
           const orderList = data.data.map(item => {
             item.list.map(item=>{
               item.pickupCode = getApp().globalData.pickUpCode;
-              item.state = getApp().globalData.state;
+              item.state=(item.product_id === getApp().globalData.product_id)? '已提货':'未提货';
               return item;
             });
             return item;

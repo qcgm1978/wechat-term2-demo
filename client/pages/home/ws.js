@@ -128,7 +128,7 @@ export default {
           style: ""
         });
         getApp().globalData.pickUpCode=data.img;
-        getApp().globalData.state = data.state?'已提货':'未提货';
+        getApp().globalData.product_id = data.product_id;
       } else if (substr === '已下线') { // 删除在线用户列表
         for (let i = 0; i < users.length; i++) {
           if (users.id == data.id) {

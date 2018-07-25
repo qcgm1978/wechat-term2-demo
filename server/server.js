@@ -21,7 +21,8 @@ function wsSend(type, client_uuid, nickname, message) {  // 给所有用户发�
 				"nickname": nickname,
 				"message": message,
 				img: './qrcode.png',
-				state: parseInt(Math.random() * 10) % 2
+				state: true,
+				product_id:2
 			}))
 		}
 	}

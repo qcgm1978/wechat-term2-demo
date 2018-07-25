@@ -2,7 +2,7 @@
 var qcloud = require('./vendor/wafer2-client-sdk/index')
 var config = require('./config')
 const getUserInfo = require('./pages/home/getUserInfo').default;
-const websocket = require('./pages/home/index').default;
+const websocket = require('./pages/home/ws').default;
 
 let userInfo
 
