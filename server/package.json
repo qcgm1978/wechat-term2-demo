@@ -6,7 +6,8 @@
   "scripts": {
     "start": "pm2 start process.prod.json --no-daemon",
     "dev": "nodemon --config nodemon.json app.js",
-    "initdb": "npm install && node tools/initdb.js"
+    "initdb": "npm install && node tools/initdb.js",
+    "ws": "nodemon server.js"
   },
   "author": "Jason",
   "license": "MIT",

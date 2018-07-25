@@ -1,26 +1,35 @@
 //app.js
 var qcloud = require('./vendor/wafer2-client-sdk/index')
 var config = require('./config')
+const getUserInfo = require('./pages/home/getUserInfo').default;
+const websocket = require('./pages/home/index').default;
 
 let userInfo
 
 App({
+  ...getUserInfo,
+  ...websocket,
   globalData: {
     userInfo: null,
-    'token': {
-      accessToken: "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzIyNTIwNzIsIm1lbWJlcklkIjoiMTUyOTg5OTMyMDEzNDYxMSJ9.ldc4QQ9H5Ep8oHsgrX_606eSg_61pkwdIYWCTmiCuuk"
-    }
+    
   },
   onLaunch: function() {
     wx.setEnableDebug({
       enableDebug: true
     });
-    qcloud.setLoginUrl(config.service.loginUrl)
+    qcloud.setLoginUrl(config.service.loginUrl);
+    this.login();
+    this.runWebSocket()  // 加载websocket操作    
   },
 
   login({
     success,
     error
+  }={
+    success(data){
+      getApp().globalData.userInfo=data.userInfo;
+      // debugger;
+    }
   }) {
     wx.getSetting({
       success: res => {

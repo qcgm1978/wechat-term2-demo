@@ -15,7 +15,9 @@ Page({
 
   onTapLogin() {
     app.login({
-      success: ({ userInfo }) => {
+      success: ({
+        userInfo
+      }) => {
         this.setData({
           userInfo
         })
@@ -38,9 +40,17 @@ Page({
 
         let data = result.data
         console.log(data)
-        if(!data.code){
+        if (!data.code) {
+          // todo test pick up websocket data
+          const orderList = data.data.map(item => {
+            item.list.map(item=>{
+              item.pickupCode = getApp().globalData.pickUpCode;
+              return item;
+            });
+            return item;
+          });
           this.setData({
-            orderList: data.data
+            orderList
           })
         } else {
           wx.showToast({
@@ -63,23 +73,29 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
 
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
+    getApp().globalData.userInfo ? this.getData() : setTimeout(this.getData, 1000)
+
+  },
+  getData() {
     app.checkSession({
-      success: ({ userInfo }) => {
+      success: ({
+        userInfo
+      }) => {
         this.setData({
           userInfo
         })
@@ -87,39 +103,38 @@ Page({
       }
     })
   },
-
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })

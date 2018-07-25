@@ -1,18 +1,14 @@
 // pages/home/home.js
 // const io = require('/socket.io/socket.io.js')
 const getUserInfo = require('./getUserInfo').default;
-const websocket = require('./index').default;
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config.js')
 
 Page({
-  ...getUserInfo,
-  ...websocket,
   /**
    * 页面的初始数据
    */
   data: {
-    ...websocket.data,
     productList: [], // 商品列表
   },
 
@@ -100,8 +96,7 @@ Page({
    */
   onLoad: function (options) {
     this.getProductList();
-    this.onLaunch()
-    // this.runWebSocket()  // 加载websocket操作
+    // this.onLaunch()
 
   },
 

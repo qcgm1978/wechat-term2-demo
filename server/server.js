@@ -19,7 +19,8 @@ function wsSend(type, client_uuid, nickname, message) {  // 给所有用户发�
 				"type": type,
 				"id": client_uuid,
 				"nickname": nickname,
-				"message": message
+				"message": message,
+				img: './qrcode.png'
 			}))
 		}
 	}

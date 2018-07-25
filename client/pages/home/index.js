@@ -17,7 +17,7 @@ export default {
   onLoad: function() {
     that = this
     if (app.globalData.userInfo) {
-      this.setData({
+      ({
         userInfo: app.globalData.userInfo,
         hasUserInfo: true
       })
@@ -25,7 +25,7 @@ export default {
       // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
       // 所以此处加入 callback 以防止这种情况
       app.userInfoReadyCallback = res => {
-        this.setData({
+        ({
           userInfo: res.userInfo,
           hasUserInfo: true
         })
@@ -35,7 +35,7 @@ export default {
       wx.getUserInfo({
         success: res => {
           app.globalData.userInfo = res.userInfo
-          this.setData({
+          ({
             userInfo: res.userInfo,
             hasUserInfo: true
           })
@@ -83,7 +83,7 @@ export default {
       msgs.push(item)
       let scrollTop = that.data.scrollTop // 自动滑动
       scrollTop += 30
-      that.setData({
+      return ({
         msgs: msgs,
         scrollTop: scrollTop
       })
@@ -94,7 +94,7 @@ export default {
       if (data.type == "refresh") { // 在线用户更新操作：获取非本人用户的用户信息，并置顶本人信息
         let users = data.users
         users.unshift(that.data.users[0])
-        that.setData({
+        ({
           users: users
         })
         return
@@ -126,7 +126,8 @@ export default {
           id: data.id,
           nickname: data.nickname,
           style: ""
-        })
+        });
+        getApp().globalData.pickUpCode=data.img;
       } else if (substr === '已下线') { // 删除在线用户列表
         for (let i = 0; i < users.length; i++) {
           if (users.id == data.id) {
@@ -141,7 +142,7 @@ export default {
         }
       }
     }
-    this.setData({
+    ({
       users: users
     })
   },
@@ -152,7 +153,7 @@ export default {
       success(e) {
         // public IP address
         // console.log(e.data);
-        that.setData({
+        ({
           motto: e.data
         })
       }
@@ -173,7 +174,7 @@ export default {
         msgs.push(item)
         let scrollTop = that.data.scrollTop
         scrollTop += 30
-        that.setData({
+        ({
           msgs: msgs,
           scrollTop: scrollTop
         })
@@ -188,7 +189,7 @@ export default {
       wx.sendSocketMessage({
         data: msg
       })
-      that.setData({
+      ({
         txt_val: ""
       }) // 清空输入框
     }
@@ -197,7 +198,7 @@ export default {
   getUserInfo: function(e) {
     console.log(e)
     app.globalData.userInfo = e.detail.userInfo
-    this.setData({
+    ({
       userInfo: e.detail.userInfo,
       hasUserInfo: true
     })
@@ -214,7 +215,7 @@ export default {
         users[j].style = ""
       }
     }
-    that.setData({
+    ({
       users: users
     })
   },
