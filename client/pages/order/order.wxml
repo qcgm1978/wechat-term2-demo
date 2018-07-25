@@ -21,6 +21,7 @@
       <view class="order-info">
         <view class="order-name">{{item.name}}</view>
         <view class="order-price">¥ {{item.price}}</view>
+        <view class="order-price">{{item.state}}</view>
       </view>
       <image src='{{item.pickupCode}}' style="width: 150rpx;height: 150rpx;"></image>
       <view class="order-opr">

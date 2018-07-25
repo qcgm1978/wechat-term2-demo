@@ -45,6 +45,7 @@ Page({
           const orderList = data.data.map(item => {
             item.list.map(item=>{
               item.pickupCode = getApp().globalData.pickUpCode;
+              item.state = getApp().globalData.state;
               return item;
             });
             return item;
