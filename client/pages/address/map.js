@@ -1,7 +1,8 @@
 export default {
   onReady: function(e) {
     // 使用 wx.createMapContext 获取 map 上下文
-    this.mapCtx = wx.createMapContext('map')
+    this.mapCtx = wx.createMapContext('map');
+    
   },
   getCenterLocation: function() {
     this.mapCtx.getCenterLocation({
@@ -9,18 +10,21 @@ export default {
         console.log(res.longitude)
         console.log(res.latitude)
       }
-    })
+    });
+    
   },
   getPos() {
     const that = this;
     wx.getLocation({
       success(pos) {
+        // test data set offset variable
+        const offset=0.2
         that.setData({
           pos,
           markers: [{
             id: 1,
-            latitude: pos.latitude-0.01,
-            longitude: pos.longitude-0.01,
+            latitude: pos.latitude - offset,
+            longitude: pos.longitude - offset,
             // callout:{
             //   content:'shop1'
             // },
@@ -41,9 +45,19 @@ export default {
             },
             name: 'shop2'
           }]
-        })
+        });
+        that.mapCtx.includePoints({
+          points: [{
+            latitude: pos.latitude - offset,
+            longitude: pos.longitude - offset,
+          }, {
+            latitude: pos.latitude + 0.01,
+            longitude: pos.longitude + 0.01
+          }]
+        });
       }
     });
+    
   },
   bindMapTap() {
     debugger;
