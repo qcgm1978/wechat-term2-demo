@@ -1,0 +1,14 @@
+
+<view class="container " >
+  <view class="line"></view>
+  <image class='logo' src="{{homeLogo}}"></image>
+  <view class='contact-us'>{{contactUs}}</view>
+</view>
+<button class="iconfont icon-phone button-dail " style='color:rgb(235,97,18);' type="default"  bindtap="makePhonecall"> {{customerTel}}</button>
+ <view class="container " style='height: 10rpx;' ></view>
+<!-- <button class="iconfont icon-phone button-dail " style='color:rgb(235,97,18);' type="default" open-type="contact" > 在线客服</button>
+<view class="container " style='height: 10rpx;' ></view> -->
+<button class="iconfont icon-edit button-dail " style='color:rgb(235,97,18);' type="default" open-type="feedback" > 优化建议</button>
+<view >
+  <view class='working-time'>{{workingTime}}</view>
+</view>

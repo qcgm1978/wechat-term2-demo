@@ -26,6 +26,7 @@
       <image src='{{item.pickupCode}}' style="width: 150rpx;height: 150rpx;"></image>
       <view class="order-opr">
         <navigator class="order-btn" url="/pages/add-comment/add-comment?id={{item.product_id}}&price={{item.price}}&name={{item.name}}&image={{item.image}}">评价</navigator>
+        <navigator class="order-btn" url="/pages/customerService/customerService">退货</navigator>
         <view class="order-count">x{{item.count}}</view>
       </view>
     </view>

@@ -33,10 +33,13 @@ Page({
   },
 
   onTapKf() {
-    wx.showToast({
-      icon: 'none',
-      title: '此功能暂未开放'
+    wx.navigateTo({
+      url: '/pages/customerService/customerService',
     })
+    // wx.showToast({
+    //   icon: 'none',
+    //   title: '此功能暂未开放'
+    // })
   },
 
 

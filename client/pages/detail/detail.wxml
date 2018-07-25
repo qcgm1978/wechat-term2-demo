@@ -25,7 +25,7 @@
       <view class='comment-count'>{{product.commentCount}}条</view>
       <image class='comment-arrow' src='/images/grey-arrow.png'></image>
     </view>
-    <view class='comment-preview'>“{{product.firstComment.content}}”</view>
+    <view class='comment-preview'>{{product.firstComment.content}}</view>
   </view>
 </view>
 <view class='opr-cnt'>
