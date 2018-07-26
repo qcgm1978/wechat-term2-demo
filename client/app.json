@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/qrcode/qrcode",
     "pages/home/home",
+    "pages/qrcode/qrcode",
     "pages/customerService/customerService",
     "pages/address/address",
     "pages/detail/detail",
