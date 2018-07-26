@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/qrcode/qrcode",
     "pages/home/home",
     "pages/customerService/customerService",
     "pages/address/address",
