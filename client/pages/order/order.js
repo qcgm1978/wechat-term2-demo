@@ -41,18 +41,20 @@ Page({
         let data = result.data
         console.log(data)
         if (!data.code) {
-          // todo test pick up websocket data
-          const orderList = data.data.map(item => {
-            item.list.map(item=>{
-              item.pickupCode = getApp().globalData.pickUpCode;
-              item.state=(item.product_id === getApp().globalData.product_id)? '已提货':'未提货';
+          if (Object.keys(data.data).length) {
+            // todo test pick up websocket data
+            const orderList = data.data.map(item => {
+              item.list.map(item => {
+                item.pickupCode = getApp().globalData.pickUpCode;
+                item.state = (item.product_id === getApp().globalData.product_id) ? '已提货' : '未提货';
+                return item;
+              });
               return item;
             });
-            return item;
-          });
-          this.setData({
-            orderList
-          })
+            this.setData({
+              orderList
+            })
+          }
         } else {
           wx.showToast({
             icon: 'none',
