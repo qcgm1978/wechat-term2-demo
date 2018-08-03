@@ -1,6 +1,13 @@
 <!--pages/home/home.wxml-->
 <image src='/images/bg.png' class='bg'></image>
-<view class='hot-card'>
+<swiper indicator-dots="{{indicatorDots}}" class='hot-card'
+  autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}">
+  <block >
+    <swiper-item style='display:flex;'>
+      <image src="/images/logo.png" class="slide-image" style="height: 78px;width: 263rpx;margin: auto;"/>
+    </swiper-item>
+    <swiper-item style='display:flex;'>
+    <view >
   <view class='hot-name'>
     <image class='hot-name-line' src='/images/line-red.png'></image>
     <view class='hot-name-text'>{{productList[0].name}}</view>
@@ -9,6 +16,10 @@
   <image class='hot-info' src='/images/discount.png'></image>
   <image class='hot-image' src='{{productList[0].image}}'></image>
 </view>
+    </swiper-item>
+  </block>
+</swiper>
+
 <view class='list-title'>
   <image class='list-title-line' src='/images/line-black.png'></image>
   <view class='list-title-text'>春季推荐</view>

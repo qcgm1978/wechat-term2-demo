@@ -1,6 +1,14 @@
 <!--pages/detail/detail.wxml-->
 <view class='product-card'>
-  <image class='product-image' src='{{product.image}}'></image>
+<swiper indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
+    <swiper-item style='display:flex;'>
+      <image src="{{item}}" class="slide-image" width="355" height="150" style="height: 300rpx;width: calc(300/240*136px);wxcs_style_width: calc(300/240*320rpx);margin:0 auto;"/>
+    </swiper-item>
+  </block>
+</swiper>
+  <!-- <image class='product-image' src='{{product.image}}'></image> -->
   <view class='product-name'>{{product.name}}</view>
   <view class='product-source'>{{product.source}}</view>
   <view class='product-meta'>

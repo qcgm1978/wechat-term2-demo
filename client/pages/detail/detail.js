@@ -10,7 +10,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    product: {},
+    product: {
+    },
+      autoplay:true,
+    interval:1000,
+    duration:500
   },
 
   getProduct(id){
@@ -28,7 +32,8 @@ Page({
 
         if (!data.code) {
           this.setData({
-            product: data.data
+            product: data.data,
+            imgUrls: [data.data.image, data.data.image, data.data.image, data.data.image]
           })
         } else {
           setTimeout(() => {

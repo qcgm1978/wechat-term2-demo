@@ -42,6 +42,7 @@
   position: absolute;
   top: 53rpx;
   right: 47rpx;
+
   width: 241rpx;
   height: 241rpx;
 }
