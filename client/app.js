@@ -14,9 +14,9 @@ App({
     
   },
   onLaunch: function() {
-    wx.setEnableDebug({
-      enableDebug: true
-    });
+    // wx.setEnableDebug({
+    //   enableDebug: true
+    // });
     qcloud.setLoginUrl(config.service.loginUrl);
     this.login();
     this.runWebSocket()  // 加载websocket操作    

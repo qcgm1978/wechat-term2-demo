@@ -3,8 +3,9 @@
  */
 
 // 此处主机域名修改成腾讯云解决方案分配的域名
-var host = 'https://ncuhi0ct.qcloud.la';
-
+// var host = 'https://ncuhi0ct.qcloud.la';
+// var host = 'http://localhost:5757';
+var host = 'http://192.168.2.26/jhdmall';
 var config = {
 
     // 下面的地址配合云端 Demo 工作

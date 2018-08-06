@@ -6,10 +6,10 @@ const CONF = {
     appId: 'wx00d1d53802723dab',
 
     // 微信小程序 App Secret
-    appSecret: '0054c524615772331ef1f2b5a027bc36',
+    appSecret: '6d72e9f5eec0df485f2e88c9ef5f2608',
 
     // 是否使用腾讯云代理登录小程序
-    useQcloudLogin: true,
+    useQcloudLogin: false,
 
     /**
      * MySQL 配置，用来存储 session 和用户信息
@@ -40,12 +40,12 @@ const CONF = {
     // 微信登录态有效期
     wxLoginExpires: 7200,
     wxMessageToken: 'abcdefgh',
-    // serverHost: '',
-    // tunnelServerUrl: '',
-    // tunnelSignatureKey: '',
-    // qcloudAppId: '',
-    // qcloudSecretId: '',
-    // qcloudSecretKey: ''
+    serverHost: '',
+    tunnelServerUrl: '',
+    tunnelSignatureKey: '',
+    qcloudAppId: '',
+    qcloudSecretId: '',
+    qcloudSecretKey: ''
 }
 
 module.exports = CONF
