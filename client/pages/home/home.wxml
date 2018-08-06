@@ -4,7 +4,7 @@
   autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}">
   <block >
     <swiper-item style='display:flex;'>
-      <image src="/images/logo.png" class="slide-image" style="height: 78px;width: 263rpx;margin: auto;"/>
+      <image src="/images/logo.png" class="slide-image" style="height: 78rpx;width: 263rpx;margin: auto;"/>
     </swiper-item>
     <swiper-item style='display:flex;'>
     <view >
