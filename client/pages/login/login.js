@@ -33,7 +33,7 @@ Page({
 
     wechatBtnContent: wechatBtn,
     phoneBtnContent: phoneBtn,
-    homeLogo: 'images/jhd-pic.png',
+    homeLogo: 'images/jihuibaologo@2x.png',
     buttonWechat: 'images/button-wechat.png',
     buttonPhone: 'images/button-phone.png',
     icWechat: 'images/ic-wechat.png',

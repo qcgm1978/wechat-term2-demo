@@ -42,8 +42,8 @@
 
 .logo {
   
-  width:212rpx; 
-  height:188rpx; 
+  width:213rpx; 
+  height:257rpx; 
   -webkit-align-self:center; 
   align-self:center; 
   margin:156rpx;

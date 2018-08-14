@@ -29,7 +29,7 @@ App({
     appUtil.onLaunch(options)
     qcloud.setLoginUrl(config.service.loginUrl);
     this.login();
-    this.runWebSocket()  // 加载websocket操作    
+    // this.runWebSocket()  // 加载websocket操作    
   },
 
   login({
