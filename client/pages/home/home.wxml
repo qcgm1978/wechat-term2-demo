@@ -20,12 +20,11 @@
 </swiper>
 
 <view class="name-value" style=' display: flex; align-items:center;'>
-  <picker style='width:100%;' bindchange="bindFamilyNumberChange" value="{{familyNumber.index}}" range="{{['呼叫','取消']}}">
-    <view class="picker" style='width:100%;font-size:{{familyNumber.index==0?"24rpx":"30rpx"}}; color:{{familyNumber.index==0?"rgb(132,132,132)":"rgb(0,0,0)"}};'>
+  
+    <view catch:tap="callPhone" class="picker" style='width:100%;font-size:{{familyNumber.index==0?"24rpx":"30rpx"}}; color:{{familyNumber.index==0?"rgb(132,132,132)":"rgb(0,0,0)"}};'>
       <view style='align-self:center;'> 马上入驻</view>
       
     </view>
-  </picker>
 </view>
 
 <view class='list-title'>
