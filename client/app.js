@@ -1,4 +1,5 @@
 //app.js
+import appUtil from './app-util.js'
 var qcloud = require('./vendor/wafer2-client-sdk/index')
 var config = require('./config')
 const getUserInfo = require('./pages/home/getUserInfo').default;
@@ -7,16 +8,25 @@ const websocket = require('./pages/home/ws').default;
 let userInfo
 
 App({
+  
   ...getUserInfo,
   ...websocket,
-  globalData: {
-    userInfo: null,
+  // globalData: {
+  //   userInfo: null,
     
+  // },
+  globalData: {
+    systemInfo: {},
+    // getApp().globalData.systemInfo.windowHeight
+    // getApp().globalData.systemInfo.windowWidth
+    token: {},
+    userInfo: {}
   },
-  onLaunch: function() {
+  onLaunch: function (options) {
     // wx.setEnableDebug({
     //   enableDebug: true
     // });
+    appUtil.onLaunch(options)
     qcloud.setLoginUrl(config.service.loginUrl);
     this.login();
     this.runWebSocket()  // 加载websocket操作    

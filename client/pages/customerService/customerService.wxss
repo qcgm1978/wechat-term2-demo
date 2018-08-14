@@ -1,4 +1,3 @@
-@import './app.wxss';
 .goBack .share{
   width: 38rpx;
   height: 36rpx;

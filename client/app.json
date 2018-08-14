@@ -1,6 +1,8 @@
 {
   "pages": [
     "pages/home/home",
+    "pages/login/login",
+    "pages/phoneLogin/phoneLogin",
     "pages/customerService/customerService",
     "pages/address/address",
     "pages/detail/detail",
@@ -39,7 +41,7 @@
       },
       {
         "text": "个人中心",
-        "pagePath": "pages/user/user",
+        "pagePath": "pages/login/login",
         "iconPath": "images/user.png",
         "selectedIconPath": "images/user-sel.png"
       }

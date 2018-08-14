@@ -68,9 +68,12 @@ Page({
       success: ({
         userInfo
       }) => {
-        this.setData({
-          userInfo
-        })
+        if (Object.keys(userInfo).length) {
+
+          this.setData({
+            userInfo
+          })
+        }
       }
     })
   },

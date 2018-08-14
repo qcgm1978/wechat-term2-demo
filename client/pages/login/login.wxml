@@ -1,0 +1,33 @@
+<!--index.wxml-->
+
+<view class="container " >
+  <image class='logo' src="{{homeLogo}}"></image>
+  <view class='button-container' >
+    <image class='button-image'  src="{{buttonWechat}}"></image>
+    <view class='button-content'>
+      <image class='wechat-login-btn-icon' src="{{icWechat}}" ></image>
+      <view class='wechat-login-btn-content'>{{wechatBtnContent}}</view>
+    </view>
+    <button class="button-login "  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" wx:if="{{!loadingState}}" disabled="{{loadingState}}">  </button>
+    <block wx:else>
+    </block>
+  </view>
+  
+  <view class='button-container'  bindtap="phoneLogin">
+    <view class='button-content-phone'>
+      <image style="width:26rpx; height:39rpx; align-self:center; " src="{{icPhone}}"></image>
+      <view class='phone-register-btn'>{{phoneBtnContent}}</view>
+    </view>
+  </view> 
+
+
+  <view class="modal-box" hidden="{{dialogFlag}}" bindtap="hideDialog">
+    <view class="modal-body">
+      <view class="modal-content">
+        <image class="content-img" src="images/pop-up.png" ></image>
+        <view class="content-txt">尚未开通，请使用微信快速授权登录</view>
+     </view>
+    </view>
+  </view> 
+
+</view>

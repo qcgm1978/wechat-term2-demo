@@ -1,0 +1,167 @@
+/**index.wxss**/
+.userinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo-avatar {
+  width: 128rpx;
+  height: 128rpx;
+  margin: 20rpx;
+  border-radius: 50%;
+}
+
+.userinfo-nickname {
+  color: #aaa;
+}
+
+.button-login {
+  width:570rpx;
+  height: 88rpx;
+  overflow:hidden;  
+  background-color:transparent;
+  position: absolute; 
+  -webkit-align-self:center; 
+  align-self:center; 
+  margin-bottom:34rpx;
+  top:0rpx;
+  left:0rpx;
+}
+
+.button-login::after{  
+  border:0px solid #CC3333;  
+} 
+
+.container {
+  display:flex; 
+  display:-webkit-flex; 
+  flex-direction:column;
+  -webkit-flex-direction:column;
+}
+
+.logo {
+  
+  width:212rpx; 
+  height:188rpx; 
+  -webkit-align-self:center; 
+  align-self:center; 
+  margin:156rpx;
+}
+
+.button-container {
+  display:flex; 
+  display:-webkit-flex; 
+  flex-direction:column;
+  -webkit-flex-direction: column;
+  position: relative;
+  height: 88rpx;
+  width: 570rpx;
+  margin-bottom:34rpx;
+}
+
+.button-image {
+  width:570rpx; 
+  height:88rpx; 
+  align-self:center; 
+  -webkit-align-self:center; 
+  margin-bottom:0rpx;
+}
+
+.button-content {
+  display:flex; 
+  display:-webkit-flex; 
+  position: absolute; 
+  width: 350rpx;
+  top:50%; 
+  left:50%; 
+  transform: translate(-50%, -50%);
+  align-items:center;
+}
+
+.button-content-phone {
+  display:flex; 
+  display:-webkit-flex; 
+  position: absolute; 
+  width: 300rpx;
+  top:50%; 
+  left:50%; 
+  transform: translate(-50%, -50%);
+  align-items:center;
+}
+
+.login-page-hide{  
+ display: none;  
+}  
+.login-page-show{  
+ display: block;  
+}  
+
+
+.modal-box{
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0px;
+  background:rgba(0,0,0,0.4);
+  overflow: hidden;
+  z-index: 200;
+  }
+
+.modal-body{
+  width: 100%;
+  position:relative;
+}
+
+.modal-content{
+
+  width: 100%;
+  height:118px; 
+  margin:50% auto;
+  overflow: hidden;
+  border-radius: 10rpx;
+  text-align: center;
+}
+.content-img{
+  width: 640rpx; 
+  height: 118rpx;  
+  margin:30rpx auto;
+}
+.content-txt{
+  position:absolute ; 
+  top: 40rpx; 
+  left: 50rpx;
+  font-size: 32rpx; 
+  color:rgb(51,51,51); 
+  width: 640rpx; 
+  height: 118rpx;  
+  margin:30rpx auto;
+}
+
+.register-img{
+  height: 80rpx; 
+  width: 640rpx; 
+  margin-top: 0rpx; 
+  margin-bottom: 28rpx;
+}
+.phone-register-btn{
+  margin-left:14rpx; 
+  color: rgb(180,180,180); 
+  font-size:36rpx; 
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular','Noto Sans CJK SC Regular';
+}
+.phone-register-btn::after{  
+  border:0px solid #CC3333;  
+} 
+
+.wechat-login-btn-icon{
+  width:44rpx; 
+  height:36rpx; 
+  align-self:center;
+}
+.wechat-login-btn-content{
+  margin-left:13rpx; 
+  color: #fff; 
+  font-size:36rpx; 
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+}
