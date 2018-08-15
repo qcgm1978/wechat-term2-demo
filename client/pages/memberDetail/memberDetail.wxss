@@ -1,1 +1,39 @@
-/* pages/memberDetail/memberDetail.wxss */
+.container-detail {
+  height: 920rpx;
+  background-color: #fff;
+  margin: 100rpx auto;
+  width: 670rpx;
+  border-radius: 20rpx;
+}
+
+.profile {
+  width: 200rpx;
+  height: 200rpx;
+  transform: translate(0, -50%);
+  background-color: rgb(240, 240, 240);
+  border-radius: 50%;
+}
+
+.profile image {
+  width: 100rpx;
+  height: 100rpx;
+}
+
+.name {
+  font-size: 30rpx;
+}
+
+.name-txt {
+  font-size: 26rpx;
+}
+
+.icon {
+  width: 70rpx;
+  height: 70rpx;
+  margin: 16rpx;
+}
+
+.row {
+  height: 183rpx;
+  align-items: center;
+}

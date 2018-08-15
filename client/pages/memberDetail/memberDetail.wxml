@@ -1,2 +1,39 @@
-<!--pages/memberDetail/memberDetail.wxml-->
-<text>pages/memberDetail/memberDetail.wxml</text>
+<view>
+  <view class='column container-detail'>
+    <view class='profile center-center'>
+      <image  src='./img/profile.png'></image>
+    </view>
+    <view class='line'></view>
+    <view class='row center' style="width: 100%;">
+      <image src='./img/shop.png' class='icon'></image>
+      <view class='column regular' style="align-items: left;">
+        <text class='name'>店铺名称</text>
+        <text class='name-txt'>{{name}}</text>
+      </view>
+    </view>
+    <view class='line'></view>
+    <view class='row center' style="width: 100%;">
+      <image src='./img/address.png' class='icon'></image>
+      <view class='column regular' style="align-items: left;">
+        <text class='name'>店铺地址</text>
+        <text class='name-txt'>{{address}}</text>
+      </view>
+    </view>
+    <view class='line'></view>
+    <view class='row center' style="width: 100%;">
+      <image src='./img/shopkeeper.png' class='icon'></image>
+      <view class='column regular' style="align-items: left;">
+        <text class='name'>店主姓名</text>
+        <text class='name-txt'>{{profileName}}</text>
+      </view>
+    </view>
+    <view class='line'></view>
+    <view class='row center' style="width: 100%;">
+      <image src='./img/id.png' class='icon'></image>
+      <view class='column regular' style="align-items: left;">
+        <text class='name'>MPOS登陆ID</text>
+        <text class='name-txt'>{{id}}</text>
+      </view>
+    </view>
+  </view>
+</view>
