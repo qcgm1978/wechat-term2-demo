@@ -1,4 +1,3 @@
-<!--pages/home/home.wxml-->
 <image src='/images/bg.png' class='bg'></image>
 <swiper indicator-dots="{{true}}" class='hot-card' autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}">
   <block>
