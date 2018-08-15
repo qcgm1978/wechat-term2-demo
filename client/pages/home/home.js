@@ -101,7 +101,7 @@ Page({
   onLoad: function(options) {
     this.getProductList();
     // this.onLaunch()
-
+    // wx.hideTabBar();
   },
 
   /**

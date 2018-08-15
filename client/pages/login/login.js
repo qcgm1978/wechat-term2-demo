@@ -209,8 +209,8 @@ Page({
       this.decryptPhoneNumber(e.detail.iv, e.detail.encryptedData)
     }else{
       // todo 目前该接口针对非个人开发者，且完成了认证的小程序开放
-      wx.switchTab({
-        url: '/pages/home/home'
+      wx.navigateTo({
+        url: '../memberDetail/memberDetail'
       });
     }
   },
