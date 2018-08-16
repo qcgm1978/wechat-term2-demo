@@ -18,7 +18,11 @@
   width: 100rpx;
   height: 100rpx;
 }
-
+.profile-name{
+  position:relative;top:-80rpx;
+  font-size: 32rpx;
+  color: rgb(235,97,18);
+}
 .name {
   font-size: 30rpx;
 }

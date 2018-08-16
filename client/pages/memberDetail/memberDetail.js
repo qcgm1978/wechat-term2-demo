@@ -16,7 +16,6 @@ Page({
    */
   onLoad: function(options) {
     if (Object.keys(getApp().globalData.userInfo).length) {
-
       wx.showTabBar();
     } else {
       wx.navigateTo({
