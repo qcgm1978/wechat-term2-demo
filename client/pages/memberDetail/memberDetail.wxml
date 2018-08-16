@@ -1,7 +1,7 @@
 <view>
   <view class='column container-detail'>
     <view class='profile center-center'>
-      <image  src='./img/profile.png'></image>
+      <image  src='../../images/user-sel.png'></image>
     </view>
     <view class='line'></view>
     <view class='row center' style="width: 100%;">

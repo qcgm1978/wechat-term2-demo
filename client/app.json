@@ -24,25 +24,25 @@
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "首页",
+        "text": "",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-sel.png"
       },
       {
-        "text": "订单",
+        "text": "",
         "pagePath": "pages/order/order",
         "iconPath": "images/order.png",
         "selectedIconPath": "images/order-sel.png"
       },
       {
-        "text": "购物车",
+        "text": "",
         "pagePath": "pages/trolley/trolley",
         "iconPath": "images/trolley.png",
         "selectedIconPath": "images/trolley-sel.png"
       },
       {
-        "text": "个人中心",
-        "pagePath": "pages/login/login",
+        "text": "",
+        "pagePath": "pages/memberDetail/memberDetail",
         "iconPath": "images/user.png",
         "selectedIconPath": "images/user-sel.png"
       }
