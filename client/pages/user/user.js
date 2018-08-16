@@ -17,6 +17,9 @@ Page({
       }) => {
         this.setData({
           userInfo
+        });
+        wx.switchTab({
+          url: '/pages/memberDetail/memberDetail',
         })
       }
     })

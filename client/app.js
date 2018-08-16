@@ -71,6 +71,9 @@ App({
     success(data){
       getApp().globalData.userInfo=data.userInfo;
       // debugger;
+    },
+    error(err){
+      debugger;
     }
   }) {
     wx.getSetting({
