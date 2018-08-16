@@ -8,6 +8,8 @@
       <image class='wechat-login-btn-icon' src="{{icWechat}}" ></image>
       <view class='wechat-login-btn-content'>{{wechatBtnContent}}</view>
     </view>
+    <button class="button-login "  open-type="getUserInfo" bindgetuserinfo='onTapLogin' wx:if="{{!loadingState}}" disabled="{{loadingState}}" style="top: -100rpx;"> 获取用户信息(临时) </button>
+    
     <button class="button-login "  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber" wx:if="{{!loadingState}}" disabled="{{loadingState}}">  </button>
     <block wx:else>
     </block>

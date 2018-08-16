@@ -19,10 +19,10 @@ page{
   border-radius: 50%;
 }
 
-.profile image {
+/* .profile image {
   width: 100rpx;
   height: 100rpx;
-}
+} */
 .profile-name{
   position:relative;top:-80rpx;
   font-size: 32rpx;

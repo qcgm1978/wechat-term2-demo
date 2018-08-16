@@ -8,12 +8,12 @@ const websocket = require('./pages/home/ws').default;
 let userInfo
 
 App({
-  
+
   ...getUserInfo,
   ...websocket,
   // globalData: {
   //   userInfo: null,
-    
+
   // },
   globalData: {
     systemInfo: {},
@@ -22,22 +22,22 @@ App({
     token: {},
     userInfo: {}
   },
-  onLaunch: function (options) {
+  onLaunch: function(options) {
     // wx.setEnableDebug({
     //   enableDebug: true
     // });
     appUtil.onLaunch(options)
     qcloud.setLoginUrl(config.service.loginUrl);
-    this.login();
+    // this.login();
     // this.runWebSocket()  // 加载websocket操作    
   },
-  onShow(){
+  onShow() {
     this.checkProgramUpdate();
   },
   checkProgramUpdate() {
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
-      updateManager.onCheckForUpdate(function (res) {
+      updateManager.onCheckForUpdate(function(res) {
         // 请求完新版本信息的回调
         // console.log(res.hasUpdate);
         if (res.hasUpdate) {
@@ -46,7 +46,7 @@ App({
           })
         }
       })
-      updateManager.onUpdateReady(function () {
+      updateManager.onUpdateReady(function() {
         updateManager.applyUpdate()
         // wx.showModal({
         //   title: '更新提示',
@@ -59,7 +59,7 @@ App({
         //   }
         // });
       })
-      updateManager.onUpdateFailed(function () {
+      updateManager.onUpdateFailed(function() {
         // 新的版本下载失败
       });
     }
@@ -67,42 +67,30 @@ App({
   login({
     success,
     error
-  }={
-    success(data){
-      getApp().globalData.userInfo=data.userInfo;
+  } = {
+    success(data) {
+      getApp().globalData.userInfo = data.userInfo;
       // debugger;
     },
-    error(err){
+    error(err) {
       debugger;
     }
   }) {
     wx.getSetting({
       success: res => {
-        if (res.authSetting['scope.userInfo'] === false) {
-          // 已拒绝授权
-          wx.showModal({
-            title: '提示',
-            content: '请授权我们获取您的用户信息',
-            showCancel: false,
-            success: () => {
-              wx.openSetting({
-                success: res => {
-                  if (res.authSetting['scope.userInfo'] === true) {
-                    this.doQcloudLogin({
-                      success,
-                      error
-                    })
-                  }
-                }
-              })
-            }
-          })
-        } else {
-          this.doQcloudLogin({
-            success,
-            error
-          })
-        }
+        // if (res.authSetting['scope.userInfo'] === false) {
+        // 已拒绝授权
+        wx.getUserInfo({
+          success: res => {
+            getApp().globalData.userInfo = res.userInfo;
+            success(res)
+
+          },
+          fail(err) {
+            debugger;
+          }
+        });
+       
       }
     })
   },

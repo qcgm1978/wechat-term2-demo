@@ -54,7 +54,7 @@
 .hot-card {
   position: relative;
   /* margin: 32rpx 52rpx 0; */
-  height: 350rpx;
+  height: 234rpx;
   background: #fff;
   box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.02);
   border-radius: 13rpx;

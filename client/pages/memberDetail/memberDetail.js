@@ -1,10 +1,10 @@
-// pages/memberDetail/memberDetail.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    avatar: '',
     name: '濮阳市梁村乡翱翔乐购吴家庄家乐福超市',
     address: '濮阳市南乐县梁村乡宋庄村燕润烟酒副食店',
     profileName: '闫瑞',
@@ -16,6 +16,11 @@ Page({
    */
   onLoad: function(options) {
     if (Object.keys(getApp().globalData.userInfo).length) {
+      const userInfo = getApp().globalData.userInfo;
+      this.setData({
+        avatar: userInfo.avatarUrl,
+        nickName: userInfo.nickName
+      })
       wx.showTabBar();
     } else {
       wx.navigateTo({
@@ -35,7 +40,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-
+    if (!this.data.avatarUrl && Object.keys(getApp().globalData.userInfo).length) {
+      const userInfo = getApp().globalData.userInfo;
+      this.setData({
+        avatar: userInfo.avatarUrl,
+        nickName: userInfo.nickName
+      })
+      wx.showTabBar();
+    }
   },
 
   /**

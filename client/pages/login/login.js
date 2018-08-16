@@ -211,9 +211,7 @@ Page({
       // todo 目前该接口针对非个人开发者，且完成了认证的小程序开放
       // temp mock demo getUserInfo
       // this.onTapLogin()
-      wx.navigateTo({
-        url: '../user/user',
-      })
+      console.log('no authorization')
     }
   },
   onTapLogin() {
@@ -221,14 +219,12 @@ Page({
       success: ({
         userInfo
       }) => {
-        this.setData({
-          userInfo
-        });
+        
         wx.switchTab({
           url: '/pages/memberDetail/memberDetail',
         })
       }
-    })
+    });
   },
   onLoad: function (para) {
     this.decryptPhoneNumber.tokenRefreshed = false

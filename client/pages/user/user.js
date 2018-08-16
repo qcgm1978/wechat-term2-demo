@@ -18,6 +18,7 @@ Page({
         this.setData({
           userInfo
         });
+        app.globalData.userInfo=userInfo;
         wx.switchTab({
           url: '/pages/memberDetail/memberDetail',
         })
