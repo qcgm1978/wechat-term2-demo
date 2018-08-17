@@ -22,10 +22,10 @@ App({
     token: {},
     userInfo: {}
   },
-  onLaunch: function(options) {
-    // wx.setEnableDebug({
-    //   enableDebug: true
-    // });
+  onLaunch: function (options) {
+    wx.setEnableDebug({
+      enableDebug: true
+    });
     appUtil.onLaunch(options)
     qcloud.setLoginUrl(config.service.loginUrl);
     // this.login();
@@ -37,7 +37,7 @@ App({
   checkProgramUpdate() {
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
-      updateManager.onCheckForUpdate(function(res) {
+      updateManager.onCheckForUpdate(function (res) {
         // 请求完新版本信息的回调
         // console.log(res.hasUpdate);
         if (res.hasUpdate) {
@@ -46,7 +46,7 @@ App({
           })
         }
       })
-      updateManager.onUpdateReady(function() {
+      updateManager.onUpdateReady(function () {
         updateManager.applyUpdate()
         // wx.showModal({
         //   title: '更新提示',
@@ -59,7 +59,7 @@ App({
         //   }
         // });
       })
-      updateManager.onUpdateFailed(function() {
+      updateManager.onUpdateFailed(function () {
         // 新的版本下载失败
       });
     }
@@ -68,14 +68,14 @@ App({
     success,
     error
   } = {
-    success(data) {
-      getApp().globalData.userInfo = data.userInfo;
-      // debugger;
-    },
-    error(err) {
-      debugger;
-    }
-  }) {
+      success(data) {
+        getApp().globalData.userInfo = data.userInfo;
+        // debugger;
+      },
+      error(err) {
+        debugger;
+      }
+    }) {
     wx.getSetting({
       success: res => {
         // if (res.authSetting['scope.userInfo'] === false) {
@@ -90,7 +90,7 @@ App({
             debugger;
           }
         });
-       
+
       }
     })
   },
