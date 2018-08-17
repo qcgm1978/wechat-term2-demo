@@ -17,6 +17,10 @@ Page({
       }) => {
         this.setData({
           userInfo
+        });
+        app.globalData.userInfo=userInfo;
+        wx.switchTab({
+          url: '/pages/memberDetail/memberDetail',
         })
       }
     })
@@ -33,10 +37,13 @@ Page({
   },
 
   onTapKf() {
-    wx.showToast({
-      icon: 'none',
-      title: '此功能暂未开放'
+    wx.navigateTo({
+      url: '/pages/customerService/customerService',
     })
+    // wx.showToast({
+    //   icon: 'none',
+    //   title: '此功能暂未开放'
+    // })
   },
 
 
@@ -45,9 +52,9 @@ Page({
    */
   onLoad: function(options) {
     // debugger;
-    this.setData({
-      userInfo: getApp().globalData.userInfo
-    })
+    // this.setData({
+    //   userInfo: getApp().globalData.userInfo
+    // })
   },
 
   /**
@@ -65,9 +72,12 @@ Page({
       success: ({
         userInfo
       }) => {
-        this.setData({
-          userInfo
-        })
+        if (Object.keys(userInfo).length) {
+
+          this.setData({
+            userInfo
+          })
+        }
       }
     })
   },

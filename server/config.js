@@ -6,7 +6,7 @@ const CONF = {
     appId: 'wx00d1d53802723dab',
 
     // 微信小程序 App Secret
-    appSecret: '0054c524615772331ef1f2b5a027bc36',
+    appSecret: '6d72e9f5eec0df485f2e88c9ef5f2608',
 
     // 是否使用腾讯云代理登录小程序
     useQcloudLogin: false,
@@ -20,7 +20,8 @@ const CONF = {
         host: 'localhost',
         port: 3306,
         user: 'root',
-        db: 'store',
+
+        db: 'cAuth',
         pass: 'test@2018',
         char: 'utf8mb4'
     },

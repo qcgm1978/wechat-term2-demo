@@ -51,7 +51,7 @@ var getWxLoginResult = function getLoginCode(callback) {
     });
 };
 
-var noop = function noop() {};
+var noop = function noop() { };
 var defaultOptions = {
     method: 'GET',
     success: noop,
@@ -81,7 +81,7 @@ var login = function login(options) {
             options.fail(wxLoginError);
             return;
         }
-        
+
         var userInfo = wxLoginResult.userInfo;
 
         // 构造请求头，包含 code、encryptedData 和 iv
@@ -100,7 +100,7 @@ var login = function login(options) {
             url: options.loginUrl,
             header: header,
             method: options.method,
-            data: wxLoginResult.code,
+            data: options.data,
             success: function (result) {
                 var data = result.data;
 
@@ -116,7 +116,7 @@ var login = function login(options) {
                         options.fail(noSessionError);
                     }
 
-                // 没有正确响应会话信息
+                    // 没有正确响应会话信息
                 } else {
                     var noSessionError = new LoginError(constants.ERR_LOGIN_SESSION_NOT_RECEIVED, JSON.stringify(data));
                     options.fail(noSessionError);

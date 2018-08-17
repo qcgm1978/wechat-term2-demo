@@ -28,7 +28,7 @@ const familyNumberLable = "家庭人数"
 const educationDegreeLable = "教育程度"
 const professionLable = "行业"
 const annualIncomeLable = "年收入"
-const familyAddressLable = "家庭地址"
+const familyAddressLable = "门店地址"
 
 const date = new Date()
 const years = []

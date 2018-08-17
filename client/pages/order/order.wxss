@@ -76,6 +76,7 @@
   background: #F5E069;
   border-radius: 8rpx;
   text-align: center;
+  margin-bottom:10rpx;
 }
 
 .order-count {

@@ -1,0 +1,31 @@
+<view class="line"></view>
+<view class='container'>
+  <view class="title">请输入你的手机号</view>
+  <view class="up-input" >
+    <image class='input-image'  src="{{inputBox}}"></image>
+    <view class='up-input-content' >
+      <image class='ic-phone-image' src="{{icPhone.active ? icPhone.enabled : icPhone.disabled}}"></image>
+      <input class="phone-input"  maxlength="11" type='number' placeholder="请输入手机号"  bindinput="bindPhoneInput" value='{{inputPhone}}' />
+    </view>
+  </view>
+
+
+  <view class="up-input" >
+    <image class='input-image'  src="{{inputBox}}"></image>
+    <view class='up-input-content' style='width: 100%;'>
+      <image class='ic-key-image' src="{{icKey.active ? icKey.enabled : icKey.disabled}}"></image>
+      <input class="key-input"  disabled='{{!icKey.active}}' maxlength="6" type='number' placeholder="请输入验证码" bindinput="bindVerifyInput" value='{{inputVerify}}' />
+      <view class='verify-button-area'>
+          <image class='button-verify-normal'  src="{{buttonVerifyNormal.active ? buttonVerifyNormal.enabled : buttonVerifyNormal.disabled}}"></image>
+          <view class='send-verify-text'   bindtap="sendVerifyCode">{{verifyButtonMsg}}</view>
+      </view>
+    </view>
+  </view>
+
+
+</view>
+<view class='reminder' style='display: {{isInputWrong? "block":"none"}}'>请输入正确的手机号和验证码</view>
+<view class='container' style='position: relative;' bindtap="phoneLogin" >
+  <image class='login-image' src="{{loginSrc.active ? loginSrc.enabled : loginSrc.disabled}}"></image>
+  <view class="button-title"  >登录</view>
+</view>

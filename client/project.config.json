@@ -12,8 +12,8 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.1.3",
-	"appid": "wx00d1d53802723dab",
-	"projectname": "store1",
+	"appid": "wx44aeb10d0359834d",
+	"projectname": "o2o-mall",
 	"isGameTourist": false,
 	"condition": {
 		"search": {
@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 1,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -44,7 +44,25 @@
 				{
 					"id": -1,
 					"name": "address",
-					"pathName": "pages/address/address"
+					"pathName": "pages/address/address",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "memberDetail",
+					"pathName": "pages/memberDetail/memberDetail",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "login",
+					"pathName": "pages/login/login",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "order",
+					"pathName": "pages/order/order"
 				}
 			]
 		}
