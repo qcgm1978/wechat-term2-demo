@@ -20,8 +20,28 @@
     </view>
     <view class='trolley-edit' bindtap='onTapEditTrolley'>{{isTrolleyEdit ? '完成' : '编辑'}}</view>
   </view>
-  <scroll-view class='product-list' scroll-y scroll-with-animation enable-back-to-top>
-    <view class='product-card' wx:for='{{trolleyList}}' wx:for-item='item' wx:key='id'>
+
+  <!-- <view class="item-wrapper">
+    <view class="item-list" wx:for="{{itemData}}" wx:for-item="item" wx:for-index="index" wx:key="that">
+      <view class="item-info" data-index="{{index}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" style="left:{{item.left + 'rpx'}}">
+        <image class="info-img" src="{{item.img}}"></image>
+        <view class="info-wrapper">
+          <view class="info-desc">
+            <view class="name">{{item.name}}</view>
+            <view class="time">{{item.time}}</view>
+          </view>
+          <view class="info-content">{{item.info}}</view>
+        </view>
+      </view>
+      <view class="item-oper">
+        <view class="oper-delete" bindtap="itemDelete" data-index="{{index}}">删除</view>
+      </view>
+    </view>
+  </view> -->
+
+  <scroll-view class='product-list item-wrapper' scroll-y scroll-with-animation enable-back-to-top>
+    <view class='product-card item-list' wx:for='{{trolleyList}}' wx:for-item='item' wx:key='id'>
+      <view class="item-info" data-index="{{index}}" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" style="left:{{item.left + 'rpx'}}">
       <view class="trolley-check-wrapper  {{trolleyCheckMap[item.id] ? 'check' : ''}}" bindtap='onTapCheckSingle' data-id="{{item.id}}">
         <image class="trolley-check" src='/images/check.png' wx:if="{{trolleyCheckMap[item.id]}}"></image>
       </view>
@@ -35,6 +55,10 @@
           <view class='count-add' bindtap="adjustTrolleyProductCount" data-type="add" data-id="{{item.id}}">+</view>
         </view>
         <view class="product-count" wx:else>x {{item.count}}</view>
+      </view>
+      </view>
+      <view class="item-oper">
+        <view class="oper-delete" bindtap="itemDelete" data-index="{{index}}">删除</view>
       </view>
     </view>
   </scroll-view>

@@ -2,13 +2,42 @@
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config')
 const app = getApp()
-
+// import itemData from './mock.js'
 Page({
+  touchS: function(e) { // touchstart
+    let startX = app.Touches.getClientX(e)
+    startX && this.setData({
+      startX
+    })
+  },
+  touchM: function(e) { // touchmove
+    let trolleyList = app.Touches.touchM(e, this.data.trolleyList, this.data.startX)
+    trolleyList && this.setData({
+      trolleyList
+    })
 
+  },
+  touchE: function(e) { // touchend
+    if (this.data.trolleyList.length) {
+
+      const width = 150 // 定义操作列表宽度
+      let trolleyList = app.Touches.touchE(e, this.data.trolleyList, this.data.startX, width)
+      trolleyList && this.setData({
+        trolleyList
+      })
+    }
+  },
+  itemDelete: function(e) { // itemDelete
+    let trolleyList = app.Touches.deleteItem(e, this.data.trolleyList)
+    trolleyList && this.setData({
+      trolleyList
+    })
+  },
   /**
    * 页面的初始数据
    */
   data: {
+    // itemData,
     userInfo: null,
     trolleyList: [], // 购物车商品列表
     trolleyCheckMap: [], // 购物车中选中的id哈希表
@@ -19,7 +48,9 @@ Page({
 
   onTapLogin() {
     app.login({
-      success: ({ userInfo }) => {
+      success: ({
+        userInfo
+      }) => {
         this.setData({
           userInfo
         })
@@ -31,7 +62,7 @@ Page({
 
   },
 
-  getTrolley(){
+  getTrolley() {
     wx.showLoading({
       title: '刷新购物车数据...',
     })
@@ -81,13 +112,13 @@ Page({
     // 判断选中的商品个数是否需商品总数相等
     numTotalProduct = trolleyList.length
     trolleyCheckMap.forEach(checked => {
-      numCheckedProduct = checked ? numCheckedProduct+1 : numCheckedProduct
+      numCheckedProduct = checked ? numCheckedProduct + 1 : numCheckedProduct
     })
 
     isTrolleyTotalCheck = (numTotalProduct === numCheckedProduct) ? true : false
 
     trolleyAccount = this.calcAccount(trolleyList, trolleyCheckMap)
-    
+
     this.setData({
       trolleyCheckMap,
       isTrolleyTotalCheck,
@@ -116,7 +147,7 @@ Page({
       trolleyCheckMap,
       trolleyAccount
     })
-    
+
   },
 
   calcAccount(trolleyList, trolleyCheckMap) {
@@ -139,7 +170,7 @@ Page({
       })
     }
 
-    
+
   },
 
   adjustTrolleyProductCount(event) {
@@ -148,9 +179,9 @@ Page({
     let dataset = event.currentTarget.dataset
     let adjustType = dataset.type
     let productId = dataset.id
-    let product 
+    let product
     let index
-        
+
 
     for (index = 0; index < trolleyList.length; index++) {
       if (productId === trolleyList[index].id) {
@@ -159,36 +190,35 @@ Page({
       }
     }
 
-      if (product) {
-        if (adjustType === 'add') {
-          // 点击加号
-          product.count++
+    if (product) {
+      if (adjustType === 'add') {
+        // 点击加号
+        product.count++
+      } else {
+        // 点击减号
+        if (product.count <= 1) {
+          // 商品数量不超过1，点击减号相当于删除
+          delete trolleyCheckMap[productId]
+          trolleyList.splice(index, 1)
         } else {
-          // 点击减号
-          if (product.count <= 1) {
-            // 商品数量不超过1，点击减号相当于删除
-            delete trolleyCheckMap[productId]
-            trolleyList.splice(index, 1)
-          } else {
-            // 商品数量大于1
-            product.count--
-          }
+          // 商品数量大于1
+          product.count--
         }
       }
+    }
 
-      // 调整结算总价
-      let trolleyAccount = this.calcAccount(trolleyList, trolleyCheckMap)
+    // 调整结算总价
+    let trolleyAccount = this.calcAccount(trolleyList, trolleyCheckMap)
 
-      if (!trolleyList.length) { 
-        // 当购物车为空，自动同步至服务器
-        this.updateTrolley()
-      }
+    if (!trolleyList.length) {
+      // 当购物车为空，自动同步至服务器
+      this.updateTrolley()
+    }
 
-      this.setData({
-        trolleyAccount,
-        trolleyList,
-        trolleyCheckMap
-      })
+    this.setData({
+      trolleyAccount,
+      trolleyCheckMap
+    })
   },
 
   updateTrolley() {
@@ -286,23 +316,25 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-  
+  onLoad: function(options) {
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     app.checkSession({
-      success: ({ userInfo }) => {
+      success: ({
+        userInfo
+      }) => {
         this.setData({
           userInfo
         })
@@ -314,35 +346,35 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })
