@@ -13,8 +13,8 @@ Page({
     product: {
     },
       autoplay:true,
-    interval:1000,
-    duration:500
+    interval:3000,
+    duration:1000
   },
 
   getProduct(id){
