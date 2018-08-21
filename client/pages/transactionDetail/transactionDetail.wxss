@@ -5,6 +5,37 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.total-money {
+  font-size: 24rpx;
+  color: #002f00;
+  letter-spacing: 0;
+  text-align: right;
+  line-height: 34rpx;
+  margin: 32rpx;
+}
+
+.copy {
+  border: 3rpx solid #d1d1d2;
+  border-radius: 8rpx;
+  width: 96rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+}
+
+.buy-again {
+  border: 3rpx solid rgba(238, 113, 31, 0.80);
+  border-radius: 8rpx;
+  width: 152rpx;
+  height: 52rpx;
+  font-size: 26rpx;
+  color: #ee711f;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 52rpx;
+}
+
 .exit-login-content {
   align-self: center;
   position: absolute;
@@ -19,172 +50,201 @@
   color: rgb(255, 255, 255);
   font-size: 38rpx;
 }
-.gray-chars{
-  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular','Noto Sans CJK SC Regular'; 
+
+.gray-chars {
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular', 'Noto Sans CJK SC Regular';
   font-size: 24rpx;
-  color:rgb(153,153,153);
+  color: rgb(153, 153, 153);
 }
 
-.darker-gray-chars{
-  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
-  font-size: 28rpx;
-  color:rgb(85,85,85);
+.darker-gray-chars {
+  font-size: 26rpx;
+  color: rgb(85, 85, 85);
 }
 
-.darkest-gray-chars{
-  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+.darkest-gray-chars {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   font-size: 28rpx;
-  color:rgb(104,104,104);
-}
-.darker-bold-gray-chars{
-  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold','Noto Sans CJK SC Bold'; 
-  font-size: 28rpx;
-  color:rgb(85,85,85);
+  color: rgb(104, 104, 104);
 }
 
-.small-orange-chars{
-  font-family: PingFang-SC-Regular, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+.darker-bold-gray-chars {
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
+  font-size: 28rpx;
+  color: rgb(85, 85, 85);
+}
+
+.small-orange-chars {
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   font-size: 24rpx;
-  color:rgb(235,97,15);
+  color: rgb(235, 97, 15);
 }
 
-.medium-orange-chars{
-  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+.medium-orange-chars {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   font-size: 28rpx;
-  color:rgb(235,97,15);
+  color: rgb(235, 97, 15);
 }
 
-.regular-orange-chars{
-  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular','Noto Sans CJK SC Regular'; 
+.regular-orange-chars {
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular', 'Noto Sans CJK SC Regular';
   font-size: 28rpx;
-  color:rgb(235,97,15);
+  color: rgb(235, 97, 15);
 }
 
-.medium-bold-orange-chars{
-  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold','Noto Sans CJK SC Bold'; 
+.medium-bold-orange-chars {
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
   font-size: 28rpx;
-  color:rgb(235,97,15);
+  color: rgb(235, 97, 15);
 }
-.big-orange-chars{
-  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold','Noto Sans CJK SC Bold'; 
+
+.big-orange-chars {
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
   font-size: 36rpx;
-  color:rgb(235,97,15);
+  color: rgb(235, 97, 15);
 }
 
 .main-view {
-  background-color:white; 
-  width:100%;
+  background-color: white;
+  width: 100%;
   /* position:absolute;  */
-  z-index: 10; 
-  top:0; 
+  z-index: 10;
+  top: 0;
   left: 0;
+  background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
+  border-radius: 2px;
 }
 
 .trans-shop {
-  display: flex; 
-  flex-direction:row; 
-  margin-top: 35rpx;
-  margin-left:60rpx;
+  display: flex;
+  flex-direction: row;
+  /* margin-top: 35rpx; */
+  margin-left: 60rpx;
 }
 
 .trans-shop-img {
-  width:26rpx; 
-  height:26rpx; 
-  align-self:center; 
-  margin-right:10rpx;
+  width: 44rpx;
+  height: 44rpx;
+  /* align-self: center; */
+  margin-right: 16rpx;
 }
 
 .trans-shop-lable {
-  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
-  font-size: 26rpx;
+  color: #333;
+  font-size: 28rpx;
+  margin-right: 16rpx;
 }
 
 .trans-shop-value {
-  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   font-size: 26rpx;
   width: 480rpx;
-  white-space:nowrap; 
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
+.title {
+  width: 718rpx;
+  background: #fff;
+  margin: auto;
+  padding-top: 32rpx;
+  border-radius: 8rpx;
+  position: relative;
+  top: 100rpx;
+  z-index: 10;
+  height: 144rpx;
+}
+
 .trans-number-time {
-  display: flex; 
-  flex-direction:row; 
-  justify-content: space-between; 
-  margin-top: 35rpx;
-  margin-bottom: 30rpx;
-  margin-left:60rpx; 
-  margin-right:60rpx;
-  
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* margin-top: 35rpx; *//* margin-bottom: 30rpx; */
+  margin-left: 120rpx;
+  margin-right: 60rpx;
 }
 
 .item-container {
-  background-color: white; 
-  margin: 0 60rpx; 
-  height:138rpx; 
-  display: flex; 
-  flex-direction: column; 
-  position:relative;
+  background-color: #f7f8fa;
+  /* margin: 0 60rpx; */
+  height: 160rpx;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  /* margin-top:9rpx; */
 }
 
 .item-container-bg {
-  background-color: rgb(250,250,250);
-  border-radius: 5px; 
-  width:100%; 
-  height:160rpx; 
-  align-self:center; 
+  background-color: rgb(250, 250, 250);
+  border-radius: 5px;
+  width: 100%;
+  height: 160rpx;
+  align-self: center;
   margin: 6rpx auto;
 }
 
 .item-container-fg {
-  display: flex; 
-  flex-direction: column; 
-  position: absolute; 
-  top:25rpx; 
-  left:0; 
-  width:100%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 25rpx;
+  left: 0;
+  width: 100%;
 }
 
 .item-number {
-  display: flex; 
-  flex-direction:row; 
-  position:absolute; 
-  left:200rpx; 
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 200rpx;
   top: 0;
   width: 150rpx;
 }
 
-.money-amount{
-  display:flex; 
-  justify-content: center; 
-  width: 560rpx;
-  margin: 20rpx auto;
+.money-amount {
+  display: flex;
+  justify-content: center;
+  /* width: 560rpx; */
+  margin: 32rpx;
+}
+
+.money {
+  font-size: 22rpx;
+  color: #333;
+  letter-spacing: 0;
+  text-align: right;
+  line-height: 34rpx;
 }
 
 .earned-point-outer {
-  display:flex; 
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
   width: 560rpx;
   margin: 25rpx auto;
 }
 
-.earned-point{
-  display:flex; 
-  justify-content: space-between; 
-  width: 100%; 
+.earned-point {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
   /* margin-bottom: 60rpx; */
 }
 
 .price-number {
-  display:flex;
+  display: flex;
   justify-content: space-between;
-  margin: 10rpx 40rpx; 
+  margin: 10rpx 40rpx;
 }
 
 .item-name {
-  width: 340rpx; 
-  white-space:nowrap; 
+  width: 340rpx;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  color: #333;
+}
+
+.item-standard {
+  color: #949494;
 }

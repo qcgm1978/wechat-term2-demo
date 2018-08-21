@@ -17,6 +17,17 @@ const payDetail = require('./payDetail.js').default,
 Page({
   ...payDetail,
   data: {
+    payStyle:'货到付款',
+    time:'2017-12-90 07:07:35',
+    payTime:'2017-12-90 07:05:10',
+    orderId: 20171290078765,
+    netAmountAll:320,
+    total:20,
+    name:'张磊磊',
+    phone:12345678901,
+    address:'北京市朝阳区亮马桥234号二十一世纪大厦4楼408',
+    src:'./images/pic.png',
+    standard:'500ML*12',
     top: '',
     showPrepayedCardInfo: "none",
     showPointPayInfo: "none",
@@ -26,7 +37,7 @@ Page({
     showDiscountInfo: "none",
     notShowDiscountInfo,
     amount: 0,
-    netAmount: 0,
+    // netAmount: 0,
     discountAmount: 0,
     earnedPoint: 0,
     itemData: [],
@@ -43,11 +54,15 @@ Page({
       }
     },
 
-    icStore: "images/ic-store.png",
+    addressStore: "images/address.png",
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-
+  copy(){
+    wx.setClipboardData({
+      data: this.data.orderId+''
+    })
+  },
   requestTransDetail: function(transId) {
     // if (!getApp().globalData.userInfo.memberId) {
     //   this.setData({
@@ -64,7 +79,7 @@ Page({
     requestData
       .then(data => {
         if (data === undefined){
-          data=require('../../data/transaction')
+          data=require('../../data/order')
         }
         data = data.result ? data : {
           result: data

@@ -1,110 +1,113 @@
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
   <!-- <view style='width:100%; height:{{windowHeight}}rpx; z-index: 1;'></view> -->
   <view id="main" class='main-view'>
-    <scroll-view scroll-y="true" style="height: {{isToPay?'800rpx':'auto'}};" scroll-top="{{scrollTop}}">
-
-      <view class="line" style='height:15rpx;'></view>
+    <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">已发货</text>
+    <view class='title'>
       <view class='trans-shop'>
-        <image class='trans-shop-img' src="{{icStore}}"></image>
-        <view class='trans-shop-lable'>交易门店：</view>
-        <view class='trans-shop-value'>{{transShop}}</view>
+        <image class='trans-shop-img' src="{{addressStore}}"></image>
+        <view class='trans-shop-lable regular'>{{name}}</view>
+        <view class='trans-shop-value'>{{phone}}</view>
       </view>
       <view class='trans-number-time'>
         <view style='display: flex; flex-direction:row;'>
-          <view class="gray-chars">交易编号：</view>
-          <view class="gray-chars">{{transactionId}}</view>
+          <view class="gray-chars">{{address}}</view>
         </view>
-        <view style='display: flex; flex-direction:row;'>
-          <view class="gray-chars">下单时间：</view>
-          <view class="gray-chars">{{timestamp}}</view>
-        </view>
+
       </view>
+    </view>
+    <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;position:relative;top:50rpx;">商品信息</view>
+    <view style="background:#fff;z-index:20;position:relative;top:50rpx;" scroll-top="{{scrollTop}}">
 
-      <view class='item-container' wx:for="{{itemData}}" wx:key='{{index}}'>
-        <view class='item-container-bg'></view>
-        <view class='item-container-fg'>
+      <view>
+        <!-- <image src='./images/Mask@3x.png' style="width: 100%;height: 10rpx;"></image> -->
 
-          <view style="display:flex;justify-content: space-between; margin: 0 40rpx ; ">
-            <view style="display: flex; flex-direction:row;">
-              <view class='darker-gray-chars item-name'>{{item.itemName}}</view>
-              <view class='darker-gray-chars' style=' margin-left:20rpx;' hidden='{{isToPay}}'>{{item.itemId}}</view>
-            </view>
-            <view class='darker-gray-chars'>总价</view>
-          </view>
+        <scroll-view scroll-y="true" style='height: 330rpx;'>
+          <view class='item-container' wx:for="{{itemData}}" wx:key='{{index}}'>
+            <view class='item-container-bg'></view>
+            <view class='item-container-fg'>
 
-          <view class='price-number'>
-            <view style="display: flex; flex-direction:row; position:relative;">
-              <view style="display: flex; flex-direction:row;">
-                <view class="gray-chars">单价：</view>
-                <view class="iconfont icon-rmb small-orange-chars" style='margin-left:0rpx;'> {{item.itemPrice}}</view>
+              <view style="display:flex;justify-content: space-between; margin: 0 40rpx ; ">
+                <view style="display: flex; flex-direction:row;">
+                  <image src='{{src}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;"></image>
+                  <view>
+                    <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
+                    <text class='darker-gray-chars regular item-standard'>规格：{{standard}}</text>
+                  </view>
+                  <!-- <view class='darker-gray-chars' style=' margin-left:20rpx;' hidden='{{isToPay}}'>{{item.itemId}}</view> -->
+                </view>
+                <view class='darker-gray-chars column' style="align-items: flex-end;">
+                  <text>￥{{item.totalPrice}}</text>
+                  <text style="text-decoration: line-through;">￥{{item.itemPrice}}</text>
+                  <text>x{{item.itemQuantity}}</text>
+                </view>
               </view>
-              <view class='item-number'>
-                <view class="gray-chars">数量：</view>
-                <view class="gray-chars" style='margin-left:0rpx;'>{{item.itemQuantity}}</view>
-              </view>
-            </view>
 
-            <view class='iconfont icon-rmb darker-gray-chars'> {{item.totalPrice}}</view>
+
+            </view>
           </view>
-        </view>
+        </scroll-view>
       </view>
-    </scroll-view>
+    </view>
 
 
 
   </view>
-  <view style="z-index: 10; width: 100%; {{isToPay?top:''}}">
+  <view style="z-index: 10; width: 100%; margin-top:50rpx;">
     <view class='money-amount'>
+      <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; ">
+        <view>商品总额</view>
+        <view> {{amount}}</view>
+      </view>
+    </view>
+
+
+    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view class="darkest-gray-chars">商品总金额：</view>
-        <view class="iconfont icon-rmb regular-orange-chars"> {{amount}}</view>
+        <view>折扣金额：</view>
+        <view> {{discountAmount}}</view>
       </view>
     </view>
+    <view class="line" style='height:2rpx;  margin: 0 auto;'></view>
+    <view class='total-money'>共计{{total}}件商品 实付总额：
+      <text style='color:#FF333333;'>￥{{netAmountAll}}</text>
+    </view>
 
-
-    <view class='money-amount' hidden='{{notShowDiscountInfo||isToPay}}'>
+    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view class="darkest-gray-chars">折扣金额：</view>
-        <view class="iconfont icon-rmb regular-orange-chars"> {{discountAmount}}</view>
+        <view>订单编号：{{orderId}}</view>
+        <view catch:tap='copy' class='copy'>复制</view>
       </view>
     </view>
-    <view class='earned-point-outer' hidden='{{isToPay?financialData.wxTmp.points==0:earnedPoint===0}}'>
-      <view class='earned-point'>
-        <view class="darker-bold-gray-chars">{{isToPay?'已使用积分':'奖励积分'}}：</view>
-        <view class="medium-bold-orange-chars">{{isToPay?financialData.wxTmp.points:earnedPoint}}</view>
-      </view>
-    </view>
-    <view class="line" style='height:2rpx; width:560rpx; margin: 0 auto;'></view>
-
-    <view class='money-amount'>
+    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view class="darkest-gray-chars">{{isToPay?'待支付':'实付金额'}}：</view>
-        <view class="iconfont icon-rmb big-orange-chars"> {{netAmount}}</view>
+        <view>创建时间：{{time}}</view>
       </view>
+
     </view>
-
-    <!-- <view class="line" style='height:2rpx; width:560rpx; margin: 25rpx auto;'></view> -->
-
-
-    <view class='money-amount' hidden='{{notShowPointPayInfo||isToPay}}'>
+    <view class="line" style='height:2rpx;  margin: 0 auto;'></view>
+    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view class='darkest-gray-chars'>积分支付：</view>
-        <view class="iconfont icon-rmb regular-orange-chars"> {{financialData.programData.amount}} ({{financialData.programData.points}})</view>
+        <view>
+          <text style='color:#888'>付款时间：</text>{{payTime}}</view>
+      </view>
+    </view>
+    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+      <view style="display:flex; justify-content: space-between; width: 100%; ">
+        <view>
+          <text style='color:#888'>支付方式：</text>{{payStyle}}</view>
       </view>
     </view>
 
-    <view class='money-amount' hidden='{{notShowCashPayInfo||isToPay}}'>
+    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view class='darkest-gray-chars'>现金支付：</view>
-        <view class="iconfont icon-rmb regular-orange-chars"> {{financialData.cashData.amount}}</view>
+        <view></view>
+        <view catch:tap='copy' class='buy-again'>再次购买</view>
       </view>
     </view>
-    <view class='money-amount' style="margin-bottom: 38rpx; display:{{showPrepayedCardInfo}};">
-      <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view class='darkest-gray-chars'>储值卡支付：</view>
-        <view class="iconfont icon-rmb regular-orange-chars"> {{financialData.prepayedCardData.amount}}</view>
-      </view>
-    </view>
-    
+
+
+
+
+
   </view>
 </view>
