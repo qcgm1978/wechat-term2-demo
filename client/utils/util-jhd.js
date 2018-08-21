@@ -224,6 +224,9 @@ var errorHander = function (errorCode, callback, dataNotFoundHandler) {
     }
   })
 }
+const queryStack=(e)=>{
+  window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
+}
 module.exports = {
   checkNetwork: checkNetwork,
   formatTime: formatTime,
@@ -232,5 +235,6 @@ module.exports = {
   postRequestWithoutToken: postRequestWithoutToken,
   getRequestWithoutToken: getRequestWithoutToken,
   getRequest: getRequest,
-  errorHander: errorHander
+  errorHander: errorHander,
+  queryStack
 }

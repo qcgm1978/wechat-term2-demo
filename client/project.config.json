@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -68,7 +68,14 @@
 				{
 					"id": -1,
 					"name": "trolley",
-					"pathName": "pages/trolley/trolley"
+					"pathName": "pages/trolley/trolley",
+					"query": ""
+				},
+				{
+					"id": 6,
+					"name": "transactionDetail",
+					"pathName": "pages/transactionDetail/transactionDetail",
+					"query": "notPaid=false"
 				}
 			]
 		}

@@ -1,0 +1,190 @@
+.complete-login-content {
+  align-self: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.exit-login-content {
+  align-self: center;
+  position: absolute;
+  color: rgb(235, 97, 15);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.top-balance-lable {
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular', 'Noto Sans CJK SC Regular';
+  color: rgb(255, 255, 255);
+  font-size: 38rpx;
+}
+.gray-chars{
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular','Noto Sans CJK SC Regular'; 
+  font-size: 24rpx;
+  color:rgb(153,153,153);
+}
+
+.darker-gray-chars{
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+  font-size: 28rpx;
+  color:rgb(85,85,85);
+}
+
+.darkest-gray-chars{
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+  font-size: 28rpx;
+  color:rgb(104,104,104);
+}
+.darker-bold-gray-chars{
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold','Noto Sans CJK SC Bold'; 
+  font-size: 28rpx;
+  color:rgb(85,85,85);
+}
+
+.small-orange-chars{
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+  font-size: 24rpx;
+  color:rgb(235,97,15);
+}
+
+.medium-orange-chars{
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+  font-size: 28rpx;
+  color:rgb(235,97,15);
+}
+
+.regular-orange-chars{
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular','Noto Sans CJK SC Regular'; 
+  font-size: 28rpx;
+  color:rgb(235,97,15);
+}
+
+.medium-bold-orange-chars{
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold','Noto Sans CJK SC Bold'; 
+  font-size: 28rpx;
+  color:rgb(235,97,15);
+}
+.big-orange-chars{
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold','Noto Sans CJK SC Bold'; 
+  font-size: 36rpx;
+  color:rgb(235,97,15);
+}
+
+.main-view {
+  background-color:white; 
+  width:100%;
+  /* position:absolute;  */
+  z-index: 10; 
+  top:0; 
+  left: 0;
+}
+
+.trans-shop {
+  display: flex; 
+  flex-direction:row; 
+  margin-top: 35rpx;
+  margin-left:60rpx;
+}
+
+.trans-shop-img {
+  width:26rpx; 
+  height:26rpx; 
+  align-self:center; 
+  margin-right:10rpx;
+}
+
+.trans-shop-lable {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+  font-size: 26rpx;
+}
+
+.trans-shop-value {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium','Noto Sans CJK SC Medium'; 
+  font-size: 26rpx;
+  width: 480rpx;
+  white-space:nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trans-number-time {
+  display: flex; 
+  flex-direction:row; 
+  justify-content: space-between; 
+  margin-top: 35rpx;
+  margin-bottom: 30rpx;
+  margin-left:60rpx; 
+  margin-right:60rpx;
+  
+}
+
+.item-container {
+  background-color: white; 
+  margin: 0 60rpx; 
+  height:138rpx; 
+  display: flex; 
+  flex-direction: column; 
+  position:relative;
+}
+
+.item-container-bg {
+  background-color: rgb(250,250,250);
+  border-radius: 5px; 
+  width:100%; 
+  height:160rpx; 
+  align-self:center; 
+  margin: 6rpx auto;
+}
+
+.item-container-fg {
+  display: flex; 
+  flex-direction: column; 
+  position: absolute; 
+  top:25rpx; 
+  left:0; 
+  width:100%;
+}
+
+.item-number {
+  display: flex; 
+  flex-direction:row; 
+  position:absolute; 
+  left:200rpx; 
+  top: 0;
+  width: 150rpx;
+}
+
+.money-amount{
+  display:flex; 
+  justify-content: center; 
+  width: 560rpx;
+  margin: 20rpx auto;
+}
+
+.earned-point-outer {
+  display:flex; 
+  justify-content: center; 
+  width: 560rpx;
+  margin: 25rpx auto;
+}
+
+.earned-point{
+  display:flex; 
+  justify-content: space-between; 
+  width: 100%; 
+  /* margin-bottom: 60rpx; */
+}
+
+.price-number {
+  display:flex;
+  justify-content: space-between;
+  margin: 10rpx 40rpx; 
+}
+
+.item-name {
+  width: 340rpx; 
+  white-space:nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

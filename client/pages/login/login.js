@@ -221,7 +221,7 @@ Page({
       }) => {
         
         wx.switchTab({
-          url: '/pages/memberDetail/memberDetail',
+          url: '/pages/home/home',
         })
       }
     });
