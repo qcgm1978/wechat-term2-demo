@@ -23,9 +23,9 @@ Page({
       })
       wx.showTabBar();
     } else {
-      wx.navigateTo({
-        url: '../login/login',
-      })
+      // wx.navigateTo({
+      //   url: '../login/login',
+      // })
     }
   },
 

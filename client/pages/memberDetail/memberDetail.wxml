@@ -1,11 +1,11 @@
 <view>
   <view class='column container-detail'>
-    <view class='column'>
+    <!-- <view class='column'>
       <image src='{{avatar}}' class='profile center-center'></image>
       <text class='profile-name regular'>{{nickName}}</text>
-    </view>
+    </view> -->
     <!-- <view style='width:100%;transform:translate(0,100rpx);'> -->
-    <view class='line'></view>
+    <!-- <view class='line'></view> -->
     <view class='row center' style="width: 100%;">
       <image src='./img/shop.png' class='icon'></image>
       <view class='column regular' style="align-items: left;">
@@ -33,10 +33,11 @@
     <view class='row center' style="width: 100%;">
       <image src='./img/id.png' class='icon'></image>
       <view class='column regular' style="align-items: left;">
-        <text class='name'>MPOS登陆ID</text>
+        <text class='name'>门店ID</text>
         <text class='name-txt'>{{id}}</text>
       </view>
     </view>
   </view>
+  <view class='exit'>退出登录</view>
   <!-- </view> -->
 </view>

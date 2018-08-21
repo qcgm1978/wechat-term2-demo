@@ -22,27 +22,29 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
+    "color":"rgb(145,144,144)",
+    "selectedColor":"rgb(235, 97, 18)",
     "list": [
       {
         "pagePath": "pages/home/home",
-        "text": "",
+        "text": "首页",
         "iconPath": "images/home.png",
         "selectedIconPath": "images/home-sel.png"
       },
       {
-        "text": "",
+        "text": "订单",
         "pagePath": "pages/order/order",
         "iconPath": "images/order.png",
         "selectedIconPath": "images/order-sel.png"
       },
       {
-        "text": "",
+        "text": "进货单",
         "pagePath": "pages/trolley/trolley",
         "iconPath": "images/trolley.png",
         "selectedIconPath": "images/trolley-sel.png"
       },
       {
-        "text": "",
+        "text": "我的",
         "pagePath": "pages/memberDetail/memberDetail",
         "iconPath": "images/user.png",
         "selectedIconPath": "images/user-sel.png"
