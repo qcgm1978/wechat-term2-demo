@@ -166,7 +166,7 @@
 }
 
 .item-container {
-  background-color: #f7f8fa;
+  background-color:  #F7F8FA;
   /* margin: 0 60rpx; */
   height: 160rpx;
   display: flex;
@@ -206,7 +206,7 @@
   display: flex;
   justify-content: center;
   /* width: 560rpx; */
-  margin: 32rpx;
+  margin: 16rpx 32rpx;
 }
 
 .money {
