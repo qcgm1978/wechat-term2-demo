@@ -17,12 +17,17 @@ const payDetail = require('./payDetail.js').default,
 Page({
   ...payDetail,
   data: {
-    payStyle:'货到付款',
-    time:'2017-12-90 07:07:35',
-    payTime:'2017-12-90 07:05:10',
-    orderId: 20171290078765,
-    netAmountAll:320,
-    total:20,
+
+    payStyle:{
+      "UNPAY":'待支付',
+      "WAIT_SHIPMENT":'待配送',
+      CANCELED:'订单取消',
+      "WAIT_RECEIVE":'待收货',
+      RECEIVED:'已收货',
+      "RETURN_FULL":'全部退货',
+      "RETURN_PART":'部分退货'
+    },
+    
     name:'张磊磊',
     phone:12345678901,
     address:'北京市朝阳区亮马桥234号二十一世纪大厦4楼408',
@@ -63,7 +68,7 @@ Page({
       data: this.data.orderId+''
     })
   },
-  requestTransDetail: function(transId) {
+  requestTransDetail: function (orderId, merchantId) {
     // if (!getApp().globalData.userInfo.memberId) {
     //   this.setData({
     //     loginStatus: false,
@@ -71,27 +76,33 @@ Page({
     //   return
     // }
     let requestData = null;
-    if (isNaN(transId)) {
-      requestData = Promise.resolve(transId)
+    if (isNaN(orderId) || merchantId===undefined) {
+      requestData = Promise.resolve()
     } else {
-      requestData = utils.getRequest(backendUrlTrans + getApp().globalData.userInfo.memberId + "/transactions/" + transId);
+      requestData = utils.getRequest(backendUrlTrans + getApp().globalData.userInfo.memberId + "/transactions/" + orderId);
     }
     requestData
       .then(data => {
         if (data === undefined){
-          data=require('../../data/order')
+          data=require('../../data/get-order')
         }
         data = data.result ? data : {
           result: data
         }
-        if (data.result.orderData) {
-          var itemDataTemp = data.result.orderData[0].itemData
+        this.setData({
+          order:data.result
+        });
+        wx.hideLoading();
+        return;
+        if (data.result.orderItem) {
+          var itemDataTemp = data.result.orderItem;
           for (let i = 0; i < itemDataTemp.length; i++) {
             var itemName = 'itemData[' + i + '].itemName'
             var itemId = 'itemData[' + i + '].itemId'
-            var itemPrice = 'itemData[' + i + '].itemPrice'
-            var itemQuantity = 'itemData[' + i + '].itemQuantity'
-            var totalPrice = 'itemData[' + i + '].totalPrice'
+            var itemPrice = 'itemData[' + i + '].unitPrice'
+            var itemQuantity = 'itemData[' + i + '].quantity'
+            var totalPrice = 'itemData[' + i + '].totalPrice';
+            const locationId = itemDataTemp[i].locationId;
             this.setData({
               [itemName]: itemDataTemp[i].itemName,
               [itemId]: itemDataTemp[i].itemId,
@@ -118,36 +129,11 @@ Page({
             points: 0,
             amount: 0,
           }
-        var actualPay = 0
+        var actualPay = data.result.payment;
         var cashPayed = false
         var pointPayed = false,
           actualActive = true;
-        for (let i = 0; i < data.result.financialData.length; i++) {
-          if (data.result.financialData[i].cashData) {
-            cashTmp.amount = parseFloat(data.result.financialData[i].cashData.amount).toFixed(2)
-            if (cashTmp.amount !== 0 && actualActive) {
-              cashPayed = true
-              actualPay = (parseFloat(actualPay) + parseFloat(data.result.financialData[i].cashData.amount)).toFixed(2)
-            }
-          } else if (data.result.financialData[i].programData) {
-            pointsTmp.amount = parseFloat(data.result.financialData[i].programData.amount).toFixed(2);
-            const tempPoints = data.result.financialData[i].programData.points;
-            pointsTmp.points = tempPoints;
-            if (pointsTmp.amount !== 0 && actualActive) {
-              pointPayed = true
-              actualPay = (parseFloat(actualPay) + parseFloat(pointsTmp.amount)).toFixed(2)
-            }
-          } else {
-            const other = data.result.financialData[i].otherAccountData;
-            other&&(wxTmp.amount = parseFloat(other.amount).toFixed(2));
-            if (other&&(other.accountType === 'WeChatPay')) {
-              actualPay = other.amount;
-              actualActive = false;
-            } else if (wxTmp.amount !== 0) {
-              actualPay = (parseFloat(actualPay) + parseFloat(wxTmp.amount)).toFixed(2)
-            }
-          }
-        }
+       
 
         var discountAmount = totalAmount == 0 ? 0 : totalAmount - actualPay
         //0 items
@@ -180,7 +166,7 @@ Page({
           showDiscountInfo: discountAmount == 0 ? "none" : "block",
           notShowDiscountInfo: discountAmount == 0
         })
-        wx.hideLoading()
+        
       })
       .catch(errorCode => {
         console.log(errorCode)
@@ -240,7 +226,7 @@ Page({
         isWebsocket: options.isWebsocket
       })
     } else {
-      this.requestTransDetail(options.transId)
+      this.requestTransDetail(options.orderId, options.merchantId)
     }
   },
   /**
