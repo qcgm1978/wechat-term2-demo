@@ -69,7 +69,7 @@
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>共计{{total}}件商品 实付总额：
-      <text style='color:#FF333333;'>￥{{netAmountAll}}</text>
+      <text style='color:#ec6515;'>￥{{netAmountAll}}</text>
     </view>
 
     <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
