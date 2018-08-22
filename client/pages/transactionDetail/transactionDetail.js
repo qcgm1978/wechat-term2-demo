@@ -2,7 +2,7 @@ var URLs = require("../../utils/envConf.js").Api;
 var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessToken;
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 var utils = require("../../utils/util.js");
-const backendUrlTrans = URLs.backendUrlTrans
+const getOrder = URLs.getOrder
 
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
@@ -76,10 +76,10 @@ Page({
     //   return
     // }
     let requestData = null;
-    if (isNaN(orderId) || merchantId===undefined) {
+    if (!isNaN(orderId) || merchantId===undefined) {
       requestData = Promise.resolve()
     } else {
-      requestData = utils.getRequest(backendUrlTrans + getApp().globalData.userInfo.memberId + "/transactions/" + orderId);
+      requestData = utils.getRequest(getOrder,{orderId,merchantId});
     }
     requestData
       .then(data => {

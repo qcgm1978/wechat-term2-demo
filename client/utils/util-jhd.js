@@ -14,7 +14,7 @@ const formatTime = strDate => {
   return [year, month, day].join('-') + ' ' + array[1]
 }
 
-var postRequestWithoutToken = function (url, data) {
+var postRequestWithoutToken = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     var postData = data;
     wx.request({
@@ -33,7 +33,7 @@ var postRequestWithoutToken = function (url, data) {
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
@@ -42,14 +42,14 @@ var postRequestWithoutToken = function (url, data) {
   return promise;
 }
 
-var putRequest = function (url, data) {
+var putRequest = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     var putData = data;
     wx.request({
       url: url,
       data: putData,
       method: 'PUT',
-      header: { 
+      header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
         'X-Client-Id': 'mini-app'
       },
@@ -61,7 +61,7 @@ var putRequest = function (url, data) {
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
@@ -70,15 +70,15 @@ var putRequest = function (url, data) {
   return promise;
 }
 
-var postRequest = function (url, data) {
+var postRequest = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     var postData = data;
     wx.request({
       url: url,
       data: postData,
       method: 'POST',
-      header: { 
-        'Authorization': 'Bearer ' + (getApp().globalData.token?getApp().globalData.token.accessToken:"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzIyNTIwNzIsIm1lbWJlcklkIjoiMTUyOTg5OTMyMDEzNDYxMSJ9.ldc4QQ9H5Ep8oHsgrX_606eSg_61pkwdIYWCTmiCuuk"),
+      header: {
+        'Authorization': 'Bearer ' + (getApp().globalData.token ? getApp().globalData.token.accessToken : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzIyNTIwNzIsIm1lbWJlcklkIjoiMTUyOTg5OTMyMDEzNDYxMSJ9.ldc4QQ9H5Ep8oHsgrX_606eSg_61pkwdIYWCTmiCuuk"),
         'X-Client-Id': 'mini-app'
       },
       success: res => {
@@ -89,7 +89,7 @@ var postRequest = function (url, data) {
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
@@ -98,18 +98,24 @@ var postRequest = function (url, data) {
   return promise;
 }
 
-var getRequest = function (url) {
+var getRequest = function(url, data) {
   var promise = new Promise((resolve, reject) => {
+    if (data) {
+      for (const prop in data) {
+
+        url = url.replace(`{${prop}}`, data[prop]);
+      }
+    }
     wx.request({
       url: url,
       method: 'GET',
-      header: { 
+      header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
         'X-Client-Id': 'mini-app'
       },
       success: res => {
 
-        if (res.statusCode !== HTTP_SUCCSESS){
+        if (res.statusCode !== HTTP_SUCCSESS) {
           console.log(res)
           reject(res.statusCode);
         } else {
@@ -125,7 +131,7 @@ var getRequest = function (url) {
   return promise;
 }
 
-var getRequestWithoutToken = function (url) {
+var getRequestWithoutToken = function(url) {
   var promise = new Promise((resolve, reject) => {
     wx.request({
       url: url,
@@ -152,7 +158,7 @@ var getRequestWithoutToken = function (url) {
   return promise;
 }
 
-var checkNetwork = function () {
+var checkNetwork = function() {
   return new Promise((resolve, reject) => {
     wx.getNetworkType({
       success: res => {
@@ -163,10 +169,10 @@ var checkNetwork = function () {
             url: '../noNetwork/noNetwork'
           })
           reject()
-          return 
-        }else{
+          return
+        } else {
           resolve()
-          return 
+          return
         }
       },
       fail: res => {
@@ -174,13 +180,13 @@ var checkNetwork = function () {
           url: '../noNetwork/noNetwork'
         })
         reject()
-        return 
+        return
       }
     })
   })
 }
 
-var errorHander = function (errorCode, callback, dataNotFoundHandler) {
+var errorHander = function(errorCode, callback, dataNotFoundHandler) {
   return new Promise((resolve, reject) => {
     switch (errorCode) {
       case INVALID_USER_STATUS:
@@ -189,7 +195,7 @@ var errorHander = function (errorCode, callback, dataNotFoundHandler) {
         break
       case DATA_NOT_FOUND:
         console.log(DATA_NOT_FOUND)
-        if (dataNotFoundHandler){
+        if (dataNotFoundHandler) {
           dataNotFoundHandler()
           resolve()
         }
@@ -202,8 +208,12 @@ var errorHander = function (errorCode, callback, dataNotFoundHandler) {
               callback.tokenRefreshed = true
               return callback()
             })
-            .then(() => { resolve() })
-            .catch((errorCode) => { reject(errorCode) })
+            .then(() => {
+              resolve()
+            })
+            .catch((errorCode) => {
+              reject(errorCode)
+            })
         } else {
           getApp().globalData.userInfo.registerStatus = false
           wx.reLaunch({
@@ -224,7 +234,7 @@ var errorHander = function (errorCode, callback, dataNotFoundHandler) {
     }
   })
 }
-const queryStack=(e)=>{
+const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 module.exports = {

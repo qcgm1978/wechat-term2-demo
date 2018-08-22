@@ -4,7 +4,7 @@ const EVN = {
   "PRO" : 2
 }
 
-var env = EVN.STG   //update this value for different env
+var env = EVN.LOCAL   //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -15,7 +15,11 @@ switch (env) {
     clientSecret = "Rn2eJRBN0cDEXSBl"
     baseUrl = "https://dev.jhdmall.com/weapp/member"
     addrUrl = "https://dev.jhdmall.com/weapp/address"
-    break
+    break;
+  case EVN.LOCAL:{
+    baseUrl ='http://localhost:5757';
+    break;
+  }
   case EVN.STG:
     clientSecret = "Rn2eJRBN0cDEXSBl"
     baseUrl = "https://stg-app.jihuiduo.cn/member"
@@ -33,6 +37,8 @@ switch (env) {
     break
 }
 const apiURLs = {
+  getOrder: `${baseUrl}/v1/order/{merchantId}/{orderId}`,
+
   backendUrlLogin: baseUrl + '/v1/auth/wechat',
   backendUrlUserInfo: baseUrl + '/v1/members/',
   backendUrlRefreshToken: baseUrl + '/v1/auth/refresh',
