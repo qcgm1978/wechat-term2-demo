@@ -1,16 +1,20 @@
+page {
+  background: rgb(235, 235, 235);
+}
 
 .container-detail {
   /* height: 950rpx; */
   background-color: #fff;
-  margin: 30rpx auto 140rpx;
-  width: 670rpx;
-  border-radius: 20rpx;
+  margin: 0 auto 140rpx;
+  /* width: 670rpx; *//* border-radius: 20rpx; */
+  padding-left: 39rpx;
 }
-.exit{
-  width:670rpx;
+
+.exit {
+  width: 670rpx;
   height: 96rpx;
   border-radius: 10rpx;
-  color:rgb(255,255,255);
+  color: rgb(255, 255, 255);
   font-size: 36rpx;
   text-align: center;
   line-height: 96rpx;
@@ -18,6 +22,7 @@
   background-size: cover;
   margin: 0 auto;
 }
+
 .profile {
   width: 200rpx;
   height: 200rpx;
@@ -30,11 +35,14 @@
   width: 100rpx;
   height: 100rpx;
 } */
-.profile-name{
-  position:relative;top:-80rpx;
+
+.profile-name {
+  position: relative;
+  top: -80rpx;
   font-size: 32rpx;
-  color: rgb(235,97,18);
+  color: rgb(235, 97, 18);
 }
+
 .name {
   font-size: 30rpx;
 }
@@ -50,6 +58,17 @@
 }
 
 .row {
-  height: 183rpx;
+  height: 120rpx;
   align-items: center;
+}
+
+.short-line {
+  width: 82rpx;
+  height: 2rpx;
+  background: rgb(51, 51, 51);
+}
+.dot{
+  /* transform:translate(0,-6rpx); */
+  margin:12rpx 9rpx auto;
+
 }

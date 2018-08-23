@@ -42,7 +42,7 @@ Page({
         console.log(data)
         if (!data.code) {
           // todo test pick up websocket data
-          const orderList = data.data.map(item => {
+          const orderList = data.result.map(item => {
             item.list.map(item=>{
               item.pickupCode = getApp().globalData.pickUpCode;
               item.state=(item.product_id === getApp().globalData.product_id)? '已提货':'未提货';

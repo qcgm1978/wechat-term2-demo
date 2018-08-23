@@ -33,6 +33,6 @@
   </navigator>
 </view>
 <view class="order-empty" wx:else>
-  <image class="empty-image" src="/images/order.png"></image>
+  <image class="empty-image" src="/images/trolley.png"></image>
   <view class="empty-text">暂时还没有订单</view>
 </view>
