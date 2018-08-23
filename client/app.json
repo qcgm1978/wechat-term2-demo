@@ -32,10 +32,10 @@
         "selectedIconPath": "images/home-sel.png"
       },
       {
-        "text": "订单",
+        "text": "分类",
         "pagePath": "pages/order/order",
-        "iconPath": "images/order.png",
-        "selectedIconPath": "images/order-sel.png"
+        "iconPath": "images/sort.png",
+        "selectedIconPath": "images/sort-sel.png"
       },
       {
         "text": "进货单",
