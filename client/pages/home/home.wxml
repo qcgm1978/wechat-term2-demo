@@ -1,4 +1,12 @@
 <image src='/images/bg.png' class='bg'></image>
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+
+  <view class='center-center store'>
+    <image src='./img/ic_addressWHITE@2x.png' class='icon-wares'></image>
+    <text class='light icon-txt' style='color: #fff;'>河南省焦作市美丽夫妻店</text>
+    <image src='./img/ic_xiala @2x.png' style='width:15rpx;height:10rpx;'></image>
+  </view>
+</picker>
 <swiper indicator-dots="{{true}}" class='hot-card' autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}">
   <block>
     <swiper-item style='display:flex;'>
@@ -17,44 +25,24 @@
     </swiper-item>
   </block>
 </swiper>
-<view class='title regular'>积惠宝买家入驻</view>
-<view class='flow-container'>
-  <view class='flow center reqular'>
-    <view class='column'>
-      <image src='./img/ic-home-normol-check.png'></image>
-      <text>通过审核</text>
-    </view>
-    <view class='flow-line'></view>
-    <view class='column'>
-      <image src='./img/ic-home-normal-jihuibao buyer.png'></image>
-      <text>成为积惠宝正式买家</text>
-    </view>
-    <view class='flow-line'></view>
-
-    <view class='column'>
-      <image src='./img/ic-home-normal-discounts.png'></image>
-      <text>享受各种平台优惠</text>
-    </view>
-  </view>
-  <view class='center check-container'>
-    <view catch:tap="callPhone" class='check medium'>马上入驻</view>
-  </view>
-
+<view class='center-center'>
+  <image src='./img/hot@2x.png' class='icon-wares'></image>
+  <text class='light icon-txt'>畅销商品</text>
 </view>
 
-<!-- <view class='list-title'> -->
-<!-- <image class='list-title-line' src='/images/line-black.png'></image> -->
-<view class='title regular'>畅销商品</view>
-<!-- </view> -->
-
-<view class='product-row' wx:for='{{productList}}' wx:key='id' wx:if='{{index%3 === 1}}'>
-  <navigator class='product-card' wx:for='{{[productList[index], productList[index+1],productList[index+2]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?id={{pitem.id}}">
+<view class='product-row' wx:for='{{productList}}' wx:key='id' wx:if='{{index%2=== 1}}'>
+  <navigator class='product-card' wx:for='{{[productList[index], productList[index+1]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?id={{pitem.id}}">
     <image class='product-image' src='{{pitem.image}}' mode='scaleToFill'></image>
-    <!-- <view class='product-name'>{{pitem.name}}</view>
+    <view class='product-name'>{{pitem.name}}</view>
     <view class='product-meta'>
-      <view class='product-money'>￥</view>
-      <view class='product-price'>{{pitem.price}}</view>
-      <view class='product-add' catchtap='addToTrolley' data-id="{{pitem.id}}">+</view>
-    </view> -->
+      <!-- <view class='product-money'>￥</view> -->
+      <view class='product-price'>￥{{pitem.price}}
+        <text class='minus'>满减</text>
+      </view>
+
+      <view class='product-add center-center' catchtap='addToTrolley' data-id="{{pitem.id}}">
+        <text>+</text>
+      </view>
+    </view>
   </navigator>
 </view>

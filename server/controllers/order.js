@@ -8,9 +8,9 @@ module.exports = {
       ctx.state.data = 'no data'
     } else {
 
-      const result = await DB.query('SELECT * FROM get_order WHERE orderId = ?', [orderId]);
-      const orderItem = await DB.query('SELECT * FROM order_items WHERE orderId = ?', [orderId]) || []
-      const payment = await DB.query('SELECT * FROM payment WHERE orderId = ?', [orderId]) || []
+      // const result = await DB.query('SELECT * FROM get_order WHERE orderId = ?', [orderId]);
+      // const orderItem = await DB.query('SELECT * FROM order_items WHERE orderId = ?', [orderId]) || []
+      // const payment = await DB.query('SELECT * FROM payment WHERE orderId = ?', [orderId]) || []
       // ctx.state.result = { ...result['0'], ...payment['0'], orderItem };
       ctx.state.result = {
         "orderId": "123456",

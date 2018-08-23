@@ -20,7 +20,7 @@ module.exports = async function (ctx, next) {
         // debugger;
         ctx.body = ctx.body ? ctx.body : {
             status: ctx.state.status !== undefined ? ctx.state.status : 200,
-            result: ctx.state.result !== undefined ? ctx.state.result : {}
+            result: ctx.state.result !== undefined ? ctx.state.result : (ctx.state.data || {})
         }
     } catch (e) {
         console.log(e)

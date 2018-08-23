@@ -20,14 +20,16 @@ Page({
     wx.showLoading({
       title: '商品数据加载中...',
     })
+
     qcloud.request({
       url: config.service.productList,
       success: result => {
         wx.hideLoading()
-        let data = result.data;
-        if (data.status===200) {
+
+        let data = result.data
+        if (!data.code) {
           this.setData({
-            productList: data.result
+            productList: data.data
           })
         } else {
           wx.showToast({

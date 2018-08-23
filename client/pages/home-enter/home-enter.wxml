@@ -1,0 +1,60 @@
+<image src='/images/bg.png' class='bg'></image>
+<swiper indicator-dots="{{true}}" class='hot-card' autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}">
+  <block>
+    <swiper-item style='display:flex;'>
+      <image src="/images/logo.png" class="slide-image" style="height: 78rpx;width: 263rpx;margin: auto;" />
+    </swiper-item>
+    <swiper-item style='display:flex;'>
+      <view>
+        <view class='hot-name'>
+          <image class='hot-name-line' src='/images/line-red.png'></image>
+          <view class='hot-name-text'>{{productList[0].name}}</view>
+          <image class='hot-name-line' src='/images/line-red.png'></image>
+        </view>
+        <image class='hot-info' src='/images/discount.png'></image>
+        <image class='hot-image' src='{{productList[0].image}}'></image>
+      </view>
+    </swiper-item>
+  </block>
+</swiper>
+<view class='title regular'>积惠宝买家入驻</view>
+<view class='flow-container'>
+  <view class='flow center reqular'>
+    <view class='column'>
+      <image src='./img/ic-home-normol-check.png'></image>
+      <text>通过审核</text>
+    </view>
+    <view class='flow-line'></view>
+    <view class='column'>
+      <image src='./img/ic-home-normal-jihuibao buyer.png'></image>
+      <text>成为积惠宝正式买家</text>
+    </view>
+    <view class='flow-line'></view>
+
+    <view class='column'>
+      <image src='./img/ic-home-normal-discounts.png'></image>
+      <text>享受各种平台优惠</text>
+    </view>
+  </view>
+  <view class='center check-container'>
+    <view catch:tap="callPhone" class='check medium'>马上入驻</view>
+  </view>
+
+</view>
+
+<!-- <view class='list-title'> -->
+<!-- <image class='list-title-line' src='/images/line-black.png'></image> -->
+<view class='title regular'>畅销商品</view>
+<!-- </view> -->
+
+<view class='product-row' wx:for='{{productList}}' wx:key='id' wx:if='{{index%3 === 1}}'>
+  <navigator class='product-card' wx:for='{{[productList[index], productList[index+1],productList[index+2]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?id={{pitem.id}}">
+    <image class='product-image' src='{{pitem.image}}' mode='scaleToFill'></image>
+    <!-- <view class='product-name'>{{pitem.name}}</view>
+    <view class='product-meta'>
+      <view class='product-money'>￥</view>
+      <view class='product-price'>{{pitem.price}}</view>
+      <view class='product-add' catchtap='addToTrolley' data-id="{{pitem.id}}">+</view>
+    </view> -->
+  </navigator>
+</view>

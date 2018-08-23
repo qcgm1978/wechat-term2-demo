@@ -15,6 +15,9 @@
   align-items: center;
   justify-content: center;
 }
+.light {
+  font-family: PingFang-SC-Light, 'Source Han Sans CN Light', 'Noto Sans CJK SC Light';
+}
 
 .regular {
   font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular', 'Noto Sans CJK SC Regular';
