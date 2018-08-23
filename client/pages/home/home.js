@@ -2,14 +2,16 @@
 // const io = require('/socket.io/socket.io.js')
 const getUserInfo = require('./getUserInfo').default;
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
-const config = require('../../config.js')
-
+const config = require('../../config.js');
+import {Api} from '../../utils/envConf.js';
+import {getRequest} from '../../utils/util.js'
+const globalData = getApp().globalData
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    stores: ['河南省焦作市美丽夫妻店'],
+    stores: [],
     productList: [], // 商品列表
   },
   callPhone(evt) {
@@ -76,7 +78,7 @@ Page({
             });
             wx.setTabBarBadge({
               index: 2,
-              text: ++getApp().globalData.badge+''
+              text: ++globalData.badge+''
             });
           } else {
             wx.showToast({
@@ -103,10 +105,27 @@ Page({
    */
   onLoad: function(options) {
     this.getProductList();
+    this.getMerchant();
     // this.onLaunch()
     // wx.hideTabBar();
   },
-
+  getMerchant(){
+    getRequest(Api.getMerchant,{
+      merchantId: globalData.merchantId
+    })
+      .then((data) => {
+        this.setData({
+          stores: ['河南省焦作市美丽夫妻店'],
+        });
+      })
+      .catch(err => {
+        wx.showToast({
+          title: '获取商户失败',
+          icon: 'none',
+          duration: 2000
+        })
+      })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

@@ -4,7 +4,7 @@ const EVN = {
   "PRO" : 2
 }
 
-var env = EVN.LOCAL   //update this value for different env
+var env = EVN.DEV   //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -13,8 +13,8 @@ var clientSecret = ""
 switch (env) {
   case EVN.DEV:
     clientSecret = "Rn2eJRBN0cDEXSBl"
-    baseUrl = "https://dev.jhdmall.com/weapp/member"
-    addrUrl = "https://dev.jhdmall.com/weapp/address"
+    baseUrl = "http://dev.jhdmall.com/weapp"
+    addrUrl = "http://dev.jhdmall.com/weapp"
     break;
   case EVN.LOCAL:{
     baseUrl ='http://localhost:5757';
@@ -38,9 +38,10 @@ switch (env) {
 }
 const apiURLs = {
   getOrder: `${baseUrl}/v1/order/{merchantId}/{orderId}`,
-  getOrderList:`/v1/order/list`,
+  getOrderList: `${baseUrl}/v1/order/list`,
+  getMerchant: `${baseUrl}/merchant/{merchantId}`,
 
-  backendUrlLogin: baseUrl + '/v1/auth/wechat',
+  backendUrlLogin: baseUrl + '/auth/wechat',
   backendUrlUserInfo: baseUrl + '/v1/members/',
   backendUrlRefreshToken: baseUrl + '/v1/auth/refresh',
   backendUrlRegister: baseUrl + '/v1/members/',
@@ -52,7 +53,7 @@ const apiURLs = {
   backendUrlPayCodeToken: baseUrl + '/v1/barcode/',
 
   backendUrlPhoneLogin: baseUrl + '/v1/sms/login',
-  backendUrlVerifyCode: baseUrl + '/v1/sms/',
+  backendUrlVerifyCode: baseUrl + '/auth/sms/',
 
   backendUrlAddress: addrUrl + '/v1/address',
   backendUrlQRCode: baseUrl + '/v1/qrCodeUrl/get/',

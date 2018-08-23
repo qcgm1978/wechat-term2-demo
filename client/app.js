@@ -11,6 +11,7 @@ App({
   ...getUserInfo,
   ...websocket,
   globalData: {
+    merchantId:0,
     badge: 0,
     systemInfo: {},
     // getApp().globalData.systemInfo.windowHeight

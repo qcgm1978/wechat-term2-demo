@@ -5,6 +5,8 @@ var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 var payCode = require("../../utils/payCodeGen.js");
 var memeberStatus = require("../../utils/index.js").config.memeberStatus;
 const clientSecret = require("../../utils/envConf.js").clientSecret
+import appUtil from '../../app-util.js'
+
 const app = getApp()
 const appId = config.appId
 const secret = config.secret
@@ -26,6 +28,7 @@ const wechatBtn = '微信快速授权登录'
 const phoneBtn = '输入手机号登录'
 
 Page({
+  // ...appUtil,
   data: {
     dialogFlag: true,
     clientSecret: clientSecret,
@@ -89,14 +92,14 @@ Page({
       url: backendUrlLogin,
       method: "POST",
       data: {
-        iv: iv,
-        jsCode: getApp().globalData.token.jscode,
+        // iv: iv,
+        jsCode: appUtil.globalData.token.jscode,
 
         ivForPhoneNumber: iv,
         encryptedPhoneNumber: encryptedData,
 
-        ivForUserInfo: getApp().globalData.userInfo.iv,
-        encryptedUserInfo: getApp().globalData.userInfo.encryptedData,
+        // ivForUserInfo: getApp().globalData.userInfo.iv,
+        // encryptedUserInfo: getApp().globalData.userInfo.encryptedData,
       },
       header: {
         'content-type': 'application/json',
@@ -230,7 +233,10 @@ Page({
     this.decryptPhoneNumber.tokenRefreshed = false
     this.checkAndRegisterUser.tokenRefreshed = false
     this.saveRegisteredUser.tokenRefreshed = false
-
+    wx.showLoading({
+      title: '加载中',
+    })
+    appUtil.getJsCode()
   },
 
   checkAndRegisterUser: function () {
