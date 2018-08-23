@@ -1,11 +1,16 @@
 page {
   background: rgb(235, 235, 235);
 }
+.order-arrow{
+  width: 18rpx;
+  height: 33rpx;
+  margin-right:55rpx;
 
+}
 .container-detail {
   /* height: 950rpx; */
   background-color: #fff;
-  margin: 0 auto 140rpx;
+  margin: 0 auto 272rpx;
   /* width: 670rpx; *//* border-radius: 20rpx; */
   padding-left: 39rpx;
 }
@@ -44,17 +49,19 @@ page {
 }
 
 .name {
-  font-size: 30rpx;
+  font-size: 32rpx;
+  color: rgb(85,85,85);
 }
 
 .name-txt {
   font-size: 26rpx;
+  color:rgb(144,144,144);
 }
 
 .icon {
   width: 70rpx;
   height: 70rpx;
-  margin: 16rpx;
+  margin: auto 22rpx auto 16rpx;
 }
 
 .row {
