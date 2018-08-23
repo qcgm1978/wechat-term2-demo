@@ -1,9 +1,9 @@
 <image src='/images/bg.png' class='bg'></image>
-<picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{stores}}">
 
   <view class='center-center store'>
     <image src='./img/ic_addressWHITE@2x.png' class='icon-wares'></image>
-    <text class='light icon-txt' style='color: #fff;'>河南省焦作市美丽夫妻店</text>
+    <text class='light icon-txt' style='color: #fff;'>{{stores[0]}}</text>
     <image src='./img/ic_xiala @2x.png' style='width:15rpx;height:10rpx;'></image>
   </view>
 </picker>

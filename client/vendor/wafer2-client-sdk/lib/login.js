@@ -105,8 +105,8 @@ var login = function login(options) {
                 var data = result.data;
 
                 // 成功地响应会话信息
-                if (data && data.code === 0 && data.data.skey) {
-                    var res = data.data
+                if (data && data.status === 200 && data.result.skey) {
+                    var res = data.result
                     if (res.userinfo) {
                         Session.set(res.skey);
                         options.success(userInfo);

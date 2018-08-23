@@ -9,6 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    stores: ['河南省焦作市美丽夫妻店'],
     productList: [], // 商品列表
   },
   callPhone(evt) {
@@ -72,7 +73,11 @@ Page({
           if (!data.code) {
             wx.showToast({
               title: '已添加到购物车',
-            })
+            });
+            wx.setTabBarBadge({
+              index: 2,
+              text: ++getApp().globalData.badge+''
+            });
           } else {
             wx.showToast({
               icon: 'none',

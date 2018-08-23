@@ -8,14 +8,10 @@ const websocket = require('./pages/home/ws').default;
 let userInfo
 
 App({
-
   ...getUserInfo,
   ...websocket,
-  // globalData: {
-  //   userInfo: null,
-
-  // },
   globalData: {
+    badge: 0,
     systemInfo: {},
     // getApp().globalData.systemInfo.windowHeight
     // getApp().globalData.systemInfo.windowWidth
