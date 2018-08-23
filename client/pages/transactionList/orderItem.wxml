@@ -1,0 +1,45 @@
+<template name="orderItem">
+<navigator url='{{"../transactionDetail/transactionDetail?transId="+item.transactionId+"&notPaid="+hidePaid}}'>
+<view class='item-container-bg' style='width:{{windowWidth-60}}rpx;'></view>
+<view class='item-container-fg' style='width:{{windowWidth-60}}rpx'>
+
+  <view style='display: flex; flex-direction: row;'>
+    <view class="trade-title-black" style=' margin-left: 40rpx;margin-bottom:0rpx;'>支付方式：</view>
+    <view class="trade-title-black" style=' margin-bottom:0rpx;'>{{item.financialType}}</view>
+  </view>
+
+  <view class='item-trans-shop-number'>
+    <view style='display: flex; flex-direction: row;'>
+      <view class="trade-detail-gray">交易门店：</view>
+      <view class="trade-detail-gray">{{item.transShop}}</view>
+    </view>
+    <view class='item-number-view'>
+      <view class="trade-detail-gray">商品数量：</view>
+      <view class="trade-detail-gray">{{item.itemNumber}}</view>
+    </view>
+  </view>
+
+  <view class='item-trans-shop-number'>
+    <view style='display: flex; flex-direction: row;'>
+      <view class="trade-detail-gray">交易编号：</view>
+      <view class="trade-detail-gray">{{item.transactionId}}</view>
+    </view>
+    <view class='net-amount'>
+      <view class="trade-detail-gray">实付金额：</view>
+      <view class="iconfont icon-rmb trade-title-orange">{{item.netAmount}}</view>
+    </view>
+  </view>
+
+  <view class='item-trans-shop-number'>
+    <view style='display: flex; flex-direction: row;'>
+      <view class="trade-detail-gray">{{item.timestamp}}</view>
+    </view>
+    <view class='earned-point'>
+      <view class="trade-detail-gray">奖励积分：</view>
+      <view class="trade-detail-orange">{{item.earnedPoint}}</view>
+    </view>
+  </view>
+
+</view>
+</navigator>
+</template>

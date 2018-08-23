@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/transactionList/transactionList",
     "pages/login/login",
     "pages/home/home",
     "pages/phoneLogin/phoneLogin",
@@ -33,7 +34,7 @@
       },
       {
         "text": "分类",
-        "pagePath": "pages/order/order",
+        "pagePath": "pages/transactionDetail/transactionDetail",
         "iconPath": "images/sort.png",
         "selectedIconPath": "images/sort-sel.png"
       },

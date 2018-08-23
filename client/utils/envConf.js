@@ -38,6 +38,7 @@ switch (env) {
 }
 const apiURLs = {
   getOrder: `${baseUrl}/v1/order/{merchantId}/{orderId}`,
+  getOrderList:`/v1/order/list`,
 
   backendUrlLogin: baseUrl + '/v1/auth/wechat',
   backendUrlUserInfo: baseUrl + '/v1/members/',

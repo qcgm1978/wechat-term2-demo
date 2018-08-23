@@ -1,0 +1,211 @@
+.btn {
+  margin-right: 30rpx;
+  width: 150rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  color: rgb(138, 138, 138);
+  font-size: 27rpx;
+  border-radius: 30rpx;
+  border-color: rgb(138, 138, 138);
+  border-width:2rpx;
+  border-style:solid;
+
+  background: rgb(255, 255, 255);
+}
+
+.top-balance-value {
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
+  color: rgb(235, 97, 15);
+  background: white;
+  font-size: 70rpx;
+  align-items: center;
+}
+
+.top-balance-lable {
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular', 'Noto Sans CJK SC Regular';
+  color: rgb(235, 97, 15);
+  background: white;
+  font-size: 32rpx;
+  margin-left: 60rpx;
+}
+
+.line-gray {
+  height: 1rpx;
+  background: rgb(139, 139, 141);
+  align-self: center;
+  z-index: 0;
+}
+
+.trade-title-black {
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
+  color: rgb(19, 19, 19);
+  font-size: 32rpx;
+}
+
+.trade-title-orange {
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
+  color: rgb(235, 97, 15);
+  font-size: 30rpx;
+  position: absolute;
+  width: 165rpx;
+  top: -2rpx;
+  left: 125rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.trade-title-blue {
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
+  color: rgb(0, 106, 182);
+  font-size: 40rpx;
+}
+
+.trade-detail-gray {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  color: rgb(122, 122, 122);
+  font-size: 26rpx;
+}
+
+.trade-detail-orange {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  color: rgb(235, 97, 15);
+  font-size: 26rpx;
+}
+
+.bottom-gray {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  color: rgb(139, 139, 141);
+  font-size: 28rpx;
+}
+
+.logo {
+  width: 328rpx;
+  height: 244rpx;
+  align-self: center;
+  margin-top: 168rpx;
+  margin-bottom: 22rpx;
+}
+
+.container-fg {
+  background-color: white;
+  width: 100%;
+  position: absolute;
+  z-index: 10;
+  top: 102rpx;
+  left: 0;
+}
+
+.tab {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  font-size: 30rpx;
+  height: 82rpx;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  margin-top: 1rpx;
+}
+
+.unselect {
+  color: rgb(51, 51, 51);
+}
+
+.select {
+  color: rgb(235, 97, 18);
+}
+
+.item-container {
+  background-color: rgb(238, 238, 238);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.item-container-bg {
+  background-color: rgb(255, 255, 255);
+  border-radius: 5px;
+  height: 260rpx;
+  align-self: center;
+  margin: 15rpx auto 0;
+}
+
+.item-container-fg {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 30rpx;
+  top: 40rpx;
+}
+
+.item-trans-shop-number {
+  display: flex;
+  margin-top: 19rpx;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  position: relative;
+}
+
+.net-amount {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 360rpx;
+  top: 0;
+}
+
+.earned-point {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 360rpx;
+  top: 0;
+}
+
+.footer-container-no-msg {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: rgb(255, 255, 255);
+}
+
+.footer-container-no-item-msg {
+  align-self: center;
+  margin-bottom: 700rpx;
+  font-size: 34rpx;
+  color: rgb(154, 156, 155);
+  z-index: 1;
+}
+
+.footer-container-has-msg {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  background: rgb(236, 236, 236);
+  padding-top: 94rpx;
+  padding-bottom: 94rpx;
+}
+
+.footer-container-has-msg-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  align-self: center;
+  z-index: 100;
+  background: rgb(236, 236, 236);
+  padding: 0 40rpx;
+}
+
+.item-number-view {
+  display: flex;
+  flex-direction: row;
+  position: absolute;
+  left: 360rpx;
+  top: 0;
+}
