@@ -22,7 +22,7 @@ module.exports = {
           "paymentId": null,
           "paymentMethod": "COD",
           "paymentTime": "2018-08-21 13:25:45",
-          "usePoint": 10,
+          "usePoint": 0,
           "cashAmount": 8
         },
         "orderItem": [
