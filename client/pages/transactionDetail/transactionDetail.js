@@ -76,7 +76,7 @@ Page({
     //   return
     // }
     let requestData = null;
-    if (!isNaN(orderId) || merchantId===undefined) {
+    if (isNaN(orderId) || merchantId===undefined) {
       requestData = Promise.resolve()
     } else {
       requestData = utils.getRequest(getOrder,{orderId,merchantId});

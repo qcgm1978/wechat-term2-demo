@@ -75,7 +75,7 @@
 					"id": 6,
 					"name": "transactionDetail",
 					"pathName": "pages/transactionDetail/transactionDetail",
-					"query": "orderId=123&merchantId=456&notPaid=false"
+					"query": "orderId=123456&merchantId=456&notPaid=false"
 				}
 			]
 		}

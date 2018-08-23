@@ -31,7 +31,7 @@
                   <image src='{{item.itemIcon}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;"></image>
                   <view>
                     <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
-                    <text class='darker-gray-chars regular item-standard'>规格：{{item.standard}}</text>
+                    <text class='darker-gray-chars regular item-standard'>规格：{{item.itemSpecification}}</text>
                   </view>
                   <!-- <view class='darker-gray-chars' style=' margin-left:20rpx;' hidden='{{isToPay}}'>{{item.itemId}}</view> -->
                 </view>

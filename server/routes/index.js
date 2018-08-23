@@ -59,6 +59,6 @@ router.put('/comment', validationMiddleware, controllers.comment.add)
 // 获取评论列表
 router.get('/comment', controllers.comment.list)
 
-router.get('/v1/order/:orderId/:merchantId', controllers.order.detail)
+router.get('/v1/order/:merchantId/:orderId', controllers.order.detail)
 
 module.exports = router
