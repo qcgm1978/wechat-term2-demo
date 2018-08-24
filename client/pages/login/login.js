@@ -7,7 +7,8 @@ var memeberStatus = require("../../utils/index.js").config.memeberStatus;
 const clientSecret = require("../../utils/envConf.js").clientSecret
 import appUtil from '../../app-util.js'
 
-const app = getApp()
+const app = getApp();
+let globalData = app.globalData;
 const appId = config.appId
 const secret = config.secret
 
@@ -107,7 +108,7 @@ Page({
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
-          console.log(res)
+          console.log(res.data.message)
           if (res.statusCode == ACCESS_TOCKEN_EXPIRED && !this.decryptPhoneNumber.tokenRefreshed) {
             //console.log("ACCESS_TOCKEN_EXPIRED " + iv)
             this.gotoMember()
@@ -134,55 +135,60 @@ Page({
             })
           }
         } else {
-          getApp().globalData.token.accessToken = res.data.result.token.accessToken
-          getApp().globalData.token.refreshToken = res.data.result.token.refreshToken
-          getApp().globalData.userInfo.registerStatus = true
-          getApp().globalData.userInfo.savedInDBStatus = res.data.result.registrationStatus
-          getApp().globalData.userInfo.memberId = res.data.result.memberId
-          getApp().globalData.userInfo.mobile = res.data.result.phoneNumber;
+          globalData.authWechat = res.data.result;
+          wx.setStorage({
+            key: "authWechat",
+            data: res.data.result
+          })
+          // getApp().globalData.token.accessToken = res.data.result.token.accessToken
+          // getApp().globalData.token.refreshToken = res.data.result.token.refreshToken
+          // getApp().globalData.userInfo.registerStatus = true
+          // getApp().globalData.userInfo.savedInDBStatus = res.data.result.registrationStatus
+          // getApp().globalData.userInfo.memberId = res.data.result.memberId
+          // getApp().globalData.userInfo.mobile = res.data.result.phoneNumber;
           // getApp().globalData.isWechatLogin = true;
-          wx.setStorage({
-            key: "isWechatLogin",
-            data: true
-          })
-          wx.setStorage({
-            key: "jscode",
-            data: getApp().globalData.token.jscode
-          })
-          wx.setStorage({
-            key: "accessToken",
-            data: getApp().globalData.token.accessToken
-          })
-          wx.setStorage({
-            key: "refreshToken",
-            data: getApp().globalData.token.refreshToken
-          })
-          wx.setStorage({
-            key: "registerStatus",
-            data: getApp().globalData.userInfo.registerStatus
-          })
-          wx.setStorage({
-            key: "memberId",
-            data: getApp().globalData.userInfo.memberId
-          })
-          wx.setStorage({
-            key: "mobile",
-            data: getApp().globalData.userInfo.mobile
-          })
-          payCode.getPayCodeToken()
-            .then((data) => {
-              this.checkAndRegisterUser()
-            })
-            .catch((err) => {
-              console.log(err)
-              switch (err) {
-                case INVALID_USER_STATUS:
-                  getCurrentPages()[0].invalidUserMessage()
-                  break
-                default:
-                  break
-              }
-            })
+          // wx.setStorage({
+          //   key: "isWechatLogin",
+          //   data: true
+          // })
+          // wx.setStorage({
+          //   key: "jscode",
+          //   data: getApp().globalData.token.jscode
+          // })
+          // wx.setStorage({
+          //   key: "accessToken",
+          //   data: getApp().globalData.token.accessToken
+          // })
+          // wx.setStorage({
+          //   key: "refreshToken",
+          //   data: getApp().globalData.token.refreshToken
+          // })
+          // wx.setStorage({
+          //   key: "registerStatus",
+          //   data: getApp().globalData.userInfo.registerStatus
+          // })
+          // wx.setStorage({
+          //   key: "memberId",
+          //   data: getApp().globalData.userInfo.memberId
+          // })
+          // wx.setStorage({
+          //   key: "mobile",
+          //   data: getApp().globalData.userInfo.mobile
+          // })
+          // payCode.getPayCodeToken()
+          //   .then((data) => {
+          //     this.checkAndRegisterUser()
+          //   })
+          //   .catch((err) => {
+          //     console.log(err)
+          //     switch (err) {
+          //       case INVALID_USER_STATUS:
+          //         getCurrentPages()[0].invalidUserMessage()
+          //         break
+          //       default:
+          //         break
+          //     }
+          //   })
         }
       },
       fail: e => {
@@ -203,14 +209,15 @@ Page({
   },
 
 
-  getPhoneNumber: function (e) {
+  getPhoneNumber(e) {
+
     // console.log('tap')
     if (e.detail.iv && e.detail.encryptedData) {
       this.setData({
         loadingState: true,
       });
       this.decryptPhoneNumber(e.detail.iv, e.detail.encryptedData)
-    }else{
+    } else {
       // todo 目前该接口针对非个人开发者，且完成了认证的小程序开放
       // temp mock demo getUserInfo
       // this.onTapLogin()
@@ -222,7 +229,7 @@ Page({
       success: ({
         userInfo
       }) => {
-        
+
         wx.switchTab({
           url: '/pages/home/home',
         })
@@ -237,6 +244,7 @@ Page({
       title: '加载中',
     })
     appUtil.getJsCode()
+
   },
 
   checkAndRegisterUser: function () {
@@ -350,8 +358,7 @@ Page({
             }
           })
         })
-        .catch((err) => {
-        })
+        .catch((err) => { })
     }
   },
 

@@ -2,14 +2,18 @@
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
   <view style='background-color:rgb(236,236,236); width:100%; height:{{windowHeight}}rpx; z-index: 1;'></view>
   <view class='tab' bindtap='toggleTab'>
-    <text style="flex-grow: 1;" class='{{toPayColor}}' data-color='{{toPayColor}}' data-type='toPayColor'>待支付</text>
-    <text style="flex-grow: 1;" class='{{payedColor}}' data-color='{{payedColor}}' data-type='payedColor'>已支付</text>
+    <text style="flex-grow: 1;" class='{{toPayColor}}' data-color='{{toPayColor}}' data-type=''>全部</text>
+    <text style="flex-grow: 1;" class='{{payedColor}}' data-color='{{payedColor}}' data-type='1'>待发货</text>
+    <text style="flex-grow: 1;" class='{{payedColor}}' data-color='{{payedColor}}' data-type='2'>已发货</text>
+    <text style="flex-grow: 1;" class='{{payedColor}}' data-color='{{payedColor}}' data-type='3'>已拒收</text>
+    <text style="flex-grow: 1;" class='{{payedColor}}' data-color='{{payedColor}}' data-type='4'>已完成</text>
   </view>
+
 
   <view class='container-fg' hidden='{{!hidePaid}}'>
 
-     <view class='item-container' wx:for="{{transListToPay}}" wx:key="index" wx:if='{{!item.toRemove}}'  > 
-    <!-- <navigator url='{{"../transactionDetail/transactionDetail?transId=${e.currentTarget.dataset.transId}&notPaid="}}'> -->
+    <view class='item-container' wx:for="{{transListToPay}}" wx:key="index" wx:if='{{!item.toRemove}}'>
+      <!-- <navigator url='{{"../transactionDetail/transactionDetail?transId=${e.currentTarget.dataset.transId}&notPaid="}}'> -->
       <template is="orderItem" data="{{item,windowWidth,windowHeight,hidePaid}}"></template>
 
 
@@ -18,8 +22,8 @@
         <button class='btn' catchtap='removeOrder' data-index='{{index}}'>取消</button>
         <button class='btn' style="color: rgb(235,97,18);border-color: rgb(235,97,18);background: rgb(255,255,255);" data-trans-id="{{item.transactionId}}" bindtap="goTransDetails">去支付</button>
       </view>
-    <!-- </navigator> -->
-     </view> 
+      <!-- </navigator> -->
+    </view>
 
     <view class="container footer-container-no-msg" wx:if='{{transListToPay.length==0 && loadCompleted }}'>
       <view class="line" style='height:1rpx; z-index: 1;'></view>
@@ -40,31 +44,5 @@
       </view>
     </view>
   </view>
-  <view class='container-fg' hidden='{{hidePaid}}'>
 
-    <view class='item-container' wx:for="{{transList}}" wx:key="index" data-trans-id="{{item.transactionId}}" bindtap="goTransDetails">
-      <template is="orderItem" data="{{item,windowWidth,windowHeight,hidePaid}}"></template>
-
-    </view>
-
-    <view class="container footer-container-no-msg" wx:if='{{transList.length==0 && loadCompleted }}'>
-      <view class="line" style='height:1rpx; z-index: 1;'></view>
-      <image class='logo' style=' z-index: 1; position：absolute; top: 0; left:0;' src="{{homeLogo}}"></image>
-      <view class='footer-container-no-item-msg' style='display:flex; flex-direction: column;'>
-        <view style='align-self:center;'>您还没有交易记录哦</view>
-        <view style='align-self:center;'>只支持2018年7月6日之后的数据查询</view>
-      </view>
-
-    </view>
-
-    <view class='footer-container-has-msg' wx:else>
-      <view class="line-gray" style='width:{{windowWidth-60}}rpx; '></view>
-      <view class="line-gray" style='width:{{windowWidth-60}}rpx;'></view>
-
-      <view class="bottom-gray footer-container-has-msg-content" style='display: flex; flex-direction: column; width: 480rpx;'>
-        <view style='align-self: center;'>{{dataMessage}}</view>
-        <view style='align-self: center;width: 480rpx;'>(只支持2018年7月6日之后的数据查询)</view>
-      </view>
-    </view>
-  </view>
 </view>

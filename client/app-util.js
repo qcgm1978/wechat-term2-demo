@@ -85,7 +85,7 @@ export default {
     }
   },
   //function should be called when member in logout state
-  getJsCode: function () {
+  getJsCode() {
     if (this.globalData.token.jscode) {
       wx.checkSession({
         success: () => {
@@ -102,13 +102,12 @@ export default {
     }
   },
 
-  login: function () {
+  login () {
     return new Promise((resolve, reject) => {
       wx.login({
         success: res => {
           if (res.code) {
             this.globalData.token.jscode = res.code
-
             try {
               wx.setStorageSync('jscode', res.code)
             } catch (e) { }

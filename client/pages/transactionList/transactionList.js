@@ -87,11 +87,14 @@ Page({
     var promise = new Promise((resolve, reject) => {
      
 
-      if (!getApp().globalData.userInfo.memberId) {
+      if (!getApp().globalData.merchantId) {
         this.setData({
           loginStatus: false,
-        })
-        resolve(0)
+        });
+        // todo test data
+        utils.getRequest('../data/get-order.json')
+          .then(resolve.bind(data))
+        return 
       }
 
      
@@ -250,7 +253,7 @@ Page({
         wx.hideLoading()
 
         wx.stopPullDownRefresh()
-        if (this.data[isToPay ? 'noMoreDataToPay' : 'noMoreData']) {
+        if (this.data.isLast) {
           this.setData({
             ['dataMessage']: NO_MORE_DATA
           })
@@ -276,6 +279,7 @@ Page({
             ['dataMessage']: PULL_TO_REFRESH
           })
         }
+        getApp().failRequest('订单');
       })
   },
   //加载更多

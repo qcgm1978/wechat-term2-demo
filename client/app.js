@@ -19,6 +19,13 @@ App({
     token: {},
     userInfo: {}
   },
+  failRequest(info ='商户'){
+    wx.showToast({
+      title: `获取${info}失败`,
+      icon: 'none',
+      duration: 2000
+    })
+  },
   onLaunch: function(options) {
     wx.setEnableDebug({
       enableDebug: true

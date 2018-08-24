@@ -16,7 +16,7 @@
     "pages/memberDetail/memberDetail"
   ],
   "window": {
-    "backgroundColor": "#F0F1F5",
+    "backgroundColor": "rgb(238,239,244)",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#ec6515",
     "navigationBarTitleText": "Wafer Quick Start",

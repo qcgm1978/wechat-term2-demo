@@ -119,11 +119,7 @@ Page({
         });
       })
       .catch(err => {
-        wx.showToast({
-          title: '获取商户失败',
-          icon: 'none',
-          duration: 2000
-        })
+        getApp().failRequest()
       })
   },
   /**

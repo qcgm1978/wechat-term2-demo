@@ -89,11 +89,11 @@
 }
 
 .container-fg {
-  background-color: white;
+  /* background-color: white; */
   width: 100%;
   position: absolute;
   z-index: 10;
-  top: 102rpx;
+  top: 80rpx;
   left: 0;
 }
 
@@ -105,7 +105,7 @@
   display: flex;
   font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   font-size: 30rpx;
-  height: 82rpx;
+  height: 80rpx;
   align-items: center;
   background-color: rgb(255, 255, 255);
   margin-top: 1rpx;
@@ -172,6 +172,8 @@
   flex-direction: column;
   position: relative;
   background: rgb(255, 255, 255);
+  padding-top:10rpx;
+
 }
 
 .footer-container-no-item-msg {
