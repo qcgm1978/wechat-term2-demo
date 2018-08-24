@@ -12,7 +12,7 @@ const { auth: { authorizationMiddleware, validationMiddleware } } = require('../
 
 // --- 登录与授权 Demo --- //
 // 登录接口
-router.get('/login', authorizationMiddleware, controllers.login)
+router.get('/login', authorizationMiddleware, controllers.login.login)
 // 用户信息接口（可以用来验证登录态）
 router.get('/user', validationMiddleware, controllers.user)
 
@@ -59,6 +59,6 @@ router.put('/comment', validationMiddleware, controllers.comment.add)
 // 获取评论列表
 router.get('/comment', controllers.comment.list)
 
-router.get('/v1/order/:merchantId/:orderId', controllers.order.detail)
+router.post('/auth/wechat', controllers.login.wechat)
 
 module.exports = router

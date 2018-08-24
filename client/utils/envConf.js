@@ -42,7 +42,7 @@ const apiURLs = {
   getOrderList: `${baseUrl}/v1/order/list`,
   getMerchant: `${devBaseUrl}/merchant/{merchantId}`,
   // todo temp set dev environment
-  backendUrlLogin: devBaseUrl + '/auth/wechat',
+  backendUrlLogin: `${baseUrl}/auth/wechat`,
 
   backendUrlUserInfo: baseUrl + '/v1/members/',
   backendUrlRefreshToken: baseUrl + '/v1/auth/refresh',
