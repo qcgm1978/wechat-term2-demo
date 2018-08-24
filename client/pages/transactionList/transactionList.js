@@ -29,6 +29,7 @@ const ITEM_COUNT_PER_PAGE = 10,
 
 Page({
   data: {
+    payStyle: globalData.payStyle,
     isToPay: true,
     hidePaid,
     payedColor,
@@ -37,7 +38,7 @@ Page({
     noMoreDataToPay: false,
     dataMessage: PULL_TO_REFRESH,
     dataMessageToPay: PULL_TO_REFRESH,
-    transList: [],
+    order: [],
     transListToPay: [],
     loadCompleted: false,
     homeLogo: "images/pic-no-deal.png",
@@ -45,7 +46,6 @@ Page({
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
   removeOrder(evt) {
-    // todo notify server to remove this order data 
     const obj = Object.assign({}, this.data.transListToPay);
     const selectData = obj[evt.target.dataset.index];
     selectData.toRemove = true;
@@ -92,9 +92,6 @@ Page({
         this.setData({
           loginStatus: false,
         });
-        // todo test data
-        // utils.getRequest('../data/get-order.json')
-          // .then(resolve.bind(data))
           console.log('not login')
         return 
       }
@@ -102,7 +99,7 @@ Page({
       utils.postRequest(url, postData)
         .then((data) => {
           const result = data.result;
-          if (this.data.transList.length + result.orders.length >= result.itemTotalCount) {
+          if (this.data.order.length + result.orders.length >= result.itemTotalCount) {
             this.setData({
               noMoreData: true,
               dataMessage: NO_MORE_DATA
@@ -110,7 +107,7 @@ Page({
           }
           
           this.setData({
-            transList:result.orders
+            order:result.orders
           })
           resolve()
         })

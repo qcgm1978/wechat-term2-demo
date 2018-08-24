@@ -1,45 +1,34 @@
 <template name="orderItem">
-<navigator url='{{"../transactionDetail/transactionDetail?transId="+item.transactionId+"&notPaid="+hidePaid}}'>
-<view class='item-container-bg' style='width:{{windowWidth-60}}rpx;'></view>
-<view class='item-container-fg' style='width:{{windowWidth-60}}rpx'>
+  <navigator url='{{"../transactionDetail/transactionDetail?transId="+item.transactionId+"&notPaid="+hidePaid}}'>
+    <view class='scroll-container' scroll-top="{{scrollTop}}">
 
-  <view style='display: flex; flex-direction: row;'>
-    <view class="trade-title-black" style=' margin-left: 40rpx;margin-bottom:0rpx;'>支付方式：</view>
-    <view class="trade-title-black" style=' margin-bottom:0rpx;'>{{item.financialType}}</view>
-  </view>
+      <view>
+        <scroll-view scroll-y="true" style='height: 330rpx;'>
+          <view class='item-container' wx:for="{{order.orderItem}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
+            <view class='item-container-bg'></view>
+            <view class='item-container-fg'>
 
-  <view class='item-trans-shop-number'>
-    <view style='display: flex; flex-direction: row;'>
-      <view class="trade-detail-gray">交易门店：</view>
-      <view class="trade-detail-gray">{{item.transShop}}</view>
-    </view>
-    <view class='item-number-view'>
-      <view class="trade-detail-gray">商品数量：</view>
-      <view class="trade-detail-gray">{{item.itemNumber}}</view>
-    </view>
-  </view>
+              <view style="display:flex;justify-content: space-between; margin: 0 40rpx ; ">
+                <view style="display: flex; flex-direction:row;">
+                  <image src='{{item.itemIcon}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;"></image>
+                  <view>
+                    <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
+                    <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                  </view>
+                  <!-- <view class='darker-gray-chars' style=' margin-left:20rpx;' hidden='{{isToPay}}'>{{item.itemId}}</view> -->
+                </view>
+                <view class='darker-gray-chars column' style="align-items: flex-end;">
+                  <text>￥{{item.unitPrice}}</text>
+                  <!-- <text style="text-decoration: line-through;">￥{{item.unitPrice}}</text> -->
+                  <text>x{{item.quantity}}</text>
+                </view>
+              </view>
 
-  <view class='item-trans-shop-number'>
-    <view style='display: flex; flex-direction: row;'>
-      <view class="trade-detail-gray">交易编号：</view>
-      <view class="trade-detail-gray">{{item.transactionId}}</view>
-    </view>
-    <view class='net-amount'>
-      <view class="trade-detail-gray">实付金额：</view>
-      <view class="iconfont icon-rmb trade-title-orange">{{item.netAmount}}</view>
-    </view>
-  </view>
 
-  <view class='item-trans-shop-number'>
-    <view style='display: flex; flex-direction: row;'>
-      <view class="trade-detail-gray">{{item.timestamp}}</view>
+            </view>
+          </view>
+        </scroll-view>
+      </view>
     </view>
-    <view class='earned-point'>
-      <view class="trade-detail-gray">奖励积分：</view>
-      <view class="trade-detail-orange">{{item.earnedPoint}}</view>
-    </view>
-  </view>
-
-</view>
-</navigator>
+  </navigator>
 </template>

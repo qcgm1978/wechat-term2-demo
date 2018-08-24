@@ -1,3 +1,4 @@
+@import '../transactionList/orderItem.wxss';
 .complete-login-content {
   align-self: center;
   position: absolute;
@@ -6,14 +7,7 @@
   transform: translate(-50%, -50%);
 }
 
-.total-money {
-  font-size: 24rpx;
-  color: #002f00;
-  letter-spacing: 0;
-  text-align: right;
-  line-height: 34rpx;
-  margin: 32rpx;
-}
+
 
 .copy {
   border: 3rpx solid #d1d1d2;
@@ -57,10 +51,7 @@
   color: rgb(153, 153, 153);
 }
 
-.darker-gray-chars {
-  font-size: 26rpx;
-  color: rgb(85, 85, 85);
-}
+
 
 .darkest-gray-chars {
   font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
@@ -165,33 +156,9 @@
   margin-right: 60rpx;
 }
 
-.item-container {
-  background-color:  #F7F8FA;
-  /* margin: 0 60rpx; */
-  height: 160rpx;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  /* margin-top:9rpx; */
-}
 
-.item-container-bg {
-  background-color: rgb(250, 250, 250);
-  border-radius: 5px;
-  width: 100%;
-  height: 160rpx;
-  align-self: center;
-  margin: 6rpx auto;
-}
 
-.item-container-fg {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  top: 25rpx;
-  left: 0;
-  width: 100%;
-}
+
 
 .item-number {
   display: flex;
@@ -206,7 +173,7 @@
   display: flex;
   justify-content: center;
   /* width: 560rpx; */
-  margin: 16rpx 32rpx;
+  margin: 5rpx 32rpx;
 }
 
 .money {
@@ -237,14 +204,6 @@
   margin: 10rpx 40rpx;
 }
 
-.item-name {
-  width: 340rpx;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  color: #333;
-}
 
-.item-standard {
-  color: #949494;
-}
+
+

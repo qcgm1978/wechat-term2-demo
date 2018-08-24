@@ -1,5 +1,5 @@
+<import src="../transactionList/orderItem.wxml" />
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
-  <!-- <view style='width:100%; height:{{windowHeight}}rpx; z-index: 1;'></view> -->
   <view id="main" class='main-view'>
     <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[order.orderStatus]}}</text>
     <view class='title'>
@@ -15,44 +15,11 @@
 
       </view>
     </view>
-    <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;position:relative;top:50rpx;">商品信息</view>
-    <view style="background:#fff;z-index:20;position:relative;top:50rpx;" scroll-top="{{scrollTop}}">
-
-      <view>
-        <!-- <image src='./images/Mask@3x.png' style="width: 100%;height: 10rpx;"></image> -->
-
-        <scroll-view scroll-y="true" style='height: 330rpx;'>
-          <view class='item-container' wx:for="{{order.orderItem}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
-            <view class='item-container-bg'></view>
-            <view class='item-container-fg'>
-
-              <view style="display:flex;justify-content: space-between; margin: 0 40rpx ; ">
-                <view style="display: flex; flex-direction:row;">
-                  <image src='{{item.itemIcon}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;"></image>
-                  <view>
-                    <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
-                    <text class='darker-gray-chars regular item-standard'>规格：{{item.itemSpecification}}</text>
-                  </view>
-                  <!-- <view class='darker-gray-chars' style=' margin-left:20rpx;' hidden='{{isToPay}}'>{{item.itemId}}</view> -->
-                </view>
-                <view class='darker-gray-chars column' style="align-items: flex-end;">
-                  <text>￥{{item.unitPrice}}</text>
-                  <!-- <text style="text-decoration: line-through;">￥{{item.unitPrice}}</text> -->
-                  <text>x{{item.quantity}}</text>
-                </view>
-              </view>
-
-
-            </view>
-          </view>
-        </scroll-view>
-      </view>
-    </view>
-
-
-
+    
+    <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
+    <template is="orderItem" data="{{order}}"></template>
   </view>
-  <view style="z-index: 10; width: 100%; margin-top:50rpx;">
+  <view style="z-index: 10; width: 100%; margin-top:5rpx;">
     <view class='money-amount'>
       <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; ">
         <view>商品总额</view>
@@ -68,19 +35,21 @@
       </view>
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
-    <view class='total-money'>共计{{total}}件商品 实付总额：
+    <view class='total-money'>共计{{order.itemTotalCount}}件商品 实付总额：
       <text style='color:#ec6515;'>￥{{order.payment.cashAmount}}</text>
     </view>
 
     <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view ><text style="color:#888">订单编号：</text>{{order.orderId}}</view>
+        <view>
+          <text style="color:#888">订单编号：</text>{{order.orderId}}</view>
         <view catch:tap='copy' class='copy'>复制</view>
       </view>
     </view>
     <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view ><text style="color:#888">创建时间：</text>{{order.createTime}}</view>
+        <view>
+          <text style="color:#888">创建时间：</text>{{order.createTime}}</view>
       </view>
 
     </view>

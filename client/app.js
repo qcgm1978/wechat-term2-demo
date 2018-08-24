@@ -14,10 +14,17 @@ App({
     merchantId: 0,
     badge: 0,
     systemInfo: {},
-    // getApp().globalData.systemInfo.windowHeight
-    // getApp().globalData.systemInfo.windowWidth
     token: {},
-    userInfo: {}
+    userInfo: {},
+    payStyle: {
+      "UNPAY": '待支付',
+      "WAIT_SHIPMENT": '待配送',
+      CANCELED: '订单取消',
+      "WAIT_RECEIVE": '待收货',
+      RECEIVED: '已收货',
+      "RETURN_FULL": '全部退货',
+      "RETURN_PART": '部分退货'
+    },
   },
   getGlobalVal(str) {
     let result = null;
@@ -42,8 +49,11 @@ App({
     });
     appUtil.onLaunch(options)
     qcloud.setLoginUrl(config.service.loginUrl);
-    if(!this.globalData.merchantId){
-      this.globalData = wx.getStorageSync('globalData');
+    if (!this.globalData.merchantId) {
+      this.globalData = {
+        ...this.globalData,
+        ...wx.getStorageSync('globalData')
+      };
     }
     // this.login();
     // this.runWebSocket()  // 加载websocket操作    

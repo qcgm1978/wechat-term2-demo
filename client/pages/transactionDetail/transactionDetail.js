@@ -14,25 +14,17 @@ const promptTitleMsg = "提示"
 const networkErrorMsg = "网络链接失败！"
 const payDetail = require('./payDetail.js').default,
   notShowDiscountInfo = false;
+const app = getApp();
+const globalData = app.globalData;
 Page({
   ...payDetail,
   data: {
-
-    payStyle:{
-      "UNPAY":'待支付',
-      "WAIT_SHIPMENT":'待配送',
-      CANCELED:'订单取消',
-      "WAIT_RECEIVE":'待收货',
-      RECEIVED:'已收货',
-      "RETURN_FULL":'全部退货',
-      "RETURN_PART":'部分退货'
-    },
-    
-    name:'张磊磊',
-    phone:12345678901,
-    address:'北京市朝阳区亮马桥234号二十一世纪大厦4楼408',
-    src:'./images/pic.png',
-    standard:'500ML*12',
+    payStyle: globalData.payStyle,
+    name: '张磊磊',
+    phone: 12345678901,
+    address: '北京市朝阳区亮马桥234号二十一世纪大厦4楼408',
+    src: './images/pic.png',
+    standard: '500ML*12',
     top: '',
     showPrepayedCardInfo: "none",
     showPointPayInfo: "none",
@@ -63,12 +55,12 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  copy(){
+  copy() {
     wx.setClipboardData({
-      data: this.data.orderId+''
+      data: this.data.orderId + ''
     })
   },
-  requestTransDetail: function (orderId, merchantId) {
+  requestTransDetail: function(orderId, merchantId) {
     // if (!getApp().globalData.userInfo.memberId) {
     //   this.setData({
     //     loginStatus: false,
@@ -76,21 +68,24 @@ Page({
     //   return
     // }
     let requestData = null;
-    if (isNaN(orderId) || merchantId===undefined) {
+    if (isNaN(orderId) || merchantId === undefined) {
       requestData = Promise.resolve()
     } else {
-      requestData = utils.getRequest(getOrder,{orderId,merchantId});
+      requestData = utils.getRequest(getOrder, {
+        orderId,
+        merchantId
+      });
     }
     requestData
       .then(data => {
-        if (data === undefined){
-          data=require('../../data/get-order')
+        if (data === undefined) {
+          data = require('../../data/get-order')
         }
         data = data.result ? data : {
           result: data
         }
         this.setData({
-          order:data.result
+          order: data.result
         });
         wx.hideLoading();
       })

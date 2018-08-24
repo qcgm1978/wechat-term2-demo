@@ -1,17 +1,35 @@
-.btn {
-  margin-right: 30rpx;
-  width: 150rpx;
-  height: 60rpx;
-  line-height: 60rpx;
-  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
-  color: rgb(138, 138, 138);
-  font-size: 27rpx;
-  border-radius: 30rpx;
-  border-color: rgb(138, 138, 138);
-  border-width:2rpx;
-  border-style:solid;
+@import './orderItem.wxss';
 
-  background: rgb(255, 255, 255);
+.order-container {
+  justify-content: space-between;
+  padding: 0 16px;
+  background: #fff;
+  margin: 9rpx 0 0;
+  height: 64rpx;
+  align-items: center;
+}
+
+.order-num {
+  font-size: 26rpx;
+  color: #666;
+  letter-spacing: 0;
+}
+
+.order-state {
+  font-size: 28rpx;
+  color: #ee711f;
+  letter-spacing: 0;
+}
+
+.btn {
+  border: 2rpx solid #d1d1d2;
+  border-radius: 8rpx;
+}
+
+.btn text {
+  font-size: 26rpx;
+  color: #666;
+  letter-spacing: 0;
 }
 
 .top-balance-value {
@@ -119,30 +137,6 @@
   color: rgb(235, 97, 18);
 }
 
-.item-container {
-  background-color: rgb(238, 238, 238);
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-}
-
-.item-container-bg {
-  background-color: rgb(255, 255, 255);
-  border-radius: 5px;
-  height: 260rpx;
-  align-self: center;
-  margin: 15rpx auto 0;
-}
-
-.item-container-fg {
-  display: flex;
-  flex-direction: column;
-  position: absolute;
-  left: 30rpx;
-  top: 40rpx;
-}
-
 .item-trans-shop-number {
   display: flex;
   margin-top: 19rpx;
@@ -172,8 +166,7 @@
   flex-direction: column;
   position: relative;
   background: rgb(255, 255, 255);
-  padding-top:10rpx;
-
+  padding-top: 10rpx;
 }
 
 .footer-container-no-item-msg {
