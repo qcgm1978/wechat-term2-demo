@@ -13,7 +13,6 @@ const formatTime = strDate => {
   const day = ymd[0]
   return [year, month, day].join('-') + ' ' + array[1]
 }
-
 var postRequestWithoutToken = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     var postData = data;

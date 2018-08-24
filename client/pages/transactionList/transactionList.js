@@ -4,7 +4,8 @@ var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessTok
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 let refreshTimeExpired = true,
   refreshTimeExpiredToPay = true;
-
+const app=getApp();
+let globalData=app.globalData;
 const getOrderList = URLs.getOrderList;
 const backendUrlTransCancel = URLs.backendUrlTransCancel;
 const backendUrlTransCount2 = URLs.backendUrlTransCount2
@@ -83,7 +84,7 @@ Page({
       hidePaid: isToPay
     })
   },
-  requestTransList: function(config) {
+  requestTransList: function (url, postData) {
     var promise = new Promise((resolve, reject) => {
      
 
@@ -98,97 +99,18 @@ Page({
         return 
       }
 
-     
-      //sent request to get the trans list
-      var postData = {
-        ...config,
-        merchantId: wx.getStorageSync('authWechat').authMerchantList[0].merchantId,
-      }
-
-      utils.postRequest(getOrderList, postData)
+      utils.postRequest(url, postData)
         .then((data) => {
-          // todo test more than 10 
-          // data.result = data.result.concat(data.result)
-          // data.result=data.result.concat(data.result.slice(0,2))
-          if (data.result.length < ITEM_COUNT_PER_PAGE) {
+          const result = data.result;
+          if (this.data.transList.length + result.orders.length >= result.itemTotalCount) {
             this.setData({
-              [isToPay ? 'noMoreDataToPay' : 'noMoreData']: true,
-              [isToPay ? 'dataMessageToPay' : 'dataMessage']: NO_MORE_DATA
+              noMoreData: true,
+              dataMessage: NO_MORE_DATA
             })
           }
-          const listStr = isToPay ? 'transListToPay' : 'transList';
-          let arrItem = [];
-          for (let i = 0; i < data.result.length; i++) {
-            let transItemTemp = {}
-            var financials = []
-            var pointsTmp = {
-                points: 0,
-                amount: 0,
-              },
-              wxTmp = {
-                points: 0,
-                amount: 0,
-              }
-            var cashTmp = {
-              amount: 0
-            }, actualActive = true, actualPay = 0.0;
-            for (let ii = 0; ii < data.result[i].financialData.length; ii++) {
-              // var actualPay = 0.0;
-              if (data.result[i].financialData[ii].cashData) {
-                financials.push("现金")
-                cashTmp.amount = data.result[i].financialData[ii].cashData.amount
-                if (cashTmp.amount !== 0 && actualActive) {
-                  actualPay = (parseFloat(actualPay) + parseFloat(cashTmp.amount)).toFixed(2)
-                }
-              } else if (data.result[i].financialData[ii].programData) {
-                financials.push("积分")
-                pointsTmp.amount = data.result[i].financialData[ii].programData.amount
-                pointsTmp.points = data.result[i].financialData[ii].programData.points
-                if (pointsTmp.amount !== 0 && actualActive) {
-                  actualPay = (parseFloat(actualPay) + parseFloat(pointsTmp.amount)).toFixed(2)
-                }
-              } else {
-                financials.push("微信");
-                const other = data.result[i].financialData[ii].otherAccountData;
-                wxTmp.amount = other.amount
-                wxTmp.points = other.points
-
-
-                if (other.accountType === 'WeChatPay') {
-                  actualPay = other.amount;
-                  actualActive = false;
-                } else if (wxTmp.amount !== 0) {
-                  actualPay = (parseFloat(actualPay) + parseFloat(wxTmp.amount)).toFixed(2)
-                }
-
-              }
-            }
-            var itemsQuantity = 0
-            if (data.result[i].orderData) {
-              for (let ii = 0; ii < data.result[i].orderData[0].itemData.length; ii++) {
-                itemsQuantity = parseInt(itemsQuantity) + parseInt(data.result[i].orderData[0].itemData[ii].itemQuantity)
-              }
-            }
-            const payMerge = financials.join("+");
-            const strPayment = payMerge === '积分+微信' ? '微信+积分' : payMerge;
-            // if (actualActive) {
-
-            //   actualPay = parseFloat(data.result.netAmount).toFixed(2)
-            // } else {
-            //   actualPay = parseFloat(actualPay).toFixed(2);
-            // }
-            transItemTemp.financialType = strPayment;
-            transItemTemp.transShop = data.result[i].locationData.merchantId
-            transItemTemp.itemNumber = itemsQuantity
-            transItemTemp.transactionId = data.result[i].transactionId
-            transItemTemp.netAmount = parseFloat(actualPay).toFixed(2)
-            transItemTemp.timestamp = utils.formatTime(data.result[i].timestamp)
-            transItemTemp.earnedPoint = data.result[i].earnedPoint ? data.result[i].earnedPoint : "0"
-            arrItem.push(transItemTemp)
-          }
+          
           this.setData({
-            [listStr]: arrItem,
-            [isToPay ? 'dataMessageToPay' : 'dataMessage']: this.data[isToPay ? 'noMoreDataToPay' : 'noMoreData'] ? NO_MORE_DATA : PULL_TO_REFRESH
+            transList:result.orders
           })
           resolve()
         })
@@ -246,7 +168,10 @@ Page({
     this.setData({
       ['dataMessage']: LOADING
     })
-    this.requestTransList(getOrderList)
+    this.requestTransList(getOrderList,{
+      ...config,
+      merchantId: globalData.merchantId
+    })
       .then((data) => {
         this.setData({
           loadCompleted: true
@@ -254,15 +179,7 @@ Page({
         wx.hideLoading()
 
         wx.stopPullDownRefresh()
-        if (this.data.isLast) {
-          this.setData({
-            ['dataMessage']: NO_MORE_DATA
-          })
-        } else {
-          this.setData({
-            ['dataMessage']: PULL_TO_REFRESH
-          })
-        }
+       
       })
       .catch((data) => {
         this.setData({
@@ -374,7 +291,7 @@ Page({
         })
     }
     this.requestMoreData({
-      // orderStatus:'',
+      orderStatus:'',
       offset:1,
       limit:10
     })
