@@ -42,7 +42,8 @@ router.get('/product/:id', controllers.product.detail)
 router.post('/order', validationMiddleware, controllers.order.add)
 
 // 显示订单
-router.post('/v1/order/list', controllers.order.list)
+router.post('/v1/order/list', controllers.order.list);
+router.get('/v1/order/:merchantId/:orderId', controllers.order.detail)
 
 // 商品添加到购物车列表
 router.put('/trolley', validationMiddleware, controllers.trolley.add)
