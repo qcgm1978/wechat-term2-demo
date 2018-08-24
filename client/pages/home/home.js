@@ -4,8 +4,9 @@ const getUserInfo = require('./getUserInfo').default;
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config.js');
 import {Api} from '../../utils/envConf.js';
-import {getRequest} from '../../utils/util.js'
-const globalData = getApp().globalData
+import {getRequest} from '../../utils/util.js';
+const app=getApp()
+let globalData = app.globalData;
 Page({
   /**
    * 页面的初始数据
@@ -105,7 +106,10 @@ Page({
    */
   onLoad: function(options) {
     this.getProductList();
-    this.getMerchant();
+    this.setData({
+      stores: globalData.authWechat.authMerchantList,
+    });
+    // this.getMerchant();
     // this.onLaunch()
     // wx.hideTabBar();
   },

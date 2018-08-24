@@ -4,16 +4,17 @@ const EVN = {
   "PRO" : 2
 }
 
-var env = EVN.DEV   //update this value for different env
+var env = EVN.LOCAL;   //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
 var clientSecret = ""
+const devBaseUrl = "http://dev.jhdmall.com/weapp/merchant-mall";
 
 switch (env) {
   case EVN.DEV:
     clientSecret = "Rn2eJRBN0cDEXSBl"
-    baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall"
+    baseUrl = devBaseUrl;
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall"
     break;
   case EVN.LOCAL:{
@@ -39,9 +40,10 @@ switch (env) {
 const apiURLs = {
   getOrder: `${baseUrl}/v1/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/v1/order/list`,
-  getMerchant: `${baseUrl}/merchant/{merchantId}`,
+  getMerchant: `${devBaseUrl}/merchant/{merchantId}`,
+  // todo temp set dev environment
+  backendUrlLogin: devBaseUrl + '/auth/wechat',
 
-  backendUrlLogin: baseUrl + '/auth/wechat',
   backendUrlUserInfo: baseUrl + '/v1/members/',
   backendUrlRefreshToken: baseUrl + '/v1/auth/refresh',
   backendUrlRegister: baseUrl + '/v1/members/',

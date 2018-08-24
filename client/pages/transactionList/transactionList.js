@@ -92,8 +92,9 @@ Page({
           loginStatus: false,
         });
         // todo test data
-        utils.getRequest('../data/get-order.json')
-          .then(resolve.bind(data))
+        // utils.getRequest('../data/get-order.json')
+          // .then(resolve.bind(data))
+          console.log('not login')
         return 
       }
 
@@ -101,7 +102,7 @@ Page({
       //sent request to get the trans list
       var postData = {
         ...config,
-        merchantId: lastTransId,
+        merchantId: wx.getStorageSync('authWechat').authMerchantList[0].merchantId,
       }
 
       utils.postRequest(getOrderList, postData)

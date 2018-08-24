@@ -135,12 +135,30 @@ Page({
             })
           }
         } else {
-          globalData.authWechat = res.data.result;
+          const result = res.data.result;
+          globalData.authWechat = result;
+          globalData.merchantId = result.authMerchantList[0].merchantId;
+          globalData.token.accessToken = result.jwtToken.accessToken;
           wx.setStorage({
             key: "authWechat",
-            data: res.data.result
-          })
-          // getApp().globalData.token.accessToken = res.data.result.token.accessToken
+            data: result
+          });
+          wx.setStorage({
+            key: "merchantId",
+            data: globalData.merchantId
+          });
+          wx.setStorage({
+            key: "token",
+            data: result.jwtToken
+          });
+          // for development
+          wx.setStorage({
+            key: "globalData",
+            data: globalData
+          });
+          wx.switchTab({
+            url: '/pages/home/home',
+          });
           // getApp().globalData.token.refreshToken = res.data.result.token.refreshToken
           // getApp().globalData.userInfo.registerStatus = true
           // getApp().globalData.userInfo.savedInDBStatus = res.data.result.registrationStatus

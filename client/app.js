@@ -11,7 +11,7 @@ App({
   ...getUserInfo,
   ...websocket,
   globalData: {
-    merchantId:0,
+    merchantId: 0,
     badge: 0,
     systemInfo: {},
     // getApp().globalData.systemInfo.windowHeight
@@ -19,7 +19,17 @@ App({
     token: {},
     userInfo: {}
   },
-  failRequest(info ='商户'){
+  getGlobalVal(str) {
+    let result = null;
+    try {
+      result = str.replace('.').reduce((accumulator, item) => {
+        return accumulator[item]
+      }, this.globalData);
+    } catch (e) {
+
+    }
+  },
+  failRequest(info = '商户') {
     wx.showToast({
       title: `获取${info}失败`,
       icon: 'none',
@@ -32,6 +42,9 @@ App({
     });
     appUtil.onLaunch(options)
     qcloud.setLoginUrl(config.service.loginUrl);
+    if(!this.globalData.merchantId){
+      this.globalData = wx.getStorageSync('globalData');
+    }
     // this.login();
     // this.runWebSocket()  // 加载websocket操作    
   },
