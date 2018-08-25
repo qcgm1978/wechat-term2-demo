@@ -1,5 +1,5 @@
 <view>
-  <navigator class='row center' style="width: 100%;background: #fff;margin-top: 30rpx;" url='../order/order'>
+  <navigator class='row center' style="width: 100%;background: #fff;margin-top: 30rpx;" url='../transactionList/transactionList'>
 
     <image src='./img/my-order.png' class='icon' style="margin-left: 55rpx;"></image>
     <view class='column regular' style="align-items: left;">

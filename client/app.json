@@ -34,7 +34,7 @@
       },
       {
         "text": "分类",
-        "pagePath": "pages/transactionDetail/transactionDetail",
+        "pagePath": "pages/order/order",
         "iconPath": "images/sort.png",
         "selectedIconPath": "images/sort-sel.png"
       },

@@ -60,26 +60,20 @@ Page({
       data: this.data.orderId + ''
     })
   },
-  requestTransDetail: function(orderId, merchantId) {
-    // if (!getApp().globalData.userInfo.memberId) {
-    //   this.setData({
-    //     loginStatus: false,
-    //   })
-    //   return
-    // }
+  requestTransDetail(orderId) {
     let requestData = null;
-    if (isNaN(orderId) || merchantId === undefined) {
+    if (isNaN(orderId) ) {
       requestData = Promise.resolve()
     } else {
       requestData = utils.getRequest(getOrder, {
         orderId,
-        merchantId
+        merchantId:globalData.merchantId
       });
     }
     requestData
       .then(data => {
         if (data === undefined) {
-          data = require('../../data/get-order')
+          return console.log('no data')
         }
         data = data.result ? data : {
           result: data
@@ -131,14 +125,16 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    const isToPay = options.notPaid === 'true';
+    const orderStatus = options.orderStatus;
     this.setData({
-      isToPay,
-      top: `position: absolute;top:${getApp().globalData.systemInfo.windowHeight}px ;transform: translate(0,-100%);`
+      orderStatus,
+
     });
-    isToPay && wx.setNavigationBarTitle({
-      title: '订单详情'
-    })
+    if (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART") {
+      wx.setNavigationBarTitle({
+        title: '订单详情'
+      })
+    }
     if (options.isWebsocket) {
       // todo test data used
       const orderData = getApp().globalData.websocketData;
@@ -147,7 +143,7 @@ Page({
         isWebsocket: options.isWebsocket
       })
     } else {
-      this.requestTransDetail(options.orderId, options.merchantId)
+      this.requestTransDetail(options.orderId)
     }
   },
   /**

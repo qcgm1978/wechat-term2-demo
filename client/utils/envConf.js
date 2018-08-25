@@ -1,10 +1,11 @@
 const EVN = {
-  "DEV" : 0,
-  "STG" : 1,
-  "PRO" : 2
+  LOCAL: -1,
+  "DEV": 0,
+  "STG": 1,
+  "PRO": 2
 }
 
-var env = EVN.LOCAL;   //update this value for different env
+var env = EVN.LOCAL; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -17,10 +18,11 @@ switch (env) {
     baseUrl = devBaseUrl;
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall"
     break;
-  case EVN.LOCAL:{
-    baseUrl ='http://localhost:5757';
-    break;
-  }
+  case EVN.LOCAL:
+    {
+      baseUrl = 'http://localhost:5757';
+      break;
+    }
   case EVN.STG:
     clientSecret = "Rn2eJRBN0cDEXSBl"
     baseUrl = "https://stg-app.jihuiduo.cn/member"
@@ -41,7 +43,6 @@ const apiURLs = {
   getOrder: `${baseUrl}/v1/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/v1/order/list`,
   getMerchant: `${devBaseUrl}/merchant/{merchantId}`,
-  // todo temp set dev environment
   backendUrlLogin: `${baseUrl}/auth/wechat`,
 
   backendUrlUserInfo: baseUrl + '/v1/members/',
@@ -64,4 +65,8 @@ const apiURLs = {
 
 var Api = apiURLs;
 
-module.exports = { Api: Api, env: env, clientSecret: clientSecret}
+module.exports = {
+  Api: Api,
+  env: env,
+  clientSecret: clientSecret
+}

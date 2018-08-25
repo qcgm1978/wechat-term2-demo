@@ -1,5 +1,5 @@
 <template name="orderItem">
-  <navigator url='{{"../transactionDetail/transactionDetail?transId="+item.transactionId+"&notPaid="+hidePaid}}'>
+  <navigator url='{{"../transactionDetail/transactionDetail?orderId="+order.orderId+"&orderStatus="+order.orderStatus}}'>
     <view class='scroll-container' scroll-top="{{scrollTop}}">
 
       <view>
