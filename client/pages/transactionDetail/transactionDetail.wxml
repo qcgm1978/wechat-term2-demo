@@ -22,7 +22,7 @@
     </view>
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
-    <template is="orderItem" data="{{order}}"></template>
+    <template is="orderItem" data="{{order,disable}}"></template>
   </view>
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
     <view class='money-amount'>

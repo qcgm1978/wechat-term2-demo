@@ -1,5 +1,5 @@
 <template name="orderItem">
-  <navigator url='{{"../transactionDetail/transactionDetail?orderId="+order.orderId+"&orderStatus="+order.orderStatus}}'>
+  <navigator url='{{disable?"":("../transactionDetail/transactionDetail?orderId="+order.orderId+"&orderStatus="+order.orderStatus)}}'>
     <view class='scroll-container' scroll-top="{{scrollTop}}">
 
       <view>
@@ -15,11 +15,9 @@
                     <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
                     <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
                   </view>
-                  <!-- <view class='darker-gray-chars' style=' margin-left:20rpx;' hidden='{{isToPay}}'>{{item.itemId}}</view> -->
                 </view>
                 <view class='darker-gray-chars column' style="align-items: flex-end;">
                   <text>￥{{item.unitPrice}}</text>
-                  <!-- <text style="text-decoration: line-through;">￥{{item.unitPrice}}</text> -->
                   <text>x{{item.quantity}}</text>
                 </view>
               </view>

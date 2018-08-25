@@ -19,6 +19,7 @@ const globalData = app.globalData;
 Page({
   ...payDetail,
   data: {
+    disable: true,
     payStyle: globalData.payStyle,
     // todo name and phone missing
     name: '张磊磊',
@@ -132,16 +133,25 @@ Page({
       orderStatus,
 
     });
+    const pages = getCurrentPages();
+    const prevPage = pages[pages.length - 2]; //上一个页面
     const isReturn = orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART";
     if (isReturn) {
-      wx.setNavigationBarTitle({
-        title: '退货详情'
-      });
-      this.setData({
-        isReturn
-      })
+      if (/transactionDetail/.test(prevPage.route)) {
+        wx.setNavigationBarTitle({
+          title: '退货详情'
+        });
+        this.setData({
+          isReturn,
+        });
+      } else {
+        this.setData({
+          disable: false
+        });
+      }
+
     }
-   
+
     if (options.isWebsocket) {
       // todo test data used
       const orderData = getApp().globalData.websocketData;
