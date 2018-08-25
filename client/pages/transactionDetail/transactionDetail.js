@@ -20,9 +20,11 @@ Page({
   ...payDetail,
   data: {
     payStyle: globalData.payStyle,
+    // todo name and phone missing
     name: '张磊磊',
     phone: 12345678901,
-    address: '北京市朝阳区亮马桥234号二十一世纪大厦4楼408',
+    salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
+    address: globalData.address,
     src: './images/pic.png',
     standard: '500ML*12',
     top: '',
@@ -62,12 +64,12 @@ Page({
   },
   requestTransDetail(orderId) {
     let requestData = null;
-    if (isNaN(orderId) ) {
+    if (isNaN(orderId)) {
       requestData = Promise.resolve()
     } else {
       requestData = utils.getRequest(getOrder, {
         orderId,
-        merchantId:globalData.merchantId
+        merchantId: globalData.merchantId
       });
     }
     requestData
@@ -130,11 +132,16 @@ Page({
       orderStatus,
 
     });
-    if (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART") {
+    const isReturn = orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART";
+    if (isReturn) {
       wx.setNavigationBarTitle({
-        title: '订单详情'
+        title: '退货详情'
+      });
+      this.setData({
+        isReturn
       })
     }
+   
     if (options.isWebsocket) {
       // todo test data used
       const orderData = getApp().globalData.websocketData;

@@ -139,6 +139,7 @@ Page({
           globalData.authWechat = result;
           globalData.merchantId = result.authMerchantList[0].merchantId;
           globalData.token.accessToken = result.jwtToken.accessToken;
+          globalData.address = result.authMerchantList[0].merchantStoreName;
           wx.setStorage({
             key: "authWechat",
             data: result

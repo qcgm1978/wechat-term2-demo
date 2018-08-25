@@ -1,21 +1,26 @@
 <import src="../transactionList/orderItem.wxml" />
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
   <view id="main" class='main-view'>
-    <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[order.orderStatus]}}</text>
+    <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}</text>
     <view class='title'>
-      <view class='trans-shop'>
-        <image class='trans-shop-img' src="{{addressStore}}"></image>
-        <view class='trans-shop-lable regular'>{{name}}</view>
-        <view class='trans-shop-value'>{{phone}}</view>
+      <view class='trans-shop' wx:if='{{isReturn}}'>
+        <view class='trans-shop-lable regular'>{{salesReturn}}</view>
       </view>
-      <view class='trans-number-time'>
-        <view style='display: flex; flex-direction:row;'>
-          <view class="gray-chars">{{address}}</view>
+      <view wx:else>
+        <view class='trans-shop'>
+          <image class='trans-shop-img' src="{{addressStore}}"></image>
+          <view class='trans-shop-lable regular'>{{name}}</view>
+          <view class='trans-shop-value'>{{phone}}</view>
         </view>
+        <view class='trans-number-time'>
+          <view style='display: flex; flex-direction:row;'>
+            <view class="gray-chars">{{address}}</view>
+          </view>
 
+        </view>
       </view>
     </view>
-    
+
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
     <template is="orderItem" data="{{order}}"></template>
   </view>
