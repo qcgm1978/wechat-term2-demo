@@ -4,8 +4,8 @@ var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessTok
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 let refreshTimeExpired = true,
   refreshTimeExpiredToPay = true;
-const app=getApp();
-let globalData=app.globalData;
+const app = getApp();
+let globalData = app.globalData;
 const getOrderList = URLs.getOrderList;
 const backendUrlTransCancel = URLs.backendUrlTransCancel;
 const backendUrlTransCount2 = URLs.backendUrlTransCount2
@@ -18,7 +18,7 @@ const INVALID_USER_STATUS = ERROR_CODE.INVALID_USER_STATUS
 const promptTitleMsg = "提示"
 const networkErrorMsg = "网络链接失败！"
 
-const NO_MORE_DATA = "没有更多数据了"
+const NO_MORE_DATA = "没有更多订单了~"
 const PULL_TO_REFRESH = "上拉展示更多"
 const LOADING = "正在加载数据，请稍后"
 
@@ -84,30 +84,33 @@ Page({
       hidePaid: isToPay
     })
   },
-  requestTransList: function (url, postData) {
+  requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
-     
+
 
       if (!getApp().globalData.merchantId) {
         this.setData({
           loginStatus: false,
         });
-          console.log('not login')
-        return 
+        console.log('not login')
+        return
       }
 
       utils.postRequest(url, postData)
         .then((data) => {
           const result = data.result;
+          // todo set total length
+          result.itemTotalCount = 1
           if (this.data.order.length + result.orders.length >= result.itemTotalCount) {
             this.setData({
               noMoreData: true,
-              dataMessage: NO_MORE_DATA
+              dataMessage: NO_MORE_DATA,
+              isLast: true
             })
           }
-          
+
           this.setData({
-            order:result.orders
+            order: result.orders
           })
           resolve()
         })
@@ -161,14 +164,16 @@ Page({
   },
 
   requestMoreData(config) {
-   
+    if (this.data.isLast) {
+      return;
+    }
     this.setData({
       ['dataMessage']: LOADING
     })
-    this.requestTransList(getOrderList,{
-      ...config,
-      merchantId: globalData.merchantId
-    })
+    this.requestTransList(getOrderList, {
+        ...config,
+        merchantId: globalData.merchantId
+      })
       .then((data) => {
         this.setData({
           loadCompleted: true
@@ -176,7 +181,7 @@ Page({
         wx.hideLoading()
 
         wx.stopPullDownRefresh()
-       
+
       })
       .catch((data) => {
         this.setData({
@@ -199,7 +204,7 @@ Page({
   },
   //加载更多
   onReachBottom: function() {
-    this.requestMoreData(this.data.toPayColor === 'select')
+    this.requestMoreData()
   },
 
   //下拉刷新
@@ -288,9 +293,9 @@ Page({
         })
     }
     this.requestMoreData({
-      orderStatus:'',
-      offset:1,
-      limit:10
+      orderStatus: '',
+      offset: 1,
+      limit: 10
     })
     // this.requestMoreData(false)
 

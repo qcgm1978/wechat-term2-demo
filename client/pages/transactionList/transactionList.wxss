@@ -4,7 +4,7 @@
   justify-content: space-between;
   padding: 0 16px;
   background: #fff;
-  margin: 9rpx 0 0;
+  margin: 19rpx 0 0;
   height: 64rpx;
   align-items: center;
 }
@@ -24,12 +24,19 @@
 .btn {
   border: 2rpx solid #d1d1d2;
   border-radius: 8rpx;
-}
-
-.btn text {
-  font-size: 26rpx;
+  margin: 16rpx 32rpx;
+  background: #fff;
+  width: 152rpx;
+  height: 52rpx;
+  font-size: 23rpx;
+  line-height: 52rpx;
   color: #666;
   letter-spacing: 0;
+}
+
+.btn.buy-again {
+  border-color: #ee711f;
+  color: #ee711f;
 }
 
 .top-balance-value {
