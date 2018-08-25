@@ -79,18 +79,20 @@ Page({
     })
   },
   toggleTab(evt) {
-    const isSelected = evt.target.dataset.color === 'select',
-      orderStatus = evt.target.dataset.type;
-    const tabColors=this.data.tabColors.map((item,index)=>index==orderStatus?'selected':'unselected');
+    const orderStatus = evt.target.dataset.type;
+    if (orderStatus === undefined) {
+      return;
+    }
+    const tabColors = this.data.tabColors.map((item, index) => index == orderStatus ? 'selected' : 'unselected');
     this.setData({
       tabColors,
-      config:{
+      config: {
         ...this.data.config,
         orderStatus,
-        offset:1
+        offset: 1
       }
     });
-    this.requestMoreData(this.data.config);    
+    this.requestMoreData(this.data.config);
   },
   requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
@@ -114,7 +116,7 @@ Page({
               dataMessage: NO_MORE_DATA,
               isLast: true
             })
-          }else{
+          } else {
             this.setData({
               dataMessage: PULL_TO_REFRESH,
               isLast: false
@@ -217,13 +219,13 @@ Page({
   //加载更多
   onReachBottom: function() {
     this.setData({
-      config:{
+      config: {
         ...this.data.config,
-        offset:++this.data.config.offset
+        offset: ++this.data.config.offset
       }
     });
-    this.requestMoreData(this.data.config);    
-    
+    this.requestMoreData(this.data.config);
+
   },
 
   //下拉刷新
