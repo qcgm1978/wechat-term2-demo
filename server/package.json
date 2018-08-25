@@ -9,7 +9,9 @@
     "initdb": "npm install && node tools/initdb.js",
     "ws": "nodemon server.js",
     "mysql": "export PATH=${PATH}:/usr/local/mysql/bin && mysql -u root -p",
-    "import": "INSERT store BLOB(ID,IMAGE) VALUES(1,LOAD_FILE('/Users/qcgm1978/Pictures/screenshot/1.png'));"
+    "import": "INSERT store BLOB(ID,IMAGE) VALUES(1,LOAD_FILE('/Users/qcgm1978/Pictures/screenshot/1.png'));",
+    "port": "sudo lsof -i :9229",
+    "kill": "sudo kill -9 PID"
   },
   "author": "Jason",
   "license": "MIT",

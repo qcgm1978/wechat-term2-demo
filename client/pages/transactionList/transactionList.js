@@ -91,7 +91,8 @@ Page({
         orderStatus,
         offset: 1,
       },
-      isLast: false
+      isLast: false,
+      order: []
     });
     this.requestMoreData(this.data.config);
   },
@@ -231,49 +232,18 @@ Page({
 
   //下拉刷新
   onPullDownRefresh: function() {
-    //30秒内不用刷新
-    const isToPay = this.data.toPayColor === 'select';
-    // if (isToPay ? !refreshTimeExpiredToPay : !refreshTimeExpired) {
-    //   wx.stopPullDownRefresh()
-    //   return
-    // }
-    setTimeout(() => {
-      isToPay ? (refreshTimeExpiredToPay = true) : (refreshTimeExpired = true);
-    }, 30000)
-
-    var searchNewIds = true;
-    const dataMessage = isToPay ? 'dataMessageToPay' : 'dataMessage'
-    //wx.showNavigationBarLoading() 
-    this.requestTransList(searchNewIds)
-      .then((data) => {
-        isToPay ? (refreshTimeExpiredToPay = false) : (refreshTimeExpired = false);
-        //wx.hideNavigationBarLoading()
-        wx.stopPullDownRefresh()
-        if (this.data[isToPay ? 'noMoreDataToPay' : 'noMoreData']) {
-          this.setData({
-            ['dataMessage']: NO_MORE_DATA
-          })
-        } else {
-          this.setData({
-            ['dataMessage']: PULL_TO_REFRESH
-          })
+    const offset = this.data.config.offset-1;
+    if (offset > 0) {
+      this.setData({
+        config: {
+          ...this.data.config,
+          offset
         }
-      })
-      .catch((data) => {
-        wx.hideNavigationBarLoading()
-        wx.stopPullDownRefresh()
-        if (this.data[isToPay ? 'noMoreDataToPay' : 'noMoreData']) {
-          this.setData({
-            ['dataMessage']: NO_MORE_DATA
-          })
-        } else {
-          this.setData({
-            ['dataMessage']: PULL_TO_REFRESH
-          })
-        }
-      })
-    wx.hideNavigationBarLoading()
-    wx.stopPullDownRefresh()
+      });
+      this.requestMoreData(this.data.config);
+    } else {
+      wx.stopPullDownRefresh();
+    }
 
   },
 
