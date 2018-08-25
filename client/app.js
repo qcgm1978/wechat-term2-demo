@@ -43,11 +43,29 @@ App({
       duration: 2000
     })
   },
+  getSystemInfo() {
+    wx.getSystemInfo({
+      success: res => {
+        this.globalData.systemInfo.windowHeight = res.windowHeight
+        this.globalData.systemInfo.windowWidth = res.windowWidth
+      },
+      fail: res => {
+        console.log("getSystemInfo failed")
+        wx.showToast({
+          title: '获取设备信息失败',
+          icon: 'info',
+          duration: 2000
+        })
+      },
+
+    })
+
+  },
   onLaunch: function(options) {
     wx.setEnableDebug({
       enableDebug: true
     });
-    appUtil.onLaunch(options)
+    this.getSystemInfo()
     qcloud.setLoginUrl(config.service.loginUrl);
     if (!this.globalData.merchantId) {
       this.globalData = {

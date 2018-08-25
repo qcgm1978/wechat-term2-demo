@@ -29,6 +29,7 @@ const ITEM_COUNT_PER_PAGE = 10,
 
 Page({
   data: {
+    tabColors: ['selected', 'unselected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
     isToPay: true,
     hidePaid,
@@ -74,14 +75,11 @@ Page({
   },
   toggleTab(evt) {
     const isSelected = evt.target.dataset.color === 'select',
-      isToPay = evt.target.dataset.type === 'toPayColor';
-    if (isSelected) {
-      return;
-    }
+      orderStatus = evt.target.dataset.type;
+    const tabColors=this.data.tabColors.map((item,index)=>index==orderStatus?'selected':'unselected');
     this.setData({
-      toPayColor: isToPay ? 'select' : 'unselect',
-      payedColor: isToPay ? 'unselect' : 'select',
-      hidePaid: isToPay
+      tabColors,
+      orderStatus
     })
   },
   requestTransList: function(url, postData) {
@@ -100,7 +98,7 @@ Page({
         .then((data) => {
           const result = data.result;
           // todo set total length
-          result.itemTotalCount = 1
+          result.itemTotalCount = 10
           if (this.data.order.length + result.orders.length >= result.itemTotalCount) {
             this.setData({
               noMoreData: true,
@@ -204,7 +202,9 @@ Page({
   },
   //加载更多
   onReachBottom: function() {
-    this.requestMoreData()
+    this.config.offset++;
+    // this.config.orderStatus=
+    this.requestMoreData(this.config)
   },
 
   //下拉刷新
@@ -278,25 +278,12 @@ Page({
     setTimeout(() => {
       wx.hideLoading()
     }, 10000)
-
-    if (option.transNumber == 0) {
-      this.requestTransCount()
-        .then(transNumber => {
-          var pages = getCurrentPages();
-          if (pages.length > 1) {
-            var prePage = pages[pages.length - 2];
-            prePage.updateTransNumberData(transNumber)
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-    }
-    this.requestMoreData({
+    this.config = {
       orderStatus: '',
       offset: 1,
       limit: 10
-    })
+    };
+    this.requestMoreData(this.config)
     // this.requestMoreData(false)
 
   },

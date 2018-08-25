@@ -136,12 +136,12 @@
   margin-top: 1rpx;
 }
 
-.unselect {
-  color: rgb(51, 51, 51);
+.unselected {
+  color: #707070;
 }
 
-.select {
-  color: rgb(235, 97, 18);
+.selected {
+  color: #EB6113 ;
 }
 
 .item-trans-shop-number {

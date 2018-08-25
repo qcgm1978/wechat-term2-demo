@@ -1,39 +1,5 @@
-//app.js
 export default {
-  onLaunch: function (options) {
-    wx.getSystemInfo({
-      success: res => {
-        this.globalData.systemInfo.windowHeight = res.windowHeight
-        this.globalData.systemInfo.windowWidth = res.windowWidth
-      },
-      fail: res => {
-        console.log("getSystemInfo failed")
-        wx.showToast({
-          title: '获取设备信息失败',
-          icon: 'info',
-          duration: 2000
-        })
-      },
-      
-    })
-
-    try {
-      this.globalData.scene = options.scene;
-      this.globalData.token.jscode = wx.getStorageSync('jscode')
-      this.globalData.token.accessToken = wx.getStorageSync('accessToken')
-      this.globalData.token.refreshToken = wx.getStorageSync('refreshToken')
-      this.globalData.token.payCodeToken = wx.getStorageSync('payCodeToken')
-      this.globalData.userInfo.memberId = wx.getStorageSync('memberId')
-      this.globalData.userInfo.mobile = wx.getStorageSync('mobile')
-      
-      this.globalData.userInfo.registerStatus = wx.getStorageSync('registerStatus')
-      this.globalData.userInfo.savedInDBStatus = wx.getStorageSync('savedInDBStatus')
-      this.globalData.userInfo.gender = wx.getStorageSync('gender')
-    } catch (e) {
-      console.log(e)
-    }
-
-  },
+  
   onShow(options) {
     // debugger;
     // if (options.scene == 1034) {
