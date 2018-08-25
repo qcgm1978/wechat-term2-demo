@@ -29,6 +29,11 @@ const ITEM_COUNT_PER_PAGE = 10,
 
 Page({
   data: {
+    config: {
+      orderStatus: '',
+      offset: 1,
+      limit: 10
+    },
     tabColors: ['selected', 'unselected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
     isToPay: true,
@@ -79,8 +84,13 @@ Page({
     const tabColors=this.data.tabColors.map((item,index)=>index==orderStatus?'selected':'unselected');
     this.setData({
       tabColors,
-      orderStatus
-    })
+      config:{
+        ...this.data.config,
+        orderStatus,
+        offset:1
+      }
+    });
+    this.requestMoreData(this.data.config);    
   },
   requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
@@ -101,9 +111,13 @@ Page({
           result.itemTotalCount = 10
           if (this.data.order.length + result.orders.length >= result.itemTotalCount) {
             this.setData({
-              noMoreData: true,
               dataMessage: NO_MORE_DATA,
               isLast: true
+            })
+          }else{
+            this.setData({
+              dataMessage: PULL_TO_REFRESH,
+              isLast: false
             })
           }
 
@@ -197,14 +211,19 @@ Page({
             ['dataMessage']: PULL_TO_REFRESH
           })
         }
-        getApp().failRequest('订单');
+        app.failRequest('订单');
       })
   },
   //加载更多
   onReachBottom: function() {
-    this.config.offset++;
-    // this.config.orderStatus=
-    this.requestMoreData(this.config)
+    this.setData({
+      config:{
+        ...this.data.config,
+        offset:++this.data.config.offset
+      }
+    });
+    this.requestMoreData(this.data.config);    
+    
   },
 
   //下拉刷新
@@ -277,13 +296,8 @@ Page({
     })
     setTimeout(() => {
       wx.hideLoading()
-    }, 10000)
-    this.config = {
-      orderStatus: '',
-      offset: 1,
-      limit: 10
-    };
-    this.requestMoreData(this.config)
+    }, 10000);
+    this.requestMoreData(this.data.config)
     // this.requestMoreData(false)
 
   },
