@@ -30,7 +30,7 @@ const ITEM_COUNT_PER_PAGE = 10,
 Page({
   data: {
     config: {
-      orderStatus: '',
+      orderStatus: 0,
       offset: 1,
       limit: 10
     },
@@ -79,8 +79,8 @@ Page({
     })
   },
   toggleTab(evt) {
-    const orderStatus = evt.target.dataset.type;
-    if (orderStatus === undefined) {
+    const orderStatus = Number(evt.target.dataset.type);
+    if (isNaN(Number(orderStatus))) {
       return;
     }
     const tabColors = this.data.tabColors.map((item, index) => index == orderStatus ? 'selected' : 'unselected');
@@ -89,8 +89,9 @@ Page({
       config: {
         ...this.data.config,
         orderStatus,
-        offset: 1
-      }
+        offset: 1,
+      },
+      isLast: false
     });
     this.requestMoreData(this.data.config);
   },
@@ -299,9 +300,7 @@ Page({
     setTimeout(() => {
       wx.hideLoading()
     }, 10000);
-    this.requestMoreData(this.data.config)
-    // this.requestMoreData(false)
-
+    this.requestMoreData(this.data.config);
   },
   goTransDetails: function(e) {
     wx.navigateTo({

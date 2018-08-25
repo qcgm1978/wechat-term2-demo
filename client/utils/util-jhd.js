@@ -77,7 +77,7 @@ var postRequest = function(url, data) {
       data: postData,
       method: 'POST',
       header: {
-        'Authorization': 'Bearer ' + (getApp().globalData.token ? getApp().globalData.token.accessToken : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJleHAiOjE1MzIyNTIwNzIsIm1lbWJlcklkIjoiMTUyOTg5OTMyMDEzNDYxMSJ9.ldc4QQ9H5Ep8oHsgrX_606eSg_61pkwdIYWCTmiCuuk"),
+        'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
         'X-Client-Id': 'mini-app'
       },
       success: res => {

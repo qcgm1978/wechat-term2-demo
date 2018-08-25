@@ -18,7 +18,7 @@ App({
     userInfo: {},
     payStyle: {
       "UNPAY": '待支付',
-      "WAIT_SHIPMENT": '待配送',
+      "WAIT_SHIPMENT": '待发货',
       CANCELED: '订单取消',
       "WAIT_RECEIVE": '待收货',
       RECEIVED: '已收货',
