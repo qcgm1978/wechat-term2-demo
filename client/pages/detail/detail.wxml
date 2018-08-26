@@ -1,19 +1,45 @@
 <!--pages/detail/detail.wxml-->
 <view class='product-card'>
-<swiper indicator-dots="{{indicatorDots}}"
-  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" >
-  <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
-    <swiper-item style='display:flex;'>
-      <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" width="355" height="150" style="height: 300rpx;width: calc(300/240*136px);wxcs_style_width: calc(300/240*320rpx);margin:0 auto;"/>
-    </swiper-item>
-  </block>
-</swiper>
+  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
+    <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
+      <swiper-item style='display:flex; height:100%;'>
+        <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="height:100%;;margin:0 auto;" />
+      </swiper-item>
+    </block>
+  </swiper>
+<view >
+  <view class='padding medium bgc'>
+    <view class='product-price'>￥{{product.price}}</view>
+    <view class='product-name'>{{product.name}}</view>
+  </view>
+  <!-- <view class='line'></view> -->
+  <view class='center promotion-container padding regular bgc' style='margin-top:5rpx;'>
+    <text class='promotion'style="align-self: start;">促销</text>
+    <view class='promotion-list'>
+      <view class='center' wx:for='{{promotions}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
+        <text class='promotion-type'>{{item.type}}</text>
+        <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
+      </view>
+    </view>
+    <image src='../memberDetail/img/arrow.png' class='order-arrow1'></image>
+  </view>
+  <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
+    <text class='promotion'style="align-self: start;">类别</text>
+    <view class='promotion-list' >
+      <view class='center'style="height: 36rpx;">
+        <text class='ellipse' style='width:490rpx;'>{{type}}</text>
+        <text class='promotion-type'></text>
+      </view>
+    </view>
+    <view></view>
+    <!-- <image src='../memberDetail/img/arrow.png' class='order-arrow1'></image> -->
+  </view>
+</view>
   <!-- <image class='product-image' src='{{product.image}}'></image> -->
-  <view class='product-name'>{{product.name}}</view>
   <view class='product-source'>{{product.source}}</view>
   <view class='product-meta'>
     <view class='product-money'>￥</view>
-    <view class='prodct-price'>{{product.price}}</view>
+
   </view>
 </view>
 <view class='info-card'>

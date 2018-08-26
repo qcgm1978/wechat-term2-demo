@@ -1,34 +1,57 @@
 /* pages/detail/detail.wxss */
 
+.padding {
+  /* height: 196rpx; */
+  padding: 18rpx 24rpx;
+}
+
+.promotion-container {
+  align-items: center;
+  font-size: 26rpx;
+  color: #949494;
+  justify-content: space-around;
+
+}
+
+.promotion-type {
+  font-size: 20rpx;
+  color: #f2741f;
+  letter-spacing: 0;
+  text-align: center;
+  margin: 0 22rpx;
+  width: 40rpx;
+}
+
+.order-arrow1 {
+  /* margin-right:0; */
+  width: 32rpx;
+  height: 32rpx;
+}
+
 .product-card {
-  padding-bottom: 15rpx;
-  background: #FFFFFF;
-  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.02);
+  /* padding-bottom: 15rpx;
+  background: #fff;
+  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.02); */
 }
 
 .product-image {
-  display: block; 
-  margin: 0 auto; 
+  display: block;
+  margin: 0 auto;
   width: 370rpx;
   height: 370rpx;
 }
 
 .product-name {
-  margin: 42rpx 49rpx 0;
-  font-size: 38rpx;
-  line-height: 53rpx;
-  color: rgba(29, 29, 38, 0.8);
-  font-weight: bold;
+  font-size: 32rpx;
+  color: #333;
 }
-
 
 .product-source {
   margin: 5rpx 49rpx 0;
   font-size: 28rpx;
   line-height: 40rpx;
-  color: #8B8B8B;
+  color: #8b8b8b;
 }
-
 
 .product-meta {
   display: flex;
@@ -40,24 +63,24 @@
 .product-money {
   width: 47rpx;
   height: 47rpx;
-  line-height: 47rpx; 
+  line-height: 47rpx;
   text-align: center;
   border-radius: 50%;
-  color: #34373D;
+  color: #34373d;
   font-size: 34rpx;
   font-weight: bold;
-  background: #F7E687;
+  background: #f7e687;
 }
 
 .product-price {
-  margin: 0 10rpx;
-  font-size: 38rpx;
+  font-size: 44rpx;
+  color: #ee711f;
 }
 
 .info-card {
   margin: 26rpx 27rpx;
   padding: 0 26rpx;
-  background: #FFFFFF;
+  background: #fff;
   box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.02);
   border-radius: 13rpx;
 }
@@ -80,7 +103,7 @@
 .advantage-text {
   margin-left: 15rpx;
   font-size: 28rpx;
-  color: #34373D;
+  color: #34373d;
   line-height: 47rpx;
 }
 
@@ -106,7 +129,7 @@
   text-align: right;
   font-size: 28rpx;
   line-height: 40rpx;
-  color: #8B8B8B;
+  color: #8b8b8b;
 }
 
 .comment-arrow {
@@ -118,7 +141,7 @@
   margin-top: 26rpx;
   font-size: 28rpx;
   line-height: 40rpx;
-  color: #8B8B8B;
+  color: #8b8b8b;
 }
 
 .opr-cnt {
@@ -130,14 +153,13 @@
   align-items: center;
 }
 
-.opr-trolley,
-.opr-buy {
+.opr-trolley, .opr-buy {
   flex: 1;
   height: 100rpx;
   line-height: 100rpx;
   text-align: center;
   font-size: 30rpx;
-  color: #34373D;
+  color: #34373d;
   font-weight: bold;
 }
 
@@ -146,5 +168,5 @@
 }
 
 .opr-buy {
-  background: #F5E069;
+  background: #f5e069;
 }

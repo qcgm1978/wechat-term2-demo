@@ -1,5 +1,20 @@
-/**app.wxss**/
+page{
+  background: #eeeff4;
+}
+.bgc{
+  background:#fff;
+}
+.ellipse{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.order-arrow{
+  width: 18rpx;
+  height: 33rpx;
+  margin-right:55rpx;
 
+}
 .container {
   height: 100%;
   display: flex;

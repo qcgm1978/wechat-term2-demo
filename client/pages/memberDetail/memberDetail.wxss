@@ -1,10 +1,8 @@
 page {
   background: rgb(235, 235, 235);
 }
-.order-arrow{
-  width: 18rpx;
-  height: 33rpx;
-  margin-right:55rpx;
+.promotion-container{
+  align-items:center;
 
 }
 .container-detail {

@@ -5,7 +5,9 @@ const _ = require('../../utils/util');
 import utils from "../../utils/util.js";
 const app = getApp();
 const globalData = app.globalData;
-import { Api } from '../../utils/envConf.js'
+import {
+  Api
+} from '../../utils/envConf.js'
 const getProduct = Api.getProduct;
 
 Page({
@@ -13,7 +15,21 @@ Page({
     product: {},
     autoplay: true,
     interval: 3000,
-    duration: 1000
+    duration: 1000,
+    type:'饮料；碳酸饮料',
+    promotions: [{
+      content: '满300元减10元(芬达葡萄味饮料)',
+      type: '满减'
+    }, {
+        content: '饮料系列满20赠送100积分(芬达香蕉牛奶…',
+      type: '满赠'
+    }, {
+      content: '满300元减10元(芬达葡萄味饮料)',
+      type: '满减'
+    }, {
+      content: '满300元减10元(芬达葡萄味饮料)',
+      type: '满减'
+    }]
   },
 
   getProduct(orderId) {
@@ -44,13 +60,13 @@ Page({
       // }, 2000)
     })
   },
-  preview(e){
+  preview(e) {
     wx.previewImage({
       current: e.currentTarget.dataset.src, // 当前显示图片的http链接
       urls: this.data.imgUrls // 需要预览的图片http链接列表
     });
   },
- 
+
   buy() {
     wx.showLoading({
       title: '商品购买中...',
