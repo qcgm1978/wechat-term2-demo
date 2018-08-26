@@ -1,57 +1,57 @@
-// pages/detail/detail.js
-
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config')
-const _ = require('../../utils/util')
+const _ = require('../../utils/util');
+
+import utils from "../../utils/util.js";
+const app = getApp();
+const globalData = app.globalData;
+import { Api } from '../../utils/envConf.js'
+const getProduct = Api.getProduct;
 
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    product: {
-    },
-      autoplay:true,
-    interval:3000,
-    duration:1000
+    product: {},
+    autoplay: true,
+    interval: 3000,
+    duration: 1000
   },
 
-  getProduct(id){
+  getProduct(orderId) {
     wx.showLoading({
       title: '商品数据加载中...',
     })
-
-    qcloud.request({
-      url: config.service.productDetail + id,
-      success: result => {
-        wx.hideLoading()
-
-        let data = result.data
-        console.log(data);
-
-        if (!data.code) {
-          this.setData({
-            product: data.data,
-            imgUrls: [data.data.image, data.data.image, data.data.image, data.data.image]
-          })
-        } else {
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 2000)
-        }
-      }, 
-      fail: () => {
-        wx.hideLoading()
-
+    utils.getRequest(getProduct, {
+      orderId,
+      merchantId: globalData.merchantId
+    }).then(data => {
+      wx.hideLoading()
+      console.log(data);
+      if (data.status === 200) {
+        this.setData({
+          product: data.result,
+          imgUrls: [data.result.image]
+        })
+      } else {
         setTimeout(() => {
           wx.navigateBack()
         }, 2000)
       }
+    }).catch(err => {
+      wx.hideLoading();
+      console.log(err)
+      // setTimeout(() => {
+      //   wx.navigateBack()
+      // }, 2000)
     })
   },
-
-  buy(){
+  preview(e){
+    wx.previewImage({
+      current: e.currentTarget.dataset.src, // 当前显示图片的http链接
+      urls: this.data.imgUrls // 需要预览的图片http链接列表
+    });
+  },
+ 
+  buy() {
     wx.showLoading({
       title: '商品购买中...',
     })
@@ -95,7 +95,7 @@ Page({
     })
   },
 
-  addToTrolley(){
+  addToTrolley() {
     wx.showLoading({
       title: '正在添加到购物车...',
     })
@@ -110,7 +110,7 @@ Page({
 
         let data = result.data
 
-        if (!data.code){
+        if (!data.code) {
           wx.showToast({
             title: '已添加到购物车',
           })
@@ -138,63 +138,63 @@ Page({
     if (product.commentCount) {
       wx.navigateTo({
         url: `/pages/comment/comment?id=${product.id}&price=${product.price}&name=${product.name}&image=${product.image}`
-        })
+      })
     }
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    this.getProduct(options.id)
+  onLoad: function(options) {
+    this.getProduct(options.orderId)
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-  
+  onReady: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-  
+  onShow: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-  
+  onHide: function() {
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-  
+  onUnload: function() {
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-  
+  onPullDownRefresh: function() {
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-  
+  onReachBottom: function() {
+
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-  
+  onShareAppMessage: function() {
+
   }
 })

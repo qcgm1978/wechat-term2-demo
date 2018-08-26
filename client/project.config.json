@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 8,
+			"current": 9,
 			"list": [
 				{
 					"id": -1,
@@ -88,6 +88,12 @@
 					"name": "transactionList",
 					"pathName": "pages/transactionList/transactionList",
 					"query": ""
+				},
+				{
+					"id": 9,
+					"name": "detail",
+					"pathName": "pages/detail/detail",
+					"query": "orderId=123456&orderStatus=WAIT_SHIPMENT"
 				}
 			]
 		}

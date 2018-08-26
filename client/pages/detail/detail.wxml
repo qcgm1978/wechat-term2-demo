@@ -1,10 +1,10 @@
 <!--pages/detail/detail.wxml-->
 <view class='product-card'>
 <swiper indicator-dots="{{indicatorDots}}"
-  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" >
   <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
     <swiper-item style='display:flex;'>
-      <image src="{{item}}" class="slide-image" width="355" height="150" style="height: 300rpx;width: calc(300/240*136px);wxcs_style_width: calc(300/240*320rpx);margin:0 auto;"/>
+      <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" width="355" height="150" style="height: 300rpx;width: calc(300/240*136px);wxcs_style_width: calc(300/240*320rpx);margin:0 auto;"/>
     </swiper-item>
   </block>
 </swiper>

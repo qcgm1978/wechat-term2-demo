@@ -274,7 +274,7 @@ Page({
   },
   goTransDetails: function(e) {
     wx.navigateTo({
-      url: `../transactionDetail/transactionDetail?transId=${e.currentTarget.dataset.transId}&notPaid=${this.data.hidePaid}`
+      url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
     })
   },
   /**
