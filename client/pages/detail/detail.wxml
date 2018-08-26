@@ -13,7 +13,7 @@
     <view class='product-name'>{{product.name}}</view>
   </view>
   <!-- <view class='line'></view> -->
-  <view class='center promotion-container padding regular bgc' style='margin-top:5rpx;'>
+  <view class='center promotion-container padding regular bgc mgt'>
     <text class='promotion'style="align-self: start;">促销</text>
     <view class='promotion-list'>
       <view class='center' wx:for='{{promotions}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
@@ -33,6 +33,26 @@
     </view>
     <view></view>
     <!-- <image src='../memberDetail/img/arrow.png' class='order-arrow1'></image> -->
+  </view>
+  <view class='center promotion-container padding regular bgc mgt'>
+    <text class='promotion' style="align-self: start;">信息</text>
+    <view class='promotion-list' >
+      <view class='center'>
+        <text style='width:490rpx;'>{{info}}</text>
+        <text class='promotion-type'></text>
+      </view>
+    </view>
+    <view></view>
+  </view>
+   <view class='center promotion-container padding regular bgc mgt'>
+    <text class='promotion' style="align-self: start;">介绍</text>
+    <view class='promotion-list' >
+      <view class='center'>
+        <text style='width:490rpx;'>{{intro}}</text>
+        <text class='promotion-type'></text>
+      </view>
+    </view>
+    <view></view>
   </view>
 </view>
   <!-- <image class='product-image' src='{{product.image}}'></image> -->

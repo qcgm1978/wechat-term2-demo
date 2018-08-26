@@ -4,6 +4,9 @@ page{
 .bgc{
   background:#fff;
 }
+.mgt{
+  margin-top:3rpx
+}
 .ellipse{
   white-space: nowrap;
   overflow: hidden;
