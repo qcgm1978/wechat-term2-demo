@@ -17,6 +17,7 @@ Page({
     autoplay: true,
     interval: 3000,
     duration: 1000,
+    top: globalData.systemInfo.windowHeight,
     icon: '../../images/trolley-full.png',
     info: '保质期(125天)；场地：中国，杭州；品牌：七喜',
     imgUrls: [{
@@ -96,7 +97,7 @@ Page({
     let product = Object.assign({
       count: 1
     }, this.data.product)
-    
+
     // qcloud.request({
     //   url: config.service.addOrder,
     //   login: true,

@@ -51,7 +51,7 @@ module.exports = {
         }],
         "item_name": "string",
         "item_specification": '饮料；碳酸饮料',
-        "item_status": "string",
+        "item_status": true,
         "price": 220,
         "sale_sku": "string",
         "sale_unit": "string",

@@ -75,13 +75,14 @@
       </block>
     </swiper>
   </view>
-  <view class='bgc center btns regular padding mgt'>
+  <text class='sold-out btn-container center-center' wx:if='{{!product.item_status}}' style='top:{{top}}rpx;transform:translate(0, -184rpx);'>该商品已下架</text>
+  <view class='bgc center btns regular padding mgt btn-container' style='top:{{top}}rpx;opacity:{{product.item_status?1:0.3}};'>
     <view class='center-center' style='flex-grow:1;'>
       <image src='{{icon}}' style='width:41rpx;height:41rpx;'></image>
       <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
     </view>
     <button bindtap='addToTrolley'>加入进货单</button>
-    <navigator url='{{"../transactionDetail/transactionDetail?itemId="+product.item_id+"&orderStatus="+""}}'>
+    <navigator url='{{"../transactionDetail/transactionDetail?itemId="+product.item_id+"&orderStatus="+""}}' style='margin-right:48rpx;'>
       <button>立即购买</button>
     </navigator>
   </view>

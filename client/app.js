@@ -46,8 +46,10 @@ App({
   getSystemInfo() {
     wx.getSystemInfo({
       success: res => {
-        this.globalData.systemInfo.windowHeight = res.windowHeight
-        this.globalData.systemInfo.windowWidth = res.windowWidth
+        this.globalData.systemInfo.windowHeight = res.windowHeight*2
+        this.globalData.systemInfo.windowWidth = res.windowWidth*2
+        this.globalData.systemInfo.screenWidth = res.screenWidth*2
+        this.globalData.systemInfo.screenHeight = res.screenHeight*2
       },
       fail: res => {
         console.log("getSystemInfo failed")

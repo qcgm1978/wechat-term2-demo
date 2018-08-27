@@ -6,7 +6,7 @@
   height: 18rpx;
   border: 2rpx solid #ee711f;
   border-radius: 9rpx;
-  transform:translate(-10rpx,-10rpx);
+  transform: translate(-10rpx, -10rpx);
 }
 
 .padding {
@@ -36,6 +36,12 @@
 
 .relative-money::before {
   content: '￥';
+}
+
+.btn-container {
+  position: fixed;
+  transform: translate(0, -100%);
+  width: 100%;
 }
 
 .btns button {
@@ -77,10 +83,16 @@
   height: 32rpx;
 }
 
+.sold-out {
+  font-size: 32rpx;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.60);
+  /* text-align: center; */
+  height: 72rpx;
+}
+
 .product-card {
-  /* padding-bottom: 15rpx;
-  background: #fff;
-  box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.02); */
+  margin-bottom: 60rpx;
 }
 
 .product-image {
