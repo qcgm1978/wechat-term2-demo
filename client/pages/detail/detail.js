@@ -17,6 +17,20 @@ Page({
     interval: 3000,
     duration: 1000,
     info:'保质期(125天)；场地：中国，杭州；品牌：七喜',
+    imgUrls:[
+      { img: 'https://i01picsos.sogoucdn.com/f29ddb031dfa74e8', title:'多种口味听装芬达500ml',
+      money:'2.5'},
+      {
+        img: 'http://www.kfzimg.com/G05/M00/3E/63/p4YBAFg-yCCAIXT_AABMUEgSsqU474_n.jpg', title: '多种口味听装芬达500ml',
+        money: '2.5'},
+      {
+        img: 'https://i03picsos.sogoucdn.com/2a4cac7380108f44', title: '多种口味听装芬达500ml',
+        money: '2.5', type: '满减'},
+      {
+        img: 'https://i03picsos.sogoucdn.com/c6fe007b19eb29b1', title: '多种口味听装芬达500ml',
+        money: '2.5',
+        type:'满减'}
+    ]
   },
 
   getProduct(orderId) {
@@ -32,8 +46,7 @@ Page({
       if (data.status === 200) {
         const result = data.result[0];
         this.setData({
-          product: result,
-          imgUrls: result.item_image_address
+          product: result
         })
       } else {
         setTimeout(() => {
@@ -51,7 +64,7 @@ Page({
   preview(e) {
     wx.previewImage({
       current: e.currentTarget.dataset.src, // 当前显示图片的http链接
-      urls: this.data.imgUrls // 需要预览的图片http链接列表
+      urls: this.data.product.item_image_address // 需要预览的图片http链接列表
     });
   },
 

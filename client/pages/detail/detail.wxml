@@ -1,6 +1,6 @@
 <view class='product-card'>
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
-    <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
+    <block wx:for="{{product.item_image_address}}" wx:key='{{index}}'>
       <swiper-item style='display:flex; height:100%;'>
         <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="height:100%;;margin:0 auto;" />
       </swiper-item>
@@ -53,22 +53,35 @@
     </view>
   </view>
 
-  <view>
+  <view class='bgc' style="margin-top: 15rpx;">
     <view class='center-center regular' style="height: 76rpx;font-size:28rpx;color: #EE711F;">
       <view class='short-line'></view>
       <text class='dot' style="margin-left: 0;">.</text>相关宝贝
       <text class='dot' style="margin-right: 0;">.</text>
       <view class='short-line'></view>
     </view>
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{false}}" interval="{{interval}}" display-multiple-items='{{3}}' duration="{{duration}}">
+    <swiper indicator-dots="{{true}}" indicator-active-color='#FDB658' autoplay="{{false}}" interval="{{interval}}" display-multiple-items='{{3}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
       <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
-        <swiper-item >
-          <image src="{{item}}" class="slide-image" height="150" />
+        <swiper-item style='padding:0 6rpx;' class='column' style='justify-content:space-around;'>
+          <view class='center-center' style="width: 100%;flex-grow:1;height:230rpx;">
+            <image mode='widthFix' src="{{item.img}}" class="slide-image" style="border-radius: 8rpx;width:100%;max-height:100%;" />
+          </view>
+          <text class='regular relative-name'>{{item.title}}</text>
+          <view class='center' style="width: 100%;align-items: center;">
+            <text class='relative-money'>{{item.money}}</text>
+            <text class='promotion-type'>{{item.type}}</text>
+          </view>
         </swiper-item>
       </block>
     </swiper>
   </view>
-
+  <view class='bgc center btns regular padding mgt'>
+    <view class='center-center' style='flex-grow:1;'>
+      <image src='../../images/trolley.png' style='width:41rpx;height:41rpx;'></image>
+    </view>
+    <button>加入进货单</button>
+    <button>立即购买</button>
+  </view>
   <!-- <image class='product-image' src='{{product.image}}'></image> -->
   <view class='product-source'>{{product.source}}</view>
   <view class='product-meta'>
