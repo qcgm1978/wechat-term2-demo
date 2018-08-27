@@ -41,7 +41,7 @@
       {
         "text": "进货单",
         "pagePath": "pages/trolley/trolley",
-        "iconPath": "images/trolley.png",
+        "iconPath": "images/trolley-full.png",
         "selectedIconPath": "images/trolley-sel.png"
       },
       {

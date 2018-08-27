@@ -1,7 +1,15 @@
-/* pages/detail/detail.wxss */
+.cart-num {
+  font-size: 18rpx;
+  color: #ee711f;
+  letter-spacing: -1.4rpx;
+  width: 18rpx;
+  height: 18rpx;
+  border: 2rpx solid #ee711f;
+  border-radius: 9rpx;
+  transform:translate(-10rpx,-10rpx);
+}
 
 .padding {
-  /* height: 196rpx; */
   padding: 18rpx 24rpx;
 }
 
@@ -37,13 +45,16 @@
   font-size: 32rpx;
   color: #fff;
 }
-.btns button:nth-of-type(1){
+
+.btns button:nth-of-type(1) {
   background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
 }
-.btns button:nth-of-type(2n){
-  background: #EC6515;
+
+.btns button:nth-of-type(2n) {
+  background: #ec6515;
   margin-left: 2rpx;
 }
+
 .promotion-container {
   align-items: center;
   font-size: 26rpx;

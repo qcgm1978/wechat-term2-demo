@@ -12,27 +12,47 @@ const getProduct = Api.getProduct;
 
 Page({
   data: {
+    badge: 0,
     product: {},
     autoplay: true,
     interval: 3000,
     duration: 1000,
-    info:'保质期(125天)；场地：中国，杭州；品牌：七喜',
-    imgUrls:[
-      { img: 'https://i01picsos.sogoucdn.com/f29ddb031dfa74e8', title:'多种口味听装芬达500ml',
-      money:'2.5'},
+    icon: '../../images/trolley-full.png',
+    info: '保质期(125天)；场地：中国，杭州；品牌：七喜',
+    imgUrls: [{
+        img: 'https://i01picsos.sogoucdn.com/f29ddb031dfa74e8',
+        title: '多种口味听装芬达500ml',
+        money: '2.5'
+      },
       {
-        img: 'http://www.kfzimg.com/G05/M00/3E/63/p4YBAFg-yCCAIXT_AABMUEgSsqU474_n.jpg', title: '多种口味听装芬达500ml',
-        money: '2.5'},
+        img: 'http://www.kfzimg.com/G05/M00/3E/63/p4YBAFg-yCCAIXT_AABMUEgSsqU474_n.jpg',
+        title: '多种口味听装芬达500ml',
+        money: '2.5'
+      },
       {
-        img: 'https://i03picsos.sogoucdn.com/2a4cac7380108f44', title: '多种口味听装芬达500ml',
-        money: '2.5', type: '满减'},
-      {
-        img: 'https://i03picsos.sogoucdn.com/c6fe007b19eb29b1', title: '多种口味听装芬达500ml',
+        img: 'https://i03picsos.sogoucdn.com/2a4cac7380108f44',
+        title: '多种口味听装芬达500ml',
         money: '2.5',
-        type:'满减'}
+        type: '满减'
+      },
+      {
+        img: 'https://i03picsos.sogoucdn.com/c6fe007b19eb29b1',
+        title: '多种口味听装芬达500ml',
+        money: '2.5',
+        type: '满减'
+      }
     ]
   },
-
+  addToTrolley() {
+    utils
+      .addToTrolley(this.data.product.item_id)
+      .then(badge => {
+        this.setData({
+          badge,
+          icon: '../../images/trolley-missing.png'
+        })
+      })
+  },
   getProduct(orderId) {
     wx.showLoading({
       title: '商品数据加载中...',
@@ -112,43 +132,7 @@ Page({
     })
   },
 
-  addToTrolley() {
-    wx.showLoading({
-      title: '正在添加到购物车...',
-    })
 
-    qcloud.request({
-      url: config.service.addTrolley,
-      login: true,
-      method: 'PUT',
-      data: this.data.product,
-      success: result => {
-        wx.hideLoading()
-
-        let data = result.data
-
-        if (!data.code) {
-          wx.showToast({
-            title: '已添加到购物车',
-          })
-        } else {
-          wx.showToast({
-            icon: 'none',
-            title: '添加到购物车失败',
-          })
-        }
-      },
-      fail: () => {
-        wx.hideLoading()
-
-        wx.showToast({
-          icon: 'none',
-          title: '添加到购物车失败',
-        })
-      }
-    })
-
-  },
 
   onTapCommentEntry() {
     let product = this.data.product
@@ -163,7 +147,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getProduct(options.orderId)
+    this.getProduct(options.orderId);
+    if (globalData.badge > 0) {
+      this.setData({
+        badge: globalData.badge,
+        icon: '../../images/trolley-missing.png'
+      });
+    }
   },
 
   /**

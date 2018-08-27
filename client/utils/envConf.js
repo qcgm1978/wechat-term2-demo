@@ -44,6 +44,7 @@ const apiURLs = {
   getOrderList: `${baseUrl}/v1/order/list`,
   getProduct: `${baseUrl}/v1/product/{merchantId}/{orderId}`,
   getMerchant: `${devBaseUrl}/merchant/{merchantId}`,
+  addTrolley: `${baseUrl}/v1/trolley/list`,
   backendUrlLogin: `${baseUrl}/auth/wechat`,
 
   backendUrlUserInfo: baseUrl + '/v1/members/',

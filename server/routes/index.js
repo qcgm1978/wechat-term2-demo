@@ -32,21 +32,15 @@ router.get('/message', controllers.message.get)
 // POST 用来处理微信转发过来的客服消息
 router.post('/message', controllers.message.post)
 
-// 获取商品列表
-router.get('/product', controllers.product.list)
 
-// 获取商品详情
-router.get('/v1/product/:merchantId/:orderId', controllers.product.detail)
+
 
 // 创建订单
 router.post('/order', validationMiddleware, controllers.order.add)
 
-// 显示订单
-router.post('/v1/order/list', controllers.order.list);
-router.get('/v1/order/:merchantId/:orderId', controllers.order.detail)
 
-// 商品添加到购物车列表
-router.put('/trolley', validationMiddleware, controllers.trolley.add)
+
+
 
 // 获取购物车商品列表
 router.get('/trolley', validationMiddleware, controllers.trolley.list)
@@ -60,6 +54,14 @@ router.put('/comment', validationMiddleware, controllers.comment.add)
 // 获取评论列表
 router.get('/comment', controllers.comment.list)
 
+// 获取商品列表
+router.get('/product', controllers.product.list)
 router.post('/auth/wechat', controllers.login.wechat)
-
+// 获取商品详情
+router.get('/v1/product/:merchantId/:orderId', controllers.product.detail)
+// 显示订单
+router.post('/v1/order/list', controllers.order.list);
+router.get('/v1/order/:merchantId/:orderId', controllers.order.detail);
+// 商品添加到购物车列表
+router.post('/v1/trolley/list', controllers.trolley.add)
 module.exports = router

@@ -1,4 +1,4 @@
-// pages/home/home.js
+import utils from "../../utils/util.js";
 // const io = require('/socket.io/socket.io.js')
 const getUserInfo = require('./getUserInfo').default;
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
@@ -63,42 +63,9 @@ Page({
         break
       }
     }
-
     if (product) {
-      qcloud.request({
-        url: config.service.addTrolley,
-        login: true,
-        method: 'PUT',
-        data: product,
-        success: result => {
-          let data = result.data
-
-          if (!data.code) {
-            wx.showToast({
-              title: '已添加到购物车',
-            });
-            wx.setTabBarBadge({
-              index: 2,
-              text: ++globalData.badge+''
-            });
-          } else {
-            wx.showToast({
-              icon: 'none',
-              title: '添加到购物车失败',
-            })
-          }
-        },
-        fail: () => {
-          wx.showToast({
-            icon: 'none',
-            title: '添加到购物车失败',
-          })
-        }
-      })
-
+      utils.addToTrolley(product.id)
     }
-
-
   },
 
   /**

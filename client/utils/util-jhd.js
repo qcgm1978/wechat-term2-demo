@@ -1,3 +1,8 @@
+import {
+  Api
+} from './envConf.js';
+const app = getApp();
+const globalData = app.globalData;
 var ERROR_CODE = require("index.js").config.errorCode;
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
@@ -21,7 +26,6 @@ var postRequestWithoutToken = function(url, data) {
       data: postData,
       method: 'POST',
       header: {
-        //'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
         'X-Client-Id': 'mini-app'
       },
       success: res => {
@@ -138,7 +142,6 @@ var getRequestWithoutToken = function(url) {
       url: url,
       method: 'GET',
       header: {
-        //'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
         'X-Client-Id': 'mini-app'
       },
       success: res => {
@@ -238,6 +241,36 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler) {
 const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
+    
+const addToTrolley = (item_id)=> {
+  wx.showLoading({
+    title: '正在添加到购物车...',
+  });
+  const postData = {
+    item_id
+  }
+  return postRequest(Api.addTrolley, postData)
+    .then((data) => {
+      wx.hideLoading();
+      if (data.result.status === 200) {
+        wx.setTabBarBadge({
+          index: 2,
+          text: ++globalData.badge + ''
+        });
+        wx.showToast({
+          title: '已添加到购物车',
+        });
+        return globalData.badge;
+      }
+    })
+    .catch((errorCode) => {
+      wx.hideLoading()
+      wx.showToast({
+        icon: 'none',
+        title: '添加到购物车失败',
+      })
+    });
+}
 module.exports = {
   checkNetwork: checkNetwork,
   formatTime: formatTime,
@@ -247,5 +280,6 @@ module.exports = {
   getRequestWithoutToken: getRequestWithoutToken,
   getRequest: getRequest,
   errorHander: errorHander,
-  queryStack
+  queryStack,
+  addToTrolley
 }
