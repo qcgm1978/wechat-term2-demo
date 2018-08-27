@@ -61,7 +61,7 @@
       <view class='short-line'></view>
     </view>
     <swiper indicator-dots="{{true}}" indicator-active-color='#FDB658' autoplay="{{false}}" interval="{{interval}}" display-multiple-items='{{3}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
-      <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
+      <navigator wx:for="{{imgUrls}}" wx:key='{{index}}' url='{{"/pages/detail/detail?item_id="+item.item_id}}'>
         <swiper-item class='column' style='justify-content:space-around; margin:0 6rpx;'>
           <view class='center-center' style="width: 100%;flex-grow:1;height:230rpx;">
             <image mode='widthFix' src="{{item.img}}" class="slide-image" style="border-radius: 8rpx;width:218rpx;max-height:100%;" />
@@ -72,7 +72,7 @@
             <text class='promotion-type'>{{item.type}}</text>
           </view>
         </swiper-item>
-      </block>
+      </navigator>
     </swiper>
   </view>
   <text class='sold-out btn-container center-center' wx:if='{{!product.item_status}}' style='top:{{top}}rpx;transform:translate(0, -184rpx);'>该商品已下架</text>

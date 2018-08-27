@@ -23,24 +23,28 @@ Page({
     imgUrls: [{
         img: 'https://i01picsos.sogoucdn.com/f29ddb031dfa74e8',
         title: '多种口味听装芬达500ml',
-        money: '2.5'
+        money: '2.5',
+        item_id: 123456
       },
       {
         img: 'http://www.kfzimg.com/G05/M00/3E/63/p4YBAFg-yCCAIXT_AABMUEgSsqU474_n.jpg',
         title: '多种口味听装芬达500ml',
-        money: '2.5'
+        money: '2.5',
+        item_id: 123456
       },
       {
         img: 'https://i03picsos.sogoucdn.com/2a4cac7380108f44',
         title: '多种口味听装芬达500ml',
         money: '2.5',
-        type: '满减'
+        type: '满减',
+        item_id: 123456
       },
       {
         img: 'https://i03picsos.sogoucdn.com/c6fe007b19eb29b1',
         title: '多种口味听装芬达500ml',
         money: '2.5',
-        type: '满减'
+        type: '满减',
+        item_id: 123456
       }
     ]
   },
