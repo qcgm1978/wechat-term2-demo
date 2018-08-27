@@ -14,6 +14,7 @@ Page({
   data: {
     badge: 0,
     product: {},
+    isSelecting:false,
     autoplay: true,
     interval: 3000,
     duration: 1000,
@@ -80,10 +81,7 @@ Page({
       }
     }).catch(err => {
       wx.hideLoading();
-      console.log(err)
-      // setTimeout(() => {
-      //   wx.navigateBack()
-      // }, 2000)
+      console.log(err);
     })
   },
   preview(e) {
@@ -94,6 +92,12 @@ Page({
   },
 
   buy() {
+    if(!this.data.isSelecting){
+      return this.setData({
+        isSelecting:true
+      })
+    }
+    // "../transactionDetail/transactionDetail?itemId="+product.item_id+"&orderStatus="+""
     wx.showLoading({
       title: '商品购买中...',
     })
