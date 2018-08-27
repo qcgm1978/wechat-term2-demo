@@ -62,9 +62,9 @@
     </view>
     <swiper indicator-dots="{{true}}" indicator-active-color='#FDB658' autoplay="{{false}}" interval="{{interval}}" display-multiple-items='{{3}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
       <block wx:for="{{imgUrls}}" wx:key='{{index}}'>
-        <swiper-item style='padding:0 6rpx;' class='column' style='justify-content:space-around;'>
+        <swiper-item class='column' style='justify-content:space-around; margin:0 6rpx;'>
           <view class='center-center' style="width: 100%;flex-grow:1;height:230rpx;">
-            <image mode='widthFix' src="{{item.img}}" class="slide-image" style="border-radius: 8rpx;width:100%;max-height:100%;" />
+            <image mode='widthFix' src="{{item.img}}" class="slide-image" style="border-radius: 8rpx;width:218rpx;max-height:100%;" />
           </view>
           <text class='regular relative-name'>{{item.title}}</text>
           <view class='center' style="width: 100%;align-items: center;">
@@ -81,36 +81,9 @@
       <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
     </view>
     <button bindtap='addToTrolley'>加入进货单</button>
-    <button>立即购买</button>
+    <navigator url='{{"../transactionDetail/transactionDetail?itemId="+product.item_id+"&orderStatus="+""}}'>
+      <button>立即购买</button>
+    </navigator>
   </view>
-  <!-- <image class='product-image' src='{{product.image}}'></image> -->
-  <view class='product-source'>{{product.source}}</view>
-  <view class='product-meta'>
-    <view class='product-money'>￥</view>
 
-  </view>
-</view>
-<view class='info-card'>
-  <view class='advantage-list'>
-    <view class='advantage-item'>
-      <image class='advantage-icon' src='/images/check-yellow.png'></image>
-      <view class='advantage-text'>7天免费退货</view>
-    </view>
-    <view class='advantage-item'>
-      <image class='advantage-icon' src='/images/check-yellow.png'></image>
-      <view class='advantage-text'>24小时内发货并配送运费险</view>
-    </view>
-  </view>
-  <view class='comment-entry' bindtap='onTapCommentEntry'>
-    <view class='comment-btn'>
-      <view class='comment-title'>已买评价</view>
-      <view class='comment-count'>{{product.commentCount}}条</view>
-      <image class='comment-arrow' src='/images/grey-arrow.png'></image>
-    </view>
-    <view class='comment-preview'>{{product.firstComment.content}}</view>
-  </view>
-</view>
-<view class='opr-cnt'>
-  <view class='opr-trolley' bindtap='addToTrolley'>加入购物车</view>
-  <view class='opr-buy' bindtap='buy'>立即购买</view>
 </view>

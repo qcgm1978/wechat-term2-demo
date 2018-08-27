@@ -96,40 +96,40 @@ Page({
     let product = Object.assign({
       count: 1
     }, this.data.product)
+    
+    // qcloud.request({
+    //   url: config.service.addOrder,
+    //   login: true,
+    //   method: 'POST',
+    //   data: {
+    //     list: [product],
+    //     isInstantBuy: true
+    //   },
+    //   success: result => {
+    //     wx.hideLoading()
 
-    qcloud.request({
-      url: config.service.addOrder,
-      login: true,
-      method: 'POST',
-      data: {
-        list: [product],
-        isInstantBuy: true
-      },
-      success: result => {
-        wx.hideLoading()
+    //     let data = result.data
 
-        let data = result.data
+    //     if (!data.code) {
+    //       wx.showToast({
+    //         title: '商品购买成功',
+    //       })
+    //     } else {
+    //       wx.showToast({
+    //         icon: 'none',
+    //         title: '商品购买失败',
+    //       })
+    //     }
+    //   },
+    //   fail: () => {
+    //     wx.hideLoading()
 
-        if (!data.code) {
-          wx.showToast({
-            title: '商品购买成功',
-          })
-        } else {
-          wx.showToast({
-            icon: 'none',
-            title: '商品购买失败',
-          })
-        }
-      },
-      fail: () => {
-        wx.hideLoading()
-
-        wx.showToast({
-          icon: 'none',
-          title: '商品购买失败',
-        })
-      }
-    })
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '商品购买失败',
+    //     })
+    //   }
+    // })
   },
 
 

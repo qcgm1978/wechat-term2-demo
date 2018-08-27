@@ -160,7 +160,7 @@ Page({
         isWebsocket: options.isWebsocket
       })
     } else {
-      this.requestTransDetail(options.orderId)
+      this.requestTransDetail(options.orderId || options.itemId)
     }
   },
   /**
