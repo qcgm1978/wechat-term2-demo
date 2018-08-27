@@ -4,7 +4,15 @@
   /* height: 196rpx; */
   padding: 18rpx 24rpx;
 }
+.short-line {
+  width: 82rpx;
+  height: 2rpx;
+  background:  #EE711F;
+}
+.dot{
+  margin:12rpx 9rpx auto;
 
+}
 .promotion-container {
   align-items: center;
   font-size: 26rpx;

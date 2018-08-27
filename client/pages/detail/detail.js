@@ -16,22 +16,7 @@ Page({
     autoplay: true,
     interval: 3000,
     duration: 1000,
-    type:'饮料；碳酸饮料',
     info:'保质期(125天)；场地：中国，杭州；品牌：七喜',
-    intro: '混合口味更适合冬天饮用,草莓口味更适合夏天饮品, 值得试试看',
-    promotions: [{
-      content: '满300元减10元(芬达葡萄味饮料)',
-      type: '满减'
-    }, {
-        content: '饮料系列满20赠送100积分(芬达香蕉牛奶…',
-      type: '满赠'
-    }, {
-      content: '满300元减10元(芬达葡萄味饮料)',
-      type: '满减'
-    }, {
-      content: '满300元减10元(芬达葡萄味饮料)',
-      type: '满减'
-    }]
   },
 
   getProduct(orderId) {
@@ -45,9 +30,10 @@ Page({
       wx.hideLoading()
       console.log(data);
       if (data.status === 200) {
+        const result = data.result[0];
         this.setData({
-          product: data.result,
-          imgUrls: [data.result.image]
+          product: result,
+          imgUrls: result.item_image_address
         })
       } else {
         setTimeout(() => {
