@@ -12,13 +12,27 @@ const getProduct = Api.getProduct;
 
 Page({
   data: {
+    currentMoney: 0,
     badge: 0,
     product: {},
-    isSelecting:false,
+    isSelecting: false,
     autoplay: true,
     interval: 3000,
     duration: 1000,
     top: globalData.systemInfo.windowHeight,
+    specificationList: [{
+      specification: '1*12*450ML',
+      num: 0
+
+    }, {
+      specification: '1*12*450ML',
+      num: 0
+
+    }, {
+      specification: '1*12*450ML',
+      num: 0
+
+    }],
     icon: '../../images/trolley-full.png',
     info: '保质期(125天)；场地：中国，杭州；品牌：七喜',
     imgUrls: [{
@@ -49,7 +63,25 @@ Page({
       }
     ]
   },
+  plus(e){
+    const index = e.currentTarget.dataset.index;
+    this.data.specificationList[index].num++
+    this.setData({
+      specificationList: this.data.specificationList
+    })
+      debugger;
+  },
+  closePopup() {
+    this.setData({
+      isSelecting: false
+    })
+  },
   addToTrolley() {
+    if (!this.data.isSelecting) {
+      return this.setData({
+        isSelecting: true
+      })
+    }
     utils
       .addToTrolley(this.data.product.item_id)
       .then(badge => {
@@ -92,12 +124,15 @@ Page({
   },
 
   buy() {
-    if(!this.data.isSelecting){
+    if (!this.data.isSelecting) {
       return this.setData({
-        isSelecting:true
+        isSelecting: true
       })
     }
-    // "../transactionDetail/transactionDetail?itemId="+product.item_id+"&orderStatus="+""
+    wx.navigateTo({
+      url: "../transactionDetail/transactionDetail?itemId=" + this.data.product.item_id + "&orderStatus=" + "",
+    });
+    return;
     wx.showLoading({
       title: '商品购买中...',
     })
