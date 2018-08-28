@@ -114,7 +114,7 @@ var getRequest = function(url, data) {
       method: 'GET',
       header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
-        'X-Client-Id': 'mini-app',
+        // 'X-Client-Id': 'mini-app',
         // 'Content-Type': 'application/json'
 
       },
