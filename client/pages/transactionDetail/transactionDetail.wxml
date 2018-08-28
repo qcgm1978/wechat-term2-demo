@@ -25,18 +25,20 @@
     <template is="orderItem" data="{{order,disable}}"></template>
   </view>
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
-    <view class='money-amount'>
-      <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; ">
-        <view>商品总额</view>
-        <view> {{order.totalAmount}}</view>
+    <view class='bgc padding'>
+      <view class='money-amount '>
+        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>商品总额</view>
+          <view> {{order.totalAmount}}</view>
+        </view>
       </view>
-    </view>
 
 
-    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
-      <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view>积分抵扣：</view>
-        <view> {{order.payment.usePoint}}</view>
+      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>积分抵扣：</view>
+          <view> {{order.payment.usePoint}}</view>
+        </view>
       </view>
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
@@ -44,38 +46,39 @@
       <text style='color:#ec6515;'>￥{{order.payment.cashAmount}}</text>
     </view>
 
-    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
-      <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view>
-          <text style="color:#888">订单编号：</text>{{order.orderId}}</view>
-        <view catch:tap='copy' class='copy'>复制</view>
+    <view class='bgc padding' style="margin-top: 15rpx;">
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style="color:#888">订单编号：</text>{{order.orderId}}</view>
+          <view catch:tap='copy' class='copy'>复制</view>
+        </view>
       </view>
-    </view>
-    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
-      <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view>
-          <text style="color:#888">创建时间：</text>{{order.createTime}}</view>
-      </view>
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style="color:#888">创建时间：</text>{{order.createTime}}</view>
+        </view>
 
-    </view>
-    <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
-    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
-      <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view>
-          <text style='color:#888'>付款时间：</text>{{order.payment.paymentTime}}</view>
+      </view>
+      <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style='color:#888'>付款时间：</text>{{order.payment.paymentTime}}</view>
+        </view>
+      </view>
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style='color:#888'>支付方式：</text>{{order.payment.paymentMethod}}</view>
+        </view>
       </view>
     </view>
-    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
-      <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view>
-          <text style='color:#888'>支付方式：</text>{{order.payment.paymentMethod}}</view>
-      </view>
-    </view>
-
-    <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+    <view class='regular money-amount money bgc padding' hidden='{{notShowDiscountInfo||isToPay}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
         <view></view>
-        <view catch:tap='copy' class='buy-again'>再次购买</view>
+        <view catch:tap='copy' class='buy-again mgt'>再次购买</view>
       </view>
     </view>
 

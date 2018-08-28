@@ -7,8 +7,7 @@ let refreshTimeExpired = true,
 const app = getApp();
 let globalData = app.globalData;
 const getOrderList = URLs.getOrderList;
-const backendUrlTransCancel = URLs.backendUrlTransCancel;
-const backendUrlTransCount2 = URLs.backendUrlTransCount2
+const cancelOrder = URLs.cancelOrder
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
 const HTTP_SUCCSESS = ERROR_CODE.HTTP_SUCCSESS
@@ -61,7 +60,7 @@ Page({
       confirmColor: "#fcb052",
       success: res => {
         if (res.confirm) {
-          utils.getRequest(backendUrlTransCancel + selectData.transactionId)
+          utils.getRequest(cancelOrder + selectData.transactionId)
             .then((data) => {
               this.setData({
                 transListToPay: obj,
@@ -232,7 +231,7 @@ Page({
 
   //下拉刷新
   onPullDownRefresh: function() {
-    const offset = this.data.config.offset-1;
+    const offset = this.data.config.offset - 1;
     if (offset > 0) {
       this.setData({
         config: {

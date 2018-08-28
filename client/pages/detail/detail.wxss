@@ -41,9 +41,7 @@
   transform: translate(-10rpx, -10rpx);
 }
 
-.padding {
-  padding: 18rpx 24rpx;
-}
+
 
 .short-line {
   width: 82rpx;

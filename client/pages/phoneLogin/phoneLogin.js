@@ -16,7 +16,7 @@ const CONNECTION_TIMEOUT = ERROR_CODE.CONNECTION_TIMEOUT
 const INVALID_USER_STATUS = ERROR_CODE.INVALID_USER_STATUS
 
 const PHONE_NUMBER_LENGTH = 11
-const VERIFY_CODE_LENGTH = 6
+const VERIFY_CODE_LENGTH = 4
 var interval
 Page({
   data: {
@@ -64,7 +64,10 @@ Page({
             wx.setStorage({
               key: "isWechatLogin",
               data: false
-            })
+            });
+            wx.switchTab({
+              url: '/pages/home/home',
+            });
            })
           .catch((err) => {
             console.log(err)
@@ -94,38 +97,39 @@ Page({
       // return;
       utils.postRequestWithoutToken(backendUrlPhoneLogin, postData)
         .then((data) => {
-          getApp().globalData.token.accessToken = data.result.token.accessToken
-          getApp().globalData.token.refreshToken = data.result.token.refreshToken
-          getApp().globalData.userInfo.registerStatus = true
-          getApp().globalData.userInfo.memberId = data.result.memberId
-          // getApp().globalData.userInfo.memberName = res.data.result.memberName
-          getApp().globalData.userInfo.mobile = this.data.inputPhone
-          getApp().globalData.userInfo.savedInDBStatus = true
-          wx.setStorage({
-            key: "memberId",
-            data: getApp().globalData.userInfo.memberId
-          })
-          wx.setStorage({
-            key: "registerStatus",
-            data: getApp().globalData.userInfo.registerStatus
-          })
-          wx.setStorage({
-            key: "mobile",
-            data: getApp().globalData.userInfo.mobile
-          })
-          wx.setStorage({
-            key: "accessToken",
-            data: getApp().globalData.token.accessToken
-          })
-          wx.setStorage({
-            key: "refreshToken",
-            data: getApp().globalData.token.refreshToken
-          })
+          getApp().saveGlobalData(data.result);
+          
+          // getApp().globalData.token.accessToken = data.result.token.accessToken
+          // getApp().globalData.token.refreshToken = data.result.token.refreshToken
+          // getApp().globalData.userInfo.registerStatus = true
+          // getApp().globalData.userInfo.memberId = data.result.memberId
+          // // getApp().globalData.userInfo.memberName = res.data.result.memberName
+          // getApp().globalData.userInfo.mobile = this.data.inputPhone
+          // getApp().globalData.userInfo.savedInDBStatus = true
+          // wx.setStorage({
+          //   key: "memberId",
+          //   data: getApp().globalData.userInfo.memberId
+          // })
+          // wx.setStorage({
+          //   key: "registerStatus",
+          //   data: getApp().globalData.userInfo.registerStatus
+          // })
+          // wx.setStorage({
+          //   key: "mobile",
+          //   data: getApp().globalData.userInfo.mobile
+          // })
+          // wx.setStorage({
+          //   key: "accessToken",
+          //   data: getApp().globalData.token.accessToken
+          // })
+          // wx.setStorage({
+          //   key: "refreshToken",
+          //   data: getApp().globalData.token.refreshToken
+          // })
 
 
-          resolve()
+          resolve();
         })
-        .then(payCode.getPayCodeToken)
         .then(() => {
           wx.switchTab({
             url: '../home/home'
@@ -234,7 +238,7 @@ Page({
   },
 
   verifyInput: function () {
-    if (this.data.inputPhone.length !== PHONE_NUMBER_LENGTH || this.data.inputVerify.length !== VERIFY_CODE_LENGTH) {
+    if (String(this.data.inputPhone).length !== PHONE_NUMBER_LENGTH || this.data.inputVerify.length !== VERIFY_CODE_LENGTH) {
       return false
     } else {
       return true

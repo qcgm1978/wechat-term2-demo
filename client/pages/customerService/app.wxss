@@ -4,6 +4,9 @@ page{
 .bgc{
   background:#fff;
 }
+.padding {
+  padding: 18rpx 24rpx;
+}
 .mgt{
   margin-top:3rpx
 }

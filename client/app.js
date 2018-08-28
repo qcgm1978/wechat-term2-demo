@@ -72,11 +72,35 @@ App({
     if (!this.globalData.merchantId) {
       this.globalData = {
         ...this.globalData,
-        ...wx.getStorageSync('globalData')
+        ...wx.getStorageSync('globalData'),
+        // todo test data
+        merchantId:'123456',
       };
     }
     // this.login();
     // this.runWebSocket()  // 加载websocket操作    
+  },
+  saveGlobalData(result){
+    this.globalData.merchantId = result.authMerchantList[0].merchantId;
+    this.globalData.token.accessToken = result.jwtToken.accessToken;
+    this.globalData.address = result.authMerchantList[0].merchantStoreName;
+    wx.setStorage({
+      key: "authWechat",
+      data: result
+    });
+    wx.setStorage({
+      key: "merchantId",
+      data: this.globalData.merchantId
+    });
+    wx.setStorage({
+      key: "token",
+      data: result.jwtToken
+    });
+    // for development
+    wx.setStorage({
+      key: "globalData",
+      data: this.globalData
+    });
   },
   onShow() {
     this.checkProgramUpdate();

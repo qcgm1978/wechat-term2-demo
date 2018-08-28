@@ -137,26 +137,7 @@ Page({
               url: '/pages/home-enter/home-enter',
             })
           }
-          globalData.merchantId = result.authMerchantList[0].merchantId;
-          globalData.token.accessToken = result.jwtToken.accessToken;
-          globalData.address = result.authMerchantList[0].merchantStoreName;
-          wx.setStorage({
-            key: "authWechat",
-            data: result
-          });
-          wx.setStorage({
-            key: "merchantId",
-            data: globalData.merchantId
-          });
-          wx.setStorage({
-            key: "token",
-            data: result.jwtToken
-          });
-          // for development
-          wx.setStorage({
-            key: "globalData",
-            data: globalData
-          });
+          app.saveGlobalData(result);
           wx.switchTab({
             url: '/pages/home/home',
           });

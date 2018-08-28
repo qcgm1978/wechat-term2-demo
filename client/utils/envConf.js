@@ -5,22 +5,22 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.DEV; //update this value for different env
+var env = EVN.LOCAL; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
 var clientSecret = ""
-const devBaseUrl = "http://dev.jhdmall.com/weapp/merchant-mall";
+const devBaseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1";
 
 switch (env) {
   case EVN.DEV:
     clientSecret = "Rn2eJRBN0cDEXSBl"
     baseUrl = devBaseUrl;
-    addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall"
+    addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     break;
   case EVN.LOCAL:
     {
-      baseUrl = 'http://localhost:5757';
+      baseUrl = 'http://localhost:5757/v1';
       break;
     }
   case EVN.STG:
@@ -40,12 +40,16 @@ switch (env) {
     break
 }
 const apiURLs = {
-  getOrder: `${baseUrl}/v1/order/{merchantId}/{orderId}`,
-  getOrderList: `${baseUrl}/v1/order/list`,
-  getProduct: `${baseUrl}/v1/product/{merchantId}/{orderId}`,
+  getOrder: `${baseUrl}/order/{merchantId}/{orderId}`,
+  getOrderList: `${baseUrl}/order/list`,
+  cancelOrder: `${baseUrl}/order/cancel`,
+  getProduct: `${baseUrl}/product/{merchantId}/{orderId}`,
   getMerchant: `${devBaseUrl}/merchant/{merchantId}`,
-  addTrolley: `${baseUrl}/v1/trolley/list`,
-  backendUrlLogin: `${baseUrl}/v1/auth/wechat`,
+  addTrolley: `${baseUrl}/trolley/list`,
+  backendUrlLogin: `${baseUrl}/auth/wechat`,
+  backendUrlVerifyCode: baseUrl + '/auth/sms/',
+  backendUrlPhoneLogin: baseUrl + '/auth/sms',
+  
 
   backendUrlUserInfo: baseUrl + '/v1/members/',
   backendUrlRefreshToken: baseUrl + '/v1/auth/refresh',
@@ -57,8 +61,6 @@ const apiURLs = {
   backendUrlPointBalance: baseUrl + '/v1/members/',
   backendUrlPayCodeToken: baseUrl + '/v1/barcode/',
 
-  backendUrlPhoneLogin: baseUrl + '/v1/sms/login',
-  backendUrlVerifyCode: baseUrl + '/auth/sms/',
 
   backendUrlAddress: addrUrl + '/v1/address',
   backendUrlQRCode: baseUrl + '/v1/qrCodeUrl/get/',
