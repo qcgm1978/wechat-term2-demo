@@ -131,7 +131,7 @@ Page({
           }
         } else {
           const result = res.data.result;
-          globalData.authWechat = result;
+          
           if (result.potentialUser){
             return wx.navigateTo({
               url: '/pages/home-enter/home-enter',

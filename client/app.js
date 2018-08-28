@@ -81,6 +81,7 @@ App({
     // this.runWebSocket()  // 加载websocket操作    
   },
   saveGlobalData(result){
+    this.globalData.authWechat = result;
     this.globalData.merchantId = result.authMerchantList[0].merchantId;
     this.globalData.token.accessToken = result.jwtToken.accessToken;
     this.globalData.address = result.authMerchantList[0].merchantStoreName;
