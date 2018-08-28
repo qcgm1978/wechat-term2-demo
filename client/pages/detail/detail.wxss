@@ -23,6 +23,13 @@
   font-size: 60rpx;
 }
 
+.subtotal {
+  font-size: 24rpx;
+  color: #ee711f;
+  letter-spacing: 0;
+  text-align: right;
+}
+
 .cart-num {
   font-size: 18rpx;
   color: #ee711f;
@@ -85,8 +92,20 @@
 }
 
 .btns button:nth-of-type(2n) {
-  background: #ec6515;
   margin: auto 48rpx auto 2rpx;
+}
+
+.buy-btn {
+  background: #ec6515;
+}
+
+.buy-selecting {
+  background: #acafb3;
+}
+
+.promotion-txt {
+  font-size: 28rpx;
+  color: #333;
 }
 
 .promotion-container {

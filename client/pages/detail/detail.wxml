@@ -11,7 +11,7 @@
       <view class='product-price'>￥{{product.price}}</view>
       <view class='product-name'>{{product.item_brand}}</view>
     </view>
-    <view class='center promotion-container padding regular bgc mgt'>
+    <view class='center promotion-container padding regular bgc mgt' catch:tap='showPromotion'>
       <text class='promotion' style="align-self: start;">促销</text>
       <view class='promotion-list'>
         <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
@@ -76,15 +76,13 @@
     </swiper>
   </view>
   <text class='sold-out btn-container center-center' wx:if='{{!product.item_status}}' style='top:{{top}}rpx;transform:translate(0, -184rpx);'>该商品已下架</text>
-  <view class='bgc center btns regular padding mgt btn-container' style='top:{{top}}rpx;opacity:{{product.item_status?1:0.3}};'>
+  <view wx:if='{{!promotion}}' class='bgc center btns regular padding mgt btn-container' style='top:{{top}}rpx;opacity:{{product.item_status?1:0.3}};'>
     <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
       <image src='{{icon}}' style='width:41rpx;height:41rpx;'></image>
       <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
     </view>
     <button bindtap='addToTrolley' disabled='{{!product.item_status}}'>加入进货单</button>
-    <!-- <navigator url='{{"../transactionDetail/transactionDetail?itemId="+product.item_id+"&orderStatus="+""}}' > -->
-    <button bind:tap='buy' disabled='{{!product.item_status}}'>立即购买</button>
-    <!-- </navigator> -->
+    <button bind:tap='buy' disabled='{{!product.item_status}}' class='{{isSelecting?"buy-selecting":"buy-btn"}}'>{{isSelecting?buyTxt:'立即购买'}}</button>
   </view>
   <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top-750}}rpx;'>
     <view class='center padding' style='justify-content:space-between;'>
@@ -97,24 +95,35 @@
     </view>
     <view class='line'></view>
     <view class='padding'>
-      <scroll-view scroll-y style="height: 360rpx;" >
+      <scroll-view scroll-y style="height: 340rpx;">
 
-      <view wx:for='{{specificationList}}' wx:key='{{index}}' style='padding:18rpx 0;'>
-        <view class='center regular specification ' >
-          <text>规格</text>
-          <text style="font-size: 28rpx;">{{item.specification}}</text>
-        </view>
-        <view class='center regular specification '>
-          <text>购买数量</text>
-          <view class='center' style='align-items:center'>
-            <text class='plus-minus center-center' style='opacity:{{itm.num?1:0.5}};'>-</text>
-            <text class='plus-minus center-center' style="font-size: 32rpx;">{{item.num}}</text>
-            <text class='plus-minus center-center' catch:tap='plus' data-index='{{index}}'>+</text>
+        <view wx:for='{{specificationList}}' wx:key='{{index}}' style='padding:18rpx 0;'>
+          <view class='center regular specification '>
+            <text>规格</text>
+            <text style="font-size: 28rpx;">{{item.specification}}</text>
+          </view>
+          <view class='center regular specification '>
+            <text>购买数量</text>
+            <view class='center' style='align-items:center'>
+              <text class='plus-minus center-center' style='opacity:{{item.num?1:0.5}};' catch:tap='minus' data-index='{{index}}'>-</text>
+              <text class='plus-minus center-center' style="font-size: 32rpx;">{{item.num}}</text>
+              <text class='plus-minus center-center' catch:tap='plus' data-index='{{index}}'>+</text>
+            </view>
           </view>
         </view>
-      </view>
-        </scroll-view>
+      </scroll-view>
 
     </view>
+    <view class='padding subtotal ' style='padding-top:0;'>小计 :1件 ¥58.00</view>
+  </view>
+  <view wx:if='{{promotion}}' class='select-goods bgc padding center' style='top:{{top-750}}rpx; justify-content:space-between;'>
+    <view class='promotion-list regular'>
+      <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' style="height: 80rpx;">
+        <text class='promotion-type'>{{item.type}}</text>
+        <text class='promotion-txt' >{{item.content}}</text>
+      </view>
+    </view>
+    <image src='../../images/close.png' class='close-popup' catch:tap='closePopupPromotion' style='transform:translate(-36rpx,0);'></image>
+
   </view>
 </view>

@@ -15,11 +15,14 @@ Page({
     currentMoney: 0,
     badge: 0,
     product: {},
+    promotion: false,
     isSelecting: false,
     autoplay: true,
     interval: 3000,
     duration: 1000,
+    remaining: 500,
     top: globalData.systemInfo.windowHeight,
+    buyTxt: '立即购买',
     specificationList: [{
       specification: '1*12*450ML',
       num: 0
@@ -63,23 +66,44 @@ Page({
       }
     ]
   },
-  plus(e){
+  showPromotion() {
+    this.setData({
+      promotion: true
+    })
+  },
+  plus(e) {
     const index = e.currentTarget.dataset.index;
     this.data.specificationList[index].num++
-    this.setData({
-      specificationList: this.data.specificationList
-    })
-      debugger;
+      this.setData({
+        specificationList: this.data.specificationList
+      })
+  },
+  minus(e) {
+    const index = e.currentTarget.dataset.index;
+    const num = this.data.specificationList[index].num;
+    if (num === 0) {
+      return;
+    }
+    this.data.specificationList[index].num--
+      this.setData({
+        specificationList: this.data.specificationList
+      })
   },
   closePopup() {
     this.setData({
-      isSelecting: false
+      isSelecting: false,
     })
+  },
+  closePopupPromotion() {
+    this.setData({
+      promotion: false
+    });
   },
   addToTrolley() {
     if (!this.data.isSelecting) {
       return this.setData({
-        isSelecting: true
+        isSelecting: true,
+        buyTxt: `还差￥${this.data.remaining}可购买`
       })
     }
     utils
@@ -126,7 +150,8 @@ Page({
   buy() {
     if (!this.data.isSelecting) {
       return this.setData({
-        isSelecting: true
+        isSelecting: true,
+        buyTxt: `还差￥${this.data.remaining}可购买`
       })
     }
     wx.navigateTo({
