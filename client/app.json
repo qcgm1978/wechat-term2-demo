@@ -3,6 +3,7 @@
     "pages/login/login",
     "pages/transactionList/transactionList",
     "pages/home/home",
+    "pages/home-enter/home-enter",
     "pages/phoneLogin/phoneLogin",
     "pages/customerService/customerService",
     "pages/transactionDetail/transactionDetail",

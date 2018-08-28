@@ -1,5 +1,5 @@
 export default {
-  
+
   onShow(options) {
     // debugger;
     // if (options.scene == 1034) {
@@ -10,20 +10,14 @@ export default {
     // }
     // this.checkProgramUpdate();
   },
-  failConsole(res = '', callback = () => { }) {
+  failConsole(res = '', callback = () => {}) {
     console.log('拉取用户openid失败，将无法正常使用开放接口等服务', res);
     callback(res);
-  },
-  // lazy loading openid
-  
-  loginCaller() {
-    this.login()
-
   },
   checkProgramUpdate() {
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
-      updateManager.onCheckForUpdate(function (res) {
+      updateManager.onCheckForUpdate(function(res) {
         // 请求完新版本信息的回调
         // console.log(res.hasUpdate);
         if (res.hasUpdate) {
@@ -32,7 +26,7 @@ export default {
           })
         }
       })
-      updateManager.onUpdateReady(function () {
+      updateManager.onUpdateReady(function() {
         updateManager.applyUpdate()
         // wx.showModal({
         //   title: '更新提示',
@@ -45,59 +39,64 @@ export default {
         //   }
         // });
       })
-      updateManager.onUpdateFailed(function () {
+      updateManager.onUpdateFailed(function() {
         // 新的版本下载失败
       });
     }
   },
   //function should be called when member in logout state
   getJsCode() {
-    if (this.globalData.token.jscode) {
-      wx.checkSession({
-        success: () => {
-          //session_key未过期，并且在本生命周期一直有效
-          this.loginCaller()
-        },
-        fail: () => {
-          //session_key已过期，需要重新执行登录流程
-          this.loginCaller()
-        }
-      })
-    } else {
-      this.loginCaller()
-    }
+    wx.showLoading({
+      title: '加载中',
+    });
+    return new Promise((resolve, reject) => {
+      if (this.globalData.token.jscode) {
+        wx.checkSession({
+          success: () => {
+            //session_key未过期，并且在本生命周期一直有效
+            this.login(resolve)
+          },
+          fail: () => {
+            //session_key已过期，需要重新执行登录流程
+            this.login(reject)
+          }
+        });
+      } else {
+        return this.login(resolve)
+      }
+    })
   },
 
-  login () {
-    return new Promise((resolve, reject) => {
-      wx.login({
-        success: res => {
-          if (res.code) {
-            this.globalData.token.jscode = res.code
-            try {
-              wx.setStorageSync('jscode', res.code)
-            } catch (e) { }
-            resolve()
-          } else {
-            reject()
-          }
-
-        },
-        fail: res => {
-          reject()
-          wx.showModal({
-            title: '提示',
-            content: '微信登录失败！',
-            showCancel: false,
-            success: res => { }
-          })
-        },
-        complete() {
-          wx.hideLoading();
-
+  login(state) {
+    // return new Promise((resolve, reject) => {
+    wx.login({
+      success: res => {
+        if (res.code) {
+          this.globalData.token.jscode = res.code
+          try {
+            wx.setStorageSync('jscode', res.code)
+          } catch (e) {}
+          state(res.code)
+        } else {
+          // reject()
         }
-      })
+
+      },
+      fail: res => {
+        // reject()
+        wx.showModal({
+          title: '提示',
+          content: '微信登录失败！',
+          showCancel: false,
+          success: res => {}
+        })
+      },
+      complete() {
+        wx.hideLoading();
+
+      }
     })
+    // })
   },
 
   globalData: {

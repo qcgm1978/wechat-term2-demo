@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.LOCAL; //update this value for different env
+var env = EVN.DEV; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -45,7 +45,7 @@ const apiURLs = {
   getProduct: `${baseUrl}/v1/product/{merchantId}/{orderId}`,
   getMerchant: `${devBaseUrl}/merchant/{merchantId}`,
   addTrolley: `${baseUrl}/v1/trolley/list`,
-  backendUrlLogin: `${baseUrl}/auth/wechat`,
+  backendUrlLogin: `${baseUrl}/v1/auth/wechat`,
 
   backendUrlUserInfo: baseUrl + '/v1/members/',
   backendUrlRefreshToken: baseUrl + '/v1/auth/refresh',
