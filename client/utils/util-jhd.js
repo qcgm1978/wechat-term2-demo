@@ -1,8 +1,6 @@
 import {
   Api
 } from './envConf.js';
-const app = getApp();
-const globalData = app.globalData;
 var ERROR_CODE = require("index.js").config.errorCode;
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
@@ -26,7 +24,7 @@ var postRequestWithoutToken = function(url, data) {
       data: postData,
       method: 'POST',
       header: {
-        'X-Client-Id': 'mini-app'
+        // 'X-Client-Id': 'mini-app'
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
@@ -54,7 +52,7 @@ var putRequest = function(url, data) {
       method: 'PUT',
       header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
-        'X-Client-Id': 'mini-app'
+        // 'X-Client-Id': 'mini-app'
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
@@ -82,7 +80,7 @@ var postRequest = function(url, data) {
       method: 'POST',
       header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
-        'X-Client-Id': 'mini-app'
+        // 'X-Client-Id': 'mini-app'
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
@@ -142,7 +140,7 @@ var getRequestWithoutToken = function(url) {
       url: url,
       method: 'GET',
       header: {
-        'X-Client-Id': 'mini-app'
+        // 'X-Client-Id': 'mini-app'
       },
       success: res => {
 
@@ -255,12 +253,12 @@ const addToTrolley = (item_id)=> {
       if (data.result.status === 200) {
         wx.setTabBarBadge({
           index: 2,
-          text: ++globalData.badge + ''
+          text: ++getApp().globalData.badge + ''
         });
         wx.showToast({
           title: '已添加到购物车',
         });
-        return globalData.badge;
+        return getApp().globalData.badge;
       }
     })
     .catch((errorCode) => {

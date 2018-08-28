@@ -5,9 +5,10 @@ const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config.js');
 import { Api } from '../../utils/envConf.js';
 import { getRequest } from '../../utils/util.js';
+const getMerchant = Api.getMerchant;
 const app = getApp()
 let globalData = app.globalData;
-const getMerchant = Api.getMerchant;
+
 Page({
   /**
    * 页面的初始数据
@@ -22,27 +23,15 @@ Page({
     })
   },
   getMerchant() {
-    utils.getRequest(getMerchant, {
+    getRequest(Api.getMerchant, {
       merchantId: globalData.merchantId
-    }).then(result => {
-      wx.hideLoading()
-      let data = result.data;
-      if (data.status === 200) {
-        globalData.merchant = data;
-      } else {
-        // wx.showToast({
-        //   icon: 'none',
-        //   title: '商品数据加载错误',
-        // })
-      }
-    }).catch(err => {
-      // wx.hideLoading()
-
-      // wx.showToast({
-      //   icon: 'none',
-      //   title: '商品数据加载错误',
-      // })
-    });
+    })
+      .then((data) => {
+        globalData.merchant = data.result
+      })
+      .catch(err => {
+        getApp().failRequest()
+      })
   },
   getProductList() {
     wx.showLoading({
@@ -97,27 +86,12 @@ Page({
    */
   onLoad: function (options) {
     this.getProductList();
-    this.getMerchant()
+    this.getMerchant();    
     this.setData({
       stores: globalData.authWechat.authMerchantList,
     });
-    // this.getMerchant();
-    // this.onLaunch()
-    // wx.hideTabBar();
   },
-  getMerchant() {
-    getRequest(Api.getMerchant, {
-      merchantId: globalData.merchantId
-    })
-      .then((data) => {
-        this.setData({
-          stores: ['河南省焦作市美丽夫妻店'],
-        });
-      })
-      .catch(err => {
-        getApp().failRequest()
-      })
-  },
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

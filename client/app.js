@@ -1,7 +1,8 @@
 import Touches from './utils/Touches.js'
 import appUtil from './app-util.js'
 var qcloud = require('./vendor/wafer2-client-sdk/index')
-var config = require('./config')
+var config = require('./config');
+
 const getUserInfo = require('./pages/home/getUserInfo').default;
 const websocket = require('./pages/home/ws').default;
 
@@ -67,7 +68,7 @@ App({
     wx.setEnableDebug({
       enableDebug: true
     });
-    this.getSystemInfo()
+    this.getSystemInfo();
     qcloud.setLoginUrl(config.service.loginUrl);
     if (!this.globalData.merchantId) {
       this.globalData = {
@@ -76,11 +77,13 @@ App({
         // todo test data
         merchantId:'123456',
       };
-    }
-    // this.login();
-    // this.runWebSocket()  // 加载websocket操作    
+    } 
   },
+  
   saveGlobalData(result){
+    if (!result.authMerchantList){
+      return;
+    }
     this.globalData.authWechat = result;
     this.globalData.merchantId = result.authMerchantList[0].merchantId;
     this.globalData.token.accessToken = result.jwtToken.accessToken;

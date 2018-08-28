@@ -5,16 +5,22 @@ Page({
    */
   data: {
     avatar: '',
-    name: '濮阳市梁村乡翱翔乐购吴家庄家乐福超市',
+    name: '',
     address: '濮阳市南乐县梁村乡宋庄村燕润烟酒副食店',
     profileName: '闫瑞',
-    id: 'CUS03927'
+    id: ''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const merchant = getApp().globalData.merchant;
+    this.setData({
+      id: merchant.nsMerchantNo,
+      name:merchant.merchantStoreName,
+      address: (merchant.province+merchant.city+merchant.county+merchant.town+' '+merchant.address).replace(/undefined/g,'').replace(/null/g,'')
+    })
     if (Object.keys(getApp().globalData.userInfo).length) {
       const userInfo = getApp().globalData.userInfo;
       this.setData({
