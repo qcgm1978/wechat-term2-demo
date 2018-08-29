@@ -10,24 +10,24 @@
     </view>
   </navigator> -->
   <view class='tab medium center' bindtap='toggleTab'>
-    <view class='column'>
-      <image src='./img/all.png'></image>
+    <view class='column' >
+      <image src='./img/all.png' data-type='0'></image>
       <text class='{{tabColors[0]}} regular' data-type='0'>全部</text>
     </view>
     <view class='column'>
-      <image src='./img/waiting.png'></image>
+      <image src='./img/waiting.png' data-type='1'></image>
       <text class='{{tabColors[1]}} regular' data-type='1'>待发货</text>
     </view>
     <view class='column'>
-      <image src='./img/shipping.png'></image>
+      <image src='./img/shipping.png' data-type='2'></image>
       <text class='{{tabColors[2]}} regular' data-type='2'>已发货</text>
     </view>
     <view class='column'>
-      <image src='./img/complete.png'></image>
+      <image src='./img/complete.png' data-type='4'></image>
       <text class='{{tabColors[3]}} regular' data-type='4'>已完成</text>
     </view>
     <view class='column'>
-      <image src='./img/return.png'></image>
+      <image src='./img/return.png' data-type='3'></image>
       <text class='{{tabColors[4]}} regular' data-type='3'>退换货</text>
     </view>
 

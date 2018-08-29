@@ -271,6 +271,20 @@ Page({
     setTimeout(() => {
       wx.hideLoading()
     }, 10000);
+    if(option.tab){
+      const orderStatus = Number(option.tab);
+      const tabColors = this.data.tabColors.map((item, index) => index === orderStatus ? 'selected' : 'unselected');
+      this.setData({
+        tabColors,
+        config: {
+          ...this.data.config,
+          orderStatus,
+          offset: 1,
+        },
+        isLast: false,
+        order: []
+      });
+    }
     this.requestMoreData(this.data.config);
   },
   goTransDetails: function(e) {

@@ -18,24 +18,20 @@ Page({
     const merchant = getApp().globalData.merchant;
     this.setData({
       id: merchant.nsMerchantNo,
-      name:merchant.merchantStoreName,
-      address: (merchant.province+merchant.city+merchant.county+merchant.town+' '+merchant.address).replace(/undefined/g,'').replace(/null/g,''),
+      name: merchant.merchantStoreName,
+      address: (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, ''),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
-    })
-    // if (Object.keys(getApp().globalData.userInfo).length) {
-    //   const userInfo = getApp().globalData.userInfo;
-    //   this.setData({
-    //     avatar: userInfo.avatarUrl,
-    //     nickName: userInfo.nickName
-    //   })
-    //   wx.showTabBar();
-    // } else {
-      // wx.navigateTo({
-      //   url: '../login/login',
-      // })
-    // }
+    });
   },
-
+  toggleTab(evt) {
+    const orderStatus = Number(evt.target.dataset.type);
+    if (isNaN(Number(orderStatus))) {
+      return;
+    }
+    wx.navigateTo({
+      url: `/pages/transactionList/transactionList?tab=${orderStatus}`,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
