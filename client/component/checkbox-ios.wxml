@@ -1,5 +1,5 @@
 <view class="wrapper">
-  <label class="toggle" bind:tap='changeChecked'>
+  <label class="toggle" bind:tap='changechecked'>
     <checkbox class="{{checked?'checked':''}}"/>
     <div class="slide-toggle"></div>
   </label>

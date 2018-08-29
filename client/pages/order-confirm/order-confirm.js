@@ -11,6 +11,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    points: 500,
     isReturn:false,
     name: '张磊磊',
     phone: 12345678901,
@@ -25,6 +26,11 @@ Page({
   onLoad: function (options) {
     this.getProduct(options.itemId);
     
+  },
+  onChangeChecked(myEventDetail, myEventOption){
+    this.setData({
+      isVisible: myEventDetail.detail.checked
+    })
   },
   getProduct(itemId) {
     wx.showLoading({

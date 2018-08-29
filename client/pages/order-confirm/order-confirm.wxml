@@ -31,7 +31,7 @@
     <text class='regular order-field '>配送方式</text>
     <text class='medium'>上门配送</text>
   </view>
-  <view class='padding mgt bgc center order-item-container' >
+  <view class='padding mgt bgc center order-item-container'>
     <text class='regular order-field '>买家留言：</text>
     <textarea class='textarea' placeholder="选填" focus="{{focus}}" />
   </view>
@@ -41,12 +41,19 @@
   </view>
   <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
     <text class='regular order-field '>积分抵扣</text>
-    <text class='medium'>共有500积分可用，抵￥50.00</text>
+    <text class='medium'>共有{{points}}积分可用，抵￥50.00</text>
     <view>
-      <checkbox-ios>
+      <checkbox-ios bindchangechecked="onChangeChecked">
         <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
         <!-- <view>这里是插入到组件slot中的内容</view> -->
       </checkbox-ios>
     </view>
+  </view>
+  <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;'>
+    <text class='regular order-field '>折扣数量</text>
+    <view style="flex-grow: 1;margin-left: 30rpx;">
+      <input type="number" value='{{points}}' class='input' />
+    </view>
+    <text class='medium'>抵扣￥50.00</text>
   </view>
 </view>

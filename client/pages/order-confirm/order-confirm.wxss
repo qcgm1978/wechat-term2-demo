@@ -53,6 +53,13 @@
   height: 76rpx;
 }
 
+.input {
+  background: #e6e6e9;
+  border-radius: 4rpx;
+  width: 102rpx;
+  padding-left: 14rpx;
+}
+
 .color-bg {
   height: 8rpx;
   background-size: cover;
