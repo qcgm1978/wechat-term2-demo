@@ -75,7 +75,7 @@ App({
         ...this.globalData,
         ...wx.getStorageSync('globalData'),
         // todo test data
-        merchantId:'123456',
+        // merchantId:'123456',
       };
     } 
   },

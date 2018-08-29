@@ -27,7 +27,11 @@ Page({
       merchantId: globalData.merchantId
     })
       .then((data) => {
-        globalData.merchant = data.result
+        globalData.merchant = data.result;
+        wx.setStorage({
+          key: 'globalData',
+          data: globalData,
+        })
       })
       .catch(err => {
         getApp().failRequest()

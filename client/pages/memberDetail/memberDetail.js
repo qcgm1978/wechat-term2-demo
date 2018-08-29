@@ -6,8 +6,8 @@ Page({
   data: {
     avatar: '',
     name: '',
-    address: '濮阳市南乐县梁村乡宋庄村燕润烟酒副食店',
-    profileName: '闫瑞',
+    address: '',
+    profileName: '',
     id: ''
   },
 
@@ -19,20 +19,21 @@ Page({
     this.setData({
       id: merchant.nsMerchantNo,
       name:merchant.merchantStoreName,
-      address: (merchant.province+merchant.city+merchant.county+merchant.town+' '+merchant.address).replace(/undefined/g,'').replace(/null/g,'')
+      address: (merchant.province+merchant.city+merchant.county+merchant.town+' '+merchant.address).replace(/undefined/g,'').replace(/null/g,''),
+      profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     })
-    if (Object.keys(getApp().globalData.userInfo).length) {
-      const userInfo = getApp().globalData.userInfo;
-      this.setData({
-        avatar: userInfo.avatarUrl,
-        nickName: userInfo.nickName
-      })
-      wx.showTabBar();
-    } else {
+    // if (Object.keys(getApp().globalData.userInfo).length) {
+    //   const userInfo = getApp().globalData.userInfo;
+    //   this.setData({
+    //     avatar: userInfo.avatarUrl,
+    //     nickName: userInfo.nickName
+    //   })
+    //   wx.showTabBar();
+    // } else {
       // wx.navigateTo({
       //   url: '../login/login',
       // })
-    }
+    // }
   },
 
   /**
