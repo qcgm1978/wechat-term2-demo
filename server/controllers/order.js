@@ -134,7 +134,9 @@ module.exports = {
       await DB.query('DELETE FROM trolley_user WHERE trolley_user.id IN (' + needToDelQuery.join(', ') + ') AND trolley_user.user = ?', [...needToDelIds, user])
     }
 
-    ctx.state.data = {}
+    ctx.state.data = {
+      result: 'OK'
+    }
 
   },
 
@@ -498,45 +500,13 @@ module.exports = {
     ctx.state.data = ret
   },
   cancel: async ctx => {
-    let user = ctx.state.$wxInfo.userinfo.openId
-    let productList = ctx.request.body.list || []
-    let isInstantBuy = !!ctx.request.body.isInstantBuy
+    if (ctx.request.body.orderId && ctx.request.body.merchantId) {
 
-    // 插入订单至 order_user 表
-    let order = await DB.query('insert into order_user(user) values (?)', [user])
-
-    // 插入订单至 order_product 表
-    let orderId = order.insertId
-    let sql = 'INSERT INTO order_product (order_id, product_id, count) VALUES '
-
-    // 插入时所需要的数据和参数
-    let query = []
-    let param = []
-
-    // 从购物车删除时所需要的数据和参数
-    let needToDelQuery = []
-    let needToDelIds = []
-
-    productList.forEach(product => {
-      query.push('(?, ?, ?)')
-
-      param.push(orderId)
-      param.push(product.id)
-      param.push(product.count || 1)
-
-      needToDelQuery.push('?')
-      needToDelIds.push(product.id)
-
-    })
-
-    await DB.query(sql + query.join(', '), param)
-
-    if (!isInstantBuy) {
-      // 非立即购买，购物车旧数据全部删除，此处本应使用事务实现，此处简化了
-      await DB.query('DELETE FROM trolley_user WHERE trolley_user.id IN (' + needToDelQuery.join(', ') + ') AND trolley_user.user = ?', [...needToDelIds, user])
+      ctx.state.data = {
+        status: 200
+      }
     }
 
-    ctx.state.data = {}
 
   },
 }

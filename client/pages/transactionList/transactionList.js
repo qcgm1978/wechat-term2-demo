@@ -44,15 +44,14 @@ Page({
     dataMessage: PULL_TO_REFRESH,
     dataMessageToPay: PULL_TO_REFRESH,
     order: [],
-    transListToPay: [],
     loadCompleted: false,
     homeLogo: "images/pic-no-deal.png",
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
   removeOrder(evt) {
-    const obj = Object.assign({}, this.data.transListToPay);
-    const selectData = obj[evt.target.dataset.index];
+    const arr = this.data.order;
+    const selectData = arr[evt.target.dataset.index];
     selectData.toRemove = true;
     wx.showModal({
       cancelText: '返回',
@@ -60,10 +59,13 @@ Page({
       confirmColor: "#fcb052",
       success: res => {
         if (res.confirm) {
-          utils.getRequest(cancelOrder + selectData.transactionId)
+          utils.postRequest(cancelOrder,{
+            orderId:selectData.orderId,
+            merchantId:globalData.merchantId
+          })
             .then((data) => {
               this.setData({
-                transListToPay: obj,
+                order: arr,
               });
             })
             .catch(err => {
