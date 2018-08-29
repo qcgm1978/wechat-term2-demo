@@ -1,0 +1,31 @@
+.trans-number-time {
+  
+  margin-left: 60rpx;
+}
+
+
+.trans-shop-img {
+  width: 44rpx;
+  height: 44rpx;
+  margin-right: 16rpx;
+}
+
+.trans-shop-lable {
+  color: #333;
+  font-size: 28rpx;
+  margin-right: 16rpx;
+}
+
+.trans-shop-value {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  font-size: 26rpx;
+  width: 480rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.gray-chars {
+  font-family: PingFang-SC-Regular, 'Source Han Sans CN Regular', 'Noto Sans CJK SC Regular';
+  font-size: 24rpx;
+  color: rgb(153, 153, 153);
+}

@@ -115,12 +115,12 @@ Page({
         })
       })
   },
-  getProduct(orderId) {
+  getProduct(itemId) {
     wx.showLoading({
       title: '商品数据加载中...',
     })
     utils.getRequest(getProduct, {
-      orderId,
+      itemId,
       merchantId: globalData.merchantId
     }).then(data => {
       wx.hideLoading()
@@ -155,7 +155,7 @@ Page({
       })
     }
     wx.navigateTo({
-      url: "../transactionDetail/transactionDetail?itemId=" + this.data.product.item_id + "&orderStatus=" + "",
+      url: "../order-confirm/order-confirm?itemId=" + this.data.product.item_id + "&orderStatus=" + "",
     });
     return;
     wx.showLoading({
@@ -216,7 +216,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getProduct(options.orderId);
+    this.getProduct(options.itemId);
     if (globalData.badge > 0) {
       this.setData({
         badge: globalData.badge,

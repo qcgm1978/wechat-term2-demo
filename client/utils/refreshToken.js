@@ -59,15 +59,15 @@ exports.refreshAccessToken = function () {
             data: res.data.result.refreshToken
           })
           //refresh payCode token
-          payCode.getPayCodeToken()
-            .then((data) => {
-              var pages = getCurrentPages();
-              if (pages.length >= 1) {
-                var homePage = pages[0];
-                homePage.refreshCodeBar()
-              }
-            })
-            .catch(() => { })
+          // payCode.getPayCodeToken()
+          //   .then((data) => {
+          //     var pages = getCurrentPages();
+          //     if (pages.length >= 1) {
+          //       var homePage = pages[0];
+          //       homePage.refreshCodeBar()
+          //     }
+          //   })
+          //   .catch(() => { })
           resolve()
         }
       },

@@ -86,7 +86,7 @@ App({
     }
     this.globalData.authWechat = result;
     this.globalData.merchantId = result.authMerchantList[0].merchantId;
-    this.globalData.token.accessToken = result.jwtToken.accessToken;
+    this.globalData.token = result.jwtToken;
     this.globalData.address = result.authMerchantList[0].merchantStoreName;
     wx.setStorage({
       key: "authWechat",

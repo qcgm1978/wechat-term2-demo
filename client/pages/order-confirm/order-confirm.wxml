@@ -1,0 +1,18 @@
+<view class='regular bgc padding'>
+      <view class='trans-shop' wx:if='{{isReturn}}'>
+        <view class='trans-shop-lable regular'>{{salesReturn}}</view>
+      </view>
+      <view wx:else>
+        <view class='center'>
+          <image class='trans-shop-img' src="{{addressStore}}"></image>
+          <view class='trans-shop-lable regular'>{{name}}</view>
+          <view class='trans-shop-value'>{{phone}}</view>
+        </view>
+        <view class='trans-number-time'>
+          <view style='display: flex; flex-direction:row;'>
+            <view class="gray-chars">{{address}}</view>
+          </view>
+
+        </view>
+      </view>
+    </view>

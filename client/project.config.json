@@ -33,14 +33,8 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": -1,
+			"current": 4,
 			"list": [
-				{
-					"id": -1,
-					"name": "user",
-					"pathName": "pages/user/user",
-					"query": ""
-				},
 				{
 					"id": -1,
 					"name": "address",
@@ -66,10 +60,10 @@
 					"query": ""
 				},
 				{
-					"id": 6,
+					"id": 4,
 					"name": "transactionDetail",
 					"pathName": "pages/transactionDetail/transactionDetail",
-					"query": "orderId=123456&merchantId=456&notPaid=false"
+					"query": "orderId=123456&merchantId=456&notPaid=false&orderStatus=UNPAY"
 				},
 				{
 					"id": -1,
@@ -84,10 +78,16 @@
 					"query": ""
 				},
 				{
-					"id": 9,
+					"id": 7,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "orderId=123456&orderStatus=WAIT_SHIPMENT"
+					"query": "itemId=123456&orderStatus=WAIT_SHIPMENT"
+				},
+				{
+					"id": 8,
+					"name": "order-confirm",
+					"pathName": "pages/order-confirm/order-confirm",
+					"query": "itemId=123456"
 				}
 			]
 		}

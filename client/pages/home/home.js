@@ -3,8 +3,12 @@ import utils from "../../utils/util.js";
 const getUserInfo = require('./getUserInfo').default;
 const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config.js');
-import { Api } from '../../utils/envConf.js';
-import { getRequest } from '../../utils/util.js';
+import {
+  Api
+} from '../../utils/envConf.js';
+import {
+  getRequest
+} from '../../utils/util.js';
 const getMerchant = Api.getMerchant;
 const app = getApp()
 let globalData = app.globalData;
@@ -23,26 +27,28 @@ Page({
     })
   },
   getMerchant() {
-    getRequest(Api.getMerchant, {
-      merchantId: globalData.merchantId
-    })
-      .then((data) => {
-        globalData.merchant = data.result;
-        wx.setStorage({
-          key: 'globalData',
-          data: globalData,
+    return new Promise((resolve, reject) => {
+      getRequest(Api.getMerchant, {
+          merchantId: globalData.merchantId
         })
-      })
-      .catch(errorCode => {
-        getApp().failRequest();
-        utils.errorHander(errorCode, this.getMerchant)
-          .then(() => {
-            resolve()
+        .then((data) => {
+          globalData.merchant = data.result;
+          wx.setStorage({
+            key: 'globalData',
+            data: globalData,
           })
-          .catch(() => {
-            reject()
-          })
-      })
+        })
+        .catch(errorCode => {
+          // getApp().failRequest();
+          utils.errorHander(errorCode, this.getMerchant)
+            .then(() => {
+              resolve()
+            })
+            .catch(() => {
+              reject()
+            })
+        })
+    });
   },
   getProductList() {
     wx.showLoading({
@@ -95,60 +101,60 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     this.getProductList();
-    this.getMerchant();    
+    this.getMerchant();
     this.setData({
       stores: globalData.authWechat.authMerchantList,
     });
   },
-  
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

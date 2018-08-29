@@ -14,7 +14,8 @@
     "pages/user/user",
     "pages/add-comment/add-comment",
     "pages/comment/comment",
-    "pages/memberDetail/memberDetail"
+    "pages/memberDetail/memberDetail",
+    "pages/order-confirm/order-confirm"
   ],
   "window": {
     "backgroundColor": "#eeeff4",
@@ -24,8 +25,8 @@
     "navigationBarTextStyle": "black"
   },
   "tabBar": {
-    "color":"rgb(145,144,144)",
-    "selectedColor":"rgb(235, 97, 18)",
+    "color": "rgb(145,144,144)",
+    "selectedColor": "rgb(235, 97, 18)",
     "list": [
       {
         "pagePath": "pages/home/home",
