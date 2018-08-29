@@ -130,7 +130,6 @@
   height: 80rpx;
   background-color: rgb(255, 255, 255);
   margin-top: 1rpx;
-  padding: 0 24rpx;
   line-height: 80rpx;
   justify-content:space-evenly;
 
