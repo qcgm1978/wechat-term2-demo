@@ -33,8 +33,15 @@ Page({
           data: globalData,
         })
       })
-      .catch(err => {
-        getApp().failRequest()
+      .catch(errorCode => {
+        getApp().failRequest();
+        utils.errorHander(errorCode, this.getMerchant)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
       })
   },
   getProductList() {

@@ -1,6 +1,6 @@
 var URLs = require("envConf.js").Api;
 var ERROR_CODE = require("index.js").config.errorCode;
-var payCode = require("payCodeGen.js");
+// var payCode = require("payCodeGen.js");
 const clientSecret = require("envConf.js").clientSecret
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
@@ -13,7 +13,7 @@ const networkErrorMsg = "网络链接失败！"
 
 const backendUrlRefreshToken = URLs.backendUrlRefreshToken
 
-exports.refreshAccessToken = function  () {
+exports.refreshAccessToken = function () {
   return new Promise((resolve, reject) => {
     wx.request({
       url: backendUrlRefreshToken,
@@ -60,14 +60,14 @@ exports.refreshAccessToken = function  () {
           })
           //refresh payCode token
           payCode.getPayCodeToken()
-          .then((data)=>{
-            var pages = getCurrentPages();
-            if (pages.length >= 1) {
-              var homePage = pages[0];
-              homePage.refreshCodeBar()
-            } 
-          })
-          .catch(() => { })
+            .then((data) => {
+              var pages = getCurrentPages();
+              if (pages.length >= 1) {
+                var homePage = pages[0];
+                homePage.refreshCodeBar()
+              }
+            })
+            .catch(() => { })
           resolve()
         }
       },

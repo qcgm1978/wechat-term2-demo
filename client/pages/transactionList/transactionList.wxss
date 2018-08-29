@@ -126,9 +126,6 @@
   position: absolute;
   z-index: 10;
   width: 100%;
-  text-align: center;
-  display: flex;
-  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   font-size: 30rpx;
   height: 80rpx;
   background-color: rgb(255, 255, 255);

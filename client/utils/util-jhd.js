@@ -2,6 +2,7 @@ import {
   Api
 } from './envConf.js';
 var ERROR_CODE = require("index.js").config.errorCode;
+var refreshAccessToken = require("./refreshToken.js").refreshAccessToken;
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
 const HTTP_SUCCSESS = ERROR_CODE.HTTP_SUCCSESS

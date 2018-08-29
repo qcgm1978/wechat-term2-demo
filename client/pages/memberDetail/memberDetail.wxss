@@ -1,15 +1,40 @@
-page {
+/* page {
   background: rgb(235, 235, 235);
-}
-.promotion-container{
-  align-items:center;
+} */
 
+.tab {
+  width: 100%;
+  font-size: 30rpx;
+  height: 175rpx;
+  background-color: rgb(255, 255, 255);
+  padding: 0 24rpx;
+  line-height: 80rpx;
+  justify-content: space-evenly;
+  margin-top: 30rpx;
 }
+
+.tab view {
+  justify-content: center;
+}
+
+.tab image {
+  width: 44rpx;
+  height: 43rpx;
+}
+
+.tab text {
+  line-height: 100%;
+  margin-top: 20rpx;
+  color: rgb(119, 119, 119);
+}
+
+.promotion-container {
+  align-items: center;
+}
+
 .container-detail {
-  /* height: 950rpx; */
   background-color: #fff;
-  margin: 0 auto 272rpx;
-  /* width: 670rpx; *//* border-radius: 20rpx; */
+  margin: 0 auto 190rpx;
   padding-left: 39rpx;
 }
 
@@ -48,12 +73,12 @@ page {
 
 .name {
   font-size: 32rpx;
-  color: rgb(85,85,85);
+  color: rgb(85, 85, 85);
 }
 
 .name-txt {
   font-size: 26rpx;
-  color:rgb(144,144,144);
+  color: rgb(144, 144, 144);
 }
 
 .icon {
@@ -72,8 +97,8 @@ page {
   height: 2rpx;
   background: rgb(51, 51, 51);
 }
-.dot{
-  /* transform:translate(0,-6rpx); */
-  margin:12rpx 9rpx auto;
 
+.dot {
+  /* transform:translate(0,-6rpx); */
+  margin: 12rpx 9rpx auto;
 }

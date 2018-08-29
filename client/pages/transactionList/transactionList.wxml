@@ -1,7 +1,7 @@
 <import src="./orderItem.wxml" />
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
   <view style='background-color:rgb(236,236,236); width:100%; height:{{windowHeight}}rpx; z-index: 1;'></view>
-  <view class='tab' bindtap='toggleTab'>
+  <view class='tab medium center' bindtap='toggleTab'>
     <text class='{{tabColors[0]}}' data-type='0'>全部</text>
     <text class='{{tabColors[1]}}'  data-type='1'>待发货</text>
     <text class='{{tabColors[2]}}'  data-type='2'>已发货</text>
