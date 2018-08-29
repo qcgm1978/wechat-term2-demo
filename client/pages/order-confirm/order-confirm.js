@@ -1,3 +1,8 @@
+var utils = require("../../utils/util.js");
+import {
+  Api
+} from '../../utils/envConf.js'
+const getProduct = Api.getProduct;
 const app=getApp();
 const globalData=app.globalData;
 Page({
@@ -18,9 +23,34 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    this.getProduct(options.itemId);
+    
   },
-
+  getProduct(itemId) {
+    wx.showLoading({
+      title: '商品数据加载中...',
+    })
+    utils.getRequest(getProduct, {
+      itemId,
+      merchantId: globalData.merchantId
+    }).then(data => {
+      wx.hideLoading()
+      console.log(data);
+      if (data.status === 200) {
+        const result = data.result[0];
+        this.setData({
+          order: result
+        })
+      } else {
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 2000)
+      }
+    }).catch(err => {
+      wx.hideLoading();
+      console.log(err);
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

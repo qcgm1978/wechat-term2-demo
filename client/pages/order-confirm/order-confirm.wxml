@@ -1,18 +1,52 @@
+<import src="../transactionList/orderItem.wxml" />
 <view class='regular bgc padding'>
-      <view class='trans-shop' wx:if='{{isReturn}}'>
-        <view class='trans-shop-lable regular'>{{salesReturn}}</view>
-      </view>
-      <view wx:else>
-        <view class='center'>
-          <image class='trans-shop-img' src="{{addressStore}}"></image>
-          <view class='trans-shop-lable regular'>{{name}}</view>
-          <view class='trans-shop-value'>{{phone}}</view>
-        </view>
-        <view class='trans-number-time'>
-          <view style='display: flex; flex-direction:row;'>
-            <view class="gray-chars">{{address}}</view>
-          </view>
-
-        </view>
-      </view>
+  <view class='trans-shop' wx:if='{{isReturn}}'>
+    <view class='trans-shop-lable regular'>{{salesReturn}}</view>
+  </view>
+  <view wx:else>
+    <view class='center'>
+      <image class='trans-shop-img' src="{{addressStore}}"></image>
+      <view class='trans-shop-lable regular'>{{name}}</view>
+      <view class='trans-shop-value'>{{phone}}</view>
     </view>
+    <view class='trans-number-time'>
+      <view style='display: flex; flex-direction:row;'>
+        <view class="gray-chars">{{address}}</view>
+      </view>
+
+    </view>
+  </view>
+</view>
+<view class='color-bg bgc'></view>
+<view class='bgc goods-container'>
+  <template is="orderItem" data="{{order,disable}}"></template>
+
+</view>
+<view>
+  <view class='padding mgt bgc center order-item-container'>
+    <text class='regular order-field '>支付方式</text>
+    <text class='medium order-val'>货到付款</text>
+  </view>
+  <view class='padding mgt bgc center order-item-container'>
+    <text class='regular order-field '>配送方式</text>
+    <text class='medium'>上门配送</text>
+  </view>
+  <view class='padding mgt bgc center order-item-container' >
+    <text class='regular order-field '>买家留言：</text>
+    <textarea class='textarea' placeholder="选填" focus="{{focus}}" />
+  </view>
+  <view class='padding mgt bgc center order-item-container'>
+    <text class='regular order-field '>促销折扣</text>
+    <text class='medium'>满减活动；满送活动</text>
+  </view>
+  <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
+    <text class='regular order-field '>积分抵扣</text>
+    <text class='medium'>共有500积分可用，抵￥50.00</text>
+    <view>
+      <checkbox-ios>
+        <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
+        <!-- <view>这里是插入到组件slot中的内容</view> -->
+      </checkbox-ios>
+    </view>
+  </view>
+</view>

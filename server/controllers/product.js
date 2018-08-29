@@ -13,17 +13,46 @@ module.exports = {
   detail: async ctx => {
     let productId = + ctx.params.orderId;
     let product
-
-    // if (!isNaN(productId)) {
-    //   product = (await DB.query('select * from product where product.id = ?', [productId]))[0]
-    // } else {
-    //   product = {}
-    // }
-
-    // product.commentCount = (await DB.query('SELECT COUNT(id) AS comment_count FROM comment WHERE comment.product_id = ?', [productId]))[0].comment_count || 0
-    // product.firstComment = (await DB.query('SELECT * FROM comment WHERE comment.product_id = ? LIMIT 1 OFFSET 0', [productId]))[0] || null
-
-    // ctx.state.result = product
+    // todo temp test data like order structure
+    return ctx.state.result = [{
+      "orderId": "111111",
+      "orderStatus": "RETURN_PART",
+      "totalAmount": 8,
+      "itemTotalCount": 2,
+      "createTime": "2018-08-21 13:25:45",
+      "payment": {
+        "paymentId": null,
+        "paymentMethod": "COD",
+        "paymentTime": "2018-08-21 13:25:45",
+        "usePoint": 0,
+        "cashAmount": 8
+      },
+      "orderItem": [
+        {
+          "itemId": "9503c54ba50211e8969e09fe0c96017b",
+          "itemSku": null,
+          "itemName": "雪碧",
+          "quantity": 1,
+          "unitPrice": 4.5,
+          "locationId": "2",
+          "itemSpecification": "200*10",
+          "returnQuantit": 0,
+          "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
+        },
+        {
+          "itemId": "8e163dfea50211e8bb72c5949b847d3c",
+          "itemSku": null,
+          "itemName": "可乐",
+          "quantity": 1,
+          "unitPrice": 3.5,
+          "locationId": "2",
+          "itemSpecification": "200*10",
+          "returnQuantit": 0,
+          "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
+        }
+      ],
+      "orderReturn": null
+    }];
     ctx.state.result = [
       {
         "item_brand": "芬达可乐系列整箱(青苹果口味*12、澳洲橘子口味*12、西柚猕猴桃口味*12)",
