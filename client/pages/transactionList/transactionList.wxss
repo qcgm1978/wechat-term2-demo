@@ -131,19 +131,26 @@
   font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   font-size: 30rpx;
   height: 80rpx;
-  align-items: center;
   background-color: rgb(255, 255, 255);
   margin-top: 1rpx;
+  padding: 0 24rpx;
+  line-height: 80rpx;
+  justify-content:space-evenly;
+
 }
 
 .unselected {
   color: #707070;
+  /* flex-grow: 1; */
 }
 
 .selected {
-  color: #EB6113 ;
+  color: #eb6113;
 }
+.selected{
+  border-bottom:4rpx solid #EB6113;
 
+}
 .item-trans-shop-number {
   display: flex;
   margin-top: 19rpx;
