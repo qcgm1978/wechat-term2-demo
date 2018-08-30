@@ -1,8 +1,5 @@
 import Touches from './utils/Touches.js'
-import appUtil from './app-util.js'
-var qcloud = require('./vendor/wafer2-client-sdk/index')
-var config = require('./config');
-
+import appUtil from './app-util.js';
 const getUserInfo = require('./pages/home/getUserInfo').default;
 const websocket = require('./pages/home/ws').default;
 
@@ -69,7 +66,7 @@ App({
       enableDebug: true
     });
     this.getSystemInfo();
-    qcloud.setLoginUrl(config.service.loginUrl);
+    // qcloud.setLoginUrl(config.service.loginUrl);
     if (!this.globalData.merchantId) {
       this.globalData = {
         ...this.globalData,

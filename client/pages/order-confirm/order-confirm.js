@@ -2,7 +2,7 @@ var utils = require("../../utils/util.js");
 import {
   Api
 } from '../../utils/envConf.js'
-const getProduct = Api.getProduct;
+const getProduct = Api.getProduct,createOrder=Api.createOrder;
 const app=getApp();
 const globalData=app.globalData;
 Page({
@@ -13,6 +13,7 @@ Page({
   data: {
     points: 500,
     isReturn:false,
+    textarea:'',
     name: '张磊磊',
     phone: 12345678901,
     salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
@@ -37,6 +38,31 @@ Page({
       title: '商品数据加载中...',
     })
     utils.getRequest(getProduct, {
+      itemId,
+      merchantId: globalData.merchantId
+    }).then(data => {
+      wx.hideLoading()
+      console.log(data);
+      if (data.status === 200) {
+        const result = data.result[0];
+        this.setData({
+          order: result
+        })
+      } else {
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 2000)
+      }
+    }).catch(err => {
+      wx.hideLoading();
+      console.log(err);
+    })
+  },
+  createOrder(itemId) {
+    wx.showLoading({
+      title: '正在创建订单...',
+    })
+    utils.postRequest(createOrder, {
       itemId,
       merchantId: globalData.merchantId
     }).then(data => {

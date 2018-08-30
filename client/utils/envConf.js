@@ -42,6 +42,7 @@ switch (env) {
 const apiURLs = {
   getOrder: `${baseUrl}/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/order/list`,
+  createOrder: `${baseUrl}/order/create`,
   cancelOrder: `${baseUrl}/order/cancel`,
   getProduct: `${baseUrl}/product/{merchantId}/{itemId}`,
   getMerchant: `${baseUrl}/merchant/{merchantId}`,

@@ -1,5 +1,5 @@
 // pages/trolley/trolley.js
-const qcloud = require('../../vendor/wafer2-client-sdk/index')
+// const qcloud = require('../../vendor/wafer2-client-sdk/index')
 const config = require('../../config')
 const app = getApp()
 // import itemData from './mock.js'
