@@ -54,32 +54,32 @@ Page({
     wx.showLoading({
       title: '商品数据加载中...',
     })
-    qcloud.request({
-      url: config.service.productList,
-      success: result => {
-        wx.hideLoading()
-        let data = result.data;
-        if (data.status === 200) {
-          this.setData({
-            productList: data.result
-          })
-        } else {
-          wx.showToast({
-            icon: 'none',
-            title: '商品数据加载错误',
-          })
-        }
-      },
+    // qcloud.request({
+    //   url: config.service.productList,
+    //   success: result => {
+    //     wx.hideLoading()
+    //     let data = result.data;
+    //     if (data.status === 200) {
+    //       this.setData({
+    //         productList: data.result
+    //       })
+    //     } else {
+    //       wx.showToast({
+    //         icon: 'none',
+    //         title: '商品数据加载错误',
+    //       })
+    //     }
+    //   },
 
-      fail: () => {
-        wx.hideLoading()
+    //   fail: () => {
+    //     wx.hideLoading()
 
-        wx.showToast({
-          icon: 'none',
-          title: '商品数据加载错误',
-        })
-      }
-    });
+    //     wx.showToast({
+    //       icon: 'none',
+    //       title: '商品数据加载错误',
+    //     })
+    //   }
+    // });
   },
 
   addToTrolley(event) {

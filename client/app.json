@@ -1,21 +1,20 @@
 {
   "pages": [
     "pages/login/login",
+    "pages/home-enter/home-enter",
     "pages/transactionList/transactionList",
     "pages/home/home",
-    "pages/home-enter/home-enter",
     "pages/phoneLogin/phoneLogin",
-    "pages/customerService/customerService",
     "pages/transactionDetail/transactionDetail",
     "pages/address/address",
     "pages/detail/detail",
     "pages/order/order",
-    "pages/trolley/trolley",
     "pages/user/user",
     "pages/add-comment/add-comment",
     "pages/comment/comment",
     "pages/memberDetail/memberDetail",
-    "pages/order-confirm/order-confirm"
+    "pages/order-confirm/order-confirm",
+    "pages/trolley/trolley"
   ],
   "window": {
     "backgroundColor": "#eeeff4",

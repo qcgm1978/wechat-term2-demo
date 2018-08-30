@@ -1,9 +1,4 @@
-/**app.wxss**/
-@import './pages/customerService/app.wxss';
-/* page {
-  background: #f9f9f9;
-} */
-
+@import './app-common.wxss';
 .bg {
   position: absolute;
   left: 0;
