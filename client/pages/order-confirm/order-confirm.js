@@ -89,7 +89,7 @@ Page({
         console.log(data);
         if (data.status === 200) {
           wx.redirectTo({
-            url: '/pages/order-success/order-success',
+            url: `/pages/order-success/order-success?orderId=${data.result.orderId}`,
           })
         } else {
           setTimeout(() => {

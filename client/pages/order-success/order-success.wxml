@@ -6,5 +6,7 @@
     <text class='success-money'>应付总额：<text class='success-num medium dollar'>582.00</text>
     </text>
   </view>
-  <button>查看详情</button>
+  <navigator url='{{"../transactionDetail/transactionDetail?orderId="+orderId}}'>
+    <button>查看详情</button>
+  </navigator>
 </view>

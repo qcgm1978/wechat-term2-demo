@@ -84,6 +84,7 @@ Page({
         this.setData({
           order: data.result
         });
+        this.setOrderStatus(data.result.orderStatus)
         wx.hideLoading();
       })
       .catch(errorCode => {
@@ -128,7 +129,20 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    const orderStatus = options.orderStatus;
+    
+
+    if (options.isWebsocket) {
+      // todo test data used
+      const orderData = getApp().globalData.websocketData;
+      this.requestTransDetail(orderData);
+      this.setData({
+        isWebsocket: options.isWebsocket
+      })
+    } else {
+      this.requestTransDetail(options.orderId || options.itemId)
+    }
+  },
+  setOrderStatus(orderStatus){
     this.setData({
       orderStatus,
 
@@ -150,17 +164,6 @@ Page({
         });
       }
 
-    }
-
-    if (options.isWebsocket) {
-      // todo test data used
-      const orderData = getApp().globalData.websocketData;
-      this.requestTransDetail(orderData);
-      this.setData({
-        isWebsocket: options.isWebsocket
-      })
-    } else {
-      this.requestTransDetail(options.orderId || options.itemId)
     }
   },
   /**

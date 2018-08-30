@@ -512,7 +512,8 @@ module.exports = {
     if (items && items.locationId && items.itemId && items.quantity && ctx.request.body.merchantId) {
 
       ctx.state.data = {
-        status: 200
+        message: '',
+        orderId: '123456'
       }
     }
   },
