@@ -506,7 +506,14 @@ module.exports = {
         status: 200
       }
     }
+  },
+  create: async ctx => {
+    const items = ctx.request.body.orderItems[0];
+    if (items && items.locationId && items.itemId && items.quantity && ctx.request.body.merchantId) {
 
-
+      ctx.state.data = {
+        status: 200
+      }
+    }
   },
 }

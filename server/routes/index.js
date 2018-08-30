@@ -61,6 +61,7 @@ router.post('/auth/wechat', controllers.login.wechat)
 router.get('/v1/product/:merchantId/:orderId', controllers.product.detail)
 // 显示订单
 router.post('/v1/order/list', controllers.order.list);
+router.post('/v1/order/create', controllers.order.create);
 router.post('/v1/order/cancel', controllers.order.cancel);
 
 router.get('/v1/order/:merchantId/:orderId', controllers.order.detail);

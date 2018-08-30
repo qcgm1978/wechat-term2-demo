@@ -25,6 +25,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({
+      itemId: options.itemId
+    })
     this.getProduct(options.itemId);
     
   },
@@ -32,6 +35,16 @@ Page({
     this.setData({
       isVisible: myEventDetail.detail.checked
     })
+  },
+  textareaConfirm(e){
+    this.setData({
+      textarea:e.detail.value
+    });
+  },
+  inputConfirm(e){
+    this.setData({
+      points: e.detail.value
+    });
   },
   getProduct(itemId) {
     wx.showLoading({
@@ -63,8 +76,10 @@ Page({
       title: '正在创建订单...',
     })
     utils.postRequest(createOrder, {
-      itemId,
-      merchantId: globalData.merchantId
+      orderItems: this.data.order.orderItem,
+      merchantId: globalData.merchantId,
+      merchantMsg: this.data.textarea,
+      usePoint: this.data.isVisible?this.data.points:0
     }).then(data => {
       wx.hideLoading()
       console.log(data);

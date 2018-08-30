@@ -33,7 +33,7 @@
   </view>
   <view class='padding mgt bgc center order-item-container'>
     <text class='regular order-field '>买家留言：</text>
-    <textarea class='textarea' placeholder="选填" focus="{{focus}}" value='{{textarea}}' />
+    <textarea class='textarea' placeholder="选填" value='{{textarea}}' bindblur='textareaConfirm'/>
   </view>
   <view class='padding mgt bgc center order-item-container' style="margin-top: 15rpx;">
     <text class='regular order-field '>促销折扣</text>
@@ -52,7 +52,7 @@
   <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;'>
     <text class='regular order-field '>折扣数量</text>
     <view style="flex-grow: 1;margin-left: 30rpx;">
-      <input type="number" value='{{points}}' class='input' />
+      <input type="number" value='{{points}}' class='input' bindblur='inputConfirm'/>
     </view>
     <text class='medium'>抵扣￥50.00</text>
   </view>
@@ -76,6 +76,6 @@
   </view>
   <view class='padding mgt bgc center order-item-container' style="align-items: center;">
     <text class='medium order-field dollar' style='color:#EE711F;font-size: 44rpx;'>270.00</text>
-    <button class='medium submit regular'>提交订单</button>
+    <button class='medium submit regular' catch:tap='createOrder'>提交订单</button>
   </view>
 </view>
