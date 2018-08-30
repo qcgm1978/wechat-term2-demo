@@ -1,6 +1,12 @@
 page{
   background: #eeeff4;
 }
+.dollar::before {
+  content: '￥';
+}
+.dollar-minus::before{
+  content:'-￥';
+}
 .bgc{
   background:#fff;
 }

@@ -56,4 +56,26 @@
     </view>
     <text class='medium'>抵扣￥50.00</text>
   </view>
+  <view class='padding bgc' style="margin-top: 15rpx;">
+    <view class='  center order-item-container'>
+      <text class='regular order-field '>商品总额</text>
+      <text class='medium dollar'>320.00</text>
+    </view>
+    <view class='  center order-item-container'>
+      <text class='regular order-field '>促销折扣</text>
+      <text class='medium dollar-minus' style='color: rgb(236,103,32);'>320.00</text>
+    </view>
+    <view class='  center order-item-container'>
+      <text class='regular order-field ' >积分折扣</text>
+      <text class='medium dollar-minus' style='color: rgb(236,103,32);'>320.00</text>
+    </view>
+    <view class='  center order-item-container'>
+      <text class='regular order-field '>应付总额</text>
+      <text class='medium dollar'>320.00</text>
+    </view>
+  </view>
+  <view class='padding mgt bgc center order-item-container'>
+    <text class='medium order-field dollar' style='color:#EE711F;font-size: 44rpx;'>270.00</text>
+    <button class='medium submit regular'>提交订单</button>
+  </view>
 </view>

@@ -64,9 +64,6 @@
   color: #ee711f;
 }
 
-.dollar::before {
-  content: '￥';
-}
 
 .btn-container {
   position: fixed;

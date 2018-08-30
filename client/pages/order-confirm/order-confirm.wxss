@@ -31,8 +31,8 @@
 }
 
 .goods-container {
-  margin-top: 18rpx;
-  padding-top: 12rpx;
+  /* margin-top: 18rpx;
+  padding-top: 12rpx; */
 }
 
 .order-item-container {
@@ -50,7 +50,7 @@
 .textarea {
   width: 560rpx;
   transform: translate(0, 6rpx);
-  height: 76rpx;
+  height: 0;
 }
 
 .input {
@@ -58,6 +58,16 @@
   border-radius: 4rpx;
   width: 102rpx;
   padding-left: 14rpx;
+}
+
+.submit {
+  background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
+  border-radius: 4rpx;
+  font-size: 32rpx;
+  color: #fff;
+  width:236rpx;
+  margin:0;
+
 }
 
 .color-bg {
