@@ -17,6 +17,7 @@ Page({
     product: {},
     promotion: false,
     isSelecting: false,
+    hasPromotion:false,
     autoplay: true,
     interval: 3000,
     duration: 1000,
