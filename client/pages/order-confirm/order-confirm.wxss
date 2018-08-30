@@ -1,4 +1,4 @@
-@import '../transactionList/orderItem.wxss';
+/* @import '../transactionList/orderItem.wxss'; */
 
 .trans-number-time {
   margin-left: 60rpx;

@@ -1,4 +1,4 @@
-@import './orderItem.wxss';
+/* @import './orderItem.wxss'; */
 
 .order-container {
   justify-content: space-between;

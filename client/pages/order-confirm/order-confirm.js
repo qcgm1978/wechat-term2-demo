@@ -16,6 +16,7 @@ Page({
     isReturn: false,
     isFailed: false,
     textarea: '',
+    order:{},
     name: '张磊磊',
     phone: 12345678901,
     salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',

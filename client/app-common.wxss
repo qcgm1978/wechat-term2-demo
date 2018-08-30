@@ -66,7 +66,14 @@ page{
   justify-content: start;
   align-items: center;
 }
-
+.total-money {
+  font-size: 24rpx;
+  color: #002f00;
+  letter-spacing: 0;
+  text-align: right;
+  padding: 16px;
+  background: #fff;
+}
 @font-face {
   font-family: 'iconfont'; /* project id 625845 */
   src: url('//at.alicdn.com/t/font_625845_19qlzsi705p.eot');

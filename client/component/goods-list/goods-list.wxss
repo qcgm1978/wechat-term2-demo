@@ -49,15 +49,6 @@
   color: rgb(85, 85, 85);
 }
 
-.total-money {
-  font-size: 24rpx;
-  color: #002f00;
-  letter-spacing: 0;
-  text-align: right;
-  padding: 16px;
-  background: #fff;
-}
-
 .scroll-container {
   background: #fff;
   z-index: 20;

@@ -21,6 +21,7 @@ Page({
   data: {
     disable: true,
     payStyle: globalData.payStyle,
+    order:{},
     // todo name and phone missing
     name: '张磊磊',
     phone: 12345678901,

@@ -1,4 +1,4 @@
-<import src="../transactionList/orderItem.wxml" />
+<!-- <import src="../transactionList/orderItem.wxml" /> -->
 <view class='regular bgc padding'>
   <view class='trans-shop' wx:if='{{isReturn}}'>
     <view class='trans-shop-lable regular'>{{salesReturn}}</view>
@@ -19,8 +19,11 @@
 </view>
 <view class='color-bg bgc'></view>
 <view class='bgc goods-container'>
-  <template is="orderItem" data="{{order,disable}}"></template>
-
+  <!-- <template is="orderItem" data="{{order,disable}}"></template> -->
+  <goods-list order-property='{{order}}'>
+    <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
+    <!-- <view>这里是插入到组件slot中的内容</view> -->
+  </goods-list>
 </view>
 <view>
   <view class='padding mgt bgc center order-item-container'>
@@ -80,13 +83,13 @@
   </view>
 </view>
 <block wx:if="{{isFailed}}">
-<view class='popup-container grey-overlay'></view>
-<view class=' center-center popup-container'>
-  <view class='confirm-popup column bgc regular'>
-    <image src='./img/bg_fail.png'></image>
-    <text >很抱歉，提交订单时遇到未知故障
+  <view class='popup-container grey-overlay'></view>
+  <view class=' center-center popup-container'>
+    <view class='confirm-popup column bgc regular'>
+      <image src='./img/bg_fail.png'></image>
+      <text>很抱歉，提交订单时遇到未知故障
 请稍后重试~</text>
-    <button class='center-center'>我知道了</button>
+      <button class='center-center'>我知道了</button>
+    </view>
   </view>
-</view>
 </block>

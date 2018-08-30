@@ -1,4 +1,4 @@
-<import src="../transactionList/orderItem.wxml" />
+<!-- <import src="../transactionList/orderItem.wxml" /> -->
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
   <view id="main" class='main-view'>
     <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}</text>
@@ -22,7 +22,11 @@
     </view>
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
-    <template is="orderItem" data="{{order,disable}}"></template>
+    <!-- <template is="orderItem" data="{{order,disable}}"></template> -->
+    <goods-list order-property='{{order}}' disable-property='{{disable}}'>
+    <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
+    <!-- <view>这里是插入到组件slot中的内容</view> -->
+  </goods-list>
   </view>
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
     <view class='bgc padding'>

@@ -17,7 +17,7 @@ Page({
   onLoad: function(options) {
     const merchant = getApp().globalData.merchant;
     this.setData({
-      id: merchant.nsMerchantNo,
+      id: merchant.nsMerchantId,
       name: merchant.merchantStoreName,
       address: (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, ''),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName

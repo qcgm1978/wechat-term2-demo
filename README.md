@@ -2,3 +2,13 @@
 
 ### 微信小程序
 
+## todo
+
+different stores have diferent trolleys
+
+exit login on memberDetail page
+
+omit the trailing zero
+
+change trolley num api request
+
