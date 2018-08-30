@@ -67,6 +67,7 @@
   color: #fff;
   width:236rpx;
   margin:0;
+  line-height:70rpx;
 
 }
 

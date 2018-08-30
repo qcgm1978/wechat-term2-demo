@@ -74,7 +74,7 @@
       <text class='medium dollar'>320.00</text>
     </view>
   </view>
-  <view class='padding mgt bgc center order-item-container'>
+  <view class='padding mgt bgc center order-item-container' style="align-items: center;">
     <text class='medium order-field dollar' style='color:#EE711F;font-size: 44rpx;'>270.00</text>
     <button class='medium submit regular'>提交订单</button>
   </view>
