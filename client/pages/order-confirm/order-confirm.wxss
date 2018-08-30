@@ -49,8 +49,8 @@
 
 .textarea {
   width: 560rpx;
-  transform: translate(0, 6rpx);
-  height: 60rpx;
+  transform: translate(0, -6rpx);
+  height: 0rpx;
 }
 
 .input {
