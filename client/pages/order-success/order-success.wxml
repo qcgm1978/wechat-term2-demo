@@ -1,0 +1,10 @@
+<view class='column regular'>
+  <image src='./img/success.png'></image>
+  <text class='success'>下单成功</text>
+  <view class='success-txt column'>
+    <text>支付方式：货到付款</text>
+    <text class='success-money'>应付总额：<text class='success-num medium dollar'>582.00</text>
+    </text>
+  </view>
+  <button>查看详情</button>
+</view>

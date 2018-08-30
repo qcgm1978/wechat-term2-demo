@@ -14,7 +14,8 @@
     "pages/comment/comment",
     "pages/memberDetail/memberDetail",
     "pages/order-confirm/order-confirm",
-    "pages/trolley/trolley"
+    "pages/trolley/trolley",
+    "pages/order-success/order-success"
   ],
   "window": {
     "backgroundColor": "#eeeff4",

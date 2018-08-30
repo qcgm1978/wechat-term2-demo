@@ -1,0 +1,38 @@
+page {
+  background: #fff;
+}
+
+image {
+  width: 120rpx;
+  height: 120rpx;
+  margin-top: 88rpx;
+}
+
+.success {
+  font-size: 32rpx;
+  color: #1bae47;
+  margin: 16rpx auto 48rpx;
+}
+
+.success-txt {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.success-money {
+  margin: 12rpx auto 24rpx;
+}
+
+.success-num {
+  font-size: 32rpx;
+  color: #ee711f;
+}
+
+button {
+  border: 2rpx solid rgba(238, 113, 31, 0.80);
+  border-radius: 8rpx;
+  width: 256rpx;
+  height: 80rpx;
+  font-size: 32rpx;
+  color: #ee711f;
+}

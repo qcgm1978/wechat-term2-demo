@@ -33,7 +33,7 @@
   </view>
   <view class='padding mgt bgc center order-item-container'>
     <text class='regular order-field '>买家留言：</text>
-    <textarea class='textarea' placeholder="选填" value='{{textarea}}' bindblur='textareaConfirm' auto-height='{{true}}'/>
+    <textarea class='textarea' placeholder="选填" value='{{textarea}}' bindblur='textareaConfirm' auto-height='{{true}}' />
   </view>
   <view class='padding mgt bgc center order-item-container' style="margin-top: 15rpx;">
     <text class='regular order-field '>促销折扣</text>
@@ -52,7 +52,7 @@
   <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;'>
     <text class='regular order-field '>折扣数量</text>
     <view style="flex-grow: 1;margin-left: 30rpx;">
-      <input type="number" value='{{points}}' class='input' bindblur='inputConfirm'/>
+      <input type="number" value='{{points}}' class='input' bindblur='inputConfirm' />
     </view>
     <text class='medium'>抵扣￥50.00</text>
   </view>
@@ -66,7 +66,7 @@
       <text class='medium dollar-minus' style='color: rgb(236,103,32);'>320.00</text>
     </view>
     <view class='  center order-item-container'>
-      <text class='regular order-field ' >积分折扣</text>
+      <text class='regular order-field '>积分折扣</text>
       <text class='medium dollar-minus' style='color: rgb(236,103,32);'>320.00</text>
     </view>
     <view class='  center order-item-container'>
@@ -79,3 +79,14 @@
     <button class='medium submit regular' catch:tap='createOrder'>提交订单</button>
   </view>
 </view>
+<block wx:if="{{isFailed}}">
+<view class='popup-container grey-overlay'></view>
+<view class=' center-center popup-container'>
+  <view class='confirm-popup column bgc regular'>
+    <image src='./img/bg_fail.png'></image>
+    <text >很抱歉，提交订单时遇到未知故障
+请稍后重试~</text>
+    <button class='center-center'>我知道了</button>
+  </view>
+</view>
+</block>
