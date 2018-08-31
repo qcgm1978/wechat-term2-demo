@@ -22,9 +22,8 @@ Page({
     disable: false,
     payStyle: globalData.payStyle,
     order:{},
-    // todo name and phone missing
-    name: '张磊磊',
-    phone: 12345678901,
+    name: '',
+    phone: '',
     salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
     address: globalData.address,
     src: './images/pic.png',
@@ -130,8 +129,9 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    
-
+    this.setData({
+      name: globalData.authMerchantList[globalData.currentIndex.userName]
+    })
     if (options.isWebsocket) {
       // todo test data used
       const orderData = getApp().globalData.websocketData;

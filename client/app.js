@@ -9,6 +9,7 @@ App({
   ...getUserInfo,
   ...websocket,
   globalData: {
+    currentIndex: 0,
     merchantId: 0,
     badge: 0,
     systemInfo: {},
@@ -23,6 +24,9 @@ App({
       "RETURN_FULL": '全部退货',
       "RETURN_PART": '部分退货'
     },
+  },
+  getMerchantId(){
+    return this.globalData.authMerchantList[this.globalData.currentIndex].merchantId;
   },
   getGlobalVal(str) {
     let result = null;
@@ -44,10 +48,10 @@ App({
   getSystemInfo() {
     wx.getSystemInfo({
       success: res => {
-        this.globalData.systemInfo.windowHeight = res.windowHeight*2
-        this.globalData.systemInfo.windowWidth = res.windowWidth*2
-        this.globalData.systemInfo.screenWidth = res.screenWidth*2
-        this.globalData.systemInfo.screenHeight = res.screenHeight*2
+        this.globalData.systemInfo.windowHeight = res.windowHeight * 2
+        this.globalData.systemInfo.windowWidth = res.windowWidth * 2
+        this.globalData.systemInfo.screenWidth = res.screenWidth * 2
+        this.globalData.systemInfo.screenHeight = res.screenHeight * 2
       },
       fail: res => {
         console.log("getSystemInfo failed")
@@ -61,7 +65,7 @@ App({
     })
 
   },
-  onLaunch: function(options) {
+  onLaunch: function (options) {
     wx.setEnableDebug({
       enableDebug: true
     });
@@ -74,19 +78,20 @@ App({
         // todo test data
         // merchantId:'123456',
       };
-    } 
+    }
   },
-  
-  saveGlobalData(result){
-    if (!result.authMerchantList){
+
+  saveGlobalData(result) {
+    if (!result.authMerchantList) {
       return;
     }
-    this.globalData.authWechat = result;
-    this.globalData.merchantId = result.authMerchantList[0].merchantId;
-    this.globalData.token = result.jwtToken;
-    this.globalData.merchantStoreName = result.authMerchantList[0].merchantStoreName;
-    
-    this.globalData.userInfo.registerStatus = true;
+    this.globalData = {
+      ...this.globalData,
+      authWechat: result,
+      token: result.jwtToken,
+      authMerchantList: result.authMerchantList,
+      registerStatus: true
+    }
     wx.setStorage({
       key: "registerStatus",
       data: true
@@ -115,7 +120,7 @@ App({
   checkProgramUpdate() {
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
-      updateManager.onCheckForUpdate(function(res) {
+      updateManager.onCheckForUpdate(function (res) {
         // 请求完新版本信息的回调
         // console.log(res.hasUpdate);
         if (res.hasUpdate) {
@@ -124,7 +129,7 @@ App({
           })
         }
       })
-      updateManager.onUpdateReady(function() {
+      updateManager.onUpdateReady(function () {
         updateManager.applyUpdate()
         // wx.showModal({
         //   title: '更新提示',
@@ -137,7 +142,7 @@ App({
         //   }
         // });
       })
-      updateManager.onUpdateFailed(function() {
+      updateManager.onUpdateFailed(function () {
         // 新的版本下载失败
       });
     }
@@ -146,14 +151,14 @@ App({
     success,
     error
   } = {
-    success(data) {
-      getApp().globalData.userInfo = data.userInfo;
-      // debugger;
-    },
-    error(err) {
-      debugger;
-    }
-  }) {
+      success(data) {
+        getApp().globalData.userInfo = data.userInfo;
+        // debugger;
+      },
+      error(err) {
+        debugger;
+      }
+    }) {
     wx.getSetting({
       success: res => {
         // if (res.authSetting['scope.userInfo'] === false) {

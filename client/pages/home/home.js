@@ -8,7 +8,8 @@ import {
   getRequest
 } from '../../utils/util.js';
 const getMerchant = Api.getMerchant,
-  getProductList = Api.getProductList;
+  getProductList = Api.getProductList,
+  getHot = Api.getHot;
 const app = getApp()
 let globalData = app.globalData;
 
@@ -28,7 +29,7 @@ Page({
   getMerchant() {
     return new Promise((resolve, reject) => {
       getRequest(Api.getMerchant, {
-          merchantId: globalData.merchantId
+          merchantId: app.getMerchantId()
         })
         .then((data) => {
           const merchant = data.result;
@@ -37,7 +38,8 @@ Page({
           wx.setStorage({
             key: 'globalData',
             data: globalData,
-          })
+          });
+          resolve(merchant.locationId)
         })
         .catch(errorCode => {
           // getApp().failRequest();
@@ -51,11 +53,15 @@ Page({
         })
     });
   },
-  getProductList() {
+  getProductList(locationId) {
     wx.showLoading({
       title: '商品数据加载中...',
     })
-    getRequest(getProductList).then(result => {
+    getRequest(getHot,{
+      locationId,
+      start:0,
+      limit:20
+    }).then(result => {
       wx.hideLoading()
       let data = result.result;
       if (result.status === 200) {
@@ -97,8 +103,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getProductList();
-    this.getMerchant();
+    this.getMerchant().then(locationId => this.getProductList(locationId));
     this.setData({
       stores: globalData.authWechat.authMerchantList,
     });
