@@ -19,7 +19,7 @@ Page({
     this.setData({
       id: merchant.nsMerchantId,
       name: merchant.merchantStoreName,
-      address: (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, ''),
+      address: getApp().globalData.address,
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     });
   },
@@ -54,14 +54,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    if (!this.data.avatarUrl && Object.keys(getApp().globalData.userInfo).length) {
-      const userInfo = getApp().globalData.userInfo;
-      this.setData({
-        avatar: userInfo.avatarUrl,
-        nickName: userInfo.nickName
-      })
-      wx.showTabBar();
-    }
+    // if (!this.data.avatarUrl && Object.keys(getApp().globalData.userInfo).length) {
+    //   const userInfo = getApp().globalData.userInfo;
+    //   this.setData({
+    //     avatar: userInfo.avatarUrl,
+    //     nickName: userInfo.nickName
+    //   })
+    //   wx.showTabBar();
+    // }
   },
 
   /**

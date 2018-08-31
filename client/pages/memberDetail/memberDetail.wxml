@@ -1,14 +1,4 @@
 <view>
-  <!-- <navigator class='row center' style="width: 100%;background: #fff;margin-top: 30rpx;" url='../transactionList/transactionList'>
-
-    <image src='./img/my-order.png' class='icon' style="margin-left: 55rpx;"></image>
-    <view class='column regular' style="align-items: left;">
-      <text class='name'>我的订单</text>
-    </view>
-    <view class='center' style="justify-content: flex-end;flex-grow: 1;">
-      <image src='./img/arrow.png' class='order-arrow'></image>
-    </view>
-  </navigator> -->
   <view class='tab medium center' bindtap='toggleTab'>
     <view class='column' >
       <image src='./img/all.png' data-type='0'></image>

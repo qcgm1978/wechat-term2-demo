@@ -158,51 +158,10 @@ Page({
     if (!this.data.enableBuy) {
       return;
     }
+    // globalData.items=this.data.product.items;
     wx.navigateTo({
-      url: "../order-confirm/order-confirm?itemId=" + this.data.product.item_id + "&orderStatus=" + "",
+      url: `../order-confirm/order-confirm?itemId=${this.data.product.item_id}&orderStatus=&total=${this.data.currentMoney}`,
     });
-    return;
-    wx.showLoading({
-      title: '商品购买中...',
-    })
-
-    let product = Object.assign({
-      count: 1
-    }, this.data.product)
-
-    // qcloud.request({
-    //   url: config.service.addOrder,
-    //   login: true,
-    //   method: 'POST',
-    //   data: {
-    //     list: [product],
-    //     isInstantBuy: true
-    //   },
-    //   success: result => {
-    //     wx.hideLoading()
-
-    //     let data = result.data
-
-    //     if (!data.code) {
-    //       wx.showToast({
-    //         title: '商品购买成功',
-    //       })
-    //     } else {
-    //       wx.showToast({
-    //         icon: 'none',
-    //         title: '商品购买失败',
-    //       })
-    //     }
-    //   },
-    //   fail: () => {
-    //     wx.hideLoading()
-
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '商品购买失败',
-    //     })
-    //   }
-    // })
   },
 
 

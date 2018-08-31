@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 9,
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -87,7 +87,7 @@
 					"id": 8,
 					"name": "order-confirm",
 					"pathName": "pages/order-confirm/order-confirm",
-					"query": "itemId=123456"
+					"query": "itemId=123456&total=200"
 				},
 				{
 					"id": -1,

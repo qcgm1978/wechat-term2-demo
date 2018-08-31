@@ -7,7 +7,8 @@ import {
 import {
   getRequest
 } from '../../utils/util.js';
-const getMerchant = Api.getMerchant, getProductList = Api.getProductList;
+const getMerchant = Api.getMerchant,
+  getProductList = Api.getProductList;
 const app = getApp()
 let globalData = app.globalData;
 
@@ -30,7 +31,9 @@ Page({
           merchantId: globalData.merchantId
         })
         .then((data) => {
-          globalData.merchant = data.result;
+          const merchant = data.result;
+          globalData.merchant = merchant;
+          globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
           wx.setStorage({
             key: 'globalData',
             data: globalData,

@@ -7,20 +7,18 @@ const getProduct = Api.getProduct,
 const app = getApp();
 const globalData = app.globalData;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
     points: 500,
+    credit:0,
     isReturn: false,
     isFailed: false,
+    total:'',
     textarea: '',
     order:{},
-    name: '张磊磊',
+    name: '',
     phone: 12345678901,
     salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
-    address: globalData.address,
+    address: '',
     addressStore: '../transactionDetail/images/address.png',
   },
 
@@ -29,14 +27,20 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      itemId: options.itemId
+      itemId: options.itemId,
+      total:options.total,
+      address: globalData.address,
+      address: getApp().globalData.address,
+      profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     })
     this.getProduct(options.itemId);
 
   },
   onChangeChecked(myEventDetail, myEventOption) {
+    const isVisible = myEventDetail.detail.checked;
     this.setData({
-      isVisible: myEventDetail.detail.checked
+      isVisible,
+      credit:isVisible?this.data.points/100:0
     })
   },
   textareaConfirm(e) {
@@ -45,8 +49,10 @@ Page({
     });
   },
   inputConfirm(e) {
+    const isVisible = this.data.isVisible;
     this.setData({
-      points: e.detail.value
+      points: e.detail.value,
+      credit: isVisible ? e.detail.value / 100 : 0
     });
   },
   getProduct(itemId) {
