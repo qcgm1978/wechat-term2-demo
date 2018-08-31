@@ -1,9 +1,6 @@
 // pages/home/home.js
 // const io = require('/socket.io/socket.io.js')
 const getUserInfo = require('./getUserInfo').default;
-// const qcloud = require('../../vendor/wafer2-client-sdk/index')
-const config = require('../../config.js')
-
 Page({
   /**
    * 页面的初始数据

@@ -1,5 +1,3 @@
-// const qcloud = require('../../vendor/wafer2-client-sdk/index')
-const config = require('../../config')
 const _ = require('../../utils/util');
 
 import utils from "../../utils/util.js";
@@ -15,56 +13,49 @@ Page({
     currentMoney: 0,
     badge: 0,
     product: {},
+    enableBuy:false,
     promotion: false,
     isSelecting: false,
-    hasPromotion:false,
+    hasPromotion: false,
     autoplay: true,
     interval: 3000,
     duration: 1000,
-    remaining: 500,
+    minAmount: 500,
     top: globalData.systemInfo.windowHeight,
     buyTxt: '立即购买',
     specificationList: [{
       specification: '1*12*450ML',
       num: 0
 
-    }, {
-      specification: '1*12*450ML',
-      num: 0
-
-    }, {
-      specification: '1*12*450ML',
-      num: 0
-
-    }],
+    },],
     icon: '../../images/trolley-full.png',
     info: '保质期(125天)；场地：中国，杭州；品牌：七喜',
     imgUrls: [{
-        img: 'https://i01picsos.sogoucdn.com/f29ddb031dfa74e8',
-        title: '多种口味听装芬达500ml',
-        money: '2.5',
-        item_id: 123456
-      },
-      {
-        img: 'http://www.kfzimg.com/G05/M00/3E/63/p4YBAFg-yCCAIXT_AABMUEgSsqU474_n.jpg',
-        title: '多种口味听装芬达500ml',
-        money: '2.5',
-        item_id: 123456
-      },
-      {
-        img: 'https://i03picsos.sogoucdn.com/2a4cac7380108f44',
-        title: '多种口味听装芬达500ml',
-        money: '2.5',
-        type: '满减',
-        item_id: 123456
-      },
-      {
-        img: 'https://i03picsos.sogoucdn.com/c6fe007b19eb29b1',
-        title: '多种口味听装芬达500ml',
-        money: '2.5',
-        type: '满减',
-        item_id: 123456
-      }
+      img: 'https://i01picsos.sogoucdn.com/f29ddb031dfa74e8',
+      title: '多种口味听装芬达500ml',
+      money: '2.5',
+      item_id: 123456
+    },
+    {
+      img: 'http://www.kfzimg.com/G05/M00/3E/63/p4YBAFg-yCCAIXT_AABMUEgSsqU474_n.jpg',
+      title: '多种口味听装芬达500ml',
+      money: '2.5',
+      item_id: 123456
+    },
+    {
+      img: 'https://i03picsos.sogoucdn.com/2a4cac7380108f44',
+      title: '多种口味听装芬达500ml',
+      money: '2.5',
+      type: '满减',
+      item_id: 123456
+    },
+    {
+      img: 'https://i03picsos.sogoucdn.com/c6fe007b19eb29b1',
+      title: '多种口味听装芬达500ml',
+      money: '2.5',
+      type: '满减',
+      item_id: 123456
+    }
     ]
   },
   showPromotion() {
@@ -72,27 +63,36 @@ Page({
       promotion: true
     })
   },
-  plus(e) {
-    const index = e.currentTarget.dataset.index;
-    this.data.specificationList[index].num++
-      this.setData({
-        specificationList: this.data.specificationList
-      })
-  },
-  minus(e) {
-    const index = e.currentTarget.dataset.index;
-    const num = this.data.specificationList[index].num;
-    if (num === 0) {
+  plusMinus(e) {
+    const dataset = e.currentTarget.dataset;
+    const index = dataset.index,type=dataset.type;
+    const currentNum = this.data.specificationList[index].num;
+    const isMinus = (type === 'minus');
+    if((currentNum===0)&&isMinus){
       return;
     }
-    this.data.specificationList[index].num--
-      this.setData({
-        specificationList: this.data.specificationList
-      })
+    const num = isMinus?(currentNum-1):(currentNum + 1);
+    this.data.specificationList[index].num=num;
+    const remaining = this.data.minAmount - num * this.data.product.price;
+    const enableBuy = remaining <= 0;
+    this.setData({
+      specificationList: this.data.specificationList,
+      currentMoney:num * this.data.product.price,
+      buyTxt: enableBuy?'立即购买':`还差￥${remaining}可购买`,
+      enableBuy
+    })
   },
+  
   closePopup() {
     this.setData({
       isSelecting: false,
+      buyTxt:'立即购买',
+      currentMoney:0,
+      enableBuy:false,
+      specificationList: this.data.specificationList.map(item=>{
+        item.num=0;
+        return item;
+      }),
     })
   },
   closePopupPromotion() {
@@ -104,7 +104,7 @@ Page({
     if (!this.data.isSelecting) {
       return this.setData({
         isSelecting: true,
-        buyTxt: `还差￥${this.data.remaining}可购买`
+        buyTxt: `还差￥${this.data.minAmount}可购买`,
       })
     }
     utils
@@ -152,8 +152,11 @@ Page({
     if (!this.data.isSelecting) {
       return this.setData({
         isSelecting: true,
-        buyTxt: `还差￥${this.data.remaining}可购买`
+        buyTxt: `还差￥${this.data.minAmount}可购买`
       })
+    }
+    if (!this.data.enableBuy) {
+      return;
     }
     wx.navigateTo({
       url: "../order-confirm/order-confirm?itemId=" + this.data.product.item_id + "&orderStatus=" + "",
@@ -216,7 +219,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.getProduct(options.itemId);
     if (globalData.badge > 0) {
       this.setData({
@@ -229,49 +232,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

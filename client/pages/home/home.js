@@ -1,15 +1,13 @@
 import utils from "../../utils/util.js";
 // const io = require('/socket.io/socket.io.js')
 const getUserInfo = require('./getUserInfo').default;
-// const qcloud = require('../../vendor/wafer2-client-sdk/index')
-const config = require('../../config.js');
 import {
   Api
 } from '../../utils/envConf.js';
 import {
   getRequest
 } from '../../utils/util.js';
-const getMerchant = Api.getMerchant;
+const getMerchant = Api.getMerchant, getProductList = Api.getProductList;
 const app = getApp()
 let globalData = app.globalData;
 
@@ -54,32 +52,26 @@ Page({
     wx.showLoading({
       title: '商品数据加载中...',
     })
-    // qcloud.request({
-    //   url: config.service.productList,
-    //   success: result => {
-    //     wx.hideLoading()
-    //     let data = result.data;
-    //     if (data.status === 200) {
-    //       this.setData({
-    //         productList: data.result
-    //       })
-    //     } else {
-    //       wx.showToast({
-    //         icon: 'none',
-    //         title: '商品数据加载错误',
-    //       })
-    //     }
-    //   },
-
-    //   fail: () => {
-    //     wx.hideLoading()
-
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '商品数据加载错误',
-    //     })
-    //   }
-    // });
+    getRequest(getProductList).then(result => {
+      wx.hideLoading()
+      let data = result.result;
+      if (result.status === 200) {
+        this.setData({
+          productList: data
+        })
+      } else {
+        wx.showToast({
+          icon: 'none',
+          title: '商品数据加载错误',
+        })
+      }
+    }).catch(err => {
+      wx.hideLoading()
+      wx.showToast({
+        icon: 'none',
+        title: '商品数据加载错误',
+      })
+    });
   },
 
   addToTrolley(event) {

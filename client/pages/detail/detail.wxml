@@ -82,11 +82,11 @@
       <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
     </view>
     <button bindtap='addToTrolley' disabled='{{!product.item_status}}'>加入进货单</button>
-    <button bind:tap='buy' disabled='{{!product.item_status}}' class='{{isSelecting?"buy-selecting":"buy-btn"}}'>{{isSelecting?buyTxt:'立即购买'}}</button>
+    <button bind:tap='buy' disabled='{{!product.item_status}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}}'>{{buyTxt}}</button>
   </view>
   <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top-750}}rpx;'>
     <view class='center padding' style='justify-content:space-between;'>
-      <image src='../../images/home-sel.png' class='goods-pic'></image>
+      <image src='{{product.item_image_address[0]}}' class='goods-pic'></image>
       <view>
         <view class='product-name' style="width: 444rpx;">{{product.item_brand}}</view>
         <text class='dollar product-price'>{{currentMoney}}</text>
@@ -102,19 +102,19 @@
             <text>规格</text>
             <text style="font-size: 28rpx;">{{item.specification}}</text>
           </view>
-          <view class='center regular specification '>
+          <view class='center regular specification ' style="margin-top: 58rpx;">
             <text>购买数量</text>
             <view class='center' style='align-items:center'>
-              <text class='plus-minus center-center' style='opacity:{{item.num?1:0.5}};' catch:tap='minus' data-index='{{index}}'>-</text>
+              <text class='plus-minus center-center' style='opacity:{{item.num?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'>-</text>
               <text class='plus-minus center-center' style="font-size: 32rpx;">{{item.num}}</text>
-              <text class='plus-minus center-center' catch:tap='plus' data-index='{{index}}'>+</text>
+              <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'>+</text>
             </view>
           </view>
         </view>
       </scroll-view>
 
     </view>
-    <view class='padding subtotal ' style='padding-top:0;'>小计 :1件 ¥58.00</view>
+    <view class='padding subtotal ' style='padding-top:0;'>小计 :{{specificationList[0].num}}件 ¥{{currentMoney}}</view>
   </view>
   <view wx:if='{{promotion}}' class='select-goods bgc padding center' style='top:{{top-750}}rpx; justify-content:space-between;'>
     <view class='promotion-list regular'>

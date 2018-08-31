@@ -23,6 +23,17 @@ Page({
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     });
   },
+  exitLogin: function () {
+    getApp().globalData.userInfo.registerStatus = false
+    wx.setStorage({
+      key: "registerStatus",
+      data: false
+    });
+    
+    wx.reLaunch({
+      url: '../login/login'
+    })
+  },
   toggleTab(evt) {
     const orderStatus = Number(evt.target.dataset.type);
     if (isNaN(Number(orderStatus))) {

@@ -1,4 +1,4 @@
-<navigator url='{{disable?"":("../transactionDetail/transactionDetail?orderId="+order.orderId+"&orderStatus="+order.orderStatus)}}'>
+<navigator url='{{url}}'>
   <view class='scroll-container' scroll-top="{{scrollTop}}">
 
     <view>

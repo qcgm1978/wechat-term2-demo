@@ -19,7 +19,7 @@ const globalData = app.globalData;
 Page({
   ...payDetail,
   data: {
-    disable: true,
+    disable: false,
     payStyle: globalData.payStyle,
     order:{},
     // todo name and phone missing

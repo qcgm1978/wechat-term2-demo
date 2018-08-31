@@ -52,6 +52,8 @@ const apiURLs = {
   backendUrlVerifyCode: baseUrl + '/auth/sms/',
   backendUrlPhoneLogin: baseUrl + '/auth/sms',  
 
+  getProductList: `${baseUrl}/product`,
+
   backendUrlUserInfo: baseUrl + '/v1/members/',
   backendUrlRegister: baseUrl + '/v1/members/',
   backendUrlBanners: baseUrl + '/v1/banners/member',
