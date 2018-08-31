@@ -20,7 +20,7 @@
 <view class='color-bg bgc'></view>
 <view class='bgc goods-container'>
   <!-- <template is="orderItem" data="{{order,disable}}"></template> -->
-  <goods-list order-property='{{order}}'>
+  <goods-list order-property='{{order}}' enable-tap='{{false}}'>
     <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
     <!-- <view>这里是插入到组件slot中的内容</view> -->
   </goods-list>
