@@ -21,6 +21,7 @@ switch (env) {
   case EVN.LOCAL:
     {
       baseUrl = 'http://localhost:5757/v1';
+      baseUrl = 'http://10.3.0.98:5757/v1';
       break;
     }
   case EVN.STG:
@@ -50,7 +51,7 @@ const apiURLs = {
   backendUrlLogin: `${baseUrl}/auth/wechat`,
   backendUrlRefreshToken: `${baseUrl}/auth/refresh`,
   backendUrlVerifyCode: baseUrl + '/auth/sms/',
-  backendUrlPhoneLogin: baseUrl + '/auth/sms',  
+  backendUrlPhoneLogin: baseUrl + '/auth/sms',
 
   getProductList: `${baseUrl}/product`,
 

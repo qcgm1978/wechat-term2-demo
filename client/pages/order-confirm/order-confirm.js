@@ -8,7 +8,7 @@ const app = getApp();
 const globalData = app.globalData;
 Page({
   data: {
-    points: 500,
+    points: 0,
     credit:0,
     isReturn: false,
     isFailed: false,
@@ -28,6 +28,8 @@ Page({
   onLoad: function(options) {
     this.setData({
       itemId: options.itemId,
+      max: globalData.merchant.pointBalance,
+      points: globalData.merchant.pointBalance,
       total:options.total,
       address: globalData.address,
       address: getApp().globalData.address,
@@ -48,7 +50,7 @@ Page({
       textarea: e.detail.value
     });
   },
-  inputConfirm(e) {
+  bindinput(e) {
     const isVisible = this.data.isVisible;
     this.setData({
       points: e.detail.value,

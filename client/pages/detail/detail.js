@@ -12,6 +12,7 @@ Page({
   data: {
     currentMoney: 0,
     badge: 0,
+    quantity:1,
     product: {},
     enableBuy:false,
     promotion: false,
@@ -66,17 +67,16 @@ Page({
   plusMinus(e) {
     const dataset = e.currentTarget.dataset;
     const index = dataset.index,type=dataset.type;
-    const currentNum = this.data.specificationList[index].num;
+    const currentNum = this.data.quantity;
     const isMinus = (type === 'minus');
-    if((currentNum===0)&&isMinus){
+    if((currentNum===1)&&isMinus){
       return;
     }
     const num = isMinus?(currentNum-1):(currentNum + 1);
-    this.data.specificationList[index].num=num;
     const remaining = this.data.minAmount - num * this.data.product.price;
     const enableBuy = remaining <= 0;
     this.setData({
-      specificationList: this.data.specificationList,
+      quantity: num,
       currentMoney:num * this.data.product.price,
       buyTxt: enableBuy?'立即购买':`还差￥${remaining}可购买`,
       enableBuy
@@ -105,6 +105,7 @@ Page({
       return this.setData({
         isSelecting: true,
         buyTxt: `还差￥${this.data.minAmount}可购买`,
+        currentMoney: this.data.product.price * this.data.quantity
       })
     }
     utils
@@ -152,7 +153,8 @@ Page({
     if (!this.data.isSelecting) {
       return this.setData({
         isSelecting: true,
-        buyTxt: `还差￥${this.data.minAmount}可购买`
+        buyTxt: `还差￥${this.data.minAmount}可购买`,
+        currentMoney: this.data.product.price*this.data.quantity
       })
     }
     if (!this.data.enableBuy) {
@@ -163,21 +165,6 @@ Page({
       url: `../order-confirm/order-confirm?itemId=${this.data.product.item_id}&orderStatus=&total=${this.data.currentMoney}`,
     });
   },
-
-
-
-  onTapCommentEntry() {
-    let product = this.data.product
-    if (product.commentCount) {
-      wx.navigateTo({
-        url: `/pages/comment/comment?id=${product.id}&price=${product.price}&name=${product.name}&image=${product.image}`
-      })
-    }
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     this.getProduct(options.itemId);
     if (globalData.badge > 0) {

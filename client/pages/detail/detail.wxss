@@ -64,13 +64,18 @@
   color: #ee711f;
 }
 
-
-.btn-container {
-  position: fixed;
+.absolute-btn{
+  
+  position: absolute;
   transform: translate(0, -100%);
+}
+.btn-container {
   width: 100%;
   z-index: 10;
   justify-content: center;
+  position: relative;
+  /* overflow:visible; */
+
 }
 
 .btns button {
@@ -138,10 +143,6 @@
   background: rgba(0, 0, 0, 0.60);
   /* text-align: center; */
   height: 72rpx;
-}
-
-.product-card {
-  margin-bottom: 60rpx;
 }
 
 .product-image {

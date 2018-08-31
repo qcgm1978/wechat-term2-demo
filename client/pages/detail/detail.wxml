@@ -76,7 +76,7 @@
     </swiper>
   </view>
   <text class='sold-out btn-container center-center' wx:if='{{!product.item_status}}' style='top:{{top}}rpx;transform:translate(0, -184rpx);'>该商品已下架</text>
-  <view wx:if='{{!promotion}}' class='bgc center btns regular padding mgt btn-container' style='top:{{top}}rpx;opacity:{{product.item_status?1:0.3}};'>
+  <view wx:if='{{!promotion}}' class='bgc center btns regular padding mgt btn-container' style='opacity:{{product.item_status?1:0.3}};'>
     <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
       <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
@@ -105,8 +105,8 @@
           <view class='center regular specification ' style="margin-top: 58rpx;">
             <text>购买数量</text>
             <view class='center' style='align-items:center'>
-              <text class='plus-minus center-center' style='opacity:{{item.num?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'>-</text>
-              <text class='plus-minus center-center' style="font-size: 32rpx;">{{item.num}}</text>
+              <text class='plus-minus center-center' style='opacity:{{quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'>-</text>
+              <text class='plus-minus center-center' style="font-size: 32rpx;">{{quantity}}</text>
               <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'>+</text>
             </view>
           </view>
@@ -114,7 +114,7 @@
       </scroll-view>
 
     </view>
-    <view class='padding subtotal ' style='padding-top:0;'>小计 :{{specificationList[0].num}}件 ¥{{currentMoney}}</view>
+    <view class='padding subtotal ' style='padding-top:0;'>小计 :{{quantity}}件 ¥{{currentMoney}}</view>
   </view>
   <view wx:if='{{promotion}}' class='select-goods bgc padding center' style='top:{{top-750}}rpx; justify-content:space-between;'>
     <view class='promotion-list regular'>

@@ -52,12 +52,12 @@
       </checkbox-ios>
     </view>
   </view>
-  <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;'>
+  <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;justify-content:flex-start;'>
     <text class='regular order-field '>折扣数量</text>
-    <view style="flex-grow: 1;margin-left: 30rpx;">
-      <input type="number" value='{{points}}' class='input' bindinput='inputConfirm' />
+    <view style="margin-left: 30rpx;">
+      <input type="number" max='{{max}}' value='{{points}}' class='input' bindinput='bindinput' />
     </view>
-    <text class='medium'>抵扣￥50.00</text>
+    <text class='medium' style="color: #EE711F;margin-left: 15rpx;">抵扣￥{{credit}}</text>
   </view>
   <view class='padding bgc' style="margin-top: 15rpx;">
     <view class='  center order-item-container'>

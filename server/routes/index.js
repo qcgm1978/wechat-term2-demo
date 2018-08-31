@@ -55,7 +55,7 @@ router.put('/comment', validationMiddleware, controllers.comment.add)
 router.get('/comment', controllers.comment.list)
 
 // 获取商品列表
-router.post('/auth/wechat', controllers.login.wechat)
+router.post('/v1/auth/wechat', controllers.login.wechat)
 // for o2o
 router.get('/v1/product', controllers.product.list)
 // 获取商品详情
