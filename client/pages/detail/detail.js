@@ -126,7 +126,6 @@ Page({
       locationId,
       categoryId,
       itemId,
-      merchantId: globalData.merchantId
     }).then(data => {
       wx.hideLoading()
       console.log(data);
