@@ -43,7 +43,7 @@ Page({
           globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
           wx.setStorage({
             key: 'globalData',
-            data: globalData,
+            data: getApp().globalData,
           });
           resolve(merchant.locationId)
         })
@@ -111,7 +111,7 @@ Page({
   onLoad: function(options) {
     this.getMerchant().then(locationId => this.getProductList(locationId));
     this.setData({
-      stores: globalData.authWechat.authMerchantList,
+      stores: getApp().globalData.authWechat.authMerchantList,
     });
   },
 
