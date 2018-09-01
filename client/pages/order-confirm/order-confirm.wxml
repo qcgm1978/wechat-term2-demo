@@ -40,7 +40,7 @@
   </view>
   <view class='padding mgt bgc center order-item-container' style="margin-top: 15rpx;">
     <!-- <text class='regular order-field '>促销折扣</text> -->
-    <text class='medium'>满减活动；满送活动</text>
+    <!-- <text class='medium'>满减活动；满送活动</text> -->
   </view>
   <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
     <text class='regular order-field '>积分抵扣</text>
@@ -74,11 +74,11 @@
     </view>
     <view class='  center order-item-container'>
       <text class='regular order-field '>应付总额</text>
-      <text class='medium dollar'>{{total-(isVisible?points/100:0)}}</text>
+      <text class='medium dollar'>{{actual}}</text>
     </view>
   </view>
   <view class='padding mgt bgc center order-item-container' style="align-items: center;">
-    <text class='medium order-field dollar' style='color:#EE711F;font-size: 44rpx;'>{{total-(isVisible?points/100:0)}}</text>
+    <text class='medium order-field dollar' style='color:#EE711F;font-size: 44rpx;'>{{actual}}</text>
     <button class='medium submit regular' catch:tap='createOrder'>提交订单</button>
   </view>
 </view>

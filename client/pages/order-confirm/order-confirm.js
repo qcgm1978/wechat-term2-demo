@@ -2,20 +2,21 @@ var utils = require("../../utils/util.js");
 import {
   Api
 } from '../../utils/envConf.js'
-const getProduct = Api.getProduct,
+const getProductItem = Api.getProductItem,
   createOrder = Api.createOrder;
 const app = getApp();
 const globalData = app.globalData;
 Page({
   data: {
-    data:{},
+    data: {},
     points: 0,
-    credit:0,
+    credit: 0,
+    actual:0,
     isReturn: false,
     isFailed: false,
-    total:'',
+    total: '',
     textarea: '',
-    order:{},
+    order: {},
     name: '',
     phone: 12345678901,
     salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
@@ -28,23 +29,29 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      data:globalData.items,
       itemId: options.itemId,
       max: globalData.merchant.pointBalance,
       points: globalData.merchant.pointBalance,
-      total:options.total,
+      total: options.total,
+      actual: options.total,
       address: globalData.address,
-      address: getApp().globalData.address,
+      phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     })
-    this.getProduct(options.itemId);
-
+    if (globalData.items) {
+      this.setData({
+        data: globalData.items,
+      })
+    } else {
+      this.getProduct(options.itemId, options.categoryId);
+    }
   },
   onChangeChecked(myEventDetail, myEventOption) {
     const isVisible = myEventDetail.detail.checked;
     this.setData({
       isVisible,
-      credit:isVisible?this.data.points/100:0
+      credit: isVisible ? this.data.points / 100 : 0,
+      actual: this.data.total - (isVisible ? this.data. points / 100 : 0)
     })
   },
   textareaConfirm(e) {
@@ -56,14 +63,18 @@ Page({
     const isVisible = this.data.isVisible;
     this.setData({
       points: e.detail.value,
-      credit: isVisible ? e.detail.value / 100 : 0
+      credit: isVisible ? e.detail.value / 100 : 0,
+      actual: this.data.total - e.detail.value / 100
     });
   },
-  getProduct(itemId) {
+  getProduct(itemId,categoryId) {
     wx.showLoading({
       title: '商品数据加载中...',
-    })
-    utils.getRequest(getProduct, {
+    });
+    const locationId = globalData.merchant.locationId;
+    utils.getRequest(getProductItem, {
+      locationId,
+      categoryId,
       itemId,
       merchantId: globalData.merchantId
     }).then(data => {
@@ -72,7 +83,7 @@ Page({
       if (data.status === 200) {
         const result = data.result[0];
         this.setData({
-          order: result
+          data: result
         })
       } else {
         setTimeout(() => {
@@ -89,12 +100,23 @@ Page({
 
       wx.showLoading({
         title: '正在创建订单...',
-      })
+      });
+      // merchantId	
+      // locationId
+      // merchantMsg
+      // usePoint
+      // totalAmount
+      // orderItems
+      // ·	itemId
+      // ·	quantity
+      const locationId = globalData.merchant.locationId;
       utils.postRequest(createOrder, {
-        orderItems: this.data.order.orderItem,
+        orderItems: globalData.items ? globalData.items : this.data.data.items,
         merchantId: globalData.merchantId,
+        locationId,
         merchantMsg: this.data.textarea,
-        usePoint: this.data.isVisible ? this.data.points : 0
+        usePoint: this.data.isVisible ? this.data.points : 0,
+        totalAmount
       }).then(data => {
         wx.hideLoading()
         console.log(data);
@@ -102,11 +124,7 @@ Page({
           wx.redirectTo({
             url: `/pages/order-success/order-success?orderId=${data.result.orderId}`,
           })
-        } else {
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 2000)
-        }
+        } else {}
       }).catch(err => {
         wx.hideLoading();
         console.log(err);

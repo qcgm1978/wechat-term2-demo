@@ -36,6 +36,10 @@ App({
   getMerchantId(){
     return this.globalData.authMerchantList[this.globalData.currentIndex].merchantId;
   },
+  getPhone(){
+    return this.globalData.authMerchantList[this.globalData.currentIndex].cellPhone;
+
+  },
   getGlobalVal(str) {
     let result = null;
     try {

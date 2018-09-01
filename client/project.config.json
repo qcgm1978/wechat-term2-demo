@@ -87,7 +87,7 @@
 					"id": 8,
 					"name": "order-confirm",
 					"pathName": "pages/order-confirm/order-confirm",
-					"query": "itemId=123456&total=200"
+					"query": "itemId=123456&total=200&categoryId=7890"
 				},
 				{
 					"id": -1,
