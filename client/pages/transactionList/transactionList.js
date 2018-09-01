@@ -33,7 +33,7 @@ Page({
       offset: 1,
       limit: 10
     },
-    showTabs:true,
+    isReturn:false,
     tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
     isToPay: true,
@@ -280,15 +280,20 @@ Page({
           title: '拒收列表',
         });
         this.setData({
-          showTabs:false
+          isReturn:true
         })
       }
     }
     this.requestMoreData(this.data.config);
   },
-  goTransDetails: function(e) {
+  goDetails: function(e) {
     wx.navigateTo({
       url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
+    })
+  },
+  goTransDetails: function (e) {
+    wx.navigateTo({
+      url: `../transactionDetail/transactionDetail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
     })
   },
   /**

@@ -48,7 +48,55 @@ module.exports = {
         ],
         "orderReturn": null
       }
-    } else {
+    } else if (orderId === '789') {
+      ctx.state.result = {
+        "orderId": "180831233122880",
+        "orderStatus": "RETURN_FULL",
+        "totalAmount": 42,
+        "itemTotalCount": 1,
+        "itemSaleCount": 1,
+        "itemReturnCount": 1,
+        "createTime": "2018-08-31 23:31:41",
+        "payment": {
+          "paymentId": null,
+          "paymentMethod": "COD",
+          "paymentTime": "2018-08-31 23:31:41",
+          "usePoint": 0,
+          "cashAmount": 42
+        },
+        returnInfo: {
+          refundTotalAmount: 100,
+          refundCashAmount: 99,
+          refundPoint: 100
+        },
+        "orderItem": [
+          {
+            "itemId": "3211",
+            "itemSku": null,
+            "itemName": "美好优级王中王火腿肠",
+            "quantity": 1,
+            "unitPrice": 42,
+            "locationId": "55",
+            "itemSpecification": "38g*60",
+            "returnQuantit": 0,
+            "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg",
+            "categoryId": "1702002"
+          }
+        ],
+        "orderReturn": {
+          "refundTotalAmount": 0,
+          "refundCashAmount": 0,
+          "refundPoint": 0
+        },
+        "receiverInfo": {
+          "receiverName": "yangyong",
+          "receiverCellPhone": "13240353366",
+          "receiverAddress": "河南省开封市祥符区西姜寨乡嘴刘村便民超市"
+        }
+      }
+    }
+
+    else {
       ctx.state.result = {
         "orderId": "180831233122880",
         "orderStatus": "CANCELED",
@@ -382,7 +430,7 @@ module.exports = {
     } else if (ctx.request.body.orderStatus.includes(5) && ctx.request.body.orderStatus.includes(6)) {
       ctx.state.result = {
         orders: [{
-          "orderId": "123456",
+          "orderId": "789",
           "orderStatus": "RETURN_FULL",
           "totalAmount": 8,
           "itemTotalCount": 2,

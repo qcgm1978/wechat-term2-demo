@@ -132,6 +132,7 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
+
     if (options.isWebsocket) {
       // todo test data used
       const orderData = getApp().globalData.websocketData;
@@ -150,21 +151,14 @@ Page({
     });
     const pages = getCurrentPages();
     const prevPage = pages[pages.length - 2]; //上一个页面
-    const isReturn = orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART";
+    const isReturn = (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
     if (isReturn) {
-      if (/transactionDetail/.test(prevPage.route)) {
-        wx.setNavigationBarTitle({
-          title: '退货详情'
-        });
-        this.setData({
-          isReturn,
-        });
-      } else {
-        this.setData({
-          disable: false
-        });
-      }
-
+      wx.setNavigationBarTitle({
+        title: '退货详情'
+      });
+      this.setData({
+        isReturn,
+      });
     }
   },
   /**

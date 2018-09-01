@@ -36,7 +36,7 @@
               </view>
               <view class='darker-gray-chars column' style="align-items: flex-end;">
                 <text>￥{{item.unitPrice}}</text>
-                <text>x{{item.quantity}}</text>
+                <text>{{isReturn&&'拒收数量'}}x{{item.quantity}}</text>
               </view>
             </view>
 
@@ -64,15 +64,16 @@
       </view>
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
-    <view class='total-money'>共计{{order.itemTotalCount}}件商品 实付总额：
-      <text style='color:#ec6515;'>￥{{order.payment.cashAmount}}</text>
+    <view class='total-money'>
+      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'退款':'实付'}}总额：
+      <text style='color:#ec6515;'>￥{{isReturn?order.returnInfo.refundTotalAmount:order.payment.cashAmount}}</text>
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx;">
       <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
-            <text style="color:#888">订单编号：</text>{{order.orderId}}</view>
+            <text style="color:#888">{{isReturn?'拒收编号':'订单编号'}}：</text>{{order.orderId}}</view>
           <view catch:tap='copy' class='copy'>复制</view>
         </view>
       </view>
@@ -83,21 +84,40 @@
         </view>
 
       </view>
+      <view class='regular money-amount money' hidden='{{!isReturn}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style="color:#888">服务类型：</text>退货</view>
+        </view>
+
+      </view>
       <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
-      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+      <view class='regular money-amount money' hidden='{{isReturn}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
             <text style='color:#888'>付款时间：</text>{{order.payment.paymentTime}}</view>
         </view>
       </view>
-      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+      <view class='regular money-amount money' hidden='{{!isReturn}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style='color:#888'>商品退回：</text>现场拒收</view>
+        </view>
+      </view>
+      <view class='regular money-amount money' hidden='{{!isReturn}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style='color:#888'>退款方式：</text>原返</view>
+        </view>
+      </view>
+      <view class='regular money-amount money' hidden='{{isReturn}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
             <text style='color:#888'>支付方式：</text>{{order.payment.paymentMethod}}</view>
         </view>
       </view>
     </view>
-    <view class='regular money-amount money bgc padding' hidden='{{notShowDiscountInfo||isToPay}}'>
+    <view class='regular money-amount money bgc padding' hidden='{{isReturn}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
         <view></view>
         <view catch:tap='copy' class='buy-again mgt'>再次购买</view>
