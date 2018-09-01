@@ -1,4 +1,3 @@
-<!-- <import src="../transactionList/orderItem.wxml" /> -->
 <view class='regular bgc padding'>
   <view class='trans-shop' wx:if='{{isReturn}}'>
     <view class='trans-shop-lable regular'>{{salesReturn}}</view>
@@ -89,7 +88,7 @@
       <image src='./img/bg_fail.png'></image>
       <text>很抱歉，提交订单时遇到未知故障
 请稍后重试~</text>
-      <button class='center-center'>我知道了</button>
+      <button class='center-center' catch:tap='closePopup'>我知道了</button>
     </view>
   </view>
 </block>

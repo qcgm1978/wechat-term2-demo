@@ -10,7 +10,6 @@ App({
   ...websocket,
   globalData: {
     currentIndex: 0,
-    merchantId: 0,
     badge: 0,
     systemInfo: {},
     token: {},
@@ -34,11 +33,13 @@ App({
     }
   },
   getMerchantId(){
-    return this.globalData.authMerchantList[this.globalData.currentIndex].merchantId;
+    return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
   },
   getPhone(){
     return this.globalData.authMerchantList[this.globalData.currentIndex].cellPhone;
-
+  },
+  getName(){
+    return this.globalData.authMerchantList[this.globalData.currentIndex].userName;
   },
   getGlobalVal(str) {
     let result = null;

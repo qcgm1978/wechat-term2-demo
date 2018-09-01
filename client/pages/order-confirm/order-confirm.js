@@ -97,7 +97,6 @@ Page({
   },
   createOrder(itemId) {
     return new Promise((resolve, reject) => {
-
       wx.showLoading({
         title: '正在创建订单...',
       });
@@ -112,17 +111,17 @@ Page({
       const locationId = globalData.merchant.locationId;
       utils.postRequest(createOrder, {
         orderItems: globalData.items ? globalData.items : this.data.data.items,
-        merchantId: globalData.merchantId,
+        merchantId: app.getMerchantId(),
         locationId,
         merchantMsg: this.data.textarea,
         usePoint: this.data.isVisible ? this.data.points : 0,
-        totalAmount
+        totalAmount: this.data.actual
       }).then(data => {
         wx.hideLoading()
         console.log(data);
         if (data.status === 200) {
           wx.redirectTo({
-            url: `/pages/order-success/order-success?orderId=${data.result.orderId}`,
+            url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.orderTotalAmount}`,
           })
         } else {}
       }).catch(err => {
@@ -133,6 +132,11 @@ Page({
         });
       })
     })
+  },
+  closePopup(){
+    this.setData({
+      isFailed: false
+    });
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

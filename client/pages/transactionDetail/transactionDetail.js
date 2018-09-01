@@ -70,7 +70,7 @@ Page({
     } else {
       requestData = utils.getRequest(getOrder, {
         orderId,
-        merchantId: globalData.merchantId
+        merchantId: app.getMerchantId()
       });
     }
     requestData
@@ -130,7 +130,7 @@ Page({
       title: '加载中',
     })
     this.setData({
-      name: globalData.authMerchantList[globalData.currentIndex.userName]
+      name: app.getName()
     })
     if (options.isWebsocket) {
       // todo test data used
