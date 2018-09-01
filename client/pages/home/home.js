@@ -21,6 +21,12 @@ Page({
     stores: [],
     productList: [], // 商品列表
   },
+  errorFunction(e){
+    const productList=getApp().errorFunction(e, this.data.productList);
+    this.setData({
+      productList
+    })
+  },
   callPhone(evt) {
     wx.makePhoneCall({
       phoneNumber: '400-101-5288' //仅为示例，并非真实的电话号码

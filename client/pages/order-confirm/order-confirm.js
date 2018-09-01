@@ -8,6 +8,7 @@ const app = getApp();
 const globalData = app.globalData;
 Page({
   data: {
+    data:{},
     points: 0,
     credit:0,
     isReturn: false,
@@ -27,6 +28,7 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
+      data:globalData.items,
       itemId: options.itemId,
       max: globalData.merchant.pointBalance,
       points: globalData.merchant.pointBalance,

@@ -6,7 +6,7 @@ const globalData = app.globalData;
 import {
   Api
 } from '../../utils/envConf.js'
-const getProduct = Api.getProduct;
+const getProduct = Api.getProduct, getProductItem = Api.getProductItem;
 
 Page({
   data: {
@@ -117,11 +117,14 @@ Page({
         })
       })
   },
-  getProduct(itemId) {
+  getProduct(itemId, categoryId) {
     wx.showLoading({
       title: '商品数据加载中...',
-    })
-    utils.getRequest(getProduct, {
+    });
+    const locationId = globalData.merchant.locationId;
+    utils.getRequest(getProductItem, {
+      locationId,
+      categoryId,
       itemId,
       merchantId: globalData.merchantId
     }).then(data => {
@@ -133,9 +136,7 @@ Page({
           product: result
         })
       } else {
-        setTimeout(() => {
-          wx.navigateBack()
-        }, 2000)
+        
       }
     }).catch(err => {
       wx.hideLoading();
@@ -160,13 +161,14 @@ Page({
     if (!this.data.enableBuy) {
       return;
     }
-    // globalData.items=this.data.product.items;
+    this.data.product.items[0].quantity = this.data.quantity;
+    globalData.items = this.data.product;
     wx.navigateTo({
-      url: `../order-confirm/order-confirm?itemId=${this.data.product.item_id}&orderStatus=&total=${this.data.currentMoney}`,
+      url: `../order-confirm/order-confirm?itemId=${this.data.product.item_id}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,
     });
   },
   onLoad: function (options) {
-    this.getProduct(options.itemId);
+    this.getProduct(options.itemId, options.categoryId);
     if (globalData.badge > 0) {
       this.setData({
         badge: globalData.badge,

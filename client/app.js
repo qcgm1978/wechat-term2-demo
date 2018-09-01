@@ -15,6 +15,7 @@ App({
     systemInfo: {},
     token: {},
     userInfo: {},
+    defaultImg:'/pages/login/images/jihuibaologo@2x.png',
     payStyle: {
       "UNPAY": '待支付',
       "WAIT_SHIPMENT": '待发货',
@@ -24,6 +25,13 @@ App({
       "RETURN_FULL": '全部退货',
       "RETURN_PART": '部分退货'
     },
+  },
+  errorFunction(e, data) {
+    if (e.type == "error") {
+      var errorImgIndex = e.target.dataset.errorimg //获取错误图片循环的下标
+      data[errorImgIndex].image = this.globalData.defaultImg //错误图片替换为默认图片
+      return data;
+    }
   },
   getMerchantId(){
     return this.globalData.authMerchantList[this.globalData.currentIndex].merchantId;

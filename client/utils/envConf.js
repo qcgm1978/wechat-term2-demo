@@ -22,6 +22,7 @@ switch (env) {
     {
       baseUrl = 'http://localhost:5757/v1';
       baseUrl = 'http://10.3.0.98:5757/v1';
+      baseUrl ='http://192.168.16.71:5757/v1';
       break;
     }
   case EVN.STG:
@@ -42,6 +43,7 @@ switch (env) {
 }
 const apiURLs = {
   getHot: `${baseUrl}/mall/items/hot?locationId={locationId}&start={start}&limit={limit}`,
+  getProductItem: `${baseUrl}/mall/items?&locationId={locationId}&itemId={itemId}`,
   getOrder: `${baseUrl}/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/order/list`,
   createOrder: `${baseUrl}/order/create`,
