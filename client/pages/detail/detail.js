@@ -125,7 +125,7 @@ Page({
     utils.getRequest(getProductItem, {
       locationId,
       categoryId,
-      itemId,
+      itemIds:itemId,
     }).then(data => {
       wx.hideLoading()
       console.log(data);
