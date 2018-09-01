@@ -13,8 +13,8 @@
       <text class='{{tabColors[2]}} regular' data-type='2'>已发货</text>
     </view>
     <view class='column'>
-      <image src='./img/complete.png' data-type='4'></image>
-      <text class='{{tabColors[3]}} regular' data-type='4'>已完成</text>
+      <image src='./img/complete.png' data-type='3'></image>
+      <text class='{{tabColors[3]}} regular' data-type='3'>已完成</text>
     </view>
     <view class='column'>
       <image src='./img/return.png' data-type='3'></image>

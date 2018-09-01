@@ -49,6 +49,7 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
+  arrOrderStatus: [null, 1, 3, [2, 4]],
   removeOrder(evt) {
     const arr = this.data.order;
     const selectData = arr[evt.target.dataset.index];
@@ -81,20 +82,13 @@ Page({
   },
   toggleTab(evt) {
     try {
-
-      let orderStatus = JSON.parse(evt.target.dataset.type);
       let currentIndex = evt.target.dataset.index
       const tabColors = this.data.tabColors.map((item, index) => index == currentIndex ? 'selected' : 'unselected');
-      if (orderStatus) {
-
-      } else {
-        orderStatus = null;
-      }
       this.setData({
         tabColors,
         config: {
           ...this.data.config,
-          orderStatus,
+          orderStatus: this.arrOrderStatus[currentIndex],
           offset: 1,
         },
         isLast: false,
@@ -268,13 +262,13 @@ Page({
       wx.hideLoading()
     }, 10000);
     if (option.tab) {
-      const orderStatus = Number(option.tab);
-      const tabColors = this.data.tabColors.map((item, index) => index === orderStatus ? 'selected' : 'unselected');
+      const currentIndex = Number(option.tab);
+      const tabColors = this.data.tabColors.map((item, index) => index === currentIndex ? 'selected' : 'unselected');
       this.setData({
         tabColors,
         config: {
           ...this.data.config,
-          orderStatus,
+          orderStatus: this.arrOrderStatus[currentIndex],
           offset: 1,
         },
         isLast: false,
