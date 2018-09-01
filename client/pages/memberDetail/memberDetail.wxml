@@ -61,6 +61,6 @@
       </view>
     </view>
   </view>
-  <view class='exit'>退出登录</view>
+  <view class='exit' catch:tap='exitLogin'>退出登录</view>
   <!-- </view> -->
 </view>

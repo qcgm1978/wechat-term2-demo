@@ -56,10 +56,10 @@ Page({
     deviceWindowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
   },
 
-  gotoMember: function() {
-    wx.reLaunch({
-      url: '../member/member'
-    })
+  gotoHome: function() {
+    wx.switchTab({
+      url: '/pages/home/home',
+    });
   },
 
   /**
@@ -106,21 +106,7 @@ Page({
           console.log(res.data.message)
           if (res.statusCode == ACCESS_TOCKEN_EXPIRED && !this.decryptPhoneNumber.tokenRefreshed) {
             //console.log("ACCESS_TOCKEN_EXPIRED " + iv)
-            this.gotoMember()
-            // this.decryptPhoneNumber.tokenRefreshed = true
-            // getApp().login()
-            //   .then(() => {
-            //     //console.log(getApp().globalData.token.jscode)
-            //     this.decryptPhoneNumber(iv, encryptedData)
-            //   })
-            //   .catch(() => {
-            //     wx.showModal({
-            //       title: '提示',
-            //       content: '用户认证失败，请重新登录！',
-            //       showCancel: false,
-            //       success: res => {}
-            //     })
-            //   })
+            this.gotoMember();
           } else {
             wx.showModal({
               title: '提示',
@@ -138,11 +124,8 @@ Page({
             })
           }
           app.saveGlobalData(result);
-          wx.switchTab({
-            url: '/pages/home/home',
-          });
+         this.gotoHome()
           // getApp().globalData.token.refreshToken = res.data.result.token.refreshToken
-          // getApp().globalData.userInfo.registerStatus = true
           // getApp().globalData.userInfo.savedInDBStatus = res.data.result.registrationStatus
           // getApp().globalData.userInfo.memberId = res.data.result.memberId
           // getApp().globalData.userInfo.mobile = res.data.result.phoneNumber;
@@ -240,6 +223,9 @@ Page({
     this.decryptPhoneNumber.tokenRefreshed = false
     this.checkAndRegisterUser.tokenRefreshed = false
     this.saveRegisteredUser.tokenRefreshed = false;
+    if (getApp().globalData.registerStatus){
+      this.gotoHome()
+    }
   },
 
   checkAndRegisterUser: function() {

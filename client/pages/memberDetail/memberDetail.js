@@ -24,15 +24,15 @@ Page({
     });
   },
   exitLogin: function () {
-    getApp().globalData.userInfo.registerStatus = false
+    getApp().globalData.registerStatus = false
     wx.setStorage({
-      key: "registerStatus",
-      data: false
+      key: "globalData",
+      data: getApp().globalData
     });
     
     wx.reLaunch({
       url: '../login/login'
-    })
+    });
   },
   toggleTab(evt) {
     const index = Number(evt.target.dataset.type);
