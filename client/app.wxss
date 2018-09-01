@@ -1,4 +1,5 @@
 @import './app-common.wxss';
+@import './component/goods-list/goods-list.wxss';
 .bg {
   position: absolute;
   left: 0;

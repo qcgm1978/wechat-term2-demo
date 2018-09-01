@@ -25,7 +25,8 @@ Component({
         if (this.data.enableTap) {
           if (this.data.target==='product') {
             this.setData({
-              url: `../detail/detail?itemId=${newVal.item_id}`
+              url: `../detail/detail?itemId=`,
+              isProduct:true
             })
           } else if (newVal.item_id) {
             this.setData({

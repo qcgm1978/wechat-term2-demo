@@ -29,7 +29,7 @@ const ITEM_COUNT_PER_PAGE = 10,
 Page({
   data: {
     config: {
-      orderStatus: 0,
+      orderStatus: null,
       offset: 1,
       limit: 10
     },
@@ -59,10 +59,10 @@ Page({
       confirmColor: "#fcb052",
       success: res => {
         if (res.confirm) {
-          utils.postRequest(cancelOrder,{
-            orderId:selectData.orderId,
-            merchantId:globalData.merchantId
-          })
+          utils.postRequest(cancelOrder, {
+              orderId: selectData.orderId,
+              merchantId: globalData.merchantId
+            })
             .then((data) => {
               this.setData({
                 order: arr,
@@ -99,22 +99,10 @@ Page({
   },
   requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
-
-
-      if (!getApp().globalData.merchantId) {
-        this.setData({
-          loginStatus: false,
-        });
-        console.log('not login')
-        return
-      }
-
       utils.postRequest(url, postData)
         .then((data) => {
           const result = data.result;
-          // todo set total length
-          result.itemTotalCount = 10
-          if (this.data.order.length + result.orders.length >= result.itemTotalCount) {
+          if (this.data.order.length + result.orders.length >= result.orderTotalCount) {
             this.setData({
               dataMessage: NO_MORE_DATA,
               isLast: true
@@ -189,7 +177,7 @@ Page({
     })
     this.requestTransList(getOrderList, {
         ...config,
-        merchantId: globalData.merchantId
+        merchantId: getApp().getMerchantId()
       })
       .then((data) => {
         this.setData({
@@ -271,7 +259,7 @@ Page({
     setTimeout(() => {
       wx.hideLoading()
     }, 10000);
-    if(option.tab){
+    if (option.tab) {
       const orderStatus = Number(option.tab);
       const tabColors = this.data.tabColors.map((item, index) => index === orderStatus ? 'selected' : 'unselected');
       this.setData({

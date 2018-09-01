@@ -18,11 +18,34 @@
 </view>
 <view class='color-bg bgc'></view>
 <view class='bgc goods-container'>
-  <!-- <template is="orderItem" data="{{order,disable}}"></template> -->
-  <goods-list order-property='{{data}}' enable-tap='{{false}}'>
-    <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
-    <!-- <view>这里是插入到组件slot中的内容</view> -->
-  </goods-list>
+  <view class='scroll-container' scroll-top="{{scrollTop}}">
+
+    <view>
+      <scroll-view scroll-y="true" style='max-height: 330rpx;'>
+        <view class='item-container' wx:for="{{data.items}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
+          <view class='item-container-bg'></view>
+          <view class='item-container-fg'>
+
+            <view class='order-content'>
+              <view style="display: flex; flex-direction:row;">
+                <image src='{{item.itemIcon}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;"></image>
+                <view>
+                  <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
+                  <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                </view>
+              </view>
+              <view class='darker-gray-chars column' style="align-items: flex-end;">
+                <text>￥{{item.unitPrice}}</text>
+                <text>x{{item.quantity}}</text>
+              </view>
+            </view>
+
+
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+  </view>
 </view>
 <view>
   <view class='padding mgt bgc center order-item-container'>
