@@ -108,6 +108,9 @@ var getRequest = function(url, data) {
         url = url.replace(`{${prop}}`, data[prop]);
       }
     }
+    wx.showLoading({
+      title: '数据加载中...',
+    });
     wx.request({
       url: url,
       method: 'GET',
@@ -129,6 +132,9 @@ var getRequest = function(url, data) {
       fail: e => {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
+      },
+      complete(){
+        wx.hideLoading();
       }
     })
   });

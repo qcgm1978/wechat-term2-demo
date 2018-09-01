@@ -21,6 +21,12 @@ Page({
     stores: [],
     productList: [], // 商品列表
   },
+  start:0,
+  limit:20,
+  onPullDownRefresh: function () {
+    
+
+  },
   errorFunction(e){
     const productList=getApp().errorFunction(e, this.data.productList);
     this.setData({
@@ -60,15 +66,11 @@ Page({
     });
   },
   getProductList(locationId) {
-    wx.showLoading({
-      title: '商品数据加载中...',
-    })
     getRequest(getHot,{
       locationId,
-      start:0,
-      limit:20
+      start:this.start,
+      limit:this.limit
     }).then(result => {
-      wx.hideLoading()
       let data = result.result;
       if (result.status === 200) {
         this.setData({
@@ -81,7 +83,6 @@ Page({
         })
       }
     }).catch(err => {
-      wx.hideLoading()
       wx.showToast({
         icon: 'none',
         title: '商品数据加载错误',
@@ -136,25 +137,13 @@ Page({
 
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-
+    this.start+=this.limit;
+    this.getProductList(globalData.merchant.locationId);
   },
 
   /**

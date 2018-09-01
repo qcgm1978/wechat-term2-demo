@@ -120,7 +120,7 @@
     <view class='regular money-amount money bgc padding' hidden='{{isReturn}}'>
       <view style="display:flex; justify-content: space-between; width: 100%; ">
         <view></view>
-        <view catch:tap='copy' class='buy-again mgt'>再次购买</view>
+        <view catch:tap='turnPage' class='buy-again mgt'>再次购买</view>
       </view>
     </view>
 
