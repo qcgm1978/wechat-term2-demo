@@ -337,7 +337,7 @@ module.exports = {
           "orderReturn": null
         },]
       }
-    } else if (ctx.request.body.orderStatus === 4) {
+    } else if (ctx.request.body.orderStatus.includes(2) && ctx.request.body.orderStatus.includes(4)) {
       ctx.state.result = {
         orders: [{
           "orderId": "123456",

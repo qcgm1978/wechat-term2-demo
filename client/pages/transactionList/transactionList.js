@@ -33,7 +33,7 @@ Page({
       offset: 1,
       limit: 10
     },
-    tabColors: ['selected', 'unselected', 'unselected', 'unselected', 'unselected'],
+    tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
     isToPay: true,
     hidePaid,
@@ -80,22 +80,30 @@ Page({
     })
   },
   toggleTab(evt) {
-    const orderStatus = Number(evt.target.dataset.type);
-    if (isNaN(Number(orderStatus))) {
-      return;
+    try {
+
+      let orderStatus = JSON.parse(evt.target.dataset.type);
+      let currentIndex = evt.target.dataset.index
+      const tabColors = this.data.tabColors.map((item, index) => index == currentIndex ? 'selected' : 'unselected');
+      if (orderStatus) {
+
+      } else {
+        orderStatus = null;
+      }
+      this.setData({
+        tabColors,
+        config: {
+          ...this.data.config,
+          orderStatus,
+          offset: 1,
+        },
+        isLast: false,
+        order: []
+      });
+      this.requestMoreData(this.data.config);
+    } catch (e) {
+
     }
-    const tabColors = this.data.tabColors.map((item, index) => index == orderStatus ? 'selected' : 'unselected');
-    this.setData({
-      tabColors,
-      config: {
-        ...this.data.config,
-        orderStatus,
-        offset: 1,
-      },
-      isLast: false,
-      order: []
-    });
-    this.requestMoreData(this.data.config);
   },
   requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
