@@ -35,12 +35,12 @@ Page({
     })
   },
   toggleTab(evt) {
-    const orderStatus = Number(evt.target.dataset.type);
-    if (isNaN(Number(orderStatus))) {
+    const index = Number(evt.target.dataset.type);
+    if (isNaN(Number(index))) {
       return;
     }
     wx.navigateTo({
-      url: `/pages/transactionList/transactionList?tab=${orderStatus}`,
+      url: `/pages/transactionList/transactionList?tab=${index}`,
     })
   },
   /**

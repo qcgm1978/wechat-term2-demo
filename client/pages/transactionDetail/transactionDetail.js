@@ -21,11 +21,8 @@ Page({
   data: {
     disable: false,
     payStyle: globalData.payStyle,
-    order:{},
-    name: '',
-    phone: '',
+    order: {},
     salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
-    address: globalData.address,
     src: './images/pic.png',
     standard: '500ML*12',
     top: '',
@@ -63,6 +60,12 @@ Page({
       data: this.data.orderId + ''
     })
   },
+  turnPage(e) {
+    const dataset = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `../detail/detail?itemId=${dataset.itemid}&categoryId=${dataset.categoryid}`,
+    })
+  },
   requestTransDetail(orderId) {
     let requestData = null;
     if (isNaN(orderId)) {
@@ -82,7 +85,7 @@ Page({
           result: data
         }
         this.setData({
-          order: data.result
+          order: data.result,
         });
         this.setOrderStatus(data.result.orderStatus)
         wx.hideLoading();
@@ -129,9 +132,6 @@ Page({
     wx.showLoading({
       title: '加载中',
     })
-    this.setData({
-      name: app.getName()
-    })
     if (options.isWebsocket) {
       // todo test data used
       const orderData = getApp().globalData.websocketData;
@@ -143,7 +143,7 @@ Page({
       this.requestTransDetail(options.orderId || options.itemId)
     }
   },
-  setOrderStatus(orderStatus){
+  setOrderStatus(orderStatus) {
     this.setData({
       orderStatus,
 

@@ -8,12 +8,12 @@
       <view wx:else>
         <view class='trans-shop'>
           <image class='trans-shop-img' src="{{addressStore}}"></image>
-          <view class='trans-shop-lable regular'>{{name}}</view>
-          <view class='trans-shop-value'>{{phone}}</view>
+          <view class='trans-shop-lable regular'>{{order.receiverInfo.receiverName}}</view>
+          <view class='trans-shop-value'>{{order.receiverInfo.receiverCellPhone}}</view>
         </view>
         <view class='trans-number-time'>
           <view style='display: flex; flex-direction:row;'>
-            <view class="gray-chars">{{address}}</view>
+            <view class="gray-chars">{{order.receiverInfo.receiverAddress}}</view>
           </view>
 
         </view>
@@ -22,7 +22,7 @@
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
     <scroll-view scroll-y="true" style='max-height: 330rpx;'>
-      <navigator url='{{"../detail/detail?itemId="+item.itemId}}' wx:for="{{order.orderItem}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
+      <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' data-itemId='{{item.itemId}}' data-categoryId='{{item.categoryId}}'>
         <view class='item-container'>
           <view class='item-container-bg'></view>
           <view class='item-container-fg'>
@@ -43,7 +43,7 @@
 
           </view>
         </view>
-      </navigator>
+      </view>
     </scroll-view>
   </view>
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">

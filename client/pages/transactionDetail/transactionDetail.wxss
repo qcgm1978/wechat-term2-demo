@@ -106,8 +106,8 @@
 .trans-shop {
   display: flex;
   flex-direction: row;
-  /* margin-top: 35rpx; */
   margin-left: 60rpx;
+  align-items:center;
 }
 
 .trans-shop-img {

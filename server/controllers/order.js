@@ -74,13 +74,19 @@ module.exports = {
             "locationId": "55",
             "itemSpecification": "38g*60",
             "returnQuantit": 0,
-            "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
+            "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg",
+            "categoryId": "1702002"
           }
         ],
         "orderReturn": {
           "refundTotalAmount": 0,
           "refundCashAmount": 0,
           "refundPoint": 0
+        },
+        "receiverInfo": {
+          "receiverName": "yangyong",
+          "receiverCellPhone": "13240353366",
+          "receiverAddress": "河南省开封市祥符区西姜寨乡嘴刘村便民超市"
         }
       }
     }
@@ -342,6 +348,42 @@ module.exports = {
         orders: [{
           "orderId": "123456",
           "orderStatus": "RECEIVED",
+          "totalAmount": 8,
+          "itemTotalCount": 2,
+          "createTime": "2018-08-21 13:25:45",
+          "payment": null,
+          "orderItem": [
+            {
+              "itemId": "9503c54ba50211e8969e09fe0c96017b",
+              "itemSku": null,
+              "itemName": "雪碧",
+              "quantity": 1,
+              "unitPrice": 4.5,
+              "locationId": "2",
+              "itemSpecification": "200*10",
+              "returnQuantit": 0,
+              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
+            },
+            {
+              "itemId": "8e163dfea50211e8bb72c5949b847d3c",
+              "itemSku": null,
+              "itemName": "可乐",
+              "quantity": 1,
+              "unitPrice": 3.5,
+              "locationId": "2",
+              "itemSpecification": "200*10",
+              "returnQuantit": 0,
+              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
+            }
+          ],
+          "orderReturn": null
+        },]
+      }
+    } else if (ctx.request.body.orderStatus.includes(5) && ctx.request.body.orderStatus.includes(6)) {
+      ctx.state.result = {
+        orders: [{
+          "orderId": "123456",
+          "orderStatus": "RETURN_FULL",
           "totalAmount": 8,
           "itemTotalCount": 2,
           "createTime": "2018-08-21 13:25:45",
