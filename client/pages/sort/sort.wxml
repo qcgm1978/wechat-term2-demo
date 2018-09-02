@@ -1,13 +1,15 @@
 <view class='column category-left'>
   <block wx:for='{{data}}' wx:key='{{index}}'>
-    <text class='regular category-first center-center' >{{item.first}}</text>
+    <view class='{{index?"":"bgc"}}' style='padding:22rpx 0;'>
+      <text class='regular category-first center-center {{index?"":"current"}}'>{{item.first}}</text>
+    </view>
     <view class='column' hidden='{{index}}' class='category-right bgc padding'>
       <view wx:for='{{item.val}}' wx:for-item='second' class='second-container'>
         <text class='medium category-second'>{{second.second}}</text>
-        <view class='center category-third padding'>
+        <view class='center category-third padding' style="padding-left: 0;">
           <view wx:for="{{second.val}}" wx:for-item='third' class='column category-third'>
             <image src='{{third.val}}' mode='aspectFit'></image>
-            <text>{{third.third}}</text>
+            <text class='category-name'>{{third.third}}</text>
           </view>
         </view>
       </view>

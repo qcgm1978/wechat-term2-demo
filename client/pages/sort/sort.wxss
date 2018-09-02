@@ -2,6 +2,8 @@
   position: absolute;
   left: 188rpx;
   width: 100%;
+  height:100%;
+
 }
 
 .category-second {
@@ -9,13 +11,18 @@
   color: #333;
 }
 
-.category-third:nth-of-type(-n+1) {
+.category-third:nth-of-type(n+2) {
   margin-left: 18rpx;
 }
 
 .category-left {
   align-items: left;
   background: #f7f8fa;
+}
+
+.category-name {
+  font-size: 24rpx;
+  color: #333;
 }
 
 image {
@@ -25,8 +32,18 @@ image {
 
 .category-first {
   width: 188rpx;
-  height: 88rpx;
+  height: 44rpx;
   font-size: 28rpx;
   color: #666;
   letter-spacing: 0;
+  /* margin: 22rpx 0; */
 }
+
+.category-first.current {
+  font-size: 32rpx;
+  color: #ee711f;
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  border-left: 8rpx solid #ee711f;
+  background: #fff;
+}
+
