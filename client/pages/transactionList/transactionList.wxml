@@ -31,7 +31,7 @@
                 </view>
                 <view class='darker-gray-chars column' style="align-items: flex-end;">
                   <text>￥{{item.unitPrice}}</text>
-                  <text>{{isReturn&&'拒收数量'}}x{{item.quantity}}</text>
+                  <text>{{isReturn?'拒收数量':''}}x{{isReturn?item.returnQuantit:item.quantity}}</text>
                 </view>
               </view>
 
@@ -39,7 +39,7 @@
             </view>
           </view>
         </scroll-view>
-        <view class='total-money'>共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'退款':'实付'}}总额：
+        <view class='total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款':'实付'}}总额：
           <text style='color:#ec6515;'>￥{{item.totalAmount}}</text>
         </view>
         <view class="line" style='height:2rpx; z-index: 1;'></view>

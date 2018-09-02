@@ -436,6 +436,7 @@ module.exports = {
           "itemTotalCount": 2,
           "createTime": "2018-08-21 13:25:45",
           "payment": null,
+          itemReturnCount: 1,
           "orderItem": [
             {
               "itemId": "9503c54ba50211e8969e09fe0c96017b",
@@ -445,7 +446,7 @@ module.exports = {
               "unitPrice": 4.5,
               "locationId": "2",
               "itemSpecification": "200*10",
-              "returnQuantit": 0,
+              "returnQuantit": 1,
               "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
             },
             {
@@ -456,7 +457,7 @@ module.exports = {
               "unitPrice": 3.5,
               "locationId": "2",
               "itemSpecification": "200*10",
-              "returnQuantit": 0,
+              "returnQuantit": 2,
               "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
             }
           ],
