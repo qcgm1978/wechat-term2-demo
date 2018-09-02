@@ -1,0 +1,32 @@
+.category-right {
+  position: absolute;
+  left: 188rpx;
+  width: 100%;
+}
+
+.category-second {
+  font-size: 26rpx;
+  color: #333;
+}
+
+.category-third:nth-of-type(-n+1) {
+  margin-left: 18rpx;
+}
+
+.category-left {
+  align-items: left;
+  background: #f7f8fa;
+}
+
+image {
+  width: 160rpx;
+  max-height: 160rpx;
+}
+
+.category-first {
+  width: 188rpx;
+  height: 88rpx;
+  font-size: 28rpx;
+  color: #666;
+  letter-spacing: 0;
+}

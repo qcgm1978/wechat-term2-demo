@@ -43,6 +43,7 @@ switch (env) {
 }
 const apiURLs = {
   getHot: `${baseUrl}/mall/items/hot?locationId={locationId}&start={start}&limit={limit}`,
+  getCategories: `${baseUrl}/mall/category?locationId={locationId}&categoryId={categoryId}&categoryDeep={categoryDeep}`,
   getProductItem: `${baseUrl}/mall/items?locationId={locationId}&categoryId={categoryId}&itemIds={itemIds}`,
   getOrder: `${baseUrl}/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/order/list`,

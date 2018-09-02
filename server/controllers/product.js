@@ -1,10 +1,50 @@
 const DB = require('../utils/db.js')
 
 module.exports = {
-  /**
-   * 拉取商品列表
-   * 
-   */
+  category: async ctx => {
+    const params = ctx.params;
+    if (ctx.query.locationId && ctx.query.categoryDeep) {
+      ctx.state.result = [
+        {
+          first: '1-1',
+          val: [
+            {
+              second: '1-2-1',
+              val: [{
+                third: '1-2-3-1',
+                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
+              }]
+            },
+            {
+              second: '1-2-2',
+              val: [{
+                third: '2-2-3-1',
+                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
+              }, {
+                third: '2-2-3-2',
+                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
+              }, {
+                third: '2-2-3-3',
+                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
+              }]
+            }
+          ]
+        },
+        {
+          first: '1-2',
+          val: [
+            {
+              second: '2-1',
+              val: [{
+                third: '3-1',
+                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
+              }]
+            }
+          ]
+        }
+      ]
+    }
+  },
 
   list: async ctx => {
     ctx.state.data = await DB.query("SELECT * FROM product;")
