@@ -12,18 +12,22 @@ module.exports = {
               second: '1-2-1',
               val: [{
                 third: '1-2-3-1',
+                categoryId: 1,
                 val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
               }]
             },
             {
               second: '1-2-2',
               val: [{
+                categoryId: 1,
                 third: '2-2-3-1',
                 val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
               }, {
+                categoryId: 1,
                 third: '2-2-3-2',
                 val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
               }, {
+                categoryId: 1,
                 third: '2-2-3-3',
                 val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
               }]
@@ -36,6 +40,7 @@ module.exports = {
             {
               second: '2-1',
               val: [{
+                categoryId: 1,
                 third: '3-1',
                 val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
               }]
@@ -68,6 +73,17 @@ module.exports = {
           "cashAmount": 8
         },
         "items": [
+          {
+            "itemId": "9503c54ba50211e8969e09fe0c96017b",
+            "itemSku": null,
+            "itemName": "雪碧",
+            "quantity": 1,
+            "unitPrice": 4.5,
+            "locationId": "2",
+            "itemSpecification": "200*10",
+            "returnQuantit": 0,
+            "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
+          },
           {
             "itemId": "9503c54ba50211e8969e09fe0c96017b",
             "itemSku": null,
@@ -112,7 +128,8 @@ module.exports = {
         "sales_description": '混合口味更适合冬天饮用,草莓口味更适合夏天饮品, 值得试试看',
         "stock_sku": "string",
         "stock_unit": "string"
-      }
+      },
+
     ];
   }
 }

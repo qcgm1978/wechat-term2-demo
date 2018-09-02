@@ -3,20 +3,20 @@ import {
 } from '../../utils/envConf.js'
 var utils = require("../../utils/util.js");
 Page({
-
-  /**
-   * Page initial data
-   */
   data: {
     data: [],
     currentIndex:0,
   },
+  turnPage(e){
+    const dataset=e.currentTarget.dataset;
+    const categoryId=dataset.categoryid,name=dataset.name;
+    wx.navigateTo({
+      url: `/pages/sort-list/sort-list?categoryId=${categoryId}&name=${name}`,
+    })
+  },
   isCurrent(index){
     return index===this.data.currentIndex;
   },
-  /**
-   * Lifecycle function--Called when page load
-   */
   onLoad: function(options) {
     utils.getRequest(Api.getCategories, {
       locationId: getApp().globalData.merchant.locationId,

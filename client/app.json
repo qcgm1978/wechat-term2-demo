@@ -17,7 +17,8 @@
     "pages/order-confirm/order-confirm",
     "pages/trolley/trolley",
     "pages/order-success/order-success",
-    "pages/sort/sort"
+    "pages/sort/sort",
+    "pages/sort-list/sort-list"
   ],
   "window": {
     "backgroundColor": "#eeeff4",
