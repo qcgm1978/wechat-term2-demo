@@ -501,14 +501,14 @@ module.exports = {
     }
   },
   create: async ctx => {
-    const items = ctx.request.body.orderItems[0];
-    if (items && ctx.request.body.locationId && items.itemId && items.quantity && (typeof ctx.request.body.merchantId === 'string')) {
+    // const items = ctx.request.body.orderItems;
+    // if (items && ctx.request.body.locationId && items.itemId && items.quantity && (typeof ctx.request.body.merchantId === 'string')) {
 
-      ctx.state.data = {
-        message: '',
-        orderId: '123456',
-        orderTotalAmount: 200
-      }
+    ctx.state.data = {
+      message: '',
+      orderId: '123456',
+      orderTotalAmount: 200
     }
+    // }
   },
 }

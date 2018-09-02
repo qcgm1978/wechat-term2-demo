@@ -11,7 +11,7 @@ Page({
     data: {},
     points: 0,
     credit: 0,
-    actual:0,
+    actual: 0,
     isReturn: false,
     isFailed: false,
     total: '',
@@ -51,7 +51,7 @@ Page({
     this.setData({
       isVisible,
       credit: isVisible ? this.data.points / 100 : 0,
-      actual: this.data.total - (isVisible ? this.data. points / 100 : 0)
+      actual: this.data.total - (isVisible ? this.data.points / 100 : 0)
     })
   },
   textareaConfirm(e) {
@@ -67,7 +67,7 @@ Page({
       actual: this.data.total - e.detail.value / 100
     });
   },
-  getProduct(itemId,categoryId) {
+  getProduct(itemId, categoryId) {
     wx.showLoading({
       title: '商品数据加载中...',
     });
@@ -100,22 +100,23 @@ Page({
       wx.showLoading({
         title: '正在创建订单...',
       });
-      // merchantId	
-      // locationId
-      // merchantMsg
-      // usePoint
-      // totalAmount
-      // orderItems
-      // ·	itemId
-      // ·	quantity
       const locationId = globalData.merchant.locationId;
+      const receiverName = app.getName(),
+        receiverCellPhone = app.getPhone(),
+        receiverAddress = globalData.address;
       utils.postRequest(createOrder, {
         orderItems: globalData.items ? globalData.items : this.data.data.items,
         merchantId: app.getMerchantId(),
         locationId,
         merchantMsg: this.data.textarea,
         usePoint: this.data.isVisible ? this.data.points : 0,
-        totalAmount: this.data.actual
+        totalAmount: this.data.actual,
+        recerverInfo: {
+
+          receiverName,
+          receiverCellPhone,
+          receiverAddress
+        }
       }).then(data => {
         wx.hideLoading()
         console.log(data);
@@ -133,7 +134,7 @@ Page({
       })
     })
   },
-  closePopup(){
+  closePopup() {
     this.setData({
       isFailed: false
     });

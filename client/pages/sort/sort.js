@@ -8,9 +8,12 @@ Page({
    * Page initial data
    */
   data: {
-    data: []
+    data: [],
+    currentIndex:0,
   },
-
+  isCurrent(index){
+    return index===this.data.currentIndex;
+  },
   /**
    * Lifecycle function--Called when page load
    */
@@ -27,7 +30,12 @@ Page({
       });
     })
   },
-
+  toggleFirst(e){
+    const index=e.currentTarget.dataset.index;
+    this.setData({
+      currentIndex:index
+    })
+  },
   /**
    * Lifecycle function--Called when page is initially rendered
    */
