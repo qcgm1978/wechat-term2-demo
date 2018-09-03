@@ -29,7 +29,7 @@
 
 <view class='product-row' wx:for='{{productList}}' wx:key='id' wx:if='{{index%2=== 1}}'>
   <navigator class='product-card' wx:for='{{[productList[index], productList[index+1]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?itemId={{pitem.itemId}}&categoryId={pitem.categoryId}">
-    <image class='product-image' src='{{pitem.itemImageAddress1}}' mode='scaleToFill'  data-errorimg="{{index}}"></image>
+    <image class='product-image' src='{{pitem.itemImageAddress1?pitem.itemImageAddress1:"../../images/logo.png"}}' mode='aspectFit'  data-errorimg="{{index}}"></image>
     <view class='product-name'>{{pitem.itemName}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->

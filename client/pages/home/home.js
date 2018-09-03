@@ -45,6 +45,8 @@ Page({
         })
         .then((data) => {
           const merchant = data.result;
+          // // todo 
+          merchant.locationId = 55;
           globalData.merchant = merchant;
           globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
           wx.setStorage({
@@ -66,8 +68,7 @@ Page({
     });
   },
   getProductList(locationId) {
-    // todo 
-    locationId=55;
+    
     getRequest(getHot,{
       locationId,
       start:this.start,

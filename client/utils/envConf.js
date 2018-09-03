@@ -45,7 +45,8 @@ const apiURLs = {
   getHot: `${baseUrl}/mall/items/hot?locationId={locationId}&start={start}&limit={limit}`,
   getCategories: `${baseUrl}/mall/category?locationId={locationId}&categoryId={categoryId}&categoryDeep={categoryDeep}`,
   getProductItem: `${baseUrl}/mall/items?locationId={locationId}&categoryId={categoryId}&itemIds={itemIds}`,
-  getCart:`/mall/cart/{merchantId}/{locationId}`,//取得购物车商品列表
+  getRelated: `${baseUrl}/mall/items/{itemIds}/related?locationId={locationId}`,
+  getCart: `${baseUrl}/mall/cart/{merchantId}/{locationId}`,//取得购物车商品列表
   getOrder: `${baseUrl}/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/order/list`,
   createOrder: `${baseUrl}/order/create`,

@@ -1,12 +1,10 @@
-const _ = require('../../utils/util');
-
 import utils from "../../utils/util.js";
 const app = getApp();
 const globalData = app.globalData;
 import {
   Api
 } from '../../utils/envConf.js'
-const getProduct = Api.getProduct, getProductItem = Api.getProductItem;
+const getProductItem = Api.getProductItem, getRelated = Api.getRelated;
 
 Page({
   data: {
@@ -30,34 +28,6 @@ Page({
 
     },],
     icon: '../../images/trolley-full.png',
-    info: '保质期(125天)；场地：中国，杭州；品牌：七喜',
-    imgUrls: [{
-      img: 'https://i01picsos.sogoucdn.com/f29ddb031dfa74e8',
-      title: '多种口味听装芬达500ml',
-      money: '2.5',
-      item_id: 123456
-    },
-    {
-      img: 'http://www.kfzimg.com/G05/M00/3E/63/p4YBAFg-yCCAIXT_AABMUEgSsqU474_n.jpg',
-      title: '多种口味听装芬达500ml',
-      money: '2.5',
-      item_id: 123456
-    },
-    {
-      img: 'https://i03picsos.sogoucdn.com/2a4cac7380108f44',
-      title: '多种口味听装芬达500ml',
-      money: '2.5',
-      type: '满减',
-      item_id: 123456
-    },
-    {
-      img: 'https://i03picsos.sogoucdn.com/c6fe007b19eb29b1',
-      title: '多种口味听装芬达500ml',
-      money: '2.5',
-      type: '满减',
-      item_id: 123456
-    }
-    ]
   },
   showPromotion() {
     this.setData({
@@ -117,17 +87,15 @@ Page({
         })
       })
   },
-  getProduct(itemId, categoryId) {
-    wx.showLoading({
-      title: '商品数据加载中...',
-    });
+  getProduct({itemId, categoryId}) {
     const locationId = globalData.merchant.locationId;
+    // todo
+    const getProductItem = 'http://192.168.2.26:10092/v1/items?locationId=55&categoryCd=1401001';
     utils.getRequest(getProductItem, {
       locationId,
-      categoryId,
-      itemIds:itemId,
+      categoryId:'',
+      itemIds:itemId?itemId:'',
     }).then(data => {
-      wx.hideLoading()
       console.log(data);
       if (data.status === 200) {
         const result = data.result[0];
@@ -135,10 +103,43 @@ Page({
           product: result
         })
       } else {
-        
+        if(data instanceof Array){
+          // todo
+          data[0].putShelvesFlg=true;
+          this.setData({
+            product: data[0]
+          });
+        }
       }
     }).catch(err => {
-      wx.hideLoading();
+      utils.errorHander(err, this.getProduct)
+      console.log(err);
+    })
+  },
+  getRelated({ itemId, categoryId }) {
+    const locationId = globalData.merchant.locationId;
+    // todo
+    const getRelated ='http://192.168.2.26:10092/v1/items/1064/related?locationId=55'
+    utils.getRequest(getRelated, {
+      locationId,
+      // itemIds: 1064 
+      itemIds: itemId ? itemId : '',
+    }).then(data => {
+      console.log(data);
+      if (data.status === 200) {
+        const result = data.result[0];
+        this.setData({
+          related: result
+        })
+      } else {
+// todo
+        if(data instanceof Array){
+          this.setData({
+            related: data
+          });
+        }
+      }
+    }).catch(err => {
       console.log(err);
     })
   },
@@ -167,7 +168,8 @@ Page({
     });
   },
   onLoad: function (options) {
-    this.getProduct(options.itemId, options.categoryId);
+    this.getProduct(options);
+    this.getRelated(options);
     if (globalData.badge > 0) {
       this.setData({
         badge: globalData.badge,

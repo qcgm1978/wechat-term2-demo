@@ -146,7 +146,7 @@
 }
 
 .product-image {
-  width: 350rpx;
+  max-width: 350rpx;
   border-radius: 10rpx;
   height: 350rpx;
 }
@@ -156,6 +156,8 @@
   font-size: 28rpx;
   color: #333;
   line-height: 40rpx;
+  height:80rpx;
+
 }
 
 .product-meta {

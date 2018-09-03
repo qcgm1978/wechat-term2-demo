@@ -123,7 +123,8 @@ var getRequest = function(url, data) {
       success: res => {
 
         if (res.statusCode !== HTTP_SUCCSESS) {
-          console.log(res)
+          console.log(res);
+          // errorHander(res.statusCode)
           reject(res.statusCode);
         } else {
           resolve(res.data);
@@ -232,9 +233,12 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler) {
         }
         break;
       case CONNECTION_TIMEOUT:
-        wx.navigateTo({
-          url: '../noNetwork/noNetwork'
-        })
+        // wx.navigateTo({
+        //   url: '../noNetwork/noNetwork'
+        // })
+        wx.showLoading({
+          title: '连接超时',
+        });
         reject(errorCode)
         break;
       default:
@@ -284,7 +288,7 @@ module.exports = {
   postRequestWithoutToken: postRequestWithoutToken,
   getRequestWithoutToken: getRequestWithoutToken,
   getRequest: getRequest,
-  errorHander: errorHander,
+  errorHander,
   queryStack,
   addToTrolley
 }
