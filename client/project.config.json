@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 12,
 			"list": [
 				{
 					"id": -1,
@@ -105,6 +105,12 @@
 					"id": 11,
 					"name": "sort-list",
 					"pathName": "pages/sort-list/sort-list",
+					"query": "categoryId=1&name=1-2-3-1"
+				},
+				{
+					"id": -1,
+					"name": "trolley",
+					"pathName": "pages/trolley/trolley",
 					"query": "categoryId=1&name=1-2-3-1"
 				}
 			]

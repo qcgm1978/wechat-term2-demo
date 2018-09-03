@@ -66,6 +66,8 @@ Page({
     });
   },
   getProductList(locationId) {
+    // todo 
+    locationId=55;
     getRequest(getHot,{
       locationId,
       start:this.start,
@@ -110,7 +112,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.getMerchant().then(locationId => this.getProductList(locationId));
+    this.getMerchant()
+    .then(locationId => this.getProductList(locationId))
+    .catch(err=>{
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    });
     this.setData({
       stores: getApp().globalData.authWechat.authMerchantList,
     });

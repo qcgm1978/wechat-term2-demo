@@ -48,9 +48,9 @@
         <view style="display: flex;background:#fff;">
           <text style="flex-grow: 1;"></text>
           <button class='btn regular' catchtap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[item.orderStatus]==="待支付"}}'>取消订单</button>
-          <button wx:elif='{{isReturn}}' class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" bindtap="goTransDetails">拒收详情</button>
+          <button wx:elif='{{isReturn}}' class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" catch:tap="goTransDetails">拒收详情</button>
 
-          <button wx:else class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" bindtap="goDetails">再次购买</button>
+          <button wx:else class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" catch:tap="goDetails">再次购买</button>
         </view>
         <!-- </navigator> -->
       </view>

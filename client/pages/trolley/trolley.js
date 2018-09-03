@@ -1,18 +1,19 @@
-// pages/trolley/trolley.js
+import utils from "../../utils/util.js";
+import {
+  Api
+} from '../../utils/envConf.js';
+import {
+  getRequest
+} from '../../utils/util.js';
+const getCart = Api.getCart;
+const app = getApp();
+let globalData = app.globalData;
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
   
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-  
+    utils.getRequest()
   },
 
   /**

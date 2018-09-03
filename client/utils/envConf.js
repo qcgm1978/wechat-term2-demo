@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.LOCAL; //update this value for different env
+var env = EVN.DEV; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -22,7 +22,7 @@ switch (env) {
     {
       baseUrl = 'http://localhost:5757/v1';
       baseUrl = 'http://10.3.0.98:5757/v1';
-      baseUrl ='http://192.168.16.71:5757/v1';
+      // baseUrl ='http://192.168.16.71:5757/v1';
       break;
     }
   case EVN.STG:
@@ -45,6 +45,7 @@ const apiURLs = {
   getHot: `${baseUrl}/mall/items/hot?locationId={locationId}&start={start}&limit={limit}`,
   getCategories: `${baseUrl}/mall/category?locationId={locationId}&categoryId={categoryId}&categoryDeep={categoryDeep}`,
   getProductItem: `${baseUrl}/mall/items?locationId={locationId}&categoryId={categoryId}&itemIds={itemIds}`,
+  getCart:`/mall/cart/{merchantId}/{locationId}`,//取得购物车商品列表
   getOrder: `${baseUrl}/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/order/list`,
   createOrder: `${baseUrl}/order/create`,
