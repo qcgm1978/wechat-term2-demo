@@ -81,7 +81,7 @@
 					"id": 7,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "itemId=4443&orderStatus=WAIT_SHIPMENT"
+					"query": "itemId=3349&categoryId={pitem.categoryId}"
 				},
 				{
 					"id": 8,

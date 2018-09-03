@@ -17,3 +17,5 @@ order item to product detai; orderList item to order page; order confirm disable
 min the len of order:1
 
 407 status code indicates price changed
+
+default open credit checkbox

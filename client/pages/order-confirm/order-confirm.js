@@ -104,6 +104,8 @@ Page({
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
         receiverAddress = globalData.address;
+        // todo
+      const createOrder ='http://dev.jhdmall.com/order/create';
       utils.postRequest(createOrder, {
         orderItems: globalData.items ? globalData.items : this.data.data.items,
         merchantId: app.getMerchantId(),

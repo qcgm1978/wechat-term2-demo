@@ -58,16 +58,7 @@ exports.refreshAccessToken = function () {
             key: "refreshToken",
             data: res.data.result.refreshToken
           })
-          //refresh payCode token
-          // payCode.getPayCodeToken()
-          //   .then((data) => {
-          //     var pages = getCurrentPages();
-          //     if (pages.length >= 1) {
-          //       var homePage = pages[0];
-          //       homePage.refreshCodeBar()
-          //     }
-          //   })
-          //   .catch(() => { })
+          wx.setStorageSync('globalData', getApp().globalData)
           resolve()
         }
       },

@@ -1,8 +1,5 @@
 {
   "navigationBarTitleText": "确认订单",
   "navigationBarBackgroundColor": "#F7F8FA",
-  "usingComponents": {
-    "checkbox-ios": "/component/checkbox/checkbox-ios",
-    "goods-list":"/component/goods-list/goods-list"
-  }
+  "navigationBarTextStyle": "black"
 }
