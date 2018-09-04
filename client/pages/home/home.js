@@ -101,7 +101,16 @@ Page({
       }
     }
     if (product) {
-      utils.addToTrolley(product.itemId)
+      utils.addToTrolley(product.itemId).catch(errorCode => {
+        // getApp().failRequest();
+        utils.errorHander(errorCode, this.getMerchant)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
     }
   },
 

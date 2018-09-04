@@ -72,7 +72,12 @@ var putRequest = function(url, data) {
   return promise;
 }
 
-var postRequest = function({url, config,data}) {
+var postRequest = function({
+  METHOD = 'POST',
+  url,
+  config,
+  data
+}) {
   var promise = new Promise((resolve, reject) => {
     if (config) {
       for (const prop in config) {
@@ -84,9 +89,11 @@ var postRequest = function({url, config,data}) {
     wx.request({
       url: url,
       data: postData,
-      method: 'POST',
+      method: METHOD,
       header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
+        // 'Content-Type': 'application/json'
+
         // 'X-Client-Id': 'mini-app'
       },
       success: res => {
@@ -139,7 +146,7 @@ var getRequest = function(url, data) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       },
-      complete(){
+      complete() {
         wx.hideLoading();
       }
     })
@@ -257,24 +264,27 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler) {
 const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
-    
-const addToTrolley = (itemId)=> {
+
+const addToTrolley = (itemId) => {
   wx.showLoading({
     title: '正在添加到购物车...',
   });
   const merchantId = getApp().getMerchantId();
   const data = {
-    merchantId,    
-    request:{
+
       merchantId,
       itemId,
-      locationId: getApp().globalData.merchant.locationId,
-      quantity:1
+      locationId: String(getApp().globalData.merchant.locationId),
+      quantity: '1'
+    },
+    config = {
+      merchantId
     }
-  },config={
-    merchantId
-  }
-  return postRequest({url:Api.addTrolley, config,data})
+  return postRequest({
+      url: Api.addTrolley,
+      config,
+      data
+    })
     .then((data) => {
       wx.hideLoading();
       if (data.result.status === 200) {
@@ -296,6 +306,10 @@ const addToTrolley = (itemId)=> {
       })
     });
 }
+const getFixedNum=(float)=>{
+  let ret = (float).toFixed(2);
+  return Number(String(ret).replace(/\.?0+$/, ''));
+}
 module.exports = {
   checkNetwork: checkNetwork,
   formatTime: formatTime,
@@ -306,5 +320,6 @@ module.exports = {
   getRequest,
   errorHander,
   queryStack,
-  addToTrolley
+  addToTrolley,
+  getFixedNum
 }

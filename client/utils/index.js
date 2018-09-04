@@ -1,6 +1,6 @@
 exports.config = {
-  appId: 'wx00d1d53802723dab',
-  secret: 'c7b1b90cb7d31d3e24687558d88a40e8',
+  appId: 'wx093196720f54b05b',
+  secret: '9dd71eedcbed92bcb68f11e056c190dd',
   errorCode: {
     ACCESS_TOCKEN_EXPIRED: 401,
     DATA_NOT_FOUND: 404,

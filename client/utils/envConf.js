@@ -46,33 +46,21 @@ const apiURLs = {
   getCategories: `${baseUrl}/mall/category?locationId={locationId}&categoryId={categoryId}&categoryDeep={categoryDeep}`,
   getProductItem: `${baseUrl}/mall/items?locationId={locationId}&categoryCd={categoryCd}&itemIds={itemIds}`,
   getRelated: `${baseUrl}/mall/items/{itemIds}/related?locationId={locationId}`,
+
+  addTrolley: `${baseUrl}/mall/cart/add/{merchantId}`,//添加商品到购物车
   getCart: `${baseUrl}/mall/cart/{merchantId}/{locationId}`,//取得购物车商品列表
+  removeCart: `${baseUrl}/mall/cart/remove/{merchantId}`,//删除购物车中的商品
+
   getOrder: `${baseUrl}/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/order/list`,
   createOrder: `${baseUrl}/order/create`,
   cancelOrder: `${baseUrl}/order/cancel`,
   getProduct: `${baseUrl}/product/{merchantId}/{itemId}`,
   getMerchant: `${baseUrl}/merchant/{merchantId}`,
-  addTrolley: `${baseUrl}/cart/add/{merchantId}`,//添加商品到购物车
   backendUrlLogin: `${baseUrl}/auth/wechat`,
   backendUrlRefreshToken: `${baseUrl}/auth/refresh`,
   backendUrlVerifyCode: baseUrl + '/auth/sms/',
   backendUrlPhoneLogin: baseUrl + '/auth/sms',
-
-  getProductList: `${baseUrl}/product`,
-
-  backendUrlUserInfo: baseUrl + '/v1/members/',
-  backendUrlRegister: baseUrl + '/v1/members/',
-  backendUrlBanners: baseUrl + '/v1/banners/member',
-  backendUrlDegree: baseUrl + '/v1/members/',
-  backendUrlTransCount: baseUrl + '/v1/members/',
-  backendUrlTrans: baseUrl + '/v1/members/',
-  backendUrlPointBalance: baseUrl + '/v1/members/',
-  backendUrlPayCodeToken: baseUrl + '/v1/barcode/',
-
-
-  backendUrlAddress: addrUrl + '/v1/address',
-  backendUrlQRCode: baseUrl + '/v1/qrCodeUrl/get/',
 }
 
 

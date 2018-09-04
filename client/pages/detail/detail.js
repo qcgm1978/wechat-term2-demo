@@ -47,9 +47,9 @@ Page({
     const num = isMinus ? (currentNum - 1) : (currentNum + 1);
     let currentMoney = num * this.data.product.price;
     let remaining = this.data.minAmount - currentMoney;
-    remaining = this.getFixedNum(remaining)
+    remaining = utils.getFixedNum(remaining)
     const enableBuy = remaining <= 0;
-    currentMoney = this.getFixedNum(currentMoney);
+    currentMoney = utils.getFixedNum(currentMoney);
     this.setData({
       quantity: num,
       currentMoney,
@@ -57,10 +57,7 @@ Page({
       enableBuy
     })
   },
-  getFixedNum(float){
-    let ret=(float).toFixed(2);
-    return Number(String(ret).replace(/\.?0+$/, ''));
-  },
+  
   closePopup() {
     this.setData({
       isSelecting: false,
@@ -97,14 +94,14 @@ Page({
   },
   getProduct({
     itemId,
-    categoryId
+    categoryCd
   }) {
     const locationId = globalData.merchant.locationId;
     // todo
     // const getProductItem = 'http://192.168.2.26:10092/v1/items?locationId=55&categoryCd=1401001';
     utils.getRequest(getProductItem, {
       locationId,
-      categoryId: '',
+      categoryCd: '',
       itemIds: itemId ? itemId : '',
     }).then(data => {
       console.log(data);

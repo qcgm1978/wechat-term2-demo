@@ -1,3 +1,43 @@
-<view class='center'>
-  
+<scroll-view scroll-y style="height: {{height}}rpx;"  bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <checkbox-group bindchange="checkboxChange">
+
+    <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}'>
+      <checkbox class="radio" value="{{index}}" checked="{{item.checked}}">
+      </checkbox>
+      <image src='{{item.itemImageAddress1?item.itemImageAddress1:"../../images/logo.png"}}' class='goods-img' mode='aspectFit'></image>
+      <view class='column trolley-right'>
+        <text class='trolley-name'>{{item.itemName}}</text>
+        <view class='center trolley-middle'>
+          <text class='trolley-spec'>规格：{{item.itemSpecification}}</text>
+          <image src='./img/del.png' class='del' catch:tap='del' data-itemid='{{item.itemId}}'></image>
+        </view>
+        <view class='center trolley-bottom'>
+          <text class='dollar medium trolley-price'>{{item.price}}</text>
+          <view class='center' style='align-items:center'>
+            <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'>-</text>
+            <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity}}</text>
+            <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'>+</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </checkbox-group>
+
+</scroll-view>
+
+<view class='trolley-total bgc regular '>
+  <view class='center trolley-calc padding' hidden='{{!disableBuy}}'>
+    <block wx:if='{{checkbox.length}}'>
+      <text>还差¥{{remaining}}可生成订单</text>
+      <text catch:tap='addOn'>去凑单</text>
+    </block>
+    <text wx:else>订单最低起定价:¥500</text>
+  </view>
+  <view class='center padding trolley-confirm' >
+    <checkbox class="radio" value="{{item.name}}" catch:tap='selectAll'>
+      全选
+    </checkbox>
+    <text>合计:<text class='dollar trolley-num medium'>{{currentMoney}}</text></text>
+    <button class='trolley-btn center-center {{disableBuy?"":"enable"}}'>确认订单({{checkbox}})</button>
+  </view>
 </view>
