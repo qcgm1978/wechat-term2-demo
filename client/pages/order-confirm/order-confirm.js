@@ -12,6 +12,7 @@ Page({
     points: 0,
     credit: 0,
     actual: 0,
+    isVisible:true,
     isReturn: false,
     isFailed: false,
     total: '',
@@ -28,10 +29,12 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    const points = globalData.merchant.pointBalance;
     this.setData({
       itemId: options.itemId,
       max: globalData.merchant.pointBalance,
-      points: globalData.merchant.pointBalance,
+      points,
+      credit: this.data.isVisible ? points / 100 : 0,
       total: options.total,
       actual: options.total,
       address: globalData.address,

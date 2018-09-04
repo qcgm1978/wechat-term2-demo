@@ -9,15 +9,18 @@ Page({
   },
   turnPage(e){
     const dataset=e.currentTarget.dataset;
-    const categoryId=dataset.categoryid,name=dataset.name;
+    const itemCategoryCode=dataset.categorycode,name=dataset.name;
     wx.navigateTo({
-      url: `/pages/sort-list/sort-list?categoryId=${categoryId}&name=${name}`,
+      url: `/pages/sort-list/sort-list?categoryCd=${itemCategoryCode}&name=${name}`,
     })
   },
   isCurrent(index){
     return index===this.data.currentIndex;
   },
   onLoad: function(options) {
+    this.getCategories(options)
+  },
+  getCategories(options){
     utils.getRequest(Api.getCategories, {
       locationId: getApp().globalData.merchant.locationId,
       categoryId: '',
@@ -25,9 +28,12 @@ Page({
     }).then(({
       result
     }) => {
-      this.setData( {
+      this.setData({
         data: result
       });
+    }).catch(err => {
+      utils.errorHander(err, () => this.getCategories(options))
+      console.log(err);
     })
   },
   toggleFirst(e){

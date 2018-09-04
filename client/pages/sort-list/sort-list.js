@@ -18,43 +18,66 @@ Page({
       complete: function(res) {},
     })
   },
-  getProduct(categoryId) {
-    // wx.showLoading({
-    //   title: '商品数据加载中...',
-    // });
-    const locationId = globalData.merchant.locationId;
-    utils.getRequest(getProductItem, {
-      locationId,
-      categoryId,
-      itemIds:''
-      // itemIds: itemId,
-    }).then(data => {
-      // wx.hideLoading()
-      console.log(data);
-      if (data.status === 200) {
-        const result = data.result[0];
-        this.setData({
-          product: result
-        })
-      } else {
-
-      }
-    }).catch(err => {
-      wx.hideLoading();
-      console.log(err);
-    })
-  },
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: options.name,
     });
-    this.categoryId=options.categoryId;
-    this.getProduct(options.categoryId)
+    // this.categoryId=options.categoryId;
+    // this.getCategories(options)
+    this.getProduct(options);
+    
   },
-
+  getProduct({
+    itemId,
+    categoryCd
+  }) {
+    const locationId = globalData.merchant.locationId;
+    // todo
+    // const getProductItem = 'http://192.168.2.26:10092/v1/items?locationId=55&categoryCd=1401001';
+    utils.getRequest(getProductItem, {
+      locationId,
+      categoryCd,
+      itemIds: '',
+    }).then(data => {
+      console.log(data);
+      if (data.status === 200) {
+        const result = data.result[0];
+        // todo
+        result.putShelvesFlg = true;
+        this.setData({
+          product: result
+        })
+      } else {
+        if (data instanceof Array) {
+          this.setData({
+            product: data[0]
+          });
+        }
+      }
+    }).catch(err => {
+      utils.errorHander(err, () => this.getProduct({
+        itemId,
+        categoryId
+      }))
+      console.log(err);
+    })
+  },
+  getCategories(options) {
+    utils.getRequest(Api.getCategories, {
+      locationId: getApp().globalData.merchant.locationId,
+      categoryId: options.categoryId,
+      categoryDeep: 3
+    }).then(({
+      result
+    }) => {
+      this.setData({
+        data: result
+      });
+    }).catch(err => {
+      utils.errorHander(err, () => this.getCategories(options))
+      console.log(err);
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

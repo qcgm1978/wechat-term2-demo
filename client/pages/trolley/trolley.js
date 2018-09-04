@@ -13,9 +13,16 @@ Page({
   
   },
   onLoad: function (options) {
-    utils.getRequest()
+    utils.getRequest(getCart,{
+      merchantId: app.getMerchantId(),
+      locationId: globalData.merchant.locationId
+    }).then(result=>{
+      this.setData({
+        data:result
+      })
+    })
   },
-
+  
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

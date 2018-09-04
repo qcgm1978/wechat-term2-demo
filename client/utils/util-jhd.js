@@ -72,8 +72,14 @@ var putRequest = function(url, data) {
   return promise;
 }
 
-var postRequest = function(url, data) {
+var postRequest = function({url, config,data}) {
   var promise = new Promise((resolve, reject) => {
+    if (config) {
+      for (const prop in config) {
+
+        url = url.replace(`{${prop}}`, config[prop]);
+      }
+    }
     var postData = data;
     wx.request({
       url: url,
@@ -124,7 +130,6 @@ var getRequest = function(url, data) {
 
         if (res.statusCode !== HTTP_SUCCSESS) {
           console.log(res);
-          // errorHander(res.statusCode)
           reject(res.statusCode);
         } else {
           resolve(res.data);
@@ -236,9 +241,11 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler) {
         // wx.navigateTo({
         //   url: '../noNetwork/noNetwork'
         // })
-        wx.showLoading({
+        wx.showToast({
           title: '连接超时',
-        });
+          icon: 'loading',
+          duration: 2000
+        })
         reject(errorCode)
         break;
       default:
@@ -251,14 +258,23 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
     
-const addToTrolley = (item_id)=> {
+const addToTrolley = (itemId)=> {
   wx.showLoading({
     title: '正在添加到购物车...',
   });
-  const postData = {
-    item_id
+  const merchantId = getApp().getMerchantId();
+  const data = {
+    merchantId,    
+    request:{
+      merchantId,
+      itemId,
+      locationId: getApp().globalData.merchant.locationId,
+      quantity:1
+    }
+  },config={
+    merchantId
   }
-  return postRequest(Api.addTrolley, postData)
+  return postRequest({url:Api.addTrolley, config,data})
     .then((data) => {
       wx.hideLoading();
       if (data.result.status === 200) {
@@ -284,10 +300,10 @@ module.exports = {
   checkNetwork: checkNetwork,
   formatTime: formatTime,
   putRequest: putRequest,
-  postRequest: postRequest,
-  postRequestWithoutToken: postRequestWithoutToken,
+  postRequest,
+  postRequestWithoutToken,
   getRequestWithoutToken: getRequestWithoutToken,
-  getRequest: getRequest,
+  getRequest,
   errorHander,
   queryStack,
   addToTrolley

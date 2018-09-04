@@ -100,7 +100,7 @@
         <view wx:for='{{specificationList}}' wx:key='{{index}}' style='padding:18rpx 0;'>
           <view class='center regular specification '>
             <text>规格</text>
-            <text style="font-size: 28rpx;">{{item.specification}}</text>
+            <text style="font-size: 28rpx;">{{product.itemSpecification}}</text>
           </view>
           <view class='center regular specification ' style="margin-top: 58rpx;">
             <text>购买数量</text>

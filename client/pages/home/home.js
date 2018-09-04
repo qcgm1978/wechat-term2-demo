@@ -49,10 +49,6 @@ Page({
           merchant.locationId = 55;
           globalData.merchant = merchant;
           globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
-          wx.setStorage({
-            key: 'globalData',
-            data: getApp().globalData,
-          });
           resolve(merchant.locationId)
         })
         .catch(errorCode => {
@@ -68,7 +64,7 @@ Page({
     });
   },
   getProductList(locationId) {
-    
+    locationId=locationId?locationId:getApp().globalData.locationId;
     getRequest(getHot,{
       locationId,
       start:this.start,
@@ -105,7 +101,7 @@ Page({
       }
     }
     if (product) {
-      utils.addToTrolley(product.id)
+      utils.addToTrolley(product.itemId)
     }
   },
 
@@ -115,6 +111,12 @@ Page({
   onLoad: function(options) {
     this.getMerchant()
     .then(locationId => this.getProductList(locationId))
+    .then(data=>{
+      wx.setStorage({
+        key: 'globalData',
+        data: getApp().globalData,
+      })
+    })
     .catch(err=>{
       wx.navigateTo({
         url: '/pages/login/login',
