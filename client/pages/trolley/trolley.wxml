@@ -1,10 +1,14 @@
-<scroll-view scroll-y style="height: {{height}}rpx;"  bindscrolltolower="lower"  scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+<scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
   <checkbox-group bindchange="checkboxChange">
 
     <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}'>
-      <checkbox class="radio" value="{{index}}" checked="{{item.checked}}">
+      <checkbox class="radio" value="{{index}}" checked="{{item.checked}}" disabled='{{!item.putShelvesDate}}'>
       </checkbox>
-      <image src='{{item.itemImageAddress1?item.itemImageAddress1:"../../images/logo.png"}}' class='goods-img' mode='aspectFit'></image>
+      <view style="position: relative;">
+        <image src='{{item.itemImageAddress1?item.itemImageAddress1:"../../images/logo.png"}}' class='goods-img ' mode='aspectFit'>
+        </image>
+        <view wx:if='{{!item.putShelvesDate}}' class='trolley-soldout regular center-center'>已下架</view>
+      </view>
       <view class='column trolley-right'>
         <text class='trolley-name'>{{item.itemName}}</text>
         <view class='center trolley-middle'>
@@ -33,7 +37,7 @@
     </block>
     <text wx:else>订单最低起定价:¥500</text>
   </view>
-  <view class='center padding trolley-confirm' >
+  <view class='center padding trolley-confirm'>
     <checkbox class="radio" value="{{item.name}}" catch:tap='selectAll'>
       全选
     </checkbox>
