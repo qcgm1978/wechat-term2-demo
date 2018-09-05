@@ -1,13 +1,13 @@
-<scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+<scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
   <checkbox-group bindchange="checkboxChange">
 
-    <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}'>
-      <checkbox class="radio" value="{{index}}" checked="{{item.checked}}" disabled='{{!item.putShelvesDate}}'>
+    <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
+      <checkbox catch:tap='preventBubble' class="radio" value="{{index}}" checked="{{item.checked}}" disabled='{{!item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
       </checkbox>
       <view style="position: relative;">
         <image src='{{item.itemImageAddress1?item.itemImageAddress1:"../../images/logo.png"}}' class='goods-img ' mode='aspectFit'>
         </image>
-        <view wx:if='{{!item.putShelvesDate}}' class='trolley-soldout regular center-center'>已下架</view>
+        <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
       </view>
       <view class='column trolley-right'>
         <text class='trolley-name'>{{item.itemName}}</text>
@@ -31,9 +31,12 @@
 
 <view class='trolley-total bgc regular '>
   <view class='center trolley-calc padding' hidden='{{!disableBuy}}'>
-    <block wx:if='{{checkbox.length}}'>
+    <block wx:if='{{checkbox}}'>
       <text>还差¥{{remaining}}可生成订单</text>
-      <text catch:tap='addOn'>去凑单</text>
+      <view class='center' style="align-items: center;">
+        <text catch:tap='addOn'>去凑单</text>
+        <image src='./img/arrow.png' class='trolley-arrow'></image>
+      </view>
     </block>
     <text wx:else>订单最低起定价:¥500</text>
   </view>

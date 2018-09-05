@@ -10,41 +10,19 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
-    trolley: [{
-      "itemId": "4443",
-      "itemName": "中普果味碳酸饮料",
-      "itemSpecification": "490ml*9",
-      "itemBrand": "",
-      "saleUnit": "箱(9个)",
-      "stockUnit": "个",
-      "saleSku": "",
-      "stockSku": "6959408014130",
-      "itemImageAddress1": "",
-      "itemImageAddress2": "",
-      "itemImageAddress3": "",
-      "itemImageAddress4": "",
-      "itemImageAddress5": "",
-      "applayScope": "",
-      "salesDescription": "",
-      "itemLocationCollection": "18,20,40,44,46,49,54,55,56,57,72,73,75,76,79,86,87,119,122,127,128,129,131,132,133,134,135,136,137,138,139,140",
-      "itemCategoryCode": "1201008",
-      "itemOrigin": "",
-      "itemExpirationDays": null,
-      "putShelvesDate": null,
-      "price": 0,
-      "quantity": 40,
-      "addTime": "2018-09-04T03:00:00.119+0000"
-    }],
+
+    trolley: [],
     minAmount: 500,
     height: getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2,
     checkbox: 0,
     currentMoney: 0,
     disableBuy: true
   },
+  start: 0,
+  limit: 20,
+  enablePullDownRefresh: false,
   checkAll: false,
-  onLoad: function(options) {
-    this.getTrolley()
-  },
+  onLoad: function(options) {},
   addOn() {
     wx.switchTab({
       url: '/pages/sort/sort',
@@ -52,22 +30,33 @@ Page({
   },
   selectAll(e) {
     this.checkAll = !this.checkAll;
-    const checkbox=[]
-    const trolley = this.data.trolley.map((item,index) => {
-      item.putShelvesDate && (item.checked = this.checkAll);
-      this.checkAll && item.putShelvesDate && checkbox.push(index);
+    const checkbox = []
+    const trolley = this.data.trolley.map((item, index) => {
+      item.putShelvesFlg && (item.checked = this.checkAll);
+      this.checkAll && item.putShelvesFlg && checkbox.push(index);
       return item;
     });
     this.setMoneyData(checkbox)
-    
+
     this.setData({
       trolley,
     })
   },
-  lower(){
-
+  upper() {
+    // if (this.enablePullDownRefresh) {
+    //   this.start -= this.limit;
+    //   this.getTrolley();
+    // }
   },
-  getTotalPrice(checkbox){
+  lower() {
+    this.start += this.limit;
+    this.getTrolley().then(data=>{
+      // setTimeout(()=>{
+      //   this.enablePullDownRefresh=true;
+      // },2000)
+    });
+  },
+  getTotalPrice(checkbox) {
     return checkbox.reduce((accumulator, item) => {
       const trolleyItem = this.data.trolley[item];
       trolleyItem.checked = true;
@@ -78,7 +67,7 @@ Page({
     const checkbox = e.detail.value;
     this.setMoneyData(checkbox)
   },
-  setMoneyData(checkbox){
+  setMoneyData(checkbox) {
     const currentMoney = this.getTotalPrice(checkbox)
     const remaining = 500 - currentMoney;
     const disableBuy = remaining > 0
@@ -89,24 +78,33 @@ Page({
       remaining
     });
   },
+  preventBubble(){},
+  turnPage(e){
+    const itemId = e.currentTarget.dataset.itemid;
+    wx.navigateTo({
+      url: `/pages/detail/detail?itemId=${itemId}`,
+    })
+  },
   getTrolley() {
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
         merchantId: app.getMerchantId(),
-        locationId: globalData.merchant.locationId
+        locationId: getApp().globalData.merchant.locationId,
+        start: this.start,
+        limit: this.limit
       }).then(({
         result
       }) => {
-        // todo
-        // result[0].price = 10.50;
-        // for (let i = 0; i < 5; i++) {
-        //   const obj = { ...result[0]
-        //   }
-        //   result = result.concat([obj])
-        // }
+        if(this.checkAll){
+          result=result.map(item=>{
+            item.putShelvesFlg && (item.checked=true);
+            return item;
+          })
+        }
         this.setData({
-          trolley: result
-        })
+          trolley: this.data.trolley.concat(result)
+        });
+        resolve(result)
       }).catch(errorCode => {
         // getApp().failRequest();
         utils.errorHander(errorCode, this.getTrolley)
@@ -130,6 +128,13 @@ Page({
       data: {
         itemId
       }
+    }).then(data => {
+      wx.showToast({
+        title: '删除成功',
+        icon: 'success',
+        duration: 2000
+      });
+      this.getTrolley();
     })
   },
   plusMinus(e) {
@@ -164,12 +169,8 @@ Page({
   onReady: function() {
 
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function() {
-
+    this.getTrolley()
   },
 
   /**
@@ -192,10 +193,6 @@ Page({
   onPullDownRefresh: function() {
 
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function() {
 
   },

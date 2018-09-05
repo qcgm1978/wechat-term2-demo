@@ -15,9 +15,6 @@ const app = getApp()
 let globalData = app.globalData;
 
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
     stores: [],
     productList: [], // 商品列表
@@ -33,19 +30,11 @@ Page({
   },
   start: 0,
   limit: 20,
-  onPullDownRefresh: function() {
-
-
-  },
+  enablePullDownRefresh:false,
   errorFunction(e) {
     const productList = getApp().errorFunction(e, this.data.productList);
     this.setData({
       productList
-    })
-  },
-  callPhone(evt) {
-    wx.makePhoneCall({
-      phoneNumber: '400-101-5288' //仅为示例，并非真实的电话号码
     })
   },
   getMerchant() {
@@ -114,18 +103,36 @@ Page({
         .catch(() => {
           reject()
         })
-    })
+    }).catch((errorCode) => {
+      wx.hideLoading()
+      wx.showToast({
+        icon: 'none',
+        title: '添加到购物车失败',
+      })
+    });
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function(options) {
     this.getBanners()
     .then(data => {})
     .catch(err => {})
     this.getMerchant()
       .then(locationId => this.getProductList(locationId))
+      .then(() => {
+        return getRequest(Api.getCartCount, {
+          merchantId: app.getMerchantId(),
+          // accessToken: this.globalData.token.accessToken
+        })
+      })
+      .then(data => {
+        if (data.status === 200) {
+          const count = data.result.count;
+          globalData.badge = count;
+          wx.setTabBarBadge({
+            index: 2,
+            text: count + ''
+          });
+        }
+      })
       .then(data => {
         wx.setStorage({
           key: 'globalData',
@@ -162,11 +169,12 @@ Page({
   onHide: function() {
 
   },
-
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
+  onPullDownRefresh: function() {
+    // if (this.enablePullDownRefresh) {
+      this.start -= this.limit;
+      this.getProductList(globalData.merchant.locationId);
+    // }
+  },
   onReachBottom: function() {
     this.start += this.limit;
     this.getProductList(globalData.merchant.locationId);

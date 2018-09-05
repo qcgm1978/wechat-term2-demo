@@ -86,8 +86,9 @@ var postRequest = function({
         url = url.replace(`{${prop}}`, config[prop]);
       }
     }
-    debugger;
-    // var postData = postData||data;
+    wx.showLoading({
+      title: '正在加载',
+    })
     wx.request({
       url: url,
       data: postData||data,
@@ -109,13 +110,16 @@ var postRequest = function({
       fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
+      },
+      complete(){
+        wx.hideLoading()
       }
     })
   });
   return promise;
 }
 
-var getRequest = function(url, data) {
+var getRequest = function (url, data) {
   var promise = new Promise((resolve, reject) => {
     if (data) {
       for (const prop in data) {
@@ -130,7 +134,7 @@ var getRequest = function(url, data) {
       url: url,
       method: 'GET',
       header: {
-        'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
+        'Authorization': 'Bearer ' + (data.accessToken ? data.accessToken:getApp().globalData.token.accessToken),
         // 'X-Client-Id': 'mini-app',
         // 'Content-Type': 'application/json'
 
@@ -286,25 +290,35 @@ const addToTrolley = (itemId) => {
       config,
       data
     })
-    .then((data) => {
-      wx.hideLoading();
+    .then(() => {
+      return getRequest(Api.getCartCount, {
+        merchantId
+      })
+    })
+    .then(data=>{
       if (data.status === 200) {
+        const count = data.result.count;
+        getApp().globalData.badge = count;
         wx.setTabBarBadge({
           index: 2,
-          text: ++getApp().globalData.badge + ''
+          text: count + ''
         });
-        wx.showToast({
-          title: '已添加到购物车',
-        });
-        return getApp().globalData.badge;
       }
     })
-    .catch((errorCode) => {
-      wx.hideLoading()
+    .then((data) => {
       wx.showToast({
-        icon: 'none',
-        title: '添加到购物车失败',
-      })
+        title: '已添加到购物车',
+      });
+    })
+    .catch(errorCode => {
+      // getApp().failRequest();
+      utils.errorHander(errorCode, this.getMerchant)
+        .then(() => {
+          resolve()
+        })
+        .catch(() => {
+          reject()
+        })
     });
 }
 const getFixedNum=(float)=>{

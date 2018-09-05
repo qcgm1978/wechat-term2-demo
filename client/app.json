@@ -22,8 +22,8 @@
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "color": "rgb(145,144,144)",
-    "selectedColor": "rgb(235, 97, 18)",
+    "color": "#919090",
+    "selectedColor": "#eb6112",
     "list": [
       {
         "pagePath": "pages/home/home",

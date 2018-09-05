@@ -37,12 +37,6 @@
 			"list": [
 				{
 					"id": -1,
-					"name": "address",
-					"pathName": "pages/address/address",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "memberDetail",
 					"pathName": "pages/memberDetail/memberDetail",
 					"query": ""
@@ -99,12 +93,6 @@
 					"id": 11,
 					"name": "sort-list",
 					"pathName": "pages/sort-list/sort-list",
-					"query": "categoryId=1&name=1-2-3-1"
-				},
-				{
-					"id": -1,
-					"name": "trolley",
-					"pathName": "pages/trolley/trolley",
 					"query": "categoryId=1&name=1-2-3-1"
 				}
 			]
