@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/home-enter/home-enter",
     "pages/login/login",
+    "pages/home-enter/home-enter",
     "pages/transactionList/transactionList",
     "pages/home/home",
     "pages/phoneLogin/phoneLogin",

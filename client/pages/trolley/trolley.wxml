@@ -1,4 +1,4 @@
-<scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+<scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
   <checkbox-group bindchange="checkboxChange">
 
     <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}'>

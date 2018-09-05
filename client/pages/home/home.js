@@ -14,25 +14,17 @@ const app = getApp()
 let globalData = app.globalData;
 
 Page({
-  /**
-   * 页面的初始数据
-   */
   data: {
     stores: [],
     productList: [], // 商品列表
   },
   start: 0,
   limit: 20,
-
+  enablePullDownRefresh:false,
   errorFunction(e) {
     const productList = getApp().errorFunction(e, this.data.productList);
     this.setData({
       productList
-    })
-  },
-  callPhone(evt) {
-    wx.makePhoneCall({
-      phoneNumber: '400-101-5288' //仅为示例，并非真实的电话号码
     })
   },
   getMerchant() {
@@ -109,10 +101,6 @@ Page({
       })
     });
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function(options) {
     this.getMerchant()
       .then(locationId => this.getProductList(locationId))
@@ -169,8 +157,10 @@ Page({
 
   },
   onPullDownRefresh: function() {
-    this.start -= this.limit;
-    this.getProductList(globalData.merchant.locationId);
+    // if (this.enablePullDownRefresh) {
+      this.start -= this.limit;
+      this.getProductList(globalData.merchant.locationId);
+    // }
   },
   onReachBottom: function() {
     this.start += this.limit;

@@ -10,7 +10,7 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
-   
+
     trolley: [],
     minAmount: 500,
     height: getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2,
@@ -20,6 +20,7 @@ Page({
   },
   start: 0,
   limit: 20,
+  enablePullDownRefresh: false,
   checkAll: false,
   onLoad: function(options) {},
   addOn() {
@@ -41,8 +42,19 @@ Page({
       trolley,
     })
   },
+  upper() {
+    // if (this.enablePullDownRefresh) {
+    //   this.start -= this.limit;
+    //   this.getTrolley();
+    // }
+  },
   lower() {
-
+    this.start += this.limit;
+    this.getTrolley().then(data=>{
+      // setTimeout(()=>{
+      //   this.enablePullDownRefresh=true;
+      // },2000)
+    });
   },
   getTotalPrice(checkbox) {
     return checkbox.reduce((accumulator, item) => {
@@ -70,22 +82,22 @@ Page({
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
         merchantId: app.getMerchantId(),
-        locationId: globalData.merchant.locationId,
-        start:this.start,
-        limit:this.limit
+        locationId: getApp().globalData.merchant.locationId,
+        start: this.start,
+        limit: this.limit
       }).then(({
         result
       }) => {
-        // todo
-        // result[0].price = 10.50;
-        // for (let i = 0; i < 5; i++) {
-        //   const obj = { ...result[0]
-        //   }
-        //   result = result.concat([obj])
-        // }
+        if(this.checkAll){
+          result=result.map(item=>{
+            item.putShelvesFlg && (item.checked=true);
+            return item;
+          })
+        }
         this.setData({
-          trolley: result
-        })
+          trolley: this.data.trolley.concat(result)
+        });
+        resolve(result)
       }).catch(errorCode => {
         // getApp().failRequest();
         utils.errorHander(errorCode, this.getTrolley)
@@ -172,12 +184,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-    this.start -= this.limit;
-    this.getTrolley();
+
   },
   onReachBottom: function() {
-    this.start += this.limit;
-    this.getTrolley();
+
   },
 
   /**
