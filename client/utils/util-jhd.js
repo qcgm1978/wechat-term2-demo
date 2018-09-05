@@ -86,7 +86,9 @@ var postRequest = function({
         url = url.replace(`{${prop}}`, config[prop]);
       }
     }
-    // var postData = postData||data;
+    wx.showLoading({
+      title: '正在加载',
+    })
     wx.request({
       url: url,
       data: postData||data,
@@ -108,6 +110,9 @@ var postRequest = function({
       fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
+      },
+      complete(){
+        wx.hideLoading()
       }
     })
   });

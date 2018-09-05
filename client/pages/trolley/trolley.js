@@ -10,31 +10,7 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
-    trolley: [{
-      "itemId": "4443",
-      "itemName": "中普果味碳酸饮料",
-      "itemSpecification": "490ml*9",
-      "itemBrand": "",
-      "saleUnit": "箱(9个)",
-      "stockUnit": "个",
-      "saleSku": "",
-      "stockSku": "6959408014130",
-      "itemImageAddress1": "",
-      "itemImageAddress2": "",
-      "itemImageAddress3": "",
-      "itemImageAddress4": "",
-      "itemImageAddress5": "",
-      "applayScope": "",
-      "salesDescription": "",
-      "itemLocationCollection": "18,20,40,44,46,49,54,55,56,57,72,73,75,76,79,86,87,119,122,127,128,129,131,132,133,134,135,136,137,138,139,140",
-      "itemCategoryCode": "1201008",
-      "itemOrigin": "",
-      "itemExpirationDays": null,
-      "putShelvesDate": null,
-      "price": 0,
-      "quantity": 40,
-      "addTime": "2018-09-04T03:00:00.119+0000"
-    }],
+    trolley: [],
     minAmount: 500,
     height: getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2,
     checkbox: 0,
@@ -130,6 +106,13 @@ Page({
       data: {
         itemId
       }
+    }).then(data=>{
+      wx.showToast({
+        title: '删除成功',
+        icon: 'success',
+        duration: 2000
+      });
+      this.getTrolley();
     })
   },
   plusMinus(e) {
