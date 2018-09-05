@@ -119,7 +119,7 @@ var postRequest = function({
   return promise;
 }
 
-var getRequest = function(url, data) {
+var getRequest = function (url, data) {
   var promise = new Promise((resolve, reject) => {
     if (data) {
       for (const prop in data) {
@@ -134,7 +134,7 @@ var getRequest = function(url, data) {
       url: url,
       method: 'GET',
       header: {
-        'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
+        'Authorization': 'Bearer ' + (data.accessToken ? data.accessToken:getApp().globalData.token.accessToken),
         // 'X-Client-Id': 'mini-app',
         // 'Content-Type': 'application/json'
 

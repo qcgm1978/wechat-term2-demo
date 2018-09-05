@@ -1,5 +1,11 @@
-import Touches from './utils/Touches.js'
-import appUtil from './app-util.js';
+// import Touches from './utils/Touches.js'
+import {
+  Api
+} from './utils/envConf.js';
+import {
+  getRequest
+} from './utils/util.js';
+// import appUtil from './app-util.js';
 const getUserInfo = require('./pages/home/getUserInfo').default;
 const websocket = require('./pages/home/ws').default;
 
@@ -14,7 +20,7 @@ App({
     systemInfo: {},
     token: {},
     userInfo: {},
-    defaultImg:'/pages/login/images/jihuibaologo@2x.png',
+    defaultImg: '/pages/login/images/jihuibaologo@2x.png',
     payStyle: {
       "UNPAY": '待支付',
       "WAIT_SHIPMENT": '待发货',
@@ -32,13 +38,13 @@ App({
       return data;
     }
   },
-  getMerchantId(){
+  getMerchantId() {
     return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
   },
-  getPhone(){
+  getPhone() {
     return this.globalData.authMerchantList[this.globalData.currentIndex].cellPhone;
   },
-  getName(){
+  getName() {
     return this.globalData.authMerchantList[this.globalData.currentIndex].userName;
   },
   getGlobalVal(str) {
@@ -78,20 +84,29 @@ App({
     })
 
   },
-  onLaunch: function (options) {
+  onLaunch: function(options) {
     wx.setEnableDebug({
       enableDebug: true
     });
     this.getSystemInfo();
-    // qcloud.setLoginUrl(config.service.loginUrl);
+
     if (!this.globalData.merchantId) {
       this.globalData = {
         ...this.globalData,
         ...wx.getStorageSync('globalData'),
-        // todo test data
-        // merchantId:'123456',
       };
     }
+    getRequest(Api.getCartCount, {
+      merchantId: this.getMerchantId(),
+      accessToken: this.globalData.token.accessToken
+    }).then(data => {
+      if (data.status === 200) {
+        wx.setTabBarBadge({
+          index: 2,
+          text: data.result.count + ''
+        });
+      }
+    })
   },
 
   saveGlobalData(result) {
@@ -133,7 +148,7 @@ App({
   checkProgramUpdate() {
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
-      updateManager.onCheckForUpdate(function (res) {
+      updateManager.onCheckForUpdate(function(res) {
         // 请求完新版本信息的回调
         // console.log(res.hasUpdate);
         if (res.hasUpdate) {
@@ -142,7 +157,7 @@ App({
           })
         }
       })
-      updateManager.onUpdateReady(function () {
+      updateManager.onUpdateReady(function() {
         updateManager.applyUpdate()
         // wx.showModal({
         //   title: '更新提示',
@@ -155,7 +170,7 @@ App({
         //   }
         // });
       })
-      updateManager.onUpdateFailed(function () {
+      updateManager.onUpdateFailed(function() {
         // 新的版本下载失败
       });
     }
@@ -164,14 +179,14 @@ App({
     success,
     error
   } = {
-      success(data) {
-        getApp().globalData.userInfo = data.userInfo;
-        // debugger;
-      },
-      error(err) {
-        debugger;
-      }
-    }) {
+    success(data) {
+      getApp().globalData.userInfo = data.userInfo;
+      // debugger;
+    },
+    error(err) {
+      debugger;
+    }
+  }) {
     wx.getSetting({
       success: res => {
         // if (res.authSetting['scope.userInfo'] === false) {
@@ -282,5 +297,5 @@ App({
       }
     })
   },
-  Touches: new Touches()
+  // Touches: new Touches()
 })

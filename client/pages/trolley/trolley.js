@@ -19,7 +19,6 @@ Page({
   },
   checkAll: false,
   onLoad: function(options) {
-    this.getTrolley()
   },
   addOn() {
     wx.switchTab({
@@ -147,12 +146,8 @@ Page({
   onReady: function() {
 
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function() {
-
+    this.getTrolley()
   },
 
   /**
