@@ -1,8 +1,8 @@
-<view catch:tap='turnPage' wx:for='{{product.items}}' wx:key='*this' class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
-  <image src='{{item.itemIcon}}'></image>
+<view catch:tap='turnPage' wx:for='{{product}}' wx:key='*this' class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
+  <image src='{{item.itemImageAddress1?item.itemImageAddress1:"../../images/logo.png"}}' mode='aspectFit'></image>
   <view class='column regular list-container'>
     <text class='list-name'>{{item.itemName}}</text>
     <text class='list-spec'>规格：  {{item.itemSpecification}}</text>
-    <text class='dollar medium list-price'>{{item.unitPrice}}</text>
+    <text class='dollar medium list-price'>{{item.price}}</text>
   </view>
 </view>
