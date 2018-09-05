@@ -20,7 +20,7 @@ Page({
     order: {},
     name: '',
     phone: 12345678901,
-    salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
+    salesReturn: '拒收申请已完成，积分已退回您的账户，请查询',
     address: '',
     addressStore: '../transactionDetail/images/address.png',
   },
@@ -64,11 +64,20 @@ Page({
   },
   bindinput(e) {
     const isVisible = this.data.isVisible;
-    this.setData({
-      points: e.detail.value,
-      credit: isVisible ? e.detail.value / 100 : 0,
-      actual: this.data.total - e.detail.value / 100
-    });
+    if (globalData.merchant.pointBalance >= e.detail.value){
+      this.setData({
+        //points: e.detail.value,
+        credit: isVisible ? e.detail.value / 100 : 0,
+        actual: this.data.total - e.detail.value / 100
+      });
+    }else{
+      this.setData({
+        points: globalData.merchant.pointBalance,
+        credit: isVisible ? globalData.merchant.pointBalance / 100 : 0,
+        actual: this.data.total - globalData.merchant.pointBalance / 100
+      });
+    }
+
   },
   getProduct(itemId, categoryId) {
     wx.showLoading({
@@ -108,7 +117,7 @@ Page({
         receiverCellPhone = app.getPhone(),
         receiverAddress = globalData.address;
         // todo
-      const createOrder ='http://dev.jhdmall.com/order/create';
+      //const createOrder ='http://dev.jhdmall.com/order/create';
       utils.postRequest(createOrder, {
         orderItems: globalData.items ? globalData.items : this.data.data.items,
         merchantId: app.getMerchantId(),
@@ -116,7 +125,7 @@ Page({
         merchantMsg: this.data.textarea,
         usePoint: this.data.isVisible ? this.data.points : 0,
         totalAmount: this.data.actual,
-        recerverInfo: {
+        receiverInfo: {
 
           receiverName,
           receiverCellPhone,

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -49,12 +49,6 @@
 				},
 				{
 					"id": -1,
-					"name": "order",
-					"pathName": "pages/order/order",
-					"query": ""
-				},
-				{
-					"id": -1,
 					"name": "trolley",
 					"pathName": "pages/trolley/trolley",
 					"query": ""
@@ -66,9 +60,9 @@
 					"query": "orderId=123456&merchantId=456&notPaid=false&orderStatus=UNPAY"
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "home",
-					"pathName": "pages/home/home",
+					"pathName": "pages/home-enter/home-enter",
 					"query": ""
 				},
 				{
