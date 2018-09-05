@@ -87,13 +87,13 @@ Page({
     height: getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2,
     checkbox: 0,
     currentMoney: 0,
-    disableBuy: true
+    disableBuy: true,
+    checkAll: false,
   },
   selectedRadio: [],
   start: 0,
   limit: 20,
   enablePullDownRefresh: false,
-  checkAll: false,
   onLoad: function(options) {},
   addOn() {
     wx.switchTab({
@@ -101,11 +101,13 @@ Page({
     })
   },
   selectAll(e) {
-    this.checkAll = !this.checkAll;
+    this.setData({
+      checkAll: !this.data.checkAll
+    });
     const checkbox = []
     const trolley = this.data.trolley.map((item, index) => {
-      item.putShelvesFlg && (item.checked = this.checkAll);
-      this.checkAll && item.putShelvesFlg && checkbox.push(index);
+      item.putShelvesFlg && (item.checked = this.data.checkAll);
+      this.data.checkAll && item.putShelvesFlg && checkbox.push(index);
       return item;
     });
     this.setMoneyData(checkbox)
@@ -188,7 +190,7 @@ Page({
       }).then(({
         result
       }) => {
-        if (this.checkAll) {
+        if (this.data.checkAll) {
           result = result.map(item => {
             item.putShelvesFlg && (item.checked = true);
             return item;

@@ -1,5 +1,5 @@
 <scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-  <checkbox-group bindchange="checkboxChange">
+  <!-- <checkbox-group bindchange="checkboxChange"> -->
 
     <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
       <radio catch:tap='preventBubble' class="radio" data-index='{{index}}' value="{{index}}" checked="{{item.checked}}" disabled='{{!item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
@@ -25,7 +25,7 @@
         </view>
       </view>
     </view>
-  </checkbox-group>
+  <!-- </checkbox-group> -->
 
 </scroll-view>
 
@@ -41,9 +41,9 @@
     <text wx:else>订单最低起定价:¥500</text>
   </view>
   <view class='center padding trolley-confirm'>
-    <checkbox class="radio" value="{{item.name}}" catch:tap='selectAll'>
+    <radio class="radio" value="{{item.name}}" checked='{{checkAll}}' catch:tap='selectAll' color='{{checkAll?"#EE711F":"#D1D1D2"}}'>
       全选
-    </checkbox>
+    </radio>
     <text>合计:<text class='dollar trolley-num medium'>{{currentMoney}}</text></text>
     <button class='trolley-btn center-center {{disableBuy?"":"enable"}}'>确认订单({{checkbox}})</button>
   </view>
