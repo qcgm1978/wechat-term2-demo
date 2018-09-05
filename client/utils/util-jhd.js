@@ -86,7 +86,6 @@ var postRequest = function({
         url = url.replace(`{${prop}}`, config[prop]);
       }
     }
-    debugger;
     // var postData = postData||data;
     wx.request({
       url: url,
