@@ -99,12 +99,12 @@ Page({
         result
       }) => {
         // todo
-        result[0].price = 10.50;
-        for (let i = 0; i < 5; i++) {
-          const obj = { ...result[0]
-          }
-          result = result.concat([obj])
-        }
+        // result[0].price = 10.50;
+        // for (let i = 0; i < 5; i++) {
+        //   const obj = { ...result[0]
+        //   }
+        //   result = result.concat([obj])
+        // }
         this.setData({
           trolley: result
         })

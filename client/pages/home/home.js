@@ -21,14 +21,14 @@ Page({
     stores: [],
     productList: [], // 商品列表
   },
-  start:0,
-  limit:20,
-  onPullDownRefresh: function () {
-    
+  start: 0,
+  limit: 20,
+  onPullDownRefresh: function() {
+
 
   },
-  errorFunction(e){
-    const productList=getApp().errorFunction(e, this.data.productList);
+  errorFunction(e) {
+    const productList = getApp().errorFunction(e, this.data.productList);
     this.setData({
       productList
     })
@@ -46,9 +46,9 @@ Page({
         .then((data) => {
           const merchant = data.result;
           // // todo 
-          merchant.locationId = 55;
-          globalData.merchant = merchant;
-          globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
+          // merchant.locationId = 55;
+          getApp().globalData.merchant = merchant;
+          getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
           resolve(merchant.locationId)
         })
         .catch(errorCode => {
@@ -64,28 +64,33 @@ Page({
     });
   },
   getProductList(locationId) {
-    locationId=locationId?locationId:getApp().globalData.locationId;
-    getRequest(getHot,{
-      locationId,
-      start:this.start,
-      limit:this.limit
-    }).then(result => {
-      let data = result.result;
-      if (result.status === 200) {
-        this.setData({
-          productList: data
-        })
-      } else {
+    return new Promise((resolve, reject) => {
+      locationId = locationId ? locationId : getApp().globalData.locationId;
+      getRequest(getHot, {
+        locationId,
+        start: this.start,
+        limit: this.limit
+      }).then(result => {
+        let data = result.result;
+        if (result.status === 200) {
+          this.setData({
+            productList: data
+          });
+          resolve(data)
+        } else {
+          wx.showToast({
+            icon: 'none',
+            title: '商品数据加载错误',
+          });
+          reject(result.status)
+        }
+      }).catch(err => {
         wx.showToast({
           icon: 'none',
           title: '商品数据加载错误',
-        })
-      }
-    }).catch(err => {
-      wx.showToast({
-        icon: 'none',
-        title: '商品数据加载错误',
-      })
+        });
+        reject(err)
+      });
     });
   },
 
@@ -119,18 +124,18 @@ Page({
    */
   onLoad: function(options) {
     this.getMerchant()
-    .then(locationId => this.getProductList(locationId))
-    .then(data=>{
-      wx.setStorage({
-        key: 'globalData',
-        data: getApp().globalData,
+      .then(locationId => this.getProductList(locationId))
+      .then(data => {
+        wx.setStorage({
+          key: 'globalData',
+          data: getApp().globalData,
+        })
       })
-    })
-    .catch(err=>{
-      wx.navigateTo({
-        url: '/pages/login/login',
-      })
-    });
+      .catch(err => {
+        wx.navigateTo({
+          url: '/pages/login/login',
+        })
+      });
     this.setData({
       stores: getApp().globalData.authWechat.authMerchantList,
     });
@@ -162,7 +167,7 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
-    this.start+=this.limit;
+    this.start += this.limit;
     this.getProductList(globalData.merchant.locationId);
   },
 

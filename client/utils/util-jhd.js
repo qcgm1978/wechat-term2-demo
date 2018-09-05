@@ -287,7 +287,7 @@ const addToTrolley = (itemId) => {
     })
     .then((data) => {
       wx.hideLoading();
-      if (data.result.status === 200) {
+      if (data.status === 200) {
         wx.setTabBarBadge({
           index: 2,
           text: ++getApp().globalData.badge + ''
