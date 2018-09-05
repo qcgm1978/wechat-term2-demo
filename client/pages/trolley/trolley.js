@@ -10,14 +10,86 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
-
-    trolley: [],
+    trolley: [{
+      "itemId": "4443",
+      "itemName": "中普果味碳酸饮料",
+      "itemSpecification": "490ml*9",
+      "itemBrand": "",
+      "saleUnit": "箱(9个)",
+      "stockUnit": "个",
+      "saleSku": "",
+      "stockSku": "6959408014130",
+      "itemImageAddress1": "",
+      "itemImageAddress2": "",
+      "itemImageAddress3": "",
+      "itemImageAddress4": "",
+      "itemImageAddress5": "",
+      "applayScope": "",
+      "salesDescription": "",
+      "itemLocationCollection": "18,20,40,44,46,49,54,55,56,57,72,73,75,76,79,86,87,119,122,127,128,129,131,132,133,134,135,136,137,138,139,140",
+      "itemCategoryCode": "1201008",
+      "itemOrigin": "",
+      "itemExpirationDays": null,
+      putShelvesFlg: true,
+      "price": 0,
+      "quantity": 40,
+      "addTime": "2018-09-04T03:00:00.119+0000"
+    }, {
+      "itemId": "4443",
+      "itemName": "中普果味碳酸饮料",
+      "itemSpecification": "490ml*9",
+      "itemBrand": "",
+      "saleUnit": "箱(9个)",
+      "stockUnit": "个",
+      "saleSku": "",
+      "stockSku": "6959408014130",
+      "itemImageAddress1": "",
+      "itemImageAddress2": "",
+      "itemImageAddress3": "",
+      "itemImageAddress4": "",
+      "itemImageAddress5": "",
+      "applayScope": "",
+      "salesDescription": "",
+      "itemLocationCollection": "18,20,40,44,46,49,54,55,56,57,72,73,75,76,79,86,87,119,122,127,128,129,131,132,133,134,135,136,137,138,139,140",
+      "itemCategoryCode": "1201008",
+      "itemOrigin": "",
+      "itemExpirationDays": null,
+      putShelvesFlg: true,
+      "price": 0,
+      "quantity": 40,
+      "addTime": "2018-09-04T03:00:00.119+0000"
+    }, {
+      "itemId": "4443",
+      "itemName": "中普果味碳酸饮料",
+      "itemSpecification": "490ml*9",
+      "itemBrand": "",
+      "saleUnit": "箱(9个)",
+      "stockUnit": "个",
+      "saleSku": "",
+      "stockSku": "6959408014130",
+      "itemImageAddress1": "",
+      "itemImageAddress2": "",
+      "itemImageAddress3": "",
+      "itemImageAddress4": "",
+      "itemImageAddress5": "",
+      "applayScope": "",
+      "salesDescription": "",
+      "itemLocationCollection": "18,20,40,44,46,49,54,55,56,57,72,73,75,76,79,86,87,119,122,127,128,129,131,132,133,134,135,136,137,138,139,140",
+      "itemCategoryCode": "1201008",
+      "itemOrigin": "",
+      "itemExpirationDays": null,
+      putShelvesFlg: true,
+      "price": 0,
+      "quantity": 40,
+      "addTime": "2018-09-04T03:00:00.119+0000"
+    }],
     minAmount: 500,
     height: getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2,
     checkbox: 0,
     currentMoney: 0,
     disableBuy: true
   },
+  selectedRadio: [],
   start: 0,
   limit: 20,
   enablePullDownRefresh: false,
@@ -50,7 +122,7 @@ Page({
   },
   lower() {
     this.start += this.limit;
-    this.getTrolley().then(data=>{
+    this.getTrolley().then(data => {
       // setTimeout(()=>{
       //   this.enablePullDownRefresh=true;
       // },2000)
@@ -78,8 +150,29 @@ Page({
       remaining
     });
   },
-  preventBubble(){},
-  turnPage(e){
+  preventBubble(e) {
+    const index = e.currentTarget.dataset.index;
+    if (this.selectedRadio.includes(index)) {
+      const ind = this.selectedRadio.indexOf(index);
+      this.selectedRadio.splice(ind, 1);
+    } else {
+      this.selectedRadio.push(index);
+    }
+    this.setMoneyData(this.selectedRadio);
+    const trolley = this.data.trolley.map((item, index) => {
+      if(item.putShelvesFlg && this.selectedRadio.includes(index)){
+        item.checked = true;
+      } else{
+        item.checked=false;
+      }
+      return item;
+    });
+
+    this.setData({
+      trolley,
+    })
+  },
+  turnPage(e) {
     const itemId = e.currentTarget.dataset.itemid;
     wx.navigateTo({
       url: `/pages/detail/detail?itemId=${itemId}`,
@@ -95,9 +188,9 @@ Page({
       }).then(({
         result
       }) => {
-        if(this.checkAll){
-          result=result.map(item=>{
-            item.putShelvesFlg && (item.checked=true);
+        if (this.checkAll) {
+          result = result.map(item => {
+            item.putShelvesFlg && (item.checked = true);
             return item;
           })
         }
