@@ -113,6 +113,20 @@ Page({
   onLoad: function(options) {
     this.getMerchant()
       .then(locationId => this.getProductList(locationId))
+      .then(() => {
+        getRequest(Api.getCartCount, {
+          merchantId: app.getMerchantId(),
+          // accessToken: this.globalData.token.accessToken
+        })
+      })
+      .then(data => {
+        if (data.status === 200) {
+          wx.setTabBarBadge({
+            index: 2,
+            text: data.result.count + ''
+          });
+        }
+      })
       .then(data => {
         wx.setStorage({
           key: 'globalData',

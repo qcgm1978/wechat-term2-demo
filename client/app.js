@@ -96,17 +96,7 @@ App({
         ...wx.getStorageSync('globalData'),
       };
     }
-    getRequest(Api.getCartCount, {
-      merchantId: this.getMerchantId(),
-      accessToken: this.globalData.token.accessToken
-    }).then(data => {
-      if (data.status === 200) {
-        wx.setTabBarBadge({
-          index: 2,
-          text: data.result.count + ''
-        });
-      }
-    })
+    
   },
 
   saveGlobalData(result) {
