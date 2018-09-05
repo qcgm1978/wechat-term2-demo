@@ -61,6 +61,8 @@ const apiURLs = {
   backendUrlRefreshToken: `${baseUrl}/auth/refresh`,
   backendUrlVerifyCode: baseUrl + '/auth/sms/',
   backendUrlPhoneLogin: baseUrl + '/auth/sms',
+
+  getBanners: `${baseUrl}/mall/banners/{category}`,
 }
 
 

@@ -62,7 +62,7 @@
 				{
 					"id": 4,
 					"name": "home",
-					"pathName": "pages/home-enter/home-enter",
+					"pathName": "pages/home/home",
 					"query": ""
 				},
 				{

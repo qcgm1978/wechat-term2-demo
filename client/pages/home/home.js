@@ -9,6 +9,7 @@ import {
 } from '../../utils/util.js';
 const getMerchant = Api.getMerchant,
   getProductList = Api.getProductList,
+  getBanners = Api.getBanners,
   getHot = Api.getHot;
 const app = getApp()
 let globalData = app.globalData;
@@ -20,6 +21,15 @@ Page({
   data: {
     stores: [],
     productList: [], // 商品列表
+    imgUrls: [{
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top1.jpeg",
+      "pageUrl": ""
+    },
+    {
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top.jpeg",
+      "pageUrl": ""
+    },
+    ],
   },
   start: 0,
   limit: 20,
@@ -111,6 +121,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getBanners()
+    .then(data => {})
+    .catch(err => {})
     this.getMerchant()
       .then(locationId => this.getProductList(locationId))
       .then(data => {
@@ -164,5 +177,27 @@ Page({
    */
   onShareAppMessage: function() {
 
-  }
+  },
+  bannerClick: function (e) {
+    if (e.target.dataset.postid) {
+      wx.navigateTo({
+        url: '../webView/webView?targetUrl=' + e.target.dataset.postid
+      })
+    }
+  },
+  getBanners: function () {
+    return new Promise((resolve, reject) => {
+      getRequest(getBanners, {
+        category: "merchant_home"
+      }).then(data => {
+          this.setData({
+            imgUrls: data.result
+          })
+          resolve()
+        })
+        .catch(errorCode => {
+          reject()
+        });
+    })
+  },
 })
