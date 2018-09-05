@@ -24,15 +24,7 @@ Page({
     });
   },
   exitLogin: function () {
-    getApp().globalData.registerStatus = false
-    wx.setStorage({
-      key: "globalData",
-      data: getApp().globalData
-    });
-    
-    wx.reLaunch({
-      url: '../login/login'
-    });
+    getApp().exitLogin();
   },
   toggleTab(evt) {
     const index = Number(evt.target.dataset.type);

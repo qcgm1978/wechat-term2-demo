@@ -10,6 +10,7 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
+   
     trolley: [],
     minAmount: 500,
     height: getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2,
@@ -17,9 +18,10 @@ Page({
     currentMoney: 0,
     disableBuy: true
   },
+  start: 0,
+  limit: 20,
   checkAll: false,
-  onLoad: function(options) {
-  },
+  onLoad: function(options) {},
   addOn() {
     wx.switchTab({
       url: '/pages/sort/sort',
@@ -27,22 +29,22 @@ Page({
   },
   selectAll(e) {
     this.checkAll = !this.checkAll;
-    const checkbox=[]
-    const trolley = this.data.trolley.map((item,index) => {
-      item.putShelvesDate && (item.checked = this.checkAll);
-      this.checkAll && item.putShelvesDate && checkbox.push(index);
+    const checkbox = []
+    const trolley = this.data.trolley.map((item, index) => {
+      item.putShelvesFlg && (item.checked = this.checkAll);
+      this.checkAll && item.putShelvesFlg && checkbox.push(index);
       return item;
     });
     this.setMoneyData(checkbox)
-    
+
     this.setData({
       trolley,
     })
   },
-  lower(){
+  lower() {
 
   },
-  getTotalPrice(checkbox){
+  getTotalPrice(checkbox) {
     return checkbox.reduce((accumulator, item) => {
       const trolleyItem = this.data.trolley[item];
       trolleyItem.checked = true;
@@ -53,7 +55,7 @@ Page({
     const checkbox = e.detail.value;
     this.setMoneyData(checkbox)
   },
-  setMoneyData(checkbox){
+  setMoneyData(checkbox) {
     const currentMoney = this.getTotalPrice(checkbox)
     const remaining = 500 - currentMoney;
     const disableBuy = remaining > 0
@@ -68,7 +70,9 @@ Page({
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
         merchantId: app.getMerchantId(),
-        locationId: globalData.merchant.locationId
+        locationId: globalData.merchant.locationId,
+        start:this.start,
+        limit:this.limit
       }).then(({
         result
       }) => {
@@ -105,7 +109,7 @@ Page({
       data: {
         itemId
       }
-    }).then(data=>{
+    }).then(data => {
       wx.showToast({
         title: '删除成功',
         icon: 'success',
@@ -168,14 +172,12 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this.start -= this.limit;
+    this.getTrolley();
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
   onReachBottom: function() {
-
+    this.start += this.limit;
+    this.getTrolley();
   },
 
   /**

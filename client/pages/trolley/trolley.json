@@ -1,3 +1,4 @@
 {
-  "navigationBarTitleText": "进货单"  
+  "navigationBarTitleText": "进货单",
+  "enablePullDownRefresh": true
 }

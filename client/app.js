@@ -287,5 +287,15 @@ App({
       }
     })
   },
-  // Touches: new Touches()
+  exitLogin: function () {
+    getApp().globalData.registerStatus = false
+    wx.setStorage({
+      key: "globalData",
+      data: this.globalData
+    });
+
+    wx.reLaunch({
+      url: '../login/login'
+    });
+  },
 })

@@ -23,10 +23,7 @@ Page({
   },
   start: 0,
   limit: 20,
-  onPullDownRefresh: function() {
 
-
-  },
   errorFunction(e) {
     const productList = getApp().errorFunction(e, this.data.productList);
     this.setData({
@@ -104,7 +101,13 @@ Page({
         .catch(() => {
           reject()
         })
-    })
+    }).catch((errorCode) => {
+      wx.hideLoading()
+      wx.showToast({
+        icon: 'none',
+        title: '添加到购物车失败',
+      })
+    });
   },
 
   /**
@@ -114,16 +117,18 @@ Page({
     this.getMerchant()
       .then(locationId => this.getProductList(locationId))
       .then(() => {
-        getRequest(Api.getCartCount, {
+        return getRequest(Api.getCartCount, {
           merchantId: app.getMerchantId(),
           // accessToken: this.globalData.token.accessToken
         })
       })
       .then(data => {
         if (data.status === 200) {
+          const count = data.result.count;
+          globalData.badge = count;
           wx.setTabBarBadge({
             index: 2,
-            text: data.result.count + ''
+            text: count + ''
           });
         }
       })
@@ -163,11 +168,10 @@ Page({
   onHide: function() {
 
   },
-
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
+  onPullDownRefresh: function() {
+    this.start -= this.limit;
+    this.getProductList(globalData.merchant.locationId);
+  },
   onReachBottom: function() {
     this.start += this.limit;
     this.getProductList(globalData.merchant.locationId);

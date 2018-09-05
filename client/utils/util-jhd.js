@@ -290,25 +290,35 @@ const addToTrolley = (itemId) => {
       config,
       data
     })
-    .then((data) => {
-      wx.hideLoading();
+    .then(() => {
+      return getRequest(Api.getCartCount, {
+        merchantId
+      })
+    })
+    .then(data=>{
       if (data.status === 200) {
+        const count = data.result.count;
+        getApp().globalData.badge = count;
         wx.setTabBarBadge({
           index: 2,
-          text: ++getApp().globalData.badge + ''
+          text: count + ''
         });
-        wx.showToast({
-          title: '已添加到购物车',
-        });
-        return getApp().globalData.badge;
       }
     })
-    .catch((errorCode) => {
-      wx.hideLoading()
+    .then((data) => {
       wx.showToast({
-        icon: 'none',
-        title: '添加到购物车失败',
-      })
+        title: '已添加到购物车',
+      });
+    })
+    .catch(errorCode => {
+      // getApp().failRequest();
+      utils.errorHander(errorCode, this.getMerchant)
+        .then(() => {
+          resolve()
+        })
+        .catch(() => {
+          reject()
+        })
     });
 }
 const getFixedNum=(float)=>{
