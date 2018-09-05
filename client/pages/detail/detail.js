@@ -109,6 +109,9 @@ Page({
         const result = data.result[0];
         // todo
         result.putShelvesFlg = true;
+        result.itemImageAddress=(new Array(5)).map((item,index)=>{
+          return result['itemImageAddress'+index]
+        })
         this.setData({
           product: result
         })

@@ -130,19 +130,15 @@
 
 .product-row {
   display: flex;
-  justify-content: space-around;
-  margin: 0 52rpx 28rpx;
+  justify-content: space-evenly;
+  margin-bottom:16rpx;
+
 }
 
 .product-card {
-  flex: 1;
   background: #fff;
   box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.02);
   border-radius: 13rpx;
-}
-
-.product-card:nth-child(-n+2) {
-  margin-right: 16rpx;
 }
 
 .product-image {

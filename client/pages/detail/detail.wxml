@@ -1,8 +1,8 @@
 <view class='product-card'>
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
-    <block wx:for="{{product.item_image_address}}" wx:key='{{index}}'>
+    <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
       <swiper-item style='display:flex; height:100%;'>
-        <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="height:100%;;margin:0 auto;" />
+        <image bind:tap='preview' data-src="{{item?item:'../../images/logo.png'}}" src="{{item?item:'../../images/logo.png'}}" class="slide-image" style="height:100%;;margin:0 auto;" mode='aspectFit' />
       </swiper-item>
     </block>
   </swiper>
