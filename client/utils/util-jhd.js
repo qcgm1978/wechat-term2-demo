@@ -76,6 +76,7 @@ var postRequest = function({
   METHOD = 'POST',
   url,
   config,
+  postData,
   data
 }) {
   var promise = new Promise((resolve, reject) => {
@@ -85,10 +86,11 @@ var postRequest = function({
         url = url.replace(`{${prop}}`, config[prop]);
       }
     }
-    var postData = data;
+    debugger;
+    // var postData = postData||data;
     wx.request({
       url: url,
-      data: postData,
+      data: postData||data,
       method: METHOD,
       header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
@@ -271,7 +273,6 @@ const addToTrolley = (itemId) => {
   });
   const merchantId = getApp().getMerchantId();
   const data = {
-
       merchantId,
       itemId,
       locationId: String(getApp().globalData.merchant.locationId),

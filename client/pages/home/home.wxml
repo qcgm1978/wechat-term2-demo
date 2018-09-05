@@ -37,7 +37,7 @@
         <!-- <text class='minus'>满减</text> -->
       </view>
 
-      <view class='product-add center-center' catchtap='addToTrolley' data-id="{{pitem.id}}">
+      <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
         <text>+</text>
       </view>
     </view>

@@ -93,30 +93,18 @@ Page({
       });
     });
   },
-
   addToTrolley(event) {
-    let productId = event.currentTarget.dataset.id
-    let productList = this.data.productList
-    let product
-
-    for (let i = 0, len = productList.length; i < len; i++) {
-      if (productList[i].id === productId) {
-        product = productList[i]
-        break
-      }
-    }
-    if (product) {
-      utils.addToTrolley(product.itemId).catch(errorCode => {
-        // getApp().failRequest();
-        utils.errorHander(errorCode, this.getMerchant)
-          .then(() => {
-            resolve()
-          })
-          .catch(() => {
-            reject()
-          })
-      })
-    }
+    const itemId = event.currentTarget.dataset.itemid;
+    utils.addToTrolley(itemId).catch(errorCode => {
+      // getApp().failRequest();
+      utils.errorHander(errorCode, this.getMerchant)
+        .then(() => {
+          resolve()
+        })
+        .catch(() => {
+          reject()
+        })
+    })
   },
 
   /**

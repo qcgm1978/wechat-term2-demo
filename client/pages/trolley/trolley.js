@@ -54,8 +54,8 @@ Page({
     this.checkAll = !this.checkAll;
     const checkbox=[]
     const trolley = this.data.trolley.map((item,index) => {
-      item.checked = this.checkAll;
-      this.checkAll&&checkbox.push(index);
+      item.putShelvesDate && (item.checked = this.checkAll);
+      this.checkAll && item.putShelvesDate && checkbox.push(index);
       return item;
     });
     this.setMoneyData(checkbox)
@@ -91,7 +91,6 @@ Page({
   },
   getTrolley() {
     return new Promise((resolve, reject) => {
-
       utils.getRequest(getCart, {
         merchantId: app.getMerchantId(),
         locationId: globalData.merchant.locationId

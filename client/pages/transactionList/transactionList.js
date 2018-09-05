@@ -102,7 +102,7 @@ Page({
   },
   requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
-      utils.postRequest(url, postData)
+      utils.postRequest({url, postData})
         .then((data) => {
           const result = data.result;
           if (this.data.order.length + result.orders.length >= result.orderTotalCount) {
