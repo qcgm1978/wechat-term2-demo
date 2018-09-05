@@ -6,8 +6,8 @@ checkbox {
   position: relative;
   flex: none;
   width: 50px;
-  height: 30px;
-  border-radius: 30px;
+  height: 25px;
+  border-radius: 25px;
   background-color: #d7d2cb;
   cursor: pointer;
   transition: all 0.1s ease-in-out;
@@ -19,8 +19,8 @@ checkbox {
   display: block;
   position: absolute;
   top: 1px;
-  border-radius: 30px;
-  height: 28px;
+  border-radius: 23px;
+  height: 23px;
   background-color: #fff;
   transform: translate3d(0, 0, 0);
   transition: 0.2s cubic-bezier(0, 1.1, 1, 1.1);
@@ -33,7 +33,7 @@ checkbox {
 }
 .slide-toggle::after {
   z-index: 1;
-  width: 28px;
+  width: 23px;
   left: 1px;
   box-shadow: 0 1px 4px 0.5px rgba(0, 0, 0, 0.25);
 }
@@ -44,5 +44,5 @@ checkbox {
   transform: scale(0);
 }
 .checked + .slide-toggle::after {
-  transform: translate3d(20px, 0, 0);
+  transform: translate3d(25px, 0, 0);
 }
