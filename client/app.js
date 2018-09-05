@@ -38,6 +38,13 @@ App({
       return data;
     }
   },
+  setBadge(){
+    const count=this.globalData.badge ;
+    wx.setTabBarBadge({
+      index: 2,
+      text: count + ''
+    });
+  },
   getMerchantId() {
     return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
   },

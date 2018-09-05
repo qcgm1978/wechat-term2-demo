@@ -91,7 +91,7 @@ var postRequest = function({
     })
     wx.request({
       url: url,
-      data: postData||data,
+      data: postData || data,
       method: METHOD,
       header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
@@ -111,7 +111,7 @@ var postRequest = function({
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       },
-      complete(){
+      complete() {
         wx.hideLoading()
       }
     })
@@ -119,7 +119,7 @@ var postRequest = function({
   return promise;
 }
 
-var getRequest = function (url, data) {
+var getRequest = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     if (data) {
       for (const prop in data) {
@@ -134,7 +134,7 @@ var getRequest = function (url, data) {
       url: url,
       method: 'GET',
       header: {
-        'Authorization': 'Bearer ' + (data.accessToken ? data.accessToken:getApp().globalData.token.accessToken),
+        'Authorization': 'Bearer ' + (data.accessToken ? data.accessToken : getApp().globalData.token.accessToken),
         // 'X-Client-Id': 'mini-app',
         // 'Content-Type': 'application/json'
 
@@ -295,20 +295,21 @@ const addToTrolley = (itemId) => {
         merchantId
       })
     })
-    .then(data=>{
+    .then(data => {
+      let count=0;
       if (data.status === 200) {
-        const count = data.result.count;
+        count = data.result.count;
         getApp().globalData.badge = count;
         wx.setTabBarBadge({
           index: 2,
           text: count + ''
         });
+        // Promise.resolve(count)
       }
-    })
-    .then((data) => {
       wx.showToast({
         title: '已添加到购物车',
       });
+      return count;
     })
     .catch(errorCode => {
       // getApp().failRequest();
@@ -321,7 +322,7 @@ const addToTrolley = (itemId) => {
         })
     });
 }
-const getFixedNum=(float)=>{
+const getFixedNum = (float) => {
   let ret = (float).toFixed(2);
   return Number(String(ret).replace(/\.?0+$/, ''));
 }

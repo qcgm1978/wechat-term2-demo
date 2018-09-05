@@ -41,9 +41,9 @@ Page({
     }).then(data => {
       console.log(data);
       if (data.status === 200) {
-        const result = data.result[0];
+        const result = data.result;
         // todo
-        result.putShelvesFlg = true;
+        // result.putShelvesFlg = true;
         this.setData({
           product: result
         })
