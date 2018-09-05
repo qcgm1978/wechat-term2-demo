@@ -78,6 +78,13 @@ Page({
       remaining
     });
   },
+  preventBubble(){},
+  turnPage(e){
+    const itemId = e.currentTarget.dataset.itemid;
+    wx.navigateTo({
+      url: `/pages/detail/detail?itemId=${itemId}`,
+    })
+  },
   getTrolley() {
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
