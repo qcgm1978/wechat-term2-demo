@@ -1,3 +1,10 @@
+.hoverBtn{
+
+}
+.selecting-btn{
+  width:344rpx!important;
+
+}
 .goods-pic {
   border-radius: 8rpx;
   max-width: 180rpx;

@@ -81,8 +81,8 @@
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
       <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
     </view>
-    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}'>加入进货单</button>
-    <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}}'>{{buyTxt}}</button>
+    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' hover-class='hoverBtn' class='{{isSelecting?"selecting-btn":""}}'>加入进货单</button>
+    <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}}'>{{buyTxt}}</button>
   </view>
   <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top-750}}rpx;'>
     <view class='center padding' style='justify-content:space-between;'>

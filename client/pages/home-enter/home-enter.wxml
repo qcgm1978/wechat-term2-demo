@@ -2,7 +2,7 @@
 <swiper indicator-dots="{{true}}" class='hot-card' autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}">
   <block>
     <swiper-item style='display:flex;'>
-      <image src="/images/logo.png" class="slide-image" style="height: 78rpx;width: 263rpx;margin: auto;" />
+      <image src="/pages/login/images/jihuibaologo@2x.png" class="slide-image" style="height: 78rpx;width: 263rpx;margin: auto;" mode='aspectFit'/>
     </swiper-item>
     <swiper-item style='display:flex;'>
       <view>

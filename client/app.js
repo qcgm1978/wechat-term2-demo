@@ -21,7 +21,6 @@ App({
     token: {},
     userInfo: {},
     defaultImg: '/pages/login/images/jihuibaologo@2x.png',
-    // defImg: '/images/logo.png',
     payStyle: {
       "WAIT_SHIPMENT": '待发货',
       CANCELED: '订单取消',
