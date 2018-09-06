@@ -32,7 +32,7 @@ Page({
   onLoad: function(options) {
     const points = globalData.merchant.pointBalance;
     this.setData({
-      itemId: options.itemId,
+      // itemId: options.itemId,
       max: globalData.merchant.pointBalance,
       points,
       credit: this.data.isVisible ? points / 100 : 0,
@@ -133,19 +133,19 @@ Page({
       // todo
       //const createOrder ='http://dev.jhdmall.com/order/create';
       utils.postRequest({
-        url:createOrder,
+        url: createOrder,
         data: {
-            orderItems: globalData.items ? globalData.items : this.data.data.items,
-            merchantId: app.getMerchantId(),
-            locationId,
-            merchantMsg: this.data.textarea,
-            usePoint: this.data.isVisible ? this.data.points : 0,
-            totalAmount: this.data.actual,
-          recerverInfo: {
-              receiverName,
-              receiverCellPhone,
-              receiverAddress
-            }
+          orderItems:[ globalData.items ? globalData.items : this.data.data.items],
+          merchantId: app.getMerchantId(),
+          locationId: String(locationId),
+          merchantMsg: this.data.textarea||'aaa',
+          usePoint: this.data.isVisible ? this.data.points : 0,
+          totalAmount: this.data.actual,
+          receiverInfo: {
+            receiverName,
+            receiverCellPhone,
+            receiverAddress
+          }
         }
       }).then(data => {
         wx.hideLoading()

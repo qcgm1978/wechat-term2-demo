@@ -10,12 +10,11 @@ var env = EVN.DEV; //update this value for different env
 var baseUrl = ""
 var addrUrl = ""
 var clientSecret = ""
-const devBaseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1";
 
 switch (env) {
   case EVN.DEV:
     clientSecret = "OzoStRYlQVA85pjp"
-    baseUrl = devBaseUrl;
+    baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1";
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     break;
   case EVN.LOCAL:
@@ -52,10 +51,11 @@ const apiURLs = {
   removeCart: `${baseUrl}/mall/cart/remove/{merchantId}`,//删除购物车中的商品
   getCartCount:`${baseUrl}/mall/cart/count/{merchantId}`,//统计购物车商品数量
 
-  getOrder: `${baseUrl}/order/{merchantId}/{orderId}`,
-  getOrderList: `${baseUrl}/order/list`,
-  createOrder: `${baseUrl}/order/create`,
-  cancelOrder: `${baseUrl}/order/cancel`,
+  getOrder: `${baseUrl}/mall/order/{merchantId}/{orderId}`,
+  getOrderList: `${baseUrl}/mall/order/list`,
+  createOrder: `${baseUrl}/mall/order/create`,
+  cancelOrder: `${baseUrl}/mall/order/cancel`,
+  
   getProduct: `${baseUrl}/product/{merchantId}/{itemId}`,
   getMerchant: `${baseUrl}/merchant/{merchantId}`,
   backendUrlLogin: `${baseUrl}/auth/wechat`,

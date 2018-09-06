@@ -23,6 +23,7 @@ Page({
     payStyle: globalData.payStyle,
     order: {},
     salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
+    defImg: globalData.defaultImg,
     src: './images/pic.png',
     standard: '500ML*12',
     top: '',

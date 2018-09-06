@@ -1,3 +1,6 @@
+.trolley-opacity{
+  opacity:0.3;
+}
 .trolley-container {
   align-items: center;
   margin-bottom: 16rpx;

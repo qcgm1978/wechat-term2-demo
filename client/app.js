@@ -23,11 +23,10 @@ App({
     defaultImg: '/pages/login/images/jihuibaologo@2x.png',
     // defImg: '/images/logo.png',
     payStyle: {
-      "UNPAY": '待支付',
       "WAIT_SHIPMENT": '待发货',
       CANCELED: '订单取消',
       "WAIT_RECEIVE": '待收货',
-      RECEIVED: '已收货',
+      COMPLETED: '已收货',
       "RETURN_FULL": '全部退货',
       "RETURN_PART": '部分退货'
     },

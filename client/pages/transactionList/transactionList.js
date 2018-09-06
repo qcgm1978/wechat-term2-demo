@@ -33,7 +33,8 @@ Page({
       offset: 1,
       limit: 10
     },
-    isReturn:false,
+    isReturn: false,
+    defImg: globalData.defaultImg,
     tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
     isToPay: true,
@@ -50,7 +51,11 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  arrOrderStatus: [null, 1, 3, [2, 4],[5,6]],
+  arrOrderStatus: [null, [0],
+    [2],
+    [1, 3],
+    [4, 5]
+  ],
   removeOrder(evt) {
     const arr = this.data.order;
     const selectData = arr[evt.target.dataset.index];
@@ -61,9 +66,12 @@ Page({
       confirmColor: "#fcb052",
       success: res => {
         if (res.confirm) {
-          utils.postRequest(cancelOrder, {
-              orderId: selectData.orderId,
-              merchantId: globalData.merchantId
+          utils.postRequest({
+              url: cancelOrder,
+              data: {
+                orderId: selectData.orderId,
+                merchantId: app.getMerchantId()
+              }
             })
             .then((data) => {
               this.setData({
@@ -102,9 +110,17 @@ Page({
   },
   requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
-      utils.postRequest({url, postData})
+      utils.postRequest({
+          url,
+          postData
+        })
         .then((data) => {
           const result = data.result;
+          if (result.orders === null){
+            return this.setData({
+              loadCompleted:true
+            });
+          }
           if (this.data.order.length + result.orders.length >= result.orderTotalCount) {
             this.setData({
               dataMessage: NO_MORE_DATA,
@@ -123,49 +139,8 @@ Page({
           resolve()
         })
         .catch((errorCode) => {
-          // return resolve(fakeData)
           console.log(errorCode);
-          switch (errorCode) {
-            case INVALID_USER_STATUS:
-              getCurrentPages()[0].invalidUserMessage()
-              reject()
-              break
-            case DATA_NOT_FOUND:
-              reject()
-              break;
-            case ACCESS_TOCKEN_EXPIRED:
-              if (!this.requestTransList.tokenRefreshed) {
-
-                refreshAccessToken()
-                  .then(() => {
-                    this.requestTransList.tokenRefreshed = true
-                    return this.requestTransList()
-                  })
-                  .then(() => {
-                    resolve()
-                  })
-                  .catch(() => {
-                    reject()
-                  })
-
-              } else {
-                getApp().globalData.userInfo.registerStatus = false
-                wx.reLaunch({
-                  url: '../member/member'
-                })
-                reject()
-              }
-              break;
-            case CONNECTION_TIMEOUT:
-              wx.navigateTo({
-                url: '../noNetwork/noNetwork'
-              })
-              reject()
-              break;
-            default:
-              reject()
-              break;
-          }
+          utils.errorHander(err, () => this.requestTransList(url, postData))
         });
     })
     return promise
@@ -275,12 +250,12 @@ Page({
         isLast: false,
         order: []
       });
-      if (currentIndex===4){
+      if (currentIndex === 4) {
         wx.setNavigationBarTitle({
           title: '拒收列表',
         });
         this.setData({
-          isReturn:true
+          isReturn: true
         })
       }
     }
@@ -291,7 +266,7 @@ Page({
       url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
     })
   },
-  goTransDetails: function (e) {
+  goTransDetails: function(e) {
     wx.navigateTo({
       url: `../transactionDetail/transactionDetail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
     })

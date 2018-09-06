@@ -271,7 +271,7 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 
-const addToTrolley = (itemId) => {
+const addToTrolley = (itemId, quantity=1) => {
   wx.showLoading({
     title: '正在添加到购物车...',
   });
@@ -280,7 +280,7 @@ const addToTrolley = (itemId) => {
       merchantId,
       itemId,
       locationId: String(getApp().globalData.merchant.locationId),
-      quantity: '1'
+      quantity
     },
     config = {
       merchantId

@@ -22,7 +22,7 @@
 }
 
 .btn {
-  border: 2rpx solid #d1d1d2;
+  /* border: 2rpx solid #d1d1d2; */
   border-radius: 8rpx;
   margin: 16rpx 32rpx;
   background: #fff;

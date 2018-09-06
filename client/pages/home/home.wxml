@@ -13,14 +13,6 @@
     <swiper-item style='display:flex;'>
       <image src="{{item.imageUrl}}" class="slide-image" style="width: 100%; height: 234rpx" data-postId="{{item.pageUrl}}" />
     </swiper-item>
-    <!-- <swiper-item style='display:flex;'>
-      <view>
-        <view class='hot-name'>
-          <view class='hot-name-text'>{{productList[0].name}}</view>
-        </view>
-        <image class='hot-image' src='{{productList[0].image}}'></image>
-      </view>
-    </swiper-item> -->
   </block>
 </swiper>
 <view class='center-center'>
@@ -30,7 +22,7 @@
 
 <view class='product-row' wx:for='{{productList}}' wx:key='id' wx:if='{{index%2=== 1}}'>
   <navigator class='product-card' wx:for='{{[productList[index], productList[index+1]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?itemId={{pitem.itemId}}&categoryId={{pitem.itemCategoryCode}}" style='width:350rpx;'>
-    <image class='product-image' src='{{pitem.itemImageAddress1?pitem.itemImageAddress1:"../../images/logo.png"}}' mode='aspectFit' data-errorimg="{{index}}"></image>
+    <image class='product-image' src='{{pitem.itemImageAddress1?pitem.itemImageAddress1:defImg}}' mode='aspectFit' data-errorimg="{{index}}"></image>
     <view class='product-name'>{{pitem.itemName}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
