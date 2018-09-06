@@ -12,7 +12,7 @@ Page({
     points: 0,
     credit: 0,
     actual: 0,
-    isVisible:true,
+    isVisible: true,
     isReturn: false,
     isFailed: false,
     total: '',
@@ -65,13 +65,13 @@ Page({
   },
   bindinput(e) {
     const isVisible = this.data.isVisible;
-    if (globalData.merchant.pointBalance >= e.detail.value){
+    if (globalData.merchant.pointBalance >= e.detail.value) {
       this.setData({
         //points: e.detail.value,
         credit: isVisible ? e.detail.value / 100 : 0,
         actual: this.data.total - e.detail.value / 100
       });
-    }else{
+    } else {
       this.setData({
         points: globalData.merchant.pointBalance,
         credit: isVisible ? globalData.merchant.pointBalance / 100 : 0,
@@ -102,7 +102,7 @@ Page({
           return accumulator;
         }, []);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg);
-        result.quantity=quantity;
+        result.quantity = quantity;
         this.setData({
           data: [result]
         })
@@ -130,20 +130,22 @@ Page({
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
         receiverAddress = globalData.address;
-        // todo
+      // todo
       //const createOrder ='http://dev.jhdmall.com/order/create';
-      utils.postRequest(createOrder, {
-        orderItems: globalData.items ? globalData.items : this.data.data.items,
-        merchantId: app.getMerchantId(),
-        locationId,
-        merchantMsg: this.data.textarea,
-        usePoint: this.data.isVisible ? this.data.points : 0,
-        totalAmount: this.data.actual,
-        receiverInfo: {
-
-          receiverName,
-          receiverCellPhone,
-          receiverAddress
+      utils.postRequest({
+        url:createOrder,
+        data: {
+            orderItems: globalData.items ? globalData.items : this.data.data.items,
+            merchantId: app.getMerchantId(),
+            locationId,
+            merchantMsg: this.data.textarea,
+            usePoint: this.data.isVisible ? this.data.points : 0,
+            totalAmount: this.data.actual,
+          recerverInfo: {
+              receiverName,
+              receiverCellPhone,
+              receiverAddress
+            }
         }
       }).then(data => {
         wx.hideLoading()
