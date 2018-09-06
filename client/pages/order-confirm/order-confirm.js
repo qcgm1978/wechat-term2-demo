@@ -32,7 +32,7 @@ Page({
   onLoad: function(options) {
     const points = globalData.merchant.pointBalance;
     this.setData({
-      itemId: options.itemId,
+      // itemId: options.itemId,
       max: globalData.merchant.pointBalance,
       points,
       credit: this.data.isVisible ? points / 100 : 0,
