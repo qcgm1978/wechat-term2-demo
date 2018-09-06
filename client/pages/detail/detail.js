@@ -97,8 +97,6 @@ Page({
     categoryCd
   }) {
     const locationId = globalData.merchant.locationId;
-    // todo
-    // const getProductItem = 'http://192.168.2.26:10092/v1/items?locationId=55&categoryCd=1401001';
     utils.getRequest(getProductItem, {
       locationId,
       categoryCd: '',
@@ -108,8 +106,7 @@ Page({
       if (data.status === 200) {
         const result = data.result[0];
         // todo
-        result.putShelvesFlg = true;
-        const itemImageAddress = new Array(5)
+        // result.putShelvesFlg = true;
         result.itemImageAddress = (Array(5).fill('')).reduce((accumulator,item,index)=>{
           const imgAddress = result['itemImageAddress' + (index + 1)];
           imgAddress!== ''&&accumulator.push(imgAddress);
@@ -139,8 +136,6 @@ Page({
     categoryId
   }) {
     const locationId = globalData.merchant.locationId;
-    // todo
-    const getRelated = 'http://192.168.2.26:10092/v1/items/1064/related?locationId=55'
     utils.getRequest(getRelated, {
       locationId,
       // itemIds: 1064 
@@ -148,7 +143,7 @@ Page({
     }).then(data => {
       console.log(data);
       if (data.status === 200) {
-        const result = data.result[0];
+        const result = data.result;
         this.setData({
           related: result
         })
