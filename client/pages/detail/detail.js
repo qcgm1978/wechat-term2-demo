@@ -109,9 +109,13 @@ Page({
         const result = data.result[0];
         // todo
         result.putShelvesFlg = true;
-        result.itemImageAddress=(new Array(5)).map((item,index)=>{
-          return result['itemImageAddress'+index]
-        })
+        const itemImageAddress = new Array(5)
+        result.itemImageAddress = (Array(5).fill('')).reduce((accumulator,item,index)=>{
+          const imgAddress = result['itemImageAddress' + (index + 1)];
+          imgAddress!== ''&&accumulator.push(imgAddress);
+          return accumulator;
+        },[]);
+        result.itemImageAddress.length === 0 && result.itemImageAddress.push('../../images/logo.png')
         this.setData({
           product: result
         })
