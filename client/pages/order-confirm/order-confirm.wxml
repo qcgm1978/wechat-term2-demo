@@ -21,23 +21,23 @@
   <view class='scroll-container' scroll-top="{{scrollTop}}">
 
     <view>
-      <scroll-view scroll-y="true" style='max-height: 330rpx;'>
-        <view class='item-container' wx:for="{{data.items}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
-          <view class='item-container-bg'></view>
+      <scroll-view scroll-y="true" style='max-height: 216rpx;'>
+        <view class='item-container' wx:for="{{data}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
           <view class='item-container-fg'>
 
             <view class='order-content'>
               <view style="display: flex; flex-direction:row;">
-                <image src='{{item.itemIcon}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;"></image>
-                <view>
-                  <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
+                <image src='{{item.itemImageAddress[0]}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
+                <view class='column' style="justify-content: space-between; align-items:left;">
+                  <view class='darker-gray-chars item-name regular' style='width:auto;'>{{item.itemName}}</view>
                   <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                  <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
+                    <text class='confirm-price'>￥{{item.price}}</text>
+                    <text>x{{item.quantity}}</text>
+                  </view>
                 </view>
               </view>
-              <view class='darker-gray-chars column' style="align-items: flex-end;">
-                <text>￥{{item.unitPrice}}</text>
-                <text>x{{item.quantity}}</text>
-              </view>
+
             </view>
 
 

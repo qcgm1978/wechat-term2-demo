@@ -1,8 +1,8 @@
 <view class='product-card'>
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
     <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
-      <swiper-item style='display:flex; height:100%;'>
-        <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="height:100%;;margin:0 auto;" mode='aspectFit' />
+      <swiper-item class='center-center' style='height:100%;'>
+        <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="max-height:100%;" mode='aspectFit' />
       </swiper-item>
     </block>
   </swiper>
@@ -64,7 +64,7 @@
       <navigator wx:for="{{related}}" wx:key='{{index}}' url='{{"../detail/detail?itemId="+item.itemId+"&categoryId="+item.itemCategoryCode}}'>
         <swiper-item class='column' style=' margin:0 6rpx;'>
           <view class='center-center' style="width: 100%;height:230rpx;justify-content:left;">
-            <image mode='widthFix' src="{{item.itemImageAddress1?item.itemImageAddress1:'../../images/logo.png'}}" class="slide-image" style="border-radius: 8rpx;width:218rpx;max-height:100%;" />
+            <image mode='aspectFit' src="{{item.itemImageAddress1?item.itemImageAddress1:defImg}}" class="slide-image" style="border-radius: 8rpx;width:218rpx;max-height:100%;" />
           </view>
           <text class='regular relative-name'>{{item.itemName}}</text>
           <view class='center' style="width: 100%;align-items: center;">
@@ -86,7 +86,7 @@
   </view>
   <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top-750}}rpx;'>
     <view class='center padding' style='justify-content:space-between;'>
-      <image src='{{product.itemImageAddress1?product.itemImageAddress1:"../../images/logo.png"}}' class='goods-pic' mode='aspectFit' ></image>
+      <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit' ></image>
       <view>
         <view class='product-name' style="width: 444rpx;">{{product.item_brand}}</view>
         <text class='dollar product-price'>{{currentMoney}}</text>

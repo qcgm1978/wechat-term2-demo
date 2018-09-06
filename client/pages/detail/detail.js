@@ -22,10 +22,11 @@ Page({
     duration: 1000,
     minAmount: 500,
     top: globalData.systemInfo.windowHeight,
+    defImg: globalData.defaultImg,
     buyTxt: '立即购买',
     specificationList: [{
-      specification: '1*12*450ML',
-      num: 0
+      specification: '',
+      num: 1
 
     }, ],
     icon: '../../images/trolley-full.png',
@@ -112,7 +113,7 @@ Page({
           imgAddress!== ''&&accumulator.push(imgAddress);
           return accumulator;
         },[]);
-        result.itemImageAddress.length === 0 && result.itemImageAddress.push('../../images/logo.png')
+        result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg)
         this.setData({
           product: result
         })
@@ -126,7 +127,7 @@ Page({
     }).catch(err => {
       utils.errorHander(err, ()=>this.getProduct({
         itemId,
-        categoryId
+        // categoryId
       }))
       console.log(err);
     })
@@ -180,7 +181,7 @@ Page({
     this.data.product.quantity = this.data.quantity;
     globalData.items = this.data.product;
     wx.navigateTo({
-      url: `../order-confirm/order-confirm?itemId=${this.data.product.item_id}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,
+      url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,
     });
   },
   onLoad: function(options) {

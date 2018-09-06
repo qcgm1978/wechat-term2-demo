@@ -1,5 +1,7 @@
-/* @import '../transactionList/orderItem.wxss'; */
-
+.confirm-price{
+  font-size: 28rpx;
+color: #EE711F;
+}
 .trans-number-time {
   margin-left: 60rpx;
 }

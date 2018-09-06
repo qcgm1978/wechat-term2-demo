@@ -21,6 +21,7 @@ App({
     token: {},
     userInfo: {},
     defaultImg: '/pages/login/images/jihuibaologo@2x.png',
+    // defImg: '/images/logo.png',
     payStyle: {
       "UNPAY": '待支付',
       "WAIT_SHIPMENT": '待发货',

@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -72,10 +72,10 @@
 					"query": "itemId=3294&categoryId=1201006"
 				},
 				{
-					"id": 8,
+					"id": 6,
 					"name": "order-confirm",
 					"pathName": "pages/order-confirm/order-confirm",
-					"query": "itemId=123456&total=200&categoryId=7890"
+					"query": "itemId=3294&orderStatus=&total=520&quantity=4"
 				},
 				{
 					"id": -1,

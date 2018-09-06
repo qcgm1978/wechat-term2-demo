@@ -19,7 +19,8 @@ Page({
     textarea: '',
     order: {},
     name: '',
-    phone: 12345678901,
+    phone: 0,
+    defImg: globalData.defaultImg,
     salesReturn: '拒收申请已完成，积分已退回您的账户，请查询',
     address: '',
     addressStore: '../transactionDetail/images/address.png',
@@ -43,10 +44,10 @@ Page({
     })
     if (globalData.items) {
       this.setData({
-        data: globalData.items,
+        data: globalData.items instanceof Array ? globalData.items : [globalData.items],
       })
     } else {
-      this.getProduct(options.itemId, options.categoryId);
+      this.getProduct(options);
     }
   },
   onChangeChecked(myEventDetail, myEventOption) {
@@ -79,31 +80,44 @@ Page({
     }
 
   },
-  getProduct(itemId, categoryId) {
-    wx.showLoading({
-      title: '商品数据加载中...',
-    });
+  getProduct({
+    itemId,
+    categoryCd,
+    quantity
+  }) {
     const locationId = globalData.merchant.locationId;
     utils.getRequest(getProductItem, {
       locationId,
-      categoryId,
-      itemId,
-      merchantId: globalData.merchantId
+      categoryCd: '',
+      itemIds: itemId ? itemId : '',
     }).then(data => {
-      wx.hideLoading()
       console.log(data);
       if (data.status === 200) {
         const result = data.result[0];
+        // todo
+        // result.putShelvesFlg = true;
+        result.itemImageAddress = (Array(5).fill('')).reduce((accumulator, item, index) => {
+          const imgAddress = result['itemImageAddress' + (index + 1)];
+          imgAddress !== '' && accumulator.push(imgAddress);
+          return accumulator;
+        }, []);
+        result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg);
+        result.quantity=quantity;
         this.setData({
-          data: result
+          data: [result]
         })
       } else {
-        setTimeout(() => {
-          wx.navigateBack()
-        }, 2000)
+        if (data instanceof Array) {
+          this.setData({
+            product: data[0]
+          });
+        }
       }
     }).catch(err => {
-      wx.hideLoading();
+      utils.errorHander(err, () => this.getProduct({
+        itemId,
+        // categoryId
+      }))
       console.log(err);
     })
   },
