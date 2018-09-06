@@ -181,7 +181,7 @@ Page({
   },
   onReachBottom: function() {
     this.start += this.limit;
-    this.getProductList(globalData.merchant.locationId);
+    this.getProductList(getApp().globalData.merchant.locationId);
   },
 
   /**
