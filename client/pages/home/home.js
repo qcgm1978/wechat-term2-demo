@@ -19,18 +19,19 @@ Page({
     stores: [],
     productList: [], // 商品列表
     imgUrls: [{
-      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top1.jpeg",
-      "pageUrl": ""
-    },
-    {
-      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top.jpeg",
-      "pageUrl": ""
-    },
+        "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top1.jpeg",
+        "pageUrl": ""
+      },
+      {
+        "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top.jpeg",
+        "pageUrl": ""
+      },
     ],
+    defImg: globalData.defaultImg,
   },
   start: 0,
   limit: 20,
-  enablePullDownRefresh:false,
+  enablePullDownRefresh: false,
   errorFunction(e) {
     const productList = getApp().errorFunction(e, this.data.productList);
     this.setData({
@@ -113,8 +114,8 @@ Page({
   },
   onLoad: function(options) {
     this.getBanners()
-    .then(data => {})
-    .catch(err => {})
+      .then(data => {})
+      .catch(err => {})
     this.getMerchant()
       .then(locationId => this.getProductList(locationId))
       .then(() => {
@@ -171,8 +172,8 @@ Page({
   },
   onPullDownRefresh: function() {
     // if (this.enablePullDownRefresh) {
-      this.start -= this.limit;
-      this.getProductList(globalData.merchant.locationId);
+    this.start -= this.limit;
+    this.getProductList(globalData.merchant.locationId);
     // }
   },
   onReachBottom: function() {
@@ -186,18 +187,18 @@ Page({
   onShareAppMessage: function() {
 
   },
-  bannerClick: function (e) {
+  bannerClick: function(e) {
     if (e.target.dataset.postid) {
       wx.navigateTo({
         url: '../webView/webView?targetUrl=' + e.target.dataset.postid
       })
     }
   },
-  getBanners: function () {
+  getBanners: function() {
     return new Promise((resolve, reject) => {
       getRequest(getBanners, {
-        category: "merchant_home"
-      }).then(data => {
+          category: "merchant_home"
+        }).then(data => {
           this.setData({
             imgUrls: data.result
           })

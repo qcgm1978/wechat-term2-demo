@@ -10,6 +10,7 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
+    defImg: globalData.defaultImg,
     trolley: [],
     minAmount: 500,
     height: getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2,

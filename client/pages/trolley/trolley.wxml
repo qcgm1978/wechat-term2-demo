@@ -3,11 +3,11 @@
       <radio catch:tap='preventBubble' class="radio" data-index='{{index}}' value="{{index}}" checked="{{item.checked}}" disabled='{{!item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
       </radio>
       <view style="position: relative;">
-        <image src='{{item.itemImageAddress1?item.itemImageAddress1:"../../images/logo.png"}}' class='goods-img ' mode='aspectFit'>
+        <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' class='goods-img {{item.putShelvesFlg?"":"trolley-opacity"}}' mode='aspectFit'>
         </image>
         <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
       </view>
-      <view class='column trolley-right'>
+      <view class='column trolley-right {{item.putShelvesFlg?"":"trolley-opacity"}}'>
         <text class='trolley-name'>{{item.itemName}}</text>
         <view class='center trolley-middle'>
           <text class='trolley-spec'>规格：{{item.itemSpecification}}</text>
