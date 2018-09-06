@@ -85,7 +85,7 @@ Page({
       })
     }
     utils
-      .addToTrolley(this.data.product.itemId)
+      .addToTrolley(this.data.product.itemId, this.data.quantity)
       .then(badge => {
         this.setData({
           badge,
