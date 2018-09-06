@@ -130,7 +130,7 @@
   background-color: rgb(255, 255, 255);
   margin-top: 1rpx;
   line-height: 80rpx;
-  justify-content:space-evenly;
+  justify-content:space-around;
 
 }
 

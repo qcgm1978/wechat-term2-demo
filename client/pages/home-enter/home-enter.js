@@ -4,6 +4,15 @@ Page({
    */
   data: {
     productList: [], // 商品列表
+    imgUrls: [{
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top1.jpeg",
+      "pageUrl": ""
+    },
+    {
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top.jpeg",
+      "pageUrl": ""
+    },
+    ],
   },
   callPhone(evt) {
     wx.makePhoneCall({
@@ -148,5 +157,27 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  bannerClick: function (e) {
+    if (e.target.dataset.postid) {
+      wx.navigateTo({
+        url: '../webView/webView?targetUrl=' + e.target.dataset.postid
+      })
+    }
+  },
+  getBanners: function () {
+    return new Promise((resolve, reject) => {
+      getRequest(getBanners, {
+        category: "merchant_home"
+      }).then(data => {
+        this.setData({
+          imgUrls: data.result
+        })
+        resolve()
+      })
+        .catch(errorCode => {
+          reject()
+        });
+    })
+  },
 })
