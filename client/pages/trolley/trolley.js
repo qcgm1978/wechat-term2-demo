@@ -84,7 +84,7 @@ Page({
       "addTime": "2018-09-04T03:00:00.119+0000"
     }],
     minAmount: 500,
-    height: getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2,
+    height: getApp().globalData.systemInfo.windowHeight > 960 ? getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2 : 960,
     checkbox: 0,
     currentMoney: 0,
     disableBuy: true,

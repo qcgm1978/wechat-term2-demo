@@ -1,11 +1,11 @@
 <view class='product-card'>
-  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
+   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
     <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
       <swiper-item class='center-center' style='height:100%;'>
         <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="max-height:100%;" mode='aspectFit' />
       </swiper-item>
     </block>
-  </swiper>
+  </swiper> 
   <view>
     <view class='padding medium bgc'>
       <view class='product-price'>￥{{product.price}}</view>
@@ -76,13 +76,14 @@
     </swiper>
   </view>
   <text class='sold-out btn-container center-center' wx:if='{{!product.putShelvesFlg}}' >该商品已下架</text>
-  <view wx:if='{{!promotion}}' class='bgc center btns regular padding mgt btn-container' style='opacity:{{product.putShelvesFlg?1:0.3}};'>
-    <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
+  <!-- <view wx:if='{{!promotion}}' class='bgc center btns regular padding mgt btn-container' style='opacity:{{product.putShelvesFlg?1:0.3}};'> -->
+  <view wx:if='{{!promotion}}' class='bgc center btns regular padding-bottom mgt btn-container' style='opacity:{{product.putShelvesFlg?1:0.3}};'>
+     <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
       <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
     </view>
     <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}'>加入进货单</button>
-    <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}}'>{{buyTxt}}</button>
+    <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}}'>{{buyTxt}}</button> 
   </view>
   <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top-750}}rpx;'>
     <view class='center padding' style='justify-content:space-between;'>

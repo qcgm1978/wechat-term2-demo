@@ -8,7 +8,7 @@
   height: 175rpx;
   background-color: rgb(255, 255, 255);
   line-height: 80rpx;
-  justify-content: space-evenly;
+  justify-content: space-around;
   margin-top: 30rpx;
 }
 

@@ -284,3 +284,6 @@
 .opr-buy {
   background: #f5e069;
 }
+.padding-bottom {
+  padding-left: 0rpx;
+}
