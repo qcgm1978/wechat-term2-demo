@@ -1,11 +1,11 @@
 <view class='product-card'>
-   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
+  <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
     <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
       <swiper-item class='center-center' style='height:100%;'>
         <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="max-height:100%;" mode='aspectFit' />
       </swiper-item>
     </block>
-  </swiper> 
+  </swiper>
   <view>
     <view class='padding medium bgc'>
       <view class='product-price'>￥{{product.price}}</view>
@@ -75,19 +75,19 @@
       </navigator>
     </swiper>
   </view>
-  <text class='sold-out btn-container center-center' wx:if='{{!product.putShelvesFlg}}' >该商品已下架</text>
+  <text class='sold-out btn-container center-center' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
   <!-- <view wx:if='{{!promotion}}' class='bgc center btns regular padding mgt btn-container' style='opacity:{{product.putShelvesFlg?1:0.3}};'> -->
-  <view wx:if='{{!promotion}}' class='bgc center btns regular padding-bottom mgt btn-container' style='opacity:{{product.putShelvesFlg?1:0.3}};'>
-     <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
+  <view wx:if='{{!promotion}}' class='bgc center btns regular padding mgt btn-container' style='opacity:{{product.putShelvesFlg?1:0.3}};'>
+    <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
       <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
     </view>
-    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' hover-class='hoverBtn' class='{{isSelecting?"selecting-btn":""}}'>加入进货单</button>
+    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{isSelecting?"selecting-btn":""}}'>加入进货单</button>
     <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}}'>{{buyTxt}}</button>
   </view>
   <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top-750}}rpx;'>
     <view class='center padding' style='justify-content:space-between;'>
-      <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit' ></image>
+      <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit'></image>
       <view>
         <view class='product-name' style="width: 444rpx;">{{product.item_brand}}</view>
         <text class='dollar product-price'>{{currentMoney}}</text>
@@ -121,7 +121,7 @@
     <view class='promotion-list regular'>
       <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' style="height: 80rpx;">
         <text class='promotion-type'>{{item.type}}</text>
-        <text class='promotion-txt' >{{item.content}}</text>
+        <text class='promotion-txt'>{{item.content}}</text>
       </view>
     </view>
     <image src='../../images/close.png' class='close-popup' catch:tap='closePopupPromotion' style='transform:translate(-36rpx,0);'></image>
