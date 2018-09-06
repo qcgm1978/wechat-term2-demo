@@ -33,7 +33,7 @@ Page({
       offset: 1,
       limit: 10
     },
-    isReturn:false,
+    isReturn: false,
     defImg: globalData.defaultImg,
     tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
@@ -51,7 +51,11 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  arrOrderStatus: [null, [0],[ 2], [1,3],[4,5]],
+  arrOrderStatus: [null, [0],
+    [2],
+    [1, 3],
+    [4, 5]
+  ],
   removeOrder(evt) {
     const arr = this.data.order;
     const selectData = arr[evt.target.dataset.index];
@@ -62,9 +66,12 @@ Page({
       confirmColor: "#fcb052",
       success: res => {
         if (res.confirm) {
-          utils.postRequest(cancelOrder, {
-              orderId: selectData.orderId,
-              merchantId: globalData.merchantId
+          utils.postRequest({
+              url: cancelOrder,
+              data: {
+                orderId: selectData.orderId,
+                merchantId: app.getMerchantId()
+              }
             })
             .then((data) => {
               this.setData({
@@ -103,7 +110,10 @@ Page({
   },
   requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
-      utils.postRequest({url, postData})
+      utils.postRequest({
+          url,
+          postData
+        })
         .then((data) => {
           const result = data.result;
           if (this.data.order.length + result.orders.length >= result.orderTotalCount) {
@@ -158,9 +168,9 @@ Page({
               }
               break;
             case CONNECTION_TIMEOUT:
-              wx.navigateTo({
-                url: '../noNetwork/noNetwork'
-              })
+              // wx.navigateTo({
+              //   url: '../noNetwork/noNetwork'
+              // })
               reject()
               break;
             default:
@@ -276,12 +286,12 @@ Page({
         isLast: false,
         order: []
       });
-      if (currentIndex===4){
+      if (currentIndex === 4) {
         wx.setNavigationBarTitle({
           title: '拒收列表',
         });
         this.setData({
-          isReturn:true
+          isReturn: true
         })
       }
     }
@@ -292,7 +302,7 @@ Page({
       url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
     })
   },
-  goTransDetails: function (e) {
+  goTransDetails: function(e) {
     wx.navigateTo({
       url: `../transactionDetail/transactionDetail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
     })
