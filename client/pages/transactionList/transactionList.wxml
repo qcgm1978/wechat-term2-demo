@@ -9,7 +9,7 @@
   </view>
 
 
-  <view class='container-fg' hidden='{{!order.length}}'>
+  <view class='container-fg' >
     <navigator url='{{"../transactionDetail/transactionDetail?orderId="+item.orderId}}' wx:key='{{index}}' wx:for="{{order}}" wx:if='{{!item.toRemove}}'>
       <view class='item-container'>
         <view class='center regular order-container'>
@@ -54,12 +54,12 @@
         <!-- </navigator> -->
       </view>
     </navigator>
-    <view class="container footer-container-no-msg" wx:if='{{order.length==0 && loadCompleted }}'>
+    <view class="container footer-container-no-msg" wx:if='{{order.length===0 && loadCompleted }}'>
       <view class="line" style='height:1rpx; z-index: 1;'></view>
       <image class='logo' style=' z-index: 1; position：absolute; top: 0; left:0;' src="{{homeLogo}}"></image>
       <view class='footer-container-no-item-msg' style='display:flex; flex-direction: column;'>
         <view style='align-self:center;'>您还没有交易记录哦</view>
-        <view style='align-self:center;'>只支持2018年7月6日之后的数据查询</view>
+        <!-- <view style='align-self:center;'>只支持2018年7月6日之后的数据查询</view> -->
       </view>
 
     </view>

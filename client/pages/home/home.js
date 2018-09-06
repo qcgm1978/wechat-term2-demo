@@ -32,6 +32,9 @@ Page({
   start: 0,
   limit: 20,
   enablePullDownRefresh: false,
+  bindPickerChange(e){
+    getApp().globalData.currentIndex = Number(e.detail.value);
+  },
   errorFunction(e) {
     const productList = getApp().errorFunction(e, this.data.productList);
     this.setData({

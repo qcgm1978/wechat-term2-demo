@@ -116,6 +116,11 @@ Page({
         })
         .then((data) => {
           const result = data.result;
+          if (result.orders === null){
+            return this.setData({
+              loadCompleted:true
+            });
+          }
           if (this.data.order.length + result.orders.length >= result.orderTotalCount) {
             this.setData({
               dataMessage: NO_MORE_DATA,
@@ -134,49 +139,8 @@ Page({
           resolve()
         })
         .catch((errorCode) => {
-          // return resolve(fakeData)
           console.log(errorCode);
-          switch (errorCode) {
-            case INVALID_USER_STATUS:
-              getCurrentPages()[0].invalidUserMessage()
-              reject()
-              break
-            case DATA_NOT_FOUND:
-              reject()
-              break;
-            case ACCESS_TOCKEN_EXPIRED:
-              if (!this.requestTransList.tokenRefreshed) {
-
-                refreshAccessToken()
-                  .then(() => {
-                    this.requestTransList.tokenRefreshed = true
-                    return this.requestTransList()
-                  })
-                  .then(() => {
-                    resolve()
-                  })
-                  .catch(() => {
-                    reject()
-                  })
-
-              } else {
-                getApp().globalData.userInfo.registerStatus = false
-                wx.reLaunch({
-                  url: '../member/member'
-                })
-                reject()
-              }
-              break;
-            case CONNECTION_TIMEOUT:
-              // wx.navigateTo({
-              //   url: '../noNetwork/noNetwork'
-              // })
-              reject()
-              break;
-            default:
-              reject()
-              break;
-          }
+          utils.errorHander(err, () => this.requestTransList(url, postData))
         });
     })
     return promise
