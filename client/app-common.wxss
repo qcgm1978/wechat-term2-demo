@@ -71,7 +71,7 @@ page{
   color: #002f00;
   letter-spacing: 0;
   text-align: right;
-  padding: 16px;
+  padding: 26rpx;
   background: #fff;
 }
 @font-face {

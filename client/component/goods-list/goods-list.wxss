@@ -37,8 +37,8 @@
 }
 
 .item-name {
-  width: 340rpx;
-  white-space: nowrap;
+  width: 364rpx;
+  /* white-space: nowrap; */
   overflow: hidden;
   text-overflow: ellipsis;
   color: #333;

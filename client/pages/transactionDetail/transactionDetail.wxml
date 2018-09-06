@@ -24,19 +24,20 @@
     <scroll-view scroll-y="true" style='max-height: 330rpx;'>
       <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' data-itemId='{{item.itemId}}' data-categoryId='{{item.categoryId}}'>
         <view class='item-container'>
-          <view class='item-container-bg'></view>
           <view class='item-container-fg'>
             <view class='order-content'>
               <view style="display: flex; flex-direction:row;">
-                <image src='{{item.itemIcon}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;"></image>
+
+                <image src='{{item.itemIcon?item.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+
                 <view>
                   <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
                   <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
                 </view>
               </view>
-              <view class='darker-gray-chars column' style="align-items: flex-end;">
+              <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
                 <text>￥{{item.unitPrice}}</text>
-                <text>{{isReturn&&'拒收数量'}}x{{item.quantity}}</text>
+                <text class='item-standard regular'>{{isReturn&&'拒收数量'}}x{{item.quantity}}</text>
               </view>
             </view>
 
@@ -51,15 +52,15 @@
       <view class='money-amount '>
         <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; ">
           <view>商品总额</view>
-          <view> {{order.totalAmount}}</view>
+          <view class='dollar'>{{order.totalAmount}}</view>
         </view>
       </view>
 
 
       <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay}}' style="margin-top: 0;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
-          <view>积分抵扣：</view>
-          <view> {{order.payment.usePoint}}</view>
+          <view>积分抵扣</view>
+          <view class='dollar-minus'>{{order.payment.usePoint}}</view>
         </view>
       </view>
     </view>
@@ -117,11 +118,8 @@
         </view>
       </view>
     </view>
-    <view class='regular money-amount money bgc padding' hidden='{{isReturn}}'>
-      <view style="display:flex; justify-content: space-between; width: 100%; ">
-        <view></view>
-        <view catch:tap='turnPage' class='buy-again mgt'>再次购买</view>
-      </view>
+    <view class='regular  bgc padding center' hidden='{{isReturn}}' style='margin:6rpx 0 0 0;align-items:center;justify-content:flex-end;'>
+      <view catch:tap='turnPage' class='buy-again mgt'>再次购买</view>
     </view>
 
 

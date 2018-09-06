@@ -19,19 +19,18 @@
         <scroll-view scroll-y="true" style='max-height: 330rpx;'>
 
           <view class='item-container' wx:for="{{item.orderItem}}" wx:key='{{itemIndex}}'>
-            <view class='item-container-bg'></view>
             <view class='item-container-fg'>
               <view class='order-content'>
-                <view style="display: flex; flex-direction:row;">
-                  <image src='{{item.itemIcon}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;"></image>
+                <view class='center' style="flex-grow:1;">
+                  <image src='{{item.itemIcon?item.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
                   <view>
                     <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
                     <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
                   </view>
                 </view>
-                <view class='darker-gray-chars column' style="align-items: flex-end;">
+                <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:40rpx;margin-bottom:auto;">
                   <text>￥{{item.unitPrice}}</text>
-                  <text>{{isReturn?'拒收数量':''}}x{{isReturn?item.returnQuantit:item.quantity}}</text>
+                  <text class='item-standard regular'>{{isReturn?'拒收数量':''}}x{{isReturn?item.returnQuantit:item.quantity}}</text>
                 </view>
               </view>
 
@@ -39,7 +38,7 @@
             </view>
           </view>
         </scroll-view>
-        <view class='total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款':'实付'}}总额：
+        <view class='total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款总额':'合计金额'}}：
           <text style='color:#ec6515;'>￥{{item.totalAmount}}</text>
         </view>
         <view class="line" style='height:2rpx; z-index: 1;'></view>

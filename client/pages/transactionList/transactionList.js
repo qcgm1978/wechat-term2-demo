@@ -34,6 +34,7 @@ Page({
       limit: 10
     },
     isReturn:false,
+    defImg: globalData.defaultImg,
     tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
     isToPay: true,
@@ -50,7 +51,7 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  arrOrderStatus: [null, 1, 3, [2, 4],[5,6]],
+  arrOrderStatus: [null, [0],[ 2], [1,3],[4,5]],
   removeOrder(evt) {
     const arr = this.data.order;
     const selectData = arr[evt.target.dataset.index];

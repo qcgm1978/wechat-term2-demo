@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 6,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -48,10 +48,10 @@
 					"query": ""
 				},
 				{
-					"id": 4,
+					"id": 2,
 					"name": "transactionDetail",
 					"pathName": "pages/transactionDetail/transactionDetail",
-					"query": "orderId=123456&merchantId=456&notPaid=false&orderStatus=UNPAY"
+					"query": "orderId=20180906133306759316"
 				},
 				{
 					"id": 4,
