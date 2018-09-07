@@ -294,3 +294,8 @@
 .padding-bottom {
   padding-left: 0rpx;
 }
+
+.padding-vertical {
+  padding-top: 20rpx;
+  padding-bottom: 20rpx;
+}
