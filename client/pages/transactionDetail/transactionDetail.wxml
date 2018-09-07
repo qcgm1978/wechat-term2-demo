@@ -60,21 +60,21 @@
       <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay}}' style="margin-top: 0;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>积分抵扣</view>
-          <view class='dollar-minus'>{{order.payment.usePoint}}</view>
+          <view class='dollar-minus'>{{order.payment.usePoint/100}}</view>
         </view>
       </view>
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
       共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'退款':'实付'}}总额：
-      <text style='color:#ec6515;'>￥{{isReturn?order.returnInfo.refundTotalAmount:order.payment.cashAmount}}</text>
+      <text style='color:#ec6515;'>￥{{isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount}}</text>
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx;">
       <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
-            <text style="color:#888">{{isReturn?'拒收编号':'订单编号'}}：</text>{{order.orderId}}</view>
+            <text style="color:#888">{{isReturn?'拒收编号':'订单编号'}}：</text>{{order.orderReturn.returnOrderId}}</view>
           <view catch:tap='copy' class='copy'>复制</view>
         </view>
       </view>

@@ -29,6 +29,7 @@ const ITEM_COUNT_PER_PAGE = 10,
 
 Page({
   // ...switchTabs,
+  totalPages: 0,
   data: {
     config: {
       orderStatus: null,
@@ -50,7 +51,7 @@ Page({
     order: [],
     loadCompleted: false,
     homeLogo: "images/pic-no-deal.png",
-    windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth)-80,
+    windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth) - 80,
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
   arrOrderStatus: [null, [0],
@@ -100,11 +101,11 @@ Page({
     }
   },
   // 滚动切换标签样式
-  switchTab: function (e) {
+  switchTab: function(e) {
     this.toggleState(e.detail.current);
     // this.checkCor();
   },
-  toggleState(currentIndex){
+  toggleState(currentIndex) {
     const tabColors = this.data.tabColors.map((item, index) => index == currentIndex ? 'selected' : 'unselected');
     this.setData({
       currentTab: currentIndex,
@@ -127,12 +128,13 @@ Page({
         })
         .then((data) => {
           const result = data.result;
-          if (result.orders === null){
+          if (result.orders === null) {
             return this.setData({
-              loadCompleted:true
+              loadCompleted: true
             });
           }
-          if (this.data.order.length + result.orders.length >= result.orderTotalCount) {
+          const totalPages = Math.ceil(result.orderTotalCount / 10);
+          if (this.data.config.offset >= totalPages) {
             this.setData({
               dataMessage: NO_MORE_DATA,
               isLast: true
@@ -145,7 +147,8 @@ Page({
           }
 
           this.setData({
-            order: result.orders
+            order: result.orders,
+            totalPages
           })
           resolve()
         })
@@ -198,13 +201,16 @@ Page({
   },
   //加载更多
   onReachBottom: function() {
-    this.setData({
-      config: {
-        ...this.data.config,
-        offset: ++this.data.config.offset
-      }
-    });
-    this.requestMoreData(this.data.config);
+    const offset = ++this.data.config.offset;
+    if (this.data.totalPages + 1 >= offset) {
+      this.setData({
+        config: {
+          ...this.data.config,
+          offset
+        }
+      });
+      this.requestMoreData(this.data.config);
+    }
 
   },
 

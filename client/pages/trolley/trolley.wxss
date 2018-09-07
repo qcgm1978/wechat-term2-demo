@@ -26,10 +26,14 @@
 }
 
 .goods-img {
-  max-width: 208rpx;
+  width: 208rpx;
   height: 208rpx;
 }
+.radio{
+  transform:scale(.6);
+  margin-bottom:92rpx;
 
+}
 .trolley-name {
   font-size: 26rpx;
   color: #333;

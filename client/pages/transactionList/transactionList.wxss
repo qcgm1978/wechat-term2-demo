@@ -1,5 +1,4 @@
-/* @import './orderItem.wxss'; */
-
+.scoll-h{height: 100%;}
 .order-container {
   justify-content: space-between;
   padding: 0 16px;

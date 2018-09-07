@@ -67,7 +67,7 @@ Page({
     const isVisible = this.data.isVisible;
     if (globalData.merchant.pointBalance >= e.detail.value) {
       this.setData({
-        //points: e.detail.value,
+        points: e.detail.value,
         credit: isVisible ? e.detail.value / 100 : 0,
         actual: this.data.total - e.detail.value / 100
       });
@@ -116,7 +116,6 @@ Page({
     }).catch(err => {
       utils.errorHander(err, () => this.getProduct({
         itemId,
-        // categoryId
       }))
       console.log(err);
     })
@@ -130,17 +129,15 @@ Page({
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
         receiverAddress = globalData.address;
-      // todo
-      //const createOrder ='http://dev.jhdmall.com/order/create';
       utils.postRequest({
         url: createOrder,
         data: {
-          orderItems:[ globalData.items ? globalData.items : this.data.data.items],
+          orderItems: [globalData.items ? globalData.items : this.data.data.items],
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
-          merchantMsg: this.data.textarea||'aaa',
+          merchantMsg: this.data.textarea || 'aaa',
           usePoint: this.data.isVisible ? this.data.points : 0,
-          totalAmount: this.data.actual,
+          totalAmount: this.data.total,
           receiverInfo: {
             receiverName,
             receiverCellPhone,
@@ -152,15 +149,22 @@ Page({
         console.log(data);
         if (data.status === 200) {
           wx.redirectTo({
-            url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.orderTotalAmount}`,
+            url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
         } else {}
       }).catch(err => {
+        if (err === 409) {//price or putShelfFlg change
+        // 调用上个页面的onload函数实现页面重新加载
+          var pages = getCurrentPages();
+          var prevPage = pages[pages.length - 2];  //上一个页面
+          prevPage.onLoad(prevPage.options);
+        } else {
+          console.log(err);
+          this.setData({
+            isFailed: true
+          });
+        }
         wx.hideLoading();
-        console.log(err);
-        this.setData({
-          isFailed: true
-        });
       })
     })
   },
@@ -179,8 +183,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: function(options) {
   },
 
   /**
