@@ -32,7 +32,7 @@ Page({
     itemId,
     categoryCd
   }) {
-    const locationId = globalData.merchant.locationId;
+    const locationId = getApp().globalData.merchant.locationId;
     // todo
     // const getProductItem = 'http://192.168.2.26:10092/v1/items?locationId=55&categoryCd=1401001';
     utils.getRequest(getProductItem, {

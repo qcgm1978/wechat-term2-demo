@@ -39,7 +39,7 @@
                 </view>
               </scroll-view>
               <view class='total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款总额':'合计金额'}}：
-                <text style='color:#ec6515;'>￥{{item.totalAmount}}</text>
+                <text style='color:#ec6515;'>￥{{isReturn?item.orderReturn.refundCashAmount:item.totalAmount}}</text>
               </view>
               <view class="line" style='height:2rpx; z-index: 1;'></view>
 

@@ -37,7 +37,7 @@
               </view>
               <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
                 <text>￥{{item.unitPrice}}</text>
-                <text class='item-standard regular'>{{isReturn&&'拒收数量'}}x{{item.quantity}}</text>
+                <text class='item-standard regular'>{{isReturn&&'拒收数量'}}x{{isReturn?item.returnQuantit:item.quantity}}</text>
               </view>
             </view>
 

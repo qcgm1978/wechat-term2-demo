@@ -135,7 +135,7 @@ Page({
           orderItems: [globalData.items ? globalData.items : this.data.data.items],
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
-          merchantMsg: this.data.textarea || 'aaa',
+          // merchantMsg: this.data.textarea || 'aaa',
           usePoint: this.data.isVisible ? this.data.points : 0,
           totalAmount: this.data.total,
           receiverInfo: {

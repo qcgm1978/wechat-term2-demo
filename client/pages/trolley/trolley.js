@@ -100,6 +100,9 @@ Page({
     if (this.selectedRadio.includes(index)) {
       const ind = this.selectedRadio.indexOf(index);
       this.selectedRadio.splice(ind, 1);
+      this.setData({
+        checkAll:false
+      })
     } else {
       this.selectedRadio.push(index);
     }
