@@ -1,3 +1,11 @@
+import {
+  Api
+} from '../../utils/envConf.js';
+import {
+  getRequest
+} from '../../utils/util.js';
+const getBanners = Api.getBanners;
+
 Page({
   /**
    * 页面的初始数据
@@ -5,11 +13,11 @@ Page({
   data: {
     productList: [], // 商品列表
     imgUrls: [{
-      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top1.jpeg",
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home1.jpeg",
       "pageUrl": ""
     },
     {
-      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/member_top.jpeg",
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home2.jpeg",
       "pageUrl": ""
     },
     ],
@@ -108,6 +116,9 @@ Page({
     // this.getProductList();
     // this.onLaunch()
     // wx.hideTabBar();
+    this.getBanners()
+    .then(()=>{})
+    .catch(() => { })
   },
 
   /**
@@ -170,6 +181,7 @@ Page({
       getRequest(getBanners, {
         category: "merchant_home"
       }).then(data => {
+        console.log(data.result)
         this.setData({
           imgUrls: data.result
         })
