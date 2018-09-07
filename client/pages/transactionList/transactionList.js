@@ -279,10 +279,19 @@ Page({
     this.requestMoreData(this.data.config);
   },
   addGotoTrolley: function(e) {
+    const dataset = e.currentTarget.dataset;
+    const orderItem = dataset.orderitem;
+    const arr=orderItem.map(item=>({
+      itemId:item.itemId,
+      quantity:item.quantity
+    }));
     utils
-      .addToTrolley(this.data.product.itemId, this.data.quantity)
+      .addToTrolley(arr)
       .then(badge => {
-        debugger;
+        getApp().globalData.buyAgainGoods = arr
+        wx.switchTab({
+          url: `/pages/trolley/trolley`,
+        })
       })
     // wx.navigateTo({
     //   url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`

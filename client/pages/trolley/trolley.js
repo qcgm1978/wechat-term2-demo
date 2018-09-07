@@ -182,13 +182,14 @@ Page({
     const dataset = e.currentTarget.dataset;
     const index = dataset.index,
       type = dataset.type;
-    const currentNum = this.data.trolley[index].quantity;
+    const currentTrolley = this.data.trolley[index];
+    const currentNum = currentTrolley.quantity;
     const isMinus = (type === 'minus');
     if ((currentNum === 1) && isMinus) {
       return;
     }
     const num = isMinus ? (currentNum - 1) : (currentNum + 1);
-    let currentMoney = num * this.data.trolley[index].price;
+    let currentMoney = num * currentTrolley.price;
     let remaining = this.data.minAmount - currentMoney;
     remaining = utils.getFixedNum(remaining)
     const enableBuy = remaining <= 0;
@@ -205,7 +206,12 @@ Page({
       currentMoney,
       buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
       enableBuy
-    })
+    });
+    utils
+      .addToTrolley(currentTrolley.itemId, isMinus?-1:1)
+      .then(badge => {
+        debugger;
+      })
   },
   onReady: function() {
 

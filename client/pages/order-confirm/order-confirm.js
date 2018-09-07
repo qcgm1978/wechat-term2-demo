@@ -132,7 +132,7 @@ Page({
       utils.postRequest({
         url: createOrder,
         data: {
-          orderItems: [globalData.items ? globalData.items : this.data.data.items],
+          orderItems: globalData.items instanceof Array ? globalData.items:[globalData.items ? globalData.items : this.data.data.items],
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
           // merchantMsg: this.data.textarea || 'aaa',

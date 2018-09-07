@@ -282,54 +282,52 @@ const addToTrolley = (itemId, quantity = 1) => {
       itemId,
       locationId,
       quantity,
-      addItemList:[
-        {
-          itemId,
-          quantity
-        }
-      ]
+      addItemList: itemId instanceof Array ? itemId : [{
+        itemId,
+        quantity
+      }]
     },
     config = {
       merchantId,
       locationId
     }
-  return new Promise((resolve,reject)=>{
+  return new Promise((resolve, reject) => {
     postRequest({
-      url: Api.addTrolley,
-      config,
-      data
-    })
-    .then(() => {
-      return getRequest(Api.getCartCount, {
-        merchantId
+        url: Api.addTrolley,
+        config,
+        data
       })
-    })
-    .then(data => {
-      let count = 0;
-      if (data.status === 200) {
-        count = data.result.count;
-        getApp().globalData.badge = count;
-        wx.setTabBarBadge({
-          index: 2,
-          text: count + ''
+      .then(() => {
+        return getRequest(Api.getCartCount, {
+          merchantId
+        })
+      })
+      .then(data => {
+        let count = 0;
+        if (data.status === 200) {
+          count = data.result.count;
+          getApp().globalData.badge = count;
+          wx.setTabBarBadge({
+            index: 2,
+            text: count + ''
+          });
+          // Promise.resolve(count)
+        }
+        wx.showToast({
+          title: quantity > 0 ? '已添加到进货单' : '已从进货单移除',
         });
-        // Promise.resolve(count)
-      }
-      wx.showToast({
-        title: '已添加到购物车',
+        resolve( count);
+      })
+      .catch(errorCode => {
+        // getApp().failRequest();
+        // errorHander(errorCode, this.getMerchant)
+        //   .then(() => {
+        //     resolve()
+        //   })
+        //   .catch(() => {
+        reject()
+        // })
       });
-      return count;
-    })
-    .catch(errorCode => {
-      // getApp().failRequest();
-      // errorHander(errorCode, this.getMerchant)
-      //   .then(() => {
-      //     resolve()
-      //   })
-      //   .catch(() => {
-      reject()
-      // })
-    });
   });
 }
 const getFixedNum = (float) => {

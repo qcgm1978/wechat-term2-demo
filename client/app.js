@@ -29,6 +29,7 @@ App({
       "RETURN_FULL": '全部退货',
       "RETURN_PART": '部分退货'
     },
+    buyAgaingoods:[]
   },
   errorFunction(e, data) {
     if (e.type == "error") {
