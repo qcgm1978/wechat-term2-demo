@@ -2,6 +2,7 @@ var URLs = require("../../utils/envConf.js").Api;
 var utils = require("../../utils/util.js");
 var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessToken;
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
+// import switchTabs from './switchTab'
 let refreshTimeExpired = true,
   refreshTimeExpiredToPay = true;
 const app = getApp();
@@ -27,6 +28,7 @@ const ITEM_COUNT_PER_PAGE = 10,
   hidePaid = true;
 
 Page({
+  // ...switchTabs,
   data: {
     config: {
       orderStatus: null,
@@ -48,7 +50,7 @@ Page({
     order: [],
     loadCompleted: false,
     homeLogo: "images/pic-no-deal.png",
-    windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
+    windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth)-80,
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
   arrOrderStatus: [null, [0],
@@ -92,21 +94,30 @@ Page({
   toggleTab(evt) {
     try {
       let currentIndex = evt.target.dataset.index
-      const tabColors = this.data.tabColors.map((item, index) => index == currentIndex ? 'selected' : 'unselected');
-      this.setData({
-        tabColors,
-        config: {
-          ...this.data.config,
-          orderStatus: this.arrOrderStatus[currentIndex],
-          offset: 1,
-        },
-        isLast: false,
-        order: []
-      });
-      this.requestMoreData(this.data.config);
+      this.toggleState(currentIndex)
     } catch (e) {
 
     }
+  },
+  // 滚动切换标签样式
+  switchTab: function (e) {
+    this.toggleState(e.detail.current);
+    // this.checkCor();
+  },
+  toggleState(currentIndex){
+    const tabColors = this.data.tabColors.map((item, index) => index == currentIndex ? 'selected' : 'unselected');
+    this.setData({
+      currentTab: currentIndex,
+      tabColors,
+      config: {
+        ...this.data.config,
+        orderStatus: this.arrOrderStatus[currentIndex],
+        offset: 1,
+      },
+      isLast: false,
+      order: []
+    });
+    this.requestMoreData(this.data.config);
   },
   requestTransList: function(url, postData) {
     var promise = new Promise((resolve, reject) => {
@@ -140,7 +151,7 @@ Page({
         })
         .catch((errorCode) => {
           console.log(errorCode);
-          utils.errorHander(err, () => this.requestTransList(url, postData))
+          utils.errorHander(errorCode, () => this.requestTransList(url, postData))
         });
     })
     return promise
@@ -261,10 +272,15 @@ Page({
     }
     this.requestMoreData(this.data.config);
   },
-  goDetails: function(e) {
-    wx.navigateTo({
-      url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
-    })
+  addGotoTrolley: function(e) {
+    utils
+      .addToTrolley(this.data.product.itemId, this.data.quantity)
+      .then(badge => {
+        debugger;
+      })
+    // wx.navigateTo({
+    //   url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
+    // })
   },
   goTransDetails: function(e) {
     wx.navigateTo({

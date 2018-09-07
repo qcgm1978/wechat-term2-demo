@@ -8,70 +8,70 @@
     <text class='{{tabColors[3]}}' data-index='3'>已完成</text>
   </view>
 
+  <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{windowHeight}}rpx">
+    <swiper-item wx:for="{{[0,1,2,3]}}" wx:key='*this'>
+      <view class='container-fg'>
+        <navigator url='{{"../transactionDetail/transactionDetail?orderId="+item.orderId}}' wx:key='{{index}}' wx:for="{{order}}" wx:if='{{!item.toRemove}}'>
+          <view class='item-container'>
+            <view class='center regular order-container'>
+              <text class='order-num'>{{isReturn?'拒收编号':'订单号'}}：{{item.orderId}}</text>
+              <text class='order-state'>{{payStyle[item.orderStatus]}}</text>
+            </view>
+            <scroll-view scroll-y="true" style='max-height: 330rpx;'>
 
-  <view class='container-fg' >
-    <navigator url='{{"../transactionDetail/transactionDetail?orderId="+item.orderId}}' wx:key='{{index}}' wx:for="{{order}}" wx:if='{{!item.toRemove}}'>
-      <view class='item-container'>
-        <view class='center regular order-container'>
-          <text class='order-num'>{{isReturn?'拒收编号':'订单号'}}：{{item.orderId}}</text>
-          <text class='order-state'>{{payStyle[item.orderStatus]}}</text>
-        </view>
-        <scroll-view scroll-y="true" style='max-height: 330rpx;'>
-
-          <view class='item-container' wx:for="{{item.orderItem}}" wx:key='{{itemIndex}}'>
-            <view class='item-container-fg'>
-              <view class='order-content'>
-                <view class='center' style="flex-grow:1;">
-                  <image src='{{item.itemIcon?item.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
-                  <view>
-                    <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
-                    <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+              <view class='item-container' wx:for="{{item.orderItem}}" wx:key='{{itemIndex}}'>
+                <view class='item-container-fg'>
+                  <view class='order-content'>
+                    <view class='center' style="flex-grow:1;">
+                      <image src='{{item.itemIcon?item.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                      <view>
+                        <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
+                        <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                      </view>
+                    </view>
+                    <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:40rpx;margin-bottom:auto;">
+                      <text>￥{{item.unitPrice}}</text>
+                      <text class='item-standard regular'>{{isReturn?'拒收数量':''}}x{{isReturn?item.returnQuantit:item.quantity}}</text>
+                    </view>
                   </view>
                 </view>
-                <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:40rpx;margin-bottom:auto;">
-                  <text>￥{{item.unitPrice}}</text>
-                  <text class='item-standard regular'>{{isReturn?'拒收数量':''}}x{{isReturn?item.returnQuantit:item.quantity}}</text>
-                </view>
               </view>
-
-
+            </scroll-view>
+            <view class='total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款总额':'合计金额'}}：
+              <text style='color:#ec6515;'>￥{{item.totalAmount}}</text>
             </view>
+            <view class="line" style='height:2rpx; z-index: 1;'></view>
+
+
+            <view style="display: flex;background:#fff;">
+              <text style="flex-grow: 1;"></text>
+              <button class='btn regular' catchtap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[item.orderStatus]==="待发货"}}'>取消订单</button>
+              <button wx:elif='{{isReturn}}' class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" catch:tap="goTransDetails">拒收详情</button>
+
+              <button wx:else class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" catch:tap="addGotoTrolley">再次购买</button>
+            </view>
+            <!-- </navigator> -->
           </view>
-        </scroll-view>
-        <view class='total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款总额':'合计金额'}}：
-          <text style='color:#ec6515;'>￥{{item.totalAmount}}</text>
+        </navigator>
+        <view class="container footer-container-no-msg" wx:if='{{order.length===0 && loadCompleted }}'>
+          <view class="line" style='height:1rpx; z-index: 1;'></view>
+          <image class='logo' style=' z-index: 1; position：absolute; top: 0; left:0;' src="{{homeLogo}}"></image>
+          <view class='footer-container-no-item-msg' style='display:flex; flex-direction: column;'>
+            <view style='align-self:center;'>您还没有交易记录哦</view>
+            <!-- <view style='align-self:center;'>只支持2018年7月6日之后的数据查询</view> -->
+          </view>
+
         </view>
-        <view class="line" style='height:2rpx; z-index: 1;'></view>
 
+        <view class='footer-container-has-msg' wx:else>
+          <view class="line-gray" style='width:{{windowWidth-60}}rpx; '></view>
+          <view class="line-gray" style='width:{{windowWidth-60}}rpx;'></view>
 
-        <view style="display: flex;background:#fff;">
-          <text style="flex-grow: 1;"></text>
-          <button class='btn regular' catchtap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[item.orderStatus]==="待发货"}}'>取消订单</button>
-          <button wx:elif='{{isReturn}}' class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" catch:tap="goTransDetails">拒收详情</button>
-
-          <button wx:else class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" catch:tap="goDetails">再次购买</button>
+          <view class="bottom-gray footer-container-has-msg-content" style='display: flex; flex-direction: column; width: 480rpx;'>
+            <view style='align-self: center;'>{{dataMessage}}</view>
+          </view>
         </view>
-        <!-- </navigator> -->
       </view>
-    </navigator>
-    <view class="container footer-container-no-msg" wx:if='{{order.length===0 && loadCompleted }}'>
-      <view class="line" style='height:1rpx; z-index: 1;'></view>
-      <image class='logo' style=' z-index: 1; position：absolute; top: 0; left:0;' src="{{homeLogo}}"></image>
-      <view class='footer-container-no-item-msg' style='display:flex; flex-direction: column;'>
-        <view style='align-self:center;'>您还没有交易记录哦</view>
-        <!-- <view style='align-self:center;'>只支持2018年7月6日之后的数据查询</view> -->
-      </view>
-
-    </view>
-
-    <view class='footer-container-has-msg' wx:else>
-      <view class="line-gray" style='width:{{windowWidth-60}}rpx; '></view>
-      <view class="line-gray" style='width:{{windowWidth-60}}rpx;'></view>
-
-      <view class="bottom-gray footer-container-has-msg-content" style='display: flex; flex-direction: column; width: 480rpx;'>
-        <view style='align-self: center;'>{{dataMessage}}</view>
-      </view>
-    </view>
-  </view>
-
+    </swiper-item>
+  </swiper>
 </view>
