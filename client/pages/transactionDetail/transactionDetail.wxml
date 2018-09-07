@@ -21,9 +21,9 @@
     </view>
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
-    <scroll-view scroll-y="true" style='max-height: 330rpx;'>
-      <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' data-itemId='{{item.itemId}}' data-categoryId='{{item.categoryId}}'>
-        <view class='item-container'>
+    <scroll-view scroll-y="true" style='max-height: 330rpx;' class='bgc'>
+      <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' data-itemId='{{item.itemId}}' data-categoryId='{{item.categoryId}}' >
+        <view class='item-container' style="height: 160rpx;">
           <view class='item-container-fg'>
             <view class='order-content'>
               <view style="display: flex; flex-direction:row;">

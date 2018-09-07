@@ -60,10 +60,8 @@ Page({
     })
   },
   upper() {
-    // if (this.enablePullDownRefresh) {
-    //   this.start -= this.limit;
-    //   this.getTrolley();
-    // }
+    this.start = 0;
+    this.getTrolley();
   },
   lower() {
     this.start += this.limit;
@@ -238,7 +236,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+   
   },
   onReachBottom: function() {
 
