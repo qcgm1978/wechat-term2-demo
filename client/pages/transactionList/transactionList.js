@@ -288,7 +288,7 @@ Page({
     utils
       .addToTrolley(arr)
       .then(badge => {
-        getApp().globalData.buyAgainGoods = arr
+        getApp().globalData.buyAgainGoods = arr.map(item=>item.itemId)
         wx.switchTab({
           url: `/pages/trolley/trolley`,
         })

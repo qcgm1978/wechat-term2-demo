@@ -16,7 +16,7 @@ Page({
     height: getApp().globalData.systemInfo.windowHeight > 960 ? getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2 : 960,
     checkbox: 0,
     currentMoney: 0,
-    hasOrders:true,
+    hasOrders: true,
     disableBuy: true,
     checkAll: false,
   },
@@ -60,7 +60,7 @@ Page({
       trolley,
     })
   },
-  gotoSort(){
+  gotoSort() {
     wx.switchTab({
       url: '/pages/sort/sort',
     })
@@ -132,6 +132,10 @@ Page({
   },
   getTrolley() {
     return new Promise((resolve, reject) => {
+      let buyAgainGoods = getApp().globalData.buyAgainGoods;
+      if (buyAgainGoods.length) {
+        this.start = 0;
+      }
       utils.getRequest(getCart, {
         merchantId: app.getMerchantId(),
         locationId: getApp().globalData.merchant.locationId,
@@ -140,18 +144,24 @@ Page({
       }).then(({
         result
       }) => {
-        if (this.data.checkAll) {
-          result = result.map(item => {
-            item.putShelvesFlg && (item.checked = true);
-            return item;
-          })
-        }
-        result=[]
-        const trolley = this.data.trolley.concat(result);
+        result = result.map(item => {
+          if (item.putShelvesFlg && (this.data.checkAll || buyAgainGoods.includes(item.itemId))){
+            item.checked = true
+          }
+          return item;
+        })
+        // result=[]
+        const trolley = buyAgainGoods.length ? result: this.data.trolley.concat(result) ;
         this.setData({
           trolley,
           hasOrders: trolley.length
         });
+        if(buyAgainGoods.length){
+          this.setData({
+            scrollTop:0
+          })
+        }
+        getApp().globalData.buyAgainGoods = []
         resolve(result)
       }).catch(errorCode => {
         // getApp().failRequest();
@@ -169,7 +179,8 @@ Page({
     })
   },
   del(e) {
-    const itemId = e.currentTarget.dataset.itemid;
+    const dataset = e.currentTarget.dataset;
+    const itemId = dataset.itemid;
     utils.postRequest({
       METHOD: 'DELETE',
       url: Api.removeCart,
@@ -185,7 +196,11 @@ Page({
         icon: 'success',
         duration: 2000
       });
-      this.getTrolley();
+      // this.getTrolley();
+      const itemStr = `trolley[${dataset.index}].isRemoved`;
+      this.setData({
+        [itemStr]: true
+      })
     })
   },
   plusMinus(e) {
@@ -218,7 +233,7 @@ Page({
       enableBuy
     });
     utils
-      .addToTrolley(currentTrolley.itemId, isMinus?-1:1)
+      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1)
       .then(badge => {
         debugger;
       })
@@ -248,7 +263,7 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-   
+
   },
   onReachBottom: function() {
 
