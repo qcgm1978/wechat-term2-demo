@@ -46,7 +46,7 @@ const apiURLs = {
   getProductItem: `${baseUrl}/mall/items?locationId={locationId}&categoryCd={categoryCd}&itemIds={itemIds}`,
   getRelated: `${baseUrl}/mall/items/{itemIds}/related?locationId={locationId}`,
 
-  addTrolley: `${baseUrl}/mall/cart/add/{merchantId}`,//添加商品到购物车
+  addTrolley: `${baseUrl}/mall/cart/add/{merchantId}/{locationId}`,//添加商品到购物车
   getCart: `${baseUrl}/mall/cart/{merchantId}/{locationId}?start={start}&limit={limit}`,//取得购物车商品列表
   removeCart: `${baseUrl}/mall/cart/remove/{merchantId}`,//删除购物车中的商品
   getCartCount:`${baseUrl}/mall/cart/count/{merchantId}`,//统计购物车商品数量

@@ -271,21 +271,30 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 
-const addToTrolley = (itemId, quantity=1) => {
+const addToTrolley = (itemId, quantity = 1) => {
   wx.showLoading({
     title: '正在添加到购物车...',
   });
   const merchantId = getApp().getMerchantId();
+  const locationId = String(getApp().globalData.merchant.locationId);
   const data = {
       merchantId,
       itemId,
-      locationId: String(getApp().globalData.merchant.locationId),
-      quantity
+      locationId,
+      quantity,
+      addItemList:[
+        {
+          itemId,
+          quantity
+        }
+      ]
     },
     config = {
-      merchantId
+      merchantId,
+      locationId
     }
-  return postRequest({
+  return new Promise((resolve,reject)=>{
+    postRequest({
       url: Api.addTrolley,
       config,
       data
@@ -296,7 +305,7 @@ const addToTrolley = (itemId, quantity=1) => {
       })
     })
     .then(data => {
-      let count=0;
+      let count = 0;
       if (data.status === 200) {
         count = data.result.count;
         getApp().globalData.badge = count;
@@ -313,14 +322,15 @@ const addToTrolley = (itemId, quantity=1) => {
     })
     .catch(errorCode => {
       // getApp().failRequest();
-      utils.errorHander(errorCode, this.getMerchant)
-        .then(() => {
-          resolve()
-        })
-        .catch(() => {
-          reject()
-        })
+      // errorHander(errorCode, this.getMerchant)
+      //   .then(() => {
+      //     resolve()
+      //   })
+      //   .catch(() => {
+      reject()
+      // })
     });
+  });
 }
 const getFixedNum = (float) => {
   let ret = (float).toFixed(2);
