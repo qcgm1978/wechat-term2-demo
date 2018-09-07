@@ -32,7 +32,7 @@ Page({
   start: 0,
   limit: 20,
   enablePullDownRefresh: false,
-  bindPickerChange(e){
+  bindPickerChange(e) {
     getApp().globalData.currentIndex = Number(e.detail.value);
   },
   errorFunction(e) {
@@ -97,23 +97,25 @@ Page({
     });
   },
   addToTrolley(event) {
-    const itemId = event.currentTarget.dataset.itemid;
-    utils.addToTrolley(itemId).catch(errorCode => {
-      // getApp().failRequest();
-      utils.errorHander(errorCode, this.getMerchant)
-        .then(() => {
-          resolve()
+    return new Promise((resolve, reject) => {
+      const itemId = event.currentTarget.dataset.itemid;
+      utils.addToTrolley(itemId).catch(errorCode => {
+        // getApp().failRequest();
+        utils.errorHander(errorCode, this.getMerchant)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      }).catch((errorCode) => {
+        wx.hideLoading()
+        wx.showToast({
+          icon: 'none',
+          title: '添加到购物车失败',
         })
-        .catch(() => {
-          reject()
-        })
-    }).catch((errorCode) => {
-      wx.hideLoading()
-      wx.showToast({
-        icon: 'none',
-        title: '添加到购物车失败',
-      })
-    });
+      });
+    })
   },
   onLoad: function(options) {
     this.getBanners()

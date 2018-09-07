@@ -16,6 +16,7 @@ Page({
     height: getApp().globalData.systemInfo.windowHeight > 960 ? getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2 : 960,
     checkbox: 0,
     currentMoney: 0,
+    hasOrders:true,
     disableBuy: true,
     checkAll: false,
   },
@@ -57,6 +58,11 @@ Page({
 
     this.setData({
       trolley,
+    })
+  },
+  gotoSort(){
+    wx.switchTab({
+      url: '/pages/sort/sort',
     })
   },
   upper() {
@@ -140,8 +146,11 @@ Page({
             return item;
           })
         }
+        result=[]
+        const trolley = this.data.trolley.concat(result);
         this.setData({
-          trolley: this.data.trolley.concat(result)
+          trolley,
+          hasOrders: trolley.length
         });
         resolve(result)
       }).catch(errorCode => {
@@ -151,6 +160,9 @@ Page({
             resolve()
           })
           .catch(() => {
+            this.setData({
+              hasOrders: this.data.trolley.length
+            });
             reject()
           })
       })
