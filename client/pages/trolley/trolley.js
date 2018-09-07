@@ -26,12 +26,12 @@ Page({
   onLoad: function(options) {},
   confirmOrder() {
     if (!this.data.disableBuy) {
-      globalData.items = this.data.trolley.reduce((accumulator,item)=>{
-        if(item.checked){
+      globalData.items = this.data.trolley.reduce((accumulator, item) => {
+        if (item.checked) {
           accumulator.push(item)
         }
         return accumulator;
-      },[]);
+      }, []);
       wx.navigateTo({
         url: `../order-confirm/order-confirm?total=${this.data.currentMoney}&quantity=${this.data.checkbox}`,
       });
@@ -84,16 +84,17 @@ Page({
     const checkbox = e.detail.value;
     this.setMoneyData(checkbox)
   },
-  setMoneyData(checkbox) {
-    const currentMoney = this.getTotalPrice(checkbox)
+  setMoneyData(selectedRadio) {
+    const currentMoney = this.getTotalPrice(selectedRadio)
     const remaining = 500 - currentMoney;
     const disableBuy = remaining > 0
     this.setData({
-      checkbox: checkbox.length,
+      checkbox: selectedRadio.length,
       currentMoney,
       disableBuy,
       remaining
     });
+    this.selectedRadio = selectedRadio;
   },
   preventBubble(e) {
     const index = e.currentTarget.dataset.index;
@@ -101,7 +102,7 @@ Page({
       const ind = this.selectedRadio.indexOf(index);
       this.selectedRadio.splice(ind, 1);
       this.setData({
-        checkAll:false
+        checkAll: false
       })
     } else {
       this.selectedRadio.push(index);
@@ -115,7 +116,6 @@ Page({
       }
       return item;
     });
-
     this.setData({
       trolley,
     })
