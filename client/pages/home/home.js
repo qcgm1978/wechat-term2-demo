@@ -177,7 +177,7 @@ Page({
   },
   onPullDownRefresh: function() {
     // if (this.enablePullDownRefresh) {
-    this.start -= this.limit;
+    this.start = 0;
     this.getProductList(globalData.merchant.locationId);
     // }
   },
