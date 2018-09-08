@@ -41,7 +41,7 @@
     </view>
   </view>
   <view class='center check-container'>
-    <view catch:tap="callPhone" class='check medium'>马上入驻</view>
+    <view catch:tap="callPhone" class='check medium' hover-class='btn-hover'>马上入驻</view>
   </view>
 
 </view>
@@ -52,4 +52,4 @@
 <view class='center-center'>
   <image src='./img/product.png' style="height: 400rpx;" mode='aspectFit'></image>
 </view>
-<view class='exit' catch:tap='exitLogin' style="margin-top: 15rpx;">退出登录</view>
+<view class='exit' catch:tap='exitLogin' style="margin-top: 15rpx;" hover-class='btn-hover'>退出登录</view>

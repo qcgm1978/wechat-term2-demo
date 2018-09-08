@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 10,
 			"list": [
 				{
 					"id": -1,
@@ -94,6 +94,12 @@
 					"name": "sort-list",
 					"pathName": "pages/sort-list/sort-list",
 					"query": "categoryCd=2302001&name=面巾纸"
+				},
+				{
+					"id": -1,
+					"name": "home-enter",
+					"pathName": "pages/home-enter/home-enter",
+					"query": "orderId=20180907161209050562"
 				}
 			]
 		}
