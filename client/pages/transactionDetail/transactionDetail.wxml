@@ -22,7 +22,7 @@
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
     <scroll-view scroll-y="true" style='max-height: 330rpx;' class='bgc'>
-      <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' data-itemId='{{item.itemId}}' data-categoryId='{{item.categoryId}}' >
+      <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' data-itemId='{{item.itemId}}' data-categoryId='{{item.categoryId}}'>
         <view class='item-container' style="height: 160rpx;">
           <view class='item-container-fg'>
             <view class='order-content'>
@@ -119,7 +119,7 @@
       </view>
     </view>
     <view class='regular  bgc padding center' hidden='{{isReturn}}' style='margin:6rpx 0 0 0;align-items:center;justify-content:flex-end;'>
-      <view catch:tap='turnPage' class='buy-again mgt'>再次购买</view>
+      <view catch:tap='addGotoTrolley' class='buy-again mgt' hover-class='btn-hover' data-orderitem='{{order.orderItem}}'>再次购买</view>
     </view>
 
 

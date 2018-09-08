@@ -153,7 +153,6 @@ Page({
           }
           return item;
         });
-        this.setMoneyData(this.selectedRadio);
         
         // result=[]
         const trolley = buyAgainGoods.length ? result : this.data.trolley.concat(result);
@@ -161,6 +160,7 @@ Page({
           trolley,
           hasOrders: trolley.length
         });
+        this.setMoneyData(this.selectedRadio);
         if (buyAgainGoods.length) {
           this.setData({
             scrollTop: 0

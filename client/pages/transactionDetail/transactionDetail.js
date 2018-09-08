@@ -56,6 +56,22 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
+  addGotoTrolley: function (e) {
+    const dataset = e.currentTarget.dataset;
+    const orderItem = dataset.orderitem;
+    const arr = orderItem.map(item => ({
+      itemId: item.itemId,
+      quantity: item.quantity
+    }));
+    utils
+      .addToTrolley(arr)
+      .then(badge => {
+        getApp().globalData.buyAgainGoods = arr.map(item => item.itemId)
+        wx.switchTab({
+          url: `/pages/trolley/trolley`,
+        })
+      });
+  },
   copy() {
     wx.setClipboardData({
       data: this.data.orderId + ''

@@ -168,7 +168,10 @@ page{
   width: 280rpx;
   height: 80rpx;
 }
+.btn-hover{
+  opacity:0.6;
 
+}
 .exit {
   width: 670rpx;
   height: 96rpx;

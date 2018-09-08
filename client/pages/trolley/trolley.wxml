@@ -44,7 +44,7 @@
         <view style="font-size: 42rpx; padding-left:0rpx;">全选</view>
       </radio>
       <text>合计:<text class='dollar trolley-num medium'>{{currentMoney}}</text></text>
-      <button class='trolley-btn center-center {{disableBuy?"":"enable"}}' catch:tap='confirmOrder'>确认订单({{checkbox}})</button>
+      <button class='trolley-btn center-center {{disableBuy?"":"enable"}}' catch:tap='confirmOrder' hover-class='btn-hover'>确认订单({{checkbox}})</button>
     </view>
   </view>
 </view>
