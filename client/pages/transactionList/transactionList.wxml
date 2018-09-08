@@ -76,7 +76,7 @@
       </scroll-view>
     </swiper-item>
   </swiper>
-  <view wx:else class='regular trolley-empty center-center'>
+  <view wx:else class='regular trolley-empty center-center' style="margin-top: 246rpx;">
   <view class='column'>
     <image src='/images/no-net.png'></image>
     <text>您的网络信号很差喔</text>

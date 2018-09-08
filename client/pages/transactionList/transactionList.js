@@ -259,12 +259,12 @@ Page({
 
   onLoad: function(option) {
     this.requestTransList.tokenRefreshed = false
-    wx.showLoading({
-      title: '加载中',
-    })
-    setTimeout(() => {
-      wx.hideLoading()
-    }, 10000);
+    // wx.showLoading({
+    //   title: '加载中',
+    // })
+    // setTimeout(() => {
+    //   wx.hideLoading()
+    // }, 10000);
     if (option.tab) {
       const currentIndex = Number(option.tab);
       const tabColors = this.data.tabColors.map((item, index) => index === currentIndex ? 'selected' : 'unselected');
