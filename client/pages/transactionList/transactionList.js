@@ -129,12 +129,16 @@ Page({
         })
         .then((data) => {
           const result = data.result;
+          const totalPages = Math.ceil(result.orderTotalCount / 10);
+          this.setData({
+            totalPages,
+          })
           if (result.orders === null) {
-            return this.setData({
+             this.setData({
               loadCompleted: true
             });
+            return resolve(data)
           }
-          const totalPages = Math.ceil(result.orderTotalCount / 10);
           if (this.data.config.offset >= totalPages) {
             this.setData({
               dataMessage: NO_MORE_DATA,
@@ -149,7 +153,6 @@ Page({
 
           this.setData({
             order: result.orders,
-            totalPages,
             hasNetwork:true
           })
           resolve()
