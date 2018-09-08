@@ -144,21 +144,26 @@ Page({
       }).then(({
         result
       }) => {
-        result = result.map(item => {
-          if (item.putShelvesFlg && (this.data.checkAll || buyAgainGoods.includes(item.itemId))){
-            item.checked = true
+        result = result.map((item, index) => {
+          if (item.putShelvesFlg && (this.data.checkAll || buyAgainGoods.includes(item.itemId))) {
+            item.checked = true;
+            if (!this.selectedRadio.includes(index)) {
+              this.selectedRadio.push(index)
+            }
           }
           return item;
-        })
+        });
+        this.setMoneyData(this.selectedRadio);
+        
         // result=[]
-        const trolley = buyAgainGoods.length ? result: this.data.trolley.concat(result) ;
+        const trolley = buyAgainGoods.length ? result : this.data.trolley.concat(result);
         this.setData({
           trolley,
           hasOrders: trolley.length
         });
-        if(buyAgainGoods.length){
+        if (buyAgainGoods.length) {
           this.setData({
-            scrollTop:0
+            scrollTop: 0
           })
         }
         getApp().globalData.buyAgainGoods = []

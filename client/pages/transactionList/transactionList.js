@@ -40,6 +40,7 @@ Page({
     defImg: globalData.defaultImg,
     tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
+    hasNetwork:true,
     isToPay: true,
     hidePaid,
     payedColor,
@@ -154,12 +155,22 @@ Page({
         })
         .catch((errorCode) => {
           console.log(errorCode);
-          utils.errorHander(errorCode, () => this.requestTransList(url, postData))
+          utils
+          .errorHander(errorCode, () => this.requestTransList(url, postData))
+          .catch(err=>{
+            if(err===503){
+                this.setData({
+                  hasNetwork:false
+                })
+            }
+          });
         });
     })
     return promise
   },
-
+  refresh(){
+    this.onLoad(this.options)
+  },
   requestMoreData(config) {
     if (this.data.isLast) {
       return;

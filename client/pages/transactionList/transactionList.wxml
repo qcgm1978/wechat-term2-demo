@@ -8,7 +8,7 @@
     <text class='{{tabColors[3]}}' data-index='3'>已完成</text>
   </view>
 
-  <swiper class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{windowHeight}}rpx">
+  <swiper wx:if='{{hasNetwork}}' class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{windowHeight}}rpx">
     <swiper-item wx:for="{{[0,1,2,3]}}" wx:key='*this'>
       <scroll-view scroll-y="true" class="scoll-h">
         <view class='container-fg'>
@@ -58,7 +58,7 @@
             <view class="line" style='height:1rpx; z-index: 1;'></view>
             <image class='logo' style=' z-index: 1; position：absolute; top: 0; left:0;' src="{{homeLogo}}"></image>
             <view class='footer-container-no-item-msg' style='display:flex; flex-direction: column;'>
-              <view style='align-self:center;'>您还没有交易记录哦</view>
+              <view style='align-self:center;'>您还没有相关订单喔</view>
               <!-- <view style='align-self:center;'>只支持2018年7月6日之后的数据查询</view> -->
             </view>
 
@@ -76,4 +76,11 @@
       </scroll-view>
     </swiper-item>
   </swiper>
+  <view wx:else class='regular trolley-empty center-center'>
+  <view class='column'>
+    <image src='/images/no-net.png'></image>
+    <text>您的网络信号很差喔</text>
+    <button catch:tap='refresh'>重新加载</button>
+  </view>
+</view>
 </view>
