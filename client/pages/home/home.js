@@ -178,7 +178,7 @@ Page({
   onPullDownRefresh: function() {
     // if (this.enablePullDownRefresh) {
     this.start = 0;
-    this.getProductList(globalData.merchant.locationId);
+    this.getProductList(globalData.merchant.locationId).then(data => wx.stopPullDownRefresh());
     // }
   },
   onReachBottom: function() {
