@@ -149,7 +149,8 @@ Page({
 
           this.setData({
             order: result.orders,
-            totalPages
+            totalPages,
+            hasNetwork:true
           })
           resolve()
         })
