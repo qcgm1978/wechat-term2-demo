@@ -210,6 +210,9 @@ Page({
   },
   plusMinus(e) {
     const dataset = e.currentTarget.dataset;
+    if (!dataset.enabled){
+      return;
+    }
     const index = dataset.index,
       type = dataset.type;
     const currentTrolley = this.data.trolley[index];

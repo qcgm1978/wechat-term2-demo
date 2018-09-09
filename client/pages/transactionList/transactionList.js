@@ -216,6 +216,10 @@ Page({
   },
   //加载更多
   onReachBottom: function() {
+    
+
+  },
+  lower(){
     const offset = ++this.data.config.offset;
     if (this.data.totalPages + 1 >= offset) {
       this.setData({
@@ -226,9 +230,7 @@ Page({
       });
       this.requestMoreData(this.data.config);
     }
-
   },
-
   //下拉刷新
   onPullDownRefresh: function() {
     const offset = this.data.config.offset - 1;

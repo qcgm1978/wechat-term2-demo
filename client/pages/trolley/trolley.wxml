@@ -19,9 +19,9 @@
         <view class='center trolley-bottom'>
           <text class='dollar medium trolley-price'>{{item.price}}</text>
           <view class='center' style='align-items:center'>
-            <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'>-</text>
+            <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.putShelvesFlg}}'>-</text>
             <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity}}</text>
-            <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'>+</text>
+            <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' data-enabled='{{item.putShelvesFlg}}'>+</text>
           </view>
         </view>
       </view>
