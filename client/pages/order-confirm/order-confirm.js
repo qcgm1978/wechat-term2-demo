@@ -131,11 +131,12 @@ Page({
       const locationId = globalData.merchant.locationId;
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
-        receiverAddress = globalData.address;
+        receiverAddress = globalData.address,
+        orderItems = globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data.items];
       utils.postRequest({
         url: createOrder,
         data: {
-          orderItems: globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data.items],
+          orderItems,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
           // merchantMsg: this.data.textarea || 'aaa',
@@ -151,8 +152,19 @@ Page({
         wx.hideLoading()
         console.log(data);
         if (data.status === 200) {
-          wx.redirectTo({
-            url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
+          // utils.postRequest({
+          //   url: createOrder,
+          //   METHOD: 'DELETE',
+          //   config:{
+          //     merchantId: app.getMerchantId(),
+          //   },
+          //   data:{
+          //     orderItems
+          //   }
+          // }).then(data => {
+            wx.redirectTo({
+              url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
+            // });
           })
         } else {}
       }).catch(err => {

@@ -1,25 +1,27 @@
 <view wx:if='{{hasOrders}}'>
   <scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view wx:if='{{!item.isRemoved}}' class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
+    <view wx:if='{{!item.isRemoved}}' class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}' bind:tap='turnPage' data-itemid='{{item.itemId}}' style="padding-left: 0;">
       <view class='column' style='margin-top:auto;position:relative;'>
-        <radio catch:tap='preventBubble' class="radio" data-index='{{index}}' value="{{index}}" checked="{{item.checked}}" disabled='{{!item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
+        <radio catch:tap='preventBubble' class="radio" data-index='{{index}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
         </radio>
+        <text wx:else class='radio trolley-invalid regular'>失效</text>
       </view>
       <view style="position: relative;">
-        <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' class='goods-img {{item.putShelvesFlg?"":"trolley-opacity"}}' mode='aspectFit'>
+        <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' class='goods-img ' mode='aspectFit'>
         </image>
         <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
       </view>
-      <view class='column trolley-right {{item.putShelvesFlg?"":"trolley-opacity"}}'>
-        <text class='trolley-name'>{{item.itemName}}</text>
+      <view class='column trolley-right '>
+        <text class='trolley-name {{item.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
         <view class='center trolley-middle'>
-          <text class='trolley-spec'>规格：{{item.itemSpecification}}</text>
-          <image src='./img/del.png' class='del' catch:tap='del' data-itemid='{{item.itemId}}' data-index='{{index}}'></image>
+          <text class='trolley-spec {{item.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
+          <image src='./img/del.png' class='del {{item.putShelvesFlg?"":"trolley-invalid-del"}}' catch:tap='del' data-itemid='{{item.itemId}}' data-index='{{index}}'></image>
         </view>
         <view class='center trolley-bottom'>
-          <text class='dollar medium trolley-price'>{{item.price}}</text>
-          <view class='center' style='align-items:center'>
-            <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.putShelvesFlg}}'>-</text>
+          <text wx:if='{{item.putShelvesFlg}}' class='dollar medium trolley-price'>{{item.price}}</text>
+          <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
+          <view wx:if='{{item.putShelvesFlg}}' class='center' style='align-items:center'>
+            <text  class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.putShelvesFlg}}'>-</text>
             <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity}}</text>
             <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' data-enabled='{{item.putShelvesFlg}}'>+</text>
           </view>
