@@ -101,6 +101,7 @@ color: #EE711F;
   color: #666;
   letter-spacing: 0;
   text-align:center;
+  width:422rpx;
 
 }
 

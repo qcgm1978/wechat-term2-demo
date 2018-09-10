@@ -132,7 +132,7 @@ Page({
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
         receiverAddress = globalData.address,
-        orderItems = globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data.items];
+        orderItems = globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data[0]];
       utils.postRequest({
         url: createOrder,
         data: {
@@ -172,7 +172,7 @@ Page({
           // 调用上个页面的onload函数实现页面重新加载
           var pages = getCurrentPages();
           var prevPage = pages[pages.length - 2]; //上一个页面
-          prevPage.onLoad(prevPage.options);
+          prevPage && prevPage.onLoad(prevPage.options);
           this.setData({
             prompt: this.changedTxt
           })
