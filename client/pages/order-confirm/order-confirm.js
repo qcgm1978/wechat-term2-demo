@@ -24,8 +24,11 @@ Page({
     salesReturn: '拒收申请已完成，积分已退回您的账户，请查询',
     address: '',
     addressStore: '../transactionDetail/images/address.png',
-  },
 
+  },
+  changedTxt: `很抱歉,订单中的商品信息发生变更,请确认商品信息后重新下单`,
+  failTxt: `很抱歉，提交订单时遇到未知故障
+请稍后重试~`,
   /**
    * 生命周期函数--监听页面加载
    */
@@ -132,7 +135,7 @@ Page({
       utils.postRequest({
         url: createOrder,
         data: {
-          orderItems: globalData.items instanceof Array ? globalData.items:[globalData.items ? globalData.items : this.data.data.items],
+          orderItems: globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data.items],
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
           // merchantMsg: this.data.textarea || 'aaa',
@@ -153,17 +156,23 @@ Page({
           })
         } else {}
       }).catch(err => {
-        if (err === 409) {//price or putShelfFlg change
-        // 调用上个页面的onload函数实现页面重新加载
+        if (err === 409) { //price or putShelfFlg change
+          // 调用上个页面的onload函数实现页面重新加载
           var pages = getCurrentPages();
-          var prevPage = pages[pages.length - 2];  //上一个页面
+          var prevPage = pages[pages.length - 2]; //上一个页面
           prevPage.onLoad(prevPage.options);
+          this.setData({
+            prompt: this.changedTxt
+          })
         } else {
           console.log(err);
           this.setData({
-            isFailed: true
-          });
+            prompt: this.failTxt
+          })
         }
+        this.setData({
+          isFailed: true
+        });
         wx.hideLoading();
       })
     })
@@ -183,8 +192,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function(options) {
-  },
+  onShow: function(options) {},
 
   /**
    * 生命周期函数--监听页面隐藏

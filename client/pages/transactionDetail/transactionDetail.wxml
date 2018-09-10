@@ -22,22 +22,22 @@
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
     <scroll-view scroll-y="true" style='max-height: 330rpx;' class='bgc'>
-      <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' data-itemId='{{item.itemId}}' data-categoryId='{{item.categoryId}}'>
+      <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}'>
         <view class='item-container' style="height: 160rpx;">
           <view class='item-container-fg'>
             <view class='order-content'>
               <view style="display: flex; flex-direction:row;">
 
-                <image src='{{item.itemIcon?item.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
 
                 <view>
-                  <view class='darker-gray-chars item-name regular'>{{item.itemName}}</view>
-                  <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                  <view class='darker-gray-chars item-name regular'>{{orderItem.itemName}}</view>
+                  <text class='regular item-standard'>规格：{{orderItem.itemSpecification}}</text>
                 </view>
               </view>
               <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
-                <text>￥{{item.unitPrice}}</text>
-                <text class='item-standard regular'>{{isReturn&&'拒收数量'}}x{{isReturn?item.returnQuantit:item.quantity}}</text>
+                <text>￥{{orderItem.unitPrice}}</text>
+                <text class='item-standard regular {{isReturn?"return-state":""}}'>{{isReturn&&'拒收数量'}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(order.orderReturn.returnStatus===1?'退款成功':'退款中'):''}}</text>
               </view>
             </view>
 

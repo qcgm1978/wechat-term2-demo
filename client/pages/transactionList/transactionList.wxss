@@ -7,7 +7,10 @@
   height: 64rpx;
   align-items: center;
 }
-
+.list-return{
+  font-size: 24rpx;
+color: #FDB658;
+}
 .order-num {
   font-size: 26rpx;
   color: #666;
