@@ -130,7 +130,7 @@
 
 .product-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   margin-bottom:16rpx;
 
 }
@@ -153,6 +153,7 @@
   color: #333;
   line-height: 40rpx;
   height:80rpx;
+  overflow:hidden;
 
 }
 

@@ -193,7 +193,7 @@ Page({
         merchantId: app.getMerchantId()
       },
       data: {
-        itemId
+        removeItems: [{ itemId }]
       }
     }).then(data => {
       wx.showToast({

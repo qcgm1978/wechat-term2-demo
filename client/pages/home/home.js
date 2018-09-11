@@ -76,9 +76,11 @@ Page({
       }).then(result => {
         let data = result.result;
         if (result.status === 200) {
-          this.setData({
-            productList: data
-          });
+          if (data.length) {
+            this.setData({
+              productList: data
+            });
+          }
           resolve(data)
         } else {
           wx.showToast({

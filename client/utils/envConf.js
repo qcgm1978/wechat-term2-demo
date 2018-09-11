@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.DEV; //update this value for different env
+var env = EVN.STG; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -26,8 +26,8 @@ switch (env) {
     }
   case EVN.STG:
     clientSecret = "Rn2eJRBN0cDEXSBl"
-    baseUrl = "https://stg-api.jihuiduo.cn/bmall/v1/"
-    addrUrl = "https://stg-api.jihuiduo.cn/bmall/v1/"
+    baseUrl = "https://stg-api.jihuiduo.cn/bmall/v1"
+    addrUrl = "https://stg-api.jihuiduo.cn/bmall/v1"
     break
   case EVN.PRO:
     clientSecret = "9sxyZhzgKIjSVuQQ"
