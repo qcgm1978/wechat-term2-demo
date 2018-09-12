@@ -139,6 +139,7 @@
   background: #fff;
   box-shadow: 0 2rpx 13rpx 5rpx rgba(0, 0, 0, 0.02);
   border-radius: 4rpx;
+  position: relative;
 }
 
 .product-image {
@@ -215,4 +216,12 @@
   margin: 0 10rpx;
   font-size: 32rpx;
   color: #ee711f;
+}
+.product-add-button{
+  position: absolute;
+  right:0;
+  bottom:0;
+  width: 80rpx;
+  height: 80rpx;
+  opacity:0;
 }
