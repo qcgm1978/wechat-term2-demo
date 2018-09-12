@@ -155,7 +155,12 @@ Page({
         });
         
         // result=[]
-        const trolley = buyAgainGoods.length ? result : this.data.trolley.concat(result);
+        let trolley=[]
+        if (buyAgainGoods.length||this.start===0){
+            trolley=result;
+        }else{
+          trolley = this.data.trolley.concat(result);
+        }
         this.setData({
           trolley,
           hasOrders: trolley.length
@@ -206,6 +211,12 @@ Page({
       this.setData({
         [itemStr]: true
       })
+    }).catch(err=>{
+      wx.showToast({
+        title: '删除订单失败',
+        icon: 'loading',
+        duration: 2000
+      })
     })
   },
   plusMinus(e) {
@@ -250,6 +261,7 @@ Page({
 
   },
   onShow: function() {
+    this.start=0;
     this.getTrolley()
   },
 

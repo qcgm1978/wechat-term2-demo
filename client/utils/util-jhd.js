@@ -314,7 +314,7 @@ const addToTrolley = (itemId, quantity = 1) => {
           // Promise.resolve(count)
         }
         wx.showToast({
-          title: quantity > 0 ? '已添加到进货单' : '已从进货单移除',
+          title: quantity > 0 ? '已添加到进货单' : '已从进货单减去',
         });
         resolve( count);
       })

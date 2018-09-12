@@ -88,12 +88,12 @@ Page({
     })
   },
 
-  decryptPhoneNumber: function (iv, encryptedData, jsCode) {
+  decryptPhoneNumber: function(iv, encryptedData, jsCode) {
     wx.request({
       url: backendUrlLogin,
       method: "POST",
       data: {
-        jsCode,//: appUtil.globalData.token.jscode,
+        jsCode, //: appUtil.globalData.token.jscode,
         ivForPhoneNumber: iv,
         encryptedPhoneNumber: encryptedData,
       },
@@ -103,7 +103,11 @@ Page({
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
-          console.log(res.data.message)
+          try {
+            console.log(res.data.message)
+          } catch (e) {
+            debugger;
+          }
           if (res.statusCode == ACCESS_TOCKEN_EXPIRED && !this.decryptPhoneNumber.tokenRefreshed) {
             //console.log("ACCESS_TOCKEN_EXPIRED " + iv)
             this.gotoMember();
@@ -117,14 +121,14 @@ Page({
           }
         } else {
           const result = res.data.result;
-          
-          if (result.potentialUser){
+
+          if (result.potentialUser) {
             return wx.navigateTo({
               url: '/pages/home-enter/home-enter',
             })
           }
           app.saveGlobalData(result);
-         this.gotoHome()
+          this.gotoHome()
           // getApp().globalData.token.refreshToken = res.data.result.token.refreshToken
           // getApp().globalData.userInfo.savedInDBStatus = res.data.result.registrationStatus
           // getApp().globalData.userInfo.memberId = res.data.result.memberId
@@ -223,7 +227,7 @@ Page({
     this.decryptPhoneNumber.tokenRefreshed = false
     this.checkAndRegisterUser.tokenRefreshed = false
     this.saveRegisteredUser.tokenRefreshed = false;
-    if (getApp().globalData.registerStatus){
+    if (getApp().globalData.registerStatus) {
       this.gotoHome()
     }
   },

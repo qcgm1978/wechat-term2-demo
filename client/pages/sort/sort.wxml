@@ -4,11 +4,11 @@
       <text class='regular category-first center-center {{(currentIndex===index)?"current":""}}'>{{item.itemCategoryName}}</text>
     </view>
     <view class='column' hidden='{{!(index===currentIndex)}}' class='category-right bgc padding'>
-      <view wx:for='{{item.childCategory}}' wx:key='{{index}}' wx:for-item='second' class='second-container'>
-        <text class='medium category-second'>{{second.itemCategoryName}}</text>
-        <view class='center padding' style="padding-left: 0;" >
-          <view catch:tap='turnPage' wx:for="{{second.childCategory}}" wx:for-item='third' wx:key='{{index-third}}' class='column category-third' data-categorycode='{{third.itemCategoryCode}}' data-name='{{third.itemCategoryName}}'>
-            <image src='{{third.itemCategoryImage}}' mode='aspectFit'></image>
+      <view wx:for='{{item.childCategory}}' wx:key='{{index}}' wx:for-item='second' class='second-container' style="clear: both;margin-bottom:16rpx;">
+        <view class='medium category-second'>{{second.itemCategoryName}}</view>
+        <view class='clearfix padding' style="padding-left: 0;width:516rpx; " >
+          <view catch:tap='turnPage' wx:for="{{second.childCategory}}" wx:for-item='third' wx:key='{{index-third}}' class='column category-third' data-categorycode='{{third.itemCategoryCode}}' data-name='{{third.itemCategoryName}}' style="float: left;">
+            <image src='{{third.itemCategoryImage||defImg}}' mode='aspectFit'></image>
             <text class='category-name'>{{third.itemCategoryName}}</text>
           </view>
         </view>

@@ -1,19 +1,5 @@
 <image src='/images/bg.png' class='bg'></image>
-<!-- <swiper indicator-dots="{{true}}" class='hot-card' autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}">
-  <block>
-    <swiper-item style='display:flex;'>
-      <image src="/pages/login/images/jihuibaologo@2x.png" class="slide-image" style="height: 78rpx;width: 263rpx;margin: auto;" mode='aspectFit'/>
-    </swiper-item>
-    <swiper-item style='display:flex;'>
-      <view>
-        <view class='hot-name'>
-          <view class='hot-name-text'>{{productList[0].name}}</view>
-        </view>
-        <image class='hot-image' src='{{productList[0].image}}'></image>
-      </view>
-    </swiper-item>
-  </block>
-</swiper> -->
+
 <swiper indicator-dots="{{true}}" class='hot-card' style="width: 100%; height: 234rpx" autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}" catchtap="bannerClick">
   <block wx:for="{{imgUrls}}" wx:key="index">
     <swiper-item style='display:flex;'>
@@ -52,4 +38,4 @@
 <view class='center-center'>
   <image src='./img/product.png' style="height: 400rpx;" mode='aspectFit'></image>
 </view>
-<view class='exit' catch:tap='exitLogin' style="margin-top: 15rpx;" hover-class='btn-hover'>退出登录</view>
+<view class='exit exit-enter' catch:tap='exitLogin' style="margin-top: 42rpx; background:rgb(202,202,202); height:80rpx;" hover-class='btn-hover'>退出登录</view>

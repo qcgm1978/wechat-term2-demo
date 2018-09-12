@@ -4,6 +4,7 @@ import {
 var utils = require("../../utils/util.js");
 Page({
   data: {
+    defImg: getApp().globalData.defaultImg,
     data: [],
     currentIndex:0,
   },

@@ -7,7 +7,7 @@ const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
 const HTTP_SUCCSESS = ERROR_CODE.HTTP_SUCCSESS
 const CONNECTION_TIMEOUT = ERROR_CODE.CONNECTION_TIMEOUT
 const INVALID_USER_STATUS = ERROR_CODE.INVALID_USER_STATUS
-
+const REFRESH_ERR = ERROR_CODE.REFRESH_ERR;
 const promptTitleMsg = "提示"
 const networkErrorMsg = "网络链接失败！"
 
@@ -43,6 +43,9 @@ exports.refreshAccessToken = function () {
                 url: '../noNetwork/noNetwork'
               })
               break;
+            case REFRESH_ERR:
+              getApp().exitLogin();
+              break;              
             default:
               break;
           }
@@ -63,8 +66,8 @@ exports.refreshAccessToken = function () {
         }
       },
       fail: e => {
-        console.log(e)
-        reject()
+        console.log(e);
+        reject();
       }
     })
   })

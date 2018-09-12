@@ -7,6 +7,7 @@ exports.config = {
     INVALID_USER_STATUS: 409,
     HTTP_SUCCSESS: 200,
     CONNECTION_TIMEOUT: 503,
+    REFRESH_ERR:500
   },
   memeberStatus: {
     DELETED: 0,

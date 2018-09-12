@@ -1,9 +1,14 @@
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
 .category-right {
   position: absolute;
   left: 188rpx;
   width: 100%;
-  height:100%;
-
+  height: 100%;
 }
 
 .category-second {
@@ -11,18 +16,25 @@
   color: #333;
 }
 
-.category-third:nth-of-type(n+2) {
+.category-third:nth-of-type(3n+2) {
   margin-left: 18rpx;
+}
+
+.category-third:nth-of-type(n+4) {
+  margin-top: 16rpx;
 }
 
 .category-left {
   align-items: left;
   background: #f7f8fa;
+  position: relative;
 }
 
 .category-name {
   font-size: 24rpx;
   color: #333;
+  margin-top:8rpx;
+
 }
 
 image {
@@ -46,4 +58,3 @@ image {
   border-left: 8rpx solid #ee711f;
   background: #fff;
 }
-
