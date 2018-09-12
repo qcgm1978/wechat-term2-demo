@@ -22,6 +22,8 @@ Page({
     this.getCategories(options)
   },
   getCategories(options){
+    // todo test data
+    // getApp().globalData.merchant.locationId=12;
     utils.getRequest(Api.getCategories, {
       locationId: getApp().globalData.merchant.locationId,
       categoryId: '',

@@ -229,6 +229,8 @@ Page({
     this.saveRegisteredUser.tokenRefreshed = false;
     if (getApp().globalData.registerStatus) {
       this.gotoHome()
+    }else{
+      appUtil.getJsCode()
     }
   },
 

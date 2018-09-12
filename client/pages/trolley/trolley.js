@@ -33,6 +33,7 @@ Page({
         }
         return accumulator;
       }, []);
+      globalData.items.orderItemSource = 1;      
       wx.navigateTo({
         url: `../order-confirm/order-confirm?total=${this.data.currentMoney}&quantity=${this.data.checkbox}`,
       });
@@ -41,7 +42,7 @@ Page({
   },
   addOn() {
     wx.switchTab({
-      url: '/pages/sort/sort',
+      url: '/pages/home/home',
     })
   },
   selectAll(e) {
@@ -62,7 +63,7 @@ Page({
   },
   gotoSort() {
     wx.switchTab({
-      url: '/pages/sort/sort',
+      url: '/pages/home/home',
     })
   },
   upper() {
@@ -89,9 +90,11 @@ Page({
     this.setMoneyData(checkbox)
   },
   setMoneyData(selectedRadio) {
-    const currentMoney = this.getTotalPrice(selectedRadio)
-    const remaining = 500 - currentMoney;
-    const disableBuy = remaining > 0
+    let currentMoney = this.getTotalPrice(selectedRadio)
+    let remaining = 500 - currentMoney;
+    const disableBuy = remaining > 0;
+    currentMoney = utils.getFixedNum(currentMoney);
+    remaining = utils.getFixedNum(remaining)
     this.setData({
       checkbox: selectedRadio.length,
       currentMoney,
@@ -153,12 +156,12 @@ Page({
           }
           return item;
         });
-        
+
         // result=[]
-        let trolley=[]
-        if (buyAgainGoods.length||this.start===0){
-            trolley=result;
-        }else{
+        let trolley = []
+        if (buyAgainGoods.length || this.start === 0) {
+          trolley = result;
+        } else {
           trolley = this.data.trolley.concat(result);
         }
         this.setData({
@@ -198,7 +201,9 @@ Page({
         merchantId: app.getMerchantId()
       },
       data: {
-        removeItems: [{ itemId }]
+        removeItems: [{
+          itemId
+        }]
       }
     }).then(data => {
       wx.showToast({
@@ -211,7 +216,7 @@ Page({
       this.setData({
         [itemStr]: true
       })
-    }).catch(err=>{
+    }).catch(err => {
       wx.showToast({
         title: '删除订单失败',
         icon: 'loading',
@@ -221,7 +226,7 @@ Page({
   },
   plusMinus(e) {
     const dataset = e.currentTarget.dataset;
-    if (!dataset.enabled){
+    if (!dataset.enabled) {
       return;
     }
     const index = dataset.index,
@@ -236,7 +241,7 @@ Page({
     let currentMoney = num * currentTrolley.price;
     let remaining = this.data.minAmount - currentMoney;
     remaining = utils.getFixedNum(remaining)
-    const enableBuy = remaining <= 0;
+    const disableBuy = remaining > 0;
     currentMoney = utils.getFixedNum(currentMoney);
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
@@ -246,22 +251,28 @@ Page({
     })
     this.setData({
       trolley,
-      quantity: num,
-      currentMoney,
-      buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
-      enableBuy
+
     });
+    if (currentTrolley.checked) {
+      this.setData({
+        quantity: num,
+        currentMoney,
+        // buyTxt: disableBuy ? `还差￥${remaining}可购买` : '立即购买',
+        disableBuy,
+        remaining
+      })
+    }
     utils
       .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1)
       .then(badge => {
-        debugger;
+        // debugger;
       })
   },
   onReady: function() {
 
   },
   onShow: function() {
-    this.start=0;
+    this.start = 0;
     this.getTrolley()
   },
 

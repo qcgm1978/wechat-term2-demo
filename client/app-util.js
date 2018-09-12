@@ -51,6 +51,9 @@ export default {
     });
     return new Promise((resolve, reject) => {
       if (getApp().globalData.token.jscode) {
+        resolve(getApp().globalData.token.jscode)
+      } else {
+        // return this.login(resolve)
         wx.checkSession({
           success: () => {
             //session_key未过期，并且在本生命周期一直有效
@@ -58,11 +61,9 @@ export default {
           },
           fail: () => {
             //session_key已过期，需要重新执行登录流程
-            this.login(reject)
+            this.login(resolve)
           }
         });
-      } else {
-        return this.login(resolve)
       }
     })
   },
@@ -72,7 +73,7 @@ export default {
     wx.login({
       success: res => {
         if (res.code) {
-          this.globalData.token.jscode = res.code
+          getApp().globalData.token.jscode = res.code
           try {
             wx.setStorageSync('jscode', res.code)
           } catch (e) {}

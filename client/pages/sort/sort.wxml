@@ -1,10 +1,10 @@
 <view class='column category-left'>
   <block wx:for='{{data}}' wx:key='{{index}}'>
-    <view class='{{(currentIndex===index)?"bgc":""}}' style='padding:22rpx 0;' catch:tap='toggleFirst' data-index="{{index}}">
+    <view class='{{(currentIndex===index)?"bgc":""}}' style='padding:22rpx 0;position:absolute;left:0; top:{{88*index}}rpx;' catch:tap='toggleFirst' data-index="{{index}}" wx:if='{{item.childCategory.length}}'>
       <text class='regular category-first center-center {{(currentIndex===index)?"current":""}}'>{{item.itemCategoryName}}</text>
     </view>
-    <view class='column' hidden='{{!(index===currentIndex)}}' class='category-right bgc padding'>
-      <view wx:for='{{item.childCategory}}' wx:key='{{index}}' wx:for-item='second' class='second-container' style="clear: both;margin-bottom:16rpx;">
+    <view class='column' hidden='{{!(index===currentIndex)}}' class='categoryright bgc padding'>
+      <view wx:for='{{item.childCategory}}' wx:key='{{index}}' wx:for-item='second' class='second-container' style="clear: both;margin-bottom:16rpx; ">
         <view class='medium category-second'>{{second.itemCategoryName}}</view>
         <view class='clearfix padding' style="padding-left: 0;width:516rpx; " >
           <view catch:tap='turnPage' wx:for="{{second.childCategory}}" wx:for-item='third' wx:key='{{index-third}}' class='column category-third' data-categorycode='{{third.itemCategoryCode}}' data-name='{{third.itemCategoryName}}' style="float: left;">

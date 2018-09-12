@@ -97,7 +97,7 @@ Page({
     itemId,
     categoryCd
   }) {
-    const locationId = globalData.merchant.locationId;
+    const locationId = getApp().globalData.merchant.locationId;
     utils.getRequest(getProductItem, {
       locationId,
       categoryCd: '',
@@ -180,6 +180,7 @@ Page({
     }
     this.data.product.quantity = this.data.quantity;
     globalData.items = this.data.product;
+    globalData.items.orderItemSource=0;
     wx.navigateTo({
       url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,
     });

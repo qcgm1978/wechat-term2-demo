@@ -79,7 +79,11 @@
   <view wx:if='{{!promotion}}' class='bgc center btns regular padding-vertical mgt btn-container' style='opacity:{{product.putShelvesFlg?1:0.3}};'>
     <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
-      <cover-view class='medium cart-num center-center' wx:if='{{badge}}'>{{badge}}</cover-view>
+      <cover-view wx:if='{{badge}}'>
+        <view class='medium cart-num center-center' >
+          {{badge}}
+        </view>
+      </cover-view>
     </view>
     <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{isSelecting?"selecting-btn":""}}'>加入进货单</button>
     <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}}'>{{buyTxt}}</button>

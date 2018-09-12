@@ -13,6 +13,8 @@ image {
 .list-name {
   font-size: 28rpx;
   color: #333;
+  width:470rpx;
+
 }
 
 .list-spec {

@@ -139,6 +139,7 @@ Page({
           orderItems,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
+          orderItemSource:globalData.items.orderItemSource,
           // merchantMsg: this.data.textarea || 'aaa',
           usePoint: this.data.isVisible ? this.data.points : 0,
           totalAmount: this.data.total,
