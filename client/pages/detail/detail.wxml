@@ -61,10 +61,10 @@
       <text class='dot' style="margin-right: 0;">.</text>
       <view class='short-line'></view>
     </view>
-    <swiper indicator-dots="{{true}}" indicator-active-color='#FDB658' autoplay="{{false}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
+    <swiper indicator-dots="{{true}}" indicator-active-color='#FDB658' autoplay="{{true}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
       <navigator wx:for="{{related}}" wx:key='{{index}}' url='{{"../detail/detail?itemId="+item.itemId+"&categoryId="+item.itemCategoryCode}}'>
         <swiper-item class='column' style=' margin:0 6rpx;'>
-          <view class='center-center' style="width: 100%;height:230rpx;justify-content:left;">
+          <view class='center-center' style="width: 100%;height:200rpx;justify-content:left;">
             <image mode='aspectFit' src="{{item.itemImageAddress1?item.itemImageAddress1:defImg}}" class="slide-image" style="border-radius: 8rpx;width:218rpx;max-height:100%;" />
           </view>
           <text class='regular relative-name'>{{item.itemName}}</text>
