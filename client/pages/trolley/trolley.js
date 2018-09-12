@@ -214,6 +214,8 @@ Page({
             duration: 2000
           });
           // this.getTrolley();
+          this.selectedRadio.splice(dataset.index, 1);
+          this.setMoneyData(this.selectedRadio);
           const itemStr = `trolley[${dataset.index}].isRemoved`;
           this.setData({
             [itemStr]: true

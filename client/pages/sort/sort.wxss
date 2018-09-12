@@ -40,6 +40,7 @@ page{
   font-size: 24rpx;
   color: #333;
   margin-top:8rpx;
+  max-width:120rpx;
 
 }
 

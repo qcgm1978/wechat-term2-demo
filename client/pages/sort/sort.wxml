@@ -9,7 +9,7 @@
         <view class='clearfix padding' style="padding-left: 0;width:516rpx; " >
           <view catch:tap='turnPage' wx:for="{{second.childCategory}}" wx:for-item='third' wx:key='{{index-third}}' class='column category-third' data-categorycode='{{third.itemCategoryCode}}' data-name='{{third.itemCategoryName}}' style="float: left;">
             <image src='{{third.itemCategoryImage||defImg}}' mode='aspectFit'></image>
-            <text class='category-name'>{{third.itemCategoryName}}</text>
+            <text class='category-name ellipse'>{{third.itemCategoryName}}</text>
           </view>
         </view>
         <view class='line'></view>
