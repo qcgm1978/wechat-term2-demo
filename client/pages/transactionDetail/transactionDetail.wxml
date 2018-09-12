@@ -74,7 +74,7 @@
       <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
-            <text style="color:#888">{{isReturn?'拒收编号':'订单编号'}}：</text>{{order.orderReturn.returnOrderId}}</view>
+            <text style="color:#888">{{isReturn?'拒收编号':'订单编号'}}：</text>{{isReturn?order.orderReturn.returnOrderId:order.orderId}}</view>
           <view catch:tap='copy' class='copy'>复制</view>
         </view>
       </view>

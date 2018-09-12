@@ -20,6 +20,7 @@ App({
     systemInfo: {},
     token: {},
     userInfo: {},
+    checkedTrolley:[],
     defaultImg: '/images/default.png',
     payStyle: {
       "WAIT_SHIPMENT": '待发货',

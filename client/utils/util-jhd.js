@@ -271,7 +271,7 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 
-const addToTrolley = (itemId, quantity = 1) => {
+const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
   wx.showLoading({
     title: '正在添加到购物车...',
   });
@@ -297,42 +297,53 @@ const addToTrolley = (itemId, quantity = 1) => {
         config,
         data
       })
+      .then(ret => {
+        if (enableChecked) {
+          getApp().globalData.checkedTrolley.push(itemId);
+        }
+      })
       .then(() => {
-        return getRequest(Api.getCartCount, {
-          merchantId
+        updateTrolleyNum({
+          merchantId,
+          quantity,
+          resolve
         })
       })
-      .then(data => {
-        let count = 0;
-        if (data.status === 200) {
-          count = data.result.count;
-          getApp().globalData.badge = count;
-          wx.setTabBarBadge({
-            index: 2,
-            text: count + ''
-          });
-          // Promise.resolve(count)
-        }
-        wx.showToast({
-          title: quantity > 0 ? '已添加到进货单' : '已从进货单减去',
-        });
-        resolve( count);
-      })
       .catch(errorCode => {
-        // getApp().failRequest();
-        // errorHander(errorCode, this.getMerchant)
-        //   .then(() => {
-        //     resolve()
-        //   })
-        //   .catch(() => {
         reject()
-        // })
       });
   });
 }
 const getFixedNum = (float) => {
   let ret = (float).toFixed(2);
   return Number(String(ret).replace(/\.?0+$/, ''));
+}
+const updateTrolleyNum = ({
+  merchantId,
+  quantity,
+  resolve
+} = {
+  merchantId: getApp().getMerchantId()
+}) => {
+  return getRequest(Api.getCartCount, {
+      merchantId
+    })
+    .then(data => {
+      let count = 0;
+      if (data.status === 200) {
+        count = data.result.count;
+        getApp().globalData.badge = count;
+        wx.setTabBarBadge({
+          index: 2,
+          text: count + ''
+        });
+        // Promise.resolve(count)
+      }
+      wx.showToast({
+        title: quantity > 0 ? '已添加到进货单' : '已从进货单减去',
+      });
+      return resolve ? resolve(count) : count;
+    });
 }
 module.exports = {
   checkNetwork: checkNetwork,
@@ -345,5 +356,6 @@ module.exports = {
   errorHander,
   queryStack,
   addToTrolley,
-  getFixedNum
+  getFixedNum,
+  updateTrolleyNum
 }

@@ -33,7 +33,7 @@ Page({
         }
         return accumulator;
       }, []);
-      globalData.items.orderItemSource = 1;      
+      globalData.items.orderItemSource = 1;
       wx.navigateTo({
         url: `../order-confirm/order-confirm?total=${this.data.currentMoney}&quantity=${this.data.checkbox}`,
       });
@@ -46,6 +46,7 @@ Page({
     })
   },
   selectAll(e) {
+    getApp().globalData.checkedTrolley=[]
     this.setData({
       checkAll: !this.data.checkAll
     });
@@ -148,7 +149,7 @@ Page({
         result
       }) => {
         result = result.map((item, index) => {
-          if (item.putShelvesFlg && (this.data.checkAll || buyAgainGoods.includes(item.itemId))) {
+          if (item.putShelvesFlg && (this.data.checkAll || buyAgainGoods.includes(item.itemId)) || getApp().globalData.checkedTrolley.includes(item.itemId)) {
             item.checked = true;
             if (!this.selectedRadio.includes(index)) {
               this.selectedRadio.push(index)
@@ -195,34 +196,44 @@ Page({
     const dataset = e.currentTarget.dataset;
     const itemId = dataset.itemid;
     utils.postRequest({
-      METHOD: 'DELETE',
-      url: Api.removeCart,
-      config: {
-        merchantId: app.getMerchantId()
-      },
-      data: {
-        removeItems: [{
-          itemId
-        }]
-      }
-    }).then(data => {
-      wx.showToast({
-        title: '删除成功',
-        icon: 'success',
-        duration: 2000
-      });
-      // this.getTrolley();
-      const itemStr = `trolley[${dataset.index}].isRemoved`;
-      this.setData({
-        [itemStr]: true
+        METHOD: 'DELETE',
+        url: Api.removeCart,
+        config: {
+          merchantId: app.getMerchantId()
+        },
+        data: {
+          removeItems: [{
+            itemId
+          }]
+        }
+      }).then(data => {
+        return new Promise((resolve, reject) => {
+          wx.showToast({
+            title: '删除成功',
+            icon: 'success',
+            duration: 2000
+          });
+          // this.getTrolley();
+          const itemStr = `trolley[${dataset.index}].isRemoved`;
+          this.setData({
+            [itemStr]: true
+          });
+          utils.updateTrolleyNum({
+            resolve,
+            merchantId: getApp().getMerchantId()
+          })
+        })
       })
-    }).catch(err => {
-      wx.showToast({
-        title: '删除订单失败',
-        icon: 'loading',
-        duration: 2000
+      .then(data => {
+        debugger;
       })
-    })
+      .catch(err => {
+        wx.showToast({
+          title: '删除订单失败',
+          icon: 'loading',
+          duration: 2000
+        })
+      })
   },
   plusMinus(e) {
     const dataset = e.currentTarget.dataset;
@@ -263,7 +274,7 @@ Page({
       })
     }
     utils
-      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1)
+      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, currentTrolley.checked)
       .then(badge => {
         // debugger;
       })
