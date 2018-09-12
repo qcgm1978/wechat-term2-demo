@@ -153,8 +153,13 @@
   color: #333;
   line-height: 40rpx;
   height:80rpx;
-  overflow:hidden;
 
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:2;
 }
 
 .product-meta {

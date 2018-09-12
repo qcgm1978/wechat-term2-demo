@@ -1,8 +1,8 @@
 {
-	"client": "./client",
-	"svr": "./server",
-	"miniprogramRoot": "./client",
-	"qcloudRoot": "./server",
+	"client": "client/",
+	"svr": "server/",
+	"miniprogramRoot": "client/",
+	"qcloudRoot": "server/",
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
@@ -10,8 +10,8 @@
 		"minified": true,
 		"newFeature": true
 	},
-	"appid": "wx00d1d53802723dab",
-	"projectname": "store-wechat",
+	"appid": "wx093196720f54b05b",
+	"projectname": "jhd-o2o-mall",
 	"condition": {
 		"search": {
 			"current": -1,
