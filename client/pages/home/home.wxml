@@ -33,8 +33,8 @@
       <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
         <text>+</text>
       </view>
-      </view>
-      <view class='product-add-button' catchtap='addToTrolley'>
+    </view>
+    <view class='product-add-button' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
     </view>
   </navigator>
 </view>
