@@ -3,7 +3,7 @@
 
   <view class='center-center store'>
     <image src='./img/ic_addressWHITE@2x.png' class='icon-wares'></image>
-    <text class='light icon-txt' style='color: #fff;'>{{stores[0].merchantStoreName}}</text>
+    <text class='light icon-txt' style='color: #fff;'>{{stores[index].merchantStoreName}}</text>
     <image src='./img/ic_xiala @2x.png' style='width:15rpx;height:10rpx;'></image>
   </view>
 </picker>
@@ -33,6 +33,8 @@
       <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
         <text>+</text>
       </view>
+    </view>
+    <view class='product-add-button' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
     </view>
   </navigator>
 </view>

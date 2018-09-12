@@ -16,6 +16,7 @@ let globalData = app.globalData;
 
 Page({
   data: {
+    index: 0,
     stores: [],
     productList: [], // 商品列表
     imgUrls: [{
@@ -34,6 +35,39 @@ Page({
   enablePullDownRefresh: false,
   bindPickerChange(e) {
     getApp().globalData.currentIndex = Number(e.detail.value);
+    getApp().globalData.merchant = getApp().globalData.authMerchantList[getApp().globalData.currentIndex]
+    this.setData({
+      index: Number(e.detail.value)
+    })
+    this.getMerchant()
+      .then(locationId => this.getProductList(locationId))
+      .then(() => {
+        return getRequest(Api.getCartCount, {
+          merchantId: app.getMerchantId(),
+          // accessToken: this.globalData.token.accessToken
+        })
+      })
+      .then(data => {
+        if (data.status === 200) {
+          const count = data.result.count;
+          globalData.badge = count;
+          wx.setTabBarBadge({
+            index: 2,
+            text: count + ''
+          });
+        }
+      })
+      .then(data => {
+        wx.setStorage({
+          key: 'globalData',
+          data: getApp().globalData,
+        })
+      })
+      .catch(err => {
+        wx.navigateTo({
+          url: '/pages/login/login',
+        })
+      });
   },
   errorFunction(e) {
     const productList = getApp().errorFunction(e, this.data.productList);

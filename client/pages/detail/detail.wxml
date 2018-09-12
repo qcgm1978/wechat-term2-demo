@@ -1,3 +1,4 @@
+<view style='display: flex;flex-direction: column;'>
 <view class='product-card'>
   <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
     <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
@@ -76,16 +77,7 @@
     </swiper>
   </view>
   <text class='sold-out btn-container center-center' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
-  <view wx:if='{{!promotion}}' class='bgc center btns regular padding-vertical mgt btn-container' style='opacity:{{product.putShelvesFlg?1:0.3}};'>
-    <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
-      <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
-      <view class='medium cart-num center-center' wx:if='{{badge}}'>
-        {{badge}}
-      </view>
-    </view>
-    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{isSelecting?"selecting-btn":""}}'>加入进货单</button>
-    <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}}'>{{buyTxt}}</button>
-  </view>
+
   <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top-750}}rpx;'>
     <view class='center padding' style='justify-content:space-between;'>
       <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit'></image>
@@ -127,5 +119,18 @@
     </view>
     <image src='../../images/close.png' class='close-popup' catch:tap='closePopupPromotion' style='transform:translate(-36rpx,0);'></image>
 
+  </view>
+</view>
+<view style='height:100rpx;'>
+</view>
+  <view wx:if='{{!promotion}}' class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:0.3}};'>
+    <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
+      <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
+        <view class='medium cart-num center-center' wx:if='{{badge}}'>
+          {{badge}}
+        </view>
+    </view>
+    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{isSelecting?"selecting-btn":""}}'>加入进货单</button>
+    <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}}'>{{buyTxt}}</button>
   </view>
 </view>
