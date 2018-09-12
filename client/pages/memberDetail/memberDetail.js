@@ -15,13 +15,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const merchant = getApp().globalData.merchant;
-    this.setData({
-      id: merchant.nsMerchantId,
-      name: merchant.merchantStoreName,
-      address: getApp().globalData.address,
-      profileName: getApp().globalData.authWechat.authMerchantList[0].userName
-    });
   },
   exitLogin: function () {
     getApp().exitLogin();
@@ -54,6 +47,13 @@ Page({
     //   })
     //   wx.showTabBar();
     // }
+    const merchant = getApp().globalData.merchant;
+    this.setData({
+      id: merchant.nsMerchantId,
+      name: merchant.merchantStoreName,
+      address: getApp().globalData.address,
+      profileName: getApp().globalData.authWechat.authMerchantList[0].userName
+    });
   },
 
   /**

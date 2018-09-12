@@ -35,6 +35,7 @@ Page({
   enablePullDownRefresh: false,
   bindPickerChange(e) {
     getApp().globalData.currentIndex = Number(e.detail.value);
+    getApp().globalData.merchant = getApp().globalData.authMerchantList[getApp().globalData.currentIndex]
     this.setData({
       index: Number(e.detail.value)
     })
