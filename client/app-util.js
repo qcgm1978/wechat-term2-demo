@@ -50,7 +50,7 @@ export default {
       title: '加载中',
     });
     return new Promise((resolve, reject) => {
-      if (this.globalData.token.jscode) {
+      if (getApp().globalData.token.jscode) {
         wx.checkSession({
           success: () => {
             //session_key未过期，并且在本生命周期一直有效
