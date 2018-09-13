@@ -14,7 +14,6 @@ Page({
     trolley: [],
     minAmount: 500,
     height: getApp().globalData.systemInfo.windowHeight > 960 ? getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2 : 960,
-    checkbox: 0,
     currentMoney: 0,
     hasOrders: true,
     disableBuy: true,
@@ -35,7 +34,7 @@ Page({
       }, []);
       globalData.items.orderItemSource = 1;
       wx.navigateTo({
-        url: `../order-confirm/order-confirm?total=${this.data.currentMoney}&quantity=${this.data.checkbox}`,
+        url: `../order-confirm/order-confirm?total=${this.data.currentMoney}`,
       });
     }
 
@@ -86,10 +85,6 @@ Page({
       }
     }, 0);
   },
-  checkboxChange(e) {
-    const checkbox = e.detail.value;
-    this.setMoneyData(checkbox)
-  },
   setMoneyData(selectedRadio) {
     let currentMoney = this.getTotalPrice(selectedRadio)
     let remaining = 500 - currentMoney;
@@ -97,7 +92,6 @@ Page({
     currentMoney = utils.getFixedNum(currentMoney);
     remaining = utils.getFixedNum(remaining)
     this.setData({
-      checkbox: selectedRadio.length,
       currentMoney,
       disableBuy,
       remaining
@@ -110,7 +104,7 @@ Page({
       this.selectedRadio.splice(ind, 1);
       this.setData({
         checkAll: false
-      })
+      });
     } else {
       this.selectedRadio.push(itemId);
     }
@@ -161,9 +155,11 @@ Page({
         }
         this.setData({
           trolley,
-          hasOrders: trolley.length
+          hasOrders: trolley.length,
+          checkAll: this.selectedRadio.length === this.data.trolley.length,
         });
         this.setMoneyData(this.selectedRadio);
+        
         if (getApp().globalData.checkedTrolley.length) {
           this.setData({
             scrollTop: 0

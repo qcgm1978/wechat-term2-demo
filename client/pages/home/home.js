@@ -35,10 +35,13 @@ Page({
   enablePullDownRefresh: false,
   bindPickerChange(e) {
     getApp().globalData.currentIndex = Number(e.detail.value);
-    getApp().globalData.merchant = getApp().globalData.authMerchantList[getApp().globalData.currentIndex]
+    getApp().globalData.merchant = getApp().globalData.authMerchantList[getApp().globalData.currentIndex];
+    if (this.data.index !== Number(e.detail.value)){
+      getApp().globalData.checkedTrolley=[];
+    }
     this.setData({
       index: Number(e.detail.value)
-    })
+    });
     this.getMerchant()
       .then(locationId => {
         getApp().globalData.merchant.locationId = locationId
