@@ -33,15 +33,15 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    const points = globalData.merchant.pointBalance;
+    const points = getApp().globalData.merchant.pointBalance;
     this.setData({
       // itemId: options.itemId,
-      max: globalData.merchant.pointBalance,
+      max: getApp().globalData.merchant.pointBalance,
       points,
       credit: this.data.isVisible ? points / 100 : 0,
       total: options.total,
       actual: options.total,
-      address: globalData.address,
+      address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     })
