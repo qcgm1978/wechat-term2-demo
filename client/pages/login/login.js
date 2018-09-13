@@ -179,7 +179,8 @@ Page({
         }
       },
       fail: e => {
-        console.log(e)
+        console.log(e);
+        wx.hideLoading();
         wx.showModal({
           title: '提示',
           content: '网络链接失败，请稍后再试！',
