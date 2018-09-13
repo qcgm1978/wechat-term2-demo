@@ -339,9 +339,11 @@ const updateTrolleyNum = ({
         });
         // Promise.resolve(count)
       }
-      wx.showToast({
-        title: quantity > 0 ? '已添加到进货单' : '已从进货单减去',
-      });
+      if (!isNaN(quantity)) {
+        wx.showToast({
+          title: quantity > 0 ? '已添加到进货单' : '已从进货单减去',
+        });
+      }
       return resolve ? resolve(count) : count;
     });
 }

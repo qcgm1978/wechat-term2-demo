@@ -15,7 +15,7 @@
         <text class='trolley-name {{item.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
         <view class='center trolley-middle'>
           <text class='trolley-spec {{item.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
-          <image src='./img/del.png' class='del {{item.putShelvesFlg?"":"trolley-invalid-del"}}' catch:tap='del' data-itemid='{{item.itemId}}' data-index='{{index}}'></image>
+          <image src='./img/del.png' class='del {{item.putShelvesFlg?"":"trolley-invalid-del"}}' catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}'></image>
         </view>
         <view class='center trolley-bottom'>
           <text wx:if='{{item.putShelvesFlg}}' class='dollar medium trolley-price'>{{item.price}}</text>
