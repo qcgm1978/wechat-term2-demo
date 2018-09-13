@@ -1,8 +1,8 @@
-<view wx:if='{{hasOrders}}'>
+<view wx:if='{{trolley.length}}'>
   <scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view wx:if='{{!item.isRemoved}}' class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}'  style="padding-left: 0;">
+    <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}'  style="padding-left: 0;">
       <view class='column' style='margin-top:auto;position:relative;'>
-        <radio catch:tap='preventBubble' class="radio" data-index='{{index}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
+        <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
         </radio>
         <text wx:else class='radio trolley-invalid regular'>失效</text>
       </view>

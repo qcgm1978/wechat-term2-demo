@@ -46,17 +46,15 @@ Page({
     })
   },
   selectAll(e) {
-    getApp().globalData.checkedTrolley=[]
     this.setData({
       checkAll: !this.data.checkAll
     });
-    const checkbox = []
     const trolley = this.data.trolley.map((item, index) => {
       item.putShelvesFlg && (item.checked = this.data.checkAll);
-      this.data.checkAll && item.putShelvesFlg && checkbox.push(index);
+      this.data.checkAll && item.putShelvesFlg && this.selectedRadio.push(item.itemId);
       return item;
     });
-    this.setMoneyData(checkbox)
+    this.setMoneyData(this.selectedRadio)
 
     this.setData({
       trolley,
@@ -79,11 +77,13 @@ Page({
       // },2000)
     });
   },
-  getTotalPrice(checkbox) {
-    return checkbox.reduce((accumulator, item) => {
-      const trolleyItem = this.data.trolley[item];
-      trolleyItem.checked = true;
-      return accumulator + trolleyItem.price * trolleyItem.quantity
+  getTotalPrice(selectedRadio) {
+    return this.data.trolley.reduce((accumulator, item) => {
+      if (selectedRadio.includes(item.itemId)) {
+        return accumulator + item.price * item.quantity
+      } else {
+        return accumulator;
+      }
     }, 0);
   },
   checkboxChange(e) {
@@ -102,22 +102,21 @@ Page({
       disableBuy,
       remaining
     });
-    this.selectedRadio = selectedRadio;
   },
-  preventBubble(e) {
-    const index = e.currentTarget.dataset.index;
-    if (this.selectedRadio.includes(index)) {
-      const ind = this.selectedRadio.indexOf(index);
+  radioClick(e) {
+    const itemId = e.currentTarget.dataset.itemid;
+    if (this.selectedRadio.includes(itemId)) {
+      const ind = this.selectedRadio.indexOf(itemId);
       this.selectedRadio.splice(ind, 1);
       this.setData({
         checkAll: false
       })
     } else {
-      this.selectedRadio.push(index);
+      this.selectedRadio.push(itemId);
     }
     this.setMoneyData(this.selectedRadio);
     const trolley = this.data.trolley.map((item, index) => {
-      if (item.putShelvesFlg && this.selectedRadio.includes(index)) {
+      if (item.putShelvesFlg && this.selectedRadio.includes(item.itemId)) {
         item.checked = true;
       } else {
         item.checked = false;
@@ -136,10 +135,6 @@ Page({
   },
   getTrolley() {
     return new Promise((resolve, reject) => {
-      let buyAgainGoods = getApp().globalData.buyAgainGoods;
-      if (buyAgainGoods.length) {
-        this.start = 0;
-      }
       utils.getRequest(getCart, {
         merchantId: app.getMerchantId(),
         locationId: getApp().globalData.merchant.locationId,
@@ -149,18 +144,17 @@ Page({
         result
       }) => {
         result = result.map((item, index) => {
-          if (item.putShelvesFlg && (this.data.checkAll || buyAgainGoods.includes(item.itemId)) || getApp().globalData.checkedTrolley.includes(item.itemId)) {
+          if (item.putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
             item.checked = true;
-            if (!this.selectedRadio.includes(index)) {
-              this.selectedRadio.push(index)
-            }
+          } else {
+            item.checked = false;
           }
           return item;
         });
 
         // result=[]
         let trolley = []
-        if (buyAgainGoods.length || this.start === 0) {
+        if (this.start === 0) {
           trolley = result;
         } else {
           trolley = this.data.trolley.concat(result);
@@ -170,12 +164,12 @@ Page({
           hasOrders: trolley.length
         });
         this.setMoneyData(this.selectedRadio);
-        if (buyAgainGoods.length) {
+        if (getApp().globalData.checkedTrolley.length) {
           this.setData({
             scrollTop: 0
-          })
+          });
+          getApp().globalData.checkedTrolley = [];
         }
-        getApp().globalData.buyAgainGoods = []
         resolve(result)
       }).catch(errorCode => {
         // getApp().failRequest();
@@ -213,12 +207,19 @@ Page({
             icon: 'success',
             duration: 2000
           });
-          // this.getTrolley();
-          this.selectedRadio.splice(dataset.index, 1);
+          const index = this.selectedRadio.indexOf(itemId);
+          if (index !== -1) {
+            this.selectedRadio.splice(index, 1);
+          }
           this.setMoneyData(this.selectedRadio);
-          const itemStr = `trolley[${dataset.index}].isRemoved`;
+          const trolley = this.data.trolley.reduce((accumulator, item) => {
+            if (item.itemId !== itemId) {
+              accumulator.push(item)
+            }
+            return accumulator;
+          }, [])
           this.setData({
-            [itemStr]: true
+            trolley
           });
           utils.updateTrolleyNum({
             resolve,
@@ -227,7 +228,7 @@ Page({
         })
       })
       .then(data => {
-        debugger;
+        // debugger;
       })
       .catch(err => {
         wx.showToast({
@@ -251,11 +252,7 @@ Page({
       return;
     }
     const num = isMinus ? (currentNum - 1) : (currentNum + 1);
-    let currentMoney = num * currentTrolley.price;
-    let remaining = this.data.minAmount - currentMoney;
-    remaining = utils.getFixedNum(remaining)
-    const disableBuy = remaining > 0;
-    currentMoney = utils.getFixedNum(currentMoney);
+
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
         item.quantity = num;
@@ -266,6 +263,11 @@ Page({
       trolley,
 
     });
+    let currentMoney = this.getTotalPrice(this.selectedRadio)
+    let remaining = this.data.minAmount - currentMoney;
+    remaining = utils.getFixedNum(remaining)
+    const disableBuy = remaining > 0;
+    currentMoney = utils.getFixedNum(currentMoney);
     if (currentTrolley.checked) {
       this.setData({
         quantity: num,
@@ -286,6 +288,8 @@ Page({
   },
   onShow: function() {
     this.start = 0;
+    this.selectedRadio = this.selectedRadio.concat(getApp().globalData.checkedTrolley);
+
     this.getTrolley()
   },
 
