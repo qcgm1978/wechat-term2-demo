@@ -50,7 +50,15 @@ Page({
     });
     const trolley = this.data.trolley.map((item, index) => {
       item.putShelvesFlg && (item.checked = this.data.checkAll);
-      this.data.checkAll && item.putShelvesFlg && this.selectedRadio.push(item.itemId);
+      if (this.data.checkAll && item.putShelvesFlg) {
+        if (!this.selectedRadio.includes(item.itemId))
+          this.selectedRadio.push(item.itemId);
+      } else {
+        const ind = this.selectedRadio.indexOf(item.itemId);
+        if (ind !== -1) {
+          this.selectedRadio.splice(ind, 1)
+        }
+      }
       return item;
     });
     this.setMoneyData(this.selectedRadio)
@@ -94,19 +102,24 @@ Page({
     this.setData({
       currentMoney,
       disableBuy,
-      remaining
+      remaining,
+      selectedLen: selectedRadio.length
     });
   },
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
     if (this.selectedRadio.includes(itemId)) {
       const ind = this.selectedRadio.indexOf(itemId);
-      this.selectedRadio.splice(ind, 1);
+      if (ind !== -1) {
+        this.selectedRadio.splice(ind, 1);
+      }
       this.setData({
         checkAll: false
       });
     } else {
-      this.selectedRadio.push(itemId);
+      if (!this.selectedRadio.includes(itemId)) {
+        this.selectedRadio.push(itemId);
+      }
     }
     this.setMoneyData(this.selectedRadio);
     const trolley = this.data.trolley.map((item, index) => {
@@ -119,6 +132,7 @@ Page({
     });
     this.setData({
       trolley,
+      checkAll: this.selectedRadio.length === trolley.length,
     })
   },
   turnPage(e) {
@@ -156,10 +170,10 @@ Page({
         this.setData({
           trolley,
           hasOrders: trolley.length,
-          checkAll: this.selectedRadio.length === this.data.trolley.length,
+          checkAll: this.selectedRadio.length === trolley.length,
         });
         this.setMoneyData(this.selectedRadio);
-        
+
         if (getApp().globalData.checkedTrolley.length) {
           this.setData({
             scrollTop: 0
@@ -274,7 +288,7 @@ Page({
       })
     }
     utils
-      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, currentTrolley.checked)
+      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, false)
       .then(badge => {
         // debugger;
       })
@@ -285,7 +299,6 @@ Page({
   onShow: function() {
     this.start = 0;
     this.selectedRadio = this.selectedRadio.concat(getApp().globalData.checkedTrolley);
-
     this.getTrolley()
   },
 
