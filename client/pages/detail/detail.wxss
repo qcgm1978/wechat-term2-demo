@@ -312,6 +312,12 @@
   bottom: 0;
 }
 
+.fixed-position-text {
+  position: fixed;
+  left: 0;
+  bottom: 120rpx;
+}
+
 .box {
   display: flex;
   flex-direction: column;

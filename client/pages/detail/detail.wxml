@@ -61,7 +61,7 @@
       <text class='dot' style="margin-right: 0;">.</text>
       <view class='short-line'></view>
     </view>
-    <swiper indicator-dots="{{true}}" indicator-active-color='#FDB658' autoplay="{{true}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
+    <swiper indicator-dots="{{false}}" indicator-active-color='#FDB658' autoplay="{{true}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
       <navigator wx:for="{{related}}" wx:key='{{index}}' url='{{"../detail/detail?itemId="+item.itemId+"&categoryId="+item.itemCategoryCode}}'>
         <swiper-item class='column' style=' margin:0 6rpx;justify-content:center;'>
           <view class='center-center' style="width: 100%;height:150rpx;justify-content:center;">
@@ -76,7 +76,7 @@
       </navigator>
     </swiper>
   </view>
-  <text class='sold-out btn-container center-center' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
+
 
   <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top-750}}rpx;'>
     <view class='center padding' style='justify-content:space-between;'>
@@ -121,8 +121,9 @@
 
   </view>
 </view>
-<view style='height:120rpx;'>
+<view style='height:160rpx; background-color:rgb(255,255,255);'>
 </view>
+  <text class='sold-out btn-container center-center fixed-position-text' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
   <view wx:if='{{!promotion}}' class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
     <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
