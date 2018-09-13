@@ -1,5 +1,4 @@
-<image src='/images/bg.png' class='bg'></image>
-<picker bindchange="bindPickerChange" value="{{index}}" range="{{stores}}" range-key='{{"merchantStoreName"}}'>
+<picker wx:if="{{stores.length>1}}" bindchange="bindPickerChange" value="{{index}}" range="{{stores}}" range-key='{{"merchantStoreName"}}'>
 
   <view class='center-center store'>
     <image src='./img/ic_addressWHITE@2x.png' class='icon-wares'></image>
