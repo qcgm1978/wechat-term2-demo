@@ -68,17 +68,16 @@ Page({
   },
   bindinput(e) {
     const isVisible = this.data.isVisible;
-    if (globalData.merchant.pointBalance >= e.detail.value) {
+    if (getApp().globalData.merchant.pointBalance >= e.detail.value) {
       this.setData({
-        points: e.detail.value,
         credit: isVisible ? e.detail.value / 100 : 0,
         actual: this.data.total - e.detail.value / 100
       });
     } else {
       this.setData({
-        points: globalData.merchant.pointBalance,
-        credit: isVisible ? globalData.merchant.pointBalance / 100 : 0,
-        actual: this.data.total - globalData.merchant.pointBalance / 100
+        points: getApp().globalData.merchant.pointBalance,
+        credit: isVisible ? getApp().globalData.merchant.pointBalance / 100 : 0,
+        actual: this.data.total - getApp().globalData.merchant.pointBalance / 100
       });
     }
 

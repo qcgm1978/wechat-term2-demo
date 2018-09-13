@@ -65,7 +65,7 @@
   </view>
   <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
     <text class='regular order-field '>积分抵扣</text>
-    <text class='medium' style='transform:translate(-40rpx,0);'>本单可用{{points}}积分，抵￥{{points/100}}</text>
+    <text class='medium' style='transform:translate(-40rpx,0);'>可用{{points}}积分，抵￥{{points/100}}</text>
     <view>
       <checkbox-ios bindchangechecked="onChangeChecked">
         <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->

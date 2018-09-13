@@ -136,7 +136,7 @@ Page({
     itemId,
     categoryId
   }) {
-    const locationId = globalData.merchant.locationId;
+    const locationId = getApp().globalData.merchant.locationId;
     utils.getRequest(getRelated, {
       locationId,
       // itemIds: 1064 
