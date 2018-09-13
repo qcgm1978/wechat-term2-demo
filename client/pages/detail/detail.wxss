@@ -64,9 +64,15 @@
   font-size: 24rpx;
   color: #333;
   margin-top: 6rpx;
-  width:100%;
+  width:200rpx;
   /* height:68rpx; */
 
+  display: -webkit-box;
+  word-break: break-all;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp:2;
 }
 
 .relative-money {
@@ -304,4 +310,11 @@
   position: fixed;
   left: 0;
   bottom: 0;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
