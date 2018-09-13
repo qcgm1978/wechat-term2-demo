@@ -114,7 +114,7 @@
       <view class='regular money-amount money' hidden='{{isReturn}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
-            <text style='color:#888'>支付方式：</text>{{order.payment.paymentMethod}}</view>
+            <text style='color:#888'>支付方式：</text>{{'货到付款'||order.payment.paymentMethod}}</view>
         </view>
       </view>
     </view>

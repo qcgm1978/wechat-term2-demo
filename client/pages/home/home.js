@@ -37,7 +37,7 @@ Page({
     getApp().globalData.currentIndex = Number(e.detail.value);
     getApp().globalData.merchant = getApp().globalData.authMerchantList[getApp().globalData.currentIndex];
     if (this.data.index !== Number(e.detail.value)){
-      getApp().globalData.checkedTrolley=[];
+      getApp().globalData.toggleMerchant=true;
     }
     this.setData({
       index: Number(e.detail.value)

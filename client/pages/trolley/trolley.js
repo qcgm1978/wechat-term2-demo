@@ -196,6 +196,11 @@ Page({
       })
     })
   },
+  promptDel(e){
+    utils.showModel('您确定删除商品吗？').then(data=>{
+      this.del(e)
+    })
+  },
   del(e) {
     const dataset = e.currentTarget.dataset;
     const itemId = dataset.itemid;
@@ -298,8 +303,17 @@ Page({
   },
   onShow: function() {
     this.start = 0;
-    this.selectedRadio = this.selectedRadio.concat(getApp().globalData.checkedTrolley);
-    this.getTrolley()
+    if (getApp().globalData.toggleMerchant){
+      this.selectedRadio=[];
+      getApp().globalData.toggleMerchant=false;
+    }
+    getApp().globalData.checkedTrolley.map(item=>{
+      if (!this.selectedRadio.includes(item)){
+        this.selectedRadio.push(item)
+      }
+    });
+    this.getTrolley();
+    utils.updateTrolleyNum();
   },
 
   /**

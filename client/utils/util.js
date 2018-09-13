@@ -30,14 +30,20 @@ var showSuccess = text => wx.showToast({
 })
 
 // 显示失败提示
-var showModel = (title, content) => {
+var showModel = (title) => {
+  return new Promise((resolve,reject)=>{
     wx.hideToast();
-
     wx.showModal({
         title,
-        content: JSON.stringify(content),
-        showCancel: false
+        // content: JSON.stringify(content),
+        showCancel: true,
+        success(res){
+          if(res.confirm){
+            resolve()
+          }
+        }
     })
+  })
 }
 
 module.exports = { formatTime, showBusy, showSuccess, showModel, ...util }

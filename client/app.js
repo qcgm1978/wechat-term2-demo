@@ -17,6 +17,7 @@ App({
   globalData: {
     currentIndex: 0,
     badge: 0,
+    toggleMerchant: false,
     systemInfo: {},
     token: {},
     userInfo: {},

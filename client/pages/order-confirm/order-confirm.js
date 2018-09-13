@@ -139,7 +139,7 @@ Page({
           orderItems,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
-          orderItemSource:globalData.items.orderItemSource,
+          orderItemSource: globalData.items.orderItemSource,
           // merchantMsg: this.data.textarea || 'aaa',
           usePoint: this.data.isVisible ? this.data.points : 0,
           totalAmount: this.data.total,
@@ -153,19 +153,8 @@ Page({
         wx.hideLoading()
         console.log(data);
         if (data.status === 200) {
-          // utils.postRequest({
-          //   url: createOrder,
-          //   METHOD: 'DELETE',
-          //   config:{
-          //     merchantId: app.getMerchantId(),
-          //   },
-          //   data:{
-          //     orderItems
-          //   }
-          // }).then(data => {
-            wx.redirectTo({
-              url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
-            // });
+          wx.redirectTo({
+            url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
         } else {}
       }).catch(err => {
