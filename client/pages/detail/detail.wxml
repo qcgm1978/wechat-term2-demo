@@ -121,16 +121,16 @@
 
   </view>
 </view>
-<view style='height:100rpx;'>
+<view style='height:120rpx;'>
 </view>
-  <view wx:if='{{!promotion}}' class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:0.3}};'>
+  <view wx:if='{{!promotion}}' class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
     <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
         <view class='medium cart-num center-center' wx:if='{{badge}}'>
           {{badge}}
         </view>
     </view>
-    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{isSelecting?"selecting-btn":""}}'>加入进货单</button>
-    <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}}'>{{buyTxt}}</button>
+    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"with-back-image":"without-back-image"}} {{isSelecting?"selecting-btn":""}} '>加入进货单</button>
+    <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"buy-btn":"buy-selecting"}} {{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}} '>{{buyTxt}}</button>
   </view>
 </view>
