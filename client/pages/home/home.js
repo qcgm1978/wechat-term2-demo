@@ -40,7 +40,10 @@ Page({
       index: Number(e.detail.value)
     })
     this.getMerchant()
-      .then(locationId => this.getProductList(locationId))
+      .then(locationId => {
+        getApp().globalData.merchant.locationId = locationId
+        this.getProductList(locationId)
+      })
       .then(() => {
         return getRequest(Api.getCartCount, {
           merchantId: app.getMerchantId(),
@@ -102,7 +105,7 @@ Page({
   },
   getProductList(locationId) {
     return new Promise((resolve, reject) => {
-      locationId = locationId ? locationId : getApp().globalData.locationId;
+      locationId = locationId ? locationId : getApp().globalData.merchant.locationId; 
       getRequest(getHot, {
         locationId,
         start: this.start,
