@@ -93,7 +93,7 @@ App({
   },
   onLaunch: function(options) {
     wx.setEnableDebug({
-      enableDebug: true
+      enableDebug: false
     });
     this.getSystemInfo();
 
