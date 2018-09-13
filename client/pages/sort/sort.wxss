@@ -20,6 +20,10 @@ page{
   color: #333;
 }
 
+.category-third:nth-of-type(3n+3) {
+  margin-left: 18rpx;
+}
+
 .category-third:nth-of-type(3n+2) {
   margin-left: 18rpx;
 }
