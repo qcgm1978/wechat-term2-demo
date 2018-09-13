@@ -5,8 +5,14 @@
   padding-left: 30rpx;
   height: 60rpx;
   line-height: 60rpx;
-}
+  align-items:center;
 
+}
+.title image{
+  width: 5rpx;
+  height: 30rpx;
+  margin-right:15rpx;
+}
 .flow-container {
   background-color: #fff;
   padding: 30rpx 0;
