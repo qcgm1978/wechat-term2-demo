@@ -85,9 +85,14 @@ Page({
         })
         .then((data) => {
           const merchant = data.result;
-          // // todo 
-          // merchant.locationId = 55;
           getApp().globalData.merchant = merchant;
+          for (let i = 0; i < getApp().globalData.authMerchantList.length; i++){
+            if (getApp().globalData.authMerchantList[i].merchantId == merchant.nsMerchantId){
+              this.setData({
+                index: i
+              })
+            }
+          }
           getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
           resolve(merchant.locationId)
         })
