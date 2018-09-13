@@ -1,0 +1,17 @@
+/* pages/noNetwork/noNetwork.wxss */
+.logo {
+  
+  width:328rpx; 
+  height:244rpx; 
+  align-self:center; 
+  margin-top:168rpx;
+  margin-bottom: 22rpx;
+}
+
+.message{
+  align-self:center; 
+  margin-bottom:30rpx;
+  font-size: 34rpx;
+  color:rgb(154,156,155);
+  font-family: PingFang-SC-Normal, 'Source Han Sans CN Normal','Noto Sans CJK SC Normal'; 
+}

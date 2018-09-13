@@ -1,6 +1,6 @@
 <view wx:if='{{trolley.length}}'>
   <scroll-view scroll-y style="height: {{height}}rpx;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}'  style="padding-left: 0;">
+    <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}' style="padding-left: 0;">
       <view class='column' style='margin-top:auto;position:relative;'>
         <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
         </radio>
@@ -15,13 +15,15 @@
         <text class='trolley-name {{item.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
         <view class='center trolley-middle'>
           <text class='trolley-spec {{item.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
-          <image src='./img/del.png' class='del {{item.putShelvesFlg?"":"trolley-invalid-del"}}' catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}'></image>
+          <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;">
+            <image src='./img/del.png' class='del {{item.putShelvesFlg?"":"trolley-invalid-del"}}' ></image>
+          </view>
         </view>
         <view class='center trolley-bottom'>
           <text wx:if='{{item.putShelvesFlg}}' class='dollar medium trolley-price'>{{item.price}}</text>
           <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
           <view wx:if='{{item.putShelvesFlg}}' class='center' style='align-items:center'>
-            <text  class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.putShelvesFlg}}'>-</text>
+            <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.putShelvesFlg}}'>-</text>
             <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity}}</text>
             <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' data-enabled='{{item.putShelvesFlg}}'>+</text>
           </view>

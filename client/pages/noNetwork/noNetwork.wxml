@@ -1,0 +1,6 @@
+<!--pages/noNetwork/noNetwork.wxml-->
+<view class="container " >
+  <view class="line"></view>
+  <image class='logo' src="{{homeLogo}}"></image>
+  <view class='message'>您的网络信号很差哦</view>
+</view>
