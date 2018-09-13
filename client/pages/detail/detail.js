@@ -142,9 +142,13 @@ Page({
       // itemIds: 1064 
       itemIds: itemId ? itemId : '',
     }).then(data => {
-      console.log(data);
       if (data.status === 200) {
-        const result = data.result;
+        let result = []
+        for (let i = 0; i < data.result.length; i++){
+          if (data.result[i].itemId != itemId){
+            result.push(data.result[i])
+          }
+        }
         this.setData({
           related: result
         })
