@@ -225,7 +225,7 @@ Page({
   onPullDownRefresh: function() {
     // if (this.enablePullDownRefresh) {
     this.start = 0;
-    this.getProductList(globalData.merchant.locationId).then(data => wx.stopPullDownRefresh());
+    this.getProductList(getApp().globalData.merchant.locationId).then(data => wx.stopPullDownRefresh());
     // }
   },
   onReachBottom: function() {
