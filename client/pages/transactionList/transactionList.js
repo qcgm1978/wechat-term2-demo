@@ -232,14 +232,15 @@ Page({
     }
   },
   //下拉刷新
-  onPullDownRefresh: function() {
+  pullDownRefresh: function() {
     const offset = this.data.config.offset - 1;
     if (offset > 0) {
       this.setData({
         config: {
           ...this.data.config,
           offset
-        }
+        },
+        isLast:false
       });
       this.requestMoreData(this.data.config);
     } else {

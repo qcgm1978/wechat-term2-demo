@@ -223,10 +223,12 @@ Page({
 
   },
   onPullDownRefresh: function() {
-    // if (this.enablePullDownRefresh) {
     this.start = 0;
-    this.getProductList(getApp().globalData.merchant.locationId).then(data => wx.stopPullDownRefresh());
-    // }
+    this.getProductList(getApp().globalData.merchant.locationId)
+    .then(data => wx.stopPullDownRefresh())
+    .catch(err=>{
+      wx.stopPullDownRefresh();
+    });
   },
   onReachBottom: function() {
     this.start += this.limit;

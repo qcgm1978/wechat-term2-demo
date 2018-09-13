@@ -192,9 +192,9 @@ Page({
   onLoad: function(options) {
     this.getProduct(options);
     this.getRelated(options);
-    if (globalData.badge > 0) {
+    if (getApp().globalData.badge > 0) {
       this.setData({
-        badge: globalData.badge,
+        badge: getApp().globalData.badge,
         icon: '../../images/trolley-missing.png'
       });
     }

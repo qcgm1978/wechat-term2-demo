@@ -10,7 +10,7 @@
 
   <swiper wx:if='{{hasNetwork}}' class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{windowHeight}}rpx">
     <swiper-item wx:for="{{[0,1,2,3]}}" wx:key='*this'>
-      <scroll-view scroll-y="true" class="scoll-h" bindscrolltolower="lower" >
+      <scroll-view scroll-y="true" class="scoll-h" bindscrolltoupper='pullDownRefresh' bindscrolltolower="lower" >
         <view class='container-fg'>
           <navigator url='{{"../transactionDetail/transactionDetail?orderId="+item.orderId}}' wx:key='{{index}}' wx:for="{{order}}" wx:if='{{!item.toRemove}}'>
             <view class='item-container'>
