@@ -309,6 +309,9 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
           resolve
         })
       })
+      .then(data=>{
+        wx.hideLoading();
+      })
       .catch(errorCode => {
         reject()
       });
@@ -335,7 +338,7 @@ const updateTrolleyNum = ({
         getApp().globalData.badge = count;
         wx.setTabBarBadge({
           index: 2,
-          text: count + ''
+          text: (count?count:'') + ''
         });
         // Promise.resolve(count)
       }

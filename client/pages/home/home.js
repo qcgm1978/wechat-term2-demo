@@ -57,7 +57,7 @@ Page({
         if (data.status === 200) {
           const count = data.result.count;
           globalData.badge = count;
-          wx.setTabBarBadge({
+          count && wx.setTabBarBadge({
             index: 2,
             text: count + ''
           });
@@ -156,7 +156,6 @@ Page({
             reject()
           })
       }).catch((errorCode) => {
-        wx.hideLoading()
         wx.showToast({
           icon: 'none',
           title: '添加到购物车失败',
@@ -180,7 +179,7 @@ Page({
         if (data.status === 200) {
           const count = data.result.count;
           globalData.badge = count;
-          wx.setTabBarBadge({
+          count && wx.setTabBarBadge({
             index: 2,
             text: count + ''
           });

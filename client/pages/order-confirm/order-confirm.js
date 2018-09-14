@@ -68,15 +68,17 @@ Page({
   },
   bindinput(e) {
     const isVisible = this.data.isVisible;
-    if (getApp().globalData.merchant.pointBalance >= e.detail.value) {
+    const points = Number(getApp().globalData.merchant.pointBalance);
+    if (points >= e.detail.value) {
       this.setData({
+        points: Number(e.detail.value),
         credit: isVisible ? e.detail.value / 100 : 0,
         actual: this.data.total - e.detail.value / 100
       });
     } else {
       this.setData({
-        points: e.detail.value,
-        credit: isVisible ? getApp().globalData.merchant.pointBalance / 100 : 0,
+        points,
+        credit: isVisible ? points / 100 : 0,
         actual: this.data.total - e.detail.value / 100
       });
     }
@@ -132,6 +134,8 @@ Page({
         receiverCellPhone = app.getPhone(),
         receiverAddress = globalData.address,
         orderItems = globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data[0]];
+      const usePoint = this.data.isVisible ? this.data.points : 0;
+      // return;
       utils.postRequest({
         url: createOrder,
         data: {
@@ -140,7 +144,7 @@ Page({
           locationId: String(locationId),
           orderItemSource: getApp().globalData.items.orderItemSource,
           // merchantMsg: this.data.textarea || 'aaa',
-          usePoint: this.data.isVisible ? this.data.points : 0,
+          usePoint,
           totalAmount: this.data.total,
           receiverInfo: {
             receiverName,

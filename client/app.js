@@ -41,7 +41,7 @@ App({
   },
   setBadge(){
     const count=this.globalData.badge ;
-    wx.setTabBarBadge({
+    count && wx.setTabBarBadge({
       index: 2,
       text: count + ''
     });
