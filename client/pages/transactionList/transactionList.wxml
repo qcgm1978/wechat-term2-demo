@@ -18,7 +18,7 @@
                 <text class='order-num'>{{isReturn?'拒收编号':'订单号'}}：{{item.orderId}}</text>
                 <text class='order-state'>{{payStyle[item.orderStatus]}}</text>
               </view>
-              <scroll-view scroll-y="true" style='max-height: 330rpx;' class='bgc'>
+              <scroll-view scroll-y="true" style='max-height:{{isTiled? 330:"none"}}rpx;' class='bgc'>
 
                 <view class='item-container' wx:for="{{item.orderItem}}" wx:key='{{itemIndex}}' wx:for-item="orderItem" style="height: 160rpx; margin-top:5rpx;">
                   <view class='item-container-fg'>

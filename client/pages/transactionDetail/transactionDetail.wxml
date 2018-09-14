@@ -21,7 +21,7 @@
     </view>
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
-    <scroll-view scroll-y="true" style='max-height: 330rpx;' class='bgc'>
+    <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;' class='bgc'>
       <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}'>
         <view class='item-container' style="height: 160rpx;">
           <view class='item-container-fg'>

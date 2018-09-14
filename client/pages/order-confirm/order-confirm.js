@@ -152,6 +152,10 @@ Page({
         wx.hideLoading()
         console.log(data);
         if (data.status === 200) {
+          const trolley = getCurrentPages().slice(-2, -1)[0];
+          if (trolley && trolley.route.includes('trolley/trolley')){
+            trolley.selectedRadio = [];
+          }
           wx.redirectTo({
             url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })

@@ -21,7 +21,7 @@
   <view class='scroll-container' scroll-top="{{scrollTop}}">
 
     <view>
-      <scroll-view scroll-y="true" style='max-height: 428rpx;'>
+      <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;'>
         <view class='item-container' wx:for="{{data}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
           <view class='item-container-fg'>
             <view class='order-content'>

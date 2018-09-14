@@ -26,13 +26,13 @@ Page({
   onLoad: function(options) {},
   confirmOrder() {
     if (!this.data.disableBuy) {
-      globalData.items = this.data.trolley.reduce((accumulator, item) => {
+      getApp().globalData.items = this.data.trolley.reduce((accumulator, item) => {
         if (item.checked) {
           accumulator.push(item)
         }
         return accumulator;
       }, []);
-      globalData.items.orderItemSource = 1;
+      getApp().globalData.items.orderItemSource = 1;
       wx.navigateTo({
         url: `../order-confirm/order-confirm?total=${this.data.currentMoney}`,
       });
