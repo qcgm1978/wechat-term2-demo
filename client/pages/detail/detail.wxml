@@ -125,7 +125,7 @@
 </view>
   <text class='sold-out btn-container center-center fixed-position-text' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
   <view wx:if='{{!promotion}}' class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
-    <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}'>
+    <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}' bindtap='gotoTrolley'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
         <view class='medium cart-num center-center' wx:if='{{badge}}'>
           {{badge}}

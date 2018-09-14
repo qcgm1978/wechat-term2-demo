@@ -246,5 +246,10 @@ Page({
    */
   onShareAppMessage: function() {
 
+  },
+  gotoTrolley: function () {
+    wx.switchTab({
+      url: '/pages/trolley/trolley'
+    })
   }
 })
