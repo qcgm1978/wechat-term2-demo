@@ -18,6 +18,7 @@ Page({
     hasOrders: true,
     disableBuy: true,
     checkAll: false,
+    dataLoaded: false,
   },
   selectedRadio: [],
   start: 0,
@@ -302,6 +303,7 @@ Page({
 
   },
   onShow: function() {
+    wx.showLoading()
     this.start = 0;
     if (getApp().globalData.toggleMerchant){
       this.selectedRadio=[];
@@ -312,7 +314,19 @@ Page({
         this.selectedRadio.push(item)
       }
     });
-    this.getTrolley();
+    this.getTrolley()
+    .then(data => {
+      wx.hideLoading()
+      this.setData({
+        dataLoaded: true
+      })
+    })
+    .catch(e => {
+      wx.hideLoading()
+      this.setData({
+        dataLoaded: true
+      })
+    })
     utils.updateTrolleyNum();
   },
 
