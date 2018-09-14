@@ -3,7 +3,7 @@
     <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}</text>
     <view class='title'>
       <view class='trans-shop' wx:if='{{isReturn}}'>
-        <view class='trans-shop-lable regular'>{{salesReturn}}</view>
+        <view class='trans-shop-lable regular'>{{usePoints?(salesReturn+usePointsStr):salesReturn}}</view>
       </view>
       <view wx:else>
         <view class='trans-shop'>
@@ -37,7 +37,7 @@
               </view>
               <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
                 <text>￥{{orderItem.unitPrice}}</text>
-                <text class='item-standard regular {{isReturn?"return-state":""}}'>{{isReturn&&'拒收数量'}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(order.orderReturn.returnStatus===1?'退款成功':'退款中'):''}}</text>
+                <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' >{{isReturn&&'拒收数量'}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
               </view>
             </view>
 

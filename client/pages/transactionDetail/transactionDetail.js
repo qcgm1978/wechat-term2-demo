@@ -22,7 +22,8 @@ Page({
     disable: false,
     payStyle: globalData.payStyle,
     order: {},
-    salesReturn: '拒收申请已完成,积分已退回您的账户，请查询',
+    salesReturn: '拒收申请已完成',
+    usePointsStr:'，积分已退回您的账户，请查询',
     defImg: globalData.defaultImg,
     src: './images/pic.png',
     standard: '500ML*12',
@@ -180,10 +181,11 @@ Page({
       });
       this.setData({
         isReturn,
+        usePoints: this.data.order.orderReturn.returnStatus === 1 && this.data.order.orderReturn.refundPoint > 0
       });
     }
     this.setData({
-      orderCode: isReturn ? this.data.order.orderReturn.returnOrderId : this.data.order.orderId
+      orderCode: isReturn ? this.data.order.orderReturn.returnOrderId : this.data.order.orderId,
     })
   },
   /**

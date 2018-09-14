@@ -1,10 +1,14 @@
 .return-state {
-  width: 250rpx;
   position: absolute;
   top: 80rpx;
   color: #fdb658;
 }
-
+.no-points{
+ width: 250rpx;
+} 
+.use-points{
+  width:140rpx;
+}
 .complete-login-content {
   align-self: center;
   position: absolute;
