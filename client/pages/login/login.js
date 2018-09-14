@@ -123,7 +123,7 @@ Page({
           const result = res.data.result;
 
           if (result.potentialUser) {
-            return wx.navigateTo({
+            return wx.redirectTo({
               url: '/pages/home-enter/home-enter',
             })
           }
@@ -180,7 +180,6 @@ Page({
       },
       fail: e => {
         console.log(e);
-        wx.hideLoading();
         wx.showModal({
           title: '提示',
           content: '网络链接失败，请稍后再试！',
@@ -198,19 +197,19 @@ Page({
 
 
   getPhoneNumber(e) {
-    appUtil.getJsCode().then(jscode => {
+    //appUtil.getJsCode().then(jscode => {
       if (e.detail.iv && e.detail.encryptedData) {
         this.setData({
           loadingState: true,
         });
-        this.decryptPhoneNumber(e.detail.iv, e.detail.encryptedData, jscode)
+        this.decryptPhoneNumber(e.detail.iv, e.detail.encryptedData, getApp().globalData.token.jscode)
       } else {
         // todo 目前该接口针对非个人开发者，且完成了认证的小程序开放
         // temp mock demo getUserInfo
         // this.onTapLogin()
         console.log('no authorization')
       }
-    })
+    //})
   },
   onTapLogin() {
     app.login({
@@ -231,7 +230,7 @@ Page({
     if (getApp().globalData.registerStatus) {
       this.gotoHome()
     }else{
-      appUtil.getJsCode()
+      // appUtil.getJsCode()
     }
   },
 
@@ -349,5 +348,7 @@ Page({
         .catch((err) => {})
     }
   },
-
+  onShow: function () {
+    appUtil.getJsCode()
+  },
 })
