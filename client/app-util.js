@@ -46,30 +46,10 @@ export default {
   },
   //function should be called when member in logout state
   getJsCode() {
-    wx.showLoading({
-      title: '加载中',
-    });
-    return new Promise((resolve, reject) => {
-      if (getApp().globalData.token.jscode) {
-        resolve(getApp().globalData.token.jscode)
-      } else {
-        // return this.login(resolve)
-        wx.checkSession({
-          success: () => {
-            //session_key未过期，并且在本生命周期一直有效
-            this.login(resolve)
-          },
-          fail: () => {
-            //session_key已过期，需要重新执行登录流程
-            this.login(resolve)
-          }
-        });
-      }
-    })
+    this.login()
   },
 
-  login(state) {
-    // return new Promise((resolve, reject) => {
+  login() {
     wx.login({
       success: res => {
         if (res.code) {
@@ -77,27 +57,18 @@ export default {
           try {
             wx.setStorageSync('jscode', res.code)
           } catch (e) {}
-          state(res.code)
         } else {
-          // reject()
         }
-
       },
       fail: res => {
-        // reject()
         wx.showModal({
           title: '提示',
           content: '微信登录失败！',
           showCancel: false,
           success: res => {}
         })
-      },
-      complete() {
-        wx.hideLoading();
-
       }
     })
-    // })
   },
 
   globalData: {
