@@ -74,7 +74,7 @@ Page({
   },
   copy() {
     wx.setClipboardData({
-      data: this.data.orderId + ''
+      data: this.data.order.orderId + ''
     })
   },
   turnPage(e) {

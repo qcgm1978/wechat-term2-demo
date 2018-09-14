@@ -75,9 +75,9 @@ Page({
       });
     } else {
       this.setData({
-        points: getApp().globalData.merchant.pointBalance,
+        points: e.detail.value,
         credit: isVisible ? getApp().globalData.merchant.pointBalance / 100 : 0,
-        actual: this.data.total - getApp().globalData.merchant.pointBalance / 100
+        actual: this.data.total - e.detail.value / 100
       });
     }
 
@@ -87,7 +87,7 @@ Page({
     categoryCd,
     quantity
   }) {
-    const locationId = globalData.merchant.locationId;
+    const locationId = getApp().globalData.merchant.locationId;
     utils.getRequest(getProductItem, {
       locationId,
       categoryCd: '',
@@ -138,7 +138,7 @@ Page({
           orderItems,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
-          orderItemSource: globalData.items.orderItemSource,
+          orderItemSource: getApp().globalData.items.orderItemSource,
           // merchantMsg: this.data.textarea || 'aaa',
           usePoint: this.data.isVisible ? this.data.points : 0,
           totalAmount: this.data.total,

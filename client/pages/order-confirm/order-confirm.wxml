@@ -89,7 +89,7 @@
       <text class='regular order-field '>促销折扣</text>
       <text class='medium dollar-minus' style='color: rgb(236,103,32);'>320.00</text>
     </view> -->
-    <view class='  center order-item-container'>
+    <view wx:if='{{isVisible && points}}' class='  center order-item-container'>
       <text class='regular order-field '>积分折扣</text>
       <text class='medium dollar-minus' style='color: rgb(236,103,32);'>{{credit}}</text>
     </view>
