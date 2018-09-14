@@ -52,6 +52,7 @@
     </view>
   </view>
 </view>
+<view wx:elif="{{!dataLoaded}}"></view>
 <view wx:else class='regular trolley-empty center-center'>
   <view class='column'>
     <image src='/images/ic_cart_def@2x.png'></image>
