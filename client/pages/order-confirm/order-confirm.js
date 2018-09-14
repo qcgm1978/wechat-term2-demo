@@ -127,7 +127,7 @@ Page({
       wx.showLoading({
         title: '正在创建订单...',
       });
-      const locationId = globalData.merchant.locationId;
+      const locationId = getApp().globalData.merchant.locationId;
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
         receiverAddress = globalData.address,
