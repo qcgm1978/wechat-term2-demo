@@ -15,12 +15,12 @@
           <navigator url='{{"../transactionDetail/transactionDetail?orderId="+item.orderId}}' wx:key='{{index}}' wx:for="{{order}}" wx:if='{{!item.toRemove}}'>
             <view class='item-container'>
               <view class='center regular order-container'>
-                <text class='order-num'>{{isReturn?'拒收编号':'订单号'}}：{{item.orderId}}</text>
+                <text class='order-num'>{{isReturn?'拒收编号':'订单号'}}：{{isReturn?item.orderReturn.returnOrderId:item.orderId}}</text>
                 <text class='order-state'>{{payStyle[item.orderStatus]}}</text>
               </view>
-              <scroll-view scroll-y="true" style='max-height:{{isTiled? 330:"none"}}rpx;' class='bgc'>
+              <scroll-view scroll-y="true" style='max-height:{{isTiled? "330rpx":"none"}};' class='bgc'>
 
-                <view class='item-container' wx:for="{{item.orderItem}}" wx:key='{{itemIndex}}' wx:for-item="orderItem" style="height: 160rpx; margin-top:5rpx;">
+                <view class='item-container' wx:for="{{item.orderItem}}" wx:key='{{itemIndex}}' wx:for-item="orderItem" style=" margin-top:5rpx;">
                   <view class='item-container-fg'>
                     <view class='order-content'>
                       <view class='center' style="flex-grow:1;">

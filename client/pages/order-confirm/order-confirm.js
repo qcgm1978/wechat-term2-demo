@@ -21,6 +21,7 @@ Page({
     name: '',
     phone: 0,
     defImg: globalData.defaultImg,
+    storeName: '',
     salesReturn: '拒收申请已完成，积分已退回您的账户，请查询',
     address: '',
     addressStore: '../transactionDetail/images/address.png',
@@ -36,6 +37,7 @@ Page({
     const points = getApp().globalData.merchant.pointBalance;
     this.setData({
       // itemId: options.itemId,
+      storeName: getApp().globalData.merchant.merchantStoreName,
       max: getApp().globalData.merchant.pointBalance,
       points,
       credit: this.data.isVisible ? points / 100 : 0,

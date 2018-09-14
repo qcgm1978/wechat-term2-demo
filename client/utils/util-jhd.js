@@ -135,8 +135,6 @@ var getRequest = function (url, data) {
       method: 'GET',
       header: {
         'Authorization': 'Bearer ' + (data.accessToken ? data.accessToken : getApp().globalData.token.accessToken),
-        // 'X-Client-Id': 'mini-app',
-        // 'Content-Type': 'application/json'
 
       },
       success: res => {

@@ -56,7 +56,7 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  addGotoTrolley: function (e) {
+  addGotoTrolley: function(e) {
     const dataset = e.currentTarget.dataset;
     const orderItem = dataset.orderitem;
     const arr = orderItem.map(item => ({
@@ -74,7 +74,7 @@ Page({
   },
   copy() {
     wx.setClipboardData({
-      data: this.data.order.orderId + ''
+      data: this.data.orderCode + ''
     })
   },
   turnPage(e) {
@@ -177,6 +177,9 @@ Page({
         isReturn,
       });
     }
+    this.setData({
+      orderCode: isReturn ? this.data.order.orderReturn.returnOrderId : this.data.order.orderId
+    })
   },
   /**
    * 生命周期函数--监听页面显示

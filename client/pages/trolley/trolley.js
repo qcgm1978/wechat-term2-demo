@@ -303,7 +303,6 @@ Page({
 
   },
   onShow: function() {
-    wx.showLoading()
     this.start = 0;
     if (getApp().globalData.toggleMerchant){
       this.selectedRadio=[];
@@ -316,13 +315,11 @@ Page({
     });
     this.getTrolley()
     .then(data => {
-      wx.hideLoading()
       this.setData({
         dataLoaded: true
       })
     })
     .catch(e => {
-      wx.hideLoading()
       this.setData({
         dataLoaded: true
       })

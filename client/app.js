@@ -28,8 +28,8 @@ App({
       CANCELED: '订单取消',
       "WAIT_RECEIVE": '待收货',
       COMPLETED: '已收货',
-      "RETURN_FULL": '全部退货',
-      "RETURN_PART": '部分退货'
+      "RETURN_FULL": '全部拒收',
+      "RETURN_PART": '部分拒收'
     },
   },
   errorFunction(e, data) {

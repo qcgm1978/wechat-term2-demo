@@ -9,8 +9,9 @@
       <view class='trans-shop-value'>{{phone}}</view>
     </view>
     <view class='trans-number-time'>
-      <view style='display: flex; flex-direction:row;'>
+      <view >
         <view class="gray-chars">{{address}}</view>
+        <view class="gray-chars">{{storeName}}</view>
       </view>
 
     </view>
