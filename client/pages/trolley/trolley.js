@@ -24,7 +24,13 @@ Page({
   start: 0,
   limit: 20,
   enablePullDownRefresh: false,
-  onLoad: function(options) {},
+  onLoad: function(options) {
+    if (!getApp().globalData.registerStatus) {
+      wx.reLaunch({
+        url: '/pages/login/login',
+      })
+    }
+  },
   confirmOrder() {
     if (!this.data.disableBuy) {
       getApp().globalData.items = this.data.trolley.reduce((accumulator, item) => {

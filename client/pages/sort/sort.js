@@ -19,6 +19,11 @@ Page({
     return index===this.data.currentIndex;
   },
   onLoad: function(options) {
+    if (!getApp().globalData.registerStatus) {
+      wx.reLaunch({
+        url: '/pages/login/login',
+      })
+    }
     this.getCategories(options)
   },
   getCategories(options){

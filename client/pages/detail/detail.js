@@ -190,6 +190,11 @@ Page({
     });
   },
   onLoad: function(options) {
+    if (!getApp().globalData.registerStatus) {
+      wx.reLaunch({
+        url: '/pages/login/login',
+      })
+    }
     this.getProduct(options);
     this.getRelated(options);
     if (getApp().globalData.badge > 0) {

@@ -34,7 +34,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    if (!getApp().globalData.registerStatus) {
+      wx.reLaunch({
+        url: '/pages/login/login',
+      })
+    }
     const points = getApp().globalData.merchant.pointBalance;
+    if (points == 0){
+      this.selectComponent("#checkbox-ios").setData({
+        checked: false
+      })
+    }
     this.setData({
       // itemId: options.itemId,
       storeName: getApp().globalData.merchant.merchantStoreName,
@@ -197,7 +207,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
   },
 
   /**
