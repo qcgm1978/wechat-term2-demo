@@ -20,6 +20,11 @@ Page({
     })
   },
   onLoad: function(options) {
+    if (!getApp().globalData.registerStatus) {
+      wx.reLaunch({
+        url: '/pages/login/login',
+      })
+    }
     wx.setNavigationBarTitle({
       title: options.name,
     });

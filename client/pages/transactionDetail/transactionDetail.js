@@ -145,6 +145,11 @@ Page({
   },
 
   onLoad: function(options) {
+    if (!getApp().globalData.registerStatus) {
+      wx.reLaunch({
+        url: '/pages/login/login',
+      })
+    }
     this.requestTransDetail.tokenRefreshed = false
     wx.showLoading({
       title: '加载中',
