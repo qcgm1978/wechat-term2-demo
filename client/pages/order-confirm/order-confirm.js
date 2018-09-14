@@ -34,6 +34,11 @@ Page({
    */
   onLoad: function(options) {
     const points = getApp().globalData.merchant.pointBalance;
+    if (points == 0){
+      this.selectComponent("#checkbox-ios").setData({
+        checked: false
+      })
+    }
     this.setData({
       // itemId: options.itemId,
       max: getApp().globalData.merchant.pointBalance,
@@ -195,7 +200,6 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
   },
 
   /**
