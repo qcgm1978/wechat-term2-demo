@@ -13,7 +13,7 @@ Page({
     defImg: globalData.defaultImg,
     trolley: [],
     minAmount: 500,
-    height: getApp().globalData.systemInfo.windowHeight > 960 ? getApp().globalData.systemInfo.windowHeight - (34 + 48) * 2 : 960,
+    height: getApp().globalData.systemInfo.windowHeight > 960 ? getApp().globalData.systemInfo.windowHeight - (38 + 52) * 2 - 38 * 2: 960,
     currentMoney: 0,
     hasOrders: true,
     disableBuy: true,

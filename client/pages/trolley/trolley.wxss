@@ -19,6 +19,7 @@ color: #707070;
 .trolley-container {
   align-items: center;
   margin-bottom: 16rpx;
+  height:256rpx;
 }
 
 .trolley-right {
@@ -91,6 +92,7 @@ color: #707070;
   top: 100%;
   transform: translate(0, -100%);
   width: 100%;
+  height: 164rpx;
 }
 
 .trolley-calc {
@@ -104,8 +106,9 @@ color: #707070;
   font-size: 26rpx;
   color: #666;
   justify-content: space-between;
-  align-items: left;
-  padding-left: 8rpx;
+  align-items: center;
+  height:96rpx;
+  padding-right: 15rpx;
 }
 
 .trolley-num {
