@@ -36,7 +36,6 @@ Page({
       offset: 1,
       limit: 10
     },
-    isReturn: false,
     defImg: globalData.defaultImg,
     tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
     payStyle: globalData.payStyle,
@@ -150,9 +149,16 @@ Page({
               isLast: false
             })
           }
-
+          const order=result.orders.map(item=>{
+            const currentItem={...item};
+            if(currentItem.orderReturn){
+              currentItem.isReturn=true;
+              currentItem.usePoints = currentItem.orderReturn.returnStatus === 1 && currentItem.orderReturn.refundPoint > 0
+            }
+            return currentItem;
+          });
           this.setData({
-            order: result.orders,
+            order,
             hasNetwork:true
           })
           resolve()
@@ -189,9 +195,7 @@ Page({
       .then((data) => {
         this.setData({
           loadCompleted: true
-        })
-        wx.hideLoading()
-
+        });
         wx.stopPullDownRefresh()
 
       })
@@ -199,7 +203,6 @@ Page({
         this.setData({
           loadCompleted: true
         })
-        wx.hideLoading()
         wx.hideNavigationBarLoading()
         wx.stopPullDownRefresh()
         if (this.data.isLast) {
@@ -270,13 +273,7 @@ Page({
         url: '/pages/login/login',
       })
     }
-    this.requestTransList.tokenRefreshed = false
-    // wx.showLoading({
-    //   title: '加载中',
-    // })
-    // setTimeout(() => {
-    //   wx.hideLoading()
-    // }, 10000);
+    this.requestTransList.tokenRefreshed = false;
     if (option.tab) {
       const currentIndex = Number(option.tab);
       const tabColors = this.data.tabColors.map((item, index) => index === currentIndex ? 'selected' : 'unselected');
@@ -295,7 +292,7 @@ Page({
           title: '拒收列表',
         });
         this.setData({
-          isReturn: true
+          isReturn:true
         })
       }
     }

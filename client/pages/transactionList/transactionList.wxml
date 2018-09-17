@@ -33,7 +33,7 @@
                       <view class='darker-gray-chars column regular' style="align-items: flex-end;padding-top:40rpx;margin-bottom:auto;">
                         <text>￥{{orderItem.unitPrice}}</text>
                         <text class='item-standard '>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}}</text>
-                        <text class='list-return'>{{item.orderReturn?(item.orderReturn.returnStatus===1?'退款成功':'退款中'):''}}</text>
+                        <text class='list-return'>{{currentItem.isReturn?(item.usePoints?'退款成功':''):''}}</text>
                       </view>
                     </view>
                   </view>
