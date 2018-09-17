@@ -45,14 +45,15 @@ Page({
         checked: false
       })
     }
+    const credit = this.data.isVisible ? points / 100 : 0;
     this.setData({
       // itemId: options.itemId,
       storeName: getApp().globalData.merchant.merchantStoreName,
       max: getApp().globalData.merchant.pointBalance,
       points,
-      credit: this.data.isVisible ? points / 100 : 0,
+      credit,
       total: options.total,
-      actual: options.total,
+      actual: options.total - credit,
       address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
