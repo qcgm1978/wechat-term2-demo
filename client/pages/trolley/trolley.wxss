@@ -88,10 +88,11 @@ color: #707070;
 }
 
 .trolley-total {
-  position: absolute;
+  /* position: absolute; */
   top: 100%;
-  transform: translate(0, -100%);
+  /* transform: translate(0, -100%); */
   width: 100%;
+  /* height: 20%; */
   /* height: 164rpx; */
 }
 

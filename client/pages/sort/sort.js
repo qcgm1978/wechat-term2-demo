@@ -18,18 +18,16 @@ Page({
   isCurrent(index){
     return index===this.data.currentIndex;
   },
-  onLoad: function(options) {
+  onLoad: function() {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
       })
     }
-    this.getCategories(options)
+    this.getCategories();
   },
-  getCategories(options){
-    // todo test data
-    // getApp().globalData.merchant.locationId=12;
-    utils.getRequest(Api.getCategories, {
+  getCategories(){
+    return utils.getRequest(Api.getCategories, {
       locationId: getApp().globalData.merchant.locationId,
       categoryId: '',
       categoryDeep: 3
@@ -40,7 +38,7 @@ Page({
         data: result
       });
     }).catch(err => {
-      utils.errorHander(err, () => this.getCategories(options))
+      utils.errorHander(err, () => this.getCategories())
       console.log(err);
     })
   },
