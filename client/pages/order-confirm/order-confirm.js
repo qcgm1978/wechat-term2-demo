@@ -39,7 +39,8 @@ Page({
         url: '/pages/login/login',
       })
     }
-    const points = getApp().globalData.merchant.pointBalance;
+    let points = getApp().globalData.merchant.pointBalance;
+    points = points / 100 > options.total ? (options.total*100):points;
     if (points == 0){
       this.selectComponent("#checkbox-ios").setData({
         checked: false
@@ -61,7 +62,7 @@ Page({
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     })
-    if (globalData.items) {
+    if (getApp().globalData.items) {
       this.setData({
         data: globalData.items instanceof Array ? globalData.items : [globalData.items],
       })
@@ -73,8 +74,8 @@ Page({
     const isVisible = myEventDetail.detail.checked;
     this.setData({
       isVisible,
-      credit: isVisible ? this.data.points / 100 : 0,
-      actual: this.data.total - (isVisible ? this.data.points / 100 : 0)
+      credit: isVisible ? this.data.credit / 100 : 0,
+      actual: this.data.total - (isVisible ? this.data.credit / 100 : 0)
     })
   },
   textareaConfirm(e) {
@@ -84,16 +85,14 @@ Page({
   },
   bindinput(e) {
     const isVisible = this.data.isVisible;
-    const points = Number(getApp().globalData.merchant.pointBalance);
+    const points = this.data.points;
     if (points >= e.detail.value) {
       this.setData({
-        points: Number(e.detail.value),
         credit: isVisible ? e.detail.value / 100 : 0,
         actual: this.data.total - e.detail.value / 100
       });
     } else {
       this.setData({
-        points,
         credit: isVisible ? points / 100 : 0,
         actual: this.data.total - e.detail.value / 100
       });
@@ -150,7 +149,7 @@ Page({
         receiverCellPhone = app.getPhone(),
         receiverAddress = globalData.address,
         orderItems = globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data[0]];
-      const usePoint = this.data.isVisible ? this.data.points : 0;
+      const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
       // return;
       utils.postRequest({
         url: createOrder,

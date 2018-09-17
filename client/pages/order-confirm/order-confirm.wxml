@@ -66,7 +66,7 @@
   </view>
   <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
     <text class='regular order-field '>积分抵扣</text>
-    <text class='medium' style='transform:translate(-70rpx,0);'>可用{{points}}积分，抵￥{{points/100}}</text>
+    <text class='medium' style='transform:translate(-20rpx,0);'>本单可用{{points}}积分，抵￥{{points/100}}</text>
     <view>
       <checkbox-ios id='checkbox-ios' bindchangechecked="onChangeChecked">
         <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
@@ -77,7 +77,7 @@
   <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;justify-content:flex-start;'>
     <text class='regular order-field '>使用积分</text>
     <view style="margin-left: 30rpx;">
-      <input type="number" max='{{max}}' value='{{points}}' class='input' bindinput='bindinput' />
+      <input type="number" max='{{max}}' value='{{credit*100}}' class='input' bindinput='bindinput' />
     </view>
     <text class='medium' style="color: #EE711F;margin-left: 15rpx;">抵扣￥{{credit}}</text>
   </view>
@@ -90,7 +90,7 @@
       <text class='regular order-field '>促销折扣</text>
       <text class='medium dollar-minus' style='color: rgb(236,103,32);'>320.00</text>
     </view> -->
-    <view wx:if='{{isVisible && points}}' class='  center order-item-container'>
+    <view wx:if='{{isVisible && credit}}' class='  center order-item-container'>
       <text class='regular order-field '>积分折扣</text>
       <text class='medium dollar-minus' style='color: rgb(236,103,32);'>{{credit}}</text>
     </view>
