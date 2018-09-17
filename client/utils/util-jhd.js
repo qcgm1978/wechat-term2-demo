@@ -16,8 +16,27 @@ const formatTime = strDate => {
   const month = ymd[1]
   const day = ymd[0]
   return [year, month, day].join('-') + ' ' + array[1]
+};
+let isLoading = false;
+const showLoading = ({
+  title
+} = {
+    title: '正在加载'
+  }) => {
+  if (!isLoading) {
+    wx.showLoading({
+      title,
+    });
+    isLoading = true;
+  }
 }
-var postRequestWithoutToken = function (url, data) {
+const hideLoading=()=>{
+  if (isLoading) {
+    wx.hideLoading();
+    isLoading = false;
+  }
+}
+var postRequestWithoutToken = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     var postData = data;
     wx.request({
@@ -35,7 +54,7 @@ var postRequestWithoutToken = function (url, data) {
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
@@ -44,7 +63,7 @@ var postRequestWithoutToken = function (url, data) {
   return promise;
 }
 
-var putRequest = function (url, data) {
+var putRequest = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     var putData = data;
     wx.request({
@@ -63,7 +82,7 @@ var putRequest = function (url, data) {
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
@@ -72,7 +91,7 @@ var putRequest = function (url, data) {
   return promise;
 }
 
-var postRequest = function ({
+var postRequest = function({
   METHOD = 'POST',
   url,
   config,
@@ -86,9 +105,7 @@ var postRequest = function ({
         url = url.replace(`{${prop}}`, config[prop]);
       }
     }
-    wx.showLoading({
-      title: '正在加载',
-    })
+    showLoading()
     wx.request({
       url: url,
       data: postData || data,
@@ -107,19 +124,19 @@ var postRequest = function ({
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       },
       complete() {
-        wx.hideLoading()
+        hideLoading();
       }
     })
   });
   return promise;
 }
 
-var getRequest = function (url, data) {
+var getRequest = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     if (data) {
       for (const prop in data) {
@@ -127,9 +144,7 @@ var getRequest = function (url, data) {
         url = url.replace(`{${prop}}`, data[prop]);
       }
     }
-    wx.showLoading({
-      title: '数据加载中...',
-    });
+    showLoading()
     wx.request({
       url: url,
       method: 'GET',
@@ -151,14 +166,14 @@ var getRequest = function (url, data) {
         reject(CONNECTION_TIMEOUT);
       },
       complete() {
-        wx.hideLoading();
+        hideLoading();
       }
     })
   });
   return promise;
 }
 
-var getRequestWithoutToken = function (url) {
+var getRequestWithoutToken = function(url) {
   var promise = new Promise((resolve, reject) => {
     wx.request({
       url: url,
@@ -184,7 +199,7 @@ var getRequestWithoutToken = function (url) {
   return promise;
 }
 
-var checkNetwork = function () {
+var checkNetwork = function() {
   return new Promise((resolve, reject) => {
     wx.getNetworkType({
       success: res => {
@@ -212,7 +227,7 @@ var checkNetwork = function () {
   })
 }
 
-var errorHander = function (errorCode, callback, dataNotFoundHandler) {
+var errorHander = function(errorCode, callback, dataNotFoundHandler) {
   return new Promise((resolve, reject) => {
     switch (errorCode) {
       case INVALID_USER_STATUS:
@@ -270,31 +285,31 @@ const queryStack = (e) => {
 }
 
 const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
-  wx.showLoading({
-    title: '正在添加到购物车...',
-  });
+  showLoading({
+    title: '正在添加到购物车...'
+  })
   const merchantId = getApp().getMerchantId();
   const locationId = String(getApp().globalData.merchant.locationId);
   const data = {
-    merchantId,
-    itemId,
-    locationId,
-    quantity,
-    addItemList: itemId instanceof Array ? itemId : [{
+      merchantId,
       itemId,
-      quantity
-    }]
-  },
+      locationId,
+      quantity,
+      addItemList: itemId instanceof Array ? itemId : [{
+        itemId,
+        quantity
+      }]
+    },
     config = {
       merchantId,
       locationId
     }
   return new Promise((resolve, reject) => {
     postRequest({
-      url: Api.addTrolley,
-      config,
-      data
-    })
+        url: Api.addTrolley,
+        config,
+        data
+      })
       .then(ret => {
         if (enableChecked) {
           getApp().globalData.checkedTrolley.push(itemId);
@@ -307,8 +322,8 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
           resolve
         })
       })
-      .then(data=>{
-        wx.hideLoading();
+      .then(data => {
+        hideLoading();
       })
       .catch(errorCode => {
         reject()
@@ -324,11 +339,11 @@ const updateTrolleyNum = ({
   quantity,
   resolve
 } = {
-    merchantId: getApp().getMerchantId()
-  }) => {
+  merchantId: getApp().getMerchantId()
+}) => {
   return getRequest(Api.getCartCount, {
-    merchantId
-  })
+      merchantId
+    })
     .then(data => {
       let count = 0;
       if (data.status === 200) {
@@ -336,7 +351,7 @@ const updateTrolleyNum = ({
         getApp().globalData.badge = count;
         wx.setTabBarBadge({
           index: 2,
-          text: (count?count:'') + ''
+          text: (count ? count : '') + ''
         });
         // Promise.resolve(count)
       }
