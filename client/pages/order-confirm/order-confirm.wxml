@@ -77,7 +77,7 @@
   <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;justify-content:flex-start;'>
     <text class='regular order-field '>使用积分</text>
     <view style="margin-left: 30rpx;">
-      <input type="number" max='{{max}}' value='{{credit*100}}' class='input' bindinput='bindinput' />
+      <input type="number" max='{{max}}' value='{{usedPoints}}' class='input' bindinput='bindinput' />
     </view>
     <text class='medium' style="color: #EE711F;margin-left: 15rpx;">抵扣￥{{credit}}</text>
   </view>

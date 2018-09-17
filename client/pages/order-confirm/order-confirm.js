@@ -10,6 +10,7 @@ Page({
   data: {
     data: {},
     points: 0,
+    usedPoints:0,
     credit: 0,
     actual: 0,
     isVisible: true,
@@ -55,6 +56,7 @@ Page({
       storeName: getApp().globalData.merchant.merchantStoreName,
       max: getApp().globalData.merchant.pointBalance,
       points,
+      usedPoints:points,
       credit,
       total: options.total,
       actual: options.total - credit,
@@ -84,19 +86,21 @@ Page({
     });
   },
   bindinput(e) {
-    const isVisible = this.data.isVisible;
-    const points = this.data.points;
+    const points = Number(this.data.points);
     if (points >= e.detail.value) {
       this.setData({
-        credit: isVisible ? e.detail.value / 100 : 0,
-        actual: this.data.total - e.detail.value / 100
+        credit: utils.getFixedNum(e.detail.value / 100) ,
+        actual: utils.getFixedNum(this.data.total - e.detail.value / 100)
       });
     } else {
       this.setData({
-        credit: isVisible ? points / 100 : 0,
-        actual: this.data.total - e.detail.value / 100
+        credit: utils.getFixedNum( points / 100 ),
+        actual: utils.getFixedNum(this.data.total - points / 100)
       });
     }
+    this.setData({
+      usedPoints: utils.getFixedNum(this.data.credit * 100)
+    })
 
   },
   getProduct({
