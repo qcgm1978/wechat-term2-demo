@@ -44,6 +44,9 @@ Page({
       this.selectComponent("#checkbox-ios").setData({
         checked: false
       })
+      this.setData({
+        isVisible: false
+      })
     }
     this.setData({
       // itemId: options.itemId,

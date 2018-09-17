@@ -62,11 +62,15 @@
 .name {
   font-size: 32rpx;
   color: rgb(85, 85, 85);
+  width: 100%;
+  text-align: left;
 }
 
 .name-txt {
   font-size: 26rpx;
   color: rgb(144, 144, 144);
+  width: 100%;
+  text-align: left;
 }
 
 .icon {
