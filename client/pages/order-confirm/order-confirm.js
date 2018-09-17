@@ -44,6 +44,9 @@ Page({
       this.selectComponent("#checkbox-ios").setData({
         checked: false
       })
+      this.setData({
+        isVisible: false
+      })
     }
     const credit = this.data.isVisible ? points / 100 : 0;
     this.setData({
