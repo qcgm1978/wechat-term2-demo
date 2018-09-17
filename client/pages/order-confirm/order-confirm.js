@@ -5,7 +5,6 @@ import {
 const getProductItem = Api.getProductItem,
   createOrder = Api.createOrder;
 const app = getApp();
-const globalData = app.globalData;
 Page({
   data: {
     data: {},
@@ -21,7 +20,7 @@ Page({
     order: {},
     name: '',
     phone: 0,
-    defImg: globalData.defaultImg,
+    defImg: getApp().globalData.defaultImg,
     storeName: '',
     salesReturn: '拒收申请已完成，积分已退回您的账户，请查询',
     address: '',
@@ -66,7 +65,7 @@ Page({
     })
     if (getApp().globalData.items) {
       this.setData({
-        data: globalData.items instanceof Array ? globalData.items : [globalData.items],
+        data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
       })
     } else {
       this.getProduct(options);
@@ -151,8 +150,8 @@ Page({
       const locationId = getApp().globalData.merchant.locationId;
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
-        receiverAddress = globalData.address,
-        orderItems = globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data[0]];
+        receiverAddress = getApp().globalData.address,
+        orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
       const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
       // return;
       utils.postRequest({
