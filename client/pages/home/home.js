@@ -71,8 +71,15 @@ Page({
         })
       })
       .catch(err => {
-        wx.navigateTo({
-          url: '/pages/login/login',
+        wx.showModal({
+          title: '提示',
+          content: '获取商家信息失败，请重新登录',
+          showCancel: false,
+          success: res => {
+            wx.reLaunch({
+              url: '/pages/login/login',
+            })
+          }
         })
       });
   },
@@ -198,8 +205,15 @@ Page({
         })
       })
       .catch(err => {
-        wx.navigateTo({
-          url: '/pages/login/login',
+        wx.showModal({
+          title: '提示',
+          content: '获取商家信息失败，请重新登录',
+          showCancel: false,
+          success: res => {
+            wx.reLaunch({
+              url: '/pages/login/login',
+            })
+          }
         })
       });
     this.setData({
