@@ -1,10 +1,20 @@
-.hoverBtn{
-
+.Montmorillonitelayer {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
-.selecting-btn{
-  width:344rpx!important;
-
+.indexFixed{
+  position: fixed;
+  top:0;
+  left:0;
+  bottom:0;
+  right:0;
 }
+.selecting-btn {
+  width: 344rpx !important;
+}
+
 .goods-pic {
   border-radius: 8rpx;
   max-width: 180rpx;
@@ -48,8 +58,6 @@
   transform: translate(-10rpx, -10rpx);
 }
 
-
-
 .short-line {
   width: 82rpx;
   height: 2rpx;
@@ -64,15 +72,14 @@
   font-size: 24rpx;
   color: #333;
   margin-top: 6rpx;
-  width:200rpx;
+  width: 200rpx;
   /* height:68rpx; */
-
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp:2;
+  -webkit-line-clamp: 2;
 }
 
 .relative-money {
@@ -80,18 +87,17 @@
   color: #ee711f;
 }
 
-.absolute-btn{
-  
+.absolute-btn {
   position: absolute;
   transform: translate(0, -100%);
 }
+
 .btn-container {
   width: 100%;
   z-index: 10;
   justify-content: center;
   position: relative;
   /* overflow:visible; */
-
 }
 
 .btns button {
@@ -297,6 +303,7 @@
 .opr-buy {
   background: #f5e069;
 }
+
 .padding-bottom {
   padding-left: 0rpx;
 }
@@ -331,6 +338,6 @@
 }
 
 .without-back-image {
-  background-image: none!important;
+  background-image: none !important;
   margin: 0;
 }

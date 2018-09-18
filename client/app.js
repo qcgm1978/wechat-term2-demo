@@ -21,7 +21,7 @@ App({
     systemInfo: {},
     token: {},
     userInfo: {},
-    checkedTrolley:[],
+    checkedTrolley: [],
     defaultImg: '/images/default.png',
     payStyle: {
       "WAIT_SHIPMENT": '待发货',
@@ -39,8 +39,8 @@ App({
       return data;
     }
   },
-  setBadge(){
-    const count=this.globalData.badge ;
+  setBadge() {
+    const count = this.globalData.badge;
     count && wx.setTabBarBadge({
       index: 2,
       text: count + ''
@@ -73,38 +73,23 @@ App({
     })
   },
   getSystemInfo() {
-    wx.getSystemInfo({
-      success: res => {
-        this.globalData.systemInfo.windowHeight = res.windowHeight * 2
-        this.globalData.systemInfo.windowWidth = res.windowWidth * 2
-        this.globalData.systemInfo.screenWidth = res.screenWidth * 2
-        this.globalData.systemInfo.screenHeight = res.screenHeight * 2
-      },
-      fail: res => {
-        console.log("getSystemInfo failed")
-        wx.showToast({
-          title: '获取设备信息失败',
-          icon: 'info',
-          duration: 2000
-        })
-      },
-
-    })
-
+    const res = wx.getSystemInfoSync();
+    this.globalData.systemInfo.windowHeight = res.windowHeight * 2
+    this.globalData.systemInfo.windowWidth = res.windowWidth * 2
+    this.globalData.systemInfo.screenWidth = res.screenWidth * 2
+    this.globalData.systemInfo.screenHeight = res.screenHeight * 2
   },
   onLaunch: function(options) {
     wx.setEnableDebug({
       enableDebug: false
     });
-    this.getSystemInfo();
-
     if (!this.globalData.merchantId) {
       this.globalData = {
         ...this.globalData,
         ...wx.getStorageSync('globalData'),
       };
     }
-    
+    this.getSystemInfo();
   },
 
   saveGlobalData(result) {
@@ -295,7 +280,7 @@ App({
       }
     })
   },
-  exitLogin: function () {
+  exitLogin: function() {
     getApp().globalData.registerStatus = false
     wx.setStorage({
       key: "globalData",

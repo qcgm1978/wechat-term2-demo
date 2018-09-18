@@ -21,7 +21,7 @@ Page({
     interval: 3000,
     duration: 1000,
     minAmount: 500,
-    top: getApp().globalData.systemInfo.windowHeight,
+    top: 0,
     defImg: getApp().globalData.defaultImg,
     buyTxt: '立即购买',
     specificationList: [{
@@ -98,7 +98,7 @@ Page({
     categoryCd
   }) {
     const locationId = getApp().globalData.merchant.locationId;
-    utils.getRequest(getProductItem, {
+    return utils.getRequest(getProductItem, {
       locationId,
       categoryCd: '',
       itemIds: itemId ? itemId : '',
@@ -189,13 +189,20 @@ Page({
       url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,
     });
   },
+  preventTouchMove: function (e) {
+    debugger;
+  },
   onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
       })
     }
-    this.getProduct(options);
+    this.getProduct(options).then(data=>{
+      this.setData({
+        top: getApp().globalData.systemInfo.windowHeight-750
+      })
+    });
     this.getRelated(options);
     if (getApp().globalData.badge > 0) {
       this.setData({
