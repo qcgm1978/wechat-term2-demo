@@ -353,6 +353,9 @@ const updateTrolleyNum = ({
           index: 2,
           text: (count ? count : '') + ''
         });
+        if(count===0){
+          wx.hideTabBarRedDot({ index: 2 });
+        }
         // Promise.resolve(count)
       }
       if (!isNaN(quantity)) {
