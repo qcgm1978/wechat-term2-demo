@@ -7,7 +7,7 @@ import {
 const getProductItem = Api.getProductItem;
 Page({
   data: {
-    defImg: globalData.defaultImg,
+    defImg: getApp().globalData.defaultImg,
     product: []
   },
   turnPage(e) {

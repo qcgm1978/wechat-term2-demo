@@ -21,8 +21,8 @@ Page({
     interval: 3000,
     duration: 1000,
     minAmount: 500,
-    top: globalData.systemInfo.windowHeight,
-    defImg: globalData.defaultImg,
+    top: getApp().globalData.systemInfo.windowHeight,
+    defImg: getApp().globalData.defaultImg,
     buyTxt: '立即购买',
     specificationList: [{
       specification: '',
@@ -183,8 +183,8 @@ Page({
       return;
     }
     this.data.product.quantity = this.data.quantity;
-    globalData.items = this.data.product;
-    globalData.items.orderItemSource=0;
+    getApp().globalData.items = this.data.product;
+    getApp().globalData.items.orderItemSource=0;
     wx.navigateTo({
       url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,
     });

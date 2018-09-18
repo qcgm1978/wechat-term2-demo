@@ -36,9 +36,9 @@ Page({
       offset: 1,
       limit: 10
     },
-    defImg: globalData.defaultImg,
+    defImg: getApp().globalData.defaultImg,
     tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
-    payStyle: globalData.payStyle,
+    payStyle: getApp().globalData.payStyle,
     hasNetwork:true,
     isToPay: true,
     hidePaid,

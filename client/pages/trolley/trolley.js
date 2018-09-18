@@ -10,7 +10,7 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
-    defImg: globalData.defaultImg,
+    defImg: getApp().globalData.defaultImg,
     trolley: [],
     minAmount: 500,
     height: getApp().globalData.systemInfo.windowHeight > 960 ? getApp().globalData.systemInfo.windowHeight - (38 + 52) * 2 - 38 : 960,

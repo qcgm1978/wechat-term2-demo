@@ -28,7 +28,7 @@ Page({
         "pageUrl": ""
       },
     ],
-    defImg: globalData.defaultImg,
+    defImg: getApp().globalData.defaultImg,
   },
   start: 0,
   limit: 20,
@@ -57,7 +57,7 @@ Page({
       .then(data => {
         if (data.status === 200) {
           const count = data.result.count;
-          globalData.badge = count;
+          getApp().globalData.badge = count;
           count && wx.setTabBarBadge({
             index: 2,
             text: count + ''
@@ -191,7 +191,7 @@ Page({
       .then(data => {
         if (data.status === 200) {
           const count = data.result.count;
-          globalData.badge = count;
+          getApp().globalData.badge = count;
           count && wx.setTabBarBadge({
             index: 2,
             text: count + ''
