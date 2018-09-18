@@ -5,11 +5,11 @@ import {
 const getProductItem = Api.getProductItem,
   createOrder = Api.createOrder;
 const app = getApp();
-const globalData = app.globalData;
 Page({
   data: {
     data: {},
     points: 0,
+    usedPoints:0,
     credit: 0,
     actual: 0,
     isVisible: true,
@@ -20,7 +20,7 @@ Page({
     order: {},
     name: '',
     phone: 0,
-    defImg: globalData.defaultImg,
+    defImg: getApp().globalData.defaultImg,
     storeName: '',
     salesReturn: '拒收申请已完成，积分已退回您的账户，请查询',
     address: '',
@@ -55,6 +55,7 @@ Page({
       storeName: getApp().globalData.merchant.merchantStoreName,
       max: getApp().globalData.merchant.pointBalance,
       points,
+      usedPoints:points,
       credit,
       total: options.total,
       actual: options.total - credit,
@@ -64,7 +65,7 @@ Page({
     })
     if (getApp().globalData.items) {
       this.setData({
-        data: globalData.items instanceof Array ? globalData.items : [globalData.items],
+        data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
       })
     } else {
       this.getProduct(options);
@@ -84,19 +85,21 @@ Page({
     });
   },
   bindinput(e) {
-    const isVisible = this.data.isVisible;
-    const points = this.data.points;
+    const points = Number(this.data.points);
     if (points >= e.detail.value) {
       this.setData({
-        credit: isVisible ? e.detail.value / 100 : 0,
-        actual: this.data.total - e.detail.value / 100
+        credit: utils.getFixedNum(e.detail.value / 100) ,
+        actual: utils.getFixedNum(this.data.total - e.detail.value / 100)
       });
     } else {
       this.setData({
-        credit: isVisible ? points / 100 : 0,
-        actual: this.data.total - e.detail.value / 100
+        credit: utils.getFixedNum( points / 100 ),
+        actual: utils.getFixedNum(this.data.total - points / 100)
       });
     }
+    this.setData({
+      usedPoints: utils.getFixedNum(this.data.credit * 100)
+    })
 
   },
   getProduct({
@@ -147,8 +150,8 @@ Page({
       const locationId = getApp().globalData.merchant.locationId;
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
-        receiverAddress = globalData.address,
-        orderItems = globalData.items instanceof Array ? globalData.items : [globalData.items ? globalData.items : this.data.data[0]];
+        receiverAddress = getApp().globalData.address,
+        orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
       const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
       // return;
       utils.postRequest({

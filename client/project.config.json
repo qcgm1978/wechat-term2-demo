@@ -33,7 +33,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -60,10 +60,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 4,
 					"name": "transactionList",
 					"pathName": "pages/transactionList/transactionList",
-					"query": ""
+					"query": "tab=0"
 				},
 				{
 					"id": 5,
