@@ -92,7 +92,7 @@ Page({
   getMerchant() {
     return new Promise((resolve, reject) => {
       getRequest(Api.getMerchant, {
-          merchantId: app.getMerchantId()
+          merchantId: getApp().getMerchantId()
         })
         .then((data) => {
           const merchant = data.result;
@@ -172,11 +172,6 @@ Page({
     })
   },
   onLoad: function(options) {
-    if (!getApp().globalData.registerStatus){
-      wx.reLaunch({
-        url: '/pages/login/login',
-      })
-    }
     this.getBanners()
       .then(data => {})
       .catch(err => {})
@@ -232,6 +227,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    if (!getApp().globalData.registerStatus) {
+      setTimeout(() => {
+        wx.reLaunch({
+          url: '/pages/login/login',
+        })
+        return
+      }, 1000)
+    }
     getApp().setBadge()
   },
 

@@ -113,11 +113,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    if (!getApp().globalData.registerStatus) {
-      wx.reLaunch({
-        url: '/pages/login/login',
-      })
-    }
     // this.getProductList();
     // this.onLaunch()
     // wx.hideTabBar();
@@ -137,7 +132,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    if (!getApp().globalData.registerStatus) {
+      setTimeout(() => {
+        wx.reLaunch({
+          url: '/pages/login/login',
+        })
+        return
+      }, 1000)
+    }
   },
 
   /**
