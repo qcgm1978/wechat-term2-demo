@@ -110,7 +110,7 @@ Page({
         // result.putShelvesFlg = true;
         result.itemImageAddress = (Array(5).fill('')).reduce((accumulator,item,index)=>{
           const imgAddress = result['itemImageAddress' + (index + 1)];
-          imgAddress!== ''&&accumulator.push(imgAddress);
+          imgAddress !== '' && accumulator.push(`${imgAddress}?x-oss-process=style/750w`);
           return accumulator;
         },[]);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg)

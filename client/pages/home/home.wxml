@@ -22,7 +22,7 @@
 <view class='product-row' wx:for='{{productList}}' wx:key='id' wx:if='{{index===0||index%2=== 0}}'>
   <navigator class='product-card' wx:for='{{[productList[index], productList[index+1]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?itemId={{pitem.itemId}}&categoryId={{pitem.itemCategoryCode}}" style='width:350rpx; {{pindex%2?"margin-left:16rpx;":""}}; visibility:{{pitem?"visible":"hidden"}};'>
     <view style="position: relative;">
-      <image class='product-image {{item.putShelvesFlg?"":"opacity-sold-out"}}' src='{{pitem.itemImageAddress1?pitem.itemImageAddress1:defImg}}' mode='aspectFit' data-errorimg="{{index}}"></image>
+      <image class='product-image {{item.putShelvesFlg?"":"opacity-sold-out"}}' src='{{pitem.itemImageAddress1?(pitem.itemImageAddress1+"?x-oss-process=style/350w"):defImg}}' mode='aspectFit' data-errorimg="{{index}}"></image>
       <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center' style="width: 144rpx;height: 144rpx;font-size:32rpx;">售罄</view>
     </view>
     <view class='product-name'>{{pitem.itemName}}</view>

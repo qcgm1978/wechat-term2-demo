@@ -24,7 +24,7 @@
                   <view class='item-container-fg'>
                     <view class='order-content'>
                       <view class='center' style="flex-grow:1;">
-                        <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                        <image src='{{orderItem.itemIcon?(orderItem.itemIcon+"?x-oss-process=style/180w"):defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
                         <view>
                           <view class='darker-gray-chars item-name regular'>{{orderItem.itemName}}</view>
                           <text class='regular item-standard'>规格：{{orderItem.itemSpecification}}</text>

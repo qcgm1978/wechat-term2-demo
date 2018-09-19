@@ -7,7 +7,7 @@
         <text wx:else class='radio trolley-invalid regular'>失效</text>
       </view>
       <view style="position: relative;">
-        <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' class='goods-img ' mode='aspectFit'>
+        <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
         </image>
         <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
       </view>
