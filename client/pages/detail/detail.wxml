@@ -1,6 +1,6 @@
 <view style='display: flex;flex-direction: column;' class='{{isSelecting?"indexFixed":""}}'>
   <view class='product-card'>
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx; opacity:{{isSelecting?.5:1}}">
       <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
         <swiper-item class='center-center' style='height:100%;'>
           <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="max-height:100%;" mode='aspectFit' />

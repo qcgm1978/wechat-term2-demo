@@ -56,7 +56,7 @@ Page({
     deviceWindowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
   },
 
-  gotoHome: function() {
+  gotoHome: function () {
     wx.switchTab({
       url: '/pages/home/home',
     });
@@ -66,7 +66,7 @@ Page({
    * 弹出层函数
    */
   //出现
-  showDialog: function() {
+  showDialog: function () {
     this.setData({
       dialogFlag: false
     })
@@ -75,20 +75,20 @@ Page({
     }, 2000)
   },
   //消失
-  hideDialog: function() {
+  hideDialog: function () {
     this.setData({
       dialogFlag: true
     })
   },
 
-  phoneLogin: function() {
+  phoneLogin: function () {
     //this.showDialog()
     wx.navigateTo({
       url: '../phoneLogin/phoneLogin'
     })
   },
 
-  decryptPhoneNumber: function(iv, encryptedData, jsCode) {
+  decryptPhoneNumber: function (iv, encryptedData, jsCode) {
     wx.request({
       url: backendUrlLogin,
       method: "POST",
@@ -99,7 +99,7 @@ Page({
       },
       header: {
         'content-type': 'application/json',
-        'X-Client-Id': 'mini-app'
+        // 'X-Client-Id': 'mini-app'
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
@@ -116,18 +116,17 @@ Page({
               title: '提示',
               content: '网络链接失败，请稍后再试！',
               showCancel: false,
-              success: res => {}
+              success: res => { }
             })
           }
         } else {
           const result = res.data.result;
-
+          app.saveGlobalData(result);
           if (result.potentialUser) {
             return wx.redirectTo({
               url: '/pages/home-enter/home-enter',
             })
           }
-          app.saveGlobalData(result);
           this.gotoHome()
           // getApp().globalData.token.refreshToken = res.data.result.token.refreshToken
           // getApp().globalData.userInfo.savedInDBStatus = res.data.result.registrationStatus
@@ -184,7 +183,7 @@ Page({
           title: '提示',
           content: '网络链接失败，请稍后再试！',
           showCancel: false,
-          success: res => {}
+          success: res => { }
         })
       },
       complete: () => {
@@ -198,17 +197,17 @@ Page({
 
   getPhoneNumber(e) {
     //appUtil.getJsCode().then(jscode => {
-      if (e.detail.iv && e.detail.encryptedData) {
-        this.setData({
-          loadingState: true,
-        });
-        this.decryptPhoneNumber(e.detail.iv, e.detail.encryptedData, getApp().globalData.token.jscode)
-      } else {
-        // todo 目前该接口针对非个人开发者，且完成了认证的小程序开放
-        // temp mock demo getUserInfo
-        // this.onTapLogin()
-        console.log('no authorization')
-      }
+    if (e.detail.iv && e.detail.encryptedData) {
+      this.setData({
+        loadingState: true,
+      });
+      this.decryptPhoneNumber(e.detail.iv, e.detail.encryptedData, getApp().globalData.token.jscode)
+    } else {
+      // todo 目前该接口针对非个人开发者，且完成了认证的小程序开放
+      // temp mock demo getUserInfo
+      // this.onTapLogin()
+      console.log('no authorization')
+    }
     //})
   },
   onTapLogin() {
@@ -223,32 +222,32 @@ Page({
       }
     });
   },
-  onLoad: function(para) {
+  onLoad: function (para) {
     this.decryptPhoneNumber.tokenRefreshed = false
     this.checkAndRegisterUser.tokenRefreshed = false
     this.saveRegisteredUser.tokenRefreshed = false;
     if (getApp().globalData.registerStatus) {
       this.gotoHome()
-    }else{
+    } else {
       // appUtil.getJsCode()
     }
   },
 
-  checkAndRegisterUser: function() {
+  checkAndRegisterUser: function () {
     if (getApp().globalData.userInfo.savedInDBStatus) {
       this.gotoMember();
     } else {
       this.saveRegisteredUser()
     }
   },
-  getLocation: function() {
+  getLocation: function () {
     return new Promise((resolve, reject) => {
       wx.getLocation({
         type: 'wgs84',
-        success: function(res) {
+        success: function (res) {
           resolve(res)
         },
-        fail: function(err) {
+        fail: function (err) {
           console.log(err)
           resolve()
         }
@@ -257,7 +256,7 @@ Page({
   },
 
   //register user to remote db if the info is not saved yet
-  saveRegisteredUser: function(e) {
+  saveRegisteredUser: function (e) {
     if (!getApp().globalData.token.accessToken) {
       this.gotoMember();
       return
@@ -303,8 +302,8 @@ Page({
                         this.saveRegisteredUser.tokenRefreshed = true
                         return this.saveRegisteredUser()
                       })
-                      .then(() => {})
-                      .catch(() => {})
+                      .then(() => { })
+                      .catch(() => { })
 
                   } else {
                     getApp().globalData.userInfo.registerStatus = false
@@ -345,7 +344,7 @@ Page({
             }
           })
         })
-        .catch((err) => {})
+        .catch((err) => { })
     }
   },
   onShow: function () {
