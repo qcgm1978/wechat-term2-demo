@@ -109,16 +109,18 @@ Page({
             debugger;
           }
           if (res.statusCode == ACCESS_TOCKEN_EXPIRED && !this.decryptPhoneNumber.tokenRefreshed) {
-            //console.log("ACCESS_TOCKEN_EXPIRED " + iv)
-            // this.gotoMember();
-          } else {
-            appUtil.getJsCode().then(data => {
-              wx.showModal({
-                title: '提示',
-                content: '网络链接失败，请稍后再试！',
-                showCancel: false,
-                success: res => { }
+            utils.errorHander(res.statusCode, () => {
+              this.decryptPhoneNumber(iv, encryptedData, jsCode)
+            })
+              .then(() => {
+                resolve()
+              })
+              .catch(() => {
+                reject()
               });
+          } else {
+            wx.reLaunch({
+              url: '../login/login'
             });
           }
         } else {
