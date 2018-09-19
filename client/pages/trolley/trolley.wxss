@@ -134,18 +134,7 @@ color: #707070;
   background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
 }
 
-.trolley-soldout {
-  width: 112rpx;
-  height: 112rpx;
-  font-size: 26rpx;
-  color: #fff;
-  background: rgba(0, 0, 0, 0.70);
-  border-radius: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
+
 
 .trolley-arrow {
   width: 26rpx;

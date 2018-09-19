@@ -43,6 +43,19 @@ page{
   align-items: center;
   justify-content: center;
 }
+.trolley-soldout {
+  width: 112rpx;
+  height: 112rpx;
+  font-size: 26rpx;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.70);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity:.7;
+}
 .light {
   font-family: PingFang-SC-Light, 'Source Han Sans CN Light', 'Noto Sans CJK SC Light';
 }
