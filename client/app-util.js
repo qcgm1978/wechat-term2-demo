@@ -10,14 +10,14 @@ export default {
     // }
     // this.checkProgramUpdate();
   },
-  failConsole(res = '', callback = () => {}) {
+  failConsole(res = '', callback = () => { }) {
     console.log('拉取用户openid失败，将无法正常使用开放接口等服务', res);
     callback(res);
   },
   checkProgramUpdate() {
     if (wx.canIUse('getUpdateManager')) {
       const updateManager = wx.getUpdateManager()
-      updateManager.onCheckForUpdate(function(res) {
+      updateManager.onCheckForUpdate(function (res) {
         // 请求完新版本信息的回调
         // console.log(res.hasUpdate);
         if (res.hasUpdate) {
@@ -26,7 +26,7 @@ export default {
           })
         }
       })
-      updateManager.onUpdateReady(function() {
+      updateManager.onUpdateReady(function () {
         updateManager.applyUpdate()
         // wx.showModal({
         //   title: '更新提示',
@@ -39,36 +39,42 @@ export default {
         //   }
         // });
       })
-      updateManager.onUpdateFailed(function() {
+      updateManager.onUpdateFailed(function () {
         // 新的版本下载失败
       });
     }
   },
   //function should be called when member in logout state
   getJsCode() {
-    this.login()
+    return new Promise((resolve, reject) => {
+      this.login().then(resolve)
+    });
   },
 
   login() {
-    wx.login({
-      success: res => {
-        if (res.code) {
-          getApp().globalData.token.jscode = res.code
-          try {
-            wx.setStorageSync('jscode', res.code)
-          } catch (e) {}
-        } else {
+    return new Promise((resolve, reject) => {
+      wx.login({
+        success: res => {
+          if (res.code) {
+            getApp().globalData.token.jscode = res.code
+            try {
+              wx.setStorageSync('jscode', res.code);
+              resolve()
+            } catch (e) { }
+          } else {
+          }
+        },
+        fail: res => {
+          wx.showModal({
+            title: '提示',
+            content: '微信登录失败！',
+            showCancel: false,
+            success: res => { }
+          });
+          reject()
         }
-      },
-      fail: res => {
-        wx.showModal({
-          title: '提示',
-          content: '微信登录失败！',
-          showCancel: false,
-          success: res => {}
-        })
-      }
-    })
+      });
+    });
   },
 
   globalData: {

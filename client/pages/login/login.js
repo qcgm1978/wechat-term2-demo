@@ -110,14 +110,16 @@ Page({
           }
           if (res.statusCode == ACCESS_TOCKEN_EXPIRED && !this.decryptPhoneNumber.tokenRefreshed) {
             //console.log("ACCESS_TOCKEN_EXPIRED " + iv)
-            this.gotoMember();
+            // this.gotoMember();
           } else {
-            wx.showModal({
-              title: '提示',
-              content: '网络链接失败，请稍后再试！',
-              showCancel: false,
-              success: res => { }
-            })
+            appUtil.getJsCode().then(data => {
+              wx.showModal({
+                title: '提示',
+                content: '网络链接失败，请稍后再试！',
+                showCancel: false,
+                success: res => { }
+              });
+            });
           }
         } else {
           const result = res.data.result;
@@ -127,54 +129,7 @@ Page({
               url: '/pages/home-enter/home-enter',
             })
           }
-          this.gotoHome()
-          // getApp().globalData.token.refreshToken = res.data.result.token.refreshToken
-          // getApp().globalData.userInfo.savedInDBStatus = res.data.result.registrationStatus
-          // getApp().globalData.userInfo.memberId = res.data.result.memberId
-          // getApp().globalData.userInfo.mobile = res.data.result.phoneNumber;
-          // getApp().globalData.isWechatLogin = true;
-          // wx.setStorage({
-          //   key: "isWechatLogin",
-          //   data: true
-          // })
-          // wx.setStorage({
-          //   key: "jscode",
-          //   data: getApp().globalData.token.jscode
-          // })
-          // wx.setStorage({
-          //   key: "accessToken",
-          //   data: getApp().globalData.token.accessToken
-          // })
-          // wx.setStorage({
-          //   key: "refreshToken",
-          //   data: getApp().globalData.token.refreshToken
-          // })
-          // wx.setStorage({
-          //   key: "registerStatus",
-          //   data: getApp().globalData.userInfo.registerStatus
-          // })
-          // wx.setStorage({
-          //   key: "memberId",
-          //   data: getApp().globalData.userInfo.memberId
-          // })
-          // wx.setStorage({
-          //   key: "mobile",
-          //   data: getApp().globalData.userInfo.mobile
-          // })
-          // payCode.getPayCodeToken()
-          //   .then((data) => {
-          //     this.checkAndRegisterUser()
-          //   })
-          //   .catch((err) => {
-          //     console.log(err)
-          //     switch (err) {
-          //       case INVALID_USER_STATUS:
-          //         getCurrentPages()[0].invalidUserMessage()
-          //         break
-          //       default:
-          //         break
-          //     }
-          //   })
+          this.gotoHome();
         }
       },
       fail: e => {
@@ -184,7 +139,8 @@ Page({
           content: '网络链接失败，请稍后再试！',
           showCancel: false,
           success: res => { }
-        })
+        });
+        appUtil.getJsCode();
       },
       complete: () => {
         this.setData({
@@ -196,7 +152,6 @@ Page({
 
 
   getPhoneNumber(e) {
-    //appUtil.getJsCode().then(jscode => {
     if (e.detail.iv && e.detail.encryptedData) {
       this.setData({
         loadingState: true,
@@ -208,7 +163,6 @@ Page({
       // this.onTapLogin()
       console.log('no authorization')
     }
-    //})
   },
   onTapLogin() {
     app.login({
@@ -226,7 +180,7 @@ Page({
     this.decryptPhoneNumber.tokenRefreshed = false
     this.checkAndRegisterUser.tokenRefreshed = false
     this.saveRegisteredUser.tokenRefreshed = false;
-    if (getApp().globalData.registerStatus) {
+    if (getApp().globalData.registerStatus && getApp().globalData.authWechat && !getApp().globalData.authWechat.potentialUser) {
       this.gotoHome()
     } else {
       // appUtil.getJsCode()
