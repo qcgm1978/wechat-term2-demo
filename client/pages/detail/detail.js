@@ -31,6 +31,9 @@ Page({
     }, ],
     icon: '../../images/trolley-full.png',
   },
+  relatedChange(e){
+    debugger;
+  },
   showPromotion() {
     this.setData({
       promotion: true

@@ -61,7 +61,7 @@
         <text class='dot' style="margin-right: 0;">.</text>
         <view class='short-line'></view>
       </view>
-      <swiper indicator-dots="{{false}}" indicator-active-color='#FDB658' autoplay="{{true}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
+      <swiper bindchange='relatedChange' indicator-dots="{{false}}" indicator-active-color='#FDB658' autoplay="{{true}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
         <navigator wx:for="{{related}}" wx:key='{{index}}' url='{{"../detail/detail?itemId="+item.itemId+"&categoryId="+item.itemCategoryCode}}'>
           <swiper-item class='column' style=' margin:0 6rpx;justify-content:center;'>
             <view class='center-center' style="width: 100%;height:150rpx;justify-content:center;">

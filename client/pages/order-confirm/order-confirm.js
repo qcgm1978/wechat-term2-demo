@@ -172,7 +172,7 @@ Page({
         }
       }).then(data => {
         // todo test 409
-        throw (409)
+        // throw (409)
         wx.hideLoading()
         console.log(data);
         if (data.status === 200) {
@@ -186,18 +186,15 @@ Page({
         } else {}
       }).catch(err => {
         // todo test 409
-        err=409;
+        // err=409;
         if (err === 409) { //price or putShelfFlg change
           // 调用上个页面的onload函数实现页面重新加载
           var pages = getCurrentPages();
           var prevPage = pages[pages.length - 2]; //上一个页面
           prevPage && prevPage.onLoad(prevPage.options);
-          wx.navigateBack({
-            delta:1
+          this.setData({
+            prompt: this.changedTxt
           })
-          // this.setData({
-          //   prompt: this.changedTxt
-          // })
         } else {
           console.log(err);
           this.setData({
@@ -215,6 +212,11 @@ Page({
     this.setData({
       isFailed: false
     });
+    if (this.changedTxt===this.data.prompt){
+      wx.navigateBack({
+        delta: 1
+      });
+    }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
