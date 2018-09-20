@@ -21,8 +21,8 @@ let isLoading = false;
 const showLoading = ({
   title
 } = {
-    title: '正在加载'
-  }) => {
+  title: '正在加载'
+}) => {
   if (!isLoading) {
     wx.showLoading({
       title,
@@ -30,7 +30,7 @@ const showLoading = ({
     isLoading = true;
   }
 }
-const hideLoading=()=>{
+const hideLoading = () => {
   if (isLoading) {
     wx.hideLoading();
     isLoading = false;
@@ -137,6 +137,7 @@ var postRequest = function({
 }
 
 var getRequest = function(url, data) {
+  showLoading()
   var promise = new Promise((resolve, reject) => {
     if (data) {
       for (const prop in data) {
@@ -144,7 +145,6 @@ var getRequest = function(url, data) {
         url = url.replace(`{${prop}}`, data[prop]);
       }
     }
-    showLoading()
     wx.request({
       url: url,
       method: 'GET',
@@ -330,9 +330,10 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
       });
   });
 }
-const getFixedNum = (float) => {
-  let ret = (float).toFixed(2);
-  return Number(String(ret).replace(/\.?0+$/, ''));
+const getFixedNum = (float,digits=0) => {
+  let ret = Number(float).toFixed(2);
+  ret= Number(String(ret).replace(/\.?0+$/, ''));
+  return digits?ret.toFixed(digits):digits;
 }
 const updateTrolleyNum = ({
   merchantId,
@@ -353,8 +354,10 @@ const updateTrolleyNum = ({
           index: 2,
           text: (count ? count : '') + ''
         });
-        if(count===0){
-          wx.hideTabBarRedDot({ index: 2 });
+        if (count === 0) {
+          wx.hideTabBarRedDot({
+            index: 2
+          });
         }
         // Promise.resolve(count)
       }

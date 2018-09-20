@@ -57,8 +57,8 @@ Page({
       points,
       usedPoints:points,
       credit,
-      total: options.total,
-      actual: options.total - credit,
+      total: utils.getFixedNum(options.total,2),
+      actual: utils.getFixedNum(options.total - credit,2),
       address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
@@ -76,7 +76,7 @@ Page({
     this.setData({
       isVisible,
       credit: isVisible ? this.data.credit / 100 : 0,
-      actual: this.data.total - (isVisible ? this.data.credit / 100 : 0)
+      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.credit / 100 : 0),2)
     })
   },
   textareaConfirm(e) {
@@ -88,17 +88,17 @@ Page({
     const points = Number(this.data.points);
     if (points >= e.detail.value) {
       this.setData({
-        credit: utils.getFixedNum(e.detail.value / 100) ,
-        actual: utils.getFixedNum(this.data.total - e.detail.value / 100)
+        credit: utils.getFixedNum(e.detail.value / 100,2) ,
+        actual: utils.getFixedNum(this.data.total - e.detail.value / 100, 2)
       });
     } else {
       this.setData({
-        credit: utils.getFixedNum( points / 100 ),
-        actual: utils.getFixedNum(this.data.total - points / 100)
+        credit: utils.getFixedNum(points / 100, 2 ),
+        actual: utils.getFixedNum(this.data.total - points / 100, 2)
       });
     }
     this.setData({
-      usedPoints: utils.getFixedNum(this.data.credit * 100)
+      usedPoints: utils.getFixedNum(this.data.credit * 100, 2)
     })
 
   },

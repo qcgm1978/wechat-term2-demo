@@ -92,9 +92,9 @@ Page({
               key: "isWechatLogin",
               data: false
             });
-            wx.switchTab({
-              url: '/pages/home/home',
-            });
+            // wx.switchTab({
+            //   url: '/pages/home/home',
+            // });
            })
           .catch((err) => {
             console.log(err)
@@ -125,39 +125,15 @@ Page({
       utils.postRequestWithoutToken(backendUrlPhoneLogin, postData)
         .then((data) => {
           getApp().saveGlobalData(data.result);
-          
-          // getApp().globalData.token.accessToken = data.result.token.accessToken
-          // getApp().globalData.token.refreshToken = data.result.token.refreshToken
-          // getApp().globalData.userInfo.registerStatus = true
-          // getApp().globalData.userInfo.memberId = data.result.memberId
-          // // getApp().globalData.userInfo.memberName = res.data.result.memberName
-          // getApp().globalData.userInfo.mobile = this.data.inputPhone
-          // getApp().globalData.userInfo.savedInDBStatus = true
-          // wx.setStorage({
-          //   key: "memberId",
-          //   data: getApp().globalData.userInfo.memberId
-          // })
-          // wx.setStorage({
-          //   key: "registerStatus",
-          //   data: getApp().globalData.userInfo.registerStatus
-          // })
-          // wx.setStorage({
-          //   key: "mobile",
-          //   data: getApp().globalData.userInfo.mobile
-          // })
-          // wx.setStorage({
-          //   key: "accessToken",
-          //   data: getApp().globalData.token.accessToken
-          // })
-          // wx.setStorage({
-          //   key: "refreshToken",
-          //   data: getApp().globalData.token.refreshToken
-          // })
-
-
-          resolve();
+          resolve(data.result.potentialUser);
         })
-        .then(() => {
+        .then(potentialUser => {
+          if (potentialUser) {
+            return wx.redirectTo({
+              url: '/pages/home-enter/home-enter',
+            })
+          }
+          // this.gotoHome();
           wx.switchTab({
             url: '../home/home'
           })

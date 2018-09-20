@@ -104,8 +104,8 @@ Page({
     let currentMoney = this.getTotalPrice(selectedRadio)
     let remaining = 500 - currentMoney;
     const disableBuy = remaining > 0;
-    currentMoney = utils.getFixedNum(currentMoney);
-    remaining = utils.getFixedNum(remaining)
+    currentMoney = utils.getFixedNum(currentMoney,2);
+    remaining = utils.getFixedNum(remaining,2)
     this.setData({
       currentMoney,
       disableBuy,
@@ -287,9 +287,9 @@ Page({
     });
     let currentMoney = this.getTotalPrice(this.selectedRadio)
     let remaining = this.data.minAmount - currentMoney;
-    remaining = utils.getFixedNum(remaining)
+    remaining = utils.getFixedNum(remaining,2)
     const disableBuy = remaining > 0;
-    currentMoney = utils.getFixedNum(currentMoney);
+    currentMoney = utils.getFixedNum(currentMoney,2);
     if (currentTrolley.checked) {
       this.setData({
         quantity: num,

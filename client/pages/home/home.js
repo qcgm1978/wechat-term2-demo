@@ -172,6 +172,9 @@ Page({
     })
   },
   onLoad: function(options) {
+    wx.showLoading({
+      title: '正在加载',
+    })
     this.getBanners()
       .then(data => {})
       .catch(err => {})
@@ -197,9 +200,11 @@ Page({
         wx.setStorage({
           key: 'globalData',
           data: getApp().globalData,
-        })
+        });
+        wx.hideLoading();
       })
       .catch(err => {
+        wx.hideLoading();
         wx.showModal({
           title: '提示',
           content: '获取商家信息失败，请重新登录',

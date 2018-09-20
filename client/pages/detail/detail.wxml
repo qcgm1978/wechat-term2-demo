@@ -32,8 +32,8 @@
         </view>
         <view></view>
       </view>
-      <view class='center promotion-container padding regular bgc mgt'>
-        <text class='promotion' style="align-self: start;">信息</text>
+      <view class='center promotion-container padding regular bgc mgt' wx:if='{{!product.itemExpirationDays || !product.applayScope || !product.itemBrand}}'>
+        <text class='promotion' style="align-self: start;" >信息</text>
         <view class='promotion-list'>
           <view class='center'>
             <text style='width:490rpx;'>{{product.itemExpirationDays?'保质期('+product.itemExpirationDays+'天);':''}}{{product.applayScope?'场地：'+product.applayScope+';':''}}{{product.itemBrand?'品牌：'+product.itemBrand:''}}</text>
@@ -82,7 +82,7 @@
         <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit'></image>
         <view>
           <view class='product-name' style="width: 444rpx;">{{product.item_brand}}</view>
-          <text class='dollar product-price'>{{currentMoney}}</text>
+          <text class='dollar product-price'>{{product.price}}</text>
         </view>
         <image src='../../images/close.png' class='close-popup' catch:tap='closePopup'></image>
       </view>
