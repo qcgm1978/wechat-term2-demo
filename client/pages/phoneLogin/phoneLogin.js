@@ -187,9 +187,7 @@ Page({
       'loginSrc.active': true,
       'icKey.active': true,
       'buttonVerifyNormal.active': false,
-    })
-    //send message here
-
+    });
     var closureFunc = this.showCurrentTime(VERIFY_WAIT_TIME)
     interval = setInterval(() => {
       closureFunc()
@@ -204,7 +202,10 @@ Page({
     }, 1000)
 
     this.doSendOtp()
-      .then(() => { })
+      .then(() => { 
+        //todo test catch
+        // throw 400;
+      })
       .catch((err) => {
         if (err == 400) {
           wx.showModal({
@@ -216,7 +217,13 @@ Page({
                 delta: 1
               })
             }
-          })
+          });
+          clearInterval(interval)
+          // this.setData({
+          //   verifyButtonMsg: VERIFY_BUTTON_INIT_MSG,
+          //   'icPhone.active': true,
+          //   'buttonVerifyNormal.active': true,
+          // });
         }
       })
   },
