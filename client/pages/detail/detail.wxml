@@ -32,7 +32,7 @@
         </view>
         <view></view>
       </view>
-      <view class='center promotion-container padding regular bgc mgt' wx:if='{{!product.itemExpirationDays || !product.itemOrigin || !product.itemBrand}}'>
+      <view class='center promotion-container padding regular bgc mgt' wx:if='{{product.itemExpirationDays || product.itemOrigin || product.itemBrand}}'>
         <text class='promotion' style="align-self: start;" >信息</text>
         <view class='promotion-list'>
           <view class='center'>
@@ -42,7 +42,7 @@
         </view>
         <view></view>
       </view>
-      <view class='center promotion-container padding regular bgc mgt'>
+      <view class='center promotion-container padding regular bgc mgt' wx:if='{{product.salesDescription}}'>
         <text class='promotion' style="align-self: start;">介绍</text>
         <view class='promotion-list'>
           <view class='center'>

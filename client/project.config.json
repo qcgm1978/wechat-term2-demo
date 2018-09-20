@@ -69,7 +69,7 @@
 					"id": 5,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "itemId=3496&categoryId=1201003"
+					"query": "itemId=3508&categoryId=undefined"
 				},
 				{
 					"id": 6,
