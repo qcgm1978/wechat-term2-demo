@@ -32,11 +32,11 @@
         </view>
         <view></view>
       </view>
-      <view class='center promotion-container padding regular bgc mgt' wx:if='{{!product.itemExpirationDays || !product.applayScope || !product.itemBrand}}'>
+      <view class='center promotion-container padding regular bgc mgt' wx:if='{{!product.itemExpirationDays || !product.itemOrigin || !product.itemBrand}}'>
         <text class='promotion' style="align-self: start;" >信息</text>
         <view class='promotion-list'>
           <view class='center'>
-            <text style='width:490rpx;'>{{product.itemExpirationDays?'保质期('+product.itemExpirationDays+'天);':''}}{{product.applayScope?'场地：'+product.applayScope+';':''}}{{product.itemBrand?'品牌：'+product.itemBrand:''}}</text>
+            <text style='width:490rpx;'>{{product.itemExpirationDays?'保质期('+product.itemExpirationDays+'天);':''}}{{product.itemOrigin?'产地：'+product.itemOrigin+';':''}}{{product.itemBrand?'品牌：'+product.itemBrand:''}}</text>
             <text class='promotion-type'></text>
           </view>
         </view>

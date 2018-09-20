@@ -333,7 +333,7 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
 const getFixedNum = (float,digits=0) => {
   let ret = Number(float).toFixed(2);
   ret= Number(String(ret).replace(/\.?0+$/, ''));
-  return digits?ret.toFixed(digits):digits;
+  return digits?ret.toFixed(digits):ret;
 }
 const updateTrolleyNum = ({
   merchantId,

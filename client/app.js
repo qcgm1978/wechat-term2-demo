@@ -27,7 +27,7 @@ App({
       "WAIT_SHIPMENT": '待发货',
       CANCELED: '订单取消',
       "WAIT_RECEIVE": '待收货',
-      COMPLETED: '已收货',
+      COMPLETED: '已完成',
       "RETURN_FULL": '全部拒收',
       "RETURN_PART": '部分拒收'
     },
