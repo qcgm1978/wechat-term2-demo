@@ -1,7 +1,15 @@
-.confirm-price{
-  font-size: 28rpx;
-color: #EE711F;
+.confirm-view {
+  position: fixed;
+  width: 100%;
+  align-items: center;
+  z-index:20;
 }
+
+.confirm-price {
+  font-size: 28rpx;
+  color: #ee711f;
+}
+
 .trans-number-time {
   margin-left: 60rpx;
 }
@@ -68,7 +76,7 @@ color: #EE711F;
   font-size: 32rpx;
   color: #fff;
   width: 236rpx;
-  margin: 0;
+  margin: 0 48rpx 0 0;
   line-height: 70rpx;
 }
 
@@ -100,9 +108,8 @@ color: #EE711F;
   font-size: 28rpx;
   color: #666;
   letter-spacing: 0;
-  text-align:center;
-  width:422rpx;
-
+  text-align: center;
+  width: 422rpx;
 }
 
 .confirm-popup button {

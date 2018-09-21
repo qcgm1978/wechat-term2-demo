@@ -10,6 +10,8 @@ Page({
     data: {},
     points: 0,
     usedPoints:0,
+    height:'100%',
+    top:'100%',
     credit: 0,
     actual: 0,
     isVisible: true,
@@ -50,8 +52,10 @@ Page({
       })
     }
     const credit = this.data.isVisible ? points / 100 : 0;
+    const windowHeight = getApp().globalData.systemInfo.windowHeight;
     this.setData({
-      // itemId: options.itemId,
+      height:windowHeight-116,
+      top: windowHeight,
       storeName: getApp().globalData.merchant.merchantStoreName,
       max: getApp().globalData.merchant.pointBalance,
       points,
@@ -98,7 +102,7 @@ Page({
       });
     }
     this.setData({
-      usedPoints: utils.getFixedNum(this.data.credit * 100, 2)
+      usedPoints: this.data.credit * 100
     })
 
   },
@@ -172,7 +176,7 @@ Page({
         }
       }).then(data => {
         // todo test 409
-        // throw (409)
+        throw (409)
         wx.hideLoading()
         console.log(data);
         if (data.status === 200) {

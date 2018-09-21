@@ -90,6 +90,9 @@ Page({
     })
   },
   getMerchant() {
+    wx.showLoading({
+      title: '正在加载',
+    });
     return new Promise((resolve, reject) => {
       getRequest(Api.getMerchant, {
           merchantId: getApp().getMerchantId()
@@ -131,7 +134,7 @@ Page({
         if (result.status === 200) {
           if (data.length) {
             this.setData({
-              productList: data
+              productList: this.data.productList.concat(data)
             });
           }
           resolve(data)
@@ -172,9 +175,6 @@ Page({
     })
   },
   onLoad: function(options) {
-    wx.showLoading({
-      title: '正在加载',
-    })
     this.getBanners()
       .then(data => {})
       .catch(err => {})
@@ -251,6 +251,9 @@ Page({
   },
   onPullDownRefresh: function() {
     this.start = 0;
+    this.setData({
+      productList:[]
+    })
     this.getProductList(getApp().globalData.merchant.locationId)
     .then(data => wx.stopPullDownRefresh())
     .catch(err=>{
