@@ -52,9 +52,9 @@ Page({
       })
     }
     const credit = this.data.isVisible ? points / 100 : 0;
-    const windowHeight = getApp().globalData.systemInfo.windowHeight;
+    const windowHeight = wx.getSystemInfoSync().windowHeight;
     this.setData({
-      height:windowHeight,
+      height:windowHeight*2,
       top: windowHeight,
       storeName: getApp().globalData.merchant.merchantStoreName,
       max: getApp().globalData.merchant.pointBalance,
