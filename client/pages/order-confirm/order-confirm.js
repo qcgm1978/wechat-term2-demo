@@ -120,8 +120,6 @@ Page({
       console.log(data);
       if (data.status === 200) {
         const result = data.result[0];
-        // todo
-        // result.putShelvesFlg = true;
         result.itemImageAddress = (Array(5).fill('')).reduce((accumulator, item, index) => {
           const imgAddress = result['itemImageAddress' + (index + 1)];
           imgAddress !== '' && accumulator.push(imgAddress);
@@ -176,7 +174,7 @@ Page({
         }
       }).then(data => {
         // todo test 409
-        throw (409)
+        // throw (409)
         wx.hideLoading()
         console.log(data);
         if (data.status === 200) {
