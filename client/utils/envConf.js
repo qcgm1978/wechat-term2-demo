@@ -25,7 +25,7 @@ switch (env) {
       break;
     }
   case EVN.STG:
-    clientSecret = "Rn2eJRBN0cDEXSBl"
+    clientSecret = "OzoStRYlQVA85pjp"
     baseUrl = "https://stg-api.jihuiduo.cn/bmall/v1"
     addrUrl = "https://stg-api.jihuiduo.cn/bmall/v1"
     break

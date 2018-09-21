@@ -125,7 +125,7 @@ Page({
       utils.postRequestWithoutToken(backendUrlPhoneLogin, postData)
         .then((data) => {
           getApp().saveGlobalData(data.result);
-          resolve(data.result.potentialUser);
+          return (data.result.potentialUser);
         })
         .then(potentialUser => {
           if (potentialUser) {

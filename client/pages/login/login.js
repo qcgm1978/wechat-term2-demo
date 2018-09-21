@@ -57,7 +57,7 @@ Page({
     deviceWindowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
   },
 
-  gotoHome: function () {
+  gotoHome: function() {
     wx.switchTab({
       url: '/pages/home/home',
     });
@@ -67,7 +67,7 @@ Page({
    * 弹出层函数
    */
   //出现
-  showDialog: function () {
+  showDialog: function() {
     this.setData({
       dialogFlag: false
     })
@@ -76,20 +76,20 @@ Page({
     }, 2000)
   },
   //消失
-  hideDialog: function () {
+  hideDialog: function() {
     this.setData({
       dialogFlag: true
     })
   },
 
-  phoneLogin: function () {
+  phoneLogin: function() {
     //this.showDialog()
     wx.navigateTo({
       url: '../phoneLogin/phoneLogin'
     })
   },
 
-  decryptPhoneNumber: function (iv, encryptedData, jsCode) {
+  decryptPhoneNumber: function(iv, encryptedData, jsCode) {
     wx.request({
       url: backendUrlLogin,
       method: "POST",
@@ -111,8 +111,8 @@ Page({
           }
           if (res.statusCode == ACCESS_TOCKEN_EXPIRED && !this.decryptPhoneNumber.tokenRefreshed) {
             utils.errorHander(res.statusCode, () => {
-              this.decryptPhoneNumber(iv, encryptedData, jsCode)
-            })
+                this.decryptPhoneNumber(iv, encryptedData, jsCode)
+              })
               .then(() => {
                 resolve()
               })
@@ -141,7 +141,7 @@ Page({
           title: '提示',
           content: '网络链接失败，请稍后再试！',
           showCancel: false,
-          success: res => { }
+          success: res => {}
         });
         appUtil.getJsCode();
       },
@@ -179,32 +179,39 @@ Page({
       }
     });
   },
-  onLoad: function (para) {
+  onLoad: function(para) {
     this.decryptPhoneNumber.tokenRefreshed = false
     this.checkAndRegisterUser.tokenRefreshed = false
     this.saveRegisteredUser.tokenRefreshed = false;
     if (getApp().globalData.registerStatus && getApp().globalData.authWechat && !getApp().globalData.authWechat.potentialUser) {
-      utils.getMerchant().then(this.gotoHome)
+      utils.getMerchant()
+        .then(data => {
+          debugger;
+          const merchant = data.result;
+          getApp().globalData.merchant = merchant;
+          return (merchant.locationId);
+        })
+        .then(this.gotoHome)
     } else {
       // appUtil.getJsCode()
     }
   },
-  
-  checkAndRegisterUser: function () {
+
+  checkAndRegisterUser: function() {
     if (getApp().globalData.userInfo.savedInDBStatus) {
       this.gotoMember();
     } else {
       this.saveRegisteredUser()
     }
   },
-  getLocation: function () {
+  getLocation: function() {
     return new Promise((resolve, reject) => {
       wx.getLocation({
         type: 'wgs84',
-        success: function (res) {
+        success: function(res) {
           resolve(res)
         },
-        fail: function (err) {
+        fail: function(err) {
           console.log(err)
           resolve()
         }
@@ -213,7 +220,7 @@ Page({
   },
 
   //register user to remote db if the info is not saved yet
-  saveRegisteredUser: function (e) {
+  saveRegisteredUser: function(e) {
     if (!getApp().globalData.token.accessToken) {
       this.gotoMember();
       return
@@ -259,8 +266,8 @@ Page({
                         this.saveRegisteredUser.tokenRefreshed = true
                         return this.saveRegisteredUser()
                       })
-                      .then(() => { })
-                      .catch(() => { })
+                      .then(() => {})
+                      .catch(() => {})
 
                   } else {
                     getApp().globalData.userInfo.registerStatus = false
@@ -301,10 +308,10 @@ Page({
             }
           })
         })
-        .catch((err) => { })
+        .catch((err) => {})
     }
   },
-  onShow: function () {
+  onShow: function() {
     appUtil.getJsCode()
   },
 })

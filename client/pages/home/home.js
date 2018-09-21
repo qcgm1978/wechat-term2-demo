@@ -34,7 +34,7 @@ Page({
   },
   start: 0,
   limit: 20,
-  enablePullDownRefresh: false,
+  enableRequest: true,
   bindPickerChange(e) {
     getApp().globalData.currentIndex = Number(e.detail.value);
     getApp().globalData.merchant = getApp().globalData.authMerchantList[getApp().globalData.currentIndex];
@@ -61,10 +61,10 @@ Page({
       })
       .then(locationId => {
         getApp().globalData.merchant.locationId = locationId;
-        this.start=0;
+        this.start = 0;
         this.setData({
-          productList:[]
-        })        
+          productList: []
+        })
         this.getProductList(locationId)
       })
       .then(() => {
@@ -156,17 +156,34 @@ Page({
       });
     })
   },
+  setStores(merchant) {
+    for (let i = 0; i < getApp().globalData.authMerchantList.length; i++) {
+      if (getApp().globalData.authMerchantList[i].merchantId == merchant.nsMerchantId) {
+        this.setData({
+          index: i
+        })
+      }
+    }
+    getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
+    return merchant.locationId;
+  },
   onLoad: function(options) {
     this.getBanners()
       .then(data => {})
       .catch(err => {});
+    
     const merchant = getApp().globalData.merchant;
-    const hasLocationId = merchant ? Promise.resolve(merchant.locationId) : getMerchant();
+    const hasLocationId = merchant ? Promise.resolve(merchant) : getMerchant();
     hasLocationId
-    .then(data => {
-      return data.result?data.result.locationId:data;
-    })
-    .then(this.getProductList)
+      .then(data => {
+        if (data.result) {
+          const merchant = data.result;
+          getApp().globalData.merchant = merchant;
+        } 
+        return getApp().globalData.merchant;
+      })
+      .then(this.setStores)
+      .then(this.getProductList)
       .then(() => {
         return getRequest(Api.getCartCount, {
           merchantId: app.getMerchantId(),
@@ -237,19 +254,33 @@ Page({
 
   },
   onPullDownRefresh: function() {
-    this.start = 0;
-    this.setData({
-      productList: []
-    })
-    this.getProductList(getApp().globalData.merchant.locationId)
-      .then(data => wx.stopPullDownRefresh())
-      .catch(err => {
-        wx.stopPullDownRefresh();
-      });
+    if (this.enableRequest) {
+      this.enableRequest = false;
+      this.start = 0;
+      this.setData({
+        productList: []
+      })
+      this.getProductList(getApp().globalData.merchant.locationId)
+        .then(data => {
+          wx.stopPullDownRefresh();
+          this.enableRequest = true;
+        })
+        .catch(err => {
+          wx.stopPullDownRefresh();
+          this.enableRequest = true;
+        });
+    }
   },
   onReachBottom: function() {
-    this.start += this.limit;
-    this.getProductList(getApp().globalData.merchant.locationId);
+    if (this.enableRequest) {
+      this.enableRequest = false;
+      this.start += this.limit;
+      this.getProductList(getApp().globalData.merchant.locationId).then(data => {
+        this.enableRequest = true;
+      }).catch(err => {
+        this.enableRequest = true;
+      });
+    }
   },
 
   /**
