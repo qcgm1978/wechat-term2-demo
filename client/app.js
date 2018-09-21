@@ -93,9 +93,6 @@ App({
   },
 
   saveGlobalData(result) {
-    // if (!result.authMerchantList) {
-    //   return;
-    // }
     this.globalData = {
       ...this.globalData,
       authWechat: result,

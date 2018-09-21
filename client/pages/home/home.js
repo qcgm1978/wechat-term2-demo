@@ -70,7 +70,6 @@ Page({
       .then(() => {
         return getRequest(Api.getCartCount, {
           merchantId: app.getMerchantId(),
-          // accessToken: this.globalData.token.accessToken
         })
       })
       .then(data => {
@@ -92,12 +91,12 @@ Page({
       .catch(err => {
         wx.showModal({
           title: '提示',
-          content: '获取商家信息失败，请重新登录',
+          content: '获取商家信息失败',
           showCancel: false,
           success: res => {
-            wx.reLaunch({
-              url: '/pages/login/login',
-            })
+            // wx.reLaunch({
+            //   url: '/pages/login/login',
+            // })
           }
         })
       });
@@ -187,7 +186,6 @@ Page({
       .then(() => {
         return getRequest(Api.getCartCount, {
           merchantId: app.getMerchantId(),
-          // accessToken: this.globalData.token.accessToken
         })
       })
       .then(data => {
@@ -211,12 +209,12 @@ Page({
         wx.hideLoading();
         wx.showModal({
           title: '提示',
-          content: '获取商家信息失败，请重新登录',
+          content: '获取商家信息失败',
           showCancel: false,
           success: res => {
-            wx.reLaunch({
-              url: '/pages/login/login',
-            })
+            // wx.reLaunch({
+            //   url: '/pages/login/login',
+            // })
           }
         })
       });
