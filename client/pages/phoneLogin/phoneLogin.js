@@ -57,7 +57,7 @@ Page({
     }
     if (mobile.length != 11) {
       wx.showToast({
-        title: '手机号长度有误！',
+        title: '号码长度有误',
         icon: 'loading',
         duration: 1500
       })

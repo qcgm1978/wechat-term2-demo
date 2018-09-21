@@ -60,7 +60,11 @@ Page({
         return (merchant.locationId);
       })
       .then(locationId => {
-        getApp().globalData.merchant.locationId = locationId
+        getApp().globalData.merchant.locationId = locationId;
+        this.start=0;
+        this.setData({
+          productList:[]
+        })        
         this.getProductList(locationId)
       })
       .then(() => {

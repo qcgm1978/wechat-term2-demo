@@ -102,7 +102,7 @@ Page({
       });
     }
     this.setData({
-      usedPoints: this.data.credit * 100
+      usedPoints: parseInt(this.data.credit * 100)
     })
 
   },
