@@ -1,4 +1,4 @@
-<scroll-view scroll-y style="height:{{top}}rpx;">
+<scroll-view scroll-y style="height:{{height-53*2}}rpx;">
   <view class='regular bgc padding'>
     <view class='trans-shop' wx:if='{{isReturn}}'>
       <view class='trans-shop-lable regular'>{{salesReturn}}</view>
@@ -23,7 +23,7 @@
     <view class='scroll-container' scroll-top="{{scrollTop}}">
 
       <view>
-        <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;'>
+        <scroll-view scroll-y="true" style='height: {{ (height-8-74*2-211*2-53*2+"rpx")}};'>
           <view class='item-container' wx:for="{{data}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
             <view class='item-container-fg'>
               <view class='order-content'>
@@ -103,7 +103,7 @@
 
   </view>
 </scroll-view>
-<view class='padding mgt bgc center order-item-container confirm-view' style='top:{{top}}rpx;'>
+<view class='padding mgt bgc center order-item-container confirm-view' style='top:{{height}}rpx;'>
   <text class='medium order-field dollar' style='color:#EE711F;font-size: 44rpx;'>{{actual}}</text>
   <button class='medium submit regular' catch:tap='createOrder'>提交订单</button>
 </view>
