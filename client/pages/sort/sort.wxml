@@ -8,7 +8,7 @@
         <view class='medium category-second'>{{second.itemCategoryName}}</view>
         <view class='clearfix padding' style="padding-left: 0;width:516rpx; " >
           <view catch:tap='turnPage' wx:for="{{second.childCategory}}" wx:for-item='third' wx:key='{{index-third}}' class='column category-third' data-categorycode='{{third.itemCategoryCode}}' data-name='{{third.itemCategoryName}}' style="float: left;">
-            <image src='{{third.itemCategoryImage||defImg}}' mode='aspectFit'></image>
+            <image src='{{third.itemCategoryImage?(third.itemCategoryImage+"?x-oss-process=style/180w"):defImg}}' mode='aspectFit'></image>
             <text class='category-name ellipse'>{{third.itemCategoryName}}</text>
           </view>
         </view>
