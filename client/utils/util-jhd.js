@@ -284,7 +284,7 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 
-const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
+const addToTrolley = (itemId, quantity = 1, enableChecked = true, updateAddTime = true) => {
   showLoading({
     title: '正在添加到购物车...'
   })
@@ -295,6 +295,7 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
       itemId,
       locationId,
       quantity,
+      updateAddTime,
       addItemList: itemId instanceof Array ? itemId : [{
         itemId,
         quantity
@@ -330,10 +331,10 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true) => {
       });
   });
 }
-const getFixedNum = (float,digits=0) => {
+const getFixedNum = (float, digits = 0) => {
   let ret = Number(float).toFixed(2);
-  ret= Number(String(ret).replace(/\.?0+$/, ''));
-  return digits?ret.toFixed(digits):ret;
+  ret = Number(String(ret).replace(/\.?0+$/, ''));
+  return digits ? ret.toFixed(digits) : ret;
 }
 const updateTrolleyNum = ({
   merchantId,
@@ -369,6 +370,29 @@ const updateTrolleyNum = ({
       return resolve ? resolve(count) : count;
     });
 }
+const getMerchant = () => {
+  wx.showLoading({
+    title: '正在加载',
+  });
+  return new Promise((resolve, reject) => {
+    getRequest(Api.getMerchant, {
+        merchantId: getApp().getMerchantId()
+      })
+      .then((data) => {
+        resolve(data)
+      })
+      .catch(errorCode => {
+        // getApp().failRequest();
+        errorHander(errorCode, getMerchant)
+          .then(() => {
+            resolve()
+          })
+          .catch(() => {
+            reject()
+          })
+      })
+  });
+}
 module.exports = {
   checkNetwork: checkNetwork,
   formatTime: formatTime,
@@ -381,5 +405,6 @@ module.exports = {
   queryStack,
   addToTrolley,
   getFixedNum,
-  updateTrolleyNum
+  updateTrolleyNum,
+  getMerchant
 }

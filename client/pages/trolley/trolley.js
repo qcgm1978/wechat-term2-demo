@@ -300,7 +300,7 @@ Page({
       })
     }
     utils
-      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, false)
+      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, false,false)
       .then(badge => {
         // debugger;
       })

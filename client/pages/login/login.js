@@ -1,3 +1,4 @@
+import utils from "../../utils/util.js";
 var URLs = require("../../utils/envConf.js").Api;
 var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessToken;
 var config = require("../../utils/index.js").config;
@@ -183,12 +184,12 @@ Page({
     this.checkAndRegisterUser.tokenRefreshed = false
     this.saveRegisteredUser.tokenRefreshed = false;
     if (getApp().globalData.registerStatus && getApp().globalData.authWechat && !getApp().globalData.authWechat.potentialUser) {
-      this.gotoHome()
+      utils.getMerchant().then(this.gotoHome)
     } else {
       // appUtil.getJsCode()
     }
   },
-
+  
   checkAndRegisterUser: function () {
     if (getApp().globalData.userInfo.savedInDBStatus) {
       this.gotoMember();

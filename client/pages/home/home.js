@@ -1,14 +1,16 @@
-import utils from "../../utils/util.js";
+// import utils from "../../utils/util.js";
 // const io = require('/socket.io/socket.io.js')
 const getUserInfo = require('./getUserInfo').default;
 import {
   Api
 } from '../../utils/envConf.js';
 import {
-  getRequest
+  getRequest,
+  addToTrolley,
+  getMerchant,
+  errorHander
 } from '../../utils/util.js';
-const getMerchant = Api.getMerchant,
-  getProductList = Api.getProductList,
+const getProductList = Api.getProductList,
   getBanners = Api.getBanners,
   getHot = Api.getHot;
 const app = getApp()
@@ -36,14 +38,27 @@ Page({
   bindPickerChange(e) {
     getApp().globalData.currentIndex = Number(e.detail.value);
     getApp().globalData.merchant = getApp().globalData.authMerchantList[getApp().globalData.currentIndex];
-    if (this.data.index !== Number(e.detail.value)){
-      getApp().globalData.toggleMerchant=true;
-      getApp().globalData.checkedTrolley=[];
+    if (this.data.index !== Number(e.detail.value)) {
+      getApp().globalData.toggleMerchant = true;
+      getApp().globalData.checkedTrolley = [];
     }
     this.setData({
       index: Number(e.detail.value)
     });
-    this.getMerchant()
+    getMerchant()
+      .then(data => {
+        const merchant = data.result;
+        getApp().globalData.merchant = merchant;
+        for (let i = 0; i < getApp().globalData.authMerchantList.length; i++) {
+          if (getApp().globalData.authMerchantList[i].merchantId == merchant.nsMerchantId) {
+            this.setData({
+              index: i
+            })
+          }
+        }
+        getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
+        return (merchant.locationId);
+      })
       .then(locationId => {
         getApp().globalData.merchant.locationId = locationId
         this.getProductList(locationId)
@@ -89,42 +104,9 @@ Page({
       productList
     })
   },
-  getMerchant() {
-    wx.showLoading({
-      title: '正在加载',
-    });
-    return new Promise((resolve, reject) => {
-      getRequest(Api.getMerchant, {
-          merchantId: getApp().getMerchantId()
-        })
-        .then((data) => {
-          const merchant = data.result;
-          getApp().globalData.merchant = merchant;
-          for (let i = 0; i < getApp().globalData.authMerchantList.length; i++){
-            if (getApp().globalData.authMerchantList[i].merchantId == merchant.nsMerchantId){
-              this.setData({
-                index: i
-              })
-            }
-          }
-          getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
-          resolve(merchant.locationId)
-        })
-        .catch(errorCode => {
-          // getApp().failRequest();
-          utils.errorHander(errorCode, this.getMerchant)
-            .then(() => {
-              resolve()
-            })
-            .catch(() => {
-              reject()
-            })
-        })
-    });
-  },
   getProductList(locationId) {
     return new Promise((resolve, reject) => {
-      locationId = locationId ? locationId : getApp().globalData.merchant.locationId; 
+      locationId = locationId ? locationId : getApp().globalData.merchant.locationId;
       getRequest(getHot, {
         locationId,
         start: this.start,
@@ -157,15 +139,11 @@ Page({
   addToTrolley(event) {
     return new Promise((resolve, reject) => {
       const itemId = event.currentTarget.dataset.itemid;
-      utils.addToTrolley(itemId).catch(errorCode => {
+      addToTrolley(itemId).catch(errorCode => {
         // getApp().failRequest();
-        utils.errorHander(errorCode, this.getMerchant)
-          .then(() => {
-            resolve()
-          })
-          .catch(() => {
-            reject()
-          })
+        return errorHander(errorCode, () => {
+          addToTrolley(event);
+        });
       }).catch((errorCode) => {
         wx.showToast({
           icon: 'none',
@@ -177,9 +155,13 @@ Page({
   onLoad: function(options) {
     this.getBanners()
       .then(data => {})
-      .catch(err => {})
-    this.getMerchant()
-      .then(locationId => this.getProductList(locationId))
+      .catch(err => {});
+    const hasLocationId = getApp().globalData.merchant ? Promise.resolve() : getMerchant();
+    hasLocationId
+    .then(data => {
+      return data.result.locationId;
+    })
+    .then(this.getProductList)
       .then(() => {
         return getRequest(Api.getCartCount, {
           merchantId: app.getMerchantId(),
@@ -252,13 +234,13 @@ Page({
   onPullDownRefresh: function() {
     this.start = 0;
     this.setData({
-      productList:[]
+      productList: []
     })
     this.getProductList(getApp().globalData.merchant.locationId)
-    .then(data => wx.stopPullDownRefresh())
-    .catch(err=>{
-      wx.stopPullDownRefresh();
-    });
+      .then(data => wx.stopPullDownRefresh())
+      .catch(err => {
+        wx.stopPullDownRefresh();
+      });
   },
   onReachBottom: function() {
     this.start += this.limit;
