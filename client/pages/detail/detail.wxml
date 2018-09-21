@@ -54,7 +54,7 @@
       </view>
     </view>
 
-    <view class='bgc' style="margin-top: 15rpx;">
+    <view wx:if="{{related.length}}" class='bgc' style="margin-top: 15rpx;">
       <view class='center-center regular' style="height: 76rpx;font-size:28rpx;color: #EE711F;">
         <view class='short-line'></view>
         <text class='dot' style="margin-left: 0;">.</text>相关宝贝
