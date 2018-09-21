@@ -156,10 +156,11 @@ Page({
     this.getBanners()
       .then(data => {})
       .catch(err => {});
-    const hasLocationId = getApp().globalData.merchant ? Promise.resolve() : getMerchant();
+    const merchant = getApp().globalData.merchant;
+    const hasLocationId = merchant ? Promise.resolve(merchant.locationId) : getMerchant();
     hasLocationId
     .then(data => {
-      return data.result.locationId;
+      return data.result?data.result.locationId:data;
     })
     .then(this.getProductList)
       .then(() => {
