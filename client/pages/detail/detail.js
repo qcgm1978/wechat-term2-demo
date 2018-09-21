@@ -67,6 +67,7 @@ Page({
       isSelecting: false,
       buyTxt: '立即购买',
       currentMoney: 0,
+      quantity:1,
       enableBuy: false,
       specificationList: this.data.specificationList.map(item => {
         item.num = 0;
