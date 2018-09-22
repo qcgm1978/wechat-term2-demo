@@ -384,11 +384,11 @@ const getMerchant = () => {
       .catch(errorCode => {
         // getApp().failRequest();
         errorHander(errorCode, getMerchant)
-          .then(() => {
-            resolve()
+          .then((data) => {
+            resolve(data)
           })
-          .catch(() => {
-            reject()
+          .catch(err => {
+            reject(err)
           })
       })
   });
