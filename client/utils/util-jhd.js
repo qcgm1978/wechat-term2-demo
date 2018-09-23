@@ -153,7 +153,7 @@ var getRequest = function(url, data) {
 
       },
       success: res => {
-        debugger;
+        // debugger;
         if (res.statusCode !== HTTP_SUCCSESS) {
           console.log(res);
           reject(res.statusCode);
