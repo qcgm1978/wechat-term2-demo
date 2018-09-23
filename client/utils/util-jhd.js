@@ -153,7 +153,7 @@ var getRequest = function(url, data) {
 
       },
       success: res => {
-
+        debugger;
         if (res.statusCode !== HTTP_SUCCSESS) {
           console.log(res);
           reject(res.statusCode);
@@ -249,8 +249,8 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler) {
               callback.tokenRefreshed = true
               return callback()
             })
-            .then(() => {
-              resolve()
+            .then(data => {
+              resolve(data)
             })
             .catch((errorCode) => {
               reject(errorCode)

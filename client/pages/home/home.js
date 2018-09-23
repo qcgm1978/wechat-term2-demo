@@ -130,12 +130,10 @@ Page({
           });
           reject(result.status)
         }
-      }).catch(err => {
-        wx.showToast({
-          icon: 'none',
-          title: '商品数据加载错误',
+        }).catch(errorCode => {
+        errorHander(errorCode, () => {
+          this.getProductList(locationId);
         });
-        reject(err)
       });
     });
   },

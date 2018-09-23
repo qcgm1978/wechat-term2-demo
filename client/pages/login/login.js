@@ -192,6 +192,10 @@ Page({
           return (merchant.locationId);
         })
         .then(this.gotoHome)
+        .catch(err=>{
+          debugger;
+          console.log(err)
+        })
     } else {
       // appUtil.getJsCode()
     }
