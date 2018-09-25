@@ -10,27 +10,29 @@ const getUserInfo = require('./pages/home/getUserInfo').default;
 const websocket = require('./pages/home/ws').default;
 
 let userInfo
-
+const iniGlobalData = {
+  currentIndex: 0,
+  badge: 0,
+  toggleMerchant: false,
+  
+  defaultImg: '/images/default.png',
+  payStyle: {
+    "WAIT_SHIPMENT": '待发货',
+    CANCELED: '订单取消',
+    "WAIT_RECEIVE": '待收货',
+    COMPLETED: '已完成',
+    "RETURN_FULL": '全部拒收',
+    "RETURN_PART": '部分拒收'
+  }
+};
 App({
   ...getUserInfo,
   ...websocket,
   globalData: {
-    currentIndex: 0,
-    badge: 0,
-    toggleMerchant: false,
     systemInfo: {},
     token: {},
     userInfo: {},
     checkedTrolley: [],
-    defaultImg: '/images/default.png',
-    payStyle: {
-      "WAIT_SHIPMENT": '待发货',
-      CANCELED: '订单取消',
-      "WAIT_RECEIVE": '待收货',
-      COMPLETED: '已完成',
-      "RETURN_FULL": '全部拒收',
-      "RETURN_PART": '部分拒收'
-    },
   },
   errorFunction(e, data) {
     if (e.type == "error") {
@@ -87,6 +89,7 @@ App({
       this.globalData = {
         ...this.globalData,
         ...wx.getStorageSync('globalData'),
+        ...iniGlobalData
       };
     }
     this.getSystemInfo();
