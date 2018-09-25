@@ -156,8 +156,7 @@
   font-size: 28rpx;
   color: #333;
   line-height: 40rpx;
-  height:80rpx;
-
+  /* height:80rpx; */
   display: -webkit-box;
   word-break: break-all;
   text-overflow: ellipsis;
@@ -216,7 +215,7 @@
 
 .product-price {
   flex: 1;
-  margin: 0 10rpx;
+  /* margin: 0 10rpx; */
   font-size: 32rpx;
   color: #ee711f;
 }
