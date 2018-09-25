@@ -1,8 +1,8 @@
 var URLs = require("../../utils/envConf.js").Api;
+const getProductItem = URLs.getProductItem;
 var utils = require("../../utils/util.js");
 var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessToken;
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
-// import switchTabs from './switchTab'
 let refreshTimeExpired = true,
   refreshTimeExpiredToPay = true;
 const app = getApp();
@@ -28,7 +28,6 @@ const ITEM_COUNT_PER_PAGE = 10,
   hidePaid = true;
 
 Page({
-  // ...switchTabs,
   totalPages: 0,
   data: {
     config: {
@@ -39,7 +38,7 @@ Page({
     defImg: getApp().globalData.defaultImg,
     tabColors: ['selected', 'unselected', 'unselected', 'unselected'],
     payStyle: getApp().globalData.payStyle,
-    hasNetwork:true,
+    hasNetwork: true,
     isToPay: true,
     hidePaid,
     payedColor,
@@ -133,7 +132,7 @@ Page({
             totalPages,
           })
           if (result.orders === null) {
-             this.setData({
+            this.setData({
               loadCompleted: true
             });
             return resolve(data)
@@ -149,36 +148,37 @@ Page({
               isLast: false
             })
           }
-          const order=result.orders.map(item=>{
-            const currentItem={...item};
-            if(currentItem.orderReturn){
-              currentItem.isReturn=true;
+          const order = result.orders.map(item => {
+            const currentItem = { ...item
+            };
+            if (currentItem.orderReturn) {
+              currentItem.isReturn = true;
               currentItem.usePoints = currentItem.orderReturn.returnStatus === 1 && currentItem.orderReturn.refundPoint > 0
             }
             return currentItem;
           });
           this.setData({
             order,
-            hasNetwork:true
+            hasNetwork: true
           })
           resolve()
         })
         .catch((errorCode) => {
           console.log(errorCode);
           utils
-          .errorHander(errorCode, () => this.requestTransList(url, postData))
-          .catch(err=>{
-            if(err===503){
+            .errorHander(errorCode, () => this.requestTransList(url, postData))
+            .catch(err => {
+              if (err === 503) {
                 this.setData({
-                  hasNetwork:false
+                  hasNetwork: false
                 })
-            }
-          });
+              }
+            });
         });
     })
     return promise
   },
-  refresh(){
+  refresh() {
     this.onLoad(this.options)
   },
   requestMoreData(config) {
@@ -219,10 +219,10 @@ Page({
   },
   //加载更多
   onReachBottom: function() {
-    
+
 
   },
-  lower(){
+  lower() {
     const offset = ++this.data.config.offset;
     if (this.data.totalPages + 1 >= offset) {
       this.setData({
@@ -243,7 +243,7 @@ Page({
           ...this.data.config,
           offset
         },
-        isLast:false
+        isLast: false
       });
       this.requestMoreData(this.data.config);
     } else {
@@ -292,7 +292,7 @@ Page({
           title: '拒收列表',
         });
         this.setData({
-          isReturn:true
+          isReturn: true
         })
       }
     }
@@ -301,21 +301,80 @@ Page({
   addGotoTrolley: function(e) {
     const dataset = e.currentTarget.dataset;
     const orderItem = dataset.orderitem;
-    const arr=orderItem.map(item=>({
-      itemId:item.itemId,
-      quantity:item.quantity
+    const arr = orderItem.map(item => ({
+      itemId: item.itemId,
+      quantity: item.quantity
     }));
-    utils
-      .addToTrolley(arr)
-      .then(badge => {
-        getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
-        wx.switchTab({
-          url: `/pages/trolley/trolley`,
+    const itemId = arr.reduce((accumulator, item) => {
+      return accumulator + (accumulator ? ',' : '') + item.itemId;
+    }, '');
+    this.getProduct({
+      itemId,
+      // categoryId
+    }).then(data => {
+      if (arr.length === data.length) {
+        utils
+          .addToTrolley(arr)
+          .then(badge => {
+            getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
+            wx.switchTab({
+              url: `/pages/trolley/trolley`,
+            })
+          });
+      } else if (data.length > 0) {
+        utils.showModel(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
+          const arrInStock = arr.reduce((accumulator, item) => {
+            const inStockItem = data.find(item1 => {
+              return (item1.itemId === item.itemId)
+            });
+            if (inStockItem) {
+              accumulator.push(item);
+            }
+            return accumulator;
+          }, []);
+          utils
+            .addToTrolley(arrInStock)
+            .then(badge => {
+              getApp().globalData.checkedTrolley = arrInStock.map(item => item.itemId)
+              wx.switchTab({
+                url: `/pages/trolley/trolley`,
+              })
+            });
         })
-      })
-    // wx.navigateTo({
-    //   url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
-    // })
+      } else {
+        utils.showModel(`订单中的商品全部卖光了,再看看其他商品吧`,false);
+      }
+    })
+  },
+  getProduct({
+    itemId,
+    categoryCd
+  }) {
+    const locationId = getApp().globalData.merchant.locationId;
+    return utils.getRequest(getProductItem, {
+      locationId,
+      categoryCd: '',
+      itemIds: itemId ? itemId : '',
+    }).then(data => {
+      console.log(data);
+      if (data.status === 200) {
+        const inStock = data.result.reduce((accumulator, item) => {
+          if (item.putShelvesFlg) {
+            accumulator.push(item);
+          }
+          return accumulator;
+        }, []);
+        return inStock;
+      } else {
+
+      }
+    }).catch(err => {
+      utils.errorHander(err, () => this.getProduct({
+        itemId,
+        // categoryId
+      }))
+      console.log(err);
+    })
   },
   goTransDetails: function(e) {
     wx.navigateTo({
