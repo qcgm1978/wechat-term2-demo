@@ -107,7 +107,7 @@ Page({
           try {
             console.log(res.data.message)
           } catch (e) {
-            debugger;
+            //debugger;
           }
           if (res.statusCode == ACCESS_TOCKEN_EXPIRED && !this.decryptPhoneNumber.tokenRefreshed) {
             utils.errorHander(res.statusCode, () => {
@@ -186,7 +186,7 @@ Page({
     if (getApp().globalData.registerStatus && getApp().globalData.authWechat && !getApp().globalData.authWechat.potentialUser) {
       utils.getMerchant()
         .then(data => {
-          debugger;
+          //debugger;
           const merchant = data.result;
           getApp().globalData.merchant = merchant;
           return (merchant.locationId);

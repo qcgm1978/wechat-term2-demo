@@ -134,7 +134,7 @@
   align-items: center;
   font-size: 26rpx;
   color: #949494;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 
 .promotion-type {
@@ -340,4 +340,20 @@
 .without-back-image {
   background-image: none !important;
   margin: 0;
+}
+
+.promotion {
+  width: 60rpx;
+}
+
+.promotion-1 {
+  width: 80rpx;
+  border-radius:10rpx;
+  text-align: center;
+  color: #febb5c;
+  background-color: #fae5c7a2;
+}
+
+.promotion-2 {
+  width: 500rpx;
 }

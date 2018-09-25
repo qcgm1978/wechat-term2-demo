@@ -13,14 +13,16 @@
         <view class='product-name'>{{product.itemName}}</view>
       </view>
       <view wx:if='{{hasPromotion}}' class='center promotion-container padding regular bgc mgt' catch:tap='showPromotion'>
-        <text class='promotion' style="align-self: start;">促销</text>
+        <text class='promotion' >促销</text>
+        <text class='promotion-1'>满减</text>
+        <text class='promotion-2' >{{promotionMsg}}</text>
         <view class='promotion-list'>
           <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
             <text class='promotion-type'>{{item.type}}</text>
             <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
           </view>
         </view>
-        <image src='../memberDetail/img/arrow.png' class='order-arrow1'></image>
+        <image src='../memberDetail/img/arrow.png' class='order-arrow1' wx:if='{{unionPromotion}}'></image>
       </view>
       <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>

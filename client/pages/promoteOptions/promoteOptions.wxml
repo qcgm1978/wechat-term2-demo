@@ -1,0 +1,10 @@
+<view wx:for='{{product}}' wx:key='*this' class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
+  <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
+  <view class='column regular list-container'>
+    <text class='list-name'>{{item.itemName}}</text>
+    <text class='list-spec'>规格：  {{item.itemSpecification}}</text>
+    <text class='dollar medium list-price'>{{item.price}}</text>
+  </view>
+  <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}"  color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
+        </radio>
+</view>

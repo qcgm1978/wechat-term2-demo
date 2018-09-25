@@ -16,7 +16,9 @@ Page({
     enableBuy: false,
     promotion: false,
     isSelecting: false,
-    hasPromotion: false,
+    hasPromotion: true,
+    unionPromotion: false,
+    promotionMsg: "满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油,满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油",
     autoplay: true,
     interval: 3000,
     duration: 1000,
@@ -32,11 +34,14 @@ Page({
     icon: '../../images/trolley-full.png',
   },
   relatedChange(e){
-    debugger;
+    //debugger;
   },
   showPromotion() {
-    this.setData({
-      promotion: true
+    // this.setData({
+    //   promotion: true
+    // })
+    wx.navigateTo({
+      url: '/pages/promoteOptions/promoteOptions',
     })
   },
   plusMinus(e) {
@@ -194,7 +199,7 @@ Page({
     });
   },
   preventTouchMove: function (e) {
-    debugger;
+    //debugger;
   },
   onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
