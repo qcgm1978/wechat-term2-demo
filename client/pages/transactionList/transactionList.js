@@ -69,12 +69,12 @@ Page({
       success: res => {
         if (res.confirm) {
           utils.postRequest({
-              url: cancelOrder,
-              data: {
-                orderId: selectData.orderId,
-                merchantId: app.getMerchantId()
-              }
-            })
+            url: cancelOrder,
+            data: {
+              orderId: selectData.orderId,
+              merchantId: app.getMerchantId()
+            }
+          })
             .then((data) => {
               this.setData({
                 order: arr,
@@ -100,7 +100,7 @@ Page({
     }
   },
   // 滚动切换标签样式
-  switchTab: function(e) {
+  switchTab: function (e) {
     this.toggleState(e.detail.current);
     // this.checkCor();
   },
@@ -119,12 +119,12 @@ Page({
     });
     this.requestMoreData(this.data.config);
   },
-  requestTransList: function(url, postData) {
+  requestTransList: function (url, postData) {
     var promise = new Promise((resolve, reject) => {
       utils.postRequest({
-          url,
-          postData
-        })
+        url,
+        postData
+      })
         .then((data) => {
           const result = data.result;
           const totalPages = Math.ceil(result.orderTotalCount / 10);
@@ -149,7 +149,8 @@ Page({
             })
           }
           const order = result.orders.map(item => {
-            const currentItem = { ...item
+            const currentItem = {
+              ...item
             };
             if (currentItem.orderReturn) {
               currentItem.isReturn = true;
@@ -189,9 +190,9 @@ Page({
       ['dataMessage']: LOADING
     })
     this.requestTransList(getOrderList, {
-        ...config,
-        merchantId: getApp().getMerchantId()
-      })
+      ...config,
+      merchantId: getApp().getMerchantId()
+    })
       .then((data) => {
         this.setData({
           loadCompleted: true
@@ -218,7 +219,7 @@ Page({
       })
   },
   //加载更多
-  onReachBottom: function() {
+  onReachBottom: function () {
 
 
   },
@@ -235,7 +236,7 @@ Page({
     }
   },
   //下拉刷新
-  pullDownRefresh: function() {
+  pullDownRefresh: function () {
     const offset = this.data.config.offset - 1;
     if (offset > 0) {
       this.setData({
@@ -253,7 +254,7 @@ Page({
   },
 
 
-  requestTransCount: function() {
+  requestTransCount: function () {
     var promise = new Promise((resolve, reject) => {
       utils.getRequest(backendUrlTransCount2 + getApp().globalData.userInfo.memberId + "/transactions/count")
         .then(data => {
@@ -267,7 +268,7 @@ Page({
     return promise
   },
 
-  onLoad: function(option) {
+  onLoad: function (option) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -298,7 +299,7 @@ Page({
     }
     this.requestMoreData(this.data.config);
   },
-  addGotoTrolley: function(e) {
+  addGotoTrolley: function (e) {
     const dataset = e.currentTarget.dataset;
     const orderItem = dataset.orderitem;
     const arr = orderItem.map(item => ({
@@ -322,7 +323,7 @@ Page({
             })
           });
       } else if (data.length > 0) {
-        utils.showModel(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
+        utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
           const arrInStock = arr.reduce((accumulator, item) => {
             const inStockItem = data.find(item1 => {
               return (item1.itemId === item.itemId)
@@ -342,7 +343,7 @@ Page({
             });
         })
       } else {
-        utils.showModel(`订单中的商品全部卖光了,再看看其他商品吧`,false);
+        utils.showModal(`订单中的商品全部卖光了,再看看其他商品吧`, false);
       }
     })
   },
@@ -376,7 +377,7 @@ Page({
       console.log(err);
     })
   },
-  goTransDetails: function(e) {
+  goTransDetails: function (e) {
     wx.navigateTo({
       url: `../transactionDetail/transactionDetail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
     })
@@ -384,7 +385,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     utils.checkNetwork()
   },
 })

@@ -30,20 +30,22 @@ var showSuccess = text => wx.showToast({
 })
 
 // 显示失败提示
-var showModel = (title, showCancel=true) => {
-  return new Promise((resolve,reject)=>{
-    wx.hideToast();
-    wx.showModal({
-        title,
-        // content: JSON.stringify(content),
-        showCancel,
-        success(res){
-          if(res.confirm){
-            resolve()
-          }
-        }
+var showModal = (title, showCancel = true) => {
+    return new Promise((resolve, reject) => {
+        wx.hideToast();
+        wx.showModal({
+            title,
+            // content: JSON.stringify(content),
+            showCancel,
+            // confirmColor: '#EE711F',
+            // cancelColor: '#EE711F',
+            success(res) {
+                if (res.confirm) {
+                    resolve()
+                }
+            }
+        })
     })
-  })
 }
 
-module.exports = { formatTime, showBusy, showSuccess, showModel, ...util }
+module.exports = { formatTime, showBusy, showSuccess, showModal, ...util }

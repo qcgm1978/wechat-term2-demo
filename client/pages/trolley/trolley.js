@@ -24,7 +24,7 @@ Page({
   start: 0,
   limit: 20,
   enablePullDownRefresh: false,
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -104,8 +104,8 @@ Page({
     let currentMoney = this.getTotalPrice(selectedRadio)
     let remaining = 500 - currentMoney;
     const disableBuy = remaining > 0;
-    currentMoney = utils.getFixedNum(currentMoney,2);
-    remaining = utils.getFixedNum(remaining,2)
+    currentMoney = utils.getFixedNum(currentMoney, 2);
+    remaining = utils.getFixedNum(remaining, 2)
     this.setData({
       currentMoney,
       disableBuy,
@@ -203,8 +203,8 @@ Page({
       })
     })
   },
-  promptDel(e){
-    utils.showModel('您确定删除商品吗？').then(data=>{
+  promptDel(e) {
+    utils.showModal('您确定删除商品吗？').then(data => {
       this.del(e)
     })
   },
@@ -212,43 +212,43 @@ Page({
     const dataset = e.currentTarget.dataset;
     const itemId = dataset.itemid;
     utils.postRequest({
-        METHOD: 'DELETE',
-        url: Api.removeCart,
-        config: {
-          merchantId: app.getMerchantId()
-        },
-        data: {
-          removeItems: [{
-            itemId
-          }]
+      METHOD: 'DELETE',
+      url: Api.removeCart,
+      config: {
+        merchantId: app.getMerchantId()
+      },
+      data: {
+        removeItems: [{
+          itemId
+        }]
+      }
+    }).then(data => {
+      return new Promise((resolve, reject) => {
+        wx.showToast({
+          title: '删除成功',
+          icon: 'success',
+          duration: 2000
+        });
+        const index = this.selectedRadio.indexOf(itemId);
+        if (index !== -1) {
+          this.selectedRadio.splice(index, 1);
         }
-      }).then(data => {
-        return new Promise((resolve, reject) => {
-          wx.showToast({
-            title: '删除成功',
-            icon: 'success',
-            duration: 2000
-          });
-          const index = this.selectedRadio.indexOf(itemId);
-          if (index !== -1) {
-            this.selectedRadio.splice(index, 1);
+        this.setMoneyData(this.selectedRadio);
+        const trolley = this.data.trolley.reduce((accumulator, item) => {
+          if (item.itemId !== itemId) {
+            accumulator.push(item)
           }
-          this.setMoneyData(this.selectedRadio);
-          const trolley = this.data.trolley.reduce((accumulator, item) => {
-            if (item.itemId !== itemId) {
-              accumulator.push(item)
-            }
-            return accumulator;
-          }, [])
-          this.setData({
-            trolley
-          });
-          utils.updateTrolleyNum({
-            resolve,
-            merchantId: getApp().getMerchantId()
-          })
+          return accumulator;
+        }, [])
+        this.setData({
+          trolley
+        });
+        utils.updateTrolleyNum({
+          resolve,
+          merchantId: getApp().getMerchantId()
         })
       })
+    })
       .then(data => {
         // debugger;
       })
@@ -287,9 +287,9 @@ Page({
     });
     let currentMoney = this.getTotalPrice(this.selectedRadio)
     let remaining = this.data.minAmount - currentMoney;
-    remaining = utils.getFixedNum(remaining,2)
+    remaining = utils.getFixedNum(remaining, 2)
     const disableBuy = remaining > 0;
-    currentMoney = utils.getFixedNum(currentMoney,2);
+    currentMoney = utils.getFixedNum(currentMoney, 2);
     if (currentTrolley.checked) {
       this.setData({
         quantity: num,
@@ -300,67 +300,67 @@ Page({
       })
     }
     utils
-      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, false,false)
+      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, false, false)
       .then(badge => {
         // debugger;
       })
   },
-  onReady: function() {
+  onReady: function () {
 
   },
-  onShow: function() {
+  onShow: function () {
     this.start = 0;
-    if (getApp().globalData.toggleMerchant){
-      this.selectedRadio=[];
-      getApp().globalData.toggleMerchant=false;
+    if (getApp().globalData.toggleMerchant) {
+      this.selectedRadio = [];
+      getApp().globalData.toggleMerchant = false;
     }
-    getApp().globalData.checkedTrolley.map(item=>{
-      if (!this.selectedRadio.includes(item)){
+    getApp().globalData.checkedTrolley.map(item => {
+      if (!this.selectedRadio.includes(item)) {
         this.selectedRadio.push(item)
       }
     });
     this.getTrolley()
-    .then(data => {
-      this.setData({
-        dataLoaded: true
+      .then(data => {
+        this.setData({
+          dataLoaded: true
+        })
       })
-    })
-    .catch(e => {
-      this.setData({
-        dataLoaded: true
+      .catch(e => {
+        this.setData({
+          dataLoaded: true
+        })
       })
-    })
     utils.updateTrolleyNum();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })
