@@ -119,8 +119,9 @@ Page({
         },[]);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg)
         this.setData({
-          product: result
-        })
+          product: result,
+          currentMoney: result.price * this.data.quantity
+        });
       } else {
         if (data instanceof Array) {
           this.setData({

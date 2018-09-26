@@ -18,7 +18,7 @@
     </view>
     <view class='column'>
       <image src='./img/return.png' data-type='4'></image>
-      <text class='{{tabColors[4]}} regular' data-type='4'>退换货</text>
+      <text class='{{tabColors[4]}} regular' data-type='4'>拒收单</text>
     </view>
 
   </view>
