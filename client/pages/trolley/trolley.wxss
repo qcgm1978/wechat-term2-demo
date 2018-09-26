@@ -18,7 +18,7 @@ color: #707070;
 }
 .trolley-container {
   align-items: center;
-  margin-bottom: 16rpx;
+
   height:256rpx;
 }
 
@@ -168,4 +168,31 @@ page {
   color: #fff;
   width: 280rpx;
   height: 80rpx;
+}
+.promotion {
+  width: 100%;
+  background: white;
+  margin-bottom: 16rpx;
+}
+
+.promotion-1 {
+  width: 80rpx;
+  border-radius:10rpx;
+  text-align: center;
+  color: #febb5c;
+  background-color: #fae5c7a2;
+  font-size: 30rpx;
+  margin-left: 60rpx;
+}
+.promotion-2 {
+  width: auto;
+  color: #b1afad;
+  font-size: 30rpx;
+  margin-left: 10rpx;
+}
+.promotion-3 {
+  width: auto;
+  color: #f5b87a;
+  font-size: 30rpx;
+  margin-left: 10rpx;
 }

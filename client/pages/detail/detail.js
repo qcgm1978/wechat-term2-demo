@@ -41,7 +41,7 @@ Page({
     //   promotion: true
     // })
     wx.navigateTo({
-      url: '/pages/promoteOptions/promoteOptions',
+      url: '/pages/promoteOptions/promoteOptions?promoteMsg=' + this.data.promotionMsg,
     })
   },
   plusMinus(e) {

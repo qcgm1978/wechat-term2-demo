@@ -8,7 +8,15 @@ const getProductItem = Api.getProductItem;
 Page({
   data: {
     defImg: getApp().globalData.defaultImg,
-    product: [{ itemName: "惠百真豆油", itemSpecification: "2ML*8", price: "299.90", itemId: "1", checked: false}]
+    imgTrolly: "../../images/trolley-missing.png",
+    promoteMsg: "",
+    product: [{ itemName: "惠百真豆油", itemSpecification: "2ML*8", price: "299.90", itemId: "1", checked: false}],
+    icon1: "./images/u40.png",
+    icon2: "./images/u42.jpg",
+    quantity: 0,
+    promotionItems: ["./images/u40.png", "./images/u42.jpg"],
+    rightArrow: "./images/grey-arrow.png",
+    showPromoteDetail: false
   },
 
   onLoad: function (options) {
@@ -17,7 +25,9 @@ Page({
         url: '/pages/login/login',
       })
     }
-
+    this.setData({
+      promoteMsg: options.promoteMsg
+    })
     // this.categoryId=options.categoryId;
     // this.getCategories(options)
     //this.getProduct(options);
@@ -28,8 +38,6 @@ Page({
     categoryCd
   }) {
     const locationId = getApp().globalData.merchant.locationId;
-    // todo
-    // const getProductItem = 'http://192.168.2.26:10092/v1/items?locationId=55&categoryCd=1401001';
     utils.getRequest(getProductItem, {
       locationId,
       categoryCd,
@@ -38,8 +46,6 @@ Page({
       console.log(data);
       if (data.status === 200) {
         let result = data.result;
-        // todo
-        // result.putShelvesFlg = true;
         result = result.map(item => {
           item.itemImageAddress1 = (item.itemImageAddress1 && !item.itemImageAddress1.endsWith("gif")) ? item.itemImageAddress1 : this.data.defImg;
           return item;
@@ -75,4 +81,21 @@ Page({
       }
     }
   },
+  addToTrolley() {
+
+    utils
+      .addToTrolley(this.data.product.itemId, this.data.quantity)
+      .then(badge => {
+        this.setData({
+          badge,
+          icon: '../../images/trolley-missing.png'
+        })
+      })
+  },
+
+  togglePromoteDetail() {
+      this.setData({
+        showPromoteDetail: !this.data.showPromoteDetail
+      })
+  }
 })

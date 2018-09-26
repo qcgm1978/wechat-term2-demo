@@ -29,15 +29,28 @@
               <view style="display: flex; flex-direction:row;">
 
                 <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                <view style='display: flex; flex-direction: column;'>
+                  <view wx:if='{{orderItem.freeGift}}'>
+                    <view style='display: flex; flex-direction: row;'>
+                      <view class='darker-gray-chars item-name regular' >赠品</view>
+                      <view class='darker-gray-chars item-name regular' > {{orderItem.itemName}}</view>
+                    </view>
+                  </view>
 
-                <view>
-                  <view class='darker-gray-chars item-name regular'>{{orderItem.itemName}}</view>
+                  <view class='darker-gray-chars item-name regular' wx:else>{{orderItem.itemName}}</view>
                   <text class='regular item-standard'>规格：{{orderItem.itemSpecification}}</text>
                 </view>
+
               </view>
               <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
-                <text>￥{{orderItem.unitPrice}}</text>
-                <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' >{{isReturn&&'拒收数量'}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
+                <view wx:if='{{orderItem.freeGift}}'>
+                  <view style='display: flex; flex-direction: column;'>
+                    <text style='text-align: right;'>￥0</text>
+                    <text style='color:#949494;text-decoration:line-through;'>￥{{orderItem.unitPrice}}</text>
+                  </view>
+                </view>
+                <text wx:else>￥{{orderItem.unitPrice}}</text>
+                <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' style='text-align: right;'>{{isReturn&&'拒收数量'}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
               </view>
             </view>
 
@@ -129,3 +142,30 @@
 
   </view>
 </view>
+
+
+<view class="modal-box" hidden="{{dialogFlag}}" bindtap="hideDialog">
+  <view class="modal-body">
+    <view class="modal-content">
+      <image class="content-img" src="images/pop-up.png" ></image>
+      <view class="content-txt">订单中的部分商品卖光了，您是否继续购买其余商品？</view>
+      <view style='display: flex;justify-content: space-between; width:552rpx; position:absolute ; top: 240rpx; left: 80rpx;text-align: center;line-height: 200rpx;'  >
+        <view class='dialog-btn' style='background:white; border:2rpx solid #949494;' bindtap='letMeThink'>我再想想</view>
+        <view class='dialog-btn' style='color:white;' bindtap='proceedBuy'>继续购买</view>
+      </view>
+    </view>
+  </view>
+</view> 
+
+<view class="modal-box" hidden="{{soldOutDialogFlag}}" bindtap="hideDialog">
+  <view class="modal-body">
+    <view class="modal-content">
+      <image class="content-img" src="images/pop-up.png" ></image>
+      <view class="content-txt">订单中的商品全部卖光了，再看看其他商品吧</view>
+      <view style='display: flex; width:auto; position:absolute ; top: 240rpx; left: 260rpx;text-align: center;line-height: 200rpx;'  >
+        <!-- <view class='dialog-btn' style='background:white; border:2rpx solid #949494;' bindtap='letMeThink'>我再想想</view> -->
+        <view class='dialog-btn' style='color:white;' bindtap='confirmClose'>确定</view>
+      </view>
+    </view>
+  </view>
+</view> 

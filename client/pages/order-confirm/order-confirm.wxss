@@ -130,3 +130,13 @@
   background-size: cover;
   background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAuIAAAAICAYAAAC8o5ryAAAAAXNSR0IArs4c6QAAAq5JREFUeAHtmz1Ow0AQhXf5i6JIgTRIqaKUiBOkyx18h9BABRUVFRVUpCFHQOIOdDkCZZQqEg0hkhUBCcYCHGPisXfXMzLFQ0I4uzPP2m/st6to0CrnJ7g43Hl+8W+UCno5oSLTWuu38Pdk73o0ELnBj+jhXbDjPz3fBIEqZ53qe52j4z3RdaKekk9RrK1RzxgGwxXeTwaIBhLwWwNIFiHwWwtYBULhtwXgpaTCb1OgCAxFfquztP3zg+brfH4fHsI7WXGCc5OtTeXVr8ZDwXuog1u/OX9/vQ8P4aWtU+ktb3xcF10n6in5FCW0J6hngkehD3g/C+GzSYbf2tDKiYXf5gDim4bf8rHEeYiRZY7Uym/Jg/jsrNVZLFV4CFfNHDGhaT2sVKte7fJxInSDL9lWf9ZRwaK0dWqthtXtivd4VBNdJ+op+RTF2qhnzILjCu8nB0UTDfitCSXTGPitKalicfDbYvz+ZsNv/xKR+pz0242020xP273lh34I58o6hA8au7Wu9CG83Z/2dLAsbZ2hiQxq+42u9CEc9Ux7yvnHUE9epng/eXnSahp+S8OxnoHfWiNzSoDfOmEjk+C3JBrmiXW/TXwjjn42Zt6EHPrZCDCOw+hncwRnmRb1s+H/NSzBEeHwWwIM8zD8lhco/JaXJ6UGv6XIuI3/Z79dHcTRz+ZWXIcs9LM5QKNS0D9MkWEfX/WzsSv/EkQ9f8GQvUQ9Gfli/2SEmS2F/TObj9Us/NYKV5HgTL/9Ooijn60IX/Nc9LOZszKJRD+bCSWOmGQ/G4dimgbqmUZFYgz15KSK/ZOTJq2F/ZNm4zIDv3Wh5pKT77cb6GdzAWufg342e2ZZGehny6LDObfez8apHmmhnhEJ6b+oJydh7J+cNGkt7J80G5cZ+K0LNZccM7/9BMIYwK5bgioiAAAAAElFTkSuQmCC');
 }
+
+.free-gift {
+  width: 100rpx;
+  height: 40rpx;
+  font-size: 30rpx;
+  border-radius:10rpx;
+  text-align: center;
+  color: #febb5c;
+  background-color: #fae5c7a2;
+}

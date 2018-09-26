@@ -29,7 +29,7 @@
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
       <view class='product-price'>￥{{pitem.price}}
-        <!-- <text class='minus'>满减</text> -->
+        <text class='minus'>满减</text>
       </view>
 
       <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">

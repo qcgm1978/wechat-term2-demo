@@ -1,33 +1,94 @@
 <view wx:if='{{trolley.length}}' style="height: 100%;">
   <scroll-view scroll-y style="height:85%;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
-    <view class='center padding trolley-container regular bgc' wx:for='{{trolley}}' wx:key='{{index}}' style="padding-left: 0;">
-      <view class='column' style='margin-top:auto;position:relative;'>
-        <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
-        </radio>
-        <text wx:else class='radio trolley-invalid regular'>失效</text>
-      </view>
-      <view style="position: relative;">
-        <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
-        </image>
-        <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
-      </view>
-      <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
-        <text class='trolley-name {{item.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
-        <view class='center trolley-middle'>
-          <text class='trolley-spec {{item.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
-          <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;">
-            <image src='./img/del.png' class='del {{item.putShelvesFlg?"":"trolley-invalid-del"}}' ></image>
+    <view wx:for='{{trolley}}' wx:key='{{index}}'>
+      <view style='display: flex; flex-direction: column;' wx:if="{{composeProducts}}">
+        <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
+          <view class='column' style='margin-top:auto;position:relative;'>
+            <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
+            </radio>
+            <text wx:else class='radio trolley-invalid regular'>失效</text>
+          </view>
+          <view style="position: relative;">
+            <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
+            </image>
+            <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
+          </view>
+          <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
+            <text class='trolley-name {{item.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
+            <view class='center trolley-middle'>
+              <text class='trolley-spec {{item.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
+              <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;">
+                <image src='./img/del.png' class='del {{item.putShelvesFlg?"":"trolley-invalid-del"}}' ></image>
+              </view>
+            </view>
+            <view class='center trolley-bottom'>
+              <text wx:if='{{item.putShelvesFlg}}' class='dollar medium trolley-price'>{{item.price}}</text>
+              <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
+              <view wx:if='{{item.putShelvesFlg}}' class='center' style='align-items:center'>
+                <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.putShelvesFlg}}'>-</text>
+                <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity}}</text>
+                <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' data-enabled='{{item.putShelvesFlg}}'>+</text>
+              </view>
+            </view>
           </view>
         </view>
-        <view class='center trolley-bottom'>
-          <text wx:if='{{item.putShelvesFlg}}' class='dollar medium trolley-price'>{{item.price}}</text>
-          <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
+        <view class='promotion' wx:if="{{isDiscount}}">
+          <text class='promotion-1'>满减</text>
+          <text class='promotion-2'>满800元享受8折</text>
+          <text class='promotion-3'>已省¥23</text>
+        </view>
+        <view class='promotion' wx:else>
+          <text class='promotion-1' style='margin-left:340rpx;'>赠品</text>
+          <text class='promotion-2'>童趣新品双层</text>
+        </view>
+      </view>
+
+
+      <view style='display: flex; flex-direction: column;' wx:else>
+        <view class='promotion' style='margin-bottom: 0;'>
+          <view class='column' style='margin-top:auto;position:relative;'>
+            <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
+            </radio>
+            <text wx:else class='radio trolley-invalid regular'>失效</text>
+          </view>
+          <text class='promotion-1'>套装</text>
+          <text class='promotion-2'>雪碧+粮油系列组合购减100元</text>
+          <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;">
+                <image src='./img/del.png' class='del {{item.putShelvesFlg?"":"trolley-invalid-del"}}' ></image>
+              </view>
+        </view>
+
+        <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
+
+          <view style="position: relative;">
+            <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
+            </image>
+            <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
+          </view>
+          <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
+            <text class='trolley-name {{item.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
+            <view class='center trolley-middle'>
+              <text class='trolley-spec {{item.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
+
+            </view>
+            <view class='center trolley-bottom'>
+              <!-- <text wx:if='{{item.putShelvesFlg}}' class='dollar medium trolley-price'>{{item.price}}</text>
+              <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text> -->
+
+            </view>
+          </view>
+        </view>
+        <view class='promotion'>
+          <text class='promotion-2'>套装价</text>
+          <text class='promotion-2'>¥331.2</text>
+          <text class='promotion-3'>已省¥23</text>
           <view wx:if='{{item.putShelvesFlg}}' class='center' style='align-items:center'>
             <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.putShelvesFlg}}'>-</text>
             <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity}}</text>
             <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' data-enabled='{{item.putShelvesFlg}}'>+</text>
           </view>
         </view>
+
       </view>
     </view>
   </scroll-view>
@@ -47,7 +108,17 @@
       <radio style='transform:scale(.8);' value="{{item.name}}" checked='{{checkAll}}' catch:tap='selectAll' color='{{checkAll?"#EE711F":"#D1D1D2"}}'>
         <view style="font-size: 42rpx; padding-left:0rpx;">全选</view>
       </radio>
-      <text>合计:<text class='dollar trolley-num medium'>{{currentMoney}}</text></text>
+      <view style='display: flex; flex-direction: column;'>
+            <text>合计:<text class='dollar trolley-num medium'>{{currentMoney}}</text></text>
+            <view style='display: flex; flex-direction: row;'>
+              <view>总额</view>
+              <view>¥4566</view>
+              <view>已省</view>
+              <view>¥23</view>
+            </view>
+      </view>
+
+
       <button class='trolley-btn center-center {{disableBuy?"":"enable"}}' catch:tap='confirmOrder' hover-class='btn-hover'>确认订单({{selectedLen}})</button>
     </view>
   </view>

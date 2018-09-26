@@ -78,6 +78,8 @@ App({
     this.globalData.systemInfo.windowWidth = res.windowWidth * 2
     this.globalData.systemInfo.screenWidth = res.screenWidth * 2
     this.globalData.systemInfo.screenHeight = res.screenHeight * 2
+    this.globalData.systemInfo.deviceWindowHeight = res.windowHeight * (750 / res.windowWidth)
+    this.globalData.systemInfo.deviceWindowWidth = res.windowWidth
   },
   onLaunch: function(options) {
     wx.setEnableDebug({

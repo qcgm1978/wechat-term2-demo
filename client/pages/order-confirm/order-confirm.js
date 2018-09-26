@@ -10,7 +10,7 @@ Page({
     data: {},
     points: 0,
     usedPoints:0,
-    height:'100%',
+    height: getApp().globalData.systemInfo.deviceWindowHeight,
     top:'100%',
     credit: 0,
     actual: 0,
@@ -54,8 +54,8 @@ Page({
     const credit = this.data.isVisible ? points / 100 : 0;
     const windowHeight = wx.getSystemInfoSync().windowHeight;
     this.setData({
-      height:windowHeight*2,
-      top: windowHeight,
+      height: getApp().globalData.systemInfo.deviceWindowHeight,
+      top: getApp().globalData.systemInfo.deviceWindowHeight,
       storeName: getApp().globalData.merchant.merchantStoreName,
       max: getApp().globalData.merchant.pointBalance,
       points,
@@ -68,6 +68,7 @@ Page({
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     })
     if (getApp().globalData.items) {
+      console.log(getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items])
       this.setData({
         data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
       })

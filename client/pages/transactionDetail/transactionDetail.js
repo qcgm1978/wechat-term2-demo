@@ -52,7 +52,8 @@ Page({
         amount: 0
       }
     },
-
+    dialogFlag: false,
+    soldOutDialogFlag: false,
     addressStore: "images/address.png",
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
@@ -194,4 +195,22 @@ Page({
   onShow: function() {
     utils.checkNetwork()
   },
+
+  letMeThink: function () {
+    this.setData({
+      dialogFlag: true
+    })
+  },
+
+  proceedBuy: function () {
+    
+    this.setData({
+      dialogFlag: false
+    })
+  },
+  confirmClose: function () {
+    this.setData({
+      soldOutDialogFlag: true
+    })
+  }
 })
