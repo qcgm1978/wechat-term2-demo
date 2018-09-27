@@ -170,7 +170,7 @@ Page({
       .catch(err => {});
     
     const merchant = getApp().globalData.merchant;
-    const hasLocationId = merchant ? Promise.resolve(merchant) : getMerchant();
+    const hasLocationId = merchant ? Promise.resolve({result:merchant}) : getMerchant();
     hasLocationId
       .then(data => {
         if (data.result) {
