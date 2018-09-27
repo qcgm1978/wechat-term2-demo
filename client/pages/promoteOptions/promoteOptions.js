@@ -9,7 +9,7 @@ const getProductItem = Api.getProductItem,
 Page({
   data: {
     defImg: getApp().globalData.defaultImg,
-    imgTrolly: "../../images/trolley-missing.png",
+    imgTrolly: "../../images/trolley-full.png",
     promoteMsg: "",
     composeProducts: [{ itemCategoryCode: "2701", itemId: "3496", itemImageAddress1: "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3301.jpg", itemName: "七喜六联", itemSpecification: "330ml*24", price: 41, promoteType: "满减", putShelvesFlg: true, quantity: "2"}],
     mainProduct: { itemImageAddress1: "./images/u42.jpg", itemName: "惠百真豆油", itemSpecification: "2ML*8", quantity: "2", price: "299.90", itemId: "1" },

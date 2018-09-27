@@ -187,9 +187,14 @@ Page({
       utils.getMerchant()
         .then(data => {
           //debugger;
-          const merchant = data.result;
-          getApp().globalData.merchant = merchant;
-          return (merchant.locationId);
+          if (data){
+            const merchant = data.result;
+            getApp().globalData.merchant = merchant;
+            return (merchant.locationId);
+          }else{
+            
+          }
+
         })
         .then(this.gotoHome)
     } else {

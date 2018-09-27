@@ -16,6 +16,8 @@ const payDetail = require('./payDetail.js').default,
   notShowDiscountInfo = false;
 const app = getApp();
 const globalData = app.globalData;
+var partSoldOut = false
+var soldOut = false
 Page({
   ...payDetail,
   data: {
@@ -52,13 +54,25 @@ Page({
         amount: 0
       }
     },
-    dialogFlag: false,
+    partSoldOutDialogFlag: false,
     soldOutDialogFlag: false,
     addressStore: "images/address.png",
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
   addGotoTrolley: function(e) {
+    partSoldOut = false
+    soldOut = false
+    if (partSoldOut){
+      this.setData({
+        partSoldOutDialogFlag: true
+      })
+    }
+    if (SoldOut) {
+      this.setData({
+        soldOutDialogFlag: true
+      })
+    }
     const dataset = e.currentTarget.dataset;
     const orderItem = dataset.orderitem;
     const arr = orderItem.map(item => ({

@@ -144,7 +144,7 @@
 </view>
 
 
-<view class="modal-box" hidden="{{dialogFlag}}" bindtap="hideDialog">
+<view class="modal-box" hidden="{{!partSoldOutDialogFlag}}" bindtap="hideDialog">
   <view class="modal-body">
     <view class="modal-content">
       <image class="content-img" src="images/pop-up.png" ></image>
@@ -157,7 +157,7 @@
   </view>
 </view> 
 
-<view class="modal-box" hidden="{{soldOutDialogFlag}}" bindtap="hideDialog">
+<view class="modal-box" hidden="{{!soldOutDialogFlag}}" bindtap="hideDialog">
   <view class="modal-body">
     <view class="modal-content">
       <image class="content-img" src="images/pop-up.png" ></image>

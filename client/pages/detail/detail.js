@@ -317,7 +317,39 @@ Page({
     })
       .then((data) => {
         this.setData({
-          promoteInfo: data,
+          //promoteInfo: data[0],
+          "promoteInfo[isCompose]": data[0].combinationFlag==""?true:false,
+          "promoteInfo[promoteType]": data[0].promotionType,
+          "promoteInfo[promotionMsg]": data[0].promotionDescription,
+        });
+      })
+      .catch(err => {
+      })
+  },
+
+  getPromoteInfo: function ({
+    itemId,
+    categoryId
+  }) {
+    utils.postRequest({
+      url: getPromoteInfo,
+      data: {
+        merchantId: getApp().getMerchantId(),
+        locationId: getApp().globalData.merchant.locationId,
+        items: [
+          {
+            categoryId: categoryId,
+            itemId: itemId
+          }
+        ],
+      }
+    })
+      .then((data) => {
+        this.setData({
+          //promoteInfo: data[0],
+          "promoteInfo[isCompose]": data[0].combinationFlag == "" ? true : false,
+          "promoteInfo[promoteType]": data[0].promotionType,
+          "promoteInfo[promotionMsg]": data[0].promotionDescription,
         });
       })
       .catch(err => {
