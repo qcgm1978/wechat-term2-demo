@@ -57,8 +57,8 @@ Page({
       name: merchant.merchantStoreName,
       address: getApp().globalData.address,
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
-      salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : '15623638786',
-      salesmanName: merchant.salesmanName || '里克尔梅'
+      salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : false,
+      salesmanName: merchant.salesmanName || false
     });
   },
 

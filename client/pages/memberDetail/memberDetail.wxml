@@ -61,14 +61,14 @@
       </view>
     </view>
   </view>
-  <view class='center-center regular' style="height: 80rpx;font-size:28rpx;color:rgb(51, 51, 51);padding:14rpx 0 0;">
+  <view wx:if='{{salesmanName || salesmanCellPhone}}' class='center-center regular' style="height: 80rpx;font-size:28rpx;color:rgb(51, 51, 51);padding:14rpx 0 0;">
     <view class='short-line'></view>
     <text class='dot'>.</text>访销员信息
     <text class='dot'>.</text>
     <view class='short-line'></view>
   </view>
   <view class='column container-detail'>
-    <view class='row center' style="width: 100%;">
+    <view wx:if='{{salesmanName}}' class='row center' style="width: 100%;">
       <image src='./img/shopkeeper.png' class='icon'></image>
       <view class='column regular' style="align-items: left;">
         <text class='name'>访销员名称</text>
@@ -76,7 +76,7 @@
       </view>
     </view>
     <view class='line'></view>
-    <view class='row center' style="width: 100%;">
+    <view wx:if='{{salesmanCellPhone}}' class='row center' style="width: 100%;">
       <image src='./img/promotion_phone.png' class='icon'></image>
       <view class='column regular' style="align-items: left;">
         <text class='name'>访销员电话</text>
