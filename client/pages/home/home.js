@@ -122,7 +122,6 @@ Page({
         start: this.start,
         limit: this.limit
       }).then(result => {
-        console.log(result.result)
         let data = result.result;
         if (result.status === 200) {
           if (data.length) {

@@ -5,7 +5,8 @@ import {
   Api
 } from '../../utils/envConf.js'
 const getProductItem = Api.getProductItem,
-  getRelated = Api.getRelated;
+  getRelated = Api.getRelated,
+  getPromoteInfo = Api.getPromoteInfo;
 
 const promoteType = {
   "MANJIAN": "满减",
@@ -22,7 +23,13 @@ Page({
     isSelecting: false,
     hasPromotion: true,
     unionPromotion: false,
-    promotionMsg: "满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油,满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油",
+    promoteInfo:{
+      promoteType: promoteType["MANJIAN"],
+      isCompose: true,
+      mainQuantity: 1,
+      promotionMsg: "满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油,满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油",
+    },
+    
     autoplay: true,
     interval: 3000,
     duration: 1000,
@@ -46,8 +53,17 @@ Page({
     // this.setData({
     //   promotion: true
     // })
+    console.log(this.data.product)
+    let tmpProduct = {}
+    tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
+    tmpProduct.itemName = this.data.product.itemName
+    tmpProduct.itemSpecification = this.data.product.itemSpecification
+    tmpProduct.quantity = this.data.promoteInfo.mainQuantity
+    tmpProduct.price = this.data.product.price
+    tmpProduct.itemId = this.data.product.itemId
+
     wx.navigateTo({
-      url: '/pages/promoteOptions/promoteOptions?promoteMsg=' + this.data.promotionMsg,
+      url: '/pages/promoteOptions/promoteOptions?promoteMsg=' + this.data.promoteInfo.promotionMsg + "&product=" + JSON.stringify(tmpProduct),
     })
   },
   plusMinus(e) {
@@ -213,10 +229,12 @@ Page({
         url: '/pages/login/login',
       })
     }
-    this.getProduct(options).then(data=>{
+    this.getProduct(options)
+    .then(data=>{
       this.setData({
         top: getApp().globalData.systemInfo.windowHeight-750
       })
+      this.getPromoteInfo(options)
     });
     this.getRelated(options);
     if (getApp().globalData.badge > 0) {
@@ -278,5 +296,31 @@ Page({
     wx.switchTab({
       url: '/pages/trolley/trolley'
     })
-  }
+  },
+
+  getPromoteInfo: function ({
+    itemId,
+    categoryId
+  }) {
+    utils.postRequest({
+      url: getPromoteInfo,
+      data: {
+        merchantId: getApp().getMerchantId(),
+        locationId: getApp().globalData.merchant.locationId,
+        items: [
+          {
+            categoryId: categoryId,
+            itemId: itemId
+          }
+        ],
+      }
+    })
+      .then((data) => {
+        this.setData({
+          promoteInfo: data,
+        });
+      })
+      .catch(err => {
+      })
+  },
 })

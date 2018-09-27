@@ -1,7 +1,7 @@
 <view wx:if='{{trolley.length}}' style="height: 100%;">
   <scroll-view scroll-y style="height:85%;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
     <view wx:for='{{trolley}}' wx:key='{{index}}'>
-      <view style='display: flex; flex-direction: column;' wx:if="{{composeProducts}}">
+      <view style='display: flex; flex-direction: column;' wx:if="{{!composeProducts}}">
         <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
           <view class='column' style='margin-top:auto;position:relative;'>
             <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
@@ -32,7 +32,7 @@
             </view>
           </view>
         </view>
-        <view class='promotion' wx:if="{{isDiscount}}">
+        <view class='promotion' wx:if="{{!isDiscount}}">
           <text class='promotion-1'>满减</text>
           <text class='promotion-2'>满800元享受8折</text>
           <text class='promotion-3'>已省¥23</text>

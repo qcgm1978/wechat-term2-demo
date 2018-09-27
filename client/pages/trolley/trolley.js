@@ -10,6 +10,8 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
+    composeProducts: false,
+    isDiscount: false,
     defImg: getApp().globalData.defaultImg,
     trolley: [],
     minAmount: 500,

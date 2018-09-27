@@ -3,6 +3,9 @@
   <view class='column regular list-container'>
     <text class='list-name'>{{item.itemName}}</text>
     <text class='list-spec'>规格：  {{item.itemSpecification}}</text>
-    <text class='dollar medium list-price'>{{item.price}}</text>
+    <view style='display: flex;'>
+      <text class='dollar medium list-price'>{{item.price}}</text>
+      <image style='width:64rpx; height:32rpx; margin-left: 10rpx;' src='{{item.promoteType=="满减"?imgManjian:imgManzeng}}' wx:if="{{item.promoteType}}"></image>
+    </view>
   </view>
 </view>

@@ -7,6 +7,8 @@ import {
 const getProductItem = Api.getProductItem;
 Page({
   data: {
+    imgManjian: "../../images/manjian.png",
+    imgManzeng: "../../images/manzeng.png",
     defImg: getApp().globalData.defaultImg,
     product: []
   },
