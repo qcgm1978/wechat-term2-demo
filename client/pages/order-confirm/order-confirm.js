@@ -157,6 +157,8 @@ Page({
         orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
       const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
       // return;
+      //console.log(orderItems)
+      console.log(getApp().globalData.items)
       utils.postRequest({
         url: createOrder,
         data: {
@@ -171,7 +173,15 @@ Page({
             receiverName,
             receiverCellPhone,
             receiverAddress
-          }
+          },
+          //promotion
+          //discountTotalAmount: discountTotalAmount,
+          //orderItems.
+          // -cartGroupId
+          // -discountAmount
+          // -promotionId
+          // -items
+
         }
       }).then(data => {
         // todo test 409

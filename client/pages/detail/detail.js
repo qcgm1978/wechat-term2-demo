@@ -7,6 +7,10 @@ import {
 const getProductItem = Api.getProductItem,
   getRelated = Api.getRelated;
 
+const promoteType = {
+  "MANJIAN": "满减",
+  "MANZENG": "满赠"
+}
 Page({
   data: {
     currentMoney: 0,
@@ -32,6 +36,8 @@ Page({
 
     }, ],
     icon: '../../images/trolley-full.png',
+    imgManjian: "../../images/manjian.png",
+    imgManzeng: "../../images/manzeng.png",
   },
   relatedChange(e){
     //debugger;

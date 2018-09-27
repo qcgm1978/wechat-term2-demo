@@ -29,7 +29,8 @@
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
       <view class='product-price'>￥{{pitem.price}}
-        <text class='minus'>满减</text>
+        <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
+        <image style='width:64rpx; height:32rpx;' src='{{pitem.promoteType=="满减"?imgManjian:imgManzeng}}'></image>
       </view>
 
       <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">

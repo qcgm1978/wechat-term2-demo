@@ -182,7 +182,7 @@ page {
   color: #febb5c;
   background-color: #fae5c7a2;
   font-size: 30rpx;
-  margin-left: 60rpx;
+  margin-left: 10rpx;
 }
 .promotion-2 {
   width: auto;

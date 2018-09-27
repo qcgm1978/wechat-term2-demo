@@ -16,6 +16,11 @@ const getProductList = Api.getProductList,
 const app = getApp()
 let globalData = app.globalData;
 
+const promoteType = {
+  "MANJIAN": "满减",
+  "MANZENG": "满赠"
+}
+
 Page({
   data: {
     index: 0,
@@ -31,6 +36,8 @@ Page({
       },
     ],
     defImg: getApp().globalData.defaultImg,
+    imgManjian: "img/manjian.png",
+    imgManzeng: "img/manzeng.png",
   },
   start: 0,
   limit: 20,
@@ -115,9 +122,18 @@ Page({
         start: this.start,
         limit: this.limit
       }).then(result => {
+        console.log(result.result)
         let data = result.result;
         if (result.status === 200) {
           if (data.length) {
+            for(let i=0; i<data.length; i++){
+              if(i%2 == 0){
+                data[i].promoteType = promoteType["MANJIAN"]
+              }
+              else{
+                data[i].promoteType = promoteType["MANZENG"]
+              }
+            }
             this.setData({
               productList: this.data.productList.concat(data)
             });

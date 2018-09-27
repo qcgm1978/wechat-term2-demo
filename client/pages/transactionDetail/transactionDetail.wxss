@@ -232,8 +232,8 @@
   text-align: center;
 }
 .content-img{
-  width: 640rpx; 
-  height: 418rpx;
+  width: 550rpx; 
+  height: 292rpx;
   background:rgba(255,255,255,1);
   border-radius:40rpx;
 

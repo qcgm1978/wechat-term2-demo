@@ -148,10 +148,10 @@
   <view class="modal-body">
     <view class="modal-content">
       <image class="content-img" src="images/pop-up.png" ></image>
-      <view class="content-txt">订单中的部分商品卖光了，您是否继续购买其余商品？</view>
-      <view style='display: flex;justify-content: space-between; width:552rpx; position:absolute ; top: 240rpx; left: 80rpx;text-align: center;line-height: 200rpx;'  >
-        <view class='dialog-btn' style='background:white; border:2rpx solid #949494;' bindtap='letMeThink'>我再想想</view>
-        <view class='dialog-btn' style='color:white;' bindtap='proceedBuy'>继续购买</view>
+      <view class="content-txt" style='font-size:28rpx; color:#666666; margin-left: 56rpx; width: 450rpx;'>订单中的部分商品卖光了，您是否继续购买其余商品？</view>
+      <view style='display: flex;justify-content: space-between; width:480rpx; position:absolute ; top: 180rpx; left: 130rpx;text-align: center;line-height: 200rpx;'  >
+        <view class='dialog-btn' style='background:white; border:2rpx solid #949494; width:224rpx; height:68rpx;' bindtap='letMeThink'>我再想想</view>
+        <view class='dialog-btn' style='color:white;background: #EC6515; width:224rpx; height:68rpx;' bindtap='proceedBuy'>继续购买</view>
       </view>
     </view>
   </view>
@@ -161,10 +161,10 @@
   <view class="modal-body">
     <view class="modal-content">
       <image class="content-img" src="images/pop-up.png" ></image>
-      <view class="content-txt">订单中的商品全部卖光了，再看看其他商品吧</view>
-      <view style='display: flex; width:auto; position:absolute ; top: 240rpx; left: 260rpx;text-align: center;line-height: 200rpx;'  >
+      <view class="content-txt" style='font-size:28rpx; color:#666666; margin-left: 56rpx; width: 450rpx;'>订单中的商品全部卖光了，再看看其他商品吧</view>
+      <view style='display: flex; width:auto; position:absolute; top:160rpx; left:220rpx;text-align: center;line-height: 200rpx;'  >
         <!-- <view class='dialog-btn' style='background:white; border:2rpx solid #949494;' bindtap='letMeThink'>我再想想</view> -->
-        <view class='dialog-btn' style='color:white;' bindtap='confirmClose'>确定</view>
+        <view class='dialog-btn' style='color:white; width: 307rpx; height: 68rpx; background: #EC6515; top:160rpx; left:180rpx;' bindtap='confirmClose'>确定</view>
       </view>
     </view>
   </view>
