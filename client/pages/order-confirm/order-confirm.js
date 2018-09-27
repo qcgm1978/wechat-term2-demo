@@ -9,9 +9,9 @@ Page({
   data: {
     data: {},
     points: 0,
-    usedPoints:0,
-    height:'100%',
-    top:'100%',
+    usedPoints: 0,
+    height: '100%',
+    top: '100%',
     credit: 0,
     actual: 0,
     isVisible: true,
@@ -41,9 +41,27 @@ Page({
         url: '/pages/login/login',
       })
     }
-    let points = getApp().globalData.merchant.pointBalance;
-    points = points / 100 > options.total ? (options.total*100):points;
-    if (points == 0){
+    utils.getMerchant().then(data => {
+      this.updateData({
+        options,
+        points: data.result.pointBalance
+      });
+    });
+    if (getApp().globalData.items) {
+      this.setData({
+        data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
+      })
+    } else {
+      this.getProduct(options);
+    }
+  },
+  updateData({
+    options,
+    points
+  }) {
+    // let points = getApp().globalData.merchant.pointBalance;
+    points = points / 100 > options.total ? (options.total * 100) : points;
+    if (points == 0) {
       this.selectComponent("#checkbox-ios").setData({
         checked: false
       })
@@ -54,33 +72,26 @@ Page({
     const credit = this.data.isVisible ? points / 100 : 0;
     const windowHeight = wx.getSystemInfoSync().windowHeight;
     this.setData({
-      height:windowHeight*2,
+      height: windowHeight * 2,
       top: windowHeight,
       storeName: getApp().globalData.merchant.merchantStoreName,
       max: getApp().globalData.merchant.pointBalance,
       points,
-      usedPoints:points,
+      usedPoints: points,
       credit,
-      total: utils.getFixedNum(options.total,2),
-      actual: utils.getFixedNum(options.total - credit,2),
+      total: utils.getFixedNum(options.total, 2),
+      actual: utils.getFixedNum(options.total - credit, 2),
       address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     })
-    if (getApp().globalData.items) {
-      this.setData({
-        data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
-      })
-    } else {
-      this.getProduct(options);
-    }
   },
   onChangeChecked(myEventDetail, myEventOption) {
     const isVisible = myEventDetail.detail.checked;
     this.setData({
       isVisible,
       credit: isVisible ? this.data.credit / 100 : 0,
-      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.credit / 100 : 0),2)
+      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.credit / 100 : 0), 2)
     })
   },
   textareaConfirm(e) {
@@ -92,12 +103,12 @@ Page({
     const points = Number(this.data.points);
     if (points >= e.detail.value) {
       this.setData({
-        credit: utils.getFixedNum(e.detail.value / 100,2) ,
+        credit: utils.getFixedNum(e.detail.value / 100, 2),
         actual: utils.getFixedNum(this.data.total - e.detail.value / 100, 2)
       });
     } else {
       this.setData({
-        credit: utils.getFixedNum(points / 100, 2 ),
+        credit: utils.getFixedNum(points / 100, 2),
         actual: utils.getFixedNum(this.data.total - points / 100, 2)
       });
     }
@@ -154,7 +165,7 @@ Page({
         receiverCellPhone = app.getPhone(),
         receiverAddress = getApp().globalData.address,
         orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
-      const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
+      const usePoint = this.data.isVisible ? this.data.credit * 100 : 0;
       // return;
       utils.postRequest({
         url: createOrder,
@@ -179,7 +190,7 @@ Page({
         console.log(data);
         if (data.status === 200) {
           const trolley = getCurrentPages().slice(-2, -1)[0];
-          if (trolley && trolley.route.includes('trolley/trolley')){
+          if (trolley && trolley.route.includes('trolley/trolley')) {
             trolley.selectedRadio = [];
           }
           wx.redirectTo({
@@ -214,7 +225,7 @@ Page({
     this.setData({
       isFailed: false
     });
-    if (this.changedTxt===this.data.prompt){
+    if (this.changedTxt === this.data.prompt) {
       wx.navigateBack({
         delta: 1
       });
@@ -223,8 +234,7 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示

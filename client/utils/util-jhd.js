@@ -379,6 +379,9 @@ const getMerchant = () => {
         merchantId: getApp().getMerchantId()
       })
       .then((data) => {
+        const merchant = data.result;
+        getApp().globalData.merchant = merchant;
+        getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
         resolve(data)
       })
       .catch(errorCode => {

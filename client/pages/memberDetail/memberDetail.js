@@ -1,3 +1,7 @@
+import {
+  getMerchant,
+  errorHander
+} from '../../utils/util.js';
 Page({
 
   /**
@@ -9,8 +13,8 @@ Page({
     address: '',
     profileName: '',
     id: '',
-    salesmanName:'',
-    salesmanCellPhone:''
+    salesmanName: '',
+    salesmanCellPhone: ''
   },
 
   /**
@@ -23,10 +27,10 @@ Page({
       })
     }
   },
-  exitLogin: function () {
+  exitLogin: function() {
     getApp().exitLogin();
   },
-  call(){
+  call() {
     wx.makePhoneCall({
       phoneNumber: this.data.salesmanCellPhone
     })
@@ -51,15 +55,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    const merchant = getApp().globalData.merchant;
-    this.setData({
-      id: merchant.nsMerchantId,
-      name: merchant.merchantStoreName,
-      address: getApp().globalData.address,
-      profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
-      salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : false,
-      salesmanName: merchant.salesmanName || false
-    });
+    // const merchant = getApp().globalData.merchant;
+    getMerchant().then(data => {
+      const merchant = data.result;
+      this.setData({
+        id: merchant.nsMerchantId,
+        name: merchant.merchantStoreName,
+        address: getApp().globalData.address,
+        profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
+        salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : false,
+        salesmanName: merchant.salesmanName || false
+      });
+    })
   },
 
   /**
