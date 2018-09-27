@@ -8,7 +8,9 @@ Page({
     name: '',
     address: '',
     profileName: '',
-    id: ''
+    id: '',
+    salesmanName:'',
+    salesmanCellPhone:''
   },
 
   /**
@@ -23,6 +25,11 @@ Page({
   },
   exitLogin: function () {
     getApp().exitLogin();
+  },
+  call(){
+    wx.makePhoneCall({
+      phoneNumber: this.data.salesmanCellPhone
+    })
   },
   toggleTab(evt) {
     const index = Number(evt.target.dataset.type);
@@ -44,20 +51,14 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // if (!this.data.avatarUrl && Object.keys(getApp().globalData.userInfo).length) {
-    //   const userInfo = getApp().globalData.userInfo;
-    //   this.setData({
-    //     avatar: userInfo.avatarUrl,
-    //     nickName: userInfo.nickName
-    //   })
-    //   wx.showTabBar();
-    // }
     const merchant = getApp().globalData.merchant;
     this.setData({
       id: merchant.nsMerchantId,
       name: merchant.merchantStoreName,
       address: getApp().globalData.address,
-      profileName: getApp().globalData.authWechat.authMerchantList[0].userName
+      profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
+      salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : '15623638786',
+      salesmanName: merchant.salesmanName || '里克尔梅'
     });
   },
 

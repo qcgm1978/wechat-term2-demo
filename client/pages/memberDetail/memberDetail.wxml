@@ -1,6 +1,6 @@
 <view>
   <view class='tab medium center' bindtap='toggleTab'>
-    <view class='column' >
+    <view class='column'>
       <image src='./img/all.png' data-type='0'></image>
       <text class='{{tabColors[0]}} regular' data-type='0'>全部</text>
     </view>
@@ -22,7 +22,7 @@
     </view>
 
   </view>
-  <view class='center-center regular' style="height: 80rpx;font-size:28rpx;color:rgb(51, 51, 51);">
+  <view class='center-center regular' style="height: 80rpx;font-size:28rpx;color:rgb(51, 51, 51);padding:14rpx 0 0;">
     <view class='short-line'></view>
     <text class='dot'>.</text>店铺信息
     <text class='dot'>.</text>
@@ -61,5 +61,32 @@
       </view>
     </view>
   </view>
-  <view class='exit' catch:tap='exitLogin' hover-class='btn-hover'>退出登录</view>
+  <view class='center-center regular' style="height: 80rpx;font-size:28rpx;color:rgb(51, 51, 51);padding:14rpx 0 0;">
+    <view class='short-line'></view>
+    <text class='dot'>.</text>访销员信息
+    <text class='dot'>.</text>
+    <view class='short-line'></view>
+  </view>
+  <view class='column container-detail'>
+    <view class='row center' style="width: 100%;">
+      <image src='./img/shopkeeper.png' class='icon'></image>
+      <view class='column regular' style="align-items: left;">
+        <text class='name'>访销员名称</text>
+        <text class='name-txt'>{{salesmanName}}</text>
+      </view>
+    </view>
+    <view class='line'></view>
+    <view class='row center' style="width: 100%;">
+      <image src='./img/promotion_phone.png' class='icon'></image>
+      <view class='column regular' style="align-items: left;">
+        <text class='name'>访销员电话</text>
+        <text class='name-txt'>{{salesmanCellPhone}}</text>
+      </view>
+      <view class='center' style="justify-content: flex-end;flex-grow: 1;" catch:tap='call'>
+        <image src='./img/promotion_call.png' class='promtion-call'></image>
+        <text class='promotion-man regular'>联系访销员</text>
+      </view>
+    </view>
+  </view>
+  <view class='bgc exit ' catch:tap='exitLogin' hover-class='btn-hover'>退出登录</view>
 </view>
