@@ -16,14 +16,14 @@
         <text class='promotion' >促销</text>
         <!-- <text class='promotion-1'>满减</text> -->
         <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promoteType=="满减"?imgManjian:imgManzeng}}'></image>
-        <text class='promotion-2' >{{promoteInfo.promotionMsg}}</text>
+        <text class='promotion-2' >{{promoteInfo.promotionName}}</text>
         <view class='promotion-list'>
           <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
             <text class='promotion-type'>{{item.type}}</text>
             <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
           </view>
         </view>
-        <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' wx:if='{{promoteInfo.isCompose}}'></image>
+        <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' wx:if='{{promoteInfo.combinationFlag}}'></image>
       </view>
       <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>

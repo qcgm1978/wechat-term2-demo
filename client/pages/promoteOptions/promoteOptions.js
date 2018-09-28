@@ -8,6 +8,7 @@ const getProductItem = Api.getProductItem,
   getComposeProducts = Api.getComposeProducts;
 Page({
   data: {
+    badge: 0,
     defImg: getApp().globalData.defaultImg,
     imgTrolly: "../../images/trolley-full.png",
     promoteMsg: "",
@@ -40,7 +41,12 @@ Page({
     // this.categoryId=options.categoryId;
     // this.getCategories(options)
     //this.getProduct(options);
-
+    if (getApp().globalData.badge > 0) {
+      this.setData({
+        badge: getApp().globalData.badge,
+        icon: '../../images/trolley-missing.png'
+      });
+    }
   },
   getProduct({
     itemId,
@@ -123,6 +129,7 @@ Page({
     }
 
     console.log(this.data.selectedProductList)
+    return
     const orderItem = this.data.selectedProductList;
     const arr = orderItem.map(item => ({
       itemId: item.itemId,

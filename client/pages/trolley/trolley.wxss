@@ -181,18 +181,18 @@ page {
   text-align: center;
   color: #febb5c;
   background-color: #fae5c7a2;
-  font-size: 30rpx;
+  font-size: 24rpx;
   margin-left: 10rpx;
 }
 .promotion-2 {
   width: auto;
   color: #b1afad;
-  font-size: 30rpx;
+  font-size: 24rpx;
   margin-left: 10rpx;
 }
 .promotion-3 {
   width: auto;
   color: #f5b87a;
-  font-size: 30rpx;
+  font-size: 24rpx;
   margin-left: 10rpx;
 }

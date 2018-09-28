@@ -24,12 +24,16 @@ Page({
     hasPromotion: true,
     unionPromotion: false,
     promoteInfo:{
-      promoteType: promoteType["MANJIAN"],
-      isCompose: true,
+      promotionType: promoteType["MANJIAN"],
+      combinationFlag: "true",
       mainQuantity: 1,
-      promotionMsg: "满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油,满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油",
+      promotionDescription: "满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油,满3件芬达可乐+4件统一绿茶系列饮料，赠1大桶豆油",
+      promotionName: "满3件芬达可乐+4件统一绿茶系列饮料",
+      endTime: "",
+      startTime:"",
+      promotionId:"1"
     },
-    
+
     autoplay: true,
     interval: 3000,
     duration: 1000,
@@ -53,7 +57,7 @@ Page({
     // this.setData({
     //   promotion: true
     // })
-    console.log(this.data.product)
+
     let tmpProduct = {}
     tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
     tmpProduct.itemName = this.data.product.itemName
@@ -63,7 +67,7 @@ Page({
     tmpProduct.itemId = this.data.product.itemId
 
     wx.navigateTo({
-      url: '/pages/promoteOptions/promoteOptions?promoteMsg=' + this.data.promoteInfo.promotionMsg + "&product=" + JSON.stringify(tmpProduct),
+      url: '/pages/promoteOptions/promoteOptions?promoteMsg=' + this.data.promoteInfo.promotionDescription + "&product=" + JSON.stringify(tmpProduct),
     })
   },
   plusMinus(e) {
@@ -302,6 +306,17 @@ Page({
     itemId,
     categoryId
   }) {
+    let datatmp= {
+      merchantId: getApp().getMerchantId(),
+        locationId: getApp().globalData.merchant.locationId,
+          items: [
+            {
+              brandId: "TTT",
+              categoryId: categoryId,
+              itemId: itemId
+            }
+          ],
+      }
     utils.postRequest({
       url: getPromoteInfo,
       data: {
@@ -309,6 +324,7 @@ Page({
         locationId: getApp().globalData.merchant.locationId,
         items: [
           {
+            brandId: "TTT",
             categoryId: categoryId,
             itemId: itemId
           }
@@ -317,39 +333,7 @@ Page({
     })
       .then((data) => {
         this.setData({
-          //promoteInfo: data[0],
-          "promoteInfo[isCompose]": data[0].combinationFlag==""?true:false,
-          "promoteInfo[promoteType]": data[0].promotionType,
-          "promoteInfo[promotionMsg]": data[0].promotionDescription,
-        });
-      })
-      .catch(err => {
-      })
-  },
-
-  getPromoteInfo: function ({
-    itemId,
-    categoryId
-  }) {
-    utils.postRequest({
-      url: getPromoteInfo,
-      data: {
-        merchantId: getApp().getMerchantId(),
-        locationId: getApp().globalData.merchant.locationId,
-        items: [
-          {
-            categoryId: categoryId,
-            itemId: itemId
-          }
-        ],
-      }
-    })
-      .then((data) => {
-        this.setData({
-          //promoteInfo: data[0],
-          "promoteInfo[isCompose]": data[0].combinationFlag == "" ? true : false,
-          "promoteInfo[promoteType]": data[0].promotionType,
-          "promoteInfo[promotionMsg]": data[0].promotionDescription,
+          promoteInfo: data.result[0],
         });
       })
       .catch(err => {

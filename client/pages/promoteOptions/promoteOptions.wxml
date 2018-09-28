@@ -19,7 +19,17 @@
 
   <view class='bgc center btns regular padding-vertical-10  mgt fixed-position' style='z-index:10;'>
     <view class='center-center' style='justify-content:left; margin-right: 20rpx;'>
-      <image src='{{imgTrolly}}' class='promotion-icon' style='width:54rpx;height:54rpx;' bindtap='gotoTrolley'></image>
+      <!-- <image src='{{imgTrolly}}' class='promotion-icon' style='width:54rpx;height:54rpx;' bindtap='gotoTrolley'></image> -->
+
+
+    <view class='center-center' style='flex-grow:1; margin-left:30rpx;' bindtap='gotoTrolley'>
+      <image src='{{imgTrolly}}' style='width:54rpx;height:54rpx;'></image>
+      <view class='medium cart-num center-center' wx:if='{{badge}}'>
+        {{badge}}
+      </view>
+    </view>
+
+
       <view class='foot-txt1' style='font-size:24rpx;color:#383838; margin-left: 20rpx;'>套装价</view>
       <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{totalPrice}}</view>
       <!-- <view class='foot-txt3'>已省28.8元</view> -->
@@ -51,10 +61,10 @@
       <view style='width: 150rpx; height:auto; padding:10rpx;border:1px solid rgb(236,236,236); margin: 10rpx;position: relative;'>
         <image style='width: 32rpx; height: 32rpx; position: absolute; left:130rpx; top:10rpx;' src='../../images/zeng.png' wx:if="{{item.isfree}}"></image>
         <image style='width: 120rpx; height: 120rpx;  margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
-        <view style='background-color:grey; border-radius:10rpx;  width: auto; display:inline-block !important; display:inline; color: white;'>{{item.price}}</view>
-        <view style='display: flex; '>
+        <view style='background-color:grey; border-radius:10rpx;  width: auto; display:inline-block !important; display:inline; color: white;'>¥{{item.price}}</view>
+        <view style='display: flex; justify-content: space-between;'>
           <view style='white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.itemName}}</view>
-          <view style='white-space:nowrap'>{{item.quantity}}</view>
+          <view style='white-space:nowrap'>x{{item.quantity}}</view>
         </view>
       </view>
     </view>

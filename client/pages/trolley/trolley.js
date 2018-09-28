@@ -6,6 +6,7 @@ import {
   getRequest
 } from '../../utils/util.js';
 const getCart = Api.getCart;
+const calcPromoteRule = Api.calcPromoteRule;
 const app = getApp();
 let globalData = app.globalData;
 Page({
@@ -21,6 +22,8 @@ Page({
     disableBuy: true,
     checkAll: false,
     dataLoaded: false,
+    totalDiscountMoney: 0,
+    overallMoney: 0
   },
   selectedRadio: [],
   start: 0,
@@ -102,17 +105,30 @@ Page({
       }
     }, 0);
   },
+  getTotalDiscountPrice(selectedRadio) {
+    return this.data.trolley.reduce((accumulator, item) => {
+      if (selectedRadio.includes(item.itemId)) {
+        return accumulator + item.discountAmount * item.quantity
+      } else {
+        return accumulator;
+      }
+    }, 0);
+  },
   setMoneyData(selectedRadio) {
     let currentMoney = this.getTotalPrice(selectedRadio)
     let remaining = 500 - currentMoney;
     const disableBuy = remaining > 0;
     currentMoney = utils.getFixedNum(currentMoney,2);
     remaining = utils.getFixedNum(remaining,2)
+    let totalDiscountMoney = utils.getFixedNum(this.getTotalDiscountPrice(selectedRadio), 2);
+    let overallMoney = utils.getFixedNum(Number(currentMoney) + Number(totalDiscountMoney), 2);
     this.setData({
       currentMoney,
       disableBuy,
       remaining,
-      selectedLen: selectedRadio.length
+      selectedLen: selectedRadio.length,
+      totalDiscountMoney,
+      overallMoney
     });
   },
   radioClick(e) {
@@ -166,6 +182,10 @@ Page({
           } else {
             item.checked = false;
           }
+          item.discountPrice = utils.getFixedNum(item.price * 0.8, 2);
+          item.discountAmount = utils.getFixedNum(item.price - item.discountPrice, 2);
+          item.promoteType = "满减"
+          item.promotionName = "满800元享受8折"
           return item;
         });
 
@@ -176,6 +196,7 @@ Page({
         } else {
           trolley = this.data.trolley.concat(result);
         }
+        console.log(trolley)
         this.setData({
           trolley,
           hasOrders: trolley.length,
@@ -292,13 +313,17 @@ Page({
     remaining = utils.getFixedNum(remaining,2)
     const disableBuy = remaining > 0;
     currentMoney = utils.getFixedNum(currentMoney,2);
+    let totalDiscountMoney = utils.getFixedNum(this.getTotalDiscountPrice(this.selectedRadio), 2);
+    let overallMoney = utils.getFixedNum(Number(currentMoney) + Number(totalDiscountMoney), 2);
     if (currentTrolley.checked) {
       this.setData({
         quantity: num,
         currentMoney,
         // buyTxt: disableBuy ? `还差￥${remaining}可购买` : '立即购买',
         disableBuy,
-        remaining
+        remaining,
+        totalDiscountMoney,
+        overallMoney
       })
     }
     utils
