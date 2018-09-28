@@ -67,9 +67,10 @@
     </view>
     <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
       <text class='regular order-field '>积分抵扣</text>
-      <text class='medium' style='transform:translate(-20rpx,0);'>本单可用{{points}}积分，抵￥{{points/100}}</text>
+      <text wx:if='{{points}}' class='medium' style='width:60%;'>共有{{pointBalance}}积分，本单可用{{points}}积分，抵￥{{points/100}}</text>
+      <text wx:else>共有{{pointBalance}}积分，未达到20000积分不可用</text>
       <view>
-        <checkbox-ios id='checkbox-ios' bindchangechecked="onChangeChecked">
+        <checkbox-ios id='checkbox-ios' bindchangechecked="onChangeChecked" enable-tap='{{pointBalance}}'>
           <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
           <!-- <view>这里是插入到组件slot中的内容</view> -->
         </checkbox-ios>
@@ -78,7 +79,7 @@
     <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;justify-content:flex-start;'>
       <text class='regular order-field '>使用积分</text>
       <view style="margin-left: 30rpx;">
-        <input type="number" max='{{max}}' value='{{usedPoints}}' class='input' bindinput='bindinput' />
+        <input type="number" value='{{usedPoints}}' class='input' bindinput='bindinput' />
       </view>
       <text class='medium' style="color: #EE711F;margin-left: 15rpx;">抵扣￥{{credit}}</text>
     </view>

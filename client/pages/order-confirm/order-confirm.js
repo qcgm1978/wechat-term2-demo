@@ -9,6 +9,7 @@ Page({
   data: {
     data: {},
     points: 0,
+    pointBalance:0,
     usedPoints: 0,
     height: '100%',
     top: '100%',
@@ -44,7 +45,8 @@ Page({
     utils.getMerchant().then(data => {
       this.updateData({
         options,
-        points: data.result.pointBalance
+        points: data.result.availablePoint,
+        pointBalance: data.result.pointBalance
       });
     });
     if (getApp().globalData.items) {
@@ -57,7 +59,8 @@ Page({
   },
   updateData({
     options,
-    points
+    points,
+    pointBalance
   }) {
     // let points = getApp().globalData.merchant.pointBalance;
     points = points / 100 > options.total ? (options.total * 100) : points;
@@ -76,7 +79,7 @@ Page({
       height: windowHeight * 2,
       top: windowHeight,
       storeName: getApp().globalData.merchant.merchantStoreName,
-      max: getApp().globalData.merchant.pointBalance,
+      pointBalance,
       points,
       usedPoints: points,
       credit,
