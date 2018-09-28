@@ -62,7 +62,7 @@ Page({
         id: merchant.nsMerchantId,
         name: merchant.merchantStoreName,
         address: getApp().globalData.address,
-        profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
+        profileName: getApp().globalData.authWechat.authMerchantList[getApp().globalData.currentIndex].userName,
         salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : false,
         salesmanName: merchant.salesmanName || false
       });
