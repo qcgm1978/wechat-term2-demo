@@ -177,7 +177,7 @@ Page({
         this.setData({
           trolley,
           hasOrders: trolley.length,
-          checkAll: this.selectedRadio.length === trolley.length,
+          checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg).length,
         });
         this.setMoneyData(this.selectedRadio);
 

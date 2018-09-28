@@ -55,9 +55,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    // const merchant = getApp().globalData.merchant;
-    getMerchant().then(data => {
-      const merchant = data.result;
+    const merchant = getApp().globalData.merchant;
+    // getMerchant().then(data => {
+      // const merchant = data.result;
       this.setData({
         id: merchant.nsMerchantId,
         name: merchant.merchantStoreName,
@@ -66,7 +66,7 @@ Page({
         salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : false,
         salesmanName: merchant.salesmanName || false
       });
-    })
+    // })
   },
 
   /**
