@@ -1,24 +1,24 @@
 <view>
   <view class='tab medium center' bindtap='toggleTab'>
     <view class='column' data-type='0'>
-      <image src='./img/all.png' ></image>
-      <text class='{{tabColors[0]}} regular' >全部</text>
+      <image src='./img/all.png' data-type='0'></image>
+      <text class='{{tabColors[0]}} regular' data-type='0'>全部</text>
     </view>
     <view class='column' data-type='1'>
-      <image src='./img/waiting.png' ></image>
-      <text class='{{tabColors[1]}} regular' >待发货</text>
+      <image src='./img/waiting.png' data-type='1'></image>
+      <text class='{{tabColors[1]}} regular' data-type='1'>待发货</text>
     </view>
     <view class='column' data-type='2'>
-      <image src='./img/shipping.png'></image>
-      <text class='{{tabColors[2]}} regular'>已发货</text>
+      <image src='./img/shipping.png' data-type='2'>></image>
+      <text class='{{tabColors[2]}} regular' data-type='2'>已发货</text>
     </view>
     <view class='column' data-type='3'>
-      <image src='./img/complete.png'></image>
-      <text class='{{tabColors[3]}} regular' >已完成</text>
+      <image src='./img/complete.png' data-type='3'></image>
+      <text class='{{tabColors[3]}} regular' data-type='3'>已完成</text>
     </view>
     <view class='column' data-type='4'>
-      <image src='./img/return.png'></image>
-      <text class='{{tabColors[4]}} regular'>拒收单</text>
+      <image src='./img/return.png' data-type='4'>></image>
+      <text class='{{tabColors[4]}} regular' data-type='4'>拒收单</text>
     </view>
 
   </view>

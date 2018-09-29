@@ -14,6 +14,11 @@
 
 .tab view {
   justify-content: center;
+  width:25%;
+  /* position: relative;    
+   z-index: 1;
+  padding: 40rpx;
+  margin: -40rpx; */
 }
 
 .tab image {
@@ -36,8 +41,6 @@
   /* margin: 0 auto 190rpx; */
   padding-left: 39rpx;
 }
-
-
 
 .profile {
   width: 200rpx;
@@ -89,21 +92,25 @@
   height: 2rpx;
   background: rgb(51, 51, 51);
 }
-.promtion-call{
+
+.promtion-call {
   width: 40rpx;
   height: 40rpx;
 }
-.promotion-man{
+
+.promotion-man {
   font-size: 30rpx;
-  color: rgb(237,112,37);
-  margin:0 39rpx 0 10rpx;
+  color: rgb(237, 112, 37);
+  margin: 0 39rpx 0 10rpx;
 }
-.exit.bgc{
-  width:auto;
-  margin:72rpx auto 30rpx;
-  color:rgb(235,99,16);
+
+.exit.bgc {
+  width: auto;
+  margin: 72rpx auto 30rpx;
+  color: rgb(235, 99, 16);
   background: #fff;
 }
+
 .dot {
   /* transform:translate(0,-6rpx); */
   margin: 12rpx 9rpx auto;
