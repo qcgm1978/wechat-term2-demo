@@ -1,7 +1,7 @@
 <view wx:if='{{trolley.length}}' style="height: 100%;">
   <scroll-view scroll-y style="height:85%;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
     <view wx:for='{{trolley}}' wx:key='{{index}}'>
-      <view style='display: flex; flex-direction: column;' wx:if="{{!composeProducts}}">
+      <view style='display: flex; flex-direction: column;' wx:if="{{!item.composeProducts}}">
         <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
           <view class='column' style='margin-top:auto;position:relative;'>
             <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" wx:if='{{item.putShelvesFlg}}' color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
@@ -111,7 +111,7 @@
       </radio>
       <view style='display: flex; flex-direction: column;'>
             <text>合计:<text class='dollar trolley-num medium'>{{currentMoney}}</text></text>
-            <view style='display: flex; flex-direction: row;'>
+            <view style='display: flex; flex-direction: row;' wx:if="{{totalDiscountMoney!=0}}">
               <view>总额</view>
               <view>¥{{overallMoney}}</view>
               <view>已省</view>

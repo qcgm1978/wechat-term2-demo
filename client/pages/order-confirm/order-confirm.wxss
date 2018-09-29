@@ -132,9 +132,9 @@
 }
 
 .free-gift {
-  width: 100rpx;
-  height: 40rpx;
-  font-size: 30rpx;
+  width: 60rpx;
+  height: 38rpx;
+  font-size: 24rpx;
   border-radius:10rpx;
   text-align: center;
   color: #febb5c;

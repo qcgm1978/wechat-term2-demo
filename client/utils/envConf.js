@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.DEV; //update this value for different env
+var env = EVN.STG; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""

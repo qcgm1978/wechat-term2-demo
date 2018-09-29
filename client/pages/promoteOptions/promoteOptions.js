@@ -32,8 +32,9 @@ Page({
     }
 
     let product = JSON.parse(options.product)
+    let promoteInfo = JSON.parse(options.promoteInfo)
     this.setData({
-      promoteMsg: options.promoteMsg,
+      promoteMsg: promoteInfo.promotionName + promoteInfo.promotionDescription,
       mainProduct:product,
       'selectedProductList[0]': product,
       totalPrice: product.price

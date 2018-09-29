@@ -50,7 +50,7 @@
                   
                   <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
                   <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
-                    <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'><view  class='free-gift'>赠品</view>{{item.itemName}}</view>
+                    <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'><view  class='free-gift' style='font-size: 24rpx;' wx:if="{{item.isGift}}">赠品</view>{{item.itemName}}</view>
                     <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
                     <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
                       <text class='confirm-price'>￥{{item.price}}</text>
