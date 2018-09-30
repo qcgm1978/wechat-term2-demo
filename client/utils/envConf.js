@@ -49,7 +49,7 @@ const apiURLs = {
   addTrolley: `${baseUrl}/mall/cart/add/{merchantId}/{locationId}`,//添加商品到购物车
   getCart: `${baseUrl}/mall/cart/{merchantId}/{locationId}?start={start}&limit={limit}`,//取得购物车商品列表
   removeCart: `${baseUrl}/mall/cart/remove/{merchantId}`,//删除购物车中的商品
-  getCartCount:`${baseUrl}/mall/cart/count/{merchantId}`,//统计购物车商品数量
+  getCartCount:`${baseUrl}/mall/cart/count/{merchantId}/{locationId}`,//统计购物车商品数量
 
   getOrder: `${baseUrl}/mall/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/mall/order/list`,

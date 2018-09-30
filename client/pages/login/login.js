@@ -186,7 +186,7 @@ Page({
     if (getApp().globalData.registerStatus && getApp().globalData.authWechat && !getApp().globalData.authWechat.potentialUser) {
       utils.getMerchant()
         .then(data => {
-          debugger;
+          // debugger;
           const merchant = data.result;
           getApp().globalData.merchant = merchant;
           return (merchant.locationId);

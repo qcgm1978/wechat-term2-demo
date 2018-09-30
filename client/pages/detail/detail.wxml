@@ -24,7 +24,7 @@
       </view>
       <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>
-        <view class='promotion-list'>
+        <view class='promotion-list'>   
           <view class='center' style="height: 36rpx;">
             <text class='ellipse' style='width:490rpx;'>{{product.itemCategoryName}}</text>
             <text class='promotion-type'></text>

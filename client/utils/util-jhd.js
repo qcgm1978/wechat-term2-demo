@@ -343,8 +343,10 @@ const updateTrolleyNum = ({
 } = {
   merchantId: getApp().getMerchantId()
 }) => {
+  debugger;
   return getRequest(Api.getCartCount, {
-      merchantId
+      merchantId,
+      locationId: getApp().globalData.merchant.locationId
     })
     .then(data => {
       let count = 0;

@@ -8,7 +8,8 @@ import {
   getRequest,
   addToTrolley,
   getMerchant,
-  errorHander
+  errorHander,
+  updateTrolleyNum
 } from '../../utils/util.js';
 const getProductList = Api.getProductList,
   getBanners = Api.getBanners,
@@ -66,11 +67,7 @@ Page({
         })
         this.getProductList(locationId)
       })
-      .then(() => {
-        return getRequest(Api.getCartCount, {
-          merchantId: app.getMerchantId(),
-        })
-      })
+      .then(updateTrolleyNum)
       .then(data => {
         if (data.status === 200) {
           const count = data.result.count;
@@ -181,9 +178,7 @@ Page({
       .then(this.setStores)
       .then(this.getProductList)
       .then(() => {
-        return getRequest(Api.getCartCount, {
-          merchantId: app.getMerchantId(),
-        })
+        return updateTrolleyNum()
       })
       .then(data => {
         if (data.status === 200) {
@@ -203,6 +198,7 @@ Page({
         wx.hideLoading();
       })
       .catch(err => {
+        console.log(err)
         wx.hideLoading();
         wx.showModal({
           title: '提示',
