@@ -117,7 +117,7 @@ Page({
       });
     }
     this.setData({
-      usedPoints: parseInt(this.data.credit * 100)
+      usedPoints: utils.getFixedNum(this.data.credit * 100)
     })
 
   },
