@@ -65,6 +65,7 @@ Page({
     tmpProduct.quantity = this.data.promoteInfo.mainQuantity
     tmpProduct.price = this.data.product.price
     tmpProduct.itemId = this.data.product.itemId
+    tmpProduct.categoryId = this.data.product.itemCategoryCode
     console.log(this.data.promoteInfo)
     wx.navigateTo({
       url: '/pages/promoteOptions/promoteOptions?promoteInfo=' + JSON.stringify(this.data.promoteInfo) + "&product=" + JSON.stringify(tmpProduct),
@@ -307,6 +308,19 @@ Page({
     categoryId
   }) {
 
+    let temdata = {
+      merchantId: getApp().getMerchantId(),
+      locationId: getApp().globalData.merchant.locationId,
+      items: [
+        {
+          categoryCode: categoryId,
+          itemId: itemId
+        }
+      ],
+    }
+    console.log(getPromoteInfo)
+    console.log(JSON.stringify(temdata))
+
     utils.postRequest({
       url: getPromoteInfo,
       data: {
@@ -314,7 +328,6 @@ Page({
         locationId: getApp().globalData.merchant.locationId,
         items: [
           {
-            brandId: "TTT",
             categoryCode: categoryId,
             itemId: itemId
           }
@@ -333,7 +346,16 @@ Page({
           })
         }
       })
-      .catch(err => {
+      .catch (errorCode => {
+          console.log(errorCode)
+          utils.errorHander(errorCode, this.getPromoteInfo, this.emptyFunc, {itemId,categoryId})
+            .then(() => {
+              
+            })
+            .catch(() => {
+              
+            })
       })
   },
+  emptyFunc: function () { },
 })

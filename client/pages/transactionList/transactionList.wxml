@@ -19,21 +19,22 @@
                 <text class='order-state'>{{payStyle[item.orderStatus]}}</text>
               </view>
               <scroll-view scroll-y="true" style='max-height:{{isTiled? "330rpx":"none"}};' class='bgc'>
-
-                <view class='item-container' wx:for="{{item.orderItem}}" wx:key='{{itemIndex}}' wx:for-item="orderItem" style=" margin-top:5rpx;">
-                  <view class='item-container-fg'>
-                    <view class='order-content'>
-                      <view class='center' style="flex-grow:1;">
-                        <image src='{{orderItem.itemIcon?(orderItem.itemIcon+"?x-oss-process=style/180w"):defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
-                        <view>
-                          <view class='darker-gray-chars item-name regular'>{{orderItem.itemName}}</view>
-                          <text class='regular item-standard'>规格：{{orderItem.itemSpecification}}</text>
+                <view class='group-container' wx:for="{{item.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
+                  <view class='item-container' wx:for="{{orderGroup.items}}" wx:key='{{itemIndex}}' wx:for-item="orderItem" style=" margin-top:0rpx;">
+                    <view class='item-container-fg'>
+                      <view class='order-content'>
+                        <view class='center' style="flex-grow:1;">
+                          <image src='{{orderItem.itemIcon?(orderItem.itemIcon+"?x-oss-process=style/180w"):defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                          <view>
+                            <view class='darker-gray-chars item-name regular'>{{orderItem.itemName}}</view>
+                            <text class='regular item-standard'>规格：{{orderItem.itemSpecification}}</text>
+                          </view>
                         </view>
-                      </view>
-                      <view class='darker-gray-chars column regular' style="align-items: flex-end;padding-top:40rpx;margin-bottom:auto;">
-                        <text>￥{{orderItem.unitPrice}}</text>
-                        <text class='item-standard '>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}}</text>
-                        <text class='list-return'>{{currentItem.isReturn?(item.usePoints?'退款成功':''):''}}</text>
+                        <view class='darker-gray-chars column regular' style="align-items: flex-end;padding-top:40rpx;margin-bottom:auto;">
+                          <text>￥{{orderItem.unitPrice}}</text>
+                          <text class='item-standard '>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}}</text>
+                          <text class='list-return'>{{currentItem.isReturn?(item.usePoints?'退款成功':''):''}}</text>
+                        </view>
                       </view>
                     </view>
                   </view>

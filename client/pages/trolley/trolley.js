@@ -323,12 +323,20 @@ Page({
         totalDiscountMoney,
         overallMoney
       })
-    }
-    utils
-      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, false,false)
-      .then(badge => {
-        // debugger;
+    }else{
+      let curItem = `trolley[${index}].checked`
+      this.setData({
+        [curItem]:true
       })
+      this.selectedRadio.push(trolley[index].itemId);
+      this.setMoneyData(this.selectedRadio);
+    }
+
+    // utils
+    //   .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, false,false)
+    //   .then(badge => {
+    //     // debugger;
+    //   })
   },
   onReady: function() {
 

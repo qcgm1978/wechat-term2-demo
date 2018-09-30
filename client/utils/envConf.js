@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.STG; //update this value for different env
+var env = EVN.DEV; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -65,8 +65,9 @@ const apiURLs = {
 
   getBanners: `${baseUrl}/mall/banners/{category}`,
   getPromoteInfo: `${baseUrl}/mall/promotions/item`,
-  getComposeProducts: `${baseUrl}/mall/promotions/combinationList`,
-  calcPromoteRule: `${baseUrl}/mall/promotions/calc`,
+  getCombinationList: `${baseUrl}/mall/promotions/combinationList`,
+  calcPromote: `${baseUrl}/mall/promotions/calc`,
+  selectGoods: `${baseUrl}/mall/promotions/selectGoods`,
 }
 
 var Api = apiURLs;

@@ -5,7 +5,11 @@ import {
   Api
 } from '../../utils/envConf.js'
 const getProductItem = Api.getProductItem,
-  getComposeProducts = Api.getComposeProducts;
+  getCombinationList = Api.getCombinationList,
+  selectGoods = Api.selectGoods;
+let promoteInfo = {}
+let firstProduct = {}
+let secondProduct = {}
 Page({
   data: {
     badge: 0,
@@ -17,8 +21,6 @@ Page({
     freeGift: { itemCategoryCode: "2701", itemId: "3496", itemImageAddress1: "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3301.jpg", itemName: "七喜六联", itemSpecification: "330ml*24", price: 41, promoteType: "满减", putShelvesFlg: true, quantity: "2",isfree: true },
     selectedProductList: [],
 
-    // quantity: 0,
-    // promotionItems: ["./images/u40.png", "./images/u42.jpg"],
     totalPrice: 0,
     rightArrow: "./images/grey-arrow.png",
     showPromoteDetail: false
@@ -48,6 +50,11 @@ Page({
         icon: '../../images/trolley-missing.png'
       });
     }
+    console.log(product)
+    promoteInfo = promoteInfo
+    firstProduct = product
+    let paraData = { itemId: product.itemId, categoryId: product.categoryId, promoteInfo}
+    this.getComposeProducts(paraData)
   },
   getProduct({
     itemId,
@@ -85,6 +92,45 @@ Page({
     })
   },
 
+  getCombinationList: function(){
+    let temdata = [
+      {
+        categoryCode: this.data.composeProducts.categoryId,
+        itemId: this.data.composeProducts.itemId
+      },
+      {
+        categoryCode: firstProduct.categoryId,
+        itemId: firstProduct.itemId
+      },
+    ]
+    console.log(temdata)
+    utils.postRequest({
+      url: getCombinationList,
+      data: {
+        promotionId: promoteInfo.promotionId,
+        items:[
+          {
+            categoryCode: this.data.composeProducts.categoryId,
+            itemId: this.data.composeProducts.itemId
+          },
+          {
+            categoryCode: firstProduct.categoryId,
+            itemId: firstProduct.itemId
+          },
+        ]
+
+      }
+    })
+      .then(data => {
+        console.log(data.result)
+        if (data.status === 200) {
+
+        } else {
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+  },
 
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
@@ -104,6 +150,7 @@ Page({
               'selectedProductList[2]': this.data.freeGift
             })
           }
+          this.getCombinationList()
         }else{
           if (this.data.freeGift){
             this.data.selectedProductList.splice(1, 2);
@@ -153,14 +200,40 @@ Page({
       })
   },
 
-  getComposeProducts: function () {
-    utils.getRequest(getComposeProducts, {
-      // locationId,
-      // itemIds: itemId ? itemId : '',
-    }).then(data => {
+  getComposeProducts: function ({
+    itemId,
+    categoryId,
+    promoteInfo
+    }) {
+    let tmpData = {
+      merchantId: getApp().getMerchantId(),
+      locationId: getApp().globalData.merchant.locationId,
+      promotionId: promoteInfo.promotionId,
+      items: [
+        {
+          categoryCode: categoryId,
+          itemId: itemId
+        }
+      ],
+    }
+    utils.postRequest({
+      url: selectGoods,
+      data: {
+        merchantId: getApp().getMerchantId(),
+        locationId: getApp().globalData.merchant.locationId,
+        promotionId: promoteInfo.promotionId,
+        item: 
+          {
+            categoryCode: categoryId,
+            itemId: itemId
+          },
+      }
+    })
+    .then(data => {
+      console.log(data.result.conbinationItems)
       if (data.status === 200) {
         this.setData({
-          composeProducts: data.result
+          composeProducts: data.result.conbinationItems
         })
       } else {
       }

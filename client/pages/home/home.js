@@ -125,14 +125,15 @@ Page({
         let data = result.result;
         if (result.status === 200) {
           if (data.length) {
-            for(let i=0; i<data.length; i++){
-              if(i%2 == 0){
-                data[i].promoteType = promoteType["MANJIAN"]
-              }
-              else{
-                data[i].promoteType = promoteType["MANZENG"]
-              }
-            }
+            
+                    // for(let i=0; i<3; i++){
+                    //   if(i%2 == 0){
+                    //     data[i].promoteType = promoteType["MANJIAN"]
+                    //   }
+                    //   else{
+                    //     data[i].promoteType = promoteType["MANZENG"]
+                    //   }
+                    // }
             this.setData({
               productList: this.data.productList.concat(data)
             });

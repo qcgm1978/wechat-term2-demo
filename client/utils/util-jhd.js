@@ -227,7 +227,7 @@ var checkNetwork = function() {
   })
 }
 
-var errorHander = function(errorCode, callback, dataNotFoundHandler) {
+var errorHander = function(errorCode, callback, dataNotFoundHandler, callbackPara) {
   return new Promise((resolve, reject) => {
     switch (errorCode) {
       case INVALID_USER_STATUS:
@@ -247,7 +247,12 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler) {
           refreshAccessToken()
             .then(() => {
               callback.tokenRefreshed = true
-              return callback()
+              if (callbackPara){
+                return callback(callbackPara)
+              }else{
+                return callback()
+              }
+              
             })
             .then(() => {
               resolve()
