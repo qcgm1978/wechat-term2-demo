@@ -46,9 +46,9 @@
           </view>
 
         </view>
-        <view catch:tap='toggleGoods' class='regular center' style='font-size: 24rpx;color: #999999;padding:20rpx 0; align-items:center;justify-content:center;'>
-          {{expandAll?'展开全部商品信息':'收起全部商品信息'}}
-          <image src="{{expandAll?'img/down.png':'img/up.png'}}" style='width:32rpx;height:32rpx;'></image>
+        <view wx:if='{{data.length>2}}' catch:tap='toggleGoods' class='regular center' style='font-size: 24rpx;color: #999999;padding:20rpx 0; align-items:center;justify-content:center;'>
+          {{expandAll?'收起全部商品信息':'展开全部商品信息'}}
+          <image src="{{expandAll?'img/up.png':'img/down.png'}}" style='width:32rpx;height:32rpx;'></image>
         </view>
       </view>
     </view>

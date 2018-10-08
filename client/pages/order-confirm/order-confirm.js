@@ -151,7 +151,7 @@ Page({
         result.quantity = quantity;
         let dataWrapper = [result];
         // todo create array with multi ele
-        dataWrapper=new Array(10).fill(result)
+        // dataWrapper=new Array(10).fill(result)
         this.setData({
           data: dataWrapper
         })
