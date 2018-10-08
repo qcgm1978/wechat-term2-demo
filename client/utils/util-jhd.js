@@ -384,6 +384,10 @@ const getMerchant = () => {
         const merchant = data.result;
         getApp().globalData.merchant = merchant;
         getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
+        wx.getStorage({
+          key: 'merchant',
+          data: merchant,
+        });
         resolve(data)
       })
       .catch(errorCode => {

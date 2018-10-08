@@ -48,6 +48,9 @@ App({
       text: count + ''
     });
   },
+  getLocationId(){
+    return this.globalData.merchant?this.globalData.merchant.locationId : wx.getStorageSync('merchant').locationId
+  },
   getMerchantId() {
     return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
   },
