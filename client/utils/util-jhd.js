@@ -21,8 +21,8 @@ let isLoading = false;
 const showLoading = ({
   title
 } = {
-  title: '正在加载'
-}) => {
+    title: '正在加载'
+  }) => {
   if (!isLoading) {
     wx.showLoading({
       title,
@@ -36,7 +36,7 @@ const hideLoading = () => {
     isLoading = false;
   }
 }
-var postRequestWithoutToken = function(url, data) {
+var postRequestWithoutToken = function (url, data) {
   var promise = new Promise((resolve, reject) => {
     var postData = data;
     wx.request({
@@ -54,7 +54,7 @@ var postRequestWithoutToken = function(url, data) {
           resolve(res.data);
         }
       },
-      fail: function(e) {
+      fail: function (e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
@@ -63,7 +63,7 @@ var postRequestWithoutToken = function(url, data) {
   return promise;
 }
 
-var putRequest = function(url, data) {
+var putRequest = function (url, data) {
   var promise = new Promise((resolve, reject) => {
     var putData = data;
     wx.request({
@@ -82,7 +82,7 @@ var putRequest = function(url, data) {
           resolve(res.data);
         }
       },
-      fail: function(e) {
+      fail: function (e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
@@ -91,7 +91,7 @@ var putRequest = function(url, data) {
   return promise;
 }
 
-var postRequest = function({
+var postRequest = function ({
   METHOD = 'POST',
   url,
   config,
@@ -124,7 +124,7 @@ var postRequest = function({
           resolve(res.data);
         }
       },
-      fail: function(e) {
+      fail: function (e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       },
@@ -136,7 +136,7 @@ var postRequest = function({
   return promise;
 }
 
-var getRequest = function(url, data) {
+var getRequest = function (url, data) {
   showLoading()
   var promise = new Promise((resolve, reject) => {
     if (data) {
@@ -173,7 +173,7 @@ var getRequest = function(url, data) {
   return promise;
 }
 
-var getRequestWithoutToken = function(url) {
+var getRequestWithoutToken = function (url) {
   var promise = new Promise((resolve, reject) => {
     wx.request({
       url: url,
@@ -199,7 +199,7 @@ var getRequestWithoutToken = function(url) {
   return promise;
 }
 
-var checkNetwork = function() {
+var checkNetwork = function () {
   return new Promise((resolve, reject) => {
     wx.getNetworkType({
       success: res => {
@@ -227,7 +227,7 @@ var checkNetwork = function() {
   })
 }
 
-var errorHander = function(errorCode, callback, dataNotFoundHandler) {
+var errorHander = function (errorCode, callback, dataNotFoundHandler) {
   return new Promise((resolve, reject) => {
     switch (errorCode) {
       case INVALID_USER_STATUS:
@@ -291,26 +291,26 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true, updateAddTime 
   const merchantId = getApp().getMerchantId();
   const locationId = String(getApp().globalData.merchant.locationId);
   const data = {
-      merchantId,
+    merchantId,
+    itemId,
+    locationId,
+    quantity,
+    updateAddTime,
+    addItemList: itemId instanceof Array ? itemId : [{
       itemId,
-      locationId,
-      quantity,
-      updateAddTime,
-      addItemList: itemId instanceof Array ? itemId : [{
-        itemId,
-        quantity
-      }]
-    },
+      quantity
+    }]
+  },
     config = {
       merchantId,
       locationId
     }
   return new Promise((resolve, reject) => {
     postRequest({
-        url: Api.addTrolley,
-        config,
-        data
-      })
+      url: Api.addTrolley,
+      config,
+      data
+    })
       .then(ret => {
         if (enableChecked) {
           getApp().globalData.checkedTrolley.push(itemId);
@@ -341,13 +341,13 @@ const updateTrolleyNum = ({
   quantity,
   resolve
 } = {
-  merchantId: getApp().getMerchantId()
-}) => {
-  debugger;
+    merchantId: getApp().getMerchantId()
+  }) => {
+  // debugger;
   return getRequest(Api.getCartCount, {
-      merchantId,
-      locationId: getApp().globalData.merchant.locationId
-    })
+    merchantId,
+    locationId: getApp().globalData.merchant.locationId
+  })
     .then(data => {
       let count = 0;
       if (data.status === 200) {
@@ -378,8 +378,8 @@ const getMerchant = () => {
   });
   return new Promise((resolve, reject) => {
     getRequest(Api.getMerchant, {
-        merchantId: getApp().getMerchantId()
-      })
+      merchantId: getApp().getMerchantId()
+    })
       .then((data) => {
         const merchant = data.result;
         getApp().globalData.merchant = merchant;
