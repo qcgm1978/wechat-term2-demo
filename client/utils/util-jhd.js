@@ -106,6 +106,9 @@ var postRequest = function({
       }
     }
     showLoading()
+    // console.log("postData")
+    // console.log(postData)
+    // console.log(data)
     wx.request({
       url: url,
       data: postData || data,
@@ -289,6 +292,50 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 
+const addToTrolleyByGroup = (groupList, enableChecked = true, updateAddTime = true) => {
+  showLoading({
+    title: '正在添加到购物车...'
+  })
+  const merchantId = getApp().getMerchantId();
+  const locationId = String(getApp().globalData.merchant.locationId);
+  const data = {
+    merchantId,
+    locationId,
+    updateAddTime,
+    addGroupList: groupList
+  },
+    config = {
+      merchantId,
+      locationId
+    }
+
+  return new Promise((resolve, reject) => {
+    postRequest({
+      url: Api.addTrolley,
+      config,
+      data:groupList
+    })
+      .then(ret => {
+        if (enableChecked) {
+          getApp().globalData.checkedTrolley.push(itemId);
+        }
+      })
+      .then(() => {
+        updateTrolleyNum({
+          merchantId,
+          quantity,
+          resolve
+        })
+      })
+      .then(data => {
+        hideLoading();
+      })
+      .catch(errorCode => {
+        reject()
+      });
+  });
+}
+
 const addToTrolley = (itemId, quantity = 1, enableChecked = true, updateAddTime = true) => {
   showLoading({
     title: '正在添加到购物车...'
@@ -343,13 +390,16 @@ const getFixedNum = (float, digits = 0) => {
 }
 const updateTrolleyNum = ({
   merchantId,
+  locationId,
   quantity,
   resolve
 } = {
-  merchantId: getApp().getMerchantId()
+  merchantId: getApp().getMerchantId(),
+  locationId: getApp().globalData.merchant.locationId,
 }) => {
   return getRequest(Api.getCartCount, {
-      merchantId
+      merchantId,
+      locationId
     })
     .then(data => {
       let count = 0;
@@ -409,6 +459,7 @@ module.exports = {
   errorHander,
   queryStack,
   addToTrolley,
+  addToTrolleyByGroup,
   getFixedNum,
   updateTrolleyNum,
   getMerchant

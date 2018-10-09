@@ -10,7 +10,7 @@
     <text class='list-name'>{{item.itemName}}</text>
     <view class='list-spec' style='width: 100%; display:flex; flex-direction:row; justify-content: space-between;'>
       <view >规格：  {{item.itemSpecification}}</view>
-      <view  style='display:flex;'> {{item.quantity}}</view>
+      <view  style='display:flex;'> {{item.minQuantity}}</view>
     </view>
     <text class='dollar medium list-price'>{{item.price}}</text>
   </view>
@@ -64,7 +64,7 @@
         <view style='background-color:grey; border-radius:10rpx;  width: auto; display:inline-block !important; display:inline; color: white;'>¥{{item.price}}</view>
         <view style='display: flex; justify-content: space-between;'>
           <view style='white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.itemName}}</view>
-          <view style='white-space:nowrap'>x{{item.quantity}}</view>
+          <view style='white-space:nowrap'>x{{item.minQuantity}}</view>
         </view>
       </view>
     </view>

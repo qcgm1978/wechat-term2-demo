@@ -1,4 +1,5 @@
 import utils from "../../utils/util.js";
+import promoteUtil from "../../utils/promotion.js";
 import {
   Api
 } from '../../utils/envConf.js';
@@ -164,6 +165,62 @@ Page({
       url: `/pages/detail/detail?itemId=${itemId}`,
     })
   },
+
+  addPromoteInfo(trollyList) {
+    return new Promise((resolve, reject) => {
+      let promises = []
+      for (let i = 0; i < trollyList.length; i++){
+        promises.push(promoteUtil.calcPromote())
+      }
+      Promise.all(promises)
+      .then(arr => {
+        for (let i = 0; i < trollyList.length; i++) {
+          trollyList[i].items.push(arr[i].freeGift)
+        }
+        resolve(trollyList)
+      })
+      .catch(()=>{
+        reject()
+      })
+      // promoteUtil.calcPromote()
+      //   .then((promoteResult) => {
+      //     //满赠
+      //     if (promoteResult.freeGift) {
+      //       promoteResult.freeGift.quantity = promoteResult.freeGift.minQuantity
+      //       group.items.push(promoteResult.freeGift)
+      //       resolve(group)
+      //     } else if (promoteResult.discountAmount > 0) { //满减
+
+      //     }
+      //   })
+      //   .catch(() => {
+      //     reject()
+      //   })
+    })
+  },
+  getPromoteInfo(trollyList) {
+    return new Promise((resolve, reject) => {
+      let promises = []
+      for (let i = 0; i < trollyList.length; i++) {
+        promises.push(promoteUtil.getPromoteInfo(trollyList[i].items[0].itemId, trollyList[i].items[0].itemCategoryCode))
+      }
+
+      Promise.all(promises)
+        .then(arr => {
+          for (let i = 0; i < trollyList.length; i++) {
+            if (arr.length > 0){
+              trollyList[i].promoteName = arr[i].promotionName
+              trollyList[i].promoteType = arr[i].promotionType
+              trollyList[i].combinationFlag = arr[i].combinationFlag
+            }
+          }
+          resolve(trollyList)
+        })
+        .catch(() => {
+          reject()
+        })
+    })
+  },
   getTrolley() {
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -171,30 +228,31 @@ Page({
         locationId: getApp().globalData.merchant.locationId,
         start: this.start,
         limit: this.limit
-      }).then(({
-        result
-      }) => {
-        result = result.map((item, index) => {
-          if (item.putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
-            item.checked = true;
-          } else {
-            item.checked = false;
-          }
-          item.discountPrice = utils.getFixedNum(item.price * 0.8, 2);
-          item.discountAmount = utils.getFixedNum(item.price - item.discountPrice, 2);
-          item.promoteType = "满减"
-          item.promotionName = "满800元享受8折"
-          return item;
-        });
+      })
+      .then((data) => {
+        return this.addPromoteInfo(data.result)
+      })
+      .then((data) => {
+        return this.getPromoteInfo(data)
+      })
+      .then((result) => {
+        for(let i = 0; i<result.length; i++){
+          result[i].items = result[i].items.map((item, index) => {
+            if (/*item.putShelvesFlg &&*/ (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
+              item.checked = true;
+            } else {
+              item.checked = false;
+            }
+            return item;
+          });
+        }
 
-        // result=[]
         let trolley = []
         if (this.start === 0) {
           trolley = result;
         } else {
           trolley = this.data.trolley.concat(result);
         }
-        console.log(trolley)
         this.setData({
           trolley,
           hasOrders: trolley.length,
@@ -210,7 +268,6 @@ Page({
         }
         resolve(result)
       }).catch(errorCode => {
-        // getApp().failRequest();
         utils.errorHander(errorCode, this.getTrolley)
           .then(() => {
             resolve()

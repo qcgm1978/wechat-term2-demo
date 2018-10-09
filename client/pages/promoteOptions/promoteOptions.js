@@ -1,24 +1,28 @@
 import utils from "../../utils/util.js";
+import promoteUtil from "../../utils/promotion.js";
 const app = getApp();
 const globalData = app.globalData;
 import {
   Api
 } from '../../utils/envConf.js'
 const getProductItem = Api.getProductItem,
-  getCombinationList = Api.getCombinationList,
+  // calcPromote = Api.calcPromote,
   selectGoods = Api.selectGoods;
 let promoteInfo = {}
-let firstProduct = {}
-let secondProduct = {}
+let calcPromoteInfo = {}
 Page({
   data: {
     badge: 0,
     defImg: getApp().globalData.defaultImg,
     imgTrolly: "../../images/trolley-full.png",
     promoteMsg: "",
-    composeProducts: [{ itemCategoryCode: "2701", itemId: "3496", itemImageAddress1: "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3301.jpg", itemName: "七喜六联", itemSpecification: "330ml*24", price: 41, promoteType: "满减", putShelvesFlg: true, quantity: "2"}],
-    mainProduct: { itemImageAddress1: "./images/u42.jpg", itemName: "惠百真豆油", itemSpecification: "2ML*8", quantity: "2", price: "299.90", itemId: "1" },
-    freeGift: { itemCategoryCode: "2701", itemId: "3496", itemImageAddress1: "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3301.jpg", itemName: "七喜六联", itemSpecification: "330ml*24", price: 41, promoteType: "满减", putShelvesFlg: true, quantity: "2",isfree: true },
+    composeProducts: [],
+    mainProduct: {},
+    // freeGift: {},
+    // composeProducts: [{ itemCategoryCode: "2701", itemId: "3496", itemImageAddress1: "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3301.jpg", itemName: "七喜六联", itemSpecification: "330ml*24", price: 41, promoteType: "满减", putShelvesFlg: true, quantity: "2"}],
+    // mainProduct: { itemImageAddress1: "./images/u42.jpg", itemName: "惠百真豆油", itemSpecification: "2ML*8", quantity: "2", price: "299.90", itemId: "1" },
+
+    // freeGift: { itemCategoryCode: "2701", itemId: "3496", itemImageAddress1: "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3301.jpg", itemName: "七喜六联", itemSpecification: "330ml*24", price: 41, promoteType: "满减", putShelvesFlg: true, minQuantity: "2",isfree: true },
     selectedProductList: [],
 
     totalPrice: 0,
@@ -34,12 +38,12 @@ Page({
     }
 
     let product = JSON.parse(options.product)
-    let promoteInfo = JSON.parse(options.promoteInfo)
+    promoteInfo = JSON.parse(options.promoteInfo)
     this.setData({
-      promoteMsg: promoteInfo.promotionName + promoteInfo.promotionDescription,
+      promoteMsg: promoteInfo.promotionName,
       mainProduct:product,
       'selectedProductList[0]': product,
-      totalPrice: product.price
+      totalPrice: 0
     })
     // this.categoryId=options.categoryId;
     // this.getCategories(options)
@@ -50,9 +54,8 @@ Page({
         icon: '../../images/trolley-missing.png'
       });
     }
-    console.log(product)
+
     promoteInfo = promoteInfo
-    firstProduct = product
     let paraData = { itemId: product.itemId, categoryId: product.categoryId, promoteInfo}
     this.getComposeProducts(paraData)
   },
@@ -66,7 +69,7 @@ Page({
       categoryCd,
       itemIds: '',
     }).then(data => {
-      console.log(data);
+      //console.log(data);
       if (data.status === 200) {
         let result = data.result;
         result = result.map(item => {
@@ -92,46 +95,6 @@ Page({
     })
   },
 
-  getCombinationList: function(){
-    let temdata = [
-      {
-        categoryCode: this.data.composeProducts.categoryId,
-        itemId: this.data.composeProducts.itemId
-      },
-      {
-        categoryCode: firstProduct.categoryId,
-        itemId: firstProduct.itemId
-      },
-    ]
-    console.log(temdata)
-    utils.postRequest({
-      url: getCombinationList,
-      data: {
-        promotionId: promoteInfo.promotionId,
-        items:[
-          {
-            categoryCode: this.data.composeProducts.categoryId,
-            itemId: this.data.composeProducts.itemId
-          },
-          {
-            categoryCode: firstProduct.categoryId,
-            itemId: firstProduct.itemId
-          },
-        ]
-
-      }
-    })
-      .then(data => {
-        console.log(data.result)
-        if (data.status === 200) {
-
-        } else {
-        }
-      }).catch(err => {
-        console.log(err);
-      })
-  },
-
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
     for (let i = 0; i < this.data.composeProducts.length; i++){
@@ -143,24 +106,28 @@ Page({
         if (this.data.composeProducts[i].checked){
           this.setData({
             'selectedProductList[1]': this.data.composeProducts[i],
-            totalPrice: Number(this.data.selectedProductList[0].price) + Number(this.data.composeProducts[i].price)
+            totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
           })
-          if(this.data.freeGift){
-            this.setData({
-              'selectedProductList[2]': this.data.freeGift
+          promoteUtil.calcPromote()
+            .then((promoteResult) => {
+              console.log(promoteResult)
+              //满赠
+              if (promoteResult.freeGift) {
+                this.setData({
+                  'selectedProductList[2]': promoteResult.freeGift
+                })
+              } else if (promoteResult.discountAmount > 0) { //满减
+                console.log("afasdfsadfsdf满减满减满减满减")
+              }
             })
-          }
-          this.getCombinationList()
+            .catch(() => {
+
+            })
         }else{
-          if (this.data.freeGift){
-            this.data.selectedProductList.splice(1, 2);
-          }else{
-            this.data.selectedProductList.splice(1, 1);
-          }
           this.data.selectedProductList.splice(1, 2);
           this.setData({
             selectedProductList: this.data.selectedProductList,
-            totalPrice: this.data.selectedProductList[0].price
+            totalPrice: this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity
           })
         }
       }
@@ -176,16 +143,29 @@ Page({
       return
     }
 
-    console.log(this.data.selectedProductList)
-    return
-    const orderItem = this.data.selectedProductList;
+    //const orderItem = this.data.selectedProductList;
+    let orderItem = []
+    orderItem.push(this.data.selectedProductList[0])
+    orderItem.push(this.data.selectedProductList[1])
     const arr = orderItem.map(item => ({
       itemId: item.itemId,
-      quantity: item.quantity
+      quantity: Number(item.minQuantity),
+      categoryCode: item.itemCategoryCode
     }));
-    console.log(arr)
+    //console.log(this.data.selectedProductList)
+    let para = {
+      addGroupList: [{
+        addItemList: arr,
+        promotions: [{
+          promotionId : promoteInfo.promotionId
+        }]
+      }]
+    }
+     console.log(JSON.stringify(para))
+    // return
+    //console.log(arr)
     utils
-      .addToTrolley(arr)
+      .addToTrolleyByGroup(para)
       .then(badge => {
         this.setData({
           badge,
@@ -230,10 +210,12 @@ Page({
       }
     })
     .then(data => {
-      console.log(data.result.conbinationItems)
       if (data.status === 200) {
+        console.log(data.result)
         this.setData({
-          composeProducts: data.result.conbinationItems
+          composeProducts: data.result.conbinationItems,
+          mainProduct: data.result.item,
+          'selectedProductList[0]': data.result.item
         })
       } else {
       }
