@@ -118,7 +118,7 @@ var postRequest = function ({
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
-          console.log(res)
+          // console.log(res)
           reject(res.statusCode);
         } else {
           resolve(res.data);

@@ -1,11 +1,13 @@
-// import Touches from './utils/Touches.js'
 import {
   Api
 } from './utils/envConf.js';
 import {
-  getRequest
+  getRequest,
+  urlObj,
+  requestStatis,
+  requestStatisDispose
 } from './utils/util.js';
-// import appUtil from './app-util.js';
+
 const getUserInfo = require('./pages/home/getUserInfo').default;
 const websocket = require('./pages/home/ws').default;
 
@@ -14,7 +16,7 @@ const iniGlobalData = {
   currentIndex: 0,
   badge: 0,
   toggleMerchant: false,
-  
+
   defaultImg: '/images/default.png',
   payStyle: {
     "WAIT_SHIPMENT": '待发货',
@@ -48,8 +50,8 @@ App({
       text: count + ''
     });
   },
-  getLocationId(){
-    return this.globalData.merchant?this.globalData.merchant.locationId : wx.getStorageSync('merchant').locationId
+  getLocationId() {
+    return this.globalData.merchant ? this.globalData.merchant.locationId : wx.getStorageSync('merchant').locationId
   },
   getMerchantId() {
     return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
@@ -79,6 +81,7 @@ App({
   },
   getSystemInfo() {
     const res = wx.getSystemInfoSync();
+    this.globalData.systemInfo = res;
     this.globalData.systemInfo.windowHeight = res.windowHeight * 2
     this.globalData.systemInfo.windowWidth = res.windowWidth * 2
     this.globalData.systemInfo.screenWidth = res.screenWidth * 2
@@ -96,6 +99,36 @@ App({
       };
     }
     this.getSystemInfo();
+    let longitude='',
+      latitude='';
+    wx.getLocation({
+      success(data) {
+        longitude=data.longitude;
+        latitude = data.latitude;
+      },
+      fail(){
+        debugger;
+      },
+      complete(){
+        const systemInfo = getApp().globalData.systemInfo;
+        requestStatis({
+          url: urlObj.clientInfo,
+          miniappVer: systemInfo.SDKVersion,
+          phoneBrand: systemInfo.brand,
+          phoneModel: systemInfo.model,
+          screenWidth: systemInfo.screenWidth / 2,
+          screenHeight: systemInfo.screenHeight / 2,
+          longitude: longitude,
+          latitude: latitude,
+          // wx.getUserInfo(Object object): 调用前需要 用户授权 scope.userInfo
+          province: '',
+          city: '',
+          genders: '',
+          // no interface
+          ages: ''
+        });
+      }
+    })
   },
 
   saveGlobalData(result) {
@@ -130,6 +163,9 @@ App({
   },
   onShow() {
     this.checkProgramUpdate();
+  },
+  onHide(){
+    requestStatisDispose()
   },
   checkProgramUpdate() {
     if (wx.canIUse('getUpdateManager')) {
@@ -251,38 +287,7 @@ App({
     })
   },
 
-  checkSession({
-    success,
-    error
-  }) {
-    const userInfo = this.globalData.userInfo;
-    if (userInfo) {
-      return success && success({
-        userInfo
-      })
-    }
 
-    wx.checkSession({
-      success: () => {
-        // 注意：此接口有调整，使用该接口将不再出现授权弹窗，请使用 <button open-type="getUserInfo"></button> 引导用户主动进行授权操作
-        // this.getUserInfo({
-        //   success: res => {
-        //     userInfo = res.userInfo
-
-        //     success && success({
-        //       userInfo
-        //     })
-        //   },
-        //   fail: () => {
-        //     error && error()
-        //   }
-        // })
-      },
-      fail: () => {
-        error && error()
-      }
-    })
-  },
   exitLogin: function() {
     getApp().globalData.registerStatus = false
     wx.setStorage({
@@ -294,4 +299,5 @@ App({
       url: '../login/login'
     });
   },
+
 })

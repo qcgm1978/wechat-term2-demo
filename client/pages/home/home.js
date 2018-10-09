@@ -9,7 +9,9 @@ import {
   addToTrolley,
   getMerchant,
   errorHander,
-  updateTrolleyNum
+  updateTrolleyNum,
+  requestStatisLoad,
+  requestStatisUnload
 } from '../../utils/util.js';
 const getProductList = Api.getProductList,
   getBanners = Api.getBanners,
@@ -235,14 +237,15 @@ Page({
         return
       }, 1000)
     }
-    getApp().setBadge()
+    getApp().setBadge();
+    requestStatisLoad();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    requestStatisUnload()
   },
   onPullDownRefresh: function () {
     if (this.enableRequest) {
