@@ -9,14 +9,14 @@ Page({
   data: {
     data: {},
     points: 0,
-    pointBalance:0,
+    pointBalance: 0,
     usedPoints: 0,
-    heightGoods: 212*2,//height-8-74*2-211*2-53*2
+    heightGoods: 212 * 2, //height-8-74*2-211*2-53*2
     height: '100%',
     top: '100%',
     credit: 0,
     actual: 0,
-    expandAll:false,
+    expandAll: false,
     isVisible: true,
     isReturn: false,
     isFailed: false,
@@ -59,7 +59,7 @@ Page({
       this.getProduct(options);
     }
   },
-  toggleGoods(){
+  toggleGoods() {
     this.setData({
       expandAll: !this.data.expandAll
     })
@@ -253,13 +253,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function(options) {},
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  onShow: function(options) {
+    utils.checkNetwork().then(utils.requestStatisLoad);
+  },
+  onHide() {
+    utils.requestStatisUnload();
   },
 
   /**

@@ -100,20 +100,13 @@ Page({
    */
   onShow: function() {
 
+  utils.checkNetwork().then(utils.requestStatisLoad);
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  onHide() {
+    utils.requestStatisUnload();
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
+  onUnload() {
+    utils.requestStatisUnload();
   },
 
   /**

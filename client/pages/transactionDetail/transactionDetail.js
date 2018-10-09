@@ -188,10 +188,10 @@ Page({
       orderCode: isReturn ? this.data.order.orderReturn.returnOrderId : this.data.order.orderId,
     })
   },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    utils.checkNetwork()
+  onShow: function (options) {
+    utils.checkNetwork().then(utils.requestStatisLoad);
+  },
+  onHide() {
+    utils.requestStatisUnload();
   },
 })

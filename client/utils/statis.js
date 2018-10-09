@@ -43,7 +43,8 @@ export const requestStatis = (postData = {}) => {
       sessionId: getApp().globalData.token.accessToken,
       userId,
     };
-    console.log(data)
+    console.log(data);
+    console.log(`page url is ${data.pageUrl}`)
     wx.request({
       method: "POST",
       url: `${baseUrl}${postData.url}?access_token=${statisToken}`,
