@@ -5,7 +5,8 @@ import {
   getRequest,
   urlObj,
   requestStatis,
-  requestStatisDispose
+  requestStatisDispose,
+  updateSessionId,
 } from './utils/util.js';
 
 const getUserInfo = require('./pages/home/getUserInfo').default;
@@ -163,6 +164,7 @@ App({
   },
   onShow() {
     this.checkProgramUpdate();
+    updateSessionId()
   },
   onHide(){
     requestStatisDispose()
