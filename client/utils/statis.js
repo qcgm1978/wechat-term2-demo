@@ -1,14 +1,14 @@
 const baseUrl = `http://192.168.2.58:8080`;
 export const urlObj = {
   test: `/user/jhduser`,
-  getToken:`/b2b/getToken`,
+  getToken: `/b2b/getToken`,
   clientInfo: `/b2b/clientInfo`,
-  load:`/b2b/page/load`,
-  unload:`/b2b/page/unload`,
-  dispose:`/b2b/page/dispose`
+  load: `/b2b/page/load`,
+  unload: `/b2b/page/unload`,
+  dispose: `/b2b/page/dispose`
 };
 let statisToken = wx.getStorageSync('statis').token || '';
-let sessionId='';
+let sessionId = '';
 const getToken = () => new Promise((resolve, reject) => wx.request({
   method: "POST",
   url: `${baseUrl}${urlObj.getToken}`,
@@ -24,7 +24,7 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
   success: function(result) {
     console.log(`statisToken: ${result.data.jhd_token}`);
     const token = result.data.jhd_token;
-    if (token === undefined){
+    if (token === undefined) {
       return reject(result)
     }
     statisToken = token;
@@ -67,23 +67,27 @@ export const requestStatis = (postData = {}) => {
 
       }
     })
-  }).catch(e=>{
+  }).catch(e => {
     console.log(e.data.error)
   });
 }
-export const requestStatisLoad=() => requestStatis({
+export const requestStatisLoad = () => requestStatis({
   url: urlObj.load,
   pageUrl: getCurrentPages().slice(-1)[0].route,
   event: 'evn_open_page',
-  eventDetail: null,
+  eventDetail: '',
   time: new Date().getTime(),
-  preUrl: getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : ''
+  preUrl: getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : ''//getCurrentPages().slice(-1)[0].route
 });
-export const requestStatisUnload = ({ nextUrl } = { nextUrl:''}) => requestStatis({
+export const requestStatisUnload = ({
+  nextUrl
+} = {
+  nextUrl: ''
+}) => requestStatis({
   url: urlObj.unload,
   pageUrl: getCurrentPages().slice(-1)[0].route,
   event: 'evn_quit_page',
-  eventDetail: null,
+  eventDetail: '',
   time: new Date().getTime(),
   nextUrl
 });
@@ -91,18 +95,18 @@ export const requestStatisDispose = () => requestStatis({
   url: urlObj.dispose,
   pageUrl: getCurrentPages().slice(-1)[0].route,
   event: 'evn_hide_app',
-  eventDetail: null,
+  eventDetail: '',
   time: new Date().getTime(),
 });
-export const updateSessionId=()=>{
-  sessionId=generateGuid();
+export const updateSessionId = () => {
+  sessionId = generateGuid();
 }
-const  generateGuid=()=> {
+const generateGuid = () => {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
       .toString(16)
       .substring(1);
   }
-  const PRE ='s_';
-  return PRE+s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+  const PRE = 's_';
+  return PRE + s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }
