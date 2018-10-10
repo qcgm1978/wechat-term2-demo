@@ -82,7 +82,7 @@ export const requestStatisLoad=() => requestStatis({
 export const requestStatisUnload = ({ nextUrl } = { nextUrl:''}) => requestStatis({
   url: urlObj.unload,
   pageUrl: getCurrentPages().slice(-1)[0].route,
-  event: 'evn_open_page',
+  event: 'evn_quit_page',
   eventDetail: null,
   time: new Date().getTime(),
   nextUrl
@@ -90,7 +90,7 @@ export const requestStatisUnload = ({ nextUrl } = { nextUrl:''}) => requestStati
 export const requestStatisDispose = () => requestStatis({
   url: urlObj.dispose,
   pageUrl: getCurrentPages().slice(-1)[0].route,
-  event: 'evn_open_page',
+  event: 'evn_hide_app',
   eventDetail: null,
   time: new Date().getTime(),
 });
