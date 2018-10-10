@@ -1,4 +1,4 @@
-const baseUrl = `http://10.3.0.118:8080`;
+const baseUrl = `http://192.168.2.58:8080`;
 export const urlObj = {
   test: `/user/jhduser`,
   clientInfo: `/b2b/clientInfo`,
@@ -9,7 +9,7 @@ export const urlObj = {
 let statisToken = wx.getStorageSync('statis').token || '';
 const getToken = () => new Promise((resolve, reject) => wx.request({
   method: "POST",
-  url: "http://10.3.0.118:8080/main/getToken",
+  url: `${baseUrl}/main/getToken`,
   data: {
     "loginName": "tom",
     "password": "abc123",
