@@ -77,6 +77,7 @@ Page({
       .then(() => {
         return getRequest(Api.getCartCount, {
           merchantId: app.getMerchantId(),
+          locationId: getApp().globalData.merchant.locationId,
         })
       })
       .then(data => {
@@ -122,6 +123,7 @@ Page({
         start: this.start,
         limit: this.limit
       }).then(result => {
+        console.log(result.result)
         let data = result.result;
         if (result.status === 200) {
           if (data.length) {
@@ -193,6 +195,7 @@ Page({
       .then(() => {
         return getRequest(Api.getCartCount, {
           merchantId: app.getMerchantId(),
+          locationId: getApp().globalData.merchant.locationId,
         })
       })
       .then(data => {

@@ -117,8 +117,33 @@ Page({
         currentMoney: this.data.product.price * this.data.quantity
       })
     }
+
+    // let orderItem = []
+    // orderItem.push(this.data.selectedProductList[0])
+    // orderItem.push(this.data.selectedProductList[1])
+    // const arr = orderItem.map(item => ({
+    //   itemId: item.itemId,
+    //   quantity: Number(item.minQuantity),
+    //   categoryCode: item.itemCategoryCode
+    // }));
+    const arr = [{
+      itemId: this.data.product.itemId,
+      quantity: this.data.quantity,
+      categoryCode: this.data.product.itemCategoryCode
+    }]
+    let para = {
+      addGroupList: [{
+        addItemList: arr,
+        promotions: [{
+          promotionId: this.data.promoteInfo.promotionId
+        }]
+      }]
+    }
+    console.log(JSON.stringify(para))
+
+
     utils
-      .addToTrolley(this.data.product.itemId, this.data.quantity)
+      .addToTrolleyByGroup(para)
       .then(badge => {
         this.setData({
           badge,
@@ -304,19 +329,6 @@ Page({
     itemId,
     categoryId
   }) {
-
-    // let temdata = {
-    //   merchantId: getApp().getMerchantId(),
-    //   locationId: getApp().globalData.merchant.locationId,
-    //   items: [
-    //     {
-    //       categoryCode: categoryId,
-    //       itemId: itemId
-    //     }
-    //   ],
-    // }
-    // console.log(JSON.stringify(temdata))
-
     utils.postRequest({
       url: getPromoteInfo,
       data: {
@@ -331,45 +343,17 @@ Page({
       }
     })
       .then((data) => {
+        console.log("getPromoteInfo")
+        console.log(data)
         if (data.result[0].promotionItems.length > 0){
           this.setData({
             promoteInfo: data.result[0].promotionItems[0],
             hasPromotion: true
           })
           if (data.result[0].promotionItems[0].combinationFlag == "0"){
-            // this.calcPromoteInfo()
-            //   .then((data) => {
-            //     calcPromoteInfo = data.result[0]
-            //     //满赠
-            //     if (calcPromoteInfo.promotionActives[0].giftitems.length > 0) {
-            //       this.setData({
-            //         freeGift: calcPromoteInfo.promotionActives[0].giftitems[0]
-            //       })
-            //       this.setData({
-            //         'selectedProductList[2].itemId': this.data.freeGift.giftItemId,
-            //         'selectedProductList[2].itemImageAddress1': this.data.freeGift.itemImageAddress1 ? this.data.freeGift.itemImageAddress1 : getApp().globalData.defaultImg,
-            //         'selectedProductList[2].itemName': this.data.freeGift.giftItemName,
-            //         'selectedProductList[2].price': 0,
-            //         'selectedProductList[2].itemSpecification': this.data.freeGift.itemUnit,
-            //         'selectedProductList[2].minQuantity': this.data.freeGift.quantity,
-            //         'selectedProductList[2].isfree': true,
-            //       })
-            //     } else if (calcPromoteInfo.promotionActives[0].discountAmount > 0) { //满减
-            //       console.log("afasdfsadfsdf满减满减满减满减")
-            //     }
-            //     // this.setData({
-            //     //   "product.discountAmount": data[0].promotionActives[0].discountAmount
-            //     // })
-            //   })
-            //   .catch((e) => { })
+
           } else if (data.result[0].promotionItems[0].combinationFlag == "1"){
-            // this.calcPromoteInfo()
-            //   .then((data) => {
-            //     this.setData({
-            //       "product.gift": data[0].promotionActives[0].giftitems
-            //     })
-            //   })
-            //   .catch((e) => { })
+
           }
         }else{
           this.setData({
@@ -388,38 +372,6 @@ Page({
             })
       })
   },
-
-  // calcPromoteInfo: function () {
-  //   return new Promise((resolve, reject) => {
-  //     utils.postRequest({
-  //       url: calcPromote,
-  //       data: {
-  //         // merchantId: getApp().getMerchantId(),
-  //         // locationId: getApp().globalData.merchant.locationId,
-  //         // items: [
-  //         //   {
-  //         //     categoryCode: categoryId,
-  //         //     itemId: itemId
-  //         //   }
-  //         // ],
-  //       }
-  //     })
-  //       .then((data) => {
-          
-  //         resolve(data)
-  //       })
-  //       .catch(errorCode => {
-  //         console.log(errorCode)
-  //         utils.errorHander(errorCode, this.calcPromoteInfo, this.emptyFunc)
-  //           .then(() => {
-  //             reject()
-  //           })
-  //           .catch(() => {
-  //             reject()
-  //           })
-  //       })
-  //   })
-  // },
 
   emptyFunc: function () { },
 })

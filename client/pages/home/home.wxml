@@ -30,8 +30,8 @@
       <!-- <view class='product-money'>￥</view> -->
       <view class='product-price'>￥{{pitem.price}}
         <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
-        <image style='width:64rpx; height:32rpx;' src='{{imgManjian}}' wx:if="{{pitem.promoteType=='满减'}}"></image>
-        <image style='width:64rpx; height:32rpx;' src='{{imgManzeng}}' wx:elif="{{pitem.promoteType=='满赠'}}"></image>
+        <image style='width:64rpx; height:32rpx;' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='1'}}"></image>
+        <image style='width:64rpx; height:32rpx;' src='{{imgManzeng}}' wx:elif="{{pitem.promotionTypes[0]=='2'}}"></image>
         <block wx:else></block>
       </view>
 

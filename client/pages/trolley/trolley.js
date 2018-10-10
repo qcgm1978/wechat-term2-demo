@@ -60,12 +60,12 @@ Page({
       checkAll: !this.data.checkAll
     });
     const trolley = this.data.trolley.map((item, index) => {
-      item.putShelvesFlg && (item.checked = this.data.checkAll);
-      if (this.data.checkAll && item.putShelvesFlg) {
-        if (!this.selectedRadio.includes(item.itemId))
-          this.selectedRadio.push(item.itemId);
+      item.checked = this.data.checkAll
+      if (this.data.checkAll) {
+        if (!this.selectedRadio.includes(item.groupId))
+          this.selectedRadio.push(item.groupId);
       } else {
-        const ind = this.selectedRadio.indexOf(item.itemId);
+        const ind = this.selectedRadio.indexOf(item.groupId);
         if (ind !== -1) {
           this.selectedRadio.splice(ind, 1)
         }
@@ -97,8 +97,8 @@ Page({
   },
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
-      if (selectedRadio.includes(item.itemId)) {
-        return accumulator + item.price * item.quantity
+      if (selectedRadio.includes(item.groupId)) {
+        return accumulator + item.suitePrice * item.quantity
       } else {
         return accumulator;
       }
@@ -106,8 +106,8 @@ Page({
   },
   getTotalDiscountPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
-      if (selectedRadio.includes(item.itemId)) {
-        return accumulator + item.discountAmount * item.quantity
+      if (selectedRadio.includes(item.groupId)) {
+        return accumulator + item.discountAmount
       } else {
         return accumulator;
       }
@@ -131,9 +131,9 @@ Page({
     });
   },
   radioClick(e) {
-    const itemId = e.currentTarget.dataset.itemid;
-    if (this.selectedRadio.includes(itemId)) {
-      const ind = this.selectedRadio.indexOf(itemId);
+    const groupId = e.currentTarget.dataset.groupid;
+    if (this.selectedRadio.includes(groupId)) {
+      const ind = this.selectedRadio.indexOf(groupId);
       if (ind !== -1) {
         this.selectedRadio.splice(ind, 1);
       }
@@ -141,13 +141,13 @@ Page({
         checkAll: false
       });
     } else {
-      if (!this.selectedRadio.includes(itemId)) {
-        this.selectedRadio.push(itemId);
+      if (!this.selectedRadio.includes(groupId)) {
+        this.selectedRadio.push(groupId);
       }
     }
     this.setMoneyData(this.selectedRadio);
     const trolley = this.data.trolley.map((item, index) => {
-      if (item.putShelvesFlg && this.selectedRadio.includes(item.itemId)) {
+      if (this.selectedRadio.includes(item.groupId)) {
         item.checked = true;
       } else {
         item.checked = false;
@@ -170,32 +170,77 @@ Page({
     return new Promise((resolve, reject) => {
       let promises = []
       for (let i = 0; i < trollyList.length; i++){
-        promises.push(promoteUtil.calcPromote())
+        let postData = {
+          // "itemGroups": [{
+          //   "groupId": "A1",
+          //   "items": [{
+          //     "itemId": "4438",
+          //     "brandId": "",
+          //     "categoryCode": "1202010",
+          //     "quantity": 20,
+          //     "unitPrice": 100,
+          //     "itemPromotions": [{
+          //       "itemPromotionId": "15649"
+          //     }]
+          //   },
+          //   {
+          //     "itemId": "2103",
+          //     "brandId": "",
+          //     "categoryCode": "1202010",
+          //     "quantity": 3,
+          //     "unitPrice": 88,
+          //     "itemPromotions": [{
+          //       "itemPromotionId": "15760"
+          //     }]
+          //   },
+          //   ],
+          //   "promotions": [{
+          //     "promotionId": "15780"
+          //   }]
+          // }
+          // ]
+        }
+
+        let itemGroups = []
+        let group = {}
+        
+        let groupItems = []
+        for (let j = 0; j < trollyList[i].items.length; j++){
+          let item = {}
+          item.itemId = trollyList[i].items[j].itemId
+          item.brandId = ""
+          item.categoryCode = trollyList[i].items[j].itemCategoryCode
+          item.quantity = trollyList[i].items[j].quantity
+          item.unitPrice = trollyList[i].items[j].price
+          groupItems.push(item)
+        }
+
+        group.groupId = trollyList[i].groupId
+        group.items = groupItems
+        group.promotions = trollyList[i].promotions
+        itemGroups.push(group)
+        promises.push(promoteUtil.calcPromote({itemGroups}))
       }
       Promise.all(promises)
       .then(arr => {
         for (let i = 0; i < trollyList.length; i++) {
-          trollyList[i].items.push(arr[i].freeGift)
+          console.log(arr[i])
+          if (JSON.stringify(arr[i]) !== "{}" && arr[i].freeGift){
+            trollyList[i].items.push(arr[i].freeGift)
+          } else if (JSON.stringify(arr[i]) !== "{}" && arr[i].discountAmount>0){
+            trollyList[i].discountAmount = arr[i].discountAmount
+          }else{
+            // delete trollyList[i].promoteType
+            console.log(trollyList[i])
+          }
+          
         }
+        console.log(trollyList)
         resolve(trollyList)
       })
       .catch(()=>{
         reject()
       })
-      // promoteUtil.calcPromote()
-      //   .then((promoteResult) => {
-      //     //满赠
-      //     if (promoteResult.freeGift) {
-      //       promoteResult.freeGift.quantity = promoteResult.freeGift.minQuantity
-      //       group.items.push(promoteResult.freeGift)
-      //       resolve(group)
-      //     } else if (promoteResult.discountAmount > 0) { //满减
-
-      //     }
-      //   })
-      //   .catch(() => {
-      //     reject()
-      //   })
     })
   },
   getPromoteInfo(trollyList) {
@@ -245,8 +290,16 @@ Page({
             }
             return item;
           });
+          let suitePrice = 0
+          for (let j = 0; j < result[i].items.length;j++){
+            if (!result[i].items[j].isfree){
+              suitePrice += result[i].items[j].price * result[i].items[j].quantity
+            }
+          }
+          result[i].suitePrice = suitePrice
+          result[i].quantity = 1
+          result[i].putShelvesFlg = true
         }
-
         let trolley = []
         if (this.start === 0) {
           trolley = result;
@@ -288,7 +341,12 @@ Page({
   },
   del(e) {
     const dataset = e.currentTarget.dataset;
-    const itemId = dataset.itemid;
+    const groupId = dataset.groupid;
+    let tempdata = {
+        groupIds: [
+          groupId
+        ]
+    }
     utils.postRequest({
         METHOD: 'DELETE',
         url: Api.removeCart,
@@ -296,9 +354,9 @@ Page({
           merchantId: app.getMerchantId()
         },
         data: {
-          removeItems: [{
-            itemId
-          }]
+          groupIds: [
+            groupId
+          ]
         }
       }).then(data => {
         return new Promise((resolve, reject) => {
@@ -307,13 +365,13 @@ Page({
             icon: 'success',
             duration: 2000
           });
-          const index = this.selectedRadio.indexOf(itemId);
+          const index = this.selectedRadio.indexOf(groupId);
           if (index !== -1) {
             this.selectedRadio.splice(index, 1);
           }
           this.setMoneyData(this.selectedRadio);
           const trolley = this.data.trolley.reduce((accumulator, item) => {
-            if (item.itemId !== itemId) {
+            if (item.groupId !== groupId) {
               accumulator.push(item)
             }
             return accumulator;
@@ -363,6 +421,21 @@ Page({
       trolley,
 
     });
+
+    if (currentTrolley.checked) {
+      this.setData({
+        quantity: num,
+        disableBuy
+      })
+    } else {
+      let curItem = `trolley[${index}].checked`
+      this.setData({
+        [curItem]: true
+      })
+      this.selectedRadio.push(trolley[index].groupId);
+    }
+
+
     let currentMoney = this.getTotalPrice(this.selectedRadio)
     let remaining = this.data.minAmount - currentMoney;
     remaining = utils.getFixedNum(remaining,2)
@@ -372,20 +445,19 @@ Page({
     let overallMoney = utils.getFixedNum(Number(currentMoney) + Number(totalDiscountMoney), 2);
     if (currentTrolley.checked) {
       this.setData({
-        quantity: num,
+        // quantity: num,
         currentMoney,
-        // buyTxt: disableBuy ? `还差￥${remaining}可购买` : '立即购买',
-        disableBuy,
+        // disableBuy,
         remaining,
         totalDiscountMoney,
         overallMoney
       })
     }else{
-      let curItem = `trolley[${index}].checked`
-      this.setData({
-        [curItem]:true
-      })
-      this.selectedRadio.push(trolley[index].itemId);
+      // let curItem = `trolley[${index}].checked`
+      // this.setData({
+      //   [curItem]:true
+      // })
+      // this.selectedRadio.push(trolley[index].groupId);
       this.setMoneyData(this.selectedRadio);
     }
 
