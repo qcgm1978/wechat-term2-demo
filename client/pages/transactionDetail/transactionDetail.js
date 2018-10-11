@@ -3,7 +3,6 @@ var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessTok
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 var utils = require("../../utils/util.js");
 const getOrder = URLs.getOrder
-
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
 const HTTP_SUCCSESS = ERROR_CODE.HTTP_SUCCSESS
@@ -23,7 +22,7 @@ Page({
     payStyle: globalData.payStyle,
     order: {},
     salesReturn: '拒收申请已完成',
-    usePointsStr:'，积分已退回您的账户，请查询',
+    usePointsStr: '，积分已退回您的账户，请查询',
     defImg: globalData.defaultImg,
     src: './images/pic.png',
     standard: '500ML*12',
@@ -57,21 +56,22 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  addGotoTrolley: function(e) {
-    const dataset = e.currentTarget.dataset;
-    const orderItem = dataset.orderitem;
-    const arr = orderItem.map(item => ({
-      itemId: item.itemId,
-      quantity: item.quantity
-    }));
-    utils
-      .addToTrolley(arr)
-      .then(badge => {
-        getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
-        wx.switchTab({
-          url: `/pages/trolley/trolley`,
-        })
-      });
+  addGotoTrolley: function (e) {
+    getCurrentPages().slice(-2, -1)[0].addGotoTrolley(e)
+    // const dataset = e.currentTarget.dataset;
+    // const orderItem = dataset.orderitem;
+    // const arr = orderItem.map(item => ({
+    //   itemId: item.itemId,
+    //   quantity: item.quantity
+    // }));
+    // utils
+    //   .addToTrolley(arr)
+    //   .then(badge => {
+    //     getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
+    //     wx.switchTab({
+    //       url: `/pages/trolley/trolley`,
+    //     })
+    //   });
   },
   copy() {
     wx.setClipboardData({
@@ -125,8 +125,8 @@ Page({
                   this.requestTransDetail.tokenRefreshed = true
                   return this.requestTransDetail()
                 })
-                .then(() => {})
-                .catch(() => {})
+                .then(() => { })
+                .catch(() => { })
             } else {
               getApp().globalData.userInfo.registerStatus = false
               wx.reLaunch({
@@ -145,7 +145,7 @@ Page({
       });
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -191,7 +191,7 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     utils.checkNetwork()
   },
 })

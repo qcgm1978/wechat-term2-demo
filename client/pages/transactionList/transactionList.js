@@ -343,7 +343,7 @@ Page({
             });
         })
       } else {
-        utils.showModal(`订单中的商品全部卖光了,再看看其他商品吧`, false);
+        utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
       }
     })
   },
