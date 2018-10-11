@@ -32,7 +32,7 @@ Page({
     icon: '../../images/trolley-full.png',
   },
   relatedChange(e){
-    debugger;
+    // debugger;
   },
   showPromotion() {
     this.setData({

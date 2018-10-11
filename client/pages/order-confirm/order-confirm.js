@@ -259,12 +259,8 @@ Page({
   onHide() {
     utils.requestStatisUnload();
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
+  onUnload(){
+    utils.requestStatisUnload();
   },
 
   /**

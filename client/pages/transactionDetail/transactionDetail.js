@@ -194,4 +194,7 @@ Page({
   onHide() {
     utils.requestStatisUnload();
   },
+  onUnload() {
+    utils.requestStatisUnload();
+  },
 })

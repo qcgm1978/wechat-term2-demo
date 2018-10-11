@@ -4,7 +4,8 @@ import {
   requestStatisLoad,
   requestStatisUnload,
   requestStatisDispose,
-  updateSessionId
+  updateSessionId,
+  requestStatisEnter
 } from './statis.js';
 const util = require('./util-jhd')
 const formatTime = date => {
@@ -58,4 +59,4 @@ var showModal = (title, showCancel = true) => {
 
 module.exports = {
   formatTime, showBusy, showSuccess, showModal, urlObj,
-  requestStatis, requestStatisLoad, requestStatisUnload, requestStatisDispose, updateSessionId, ...util }
+  requestStatis, requestStatisLoad, requestStatisUnload, requestStatisDispose, updateSessionId, requestStatisEnter, ...util }

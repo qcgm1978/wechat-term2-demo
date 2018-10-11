@@ -7,6 +7,7 @@ import {
   requestStatis,
   requestStatisDispose,
   updateSessionId,
+  requestStatisEnter
 } from './utils/util.js';
 
 const getUserInfo = require('./pages/home/getUserInfo').default;
@@ -100,36 +101,7 @@ App({
       };
     }
     this.getSystemInfo();
-    let longitude='',
-      latitude='';
-    wx.getLocation({
-      success(data) {
-        longitude=data.longitude;
-        latitude = data.latitude;
-      },
-      fail(){
-        debugger;
-      },
-      complete(){
-        const systemInfo = getApp().globalData.systemInfo;
-        requestStatis({
-          url: urlObj.clientInfo,
-          miniappVer: systemInfo.SDKVersion,
-          phoneBrand: systemInfo.brand,
-          phoneModel: systemInfo.model,
-          screenWidth: systemInfo.screenWidth / 2,
-          screenHeight: systemInfo.screenHeight / 2,
-          longitude: longitude,
-          latitude: latitude,
-          // wx.getUserInfo(Object object): 调用前需要 用户授权 scope.userInfo
-          province: '',
-          city: '',
-          genders: '',
-          // no interface
-          ages: ''
-        });
-      }
-    })
+    requestStatisEnter(this.globalData.systemInfo)
   },
 
   saveGlobalData(result) {

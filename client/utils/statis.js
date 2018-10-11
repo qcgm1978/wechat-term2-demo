@@ -71,6 +71,38 @@ export const requestStatis = (postData = {}) => {
     console.log(e.data.error)
   });
 }
+export const requestStatisEnter = (systemInfo)=>{
+  let longitude = '',
+    latitude = '';
+  wx.getLocation({
+    success(data) {
+      longitude = data.longitude;
+      latitude = data.latitude;
+    },
+    fail() {
+      debugger;
+    },
+    complete() {
+      // const systemInfo = getApp().globalData.systemInfo;
+      requestStatis({
+        url: urlObj.clientInfo,
+        miniappVer: systemInfo.SDKVersion,
+        phoneBrand: systemInfo.brand,
+        phoneModel: systemInfo.model,
+        screenWidth: systemInfo.screenWidth / 2,
+        screenHeight: systemInfo.screenHeight / 2,
+        longitude: longitude,
+        latitude: latitude,
+        // wx.getUserInfo(Object object): 调用前需要 用户授权 scope.userInfo
+        province: '',
+        city: '',
+        genders: '',
+        // no interface
+        ages: ''
+      });
+    }
+  });
+}
 export const requestStatisLoad = () => requestStatis({
   url: urlObj.load,
   pageUrl: getCurrentPages().slice(-1)[0].route,
