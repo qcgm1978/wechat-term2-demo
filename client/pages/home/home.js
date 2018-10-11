@@ -6,7 +6,7 @@ import {
 } from '../../utils/envConf.js';
 import {
   getRequest,
-  addToTrolley,
+  addToTrolleyByGroup,
   getMerchant,
   errorHander
 } from '../../utils/util.js';
@@ -16,10 +16,6 @@ const getProductList = Api.getProductList,
 const app = getApp()
 let globalData = app.globalData;
 
-// const promoteType = {
-//   "MANJIAN": "满减",
-//   "MANZENG": "满赠"
-// }
 
 Page({
   data: {
@@ -151,10 +147,26 @@ Page({
   addToTrolley(event) {
     return new Promise((resolve, reject) => {
       const itemId = event.currentTarget.dataset.itemid;
-      addToTrolley(itemId).catch(errorCode => {
+      const categoryCode = event.currentTarget.dataset.categorycode
+
+
+      const arr = [{
+        itemId: itemId,
+        quantity: 1,
+        categoryCode: categoryCode
+      }]
+      let para = {
+        addGroupList: [{
+          addItemList: arr,
+          promotions: [{
+            promotionId: "111"
+          }]
+        }]
+      }
+      addToTrolleyByGroup(para).catch(errorCode => {
         // getApp().failRequest();
         return errorHander(errorCode, () => {
-          addToTrolley(event);
+          addToTrolleyByGroup(event);
         });
       }).catch((errorCode) => {
         wx.showToast({

@@ -176,19 +176,36 @@ page {
 }
 
 .promotion-1 {
-  width: 80rpx;
+  display:inline-block;
+  width: 72rpx;
   border-radius:10rpx;
   text-align: center;
-  color: #febb5c;
-  background-color: #fae5c7a2;
+  color: white;
+  background-color: #EE711F;
   font-size: 24rpx;
   margin-left: 10rpx;
+  height: 30rpx;
 }
 .promotion-2 {
-  width: auto;
+  display:inline-block;
+  width: 400rpx;
   color: #b1afad;
   font-size: 24rpx;
   margin-left: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 30rpx;
+}
+.promotion-2-bottom {
+  display:inline-block;
+  width: auto;
+  color: #b1afad;
+  font-size: 24rpx;
+  margin-left: 50rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .promotion-3 {
   width: auto;

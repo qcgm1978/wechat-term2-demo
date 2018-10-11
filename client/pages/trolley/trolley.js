@@ -170,37 +170,6 @@ Page({
     return new Promise((resolve, reject) => {
       let promises = []
       for (let i = 0; i < trollyList.length; i++){
-        let postData = {
-          // "itemGroups": [{
-          //   "groupId": "A1",
-          //   "items": [{
-          //     "itemId": "4438",
-          //     "brandId": "",
-          //     "categoryCode": "1202010",
-          //     "quantity": 20,
-          //     "unitPrice": 100,
-          //     "itemPromotions": [{
-          //       "itemPromotionId": "15649"
-          //     }]
-          //   },
-          //   {
-          //     "itemId": "2103",
-          //     "brandId": "",
-          //     "categoryCode": "1202010",
-          //     "quantity": 3,
-          //     "unitPrice": 88,
-          //     "itemPromotions": [{
-          //       "itemPromotionId": "15760"
-          //     }]
-          //   },
-          //   ],
-          //   "promotions": [{
-          //     "promotionId": "15780"
-          //   }]
-          // }
-          // ]
-        }
-
         let itemGroups = []
         let group = {}
         
@@ -224,18 +193,14 @@ Page({
       Promise.all(promises)
       .then(arr => {
         for (let i = 0; i < trollyList.length; i++) {
-          console.log(arr[i])
           if (JSON.stringify(arr[i]) !== "{}" && arr[i].freeGift){
             trollyList[i].items.push(arr[i].freeGift)
           } else if (JSON.stringify(arr[i]) !== "{}" && arr[i].discountAmount>0){
             trollyList[i].discountAmount = arr[i].discountAmount
           }else{
-            // delete trollyList[i].promoteType
-            console.log(trollyList[i])
           }
           
         }
-        console.log(trollyList)
         resolve(trollyList)
       })
       .catch(()=>{
@@ -275,9 +240,11 @@ Page({
         limit: this.limit
       })
       .then((data) => {
+
         return this.addPromoteInfo(data.result)
       })
       .then((data) => {
+        console.log(data)
         return this.getPromoteInfo(data)
       })
       .then((result) => {
@@ -295,6 +262,9 @@ Page({
             if (!result[i].items[j].isfree){
               suitePrice += result[i].items[j].price * result[i].items[j].quantity
             }
+          }
+          if (result[i].promoteType == '1' && !result[i].discountAmount){
+            result[i].discountAmount = 0
           }
           result[i].suitePrice = suitePrice
           result[i].quantity = 1

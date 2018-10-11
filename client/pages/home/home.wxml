@@ -35,11 +35,11 @@
         <block wx:else></block>
       </view>
 
-      <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
+      <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
         <text>+</text>
       </view>
     </view>
-    <view class='product-add-button' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
+    <view class='product-add-button' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
     </view>
   </navigator>
 </view>

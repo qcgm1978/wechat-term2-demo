@@ -24,42 +24,45 @@
 
       <view>
         <scroll-view scroll-y="true" style='height: {{ (height-8-74*2-211*2-53*2+"rpx")}};'>
-          <view class='item-container' wx:for="{{data}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
-            <view class='item-container-fg' wx:if='{{freeGift}}'>
-              <view class='order-content'>
-                <view class='center' style='width:100%;'>
-                  <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
-                  <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
-                    <view class='darker-gray-chars item-name regular' style='width:auto;'>{{item.itemName}}</view>
-                    <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
-                    <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
-                      <text class='confirm-price'>￥{{item.price}}</text>
-                      <text>x{{item.quantity}}</text>
+          <view class='item-container' wx:for="{{data}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" itemId='{{orderGroup.groupId}}' locationId='{{item.locationId}}'>
+            <view wx:for="{{orderGroup.items}}" wx:key='{{itemIndex}}' itemId='{{item.itemId}}'>
+              <view class='item-container-fg' wx:if='{{freeGift}}'>
+                <view class='order-content'>
+                  <view class='center' style='width:100%;'>
+                    <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
+                    <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
+                      <view class='darker-gray-chars item-name regular' style='width:auto;'>{{item.itemName}}</view>
+                      <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                      <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
+                        <text class='confirm-price'>￥{{item.price}}</text>
+                        <text>x{{item.quantity}}</text>
+                      </view>
                     </view>
                   </view>
+
                 </view>
+
 
               </view>
 
-
-            </view>
-
-            <view class='item-container-fg' wx:else>
-              <view class='order-content'>
-                <view class='center' style='width:100%;'>
-                  
-                  <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
-                  <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
-                    <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'><view  class='free-gift' style='font-size: 24rpx;' wx:if="{{item.isGift}}">赠品</view>{{item.itemName}}</view>
-                    <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
-                    <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
-                      <text class='confirm-price'>￥{{item.price}}</text>
-                      <text>x{{item.quantity}}</text>
+              <view class='item-container-fg' wx:else>
+                <view class='order-content'>
+                  <view class='center' style='width:100%;'>
+                    
+                    <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
+                    <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
+                      <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'><view  class='free-gift' style='font-size: 24rpx;' wx:if="{{item.isGift}}">赠品</view>{{item.itemName}}</view>
+                      <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                      <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
+                        <text class='confirm-price'>￥{{item.price}}</text>
+                        <text>x{{item.quantity}}</text>
+                      </view>
                     </view>
                   </view>
                 </view>
               </view>
             </view>
+            
             <view style='background-color: white; height: 10rpx;'>
             </view>
           </view>

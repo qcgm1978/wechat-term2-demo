@@ -139,7 +139,6 @@ Page({
         }]
       }]
     }
-    console.log(JSON.stringify(para))
 
 
     utils
@@ -343,8 +342,6 @@ Page({
       }
     })
       .then((data) => {
-        console.log("getPromoteInfo")
-        console.log(data)
         if (data.result[0].promotionItems.length > 0){
           this.setData({
             promoteInfo: data.result[0].promotionItems[0],
