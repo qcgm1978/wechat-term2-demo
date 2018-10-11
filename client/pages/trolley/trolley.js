@@ -188,6 +188,7 @@ Page({
         group.items = groupItems
         group.promotions = trollyList[i].promotions
         itemGroups.push(group)
+        console.log(JSON.stringify({itemGroups}))
         promises.push(promoteUtil.calcPromote({itemGroups}))
       }
       Promise.all(promises)
@@ -244,7 +245,7 @@ Page({
         return this.addPromoteInfo(data.result)
       })
       .then((data) => {
-        console.log(data)
+        
         return this.getPromoteInfo(data)
       })
       .then((result) => {

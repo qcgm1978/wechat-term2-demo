@@ -157,10 +157,8 @@ Page({
       }]
       let para = {
         addGroupList: [{
-          addItemList: arr,
-          promotions: [{
-            promotionId: "111"
-          }]
+          count:1,
+          addItemList: arr
         }]
       }
       addToTrolleyByGroup(para).catch(errorCode => {
@@ -169,6 +167,7 @@ Page({
           addToTrolleyByGroup(event);
         });
       }).catch((errorCode) => {
+        console.log(errorCode)
         wx.showToast({
           icon: 'none',
           title: '添加到购物车失败',

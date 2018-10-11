@@ -292,7 +292,7 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 
-const addToTrolleyByGroup = (groupList, enableChecked = true, updateAddTime = true) => {
+const addToTrolleyByGroup = (groupList, quantity = 1,enableChecked = true, updateAddTime = true) => {
   showLoading({
     title: '正在添加到购物车...'
   })
@@ -317,7 +317,7 @@ const addToTrolleyByGroup = (groupList, enableChecked = true, updateAddTime = tr
     })
       .then(ret => {
         if (enableChecked) {
-          getApp().globalData.checkedTrolley.push(itemId);
+          // getApp().globalData.checkedTrolley.push(groupList);
         }
       })
       .then(() => {
@@ -331,7 +331,7 @@ const addToTrolleyByGroup = (groupList, enableChecked = true, updateAddTime = tr
         hideLoading();
       })
       .catch(errorCode => {
-        reject()
+        reject(errorCode)
       });
   });
 }

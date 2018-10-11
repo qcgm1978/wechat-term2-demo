@@ -133,6 +133,7 @@ Page({
     }]
     let para = {
       addGroupList: [{
+        count: this.data.quantity,
         addItemList: arr,
         promotions: [{
           promotionId: this.data.promoteInfo.promotionId
