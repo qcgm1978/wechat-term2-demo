@@ -177,7 +177,7 @@ Page({
     const isReturn = (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
     if (isReturn) {
       wx.setNavigationBarTitle({
-        title: '退货详情'
+        title: '拒收详情'
       });
       this.setData({
         isReturn,
