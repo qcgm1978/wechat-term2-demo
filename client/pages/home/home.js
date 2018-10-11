@@ -154,7 +154,8 @@ Page({
       if (getApp().globalData.authMerchantList[i].merchantId == merchant.nsMerchantId) {
         this.setData({
           index: i
-        })
+        });
+        getApp().globalData.currentIndex = i;
       }
     }
     getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');

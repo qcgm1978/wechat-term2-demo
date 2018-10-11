@@ -43,10 +43,11 @@ Page({
       })
     }
     utils.getMerchant().then(data => {
+      const points = data.result.availablePoint;
       this.updateData({
         options,
-        points: data.result.availablePoint,
-        pointBalance: data.result.pointBalance
+        points,
+        pointBalance: data.result.pointBalance,
       });
     });
     if (getApp().globalData.items) {
@@ -72,7 +73,7 @@ Page({
         isVisible: false
       })
     }
-    const credit = this.data.isVisible ? utils.getFixedNum(points / 100) : 0;
+    const credit = this.data.isVisible ? utils.getFixedNum(points / 100,2) : 0;
     const windowHeight = wx.getSystemInfoSync().windowHeight;
     points = utils.getFixedNum(points);
     this.setData({
@@ -81,6 +82,7 @@ Page({
       storeName: getApp().globalData.merchant.merchantStoreName,
       pointBalance,
       points,
+      maxDeduction: credit,
       usedPoints: points,
       credit,
       total: utils.getFixedNum(options.total, 2),
