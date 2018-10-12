@@ -140,7 +140,7 @@ Page({
         }]
       }]
     }
-
+    console.log(JSON.stringify(para))
 
     utils
       .addToTrolleyByGroup(para)

@@ -108,7 +108,36 @@ Page({
             'selectedProductList[1]': this.data.composeProducts[i],
             totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
           })
-          promoteUtil.calcPromote()
+
+/////
+
+          let itemGroups = []
+          let group = {}
+
+          let groupItems = []
+
+          let item1 = {}
+          item1.itemId = this.data.selectedProductList[0].itemId
+          item1.brandId = ""
+          item1.categoryCode = this.data.selectedProductList[0].itemCategoryCode
+          item1.quantity = this.data.selectedProductList[0].minQuantity
+          item1.unitPrice = this.data.selectedProductList[0].price
+          groupItems.push(item1)
+
+          let item2 = {}
+          item2.itemId = this.data.selectedProductList[1].itemId
+          item2.brandId = ""
+          item2.categoryCode = this.data.selectedProductList[1].itemCategoryCode
+          item2.quantity = this.data.selectedProductList[1].minQuantity
+          item2.unitPrice = this.data.selectedProductList[1].price
+          groupItems.push(item2)
+
+          group.groupId = ""
+          group.items = groupItems
+          group.promotions = [{ promotionId: promoteInfo.promotionId}]
+          itemGroups.push(group)
+
+          promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
               console.log(promoteResult)
               //满赠
@@ -155,6 +184,7 @@ Page({
     //console.log(this.data.selectedProductList)
     let para = {
       addGroupList: [{
+        count:1,
         addItemList: arr,
         promotions: [{
           promotionId : promoteInfo.promotionId

@@ -98,7 +98,7 @@ Page({
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
       if (selectedRadio.includes(item.groupId)) {
-        return accumulator + item.suitePrice * item.quantity
+        return accumulator + item.suitePrice
       } else {
         return accumulator;
       }
@@ -166,10 +166,10 @@ Page({
     })
   },
 
-  addPromoteInfo(trollyList) {
+  addPromoteInfo(trollyList, i) {
     return new Promise((resolve, reject) => {
       let promises = []
-      for (let i = 0; i < trollyList.length; i++){
+      // for (let i = index; i < trollyList.length; i++){
         let itemGroups = []
         let group = {}
         
@@ -190,19 +190,19 @@ Page({
         itemGroups.push(group)
         console.log(JSON.stringify({itemGroups}))
         promises.push(promoteUtil.calcPromote({itemGroups}))
-      }
+      // }
       Promise.all(promises)
       .then(arr => {
-        for (let i = 0; i < trollyList.length; i++) {
-          if (JSON.stringify(arr[i]) !== "{}" && arr[i].freeGift){
-            trollyList[i].items.push(arr[i].freeGift)
-          } else if (JSON.stringify(arr[i]) !== "{}" && arr[i].discountAmount>0){
-            trollyList[i].discountAmount = arr[i].discountAmount
+        // for (let i = 0; i < trollyList.length; i++) {
+          if (JSON.stringify(arr[0]) !== "{}" && arr[0].freeGift){
+            trollyList[i].items.push(arr[0].freeGift)
+          } else if (JSON.stringify(arr[0]) !== "{}" && arr[0].discountAmount>0){
+            trollyList[i].discountAmount = arr[0].discountAmount
           }else{
           }
           
-        }
-        resolve(trollyList)
+        // }
+        resolve(trollyList[i])
       })
       .catch(()=>{
         reject()
@@ -240,15 +240,17 @@ Page({
         start: this.start,
         limit: this.limit
       })
-      .then((data) => {
-
-        return this.addPromoteInfo(data.result)
-      })
-      .then((data) => {
-        
-        return this.getPromoteInfo(data)
-      })
-      .then((result) => {
+      // .then((data) => {
+      //   console.log(data.result)
+      //   debugger
+      //   return this.addPromoteInfo(data.result)
+      // })
+      // .then((data) => {
+      //   return this.getPromoteInfo(data)
+      // })
+        .then((data) => {
+          let result = data.result
+        console.log(result)
         for(let i = 0; i<result.length; i++){
           result[i].items = result[i].items.map((item, index) => {
             if (/*item.putShelvesFlg &&*/ (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
@@ -259,17 +261,24 @@ Page({
             return item;
           });
           let suitePrice = 0
-          for (let j = 0; j < result[i].items.length;j++){
-            if (!result[i].items[j].isfree){
-              suitePrice += result[i].items[j].price * result[i].items[j].quantity
+          if (result[i].cartCombinationPromotions){
+            for (let j = 0; j < result[i].items.length; j++) {
+              if (!result[i].items[j].isfree) {
+                suitePrice += result[i].items[j].price * result[i].items[j].quantity
+              }
+            }
+          }else{
+            if (result[i].items.length > 0){
+              suitePrice = result[i].items[0].price * result[i].count
             }
           }
+
           if (result[i].promoteType == '1' && !result[i].discountAmount){
             result[i].discountAmount = 0
           }
           result[i].suitePrice = suitePrice
-          result[i].quantity = 1
           result[i].putShelvesFlg = true
+          result[i].combinationFlag = result[i].cartCombinationPromotions? true: false
         }
         let trolley = []
         if (this.start === 0) {
@@ -375,7 +384,7 @@ Page({
     const index = dataset.index,
       type = dataset.type;
     const currentTrolley = this.data.trolley[index];
-    const currentNum = currentTrolley.quantity;
+    const currentNum = currentTrolley.count;
     const isMinus = (type === 'minus');
     if ((currentNum === 1) && isMinus) {
       return;
@@ -384,7 +393,7 @@ Page({
 
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
-        item.quantity = num;
+        item.count = num;
       }
       return item;
     })
@@ -395,8 +404,8 @@ Page({
 
     if (currentTrolley.checked) {
       this.setData({
-        quantity: num,
-        disableBuy
+        count: num,
+        // disableBuy
       })
     } else {
       let curItem = `trolley[${index}].checked`
@@ -416,9 +425,7 @@ Page({
     let overallMoney = utils.getFixedNum(Number(currentMoney) + Number(totalDiscountMoney), 2);
     if (currentTrolley.checked) {
       this.setData({
-        // quantity: num,
         currentMoney,
-        // disableBuy,
         remaining,
         totalDiscountMoney,
         overallMoney
@@ -437,6 +444,15 @@ Page({
     //   .then(badge => {
     //     // debugger;
     //   })
+    this.addPromoteInfo(trolley, index)
+      .then((data) => {
+        var updatedTrolly = 'trolley[' + index + ']'
+        this.setData({
+          [updatedTrolly]: data
+        })
+        console.log(updatedTrolly)
+      })
+      .catch(()=>{})
   },
   onReady: function() {
 

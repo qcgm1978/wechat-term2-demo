@@ -157,8 +157,33 @@ Page({
         orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
       const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
       // return;
-      //console.log(orderItems)
-      console.log(getApp().globalData.items)
+      for (let i = 0; i < orderItems.length; i++){
+        orderItems[i].promotionId = orderItems[i].promotions[0].promotionId
+      }
+      
+      // console.log("orderItems")
+      // console.log(orderItems)
+      // console.log("getApp().globalData.items")
+      // console.log(getApp().globalData.items)
+
+
+      let tempData = {
+        orderItems,
+        merchantId: app.getMerchantId(),
+        locationId: String(locationId),
+        orderItemSource: getApp().globalData.items.orderItemSource,
+            // merchantMsg: this.data.textarea || 'aaa',
+            usePoint,
+            totalAmount: this.data.total,
+        receiverInfo: {
+          receiverName,
+          receiverCellPhone,
+          receiverAddress
+        },
+      }
+      console.log(JSON.stringify(tempData))
+
+
       utils.postRequest({
         url: createOrder,
         data: {
