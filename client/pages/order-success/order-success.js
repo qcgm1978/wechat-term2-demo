@@ -1,4 +1,4 @@
-// pages/order-success/order-success.js
+import utils from "../../utils/util.js";
 Page({
 
   /**
@@ -34,15 +34,11 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
-
+  onShow: function (options) {
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  onHide() {
+    utils.requestStatisUnload();
   },
 
   /**

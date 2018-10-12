@@ -60,22 +60,14 @@ Page({
       })
     }
     this.getCategories();
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function() {
-
+  onHide() {
+    utils.requestStatisUnload();
   },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function() {
-
-  },
-
+  // onTabItemTap(){
+  //   utils.requestStatisUnload();
+  // },
   /**
    * Page event handler function--Called when user drop down
    */

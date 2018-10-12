@@ -1,20 +1,50 @@
-/* page {
-  background: rgb(235, 235, 235);
-} */
+.my-container {
+  padding: 24rpx;
+  align-items: left;
+  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.05);
+  border-radius: 8rpx;
+  margin: 16rpx;
+}
+
+.my-item-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.my-item-val {
+  margin-left: 24rpx;
+  font-size: 28rpx;
+  color: #707070;
+}
+
+.my-category-container {
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.my-category-name {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.my-category-val {
+  font-size: 24rpx;
+  color: #999;
+}
 
 .tab {
   width: 100%;
   font-size: 30rpx;
-  height: 175rpx;
+  /* height: 175rpx; */
   background-color: rgb(255, 255, 255);
-  line-height: 80rpx;
+  /* line-height: 80rpx; */
   justify-content: space-around;
-  margin-top: 30rpx;
 }
 
 .tab view {
   justify-content: center;
-  width:25%;
+  width: 25%;
   /* position: relative;    
    z-index: 1;
   padding: 40rpx;
@@ -28,8 +58,9 @@
 
 .tab text {
   line-height: 100%;
-  margin-top: 20rpx;
+  margin-top: 18rpx;
   color: rgb(119, 119, 119);
+  font-size: 26rpx;
 }
 
 .promotion-container {
@@ -104,11 +135,12 @@
   margin: 0 39rpx 0 10rpx;
 }
 
-.exit.bgc {
+.exit.regular {
   width: auto;
   margin: 72rpx auto 30rpx;
-  color: rgb(235, 99, 16);
-  background: #fff;
+  background: none;
+  font-size: 32rpx;
+  color: #eb6212;
 }
 
 .dot {

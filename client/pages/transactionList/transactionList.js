@@ -165,7 +165,6 @@ Page({
           resolve()
         })
         .catch((errorCode) => {
-          console.log(errorCode);
           utils
             .errorHander(errorCode, () => this.requestTransList(url, postData))
             .catch(err => {
@@ -386,6 +385,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    utils.checkNetwork()
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
+  onUnload(){
+    utils.requestStatisUnload();
+  }
 })

@@ -118,7 +118,7 @@ var postRequest = function ({
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
-          console.log(res)
+          // console.log(res)
           reject(res.statusCode);
         } else {
           resolve(res.data);
@@ -384,6 +384,10 @@ const getMerchant = () => {
         const merchant = data.result;
         getApp().globalData.merchant = merchant;
         getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
+        wx.getStorage({
+          key: 'merchant',
+          data: merchant,
+        });
         resolve(data)
       })
       .catch(errorCode => {

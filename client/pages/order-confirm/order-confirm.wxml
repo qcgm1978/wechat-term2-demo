@@ -23,7 +23,7 @@
     <view class='scroll-container' scroll-top="{{scrollTop}}">
 
       <view>
-        <scroll-view scroll-y="true" style='height: {{ (height-8-74*2-211*2-53*2+"rpx")}};'>
+        <view style='height: {{ expandAll?"auto":(heightGoods+"rpx")}}; overflow:{{expandAll?"auto":"hidden"}};'>
           <view class='item-container' wx:for="{{data}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
             <view class='item-container-fg'>
               <view class='order-content'>
@@ -44,7 +44,12 @@
 
             </view>
           </view>
-        </scroll-view>
+
+        </view>
+        <view wx:if='{{data.length>2}}' catch:tap='toggleGoods' class='regular center' style='font-size: 24rpx;color: #999999;padding:20rpx 0; align-items:center;justify-content:center;'>
+          {{expandAll?'收起全部商品信息':'展开全部商品信息'}}
+          <image src="{{expandAll?'img/up.png':'img/down.png'}}" style='width:32rpx;height:32rpx;'></image>
+        </view>
       </view>
     </view>
   </view>

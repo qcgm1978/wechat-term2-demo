@@ -14,7 +14,8 @@ Page({
     profileName: '',
     id: '',
     salesmanName: '',
-    salesmanCellPhone: ''
+    salesmanCellPhone: '',
+    
   },
 
   /**
@@ -32,7 +33,7 @@ Page({
   },
   call() {
     wx.makePhoneCall({
-      phoneNumber: this.data.salesmanCellPhone
+      phoneNumber: this.data.salesmanCellPhone //|| '15698765432'
     })
   },
   toggleTab(evt) {
@@ -63,8 +64,8 @@ Page({
         name: merchant.merchantStoreName,
         address: getApp().globalData.address,
         profileName: getApp().globalData.authWechat.authMerchantList[getApp().globalData.currentIndex].userName,
-        salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : false,
-        salesmanName: merchant.salesmanName || false
+        salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : '',
+        salesmanName: merchant.salesmanName || ''
       });
     // })
   },

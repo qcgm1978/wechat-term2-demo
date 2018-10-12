@@ -9,12 +9,14 @@ Page({
   data: {
     data: {},
     points: 0,
-    pointBalance:0,
+    pointBalance: 0,
     usedPoints: 0,
+    heightGoods: 212 * 2, //height-8-74*2-211*2-53*2
     height: '100%',
     top: '100%',
     credit: 0,
     actual: 0,
+    expandAll: false,
     isVisible: true,
     isReturn: false,
     isFailed: false,
@@ -57,6 +59,11 @@ Page({
     } else {
       this.getProduct(options);
     }
+  },
+  toggleGoods() {
+    this.setData({
+      expandAll: !this.data.expandAll
+    })
   },
   updateData({
     options,
@@ -128,7 +135,7 @@ Page({
     categoryCd,
     quantity
   }) {
-    const locationId = getApp().globalData.merchant.locationId;
+    const locationId = getApp().getLocationId();
     utils.getRequest(getProductItem, {
       locationId,
       categoryCd: '',
@@ -144,8 +151,11 @@ Page({
         }, []);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg);
         result.quantity = quantity;
+        let dataWrapper = [result];
+        // todo create array with multi ele
+        // dataWrapper=new Array(10).fill(result)
         this.setData({
-          data: [result]
+          data: dataWrapper
         })
       } else {
         if (data instanceof Array) {
@@ -245,20 +255,14 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function(options) {},
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  onShow: function(options) {
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
+  onHide() {
+    utils.requestStatisUnload();
+  },
+  onUnload(){
+    utils.requestStatisUnload();
   },
 
   /**

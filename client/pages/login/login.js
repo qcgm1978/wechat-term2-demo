@@ -317,5 +317,10 @@ Page({
   },
   onShow: function() {
     appUtil.getJsCode()
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
+  
+  onUnload() {
+    utils.requestStatisUnload();
+  }
 })
