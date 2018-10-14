@@ -26,7 +26,7 @@
         <scroll-view scroll-y="true" style='height: {{ (height-8-74*2-211*2-53*2+"rpx")}};'>
           <view class='item-container' wx:for="{{data}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" itemId='{{orderGroup.groupId}}' locationId='{{item.locationId}}'>
             <view wx:for="{{orderGroup.items}}" wx:key='{{itemIndex}}' itemId='{{item.itemId}}'>
-              <view class='item-container-fg' wx:if='{{freeGift}}'>
+              <view class='item-container-fg'>
                 <view class='order-content'>
                   <view class='center' style='width:100%;'>
                     <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
@@ -39,30 +39,32 @@
                       </view>
                     </view>
                   </view>
-
                 </view>
-
-
               </view>
-
-              <view class='item-container-fg' wx:else>
+            </view>
+            
+            <!-- 赠品 -->
+            <view class='item-container-fg'  wx:if='{{orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].giftItems && orderGroup.cartCombinationPromotions[0].giftItems.length>0}}'>
+              <view wx:for="{{orderGroup.cartCombinationPromotions[0].giftItems}}" wx:key='{{giftIndex}}' wx:for-item="gift">
                 <view class='order-content'>
                   <view class='center' style='width:100%;'>
                     
-                    <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
+                    <image src='{{gift.itemImageAddress1?gift.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
                     <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
-                      <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'><view  class='free-gift' style='font-size: 24rpx;' wx:if="{{item.isGift}}">赠品</view>{{item.itemName}}</view>
-                      <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                      <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'><view  class='free-gift' style='font-size: 24rpx;' >赠品</view>{{gift.giftItemName}}</view>
+                      <text class='regular item-standard'>规格：{{gift.itemUnit}}</text>
                       <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
-                        <text class='confirm-price'>￥{{item.price}}</text>
-                        <text>x{{item.quantity}}</text>
+                        <text class='confirm-price'>￥0</text>
+                        <text>x{{gift.quantity}}</text>
                       </view>
                     </view>
                   </view>
                 </view>
               </view>
+              
             </view>
-            
+
+
             <view style='background-color: white; height: 10rpx;'>
             </view>
           </view>

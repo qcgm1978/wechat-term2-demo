@@ -14,7 +14,7 @@
       </view>
       <view wx:if='{{hasPromotion}}' class='center promotion-container padding regular bgc mgt' catch:tap='showPromotion'>
         <text class='promotion' >促销</text>
-        <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="1"?imgManjian:imgManzeng}}'></image>
+        <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
         <text class='promotion-2' >{{promoteInfo.promotionName}}</text>
         <view class='promotion-list'>
           <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">

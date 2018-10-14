@@ -51,10 +51,7 @@ Page({
     //debugger;
   },
   showPromotion() {
-    // this.setData({
-    //   promotion: true
-    // })
-    if (this.data.promoteInfo.combinationFlag !== "1") return
+    if (this.data.promoteInfo.combinationFlag !== "1" || !this.data.product.putShelvesFlg) return
     let tmpProduct = {}
     tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
     tmpProduct.itemName = this.data.product.itemName
@@ -140,7 +137,6 @@ Page({
         }]
       }]
     }
-    console.log(JSON.stringify(para))
 
     utils
       .addToTrolleyByGroup(para)

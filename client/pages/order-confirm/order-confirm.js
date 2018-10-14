@@ -156,19 +156,41 @@ Page({
         receiverAddress = getApp().globalData.address,
         orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
       const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
-      // return;
+
+      let sumDiscount = 0
       for (let i = 0; i < orderItems.length; i++){
-        orderItems[i].promotionId = orderItems[i].promotions[0].promotionId
+        orderItems[i].promotionId = orderItems[i].cartCombinationPromotions[0].promotionId
+        orderItems[i].cartGroupId = orderItems[i].groupId
+        for (let j = 0; j < orderItems[i].items.length; j++) {
+          orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
+        }
+        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length>0){
+          orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount
+          orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].discountPercentage
+          if (orderItems[i].discountAmount && orderItems[i].discountAmount>0){
+            sumDiscount += orderItems[i].discountAmount
+          }
+          if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length>0){
+            for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++){
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
+              orderItems[i].items.push(orderItems[i].cartCombinationPromotions[0].giftItems[j])
+            }
+          }
+        }
       }
+      console.log("=========")
+      console.log(this.data.data)
+      console.log(orderItems)
+      console.log("=========")
+
       
-      // console.log("orderItems")
-      // console.log(orderItems)
-      // console.log("getApp().globalData.items")
-      // console.log(getApp().globalData.items)
-
-
       let tempData = {
         orderItems,
+        orderPomotionId: "0",
+        orderPomotionDiscountAmount:0,
+        //todo 减去积分
+        cashAmount: this.data.total,
+        discountTotalAmount: sumDiscount,
         merchantId: app.getMerchantId(),
         locationId: String(locationId),
         orderItemSource: getApp().globalData.items.orderItemSource,
@@ -188,10 +210,14 @@ Page({
         url: createOrder,
         data: {
           orderItems,
+          orderPomotionId: "0",
+          orderPomotionDiscountAmount: 0,
+          //todo 减去积分
+          cashAmount: this.data.total,
+          discountTotalAmount: sumDiscount,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
           orderItemSource: getApp().globalData.items.orderItemSource,
-          // merchantMsg: this.data.textarea || 'aaa',
           usePoint,
           totalAmount: this.data.total,
           receiverInfo: {
@@ -199,20 +225,11 @@ Page({
             receiverCellPhone,
             receiverAddress
           },
-          //promotion
-          //discountTotalAmount: discountTotalAmount,
-          //orderItems.
-          // -cartGroupId
-          // -discountAmount
-          // -promotionId
-          // -items
-
         }
       }).then(data => {
         // todo test 409
         // throw (409)
         wx.hideLoading()
-        console.log(data);
         if (data.status === 200) {
           const trolley = getCurrentPages().slice(-2, -1)[0];
           if (trolley && trolley.route.includes('trolley/trolley')){

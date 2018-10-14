@@ -15,22 +15,23 @@ exports.calcPromote = function (postData) {
     .then(data => {
       if (data.status === 200) {
         let calcPromoteInfo = data.result[0]
-        //满赠
-        if (calcPromoteInfo.promotionActives && calcPromoteInfo.promotionActives.length>0 && calcPromoteInfo.promotionActives[0].giftitems && calcPromoteInfo.promotionActives[0].giftitems.length > 0) {
-          let tempGift = calcPromoteInfo.promotionActives[0].giftitems[0]
-          let freeGift = {}
-          freeGift.itemId = tempGift.giftItemId
-          freeGift.itemImageAddress1 = tempGift.itemImageAddress1 ? tempGift.itemImageAddress1 : getApp().globalData.defaultImg
-          freeGift.itemName = tempGift.giftItemName
-          freeGift.price= 0
-          freeGift.itemSpecification = tempGift.itemUnit
-          freeGift.minQuantity = tempGift.quantity
-          freeGift.isfree= true
-          promotionResult.freeGift = freeGift
-        } else if (calcPromoteInfo.promotionActives && calcPromoteInfo.promotionActives.length > 0 && calcPromoteInfo.promotionActives[0].discountAmount > 0) { //满减
-          promotionResult.discountAmount = calcPromoteInfo.promotionActives[0].discountAmount
-        }
-        resolve(promotionResult)
+        // //满赠
+        // if (calcPromoteInfo.promotionActives && calcPromoteInfo.promotionActives.length>0 && calcPromoteInfo.promotionActives[0].giftitems && calcPromoteInfo.promotionActives[0].giftitems.length > 0) {
+        //   let tempGift = calcPromoteInfo.promotionActives[0].giftitems[0]
+        //   // let freeGift = {}
+        //   // freeGift.itemId = tempGift.giftItemId
+        //   // freeGift.itemImageAddress1 = tempGift.itemImageAddress1 ? tempGift.itemImageAddress1 : getApp().globalData.defaultImg
+        //   // freeGift.giftItemName = tempGift.giftItemName
+        //   // freeGift.price= 0
+        //   // freeGift.itemSpecification = tempGift.itemUnit
+        //   // freeGift.minQuantity = tempGift.quantity
+        //   // freeGift.isfree= true
+        //   // promotionResult.freeGift = freeGift
+        //   promotionResult.freeGift = tempGift
+        // } else if (calcPromoteInfo.promotionActives && calcPromoteInfo.promotionActives.length > 0 && calcPromoteInfo.promotionActives[0].discountAmount > 0) { //满减
+        //   promotionResult.discountAmount = calcPromoteInfo.promotionActives[0].discountAmount
+        // }
+        resolve(calcPromoteInfo.promotionActives[0])
       } else {
         reject()
       }
