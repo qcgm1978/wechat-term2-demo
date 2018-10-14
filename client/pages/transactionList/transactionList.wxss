@@ -215,3 +215,14 @@ color: #FDB658;
   left: 360rpx;
   top: 0;
 }
+.promotion-1 {
+  display:inline-block;
+  width: 72rpx;
+  border-radius:10rpx;
+  text-align: center;
+  color: white;
+  background-color: #EE711F;
+  font-size: 24rpx;
+  margin-left: 10rpx;
+  height: 30rpx;
+}

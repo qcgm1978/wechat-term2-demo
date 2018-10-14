@@ -26,12 +26,20 @@
                         <view class='center' style="flex-grow:1;">
                           <image src='{{orderItem.itemIcon?(orderItem.itemIcon+"?x-oss-process=style/180w"):defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
                           <view>
-                            <view class='darker-gray-chars item-name regular'>{{orderItem.itemName}}</view>
+                            <view style='display: flex;'>
+                              <view class='promotion-1' wx:if="{{orderItem.gift}}">赠品</view>
+                              <view class='darker-gray-chars item-name regular'>{{orderItem.itemName}}</view>
+                            </view>
+                            
                             <text class='regular item-standard'>规格：{{orderItem.itemSpecification}}</text>
                           </view>
                         </view>
                         <view class='darker-gray-chars column regular' style="align-items: flex-end;padding-top:40rpx;margin-bottom:auto;">
-                          <text>￥{{orderItem.unitPrice}}</text>
+                          <view style='display:flex; flex-direction: column;'>
+                            <text wx:if='{{orderItem.gift}}'>￥0</text>
+                            <text style='{{orderItem.gift?"text-decoration:line-through;":""}}'>￥{{orderItem.unitPrice}}</text>
+                          </view>
+                          <!-- <text style='{{orderItem.gift?"text-decoration:line-through;":""}}'>￥{{orderItem.unitPrice}}</text> -->
                           <text class='item-standard '>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}}</text>
                           <text class='list-return'>{{currentItem.isReturn?(item.usePoints?'退款成功':''):''}}</text>
                         </view>

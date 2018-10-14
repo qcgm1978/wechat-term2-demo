@@ -127,7 +127,7 @@ Page({
           postData
         })
         .then((data) => {
-          //console.log(data.result)
+          // console.log(data.result)
           const result = data.result;
           const totalPages = Math.ceil(result.orderTotalCount / 10);
           this.setData({

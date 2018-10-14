@@ -111,6 +111,7 @@ Page({
     }
     requestData
       .then(data => {
+        console.log(data.result)
         if (data === undefined) {
           return console.log('no data')
         }

@@ -31,10 +31,10 @@
 
                   <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
                   <view style='display: flex; flex-direction: column;'>
-                    <view wx:if='{{orderItem.freeGift}}'>
+                    <view wx:if='{{orderItem.gift}}'>
                       <view style='display: flex; flex-direction: row;'>
-                        <view class='darker-gray-chars item-name regular' >赠品</view>
-                        <view class='darker-gray-chars item-name regular' > {{orderItem.itemName}}</view>
+                        <view class='promotion-1'>赠品</view>
+                        <view class='darker-gray-chars item-name regular' style='width:auto'> {{orderItem.itemName}}</view>
                       </view>
                     </view>
 
@@ -44,7 +44,7 @@
 
                 </view>
                 <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
-                  <view wx:if='{{orderItem.freeGift}}'>
+                  <view wx:if='{{orderItem.gift}}'>
                     <view style='display: flex; flex-direction: column;'>
                       <text style='text-align: right;'>￥0</text>
                       <text style='color:#949494;text-decoration:line-through;'>￥{{orderItem.unitPrice}}</text>
@@ -71,6 +71,12 @@
         </view>
       </view>
 
+      <view class='regular money-amount money ' style="margin-top: 0;">
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>促销优惠</view>
+          <view class='dollar-minus'>{{order.discountTotalAmount}}</view>
+        </view>
+      </view>
 
       <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay}}' style="margin-top: 0;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">

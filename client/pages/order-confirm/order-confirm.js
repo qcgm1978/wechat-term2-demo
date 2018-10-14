@@ -159,13 +159,14 @@ Page({
 
       let sumDiscount = 0
       for (let i = 0; i < orderItems.length; i++){
+        orderItems[i].discountAmount = "0"
         orderItems[i].promotionId = orderItems[i].cartCombinationPromotions[0].promotionId
         orderItems[i].cartGroupId = orderItems[i].groupId
         for (let j = 0; j < orderItems[i].items.length; j++) {
           orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
         }
         if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length>0){
-          orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount
+          orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount ? orderItems[i].cartCombinationPromotions[0].discountAmount: "0"
           orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].discountPercentage
           if (orderItems[i].discountAmount && orderItems[i].discountAmount>0){
             sumDiscount += orderItems[i].discountAmount
@@ -173,17 +174,14 @@ Page({
           if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length>0){
             for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++){
               orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemId
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].itemName = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemName
               orderItems[i].items.push(orderItems[i].cartCombinationPromotions[0].giftItems[j])
             }
           }
         }
       }
-      console.log("=========")
-      console.log(this.data.data)
-      console.log(orderItems)
-      console.log("=========")
 
-      
       let tempData = {
         orderItems,
         orderPomotionId: "0",
