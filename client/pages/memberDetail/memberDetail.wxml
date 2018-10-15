@@ -69,7 +69,7 @@
 
   <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column bgc my-container'>
     <view class='center regular my-category-container'>
-      <text class='my-category-name'>专属促销员</text>
+      <text class='my-category-name'>专属管家</text>
 
       <text class='my-category-val' style="margin:0 auto 0 13rpx;"> |  您的购物贴心管家</text>
 
@@ -85,7 +85,7 @@
     </view>
   </view>
 
-  <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column container-detail'>
+  <!-- <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column container-detail'>
     <view wx:if='{{true || salesmanName}}' class='row center' style="width: 100%;">
       <image src='./img/shopkeeper.png' class='icon'></image>
       <view class='column regular' style="align-items: left;">
@@ -105,6 +105,6 @@
         <text class='promotion-man regular'>联系访销员</text>
       </view>
     </view>
-  </view>
+  </view> -->
   <view class='regular exit ' catch:tap='exitLogin' hover-class='btn-hover'>退出登录</view>
 </view>
