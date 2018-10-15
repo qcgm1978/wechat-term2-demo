@@ -193,8 +193,7 @@ Page({
           orderItems,
           orderPomotionId: "0",
           orderPomotionDiscountAmount: 0,
-          //todo 减去积分
-          cashAmount: this.data.total,
+          cashAmount: this.data.total - this.data.credit,
           discountTotalAmount: sumDiscount,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),

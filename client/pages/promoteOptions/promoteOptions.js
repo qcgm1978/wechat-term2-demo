@@ -18,13 +18,7 @@ Page({
     promoteMsg: "",
     composeProducts: [],
     mainProduct: {},
-    // freeGift: {},
-    // composeProducts: [{ itemCategoryCode: "2701", itemId: "3496", itemImageAddress1: "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3301.jpg", itemName: "七喜六联", itemSpecification: "330ml*24", price: 41, promoteType: "满减", putShelvesFlg: true, quantity: "2"}],
-    // mainProduct: { itemImageAddress1: "./images/u42.jpg", itemName: "惠百真豆油", itemSpecification: "2ML*8", quantity: "2", price: "299.90", itemId: "1" },
-
-    // freeGift: { itemCategoryCode: "2701", itemId: "3496", itemImageAddress1: "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3301.jpg", itemName: "七喜六联", itemSpecification: "330ml*24", price: 41, promoteType: "满减", putShelvesFlg: true, minQuantity: "2",isfree: true },
     selectedProductList: [],
-
     totalPrice: 0,
     rightArrow: "./images/grey-arrow.png",
     showPromoteDetail: false
@@ -109,8 +103,6 @@ Page({
             totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
           })
 
-/////
-
           let itemGroups = []
           let group = {}
 
@@ -136,9 +128,10 @@ Page({
           group.items = groupItems
           group.promotions = [{ promotionId: promoteInfo.promotionId}]
           itemGroups.push(group)
-
+          console.log(JSON.stringify({ itemGroups }))
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
+              console.log("calcPromote")
               console.log(promoteResult)
               //满赠
               if (promoteResult.freeGift) {
@@ -146,7 +139,7 @@ Page({
                   'selectedProductList[2]': promoteResult.freeGift
                 })
               } else if (promoteResult.discountAmount > 0) { //满减
-                console.log("afasdfsadfsdf满减满减满减满减")
+
               }
             })
             .catch(() => {
@@ -181,7 +174,7 @@ Page({
       quantity: Number(item.minQuantity),
       categoryCode: item.itemCategoryCode
     }));
-    //console.log(this.data.selectedProductList)
+
     let para = {
       addGroupList: [{
         count:1,
@@ -191,9 +184,7 @@ Page({
         }]
       }]
     }
-     console.log(JSON.stringify(para))
-    // return
-    //console.log(arr)
+
     utils
       .addToTrolleyByGroup(para)
       .then(badge => {
@@ -241,6 +232,7 @@ Page({
     })
     .then(data => {
       if (data.status === 200) {
+        console.log("selectGoods")
         console.log(data.result)
         this.setData({
           composeProducts: data.result.conbinationItems,
