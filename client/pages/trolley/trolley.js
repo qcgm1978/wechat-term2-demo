@@ -191,17 +191,17 @@ Page({
           if (trollyList[i].combinationFlag){
             item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
           }else{
-            item.quantity = trollyList[i].items[j].quantity
+            item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
           }
           
           item.unitPrice = trollyList[i].items[j].price
           groupItems.push(item)
         }
-
+      console.log(groupItems)
         group.groupId = trollyList[i].groupId
         group.items = groupItems
-      if (trollyList[i].combinationFlag){
-        group.promotions = trollyList[i].promotions
+        if (trollyList[i].combinationFlag){
+          group.promotions = trollyList[i].promotions
         }else{
           group.promotions = trollyList[i].cartCombinationPromotions
         }
@@ -211,20 +211,6 @@ Page({
       Promise.all(promises)
       .then(arr => {
         trollyList[i].cartCombinationPromotions = arr
-          // if (JSON.stringify(arr[0]) !== "{}" && arr[0].freeGift){
-          //   let promotions = []
-          //   let promotion = { promotionType:'1', giftItems: []}
-          //   promotion.giftItems.push(arr[0].freeGift)
-          //   promotions.push(promotion)
-          //   trollyList[i].cartCombinationPromotions = promotions
-          // } else if (JSON.stringify(arr[0]) !== "{}" && arr[0].discountAmount>0){
-          //   trollyList[i].cartCombinationPromotions[0].promotionType = '2'
-          //   trollyList[i].cartCombinationPromotions[0].promotionDiscountAmount = arr[0].discountAmount
-          // }else{
-          //   trollyList[i].cartCombinationPromotions[0].promotionDiscountAmount = 0
-          //   trollyList[i].cartCombinationPromotions[0].promotionType = null
-          //   trollyList[i].cartCombinationPromotions[0].giftItems = null
-          // }
         resolve(trollyList[i])
       })
       .catch(()=>{
@@ -232,29 +218,7 @@ Page({
       })
     })
   },
-  // getPromoteInfo(trollyList) {
-  //   return new Promise((resolve, reject) => {
-  //     let promises = []
-  //     for (let i = 0; i < trollyList.length; i++) {
-  //       promises.push(promoteUtil.getPromoteInfo(trollyList[i].items[0].itemId, trollyList[i].items[0].itemCategoryCode))
-  //     }
 
-  //     Promise.all(promises)
-  //       .then(arr => {
-  //         for (let i = 0; i < trollyList.length; i++) {
-  //           if (arr.length > 0){
-  //             trollyList[i].promoteName = arr[i].promotionName
-  //             trollyList[i].promoteType = arr[i].promotionType
-  //             trollyList[i].combinationFlag = arr[i].combinationFlag
-  //           }
-  //         }
-  //         resolve(trollyList)
-  //       })
-  //       .catch(() => {
-  //         reject()
-  //       })
-  //   })
-  // },
   getTrolley() {
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
@@ -435,7 +399,7 @@ Page({
     this.callPromotionCacl(trolley, index)
     .then((data) =>{
       trolley[index] = data
-
+      console.log(data)
       var singleGroup = 'trolley[' + index + ']'
       this.setData({
         [singleGroup]: trolley[index]

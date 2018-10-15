@@ -116,7 +116,7 @@ Page({
     }
     const arr = [{
       itemId: this.data.product.itemId,
-      quantity: this.data.quantity,
+      quantity: 1,
       categoryCode: this.data.product.itemCategoryCode
     }]
     let para = {
@@ -148,7 +148,6 @@ Page({
       categoryCd: '',
       itemIds: itemId ? itemId : '',
     }).then(data => {
-      //console.log(data);
       if (data.status === 200) {
         const result = data.result[0];
         // todo
@@ -228,13 +227,11 @@ Page({
       return;
     }
 
-    this.data.product.quantity = this.data.quantity;
+    // this.data.product.quantity = this.data.quantity;
+    this.data.product.quantity = 1
 
-    // let randomNumber = Math.random() * 10000000000
-    // group.groupId = "153" + Math.floor(randomNumber)
     let groups = []
     let group = {}
-    // group.groupId = "153" + Math.floor(randomNumber)
     group.groupId = ""
     group.count = 1
     group.combinationFlag = false

@@ -6,7 +6,6 @@ import {
   Api
 } from '../../utils/envConf.js'
 const getProductItem = Api.getProductItem,
-  // calcPromote = Api.calcPromote,
   selectGoods = Api.selectGoods;
 let promoteInfo = {}
 let calcPromoteInfo = {}
@@ -39,9 +38,7 @@ Page({
       'selectedProductList[0]': product,
       totalPrice: 0
     })
-    // this.categoryId=options.categoryId;
-    // this.getCategories(options)
-    //this.getProduct(options);
+
     if (getApp().globalData.badge > 0) {
       this.setData({
         badge: getApp().globalData.badge,
@@ -128,7 +125,7 @@ Page({
           group.items = groupItems
           group.promotions = [{ promotionId: promoteInfo.promotionId}]
           itemGroups.push(group)
-          console.log(JSON.stringify({ itemGroups }))
+
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
               console.log("calcPromote")
@@ -165,7 +162,6 @@ Page({
       return
     }
 
-    //const orderItem = this.data.selectedProductList;
     let orderItem = []
     orderItem.push(this.data.selectedProductList[0])
     orderItem.push(this.data.selectedProductList[1])
@@ -232,8 +228,6 @@ Page({
     })
     .then(data => {
       if (data.status === 200) {
-        console.log("selectGoods")
-        console.log(data.result)
         this.setData({
           composeProducts: data.result.conbinationItems,
           mainProduct: data.result.item,
