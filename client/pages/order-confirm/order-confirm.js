@@ -68,7 +68,6 @@ Page({
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName
     })
     if (getApp().globalData.items) {
-      console.log(getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items])
       this.setData({
         data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
       })
@@ -118,7 +117,6 @@ Page({
       categoryCd: '',
       itemIds: itemId ? itemId : '',
     }).then(data => {
-      console.log(data);
       if (data.status === 200) {
         const result = data.result[0];
         result.itemImageAddress = (Array(5).fill('')).reduce((accumulator, item, index) => {
@@ -160,12 +158,19 @@ Page({
       let sumDiscount = 0
       for (let i = 0; i < orderItems.length; i++){
         orderItems[i].discountAmount = "0"
-        orderItems[i].promotionId = orderItems[i].cartCombinationPromotions[0].promotionId
+        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]){
+          orderItems[i].promotionId = orderItems[i].cartCombinationPromotions[0].promotionId
+        }else{
+          orderItems[i].promotionId = ""
+        }
+        
         orderItems[i].cartGroupId = orderItems[i].groupId
         for (let j = 0; j < orderItems[i].items.length; j++) {
-          orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
+          if (orderItems[i].combinationFlag){
+            orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
+          }
         }
-        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length>0){
+        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]){
           orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount ? orderItems[i].cartCombinationPromotions[0].discountAmount: "0"
           orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].discountPercentage
           if (orderItems[i].discountAmount && orderItems[i].discountAmount>0){
@@ -181,28 +186,6 @@ Page({
           }
         }
       }
-
-      let tempData = {
-        orderItems,
-        orderPomotionId: "0",
-        orderPomotionDiscountAmount:0,
-        //todo 减去积分
-        cashAmount: this.data.total,
-        discountTotalAmount: sumDiscount,
-        merchantId: app.getMerchantId(),
-        locationId: String(locationId),
-        orderItemSource: getApp().globalData.items.orderItemSource,
-            // merchantMsg: this.data.textarea || 'aaa',
-            usePoint,
-            totalAmount: this.data.total,
-        receiverInfo: {
-          receiverName,
-          receiverCellPhone,
-          receiverAddress
-        },
-      }
-      console.log(JSON.stringify(tempData))
-
 
       utils.postRequest({
         url: createOrder,

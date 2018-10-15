@@ -184,7 +184,8 @@ page {
   background-color: #EE711F;
   font-size: 24rpx;
   margin-left: 10rpx;
-  height: 30rpx;
+  margin-top:5rpx;
+  height: 35rpx;
 }
 .promotion-2 {
   display:inline-block;

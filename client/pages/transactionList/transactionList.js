@@ -127,7 +127,6 @@ Page({
           postData
         })
         .then((data) => {
-          // console.log(data.result)
           const result = data.result;
           const totalPages = Math.ceil(result.orderTotalCount / 10);
           this.setData({
@@ -158,8 +157,7 @@ Page({
             }
             return currentItem;
           });
-          //console.log("order")
-          //console.log(order)
+
           this.setData({
             order,
             hasNetwork:true
@@ -303,22 +301,41 @@ Page({
   },
   addGotoTrolley: function(e) {
     const dataset = e.currentTarget.dataset;
-    const orderItem = dataset.orderitem;
-    const arr=orderItem.map(item=>({
-      itemId:item.itemId,
-      quantity:item.quantity
-    }));
+
+    let orderGroups = [];
+    for(let i = 0; i<this.data.order.length; i++){
+      if (this.data.order[i].orderId === dataset.orderId){
+        orderGroups = this.data.order[i].orderItems
+      }
+    }
+
+    let para = {
+      addGroupList: []
+    }
+
+    for (let i = 0; i < orderGroups.length; i++) {
+      let items = orderGroups[i].items
+      for (let j = 0; j < items.length; j++) {
+        items[j].categoryCode = items[j].categoryId
+      }
+      orderGroups[i].count = 1
+      orderGroups[i].addItemList = items
+      let promotions = []
+      let promotion = {}
+      promotion.promotionId = orderGroups[i].promotionId
+      promotions.push(promotion)
+      orderGroups[i].promotions = promotions
+      para.addGroupList.push(orderGroups[i])
+    }
+    console.log(para)
     utils
-      .addToTrolley(arr)
+      .addToTrolleyByGroup(para)
       .then(badge => {
-        getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
+        //getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
         wx.switchTab({
           url: `/pages/trolley/trolley`,
         })
       })
-    // wx.navigateTo({
-    //   url: `../detail/detail?orderId=${e.currentTarget.dataset.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
-    // })
   },
   goTransDetails: function(e) {
     wx.navigateTo({

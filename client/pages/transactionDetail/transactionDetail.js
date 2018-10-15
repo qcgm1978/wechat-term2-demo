@@ -61,28 +61,33 @@ Page({
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
   addGotoTrolley: function(e) {
-    partSoldOut = false
-    soldOut = false
-    if (partSoldOut){
-      this.setData({
-        partSoldOutDialogFlag: true
-      })
+
+    let orderGroups = [];
+    orderGroups = this.data.order.orderItems
+
+    let para = {
+      addGroupList: []
     }
-    if (SoldOut) {
-      this.setData({
-        soldOutDialogFlag: true
-      })
+
+    for (let i = 0; i < orderGroups.length; i++) {
+      let items = orderGroups[i].items
+      for (let j = 0; j < items.length; j++) {
+        items[j].categoryCode = items[j].categoryId
+      }
+      orderGroups[i].count = 1
+      orderGroups[i].addItemList = items
+      let promotions = []
+      let promotion = {}
+      promotion.promotionId = orderGroups[i].promotionId
+      promotions.push(promotion)
+      orderGroups[i].promotions = promotions
+      para.addGroupList.push(orderGroups[i])
     }
-    const dataset = e.currentTarget.dataset;
-    const orderItem = dataset.orderitem;
-    const arr = orderItem.map(item => ({
-      itemId: item.itemId,
-      quantity: item.quantity
-    }));
+
     utils
-      .addToTrolley(arr)
+      .addToTrolleyByGroup(para)
       .then(badge => {
-        getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
+        //getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
         wx.switchTab({
           url: `/pages/trolley/trolley`,
         })
@@ -111,7 +116,7 @@ Page({
     }
     requestData
       .then(data => {
-        console.log(data.result)
+
         if (data === undefined) {
           return console.log('no data')
         }

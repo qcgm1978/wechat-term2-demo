@@ -65,20 +65,20 @@
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
     <view class='bgc padding'>
       <view class='money-amount '>
-        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; ">
+        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 16rpx;">
           <view>商品总额</view>
           <view class='dollar'>{{order.totalAmount}}</view>
         </view>
       </view>
 
-      <view class='regular money-amount money ' style="margin-top: 0;">
+      <view class='regular money-amount money ' style="margin: 0 16rpx;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>促销优惠</view>
           <view class='dollar-minus'>{{order.discountTotalAmount}}</view>
         </view>
       </view>
 
-      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay}}' style="margin-top: 0;">
+      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay}}' style="margin: 0 16rpx;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>积分抵扣</view>
           <view class='dollar-minus'>{{order.payment.usePoint/100}}</view>

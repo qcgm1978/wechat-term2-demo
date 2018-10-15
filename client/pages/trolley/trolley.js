@@ -40,6 +40,9 @@ Page({
     if (!this.data.disableBuy) {
       getApp().globalData.items = this.data.trolley.reduce((accumulator, item) => {
         if (item.checked) {
+          if (item.items.length == 1){
+            item.items[0].quantity = item.count
+          }
           accumulator.push(item)
         }
         return accumulator;
@@ -90,20 +93,11 @@ Page({
       return
     }
 
-    // this.getTrolley()
-    //   .then(data => {
-    //   })
-    //   .catch(e => {
-    //   })
   },
   lower() {
     this.start += this.limit;
     if (this.scrollDataLoading) return
-    // this.getTrolley()
-    //   .then(data => {
-    //   })
-    //   .catch(e => {
-    //   })
+
   },
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
@@ -194,7 +188,12 @@ Page({
           item.itemId = trollyList[i].items[j].itemId
           item.brandId = ""
           item.categoryCode = trollyList[i].items[j].itemCategoryCode
-          item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
+          if (trollyList[i].combinationFlag){
+            item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
+          }else{
+            item.quantity = trollyList[i].items[j].quantity
+          }
+          
           item.unitPrice = trollyList[i].items[j].price
           groupItems.push(item)
         }
@@ -431,7 +430,6 @@ Page({
       trolley[index].count = num
       this.selectedRadio.push(trolley[index].groupId);
     }
-
     //调用计算接口
 
     this.callPromotionCacl(trolley, index)

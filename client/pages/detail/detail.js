@@ -114,15 +114,6 @@ Page({
         currentMoney: this.data.product.price * this.data.quantity
       })
     }
-
-    // let orderItem = []
-    // orderItem.push(this.data.selectedProductList[0])
-    // orderItem.push(this.data.selectedProductList[1])
-    // const arr = orderItem.map(item => ({
-    //   itemId: item.itemId,
-    //   quantity: Number(item.minQuantity),
-    //   categoryCode: item.itemCategoryCode
-    // }));
     const arr = [{
       itemId: this.data.product.itemId,
       quantity: this.data.quantity,
@@ -236,8 +227,27 @@ Page({
     if (!this.data.enableBuy) {
       return;
     }
+
     this.data.product.quantity = this.data.quantity;
-    getApp().globalData.items = this.data.product;
+
+    // let randomNumber = Math.random() * 10000000000
+    // group.groupId = "153" + Math.floor(randomNumber)
+    let groups = []
+    let group = {}
+    // group.groupId = "153" + Math.floor(randomNumber)
+    group.groupId = ""
+    group.count = 1
+    group.combinationFlag = false
+    group.checked = true
+    group.cartCombinationPromotions  = []
+    group.items = [this.data.product]
+    group.promotions = null
+    group.putShelvesFlg = this.data.product.putShelvesFlg
+    group.suitePrice = this.data.product.price
+
+    groups.push(group)
+
+    getApp().globalData.items = groups;
     getApp().globalData.items.orderItemSource=0;
     wx.navigateTo({
       url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,

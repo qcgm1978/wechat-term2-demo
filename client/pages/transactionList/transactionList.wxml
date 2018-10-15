@@ -36,7 +36,7 @@
                         </view>
                         <view class='darker-gray-chars column regular' style="align-items: flex-end;padding-top:40rpx;margin-bottom:auto;">
                           <view style='display:flex; flex-direction: column;'>
-                            <text wx:if='{{orderItem.gift}}'>￥0</text>
+                            <text style='text-align:right;' wx:if='{{orderItem.gift}}'>￥0</text>
                             <text style='{{orderItem.gift?"text-decoration:line-through;":""}}'>￥{{orderItem.unitPrice}}</text>
                           </view>
                           <!-- <text style='{{orderItem.gift?"text-decoration:line-through;":""}}'>￥{{orderItem.unitPrice}}</text> -->
