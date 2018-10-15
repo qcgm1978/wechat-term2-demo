@@ -42,13 +42,18 @@
   justify-content: space-around;
 }
 
-.tab view {
+.tab > view {
   justify-content: center;
   width: 25%;
-  /* position: relative;    
-   z-index: 1;
-  padding: 40rpx;
-  margin: -40rpx; */
+}
+
+.member-icon {
+  background: #ee711f;
+  font-size: 22rpx;
+  color: #fff;
+  width: 28rpx;
+  height: 28rpx;
+  
 }
 
 .tab image {

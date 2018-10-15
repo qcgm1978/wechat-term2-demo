@@ -15,7 +15,7 @@ Page({
     id: '',
     salesmanName: '',
     salesmanCellPhone: '',
-    
+    toShip:5
   },
 
   /**
