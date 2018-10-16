@@ -1,23 +1,23 @@
 <view>
-  <view class='column bgc my-container'>
+  <view class='column bgc my-container' style="padding-top: 38rpx;margin-top:24rpx;">
     <view class='center medium'>
       <image src='img/store.png' style='width:112rpx;height:112rpx;'></image>
       <view class='column ' style='margin-left:24rpx;font-size: 32rpx;color: #333333;'>
         <text>{{name}}</text>
-        <text style='font-size: 24rpx;color: #FFFFFF;background: #EC6918;border-radius: 14rpx;padding:0 10rpx;margin-right:auto;'>门店ID:{{id}}</text>
+        <text style='font-size: 22rpx;color: #FFFFFF;background: #EC6918;border-radius: 14rpx;padding:0 10rpx;margin-right:auto;'>门店ID:{{id}}</text>
       </view>
     </view>
-    <view class='line' style='margin:24rpx auto;'></view>
+    <view class='line' style='margin:38rpx auto 32rpx;'></view>
     <view style="width: 100%;">
       <view class='medium my-item-name'>店主姓名
         <text class='regular my-item-val'>{{profileName}}</text>
       </view>
-      <view class='medium my-item-name'>店铺地址
+      <view class='medium my-item-name' style="margin-top: 16rpx;">店铺地址
         <text class='regular my-item-val'>{{address}}</text>
       </view>
     </view>
   </view>
-  <view class='column bgc my-container'>
+  <view class='column bgc my-container' style="padding: 8px 12px 16px;">
     <view class='center regular my-category-container'>
       <text class='my-category-name'>我的订单</text>
       <navigator class='center' style="align-items: center;" url='/pages/transactionList/transactionList?tab=0'>
@@ -25,7 +25,7 @@
         <image src='img/arrow.png' style='width:36rpx; height:42rpx;'></image>
       </navigator>
     </view>
-    <view class='line' style='margin:24rpx auto;'></view>
+    <view class='line' style='margin:16rpx auto 38rpx;'></view>
     <view class='tab medium center' bindtap='toggleTab'>
       <view class='column' data-type='1'>
         <view class="center-center">
@@ -67,14 +67,14 @@
     </view>
   </view>
 
-  <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column bgc my-container'>
+  <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column bgc my-container' style="padding-bottom: 32rpx;">
     <view class='center regular my-category-container'>
       <text class='my-category-name'>专属管家</text>
 
       <text class='my-category-val' style="margin:0 auto 0 13rpx;"> |  您的购物贴心管家</text>
 
     </view>
-    <view class='line' style='margin:24rpx auto;'></view>
+    <view class='line' style='margin:24rpx auto 28rpx;'></view>
     <view class='center' style='align-items:center;width:100%;'>
       <image src='img/promoter.png' style='width:112rpx; height:112rpx;'></image>
       <view class='column' style="flex-grow: 1;align-items: flex-start;margin-left:24rpx;">
@@ -84,27 +84,5 @@
       <image wx:if='{{salesmanCellPhone}}' src='img/ic_phone@2x.png' catch:tap='call' style='width:48rpx;height:48rpx;'></image>
     </view>
   </view>
-
-  <!-- <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column container-detail'>
-    <view wx:if='{{true || salesmanName}}' class='row center' style="width: 100%;">
-      <image src='./img/shopkeeper.png' class='icon'></image>
-      <view class='column regular' style="align-items: left;">
-        <text class='name'>访销员名称</text>
-        <text class='name-txt'>{{salesmanName}}</text>
-      </view>
-    </view>
-    <view class='line'></view>
-    <view wx:if='{{true || salesmanCellPhone}}' class='row center' style="width: 100%;">
-      <image src='./img/promotion_phone.png' class='icon'></image>
-      <view class='column regular' style="align-items: left;">
-        <text class='name'>访销员电话</text>
-        <text class='name-txt'>{{salesmanCellPhone}}</text>
-      </view>
-      <view class='center' style="justify-content: flex-end;flex-grow: 1;" catch:tap='call'>
-        <image src='./img/promotion_call.png' class='promtion-call'></image>
-        <text class='promotion-man regular'>联系访销员</text>
-      </view>
-    </view>
-  </view> -->
-  <view class='regular exit ' catch:tap='exitLogin' hover-class='btn-hover'>退出登录</view>
+  <view class='regular my-exit' catch:tap='exitLogin' hover-class='btn-hover'>退出登录</view>
 </view>

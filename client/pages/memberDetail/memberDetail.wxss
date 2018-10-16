@@ -1,5 +1,5 @@
 .my-container {
-  padding: 24rpx;
+  padding:24rpx;
   align-items: left;
   box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.05);
   border-radius: 8rpx;
@@ -140,12 +140,11 @@
   margin: 0 39rpx 0 10rpx;
 }
 
-.exit.regular {
-  width: auto;
-  margin: 72rpx auto 30rpx;
-  background: none;
+.my-exit {
+  margin: 72rpx auto;
   font-size: 32rpx;
   color: #eb6212;
+  text-align:center;
 }
 
 .dot {
