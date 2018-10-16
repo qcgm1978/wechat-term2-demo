@@ -177,8 +177,13 @@
 .product-name {
   font-size: 32rpx;
   color: #333;
+  margin-bottom: 10rpx;
 }
 
+.product-spec {
+  font-size: 28rpx;
+  color: #8b8b8b;
+}
 .product-source {
   margin: 5rpx 49rpx 0;
   font-size: 28rpx;

@@ -332,7 +332,7 @@ Page({
         locationId: getApp().globalData.merchant.locationId,
         items: [
           {
-            categoryCode: categoryId,
+            categoryCode: categoryId ? categoryId:"",
             itemId: itemId
           }
         ],

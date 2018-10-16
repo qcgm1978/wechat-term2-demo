@@ -395,7 +395,7 @@ Page({
       this.selectedRadio.push(trolley[index].groupId);
     }
     //调用计算接口
-
+    console.log(trolley[index])
     this.callPromotionCacl(trolley, index)
     .then((data) =>{
       trolley[index] = data

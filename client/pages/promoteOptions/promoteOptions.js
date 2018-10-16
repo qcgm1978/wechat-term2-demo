@@ -204,13 +204,14 @@ Page({
       merchantId: getApp().getMerchantId(),
       locationId: getApp().globalData.merchant.locationId,
       promotionId: promoteInfo.promotionId,
-      items: [
+      item: 
         {
           categoryCode: categoryId,
           itemId: itemId
-        }
-      ],
+        },
     }
+    console.log(JSON.stringify(tmpData))
+    console.log(selectGoods)
     utils.postRequest({
       url: selectGoods,
       data: {

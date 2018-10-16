@@ -26,6 +26,7 @@
       <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center' style="width: 144rpx;height: 144rpx;font-size:32rpx;">售罄</view>
     </view>
     <view class='product-name'>{{pitem.itemName}}</view>
+    <view class='product-spec'>{{pitem.itemSpecification}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
       <view class='product-price'>￥{{pitem.price}}

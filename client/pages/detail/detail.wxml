@@ -11,6 +11,7 @@
       <view class='padding medium bgc'>
         <view class='product-price'>￥{{product.price}}</view>
         <view class='product-name'>{{product.itemName}}</view>
+        <view class='product-spec'>规格：{{product.itemSpecification}}</view>
       </view>
 
       <view wx:if='{{hasPromotion}}' >

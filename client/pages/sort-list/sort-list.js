@@ -6,6 +6,7 @@ import {
 } from '../../utils/envConf.js'
 const getProductItem = Api.getProductItem;
 Page({
+  categoryId:"",
   data: {
     imgManjian: "../../images/manjian.png",
     imgManzeng: "../../images/manzeng.png",
@@ -15,7 +16,7 @@ Page({
   turnPage(e) {
     const itemId = e.currentTarget.dataset.itemid;
     wx.navigateTo({
-      url: `/pages/detail/detail?categoryId=${this.categoryId}&itemId=${itemId}`,
+      url: `/pages/detail/detail?categoryId=${this.categoryId ? this.categoryId:""}&itemId=${itemId}`,
       success: function(res) {},
       fail: function(res) {},
       complete: function(res) {},
@@ -30,7 +31,7 @@ Page({
     wx.setNavigationBarTitle({
       title: options.name,
     });
-    // this.categoryId=options.categoryId;
+    this.categoryId=options.categoryCd;
     // this.getCategories(options)
     this.getProduct(options);
 
@@ -42,6 +43,11 @@ Page({
     const locationId = getApp().globalData.merchant.locationId;
     // todo
     // const getProductItem = 'http://192.168.2.26:10092/v1/items?locationId=55&categoryCd=1401001';
+    // console.log(JSON.stringify({
+    //   locationId,
+    //   categoryCd,
+    //   itemIds: '',
+    // }))
     utils.getRequest(getProductItem, {
       locationId,
       categoryCd,
