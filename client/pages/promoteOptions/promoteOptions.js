@@ -128,8 +128,6 @@ Page({
 
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
-              console.log("calcPromote")
-              console.log(promoteResult)
               //满赠
               if (promoteResult.freeGift) {
                 this.setData({

@@ -1,3 +1,5 @@
+<wxs module="filters" src="../../utils/math.wxs"></wxs>
+
 <view wx:if='{{trolley.length}}' style="height: 100%;">
   <scroll-view scroll-y style="height:85%;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
     <!-- <view wx:for='{{trolley}}' wx:key='{{index}}'> -->
@@ -42,10 +44,10 @@
               </view>
             </view>
              <!-- && !item.isfree -->
-            <view class='promotion' style='font-size:24rpx; padding-bottom:0rpx; margin-bottom:0;' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '2'}}">
+            <view class='promotion' style='font-size:24rpx; padding-bottom:10rpx; margin-bottom:0;' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '2'}}">
               <text class='promotion-1' style='margin-left: 100rpx;'>满减</text>
               <text class='promotion-2'>{{trollyGroup.cartCombinationPromotions[0].promotionDescription}}</text>
-              <text class='promotion-3'>已省¥{{trollyGroup.cartCombinationPromotions[0].discountAmount}}</text>
+              <text class='promotion-3'>已省¥{{filters.toFix(trollyGroup.cartCombinationPromotions[0].discountAmount)}}</text>
             </view>
              <!-- && item.isfree -->
             <view class='promotion' style='font-size:24rpx; padding-bottom:0rpx;margin-bottom:0;' wx:elif="{{trollyGroup.cartCombinationPromotions[0].promotionType == '1'}}">
@@ -117,8 +119,9 @@
             <view style='display:flex; flex-direction:row; width:500rpx;'>
               <text class='promotion-2-bottom'>套装价</text>
               <text class='promotion-2-bottom' style='color:#EE711F; '>¥{{trollyGroup.suitePrice}}</text>
-              <text class='promotion-3' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '2'}}">已省¥{{trollyGroup.cartCombinationPromotions[0].discountAmount}}</text>
+              <text class='promotion-3' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '2'}}">已省¥{{filters.toFix(trollyGroup.cartCombinationPromotions[0].discountAmount)}}</text>
             </view>
+
 
 
             <view class='center' style='align-items:center; display:inline-block; width: 190rpx; display:flex; flex-direction:row; margin-left: 10rpx; margin-bottom: 20rpx;'>
@@ -185,7 +188,7 @@
             <text>合计:<text class='dollar trolley-num medium'>{{currentMoney}}</text></text>
             <view style='display: flex; flex-direction: row;' wx:if="{{totalDiscountMoney!=0}}">
               <view>总额</view>
-              <view>¥{{overallMoney}}</view>
+              <view>¥{{filters.toFix(overallMoney)}}</view>
               <view>已省</view>
               <view>¥{{totalDiscountMoney}}</view>
             </view>

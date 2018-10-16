@@ -27,7 +27,8 @@ Page({
     salesReturn: '拒收申请已完成，积分已退回您的账户，请查询',
     address: '',
     addressStore: '../transactionDetail/images/address.png',
-
+    discountTotalAmount: 0,
+    totalBeforePromotion: 0,
   },
   changedTxt: `很抱歉,订单中的商品信息发生变更,请确认商品信息后重新下单`,
   failTxt: `很抱歉，提交订单时遇到未知故障
@@ -65,7 +66,9 @@ Page({
       actual: utils.getFixedNum(options.total - credit,2),
       address: getApp().globalData.address,
       phone: app.getPhone(),
-      profileName: getApp().globalData.authWechat.authMerchantList[0].userName
+      profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
+      discountTotalAmount: options.totalDiscount,
+      totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2) 
     })
     if (getApp().globalData.items) {
       this.setData({

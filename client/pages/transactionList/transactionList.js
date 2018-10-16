@@ -327,7 +327,7 @@ Page({
       orderGroups[i].promotions = promotions
       para.addGroupList.push(orderGroups[i])
     }
-    console.log(para)
+
     utils
       .addToTrolleyByGroup(para)
       .then(badge => {

@@ -106,9 +106,7 @@ var postRequest = function({
       }
     }
     showLoading()
-    // console.log("postData")
-    // console.log(postData)
-    // console.log(data)
+
     wx.request({
       url: url,
       data: postData || data,
@@ -121,7 +119,6 @@ var postRequest = function({
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
-          console.log(res)
           reject(res.statusCode);
         } else {
           resolve(res.data);
@@ -308,7 +305,6 @@ const addToTrolleyByGroup = (groupList, quantity = 1,enableChecked = true, updat
       merchantId,
       locationId
     }
-  console.log(Api.addTrolley)
   return new Promise((resolve, reject) => {
     postRequest({
       url: Api.addTrolley,
@@ -369,6 +365,7 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true, updateAddTime 
         }
       })
       .then(() => {
+        console.log("updateTrolleyNum")
         updateTrolleyNum({
           merchantId,
           quantity,

@@ -49,7 +49,7 @@ Page({
       }, []);
       getApp().globalData.items.orderItemSource = 1;
       wx.navigateTo({
-        url: `../order-confirm/order-confirm?total=${this.data.currentMoney}`,
+        url: `../order-confirm/order-confirm?total=${this.data.currentMoney}&totalDiscount=${this.data.totalDiscountMoney}`,
       });
     }
 
@@ -188,16 +188,16 @@ Page({
           item.itemId = trollyList[i].items[j].itemId
           item.brandId = ""
           item.categoryCode = trollyList[i].items[j].itemCategoryCode
-          if (trollyList[i].combinationFlag){
-            item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
-          }else{
-            item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
-          }
-          
+          // if (trollyList[i].combinationFlag){
+          //   item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
+          // }else{
+          //   item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
+          // }
+          item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
           item.unitPrice = trollyList[i].items[j].price
           groupItems.push(item)
         }
-      console.log(groupItems)
+
         group.groupId = trollyList[i].groupId
         group.items = groupItems
         if (trollyList[i].combinationFlag){
@@ -230,7 +230,7 @@ Page({
       })
       .then((data) => {
         let result = data.result
-        console.log(result)
+
         for(let i = 0; i<result.length; i++){
           result[i].items = result[i].items.map((item, index) => {
             if (/*item.putShelvesFlg &&*/ (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
@@ -399,7 +399,6 @@ Page({
     this.callPromotionCacl(trolley, index)
     .then((data) =>{
       trolley[index] = data
-      console.log(data)
       var singleGroup = 'trolley[' + index + ']'
       this.setData({
         [singleGroup]: trolley[index]

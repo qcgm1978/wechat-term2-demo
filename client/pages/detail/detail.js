@@ -20,17 +20,8 @@ Page({
     isSelecting: false,
     hasPromotion: false,
     unionPromotion: false,
-    promoteInfo:{
-      // promotionType: promoteType["1"],
-      // combinationFlag: "0",
-      // mainQuantity: 1,
-      // promotionDescription: "2箱七喜1箱中普啤酒送1桶惠百真油",
-      // promotionName: "test刘双立",
-      // endTime: "Thu Oct 31 00:00:00 CST 2019",
-      // startTime:"Wed Sep 26 00:00:00 CST 2018",
-      // promotionId:"15812"
-    },
-
+    promoteInfo:{},
+    promoteInfoList: [],
     autoplay: true,
     interval: 3000,
     duration: 1000,
@@ -50,19 +41,21 @@ Page({
   relatedChange(e){
     //debugger;
   },
-  showPromotion() {
-    if (this.data.promoteInfo.combinationFlag !== "1" || !this.data.product.putShelvesFlg) return
+  showPromotion(e) {
+    const index = e.currentTarget.dataset.index
+
+    if (this.data.promoteInfoList[index].combinationFlag !== "1" || !this.data.product.putShelvesFlg) return
     let tmpProduct = {}
     tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
     tmpProduct.itemName = this.data.product.itemName
     tmpProduct.itemSpecification = this.data.product.itemSpecification
-    tmpProduct.quantity = this.data.promoteInfo.mainQuantity
+    tmpProduct.quantity = this.data.promoteInfoList[index].mainQuantity
     tmpProduct.price = this.data.product.price
     tmpProduct.itemId = this.data.product.itemId
     tmpProduct.categoryId = this.data.product.itemCategoryCode
 
     wx.navigateTo({
-      url: '/pages/promoteOptions/promoteOptions?promoteInfo=' + JSON.stringify(this.data.promoteInfo) + "&product=" + JSON.stringify(tmpProduct),
+      url: '/pages/promoteOptions/promoteOptions?promoteInfo=' + JSON.stringify(this.data.promoteInfoList[index]) + "&product=" + JSON.stringify(tmpProduct),
     })
   },
   plusMinus(e) {
@@ -123,9 +116,9 @@ Page({
       addGroupList: [{
         count: this.data.quantity,
         addItemList: arr,
-        promotions: [{
-          promotionId: this.data.promoteInfo.promotionId
-        }]
+        // promotions: [{
+        //   promotionId: this.data.promoteInfo.promotionId
+        // }]
       }]
     }
 
@@ -133,7 +126,7 @@ Page({
       .addToTrolleyByGroup(para)
       .then(badge => {
         this.setData({
-          badge,
+          badge: badge + 1,
           icon: '../../images/trolley-missing.png'
         })
       })
@@ -262,7 +255,7 @@ Page({
     this.getProduct(options)
     .then(data=>{
       this.setData({
-        top: getApp().globalData.systemInfo.windowHeight-750
+        top: 300 //getApp().globalData.systemInfo.windowHeight-750
       })
       this.getPromoteInfo(options)
     });
@@ -347,8 +340,10 @@ Page({
     })
       .then((data) => {
         if (data.result[0].promotionItems.length > 0){
+
           this.setData({
-            promoteInfo: data.result[0].promotionItems[0],
+            //promoteInfo: data.result[0].promotionItems[0],
+            promoteInfoList: data.result[0].promotionItems,
             hasPromotion: true
           })
           if (data.result[0].promotionItems[0].combinationFlag == "0"){
