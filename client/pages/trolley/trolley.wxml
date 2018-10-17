@@ -7,7 +7,7 @@
       <view wx:if="{{trollyGroup.combinationFlag == '0'}}">
 
         <view wx:for='{{trollyGroup.items}}' >
-          <view style='display: flex; flex-direction: column; m' >
+          <view style='display: flex; flex-direction: column; ' >
             <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
               <view class='column' style='margin-top:auto;position:relative;'>
                 <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}'  value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && !item.isfree}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
@@ -20,7 +20,7 @@
                 </image>
                 <view wx:if='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
               </view>
-              <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
+              <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <view style='display:flex;'>
                   <text class='promotion-1' style='display:inline-block; margin-left:0;' wx:if='{{item.isfree}}'>赠品</text>
                   <text class='trolley-name {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>

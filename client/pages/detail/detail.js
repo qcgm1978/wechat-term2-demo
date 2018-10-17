@@ -256,7 +256,7 @@ Page({
     this.getProduct(options)
     .then(data=>{
       this.setData({
-        top: 300 //getApp().globalData.systemInfo.windowHeight-750
+        top: getApp().globalData.systemInfo.deviceWindowHeight-750
       })
       this.getPromoteInfo(options)
     });
@@ -337,8 +337,9 @@ Page({
       }
     })
       .then((data) => {
-        if (data.result[0].promotionItems.length > 0){
 
+        if (data.result[0].promotionItems.length > 0){
+          
           this.setData({
             //promoteInfo: data.result[0].promotionItems[0],
             promoteInfoList: data.result[0].promotionItems,

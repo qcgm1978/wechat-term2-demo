@@ -172,47 +172,44 @@ Page({
   },
   turnPage(e) {
     const itemId = e.currentTarget.dataset.itemid;
+    const itemCategoryCode = e.currentTarget.dataset.categorycode;
     wx.navigateTo({
-      url: `/pages/detail/detail?itemId=${itemId}`,
+      url: `/pages/detail/detail?itemId=${itemId}&categoryId=${itemCategoryCode}`,
     })
   },
 
   callPromotionCacl(trollyList, i) {
     return new Promise((resolve, reject) => {
       let promises = []
-      // for (let i = index; i < trollyList.length; i++){
-        let itemGroups = []
-        let group = {}
-        
-        let groupItems = []
-        for (let j = 0; j < trollyList[i].items.length; j++){
-          let item = {}
-          item.itemId = trollyList[i].items[j].itemId
-          item.brandId = ""
-          item.categoryCode = trollyList[i].items[j].itemCategoryCode
-          // if (trollyList[i].combinationFlag){
-          //   item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
-          // }else{
-          //   item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
-          // }
-          item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
-          item.unitPrice = trollyList[i].items[j].price
-          groupItems.push(item)
-        }
+      let itemGroups = []
+      let group = {}
+      
+      let groupItems = []
+      for (let j = 0; j < trollyList[i].items.length; j++){
+        let item = {}
+        item.itemId = trollyList[i].items[j].itemId
+        item.brandId = ""
+        item.categoryCode = trollyList[i].items[j].itemCategoryCode
+        item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
+        item.unitPrice = trollyList[i].items[j].price
+        groupItems.push(item)
+      }
 
-        group.groupId = trollyList[i].groupId
-        group.items = groupItems
-        if (trollyList[i].combinationFlag){
-          group.promotions = trollyList[i].promotions
-        }else{
-          group.promotions = trollyList[i].cartCombinationPromotions
-        }
-        itemGroups.push(group)
-        promises.push(promoteUtil.calcPromote({itemGroups}))
-      // }
+      group.groupId = trollyList[i].groupId
+      group.items = groupItems
+      if (trollyList[i].combinationFlag){
+        group.promotions = trollyList[i].promotions
+      }else{
+        group.promotions = trollyList[i].cartCombinationPromotions
+      }
+      itemGroups.push(group)
+      promises.push(promoteUtil.calcPromote({itemGroups}))
+
       Promise.all(promises)
       .then(arr => {
-        trollyList[i].cartCombinationPromotions = arr
+        if (arr[0]){
+          trollyList[i].cartCombinationPromotions = arr
+        }
         resolve(trollyList[i])
       })
       .catch(()=>{
@@ -222,6 +219,16 @@ Page({
   },
 
   getTrolley() {
+
+    let temdata = {
+      merchantId: app.getMerchantId(),
+      locationId: getApp().globalData.merchant.locationId,
+      start: this.start,
+      limit: this.limit
+    }
+
+    console.log(temdata)
+
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -232,7 +239,7 @@ Page({
       })
       .then((data) => {
         let result = data.result
-
+        console.log(result)
         for(let i = 0; i<result.length; i++){
           result[i].items = result[i].items.map((item, index) => {
             if (/*item.putShelvesFlg &&*/ (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
@@ -410,7 +417,7 @@ Page({
       this.setMoneyData(this.selectedRadio);
     })
 
-    console.log(trolley[index])
+    // console.log(trolley[index])
 
     for (let i = 0; i < trolley[index].items.length; i++){
       trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode

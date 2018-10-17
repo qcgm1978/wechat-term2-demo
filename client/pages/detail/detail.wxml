@@ -120,7 +120,7 @@
       </view>
       <view class='padding subtotal ' style='padding-top:0;'>小计 :{{quantity}}件 ¥{{currentMoney}}</view>
     </view>
-    <view wx:if='{{promotion}}' class='select-goods bgc padding center' style='top:{{top-750}}rpx; justify-content:space-between;'>
+    <view wx:if='{{promotion}}' class='select-goods bgc padding center' style='top:{{top}}rpx; justify-content:space-between;'>
       <view class='promotion-list regular'>
         <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' style="height: 80rpx;">
           <text class='promotion-type'>{{item.type}}</text>
