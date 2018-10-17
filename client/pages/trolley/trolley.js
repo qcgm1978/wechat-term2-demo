@@ -29,7 +29,7 @@ Page({
   limit: 20,
   scrollDataLoading: false,
   enablePullDownRefresh: false,
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -129,7 +129,9 @@ Page({
     let currentMoney = utils.getFixedNum(Number(overallMoney) - Number(totalDiscountMoney), 2);
     let remaining = 500 - currentMoney;
     const disableBuy = remaining > 0;
+
     remaining = utils.getFixedNum(remaining,2)
+
     this.setData({
       currentMoney,
       disableBuy,
@@ -254,7 +256,7 @@ Page({
         this.setData({
           trolley,
           hasOrders: trolley.length,
-          checkAll: this.selectedRadio.length === trolley.length,
+          checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg).length,
         });
         this.setMoneyData(this.selectedRadio);
 
@@ -289,8 +291,8 @@ Page({
       })
     })
   },
-  promptDel(e){
-    utils.showModel('您确定删除商品吗？').then(data=>{
+  promptDel(e) {
+    utils.showModal('您确定删除商品吗？').then(data => {
       this.del(e)
     })
   },
@@ -303,6 +305,7 @@ Page({
         ]
     }
     utils.postRequest({
+
         METHOD: 'DELETE',
         url: Api.removeCart,
         config: {
@@ -338,8 +341,8 @@ Page({
             resolve,
             merchantId: getApp().getMerchantId()
           })
-        })
       })
+    })
       .then(data => {
         // debugger;
       })
@@ -387,6 +390,7 @@ Page({
       }
       return item;
     })
+
     if (currentTrolley.checked) {
       trolley[index].count = num
     } else {
@@ -394,8 +398,8 @@ Page({
       trolley[index].count = num
       this.selectedRadio.push(trolley[index].groupId);
     }
+
     //调用计算接口
-    console.log(trolley[index])
     this.callPromotionCacl(trolley, index)
     .then((data) =>{
       trolley[index] = data
@@ -406,63 +410,79 @@ Page({
       this.setMoneyData(this.selectedRadio);
     })
 
+    console.log(trolley[index])
+
+    for (let i = 0; i < trolley[index].items.length; i++){
+      trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
+    }
+
+    let para = {
+      addGroupList: [{
+        count: isMinus ? -1 : 1,
+        addItemList: trolley[index].items,
+      }]
+    }
+
+    utils
+      .addToTrolleyByGroup(para)
+      .then(badge => {
+        utils.updateTrolleyNum();
+      })
   },
-  onReady: function() {
+  onReady: function () {
 
   },
-  onShow: function() {
+  onShow: function () {
     this.start = 0;
-    if (getApp().globalData.toggleMerchant){
-      this.selectedRadio=[];
-      getApp().globalData.toggleMerchant=false;
+    if (getApp().globalData.toggleMerchant) {
+      this.selectedRadio = [];
+      getApp().globalData.toggleMerchant = false;
     }
-    getApp().globalData.checkedTrolley.map(item=>{
-      if (!this.selectedRadio.includes(item)){
+    getApp().globalData.checkedTrolley.map(item => {
+      if (!this.selectedRadio.includes(item)) {
         this.selectedRadio.push(item)
       }
     });
     this.getTrolley()
-    .then(data => {
-      this.setData({
-        dataLoaded: true
+      .then(data => {
+        this.setData({
+          dataLoaded: true
+        })
       })
-    })
-    .catch(e => {
-      this.setData({
-        dataLoaded: true
+      .catch(e => {
+        this.setData({
+          dataLoaded: true
+        })
       })
-    })
     utils.updateTrolleyNum();
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
 
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  onHide() {
+    utils.requestStatisUnload();
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

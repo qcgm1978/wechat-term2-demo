@@ -3,7 +3,6 @@ var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessTok
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 var utils = require("../../utils/util.js");
 const getOrder = URLs.getOrder
-
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
 const HTTP_SUCCSESS = ERROR_CODE.HTTP_SUCCSESS
@@ -25,7 +24,7 @@ Page({
     payStyle: globalData.payStyle,
     order: {},
     salesReturn: '拒收申请已完成',
-    usePointsStr:'，积分已退回您的账户，请查询',
+    usePointsStr: '，积分已退回您的账户，请查询',
     defImg: globalData.defaultImg,
     src: './images/pic.png',
     standard: '500ML*12',
@@ -60,6 +59,7 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
+
   addGotoTrolley: function(e) {
 
     let orderGroups = [];
@@ -92,6 +92,7 @@ Page({
           url: `/pages/trolley/trolley`,
         })
       });
+
   },
   copy() {
     wx.setClipboardData({
@@ -146,8 +147,8 @@ Page({
                   this.requestTransDetail.tokenRefreshed = true
                   return this.requestTransDetail()
                 })
-                .then(() => {})
-                .catch(() => {})
+                .then(() => { })
+                .catch(() => { })
             } else {
               getApp().globalData.userInfo.registerStatus = false
               wx.reLaunch({
@@ -166,7 +167,7 @@ Page({
       });
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -198,7 +199,7 @@ Page({
     const isReturn = (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
     if (isReturn) {
       wx.setNavigationBarTitle({
-        title: '退货详情'
+        title: '拒收详情'
       });
       this.setData({
         isReturn,
@@ -209,11 +210,14 @@ Page({
       orderCode: isReturn ? this.data.order.orderReturn.returnOrderId : this.data.order.orderId,
     })
   },
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-    utils.checkNetwork()
+  onShow: function (options) {
+    utils.checkNetwork().then(utils.requestStatisLoad);
+  },
+  onHide() {
+    utils.requestStatisUnload();
+  },
+  onUnload() {
+    utils.requestStatisUnload();
   },
 
   letMeThink: function () {

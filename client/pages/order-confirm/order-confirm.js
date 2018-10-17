@@ -9,11 +9,15 @@ Page({
   data: {
     data: {},
     points: 0,
-    usedPoints:0,
-    height: getApp().globalData.systemInfo.deviceWindowHeight,
-    top:'100%',
+
+    pointBalance: 0,
+    usedPoints: 0,
+    heightGoods: 212 * 2, //height-8-74*2-211*2-53*2
+    height: '100%',
+    top: '100%',
     credit: 0,
     actual: 0,
+    expandAll: false,
     isVisible: true,
     isReturn: false,
     isFailed: false,
@@ -29,6 +33,7 @@ Page({
     addressStore: '../transactionDetail/images/address.png',
     discountTotalAmount: 0,
     totalBeforePromotion: 0,
+    totalItemNumber:0
   },
   changedTxt: `很抱歉,订单中的商品信息发生变更,请确认商品信息后重新下单`,
   failTxt: `很抱歉，提交订单时遇到未知故障
@@ -42,9 +47,43 @@ Page({
         url: '/pages/login/login',
       })
     }
-    let points = getApp().globalData.merchant.pointBalance;
-    points = points / 100 > options.total ? (options.total*100):points;
-    if (points == 0){
+    utils.getMerchant().then(data => {
+      const points = data.result.availablePoint;
+      this.updateData({
+        options,
+        points,
+        pointBalance: data.result.pointBalance,
+      });
+    });
+    if (getApp().globalData.items) {
+      let tempData = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items]
+      let count = 0
+
+      for (let i = 0; i < tempData.length; i++){
+          count += tempData[i].items.length
+      }
+      this.setData({
+        data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
+        totalItemNumber: count
+      })
+
+    } else {
+      this.getProduct(options);
+    }
+  },
+  toggleGoods() {
+    this.setData({
+      expandAll: !this.data.expandAll
+    })
+  },
+  updateData({
+    options,
+    points,
+    pointBalance
+  }) {
+    // let points = getApp().globalData.merchant.pointBalance;
+    points = points / 100 > options.total ? (options.total * 100) : points;
+    if (points == 0) {
       this.selectComponent("#checkbox-ios").setData({
         checked: false
       })
@@ -52,38 +91,35 @@ Page({
         isVisible: false
       })
     }
-    const credit = this.data.isVisible ? points / 100 : 0;
+    const credit = this.data.isVisible ? utils.getFixedNum(points / 100,2) : 0;
     const windowHeight = wx.getSystemInfoSync().windowHeight;
+    points = utils.getFixedNum(points);
     this.setData({
+
       height: getApp().globalData.systemInfo.deviceWindowHeight,
       top: getApp().globalData.systemInfo.deviceWindowHeight,
+
       storeName: getApp().globalData.merchant.merchantStoreName,
-      max: getApp().globalData.merchant.pointBalance,
+      pointBalance,
       points,
-      usedPoints:points,
+      maxDeduction: credit,
+      usedPoints: points,
       credit,
-      total: utils.getFixedNum(options.total,2),
-      actual: utils.getFixedNum(options.total - credit,2),
+      total: utils.getFixedNum(options.total, 2),
+      actual: utils.getFixedNum(options.total - credit, 2),
       address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
       discountTotalAmount: options.totalDiscount,
       totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2) 
     })
-    if (getApp().globalData.items) {
-      this.setData({
-        data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
-      })
-    } else {
-      this.getProduct(options);
-    }
   },
   onChangeChecked(myEventDetail, myEventOption) {
     const isVisible = myEventDetail.detail.checked;
     this.setData({
       isVisible,
       credit: isVisible ? this.data.credit / 100 : 0,
-      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.credit / 100 : 0),2)
+      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.credit / 100 : 0), 2)
     })
   },
   textareaConfirm(e) {
@@ -95,17 +131,17 @@ Page({
     const points = Number(this.data.points);
     if (points >= e.detail.value) {
       this.setData({
-        credit: utils.getFixedNum(e.detail.value / 100,2) ,
+        credit: utils.getFixedNum(e.detail.value / 100, 2),
         actual: utils.getFixedNum(this.data.total - e.detail.value / 100, 2)
       });
     } else {
       this.setData({
-        credit: utils.getFixedNum(points / 100, 2 ),
+        credit: utils.getFixedNum(points / 100, 2),
         actual: utils.getFixedNum(this.data.total - points / 100, 2)
       });
     }
     this.setData({
-      usedPoints: parseInt(this.data.credit * 100)
+      usedPoints: utils.getFixedNum(this.data.credit * 100)
     })
 
   },
@@ -114,7 +150,7 @@ Page({
     categoryCd,
     quantity
   }) {
-    const locationId = getApp().globalData.merchant.locationId;
+    const locationId = getApp().getLocationId();
     utils.getRequest(getProductItem, {
       locationId,
       categoryCd: '',
@@ -129,8 +165,11 @@ Page({
         }, []);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg);
         result.quantity = quantity;
+        let dataWrapper = [result];
+        // todo create array with multi ele
+        // dataWrapper=new Array(10).fill(result)
         this.setData({
-          data: [result]
+          data: dataWrapper
         })
       } else {
         if (data instanceof Array) {
@@ -156,8 +195,8 @@ Page({
         receiverCellPhone = app.getPhone(),
         receiverAddress = getApp().globalData.address,
         orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
-      const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
 
+      const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
       let sumDiscount = 0
       for (let i = 0; i < orderItems.length; i++){
         orderItems[i].discountAmount = "0"
@@ -189,7 +228,7 @@ Page({
           }
         }
       }
-
+      console.log(JSON.stringify(orderItems))
       utils.postRequest({
         url: createOrder,
         data: {
@@ -215,7 +254,7 @@ Page({
         wx.hideLoading()
         if (data.status === 200) {
           const trolley = getCurrentPages().slice(-2, -1)[0];
-          if (trolley && trolley.route.includes('trolley/trolley')){
+          if (trolley && trolley.route.includes('trolley/trolley')) {
             trolley.selectedRadio = [];
           }
           wx.redirectTo({
@@ -250,7 +289,7 @@ Page({
     this.setData({
       isFailed: false
     });
-    if (this.changedTxt===this.data.prompt){
+    if (this.changedTxt === this.data.prompt) {
       wx.navigateBack({
         delta: 1
       });
@@ -259,26 +298,19 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
-  },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function(options) {},
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  onShow: function(options) {
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
+  onHide() {
+    utils.requestStatisUnload();
+  },
+  onUnload(){
+    utils.requestStatisUnload();
   },
 
   /**

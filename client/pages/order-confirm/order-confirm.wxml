@@ -21,11 +21,18 @@
   <view class='color-bg bgc'></view>
   <view class='bgc goods-container'>
     <view class='scroll-container' scroll-top="{{scrollTop}}">
-
       <view>
-        <scroll-view scroll-y="true" style='height: {{ (height-8-74*2-211*2-53*2+"rpx")}};'>
-          <view class='item-container' wx:for="{{data}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" itemId='{{orderGroup.groupId}}' locationId='{{item.locationId}}'>
-            <view wx:for="{{orderGroup.items}}" wx:key='{{itemIndex}}' itemId='{{item.itemId}}'>
+        <view style='height: {{ expandAll?"auto":(heightGoods+"rpx")}}; overflow:{{expandAll?"auto":"hidden"}};'>
+          <view class='item-container' style='margin-top:10rpx' wx:for="{{data}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" itemId='{{orderGroup.groupId}}' locationId='{{item.locationId}}'>
+            <view style='display:flex; justify-content: space-between; background-color: white; margin-top: 0rpx; align-items:center;' wx:if="{{orderGroup.combinationFlag}}">
+              <view style=''>
+                <view class='suite-1' style='height:34rpx;'>套装</view>
+                <view class='dollar suite-2' style='height:34rpx;'>{{orderGroup.suitePrice}}</view>
+              </view>
+              <view class='suite-3'>x{{orderGroup.count}}</view>
+            </view>
+            
+            <block wx:for="{{orderGroup.items}}" wx:key='{{itemIndex}}' itemId='{{item.itemId}}'>
               <view class='item-container-fg'>
                 <view class='order-content'>
                   <view class='center' style='width:100%;'>
@@ -41,9 +48,8 @@
                   </view>
                 </view>
               </view>
-            </view>
-            
-            <!-- 赠品 -->
+            </block>
+
             <view class='item-container-fg'  wx:if='{{orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].giftItems && orderGroup.cartCombinationPromotions[0].giftItems.length>0}}'>
               <view wx:for="{{orderGroup.cartCombinationPromotions[0].giftItems}}" wx:key='{{giftIndex}}' wx:for-item="gift">
                 <view class='order-content'>
@@ -61,14 +67,16 @@
                   </view>
                 </view>
               </view>
-              
             </view>
 
 
-            <view style='background-color: white; height: 10rpx;'>
-            </view>
           </view>
-        </scroll-view>
+        </view>
+
+        <view wx:if='{{totalItemNumber>2}}' catch:tap='toggleGoods' class='regular center' style='font-size: 24rpx;color: #999999;padding:20rpx 0; align-items:center;justify-content:center;'>
+          {{expandAll?'收起全部商品信息':'展开全部商品信息'}}
+          <image src="{{expandAll?'img/up.png':'img/down.png'}}" style='width:32rpx;height:32rpx;'></image>
+        </view>
       </view>
     </view>
   </view>
@@ -91,9 +99,10 @@
     </view>
     <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
       <text class='regular order-field '>积分抵扣</text>
-      <text class='medium' style='transform:translate(-20rpx,0);'>本单可用{{points}}积分，抵￥{{points/100}}</text>
+      <text wx:if='{{points}}' class='medium' style='width:60%;'>共有{{pointBalance}}积分，本单可用{{points}}积分，抵￥{{maxDeduction}}</text>
+      <text wx:else>共有{{pointBalance}}积分，未达到20000积分不可用</text>
       <view>
-        <checkbox-ios id='checkbox-ios' bindchangechecked="onChangeChecked">
+        <checkbox-ios id='checkbox-ios' bindchangechecked="onChangeChecked" enable-tap='{{pointBalance}}'>
           <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
           <!-- <view>这里是插入到组件slot中的内容</view> -->
         </checkbox-ios>
@@ -102,7 +111,7 @@
     <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;justify-content:flex-start;'>
       <text class='regular order-field '>使用积分</text>
       <view style="margin-left: 30rpx;">
-        <input type="number" max='{{max}}' value='{{usedPoints}}' class='input' bindinput='bindinput' />
+        <input type="number" value='{{usedPoints}}' class='input' bindinput='bindinput' />
       </view>
       <text class='medium' style="color: #EE711F;margin-left: 15rpx;">抵扣￥{{credit}}</text>
     </view>

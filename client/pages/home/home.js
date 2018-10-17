@@ -1,5 +1,3 @@
-// import utils from "../../utils/util.js";
-// const io = require('/socket.io/socket.io.js')
 const getUserInfo = require('./getUserInfo').default;
 import {
   Api
@@ -8,7 +6,10 @@ import {
   getRequest,
   addToTrolleyByGroup,
   getMerchant,
-  errorHander
+  errorHander,
+  updateTrolleyNum,
+  requestStatisLoad,
+  requestStatisUnload
 } from '../../utils/util.js';
 const getProductList = Api.getProductList,
   getBanners = Api.getBanners,
@@ -23,13 +24,13 @@ Page({
     stores: [],
     productList: [], // 商品列表
     imgUrls: [{
-        "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home1.jpeg",
-        "pageUrl": ""
-      },
-      {
-        "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home2.jpeg",
-        "pageUrl": ""
-      },
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home1.jpeg",
+      "pageUrl": ""
+    },
+    {
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home2.jpeg",
+      "pageUrl": ""
+    },
     ],
     defImg: getApp().globalData.defaultImg,
     imgManjian: "img/manjian.png",
@@ -51,7 +52,6 @@ Page({
     getMerchant()
       .then(data => {
         const merchant = data.result;
-        getApp().globalData.merchant = merchant;
         for (let i = 0; i < getApp().globalData.authMerchantList.length; i++) {
           if (getApp().globalData.authMerchantList[i].merchantId == merchant.nsMerchantId) {
             this.setData({
@@ -59,7 +59,7 @@ Page({
             })
           }
         }
-        getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
+
         return (merchant.locationId);
       })
       .then(locationId => {
@@ -70,12 +70,7 @@ Page({
         })
         this.getProductList(locationId)
       })
-      .then(() => {
-        return getRequest(Api.getCartCount, {
-          merchantId: app.getMerchantId(),
-          locationId: getApp().globalData.merchant.locationId,
-        })
-      })
+      .then(updateTrolleyNum)
       .then(data => {
         if (data.status === 200) {
           const count = data.result.count;
@@ -134,12 +129,10 @@ Page({
           });
           reject(result.status)
         }
-      }).catch(err => {
-        wx.showToast({
-          icon: 'none',
-          title: '商品数据加载错误',
+      }).catch(errorCode => {
+        errorHander(errorCode, () => {
+          this.getProductList(locationId);
         });
-        reject(err)
       });
     });
   },
@@ -179,34 +172,32 @@ Page({
       if (getApp().globalData.authMerchantList[i].merchantId == merchant.nsMerchantId) {
         this.setData({
           index: i
-        })
+        });
+        getApp().globalData.currentIndex = i;
       }
     }
     getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
     return merchant.locationId;
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.getBanners()
-      .then(data => {})
-      .catch(err => {});
-    
+      .then(data => { })
+      .catch(err => { });
+
     const merchant = getApp().globalData.merchant;
-    const hasLocationId = merchant ? Promise.resolve(merchant) : getMerchant();
+    const hasLocationId = merchant ? Promise.resolve({ result: merchant }) : getMerchant();
     hasLocationId
       .then(data => {
         if (data.result) {
           const merchant = data.result;
           getApp().globalData.merchant = merchant;
-        } 
+        }
         return getApp().globalData.merchant;
       })
       .then(this.setStores)
       .then(this.getProductList)
       .then(() => {
-        return getRequest(Api.getCartCount, {
-          merchantId: app.getMerchantId(),
-          locationId: getApp().globalData.merchant.locationId,
-        })
+        return updateTrolleyNum()
       })
       .then(data => {
         if (data.status === 200) {
@@ -226,6 +217,7 @@ Page({
         wx.hideLoading();
       })
       .catch(err => {
+        console.log(err)
         wx.hideLoading();
         wx.showModal({
           title: '提示',
@@ -246,14 +238,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     if (!getApp().globalData.registerStatus) {
       setTimeout(() => {
         wx.reLaunch({
@@ -262,16 +254,17 @@ Page({
         return
       }, 1000)
     }
-    getApp().setBadge()
+    getApp().setBadge();
+    requestStatisLoad();
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
-
+  onHide: function () {
+    requestStatisUnload()
   },
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
     if (this.enableRequest) {
       this.enableRequest = false;
       this.start = 0;
@@ -289,7 +282,7 @@ Page({
         });
     }
   },
-  onReachBottom: function() {
+  onReachBottom: function () {
     if (this.enableRequest) {
       this.enableRequest = false;
       this.start += this.limit;
@@ -304,26 +297,26 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
-  bannerClick: function(e) {
+  bannerClick: function (e) {
     if (e.target.dataset.postid) {
       wx.navigateTo({
         url: '../webView/webView?targetUrl=' + e.target.dataset.postid
       })
     }
   },
-  getBanners: function() {
+  getBanners: function () {
     return new Promise((resolve, reject) => {
       getRequest(getBanners, {
-          category: "merchant_home"
-        }).then(data => {
-          this.setData({
-            imgUrls: data.result
-          })
-          resolve()
+        category: "merchant_home"
+      }).then(data => {
+        this.setData({
+          imgUrls: data.result
         })
+        resolve()
+      })
         .catch(errorCode => {
           reject()
         });

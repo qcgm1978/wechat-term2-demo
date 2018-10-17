@@ -186,7 +186,6 @@ Page({
     if (getApp().globalData.registerStatus && getApp().globalData.authWechat && !getApp().globalData.authWechat.potentialUser) {
       utils.getMerchant()
         .then(data => {
-          //debugger;
           if (data){
             const merchant = data.result;
             getApp().globalData.merchant = merchant;
@@ -197,6 +196,10 @@ Page({
 
         })
         .then(this.gotoHome)
+        .catch(err=>{
+          debugger;
+          console.log(err)
+        })
     } else {
       // appUtil.getJsCode()
     }
@@ -318,5 +321,10 @@ Page({
   },
   onShow: function() {
     appUtil.getJsCode()
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
+  
+  onUnload() {
+    utils.requestStatisUnload();
+  }
 })

@@ -19,7 +19,7 @@
     </view>
     <view class='flow-line'></view>
     <view class='column'>
-      <image src='./img/ic-home-normal-jihuibao buyer.png'></image>
+      <image src='./img/ic-home-normal-jihuibao.png'></image>
       <text>成为积惠宝正式买家</text>
     </view>
     <view class='flow-line'></view>

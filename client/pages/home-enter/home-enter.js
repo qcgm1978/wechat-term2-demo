@@ -2,7 +2,10 @@ import {
   Api
 } from '../../utils/envConf.js';
 import {
-  getRequest
+  getRequest,
+  requestStatisLoad,
+  requestStatisUnload,
+  checkNetwork
 } from '../../utils/util.js';
 const getBanners = Api.getBanners;
 
@@ -140,21 +143,19 @@ Page({
         return
       }, 1000)
     }
+    checkNetwork().then(requestStatisLoad);
   },
-
+  onUnload() {
+    requestStatisUnload();
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-
+    requestStatisUnload();
   },
 
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
+  
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作

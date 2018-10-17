@@ -54,12 +54,11 @@ image {
 }
 
 .category-first {
-  width: 188rpx;
-  height: 44rpx;
+  /* height: 44rpx; */
   font-size: 28rpx;
   color: #666;
   letter-spacing: 0;
-  /* margin: 22rpx 0; */
+  text-align:center;
 }
 
 .category-first.current {

@@ -1,19 +1,59 @@
-/* page {
-  background: rgb(235, 235, 235);
-} */
+.my-container {
+  padding:24rpx;
+  align-items: left;
+  box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.05);
+  border-radius: 8rpx;
+  margin: 16rpx;
+}
+
+.my-item-name {
+  font-size: 28rpx;
+  color: #333;
+}
+
+.my-item-val {
+  margin-left: 24rpx;
+  font-size: 28rpx;
+  color: #707070;
+}
+
+.my-category-container {
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.my-category-name {
+  font-size: 32rpx;
+  color: #333;
+}
+
+.my-category-val {
+  font-size: 24rpx;
+  color: #999;
+}
 
 .tab {
   width: 100%;
   font-size: 30rpx;
-  height: 175rpx;
+  /* height: 175rpx; */
   background-color: rgb(255, 255, 255);
-  line-height: 80rpx;
+  /* line-height: 80rpx; */
   justify-content: space-around;
-  margin-top: 30rpx;
 }
 
-.tab view {
+.tab > view {
   justify-content: center;
+  width: 25%;
+}
+
+.member-icon {
+  background: #ee711f;
+  font-size: 22rpx;
+  color: #fff;
+  width: 28rpx;
+  height: 28rpx;
+  
 }
 
 .tab image {
@@ -23,8 +63,9 @@
 
 .tab text {
   line-height: 100%;
-  margin-top: 20rpx;
+  margin-top: 18rpx;
   color: rgb(119, 119, 119);
+  font-size: 26rpx;
 }
 
 .promotion-container {
@@ -33,11 +74,9 @@
 
 .container-detail {
   background-color: #fff;
-  margin: 0 auto 190rpx;
+  /* margin: 0 auto 190rpx; */
   padding-left: 39rpx;
 }
-
-
 
 .profile {
   width: 200rpx;
@@ -88,6 +127,24 @@
   width: 82rpx;
   height: 2rpx;
   background: rgb(51, 51, 51);
+}
+
+.promtion-call {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.promotion-man {
+  font-size: 30rpx;
+  color: rgb(237, 112, 37);
+  margin: 0 39rpx 0 10rpx;
+}
+
+.my-exit {
+  margin: 72rpx auto;
+  font-size: 32rpx;
+  color: #eb6212;
+  text-align:center;
 }
 
 .dot {

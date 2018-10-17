@@ -14,7 +14,7 @@ var clientSecret = ""
 switch (env) {
   case EVN.DEV:
     clientSecret = "OzoStRYlQVA85pjp"
-    baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1";
+    baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     break;
   case EVN.LOCAL:
@@ -41,6 +41,7 @@ switch (env) {
     break
 }
 const apiURLs = {
+  baseUrl: baseUrl,
   getHot: `${baseUrl}/mall/items/hot?locationId={locationId}&start={start}&limit={limit}`,
   getCategories: `${baseUrl}/mall/category?locationId={locationId}&categoryId={categoryId}&categoryDeep={categoryDeep}`,
   getProductItem: `${baseUrl}/mall/items?locationId={locationId}&categoryCd={categoryCd}&itemIds={itemIds}`,

@@ -19,12 +19,7 @@ Page({
     return index===this.data.currentIndex;
   },
   onLoad: function() {
-    if (!getApp().globalData.registerStatus) {
-      wx.reLaunch({
-        url: '/pages/login/login',
-      })
-    }
-    this.getCategories();
+    
   },
   getCategories(){
     return utils.getRequest(Api.getCategories, {
@@ -59,23 +54,20 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function() {
-
+    if (!getApp().globalData.registerStatus) {
+      wx.reLaunch({
+        url: '/pages/login/login',
+      })
+    }
+    this.getCategories();
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
-
-  /**
-   * Lifecycle function--Called when page hide
-   */
-  onHide: function() {
-
+  onHide() {
+    utils.requestStatisUnload();
   },
-
-  /**
-   * Lifecycle function--Called when page unload
-   */
-  onUnload: function() {
-
-  },
-
+  // onTabItemTap(){
+  //   utils.requestStatisUnload();
+  // },
   /**
    * Page event handler function--Called when user drop down
    */

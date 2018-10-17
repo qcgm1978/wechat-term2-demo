@@ -90,6 +90,22 @@ Page({
     const itemId = e.currentTarget.dataset.itemid;
     for (let i = 0; i < this.data.composeProducts.length; i++){
       if (itemId == this.data.composeProducts[i].itemId){
+        for (let j = 0; j < this.data.composeProducts.length; j++){
+          if (this.data.composeProducts[j].checked){
+            if (this.data.selectedProductList.length == 3){
+              this.data.selectedProductList.splice(2, 1);
+              this.setData({
+                selectedProductList: this.data.selectedProductList
+              })
+            }
+              
+            var item = 'composeProducts[' + j + '].checked'
+            this.setData({
+              [item]: false
+              })
+
+          }
+        }
         var item = 'composeProducts[' + i + '].checked'
         this.setData({
           [item]: !this.data.composeProducts[i].checked
@@ -129,9 +145,13 @@ Page({
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
               //满赠
-              if (promoteResult.freeGift) {
+
+              if (promoteResult.giftItems && promoteResult.giftItems.length>0) {
+                promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
+                promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
+                promoteResult.giftItems[0].price = 0
                 this.setData({
-                  'selectedProductList[2]': promoteResult.freeGift
+                  'selectedProductList[2]': promoteResult.giftItems[0]
                 })
               } else if (promoteResult.discountAmount > 0) { //满减
 

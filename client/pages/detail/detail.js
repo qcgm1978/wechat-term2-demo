@@ -39,7 +39,6 @@ Page({
     imgManzeng: "../../images/manzeng.png",
   },
   relatedChange(e){
-    //debugger;
   },
   showPromotion(e) {
     const index = e.currentTarget.dataset.index
@@ -152,8 +151,9 @@ Page({
         },[]);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg)
         this.setData({
-          product: result
-        })
+          product: result,
+          currentMoney: result.price * this.data.quantity
+        });
       } else {
         if (data instanceof Array) {
           this.setData({
@@ -280,13 +280,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
+    utils.checkNetwork().then(utils.requestStatisLoad);
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  onHide() {
+    utils.requestStatisUnload();
   },
 
   /**

@@ -47,16 +47,7 @@
   text-align: right;
 }
 
-.cart-num {
-  font-size: 18rpx;
-  color: #ee711f;
-  letter-spacing: -1.4rpx;
-  width: 18rpx;
-  height: 18rpx;
-  border: 2rpx solid #ee711f;
-  border-radius: 9rpx;
-  transform: translate(-10rpx, -10rpx);
-}
+
 
 .short-line {
   width: 82rpx;
