@@ -4,7 +4,7 @@ import {
 } from '../../utils/envConf.js';
 import {
   getRequest,
-  addToTrolley,
+  addToTrolleyByGroup,
   getMerchant,
   errorHander,
   updateTrolleyNum,
@@ -16,6 +16,7 @@ const getProductList = Api.getProductList,
   getHot = Api.getHot;
 const app = getApp()
 let globalData = app.globalData;
+
 
 Page({
   data: {
@@ -32,6 +33,8 @@ Page({
     },
     ],
     defImg: getApp().globalData.defaultImg,
+    imgManjian: "img/manjian.png",
+    imgManzeng: "img/manzeng.png",
   },
   start: 0,
   limit: 20,
@@ -136,12 +139,27 @@ Page({
   addToTrolley(event) {
     return new Promise((resolve, reject) => {
       const itemId = event.currentTarget.dataset.itemid;
-      addToTrolley(itemId).catch(errorCode => {
+      const categoryCode = event.currentTarget.dataset.categorycode
+
+
+      const arr = [{
+        itemId: itemId,
+        quantity: 1,
+        categoryCode: categoryCode
+      }]
+      let para = {
+        addGroupList: [{
+          count:1,
+          addItemList: arr
+        }]
+      }
+      addToTrolleyByGroup(para).catch(errorCode => {
         // getApp().failRequest();
         return errorHander(errorCode, () => {
-          addToTrolley(event);
+          addToTrolleyByGroup(event);
         });
       }).catch((errorCode) => {
+        console.log(errorCode)
         wx.showToast({
           icon: 'none',
           title: '添加到购物车失败',

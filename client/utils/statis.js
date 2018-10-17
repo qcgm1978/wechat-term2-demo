@@ -1,6 +1,6 @@
-// const baseUrl = `http://192.168.2.58:8080`;
-// const baseUrl =`http://172.17.76.39::8081`;//stg intranet
+
 const baseUrl =`http://39.105.120.6:8081`;
+
 export const urlObj = {
   test: `/user/jhduser`,
   getToken: `/b2b/getToken`,
@@ -15,16 +15,13 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
   method: "POST",
   url: `${baseUrl}${urlObj.getToken}`,
   data: {
-    // "loginName": "tom",
-    // "password": "abc123",
-    // "longitude": "88.76281"
     sessionId
   },
   header: {
     'Content-Type': 'application/json'
   },
   success: function(result) {
-    console.log(`statisToken: ${result.data.jhd_token}`);
+
     const token = result.data.jhd_token;
     if (token === undefined) {
       return reject(result)
@@ -51,8 +48,6 @@ export const requestStatis = (postData = {}) => {
       sessionId,
       userId,
     };
-    console.log(data);
-    console.log(`page url is ${data.pageUrl}`)
     wx.request({
       method: "POST",
       url: `${baseUrl}${postData.url}?access_token=${statisToken}`,
@@ -64,7 +59,6 @@ export const requestStatis = (postData = {}) => {
         if (result.statusCode === 401 && result.data.error === 'invalid_token') {
           getToken().then(() => requestStatis(data))
         } else {
-          console.log(result.data.status);
         }
 
       }

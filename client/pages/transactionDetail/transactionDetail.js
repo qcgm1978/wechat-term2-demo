@@ -15,6 +15,8 @@ const payDetail = require('./payDetail.js').default,
   notShowDiscountInfo = false;
 const app = getApp();
 const globalData = app.globalData;
+var partSoldOut = false
+var soldOut = false
 Page({
   ...payDetail,
   data: {
@@ -51,27 +53,46 @@ Page({
         amount: 0
       }
     },
-
+    partSoldOutDialogFlag: false,
+    soldOutDialogFlag: false,
     addressStore: "images/address.png",
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  addGotoTrolley: function (e) {
-    getCurrentPages().slice(-2, -1)[0].addGotoTrolley(e)
-    // const dataset = e.currentTarget.dataset;
-    // const orderItem = dataset.orderitem;
-    // const arr = orderItem.map(item => ({
-    //   itemId: item.itemId,
-    //   quantity: item.quantity
-    // }));
-    // utils
-    //   .addToTrolley(arr)
-    //   .then(badge => {
-    //     getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
-    //     wx.switchTab({
-    //       url: `/pages/trolley/trolley`,
-    //     })
-    //   });
+
+  addGotoTrolley: function(e) {
+
+    let orderGroups = [];
+    orderGroups = this.data.order.orderItems
+
+    let para = {
+      addGroupList: []
+    }
+
+    for (let i = 0; i < orderGroups.length; i++) {
+      let items = orderGroups[i].items
+      for (let j = 0; j < items.length; j++) {
+        items[j].categoryCode = items[j].categoryId
+      }
+      orderGroups[i].count = 1
+      orderGroups[i].addItemList = items
+      let promotions = []
+      let promotion = {}
+      promotion.promotionId = orderGroups[i].promotionId
+      promotions.push(promotion)
+      orderGroups[i].promotions = promotions
+      para.addGroupList.push(orderGroups[i])
+    }
+
+    utils
+      .addToTrolleyByGroup(para)
+      .then(badge => {
+        //getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
+        wx.switchTab({
+          url: `/pages/trolley/trolley`,
+        })
+      });
+
   },
   copy() {
     wx.setClipboardData({
@@ -96,6 +117,7 @@ Page({
     }
     requestData
       .then(data => {
+
         if (data === undefined) {
           return console.log('no data')
         }
@@ -197,4 +219,22 @@ Page({
   onUnload() {
     utils.requestStatisUnload();
   },
+
+  letMeThink: function () {
+    this.setData({
+      dialogFlag: true
+    })
+  },
+
+  proceedBuy: function () {
+    
+    this.setData({
+      dialogFlag: false
+    })
+  },
+  confirmClose: function () {
+    this.setData({
+      soldOutDialogFlag: true
+    })
+  }
 })

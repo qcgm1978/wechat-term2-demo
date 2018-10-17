@@ -18,7 +18,7 @@ color: #707070;
 }
 .trolley-container {
   align-items: center;
-  margin-bottom: 16rpx;
+
   height:256rpx;
 }
 
@@ -168,4 +168,49 @@ page {
   color: #fff;
   width: 280rpx;
   height: 80rpx;
+}
+.promotion {
+  width: 100%;
+  background: white;
+  margin-bottom: 16rpx;
+}
+
+.promotion-1 {
+  display:inline-block;
+  width: 72rpx;
+  border-radius:10rpx;
+  text-align: center;
+  color: white;
+  background-color: #EE711F;
+  font-size: 24rpx;
+  margin-left: 10rpx;
+  margin-top:5rpx;
+  height: 35rpx;
+}
+.promotion-2 {
+  display:inline-block;
+  width: 400rpx;
+  color: #b1afad;
+  font-size: 24rpx;
+  margin-left: 10rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 30rpx;
+}
+.promotion-2-bottom {
+  display:inline-block;
+  width: auto;
+  color: #b1afad;
+  font-size: 24rpx;
+  margin-left: 50rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.promotion-3 {
+  width: auto;
+  color: #f5b87a;
+  font-size: 24rpx;
+  margin-left: 10rpx;
 }

@@ -106,6 +106,7 @@ var postRequest = function ({
       }
     }
     showLoading()
+
     wx.request({
       url: url,
       data: postData || data,
@@ -118,7 +119,6 @@ var postRequest = function ({
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
-          // console.log(res)
           reject(res.statusCode);
         } else {
           resolve(res.data);
@@ -227,7 +227,7 @@ var checkNetwork = function () {
   })
 }
 
-var errorHander = function (errorCode, callback, dataNotFoundHandler) {
+var errorHander = function(errorCode, callback, dataNotFoundHandler, callbackPara) {
   return new Promise((resolve, reject) => {
     switch (errorCode) {
       case INVALID_USER_STATUS:
@@ -247,7 +247,12 @@ var errorHander = function (errorCode, callback, dataNotFoundHandler) {
           refreshAccessToken()
             .then(() => {
               callback.tokenRefreshed = true
-              return callback()
+              if (callbackPara){
+                return callback(callbackPara)
+              }else{
+                return callback()
+              }
+              
             })
             .then(data => {
               resolve(data)
@@ -284,6 +289,49 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 
+const addToTrolleyByGroup = (groupList, quantity = 1,enableChecked = true, updateAddTime = true) => {
+  showLoading({
+    title: '正在添加到购物车...'
+  })
+  const merchantId = getApp().getMerchantId();
+  const locationId = String(getApp().globalData.merchant.locationId);
+  const data = {
+    merchantId,
+    locationId,
+    updateAddTime,
+    addGroupList: groupList
+  },
+    config = {
+      merchantId,
+      locationId
+    }
+  return new Promise((resolve, reject) => {
+    postRequest({
+      url: Api.addTrolley,
+      config,
+      data:groupList
+    })
+      .then(ret => {
+        if (enableChecked) {
+          // getApp().globalData.checkedTrolley.push(groupList);
+        }
+      })
+      .then(() => {
+        updateTrolleyNum({
+          merchantId,
+          quantity,
+          resolve
+        })
+      })
+      .then(data => {
+        hideLoading();
+      })
+      .catch(errorCode => {
+        reject(errorCode)
+      });
+  });
+}
+
 const addToTrolley = (itemId, quantity = 1, enableChecked = true, updateAddTime = true) => {
   showLoading({
     title: '正在添加到购物车...'
@@ -317,6 +365,7 @@ const addToTrolley = (itemId, quantity = 1, enableChecked = true, updateAddTime 
         }
       })
       .then(() => {
+        console.log("updateTrolleyNum")
         updateTrolleyNum({
           merchantId,
           quantity,
@@ -338,12 +387,16 @@ const getFixedNum = (float, digits = 0) => {
 }
 const updateTrolleyNum = ({
   merchantId,
+  locationId,
   quantity,
   resolve
 } = {
     merchantId: getApp().getMerchantId()
   }) => {
-  // debugger;
+  console.log(JSON.stringify({
+    merchantId,
+    locationId: getApp().globalData.merchant.locationId
+  }))
   return getRequest(Api.getCartCount, {
     merchantId,
     locationId: getApp().globalData.merchant.locationId
@@ -413,6 +466,7 @@ module.exports = {
   errorHander,
   queryStack,
   addToTrolley,
+  addToTrolleyByGroup,
   getFixedNum,
   updateTrolleyNum,
   getMerchant

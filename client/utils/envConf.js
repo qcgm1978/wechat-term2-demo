@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.STG; //update this value for different env
+var env = EVN.DEV; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -14,7 +14,7 @@ var clientSecret = ""
 switch (env) {
   case EVN.DEV:
     clientSecret = "OzoStRYlQVA85pjp"
-    baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1";
+    baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     break;
   case EVN.LOCAL:
@@ -26,8 +26,8 @@ switch (env) {
     }
   case EVN.STG:
     clientSecret = "OzoStRYlQVA85pjp"
-    baseUrl = "https://stg-api.jihuiduo.cn/bmall/v1"
-    addrUrl = "https://stg-api.jihuiduo.cn/bmall/v1"
+    baseUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
+    addrUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
     break
   case EVN.PRO:
     clientSecret = "9sxyZhzgKIjSVuQQ"
@@ -41,6 +41,7 @@ switch (env) {
     break
 }
 const apiURLs = {
+  baseUrl: baseUrl,
   getHot: `${baseUrl}/mall/items/hot?locationId={locationId}&start={start}&limit={limit}`,
   getCategories: `${baseUrl}/mall/category?locationId={locationId}&categoryId={categoryId}&categoryDeep={categoryDeep}`,
   getProductItem: `${baseUrl}/mall/items?locationId={locationId}&categoryCd={categoryCd}&itemIds={itemIds}`,
@@ -49,7 +50,7 @@ const apiURLs = {
   addTrolley: `${baseUrl}/mall/cart/add/{merchantId}/{locationId}`,//添加商品到购物车
   getCart: `${baseUrl}/mall/cart/{merchantId}/{locationId}?start={start}&limit={limit}`,//取得购物车商品列表
   removeCart: `${baseUrl}/mall/cart/remove/{merchantId}`,//删除购物车中的商品
-  getCartCount:`${baseUrl}/mall/cart/count/{merchantId}/{locationId}`,//统计购物车商品数量
+  getCartCount: `${baseUrl}/mall/cart/count/{merchantId}/{locationId}`,//统计购物车商品数量
 
   getOrder: `${baseUrl}/mall/order/{merchantId}/{orderId}`,
   getOrderList: `${baseUrl}/mall/order/list`,
@@ -64,8 +65,11 @@ const apiURLs = {
   backendUrlPhoneLogin: baseUrl + '/auth/sms',
 
   getBanners: `${baseUrl}/mall/banners/{category}`,
+  getPromoteInfo: `${baseUrl}/mall/promotions/item`,
+  getCombinationList: `${baseUrl}/mall/promotions/combinationList`,
+  calcPromote: `${baseUrl}/mall/promotions/calc`,
+  selectGoods: `${baseUrl}/mall/promotions/selectGoods`,
 }
-
 
 var Api = apiURLs;
 

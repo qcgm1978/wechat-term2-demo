@@ -22,26 +22,41 @@
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
     <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;' class='bgc'>
-      <view catch:tap='turnPage' wx:for="{{order.orderItem}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}'>
-        <view class='item-container'>
-          <view class='item-container-fg'>
-            <view class='order-content'>
-              <view style="display: flex; flex-direction:row;">
+      <view class='group-container' wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
+        <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}'>
+          <view class='item-container'>
+            <view class='item-container-fg'>
+              <view class='order-content'>
+                <view style="display: flex; flex-direction:row;">
 
-                <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                  <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                  <view style='display: flex; flex-direction: column;'>
+                    <view wx:if='{{orderItem.gift}}'>
+                      <view style='display: flex; flex-direction: row;'>
+                        <view class='promotion-1'>赠品</view>
+                        <view class='darker-gray-chars item-name regular' style='width:auto'> {{orderItem.itemName}}</view>
+                      </view>
+                    </view>
 
-                <view>
-                  <view class='darker-gray-chars item-name regular'>{{orderItem.itemName}}</view>
-                  <text class='regular item-standard'>规格：{{orderItem.itemSpecification}}</text>
+                    <view class='darker-gray-chars item-name regular' wx:else>{{orderItem.itemName}}</view>
+                    <text class='regular item-standard'>规格：{{orderItem.itemSpecification}}</text>
+                  </view>
+
+                </view>
+                <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
+                  <view wx:if='{{orderItem.gift}}'>
+                    <view style='display: flex; flex-direction: column;'>
+                      <text style='text-align: right;'>￥0</text>
+                      <text style='color:#949494;text-decoration:line-through;'>￥{{orderItem.unitPrice}}</text>
+                    </view>
+                  </view>
+                  <text wx:else>￥{{orderItem.unitPrice}}</text>
+                  <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' style='text-align: right;'>{{isReturn&&'拒收数量'}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
                 </view>
               </view>
-              <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
-                <text>￥{{orderItem.unitPrice}}</text>
-                <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' >{{isReturn&&'拒收数量'}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
-              </view>
+
+
             </view>
-
-
           </view>
         </view>
       </view>
@@ -50,14 +65,21 @@
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
     <view class='bgc padding'>
       <view class='money-amount '>
-        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; ">
+        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 16rpx;">
           <view>商品总额</view>
           <view class='dollar'>{{order.totalAmount}}</view>
         </view>
       </view>
 
+      <view class='regular money-amount money ' style="margin: 0 16rpx;">
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>促销优惠</view>
+          <view class='dollar-minus'>{{order.discountTotalAmount}}</view>
+        </view>
+      </view>
 
-      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin-top: 0;">
+      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin: 0 16rpx;">
+
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>积分抵扣</view>
           <view class='dollar-minus'>{{order.payment.usePoint/100}}</view>
@@ -129,3 +151,30 @@
 
   </view>
 </view>
+
+
+<view class="modal-box" hidden="{{!partSoldOutDialogFlag}}" bindtap="hideDialog">
+  <view class="modal-body">
+    <view class="modal-content">
+      <image class="content-img" src="images/pop-up.png" ></image>
+      <view class="content-txt" style='font-size:28rpx; color:#666666; margin-left: 56rpx; width: 450rpx;'>订单中的部分商品卖光了，您是否继续购买其余商品？</view>
+      <view style='display: flex;justify-content: space-between; width:480rpx; position:absolute ; top: 180rpx; left: 130rpx;text-align: center;line-height: 200rpx;'  >
+        <view class='dialog-btn' style='background:white; border:2rpx solid #949494; width:224rpx; height:68rpx;' bindtap='letMeThink'>我再想想</view>
+        <view class='dialog-btn' style='color:white;background: #EC6515; width:224rpx; height:68rpx;' bindtap='proceedBuy'>继续购买</view>
+      </view>
+    </view>
+  </view>
+</view> 
+
+<view class="modal-box" hidden="{{!soldOutDialogFlag}}" bindtap="hideDialog">
+  <view class="modal-body">
+    <view class="modal-content">
+      <image class="content-img" src="images/pop-up.png" ></image>
+      <view class="content-txt" style='font-size:28rpx; color:#666666; margin-left: 56rpx; width: 450rpx;'>订单中的商品全部卖光了，再看看其他商品吧</view>
+      <view style='display: flex; width:auto; position:absolute; top:160rpx; left:220rpx;text-align: center;line-height: 200rpx;'  >
+        <!-- <view class='dialog-btn' style='background:white; border:2rpx solid #949494;' bindtap='letMeThink'>我再想想</view> -->
+        <view class='dialog-btn' style='color:white; width: 307rpx; height: 68rpx; background: #EC6515; top:160rpx; left:180rpx;' bindtap='confirmClose'>确定</view>
+      </view>
+    </view>
+  </view>
+</view> 

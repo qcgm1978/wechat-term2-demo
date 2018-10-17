@@ -158,6 +158,7 @@ Page({
             }
             return currentItem;
           });
+
           this.setData({
             order,
             hasNetwork: true
@@ -300,81 +301,118 @@ Page({
   },
   addGotoTrolley: function (e) {
     const dataset = e.currentTarget.dataset;
-    const orderItem = dataset.orderitem;
-    const arr = orderItem.map(item => ({
-      itemId: item.itemId,
-      quantity: item.quantity
-    }));
-    const itemId = arr.reduce((accumulator, item) => {
-      return accumulator + (accumulator ? ',' : '') + item.itemId;
-    }, '');
-    this.getProduct({
-      itemId,
-      // categoryId
-    }).then(data => {
-      if (arr.length === data.length) {
-        utils
-          .addToTrolley(arr)
-          .then(badge => {
-            getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
-            wx.switchTab({
-              url: `/pages/trolley/trolley`,
-            })
-          });
-      } else if (data.length > 0) {
-        utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
-          const arrInStock = arr.reduce((accumulator, item) => {
-            const inStockItem = data.find(item1 => {
-              return (item1.itemId === item.itemId)
-            });
-            if (inStockItem) {
-              accumulator.push(item);
-            }
-            return accumulator;
-          }, []);
-          utils
-            .addToTrolley(arrInStock)
-            .then(badge => {
-              getApp().globalData.checkedTrolley = arrInStock.map(item => item.itemId)
-              wx.switchTab({
-                url: `/pages/trolley/trolley`,
-              })
-            });
-        })
-      } else {
-        utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
-      }
-    })
-  },
-  getProduct({
-    itemId,
-    categoryCd
-  }) {
-    const locationId = getApp().globalData.merchant.locationId;
-    return utils.getRequest(getProductItem, {
-      locationId,
-      categoryCd: '',
-      itemIds: itemId ? itemId : '',
-    }).then(data => {
-      console.log(data);
-      if (data.status === 200) {
-        const inStock = data.result.reduce((accumulator, item) => {
-          if (item.putShelvesFlg) {
-            accumulator.push(item);
-          }
-          return accumulator;
-        }, []);
-        return inStock;
-      } else {
 
+    let orderGroups = [];
+    for(let i = 0; i<this.data.order.length; i++){
+      if (this.data.order[i].orderId === dataset.orderId){
+        orderGroups = this.data.order[i].orderItems
       }
-    }).catch(err => {
-      utils.errorHander(err, () => this.getProduct({
-        itemId,
-        // categoryId
-      }))
-      console.log(err);
-    })
+    }
+
+    let para = {
+      addGroupList: []
+    }
+
+    for (let i = 0; i < orderGroups.length; i++) {
+      let items = orderGroups[i].items
+      for (let j = 0; j < items.length; j++) {
+        items[j].categoryCode = items[j].categoryId
+      }
+      orderGroups[i].count = 1
+      orderGroups[i].addItemList = items
+      let promotions = []
+      let promotion = {}
+      promotion.promotionId = orderGroups[i].promotionId
+      promotions.push(promotion)
+      orderGroups[i].promotions = promotions
+      para.addGroupList.push(orderGroups[i])
+    }
+
+    utils
+      .addToTrolleyByGroup(para)
+      .then(badge => {
+        //getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
+        wx.switchTab({
+          url: `/pages/trolley/trolley`,
+        })
+      })
+// =======
+//     const orderItem = dataset.orderitem;
+//     const arr = orderItem.map(item => ({
+//       itemId: item.itemId,
+//       quantity: item.quantity
+//     }));
+//     const itemId = arr.reduce((accumulator, item) => {
+//       return accumulator + (accumulator ? ',' : '') + item.itemId;
+//     }, '');
+//     this.getProduct({
+//       itemId,
+//       // categoryId
+//     }).then(data => {
+//       if (arr.length === data.length) {
+//         utils
+//           .addToTrolley(arr)
+//           .then(badge => {
+//             getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
+//             wx.switchTab({
+//               url: `/pages/trolley/trolley`,
+//             })
+//           });
+//       } else if (data.length > 0) {
+//         utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
+//           const arrInStock = arr.reduce((accumulator, item) => {
+//             const inStockItem = data.find(item1 => {
+//               return (item1.itemId === item.itemId)
+//             });
+//             if (inStockItem) {
+//               accumulator.push(item);
+//             }
+//             return accumulator;
+//           }, []);
+//           utils
+//             .addToTrolley(arrInStock)
+//             .then(badge => {
+//               getApp().globalData.checkedTrolley = arrInStock.map(item => item.itemId)
+//               wx.switchTab({
+//                 url: `/pages/trolley/trolley`,
+//               })
+//             });
+//         })
+//       } else {
+//         utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
+//       }
+//     })
+//   },
+//   getProduct({
+//     itemId,
+//     categoryCd
+//   }) {
+//     const locationId = getApp().globalData.merchant.locationId;
+//     return utils.getRequest(getProductItem, {
+//       locationId,
+//       categoryCd: '',
+//       itemIds: itemId ? itemId : '',
+//     }).then(data => {
+//       console.log(data);
+//       if (data.status === 200) {
+//         const inStock = data.result.reduce((accumulator, item) => {
+//           if (item.putShelvesFlg) {
+//             accumulator.push(item);
+//           }
+//           return accumulator;
+//         }, []);
+//         return inStock;
+//       } else {
+
+//       }
+//     }).catch(err => {
+//       utils.errorHander(err, () => this.getProduct({
+//         itemId,
+//         // categoryId
+//       }))
+//       console.log(err);
+//     })
+//>>>>>>> develop
   },
   goTransDetails: function (e) {
     wx.navigateTo({

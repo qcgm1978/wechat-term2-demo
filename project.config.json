@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -64,7 +64,14 @@
 				{
 					"id": -1,
 					"name": "home",
-					"pathName": "pages/home/home"
+					"pathName": "pages/home/home",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "transactionList",
+					"pathName": "pages/transactionList/transactionList",
+					"query": ""
 				}
 			]
 		}

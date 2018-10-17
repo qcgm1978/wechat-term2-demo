@@ -21,32 +21,59 @@
   <view class='color-bg bgc'></view>
   <view class='bgc goods-container'>
     <view class='scroll-container' scroll-top="{{scrollTop}}">
-
       <view>
         <view style='height: {{ expandAll?"auto":(heightGoods+"rpx")}}; overflow:{{expandAll?"auto":"hidden"}};'>
-          <view class='item-container' wx:for="{{data}}" wx:key='{{index}}' itemId='{{item.itemId}}' locationId='{{item.locationId}}'>
-            <view class='item-container-fg'>
-              <view class='order-content'>
-                <view class='center' style='width:100%;'>
-                  <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
-                  <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
-                    <view class='darker-gray-chars item-name regular' style='width:auto;'>{{item.itemName}}</view>
-                    <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
-                    <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
-                      <text class='confirm-price'>￥{{item.price}}</text>
-                      <text>x{{item.quantity}}</text>
+          <view class='item-container' style='margin-top:10rpx' wx:for="{{data}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" itemId='{{orderGroup.groupId}}' locationId='{{item.locationId}}'>
+            <view style='display:flex; justify-content: space-between; background-color: white; margin-top: 0rpx; align-items:center;' wx:if="{{orderGroup.combinationFlag}}">
+              <view style=''>
+                <view class='suite-1' style='height:34rpx;'>套装</view>
+                <view class='dollar suite-2' style='height:34rpx;'>{{orderGroup.suitePrice}}</view>
+              </view>
+              <view class='suite-3'>x{{orderGroup.count}}</view>
+            </view>
+            
+            <block wx:for="{{orderGroup.items}}" wx:key='{{itemIndex}}' itemId='{{item.itemId}}'>
+              <view class='item-container-fg'>
+                <view class='order-content'>
+                  <view class='center' style='width:100%;'>
+                    <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
+                    <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
+                      <view class='darker-gray-chars item-name regular' style='width:auto;'>{{item.itemName}}</view>
+                      <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
+                      <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
+                        <text class='confirm-price'>￥{{item.price}}</text>
+                        <text>x{{item.quantity}}</text>
+                      </view>
                     </view>
                   </view>
                 </view>
-
               </view>
+            </block>
 
-
+            <view class='item-container-fg'  wx:if='{{orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].giftItems && orderGroup.cartCombinationPromotions[0].giftItems.length>0}}'>
+              <view wx:for="{{orderGroup.cartCombinationPromotions[0].giftItems}}" wx:key='{{giftIndex}}' wx:for-item="gift">
+                <view class='order-content'>
+                  <view class='center' style='width:100%;'>
+                    
+                    <image src='{{gift.itemImageAddress1?gift.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
+                    <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
+                      <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'><view  class='free-gift' style='font-size: 24rpx;' >赠品</view>{{gift.giftItemName}}</view>
+                      <text class='regular item-standard'>规格：{{gift.itemUnit}}</text>
+                      <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
+                        <text class='confirm-price'>￥0</text>
+                        <text>x{{gift.quantity}}</text>
+                      </view>
+                    </view>
+                  </view>
+                </view>
+              </view>
             </view>
-          </view>
 
+
+          </view>
         </view>
-        <view wx:if='{{data.length>2}}' catch:tap='toggleGoods' class='regular center' style='font-size: 24rpx;color: #999999;padding:20rpx 0; align-items:center;justify-content:center;'>
+
+        <view wx:if='{{totalItemNumber>2}}' catch:tap='toggleGoods' class='regular center' style='font-size: 24rpx;color: #999999;padding:20rpx 0; align-items:center;justify-content:center;'>
           {{expandAll?'收起全部商品信息':'展开全部商品信息'}}
           <image src="{{expandAll?'img/up.png':'img/down.png'}}" style='width:32rpx;height:32rpx;'></image>
         </view>
@@ -91,12 +118,12 @@
     <view class='padding bgc' style="margin-top: 15rpx;">
       <view class='  center order-item-container'>
         <text class='regular order-field '>商品总额</text>
-        <text class='medium dollar'>{{total}}</text>
+        <text class='medium dollar'>{{totalBeforePromotion}}</text>
       </view>
-      <!-- <view class='  center order-item-container'>
-      <text class='regular order-field '>促销折扣</text>
-      <text class='medium dollar-minus' style='color: rgb(236,103,32);'>320.00</text>
-    </view> -->
+      <view class='  center order-item-container' wx:if="{{discountTotalAmount!==0 && discountTotalAmount!=='0'}}">
+        <text class='regular order-field '>促销折扣</text>
+        <text class='medium dollar-minus' >{{discountTotalAmount}}</text>
+      </view>
       <view wx:if='{{isVisible && credit}}' class='  center order-item-container'>
         <text class='regular order-field '>积分折扣</text>
         <text class='medium dollar-minus' style='color: rgb(236,103,32);'>{{credit}}</text>

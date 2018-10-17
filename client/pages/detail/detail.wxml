@@ -11,17 +11,28 @@
       <view class='padding medium bgc'>
         <view class='product-price'>￥{{product.price}}</view>
         <view class='product-name'>{{product.itemName}}</view>
+        <view class='product-spec'>规格：{{product.itemSpecification}}</view>
       </view>
-      <view wx:if='{{hasPromotion}}' class='center promotion-container padding regular bgc mgt' catch:tap='showPromotion'>
-        <text class='promotion' style="align-self: start;">促销</text>
-        <view class='promotion-list'>
-          <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
-            <text class='promotion-type'>{{item.type}}</text>
-            <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
+
+      <view wx:if='{{hasPromotion}}' >
+        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo">
+          <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' catch:tap='showPromotion'>
+            <text class='promotion' >促销</text>
+            <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
+            <text class='promotion-2' >{{promoteInfo.promotionName}}</text>
+            <view class='promotion-list'>
+              <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
+                <text class='promotion-type'>{{item.type}}</text>
+                <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
+              </view>
+            </view>
+            <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' wx:if='{{promoteInfo.combinationFlag == "1"}}'></image>
           </view>
         </view>
-        <image src='../memberDetail/img/arrow.png' class='order-arrow1'></image>
+
       </view>
+
+
       <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>
         <view class='promotion-list'>   
@@ -123,8 +134,9 @@
   <view style='height:160rpx; background-color:rgb(255,255,255);'>
   </view>
   <text class='sold-out btn-container center-center fixed-position-text' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
-  <view wx:if='{{!promotion}}' class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
-    <view class='center-center' style='flex-grow:1;' wx:if='{{!isSelecting}}' bindtap='gotoTrolley'>
+  <!-- wx:if='{{!promotion}}'  wx:if='{{!isSelecting}}'-->
+  <view  class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
+    <view class='center-center' style='flex-grow:1;' bindtap='gotoTrolley'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
       <view class='medium cart-num center-center' wx:if='{{badge}}'>
         {{badge}}

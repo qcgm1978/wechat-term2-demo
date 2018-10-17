@@ -5,7 +5,9 @@ import {
   Api
 } from '../../utils/envConf.js'
 const getProductItem = Api.getProductItem,
-  getRelated = Api.getRelated;
+  getRelated = Api.getRelated,
+  calcPromote = Api.calcPromote,
+  getPromoteInfo = Api.getPromoteInfo;
 
 Page({
   data: {
@@ -17,6 +19,9 @@ Page({
     promotion: false,
     isSelecting: false,
     hasPromotion: false,
+    unionPromotion: false,
+    promoteInfo:{},
+    promoteInfoList: [],
     autoplay: true,
     interval: 3000,
     duration: 1000,
@@ -30,13 +35,26 @@ Page({
 
     }, ],
     icon: '../../images/trolley-full.png',
+    imgManjian: "../../images/manjian.png",
+    imgManzeng: "../../images/manzeng.png",
   },
   relatedChange(e){
-    // debugger;
   },
-  showPromotion() {
-    this.setData({
-      promotion: true
+  showPromotion(e) {
+    const index = e.currentTarget.dataset.index
+
+    if (this.data.promoteInfoList[index].combinationFlag !== "1" || !this.data.product.putShelvesFlg) return
+    let tmpProduct = {}
+    tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
+    tmpProduct.itemName = this.data.product.itemName
+    tmpProduct.itemSpecification = this.data.product.itemSpecification
+    tmpProduct.quantity = this.data.promoteInfoList[index].mainQuantity
+    tmpProduct.price = this.data.product.price
+    tmpProduct.itemId = this.data.product.itemId
+    tmpProduct.categoryId = this.data.product.itemCategoryCode
+
+    wx.navigateTo({
+      url: '/pages/promoteOptions/promoteOptions?promoteInfo=' + JSON.stringify(this.data.promoteInfoList[index]) + "&product=" + JSON.stringify(tmpProduct),
     })
   },
   plusMinus(e) {
@@ -88,11 +106,26 @@ Page({
         currentMoney: this.data.product.price * this.data.quantity
       })
     }
+    const arr = [{
+      itemId: this.data.product.itemId,
+      quantity: 1,
+      categoryCode: this.data.product.itemCategoryCode
+    }]
+    let para = {
+      addGroupList: [{
+        count: this.data.quantity,
+        addItemList: arr,
+        // promotions: [{
+        //   promotionId: this.data.promoteInfo.promotionId
+        // }]
+      }]
+    }
+
     utils
-      .addToTrolley(this.data.product.itemId, this.data.quantity)
+      .addToTrolleyByGroup(para)
       .then(badge => {
         this.setData({
-          badge,
+          badge: badge + 1,
           icon: '../../images/trolley-missing.png'
         })
       })
@@ -107,7 +140,6 @@ Page({
       categoryCd: '',
       itemIds: itemId ? itemId : '',
     }).then(data => {
-      console.log(data);
       if (data.status === 200) {
         const result = data.result[0];
         // todo
@@ -187,15 +219,33 @@ Page({
     if (!this.data.enableBuy) {
       return;
     }
-    this.data.product.quantity = this.data.quantity;
-    getApp().globalData.items = this.data.product;
+
+    // this.data.product.quantity = this.data.quantity;
+    this.data.product.quantity = this.data.quantity
+
+    let groups = []
+    let group = {}
+    group.groupId = ""
+    group.count = 1
+    group.combinationFlag = false
+    group.checked = true
+    group.cartCombinationPromotions  = []
+    group.items = [this.data.product]
+    group.promotions = null
+    group.putShelvesFlg = this.data.product.putShelvesFlg
+    group.suitePrice = this.data.product.price
+
+    groups.push(group)
+
+    getApp().globalData.items = groups;
     getApp().globalData.items.orderItemSource=0;
+
     wx.navigateTo({
-      url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,
+      url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0`,
     });
   },
   preventTouchMove: function (e) {
-    debugger;
+    //debugger;
   },
   onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
@@ -203,10 +253,12 @@ Page({
         url: '/pages/login/login',
       })
     }
-    this.getProduct(options).then(data=>{
+    this.getProduct(options)
+    .then(data=>{
       this.setData({
-        top: getApp().globalData.systemInfo.windowHeight-750
+        top: 300 //getApp().globalData.systemInfo.windowHeight-750
       })
+      this.getPromoteInfo(options)
     });
     this.getRelated(options);
     if (getApp().globalData.badge > 0) {
@@ -265,5 +317,55 @@ Page({
     wx.switchTab({
       url: '/pages/trolley/trolley'
     })
-  }
+  },
+
+  getPromoteInfo: function ({
+    itemId,
+    categoryId
+  }) {
+    utils.postRequest({
+      url: getPromoteInfo,
+      data: {
+        merchantId: getApp().getMerchantId(),
+        locationId: getApp().globalData.merchant.locationId,
+        items: [
+          {
+            categoryCode: categoryId ? categoryId:"",
+            itemId: itemId
+          }
+        ],
+      }
+    })
+      .then((data) => {
+        if (data.result[0].promotionItems.length > 0){
+
+          this.setData({
+            //promoteInfo: data.result[0].promotionItems[0],
+            promoteInfoList: data.result[0].promotionItems,
+            hasPromotion: true
+          })
+          if (data.result[0].promotionItems[0].combinationFlag == "0"){
+
+          } else if (data.result[0].promotionItems[0].combinationFlag == "1"){
+
+          }
+        }else{
+          this.setData({
+            hasPromotion: false
+          })
+        }
+      })
+      .catch (errorCode => {
+          console.log(errorCode)
+          utils.errorHander(errorCode, this.getPromoteInfo, this.emptyFunc, {itemId,categoryId})
+            .then(() => {
+              
+            })
+            .catch(() => {
+              
+            })
+      })
+  },
+
+  emptyFunc: function () { },
 })

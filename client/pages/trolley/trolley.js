@@ -1,4 +1,5 @@
 import utils from "../../utils/util.js";
+import promoteUtil from "../../utils/promotion.js";
 import {
   Api
 } from '../../utils/envConf.js';
@@ -6,6 +7,7 @@ import {
   getRequest
 } from '../../utils/util.js';
 const getCart = Api.getCart;
+const calcPromoteRule = Api.calcPromoteRule;
 const app = getApp();
 let globalData = app.globalData;
 Page({
@@ -19,10 +21,13 @@ Page({
     disableBuy: true,
     checkAll: false,
     dataLoaded: false,
+    totalDiscountMoney: 0,
+    overallMoney: 0
   },
   selectedRadio: [],
   start: 0,
   limit: 20,
+  scrollDataLoading: false,
   enablePullDownRefresh: false,
   onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
@@ -35,13 +40,16 @@ Page({
     if (!this.data.disableBuy) {
       getApp().globalData.items = this.data.trolley.reduce((accumulator, item) => {
         if (item.checked) {
+          if (item.items.length == 1){
+            item.items[0].quantity = item.count
+          }
           accumulator.push(item)
         }
         return accumulator;
       }, []);
       getApp().globalData.items.orderItemSource = 1;
       wx.navigateTo({
-        url: `../order-confirm/order-confirm?total=${this.data.currentMoney}`,
+        url: `../order-confirm/order-confirm?total=${this.data.currentMoney}&totalDiscount=${this.data.totalDiscountMoney}`,
       });
     }
 
@@ -56,12 +64,12 @@ Page({
       checkAll: !this.data.checkAll
     });
     const trolley = this.data.trolley.map((item, index) => {
-      item.putShelvesFlg && (item.checked = this.data.checkAll);
-      if (this.data.checkAll && item.putShelvesFlg) {
-        if (!this.selectedRadio.includes(item.itemId))
-          this.selectedRadio.push(item.itemId);
+      item.checked = this.data.checkAll
+      if (this.data.checkAll) {
+        if (!this.selectedRadio.includes(item.groupId))
+          this.selectedRadio.push(item.groupId);
       } else {
-        const ind = this.selectedRadio.indexOf(item.itemId);
+        const ind = this.selectedRadio.indexOf(item.groupId);
         if (ind !== -1) {
           this.selectedRadio.splice(ind, 1)
         }
@@ -81,42 +89,62 @@ Page({
   },
   upper() {
     this.start = 0;
-    this.getTrolley();
+    if (this.scrollDataLoading) {
+      return
+    }
+
   },
   lower() {
     this.start += this.limit;
-    this.getTrolley().then(data => {
-      // setTimeout(()=>{
-      //   this.enablePullDownRefresh=true;
-      // },2000)
-    });
+    if (this.scrollDataLoading) return
+
   },
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
-      if (selectedRadio.includes(item.itemId)) {
-        return accumulator + item.price * item.quantity
+      if (selectedRadio.includes(item.groupId)) {
+        return accumulator + item.suitePrice * item.count
+      } else {
+        return accumulator;
+      }
+    }, 0);
+  },
+  getTotalDiscountPrice(selectedRadio) {
+    return this.data.trolley.reduce((accumulator, item) => {
+      if (selectedRadio.includes(item.groupId)) {
+        if (item.cartCombinationPromotions && item.cartCombinationPromotions.length > 0 && item.cartCombinationPromotions[0] && item.cartCombinationPromotions[0].promotionType == 2){
+          return accumulator + item.cartCombinationPromotions[0].discountAmount
+        } else{
+          return accumulator
+        }
+        
       } else {
         return accumulator;
       }
     }, 0);
   },
   setMoneyData(selectedRadio) {
-    let currentMoney = this.getTotalPrice(selectedRadio)
+    let totalDiscountMoney = utils.getFixedNum(this.getTotalDiscountPrice(selectedRadio), 2);
+    let overallMoney = this.getTotalPrice(selectedRadio)
+    // utils.getFixedNum(Number(currentMoney) + Number(totalDiscountMoney), 2);
+    let currentMoney = utils.getFixedNum(Number(overallMoney) - Number(totalDiscountMoney), 2);
     let remaining = 500 - currentMoney;
     const disableBuy = remaining > 0;
-    currentMoney = utils.getFixedNum(currentMoney, 2);
-    remaining = utils.getFixedNum(remaining, 2)
+
+    remaining = utils.getFixedNum(remaining,2)
+
     this.setData({
       currentMoney,
       disableBuy,
       remaining,
-      selectedLen: selectedRadio.length
+      selectedLen: selectedRadio.length,
+      totalDiscountMoney,
+      overallMoney
     });
   },
   radioClick(e) {
-    const itemId = e.currentTarget.dataset.itemid;
-    if (this.selectedRadio.includes(itemId)) {
-      const ind = this.selectedRadio.indexOf(itemId);
+    const groupId = e.currentTarget.dataset.groupid;
+    if (this.selectedRadio.includes(groupId)) {
+      const ind = this.selectedRadio.indexOf(groupId);
       if (ind !== -1) {
         this.selectedRadio.splice(ind, 1);
       }
@@ -124,13 +152,13 @@ Page({
         checkAll: false
       });
     } else {
-      if (!this.selectedRadio.includes(itemId)) {
-        this.selectedRadio.push(itemId);
+      if (!this.selectedRadio.includes(groupId)) {
+        this.selectedRadio.push(groupId);
       }
     }
     this.setMoneyData(this.selectedRadio);
     const trolley = this.data.trolley.map((item, index) => {
-      if (item.putShelvesFlg && this.selectedRadio.includes(item.itemId)) {
+      if (this.selectedRadio.includes(item.groupId)) {
         item.checked = true;
       } else {
         item.checked = false;
@@ -148,26 +176,77 @@ Page({
       url: `/pages/detail/detail?itemId=${itemId}`,
     })
   },
+
+  callPromotionCacl(trollyList, i) {
+    return new Promise((resolve, reject) => {
+      let promises = []
+      // for (let i = index; i < trollyList.length; i++){
+        let itemGroups = []
+        let group = {}
+        
+        let groupItems = []
+        for (let j = 0; j < trollyList[i].items.length; j++){
+          let item = {}
+          item.itemId = trollyList[i].items[j].itemId
+          item.brandId = ""
+          item.categoryCode = trollyList[i].items[j].itemCategoryCode
+          // if (trollyList[i].combinationFlag){
+          //   item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
+          // }else{
+          //   item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
+          // }
+          item.quantity = trollyList[i].items[j].quantity * trollyList[i].count
+          item.unitPrice = trollyList[i].items[j].price
+          groupItems.push(item)
+        }
+
+        group.groupId = trollyList[i].groupId
+        group.items = groupItems
+        if (trollyList[i].combinationFlag){
+          group.promotions = trollyList[i].promotions
+        }else{
+          group.promotions = trollyList[i].cartCombinationPromotions
+        }
+        itemGroups.push(group)
+        promises.push(promoteUtil.calcPromote({itemGroups}))
+      // }
+      Promise.all(promises)
+      .then(arr => {
+        trollyList[i].cartCombinationPromotions = arr
+        resolve(trollyList[i])
+      })
+      .catch(()=>{
+        reject()
+      })
+    })
+  },
+
   getTrolley() {
+    this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
         merchantId: app.getMerchantId(),
         locationId: getApp().globalData.merchant.locationId,
         start: this.start,
         limit: this.limit
-      }).then(({
-        result
-      }) => {
-        result = result.map((item, index) => {
-          if (item.putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
-            item.checked = true;
-          } else {
-            item.checked = false;
-          }
-          return item;
-        });
+      })
+      .then((data) => {
+        let result = data.result
 
-        // result=[]
+        for(let i = 0; i<result.length; i++){
+          result[i].items = result[i].items.map((item, index) => {
+            if (/*item.putShelvesFlg &&*/ (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
+              item.checked = true;
+            } else {
+              item.checked = false;
+            }
+            return item;
+          });
+
+          result[i].combinationFlag = result[i].items.length > 1 ? true : false
+          result[i].suitePrice = this.getSuitePrice(result[i])
+          result[i].putShelvesFlg = true
+        }
         let trolley = []
         if (this.start === 0) {
           trolley = result;
@@ -187,17 +266,26 @@ Page({
           });
           getApp().globalData.checkedTrolley = [];
         }
+
+        setTimeout(() => {
+          this.scrollDataLoading = false;
+        }, 5000)
         resolve(result)
       }).catch(errorCode => {
-        // getApp().failRequest();
         utils.errorHander(errorCode, this.getTrolley)
           .then(() => {
+            setTimeout(() => {
+              this.scrollDataLoading = false;
+            }, 5000)
             resolve()
           })
           .catch(() => {
             this.setData({
               hasOrders: this.data.trolley.length
             });
+            setTimeout(() => {
+              this.scrollDataLoading = false;
+            }, 5000)
             reject()
           })
       })
@@ -210,43 +298,49 @@ Page({
   },
   del(e) {
     const dataset = e.currentTarget.dataset;
-    const itemId = dataset.itemid;
+    const groupId = dataset.groupid;
+    let tempdata = {
+        groupIds: [
+          groupId
+        ]
+    }
     utils.postRequest({
-      METHOD: 'DELETE',
-      url: Api.removeCart,
-      config: {
-        merchantId: app.getMerchantId()
-      },
-      data: {
-        removeItems: [{
-          itemId
-        }]
-      }
-    }).then(data => {
-      return new Promise((resolve, reject) => {
-        wx.showToast({
-          title: '删除成功',
-          icon: 'success',
-          duration: 2000
-        });
-        const index = this.selectedRadio.indexOf(itemId);
-        if (index !== -1) {
-          this.selectedRadio.splice(index, 1);
+
+        METHOD: 'DELETE',
+        url: Api.removeCart,
+        config: {
+          merchantId: app.getMerchantId()
+        },
+        data: {
+          groupIds: [
+            groupId
+          ]
         }
-        this.setMoneyData(this.selectedRadio);
-        const trolley = this.data.trolley.reduce((accumulator, item) => {
-          if (item.itemId !== itemId) {
-            accumulator.push(item)
+      }).then(data => {
+        return new Promise((resolve, reject) => {
+          wx.showToast({
+            title: '删除成功',
+            icon: 'success',
+            duration: 2000
+          });
+          const index = this.selectedRadio.indexOf(groupId);
+          if (index !== -1) {
+            this.selectedRadio.splice(index, 1);
           }
-          return accumulator;
-        }, [])
-        this.setData({
-          trolley
-        });
-        utils.updateTrolleyNum({
-          resolve,
-          merchantId: getApp().getMerchantId()
-        })
+          this.setMoneyData(this.selectedRadio);
+          const trolley = this.data.trolley.reduce((accumulator, item) => {
+            if (item.groupId !== groupId) {
+              accumulator.push(item)
+            }
+            return accumulator;
+          }, [])
+          this.setData({
+            trolley
+          });
+          utils.updateTrolleyNum({
+            resolve,
+            merchantId: getApp().getMerchantId()
+          })
       })
     })
       .then(data => {
@@ -260,6 +354,20 @@ Page({
         })
       })
   },
+  getSuitePrice(groupItem){
+    let suitePrice = 0
+    if (groupItem.combinationFlag) {
+      for (let j = 0; j < groupItem.items.length; j++) {
+        suitePrice += groupItem.items[j].price * groupItem.items[j].quantity
+      }
+    } else {
+      if (groupItem.items.length > 0) {
+        suitePrice = groupItem.items[0].price
+      }
+    }
+    return suitePrice
+  },
+
   plusMinus(e) {
     const dataset = e.currentTarget.dataset;
     if (!dataset.enabled) {
@@ -268,7 +376,7 @@ Page({
     const index = dataset.index,
       type = dataset.type;
     const currentTrolley = this.data.trolley[index];
-    const currentNum = currentTrolley.quantity;
+    const currentNum = currentTrolley.count;
     const isMinus = (type === 'minus');
     if ((currentNum === 1) && isMinus) {
       return;
@@ -277,32 +385,48 @@ Page({
 
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
-        item.quantity = num;
+        item.count = num;
+        //item.suitePrice = this.getSuitePrice(item);
       }
       return item;
     })
-    this.setData({
-      trolley,
 
-    });
-    let currentMoney = this.getTotalPrice(this.selectedRadio)
-    let remaining = this.data.minAmount - currentMoney;
-    remaining = utils.getFixedNum(remaining, 2)
-    const disableBuy = remaining > 0;
-    currentMoney = utils.getFixedNum(currentMoney, 2);
     if (currentTrolley.checked) {
-      this.setData({
-        quantity: num,
-        currentMoney,
-        // buyTxt: disableBuy ? `还差￥${remaining}可购买` : '立即购买',
-        disableBuy,
-        remaining
-      })
+      trolley[index].count = num
+    } else {
+      trolley[index].checked = true
+      trolley[index].count = num
+      this.selectedRadio.push(trolley[index].groupId);
     }
+
+    //调用计算接口
+    this.callPromotionCacl(trolley, index)
+    .then((data) =>{
+      trolley[index] = data
+      var singleGroup = 'trolley[' + index + ']'
+      this.setData({
+        [singleGroup]: trolley[index]
+      });
+      this.setMoneyData(this.selectedRadio);
+    })
+
+    console.log(trolley[index])
+
+    for (let i = 0; i < trolley[index].items.length; i++){
+      trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
+    }
+
+    let para = {
+      addGroupList: [{
+        count: isMinus ? -1 : 1,
+        addItemList: trolley[index].items,
+      }]
+    }
+
     utils
-      .addToTrolley(currentTrolley.itemId, isMinus ? -1 : 1, false, false)
+      .addToTrolleyByGroup(para)
       .then(badge => {
-        // debugger;
+        utils.updateTrolleyNum();
       })
   },
   onReady: function () {

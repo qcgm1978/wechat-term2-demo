@@ -9,6 +9,7 @@ Page({
   data: {
     data: {},
     points: 0,
+
     pointBalance: 0,
     usedPoints: 0,
     heightGoods: 212 * 2, //height-8-74*2-211*2-53*2
@@ -30,7 +31,9 @@ Page({
     salesReturn: '拒收申请已完成，积分已退回您的账户，请查询',
     address: '',
     addressStore: '../transactionDetail/images/address.png',
-
+    discountTotalAmount: 0,
+    totalBeforePromotion: 0,
+    totalItemNumber:0
   },
   changedTxt: `很抱歉,订单中的商品信息发生变更,请确认商品信息后重新下单`,
   failTxt: `很抱歉，提交订单时遇到未知故障
@@ -53,9 +56,17 @@ Page({
       });
     });
     if (getApp().globalData.items) {
+      let tempData = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items]
+      let count = 0
+
+      for (let i = 0; i < tempData.length; i++){
+          count += tempData[i].items.length
+      }
       this.setData({
         data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
+        totalItemNumber: count
       })
+
     } else {
       this.getProduct(options);
     }
@@ -84,8 +95,10 @@ Page({
     const windowHeight = wx.getSystemInfoSync().windowHeight;
     points = utils.getFixedNum(points);
     this.setData({
-      height: windowHeight * 2,
-      top: windowHeight,
+
+      height: getApp().globalData.systemInfo.deviceWindowHeight,
+      top: getApp().globalData.systemInfo.deviceWindowHeight,
+
       storeName: getApp().globalData.merchant.merchantStoreName,
       pointBalance,
       points,
@@ -96,7 +109,9 @@ Page({
       actual: utils.getFixedNum(options.total - credit, 2),
       address: getApp().globalData.address,
       phone: app.getPhone(),
-      profileName: getApp().globalData.authWechat.authMerchantList[0].userName
+      profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
+      discountTotalAmount: options.totalDiscount,
+      totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2) 
     })
   },
   onChangeChecked(myEventDetail, myEventOption) {
@@ -141,7 +156,6 @@ Page({
       categoryCd: '',
       itemIds: itemId ? itemId : '',
     }).then(data => {
-      console.log(data);
       if (data.status === 200) {
         const result = data.result[0];
         result.itemImageAddress = (Array(5).fill('')).reduce((accumulator, item, index) => {
@@ -181,29 +195,63 @@ Page({
         receiverCellPhone = app.getPhone(),
         receiverAddress = getApp().globalData.address,
         orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
-      const usePoint = this.data.isVisible ? this.data.credit * 100 : 0;
-      // return;
+
+      const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
+      let sumDiscount = 0
+      for (let i = 0; i < orderItems.length; i++){
+        orderItems[i].discountAmount = "0"
+        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]){
+          orderItems[i].promotionId = orderItems[i].cartCombinationPromotions[0].promotionId
+        }else{
+          orderItems[i].promotionId = ""
+        }
+        
+        orderItems[i].cartGroupId = orderItems[i].groupId
+        for (let j = 0; j < orderItems[i].items.length; j++) {
+          if (orderItems[i].combinationFlag){
+            orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
+          }
+        }
+        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]){
+          orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount ? orderItems[i].cartCombinationPromotions[0].discountAmount: "0"
+          orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].discountPercentage
+          if (orderItems[i].discountAmount && orderItems[i].discountAmount>0){
+            sumDiscount += orderItems[i].discountAmount
+          }
+          if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length>0){
+            for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++){
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemId
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].itemName = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemName
+              orderItems[i].items.push(orderItems[i].cartCombinationPromotions[0].giftItems[j])
+            }
+          }
+        }
+      }
+      console.log(JSON.stringify(orderItems))
       utils.postRequest({
         url: createOrder,
         data: {
           orderItems,
+          orderPomotionId: "0",
+          orderPomotionDiscountAmount: 0,
+          cashAmount: this.data.total - this.data.credit,
+          discountTotalAmount: sumDiscount,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
           orderItemSource: getApp().globalData.items.orderItemSource,
-          // merchantMsg: this.data.textarea || 'aaa',
           usePoint,
           totalAmount: this.data.total,
           receiverInfo: {
             receiverName,
             receiverCellPhone,
             receiverAddress
-          }
+          },
         }
       }).then(data => {
         // todo test 409
         // throw (409)
         wx.hideLoading()
-        console.log(data);
         if (data.status === 200) {
           const trolley = getCurrentPages().slice(-2, -1)[0];
           if (trolley && trolley.route.includes('trolley/trolley')) {

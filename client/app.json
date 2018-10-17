@@ -13,7 +13,8 @@
     "pages/trolley/trolley",
     "pages/order-success/order-success",
     "pages/sort/sort",
-    "pages/sort-list/sort-list"
+    "pages/sort-list/sort-list",
+    "pages/promoteOptions/promoteOptions"
   ],
   "window": {
     "backgroundColor": "#eeeff4",

@@ -26,18 +26,21 @@
       <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center' style="width: 144rpx;height: 144rpx;font-size:32rpx;">售罄</view>
     </view>
     <view class='product-name'>{{pitem.itemName}}</view>
-    <text class='ellipse home-spec'>{{pitem.itemSpecification}}</text>
+    <view class='product-spec'>{{pitem.itemSpecification}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
       <view class='product-price'>￥{{pitem.price}}
-        <!-- <text class='minus'>满减</text> -->
+        <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
+        <image style='width:64rpx; height:32rpx;' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='2'}}"></image>
+        <image style='width:64rpx; height:32rpx;' src='{{imgManzeng}}' wx:elif="{{pitem.promotionTypes[0]=='1'}}"></image>
+        <block wx:else></block>
       </view>
 
-      <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
+      <view class='product-add center-center' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
         <text>+</text>
       </view>
     </view>
-    <view class='product-add-button' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}">
+    <view class='product-add-button' catchtap='addToTrolley' data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
     </view>
   </navigator>
 </view>
