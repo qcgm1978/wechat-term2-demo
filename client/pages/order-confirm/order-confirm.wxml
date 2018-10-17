@@ -111,10 +111,10 @@
         <text class='regular order-field '>商品总额</text>
         <text class='medium dollar'>{{totalBeforePromotion}}</text>
       </view>
-      <view class='  center order-item-container' wx:if="{{discountTotalAmount!==0}}">
-      <text class='regular order-field '>促销折扣</text>
-      <text class='medium dollar-minus' >{{discountTotalAmount}}</text>
-    </view>
+      <view class='  center order-item-container' wx:if="{{discountTotalAmount!==0 && discountTotalAmount!=='0'}}">
+        <text class='regular order-field '>促销折扣</text>
+        <text class='medium dollar-minus' >{{discountTotalAmount}}</text>
+      </view>
       <view wx:if='{{isVisible && credit}}' class='  center order-item-container'>
         <text class='regular order-field '>积分折扣</text>
         <text class='medium dollar-minus' style='color: rgb(236,103,32);'>{{credit}}</text>

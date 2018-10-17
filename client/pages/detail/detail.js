@@ -221,7 +221,7 @@ Page({
     }
 
     // this.data.product.quantity = this.data.quantity;
-    this.data.product.quantity = 1
+    this.data.product.quantity = this.data.quantity
 
     let groups = []
     let group = {}
@@ -239,8 +239,9 @@ Page({
 
     getApp().globalData.items = groups;
     getApp().globalData.items.orderItemSource=0;
+
     wx.navigateTo({
-      url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}`,
+      url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0`,
     });
   },
   preventTouchMove: function (e) {
