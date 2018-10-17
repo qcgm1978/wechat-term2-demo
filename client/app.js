@@ -182,7 +182,7 @@ App({
       // debugger;
     },
     error(err) {
-      debugger;
+      //debugger;
     }
   }) {
     wx.getSetting({

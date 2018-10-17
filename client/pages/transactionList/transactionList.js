@@ -158,7 +158,6 @@ Page({
             }
             return currentItem;
           });
-
           this.setData({
             order,
             hasNetwork: true

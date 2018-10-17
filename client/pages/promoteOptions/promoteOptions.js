@@ -88,6 +88,7 @@ Page({
 
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
+    
     for (let i = 0; i < this.data.composeProducts.length; i++){
       if (itemId == this.data.composeProducts[i].itemId){
         for (let j = 0; j < this.data.composeProducts.length; j++){
@@ -150,9 +151,11 @@ Page({
                 promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
                 promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
                 promoteResult.giftItems[0].price = 0
+                promoteResult.giftItems[0].isGift = true
                 this.setData({
                   'selectedProductList[2]': promoteResult.giftItems[0]
                 })
+                console.log(JSON.stringify(this.data.selectedProductList))
               } else if (promoteResult.discountAmount > 0) { //满减
 
               }
