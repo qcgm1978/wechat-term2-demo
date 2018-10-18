@@ -169,6 +169,7 @@ Page({
       trolley,
       checkAll: this.selectedRadio.length === trolley.length,
     })
+
   },
   turnPage(e) {
     const itemId = e.currentTarget.dataset.itemid;
@@ -204,9 +205,10 @@ Page({
       }
       itemGroups.push(group)
       promises.push(promoteUtil.calcPromote({itemGroups}))
-
+      console.log(JSON.stringify({ itemGroups }))
       Promise.all(promises)
       .then(arr => {
+        console.log(arr)
         if (arr[0]){
           trollyList[i].cartCombinationPromotions = arr
         }
@@ -227,8 +229,6 @@ Page({
       limit: this.limit
     }
 
-    console.log(temdata)
-
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -239,20 +239,23 @@ Page({
       })
       .then((data) => {
         let result = data.result
-        console.log(result)
+
         for(let i = 0; i<result.length; i++){
-          result[i].items = result[i].items.map((item, index) => {
-            if (/*item.putShelvesFlg &&*/ (this.data.checkAll || this.selectedRadio.includes(item.itemId))) {
-              item.checked = true;
-            } else {
-              item.checked = false;
+          result[i].putShelvesFlg = true
+          result[i].items.map((item, index) => {
+            if (!item.putShelvesFlg) {
+              putShelvesFlg = false;
             }
-            return item;
           });
 
+          if (result[i].putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(result[i].groupId))) {
+            result[i].checked = true;
+          } else {
+            result[i].checked = false;
+          }
           result[i].combinationFlag = result[i].items.length > 1 ? true : false
           result[i].suitePrice = this.getSuitePrice(result[i])
-          result[i].putShelvesFlg = true
+          
         }
         let trolley = []
         if (this.start === 0) {

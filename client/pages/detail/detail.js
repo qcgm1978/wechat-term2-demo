@@ -1,6 +1,7 @@
 import utils from "../../utils/util.js";
 const app = getApp();
 const globalData = app.globalData;
+import promoteUtil from "../../utils/promotion.js";
 import {
   Api
 } from '../../utils/envConf.js'
@@ -115,9 +116,6 @@ Page({
       addGroupList: [{
         count: this.data.quantity,
         addItemList: arr,
-        // promotions: [{
-        //   promotionId: this.data.promoteInfo.promotionId
-        // }]
       }]
     }
 
@@ -142,8 +140,10 @@ Page({
     }).then(data => {
       if (data.status === 200) {
         const result = data.result[0];
-        // todo
-        // result.putShelvesFlg = true;
+        //计算接口需要额外的数据
+        result.unitPrice = result.price
+        result.categoryCode = result.itemCategoryCode
+        result.brandId = ""
         result.itemImageAddress = (Array(5).fill('')).reduce((accumulator,item,index)=>{
           const imgAddress = result['itemImageAddress' + (index + 1)];
           imgAddress !== '' && accumulator.push(`${imgAddress}?x-oss-process=style/750w`);
@@ -215,34 +215,60 @@ Page({
         buyTxt: `还差￥${this.data.minAmount - this.data.product.price}可购买`,
         currentMoney: this.data.product.price * this.data.quantity
       })
+    } else if (!this.data.isSelecting && this.data.minAmount <= this.data.product.price){
+      return this.setData({
+        isSelecting: true,
+        currentMoney: this.data.product.price * this.data.quantity,
+        enableBuy: true
+      })
     }
     if (!this.data.enableBuy) {
       return;
     }
-
-    // this.data.product.quantity = this.data.quantity;
     this.data.product.quantity = this.data.quantity
-
-    let groups = []
+    if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId){
+      this.data.product.itemPromotions[0].itemPromotionId = this.data.product.itemPromotions[0].promotionId
+    } 
+    let itemGroups = []
     let group = {}
     group.groupId = ""
     group.count = 1
     group.combinationFlag = false
     group.checked = true
-    group.cartCombinationPromotions  = []
+    group.cartCombinationPromotions  = null
     group.items = [this.data.product]
     group.promotions = null
     group.putShelvesFlg = this.data.product.putShelvesFlg
     group.suitePrice = this.data.product.price
 
-    groups.push(group)
+    itemGroups.push(group)
 
-    getApp().globalData.items = groups;
-    getApp().globalData.items.orderItemSource=0;
+    let para = {}
+    para.locationId = getApp().globalData.merchant.locationId+""
+    para.merchantId = getApp().getMerchantId()
+    para.itemGroups = itemGroups
+    // 获取促销信息
+    promoteUtil.calcPromote(para)
+      .then(arr => {
+        if (arr) {
+          if (arr.giftItems && arr.giftItems[0]){
+            arr.giftItems[0].itemId = arr.giftItems[0].giftItemId 
+            arr.giftItems[0].itemName = arr.giftItems[0].giftItemName
+            arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity 
+          }
+          itemGroups[0].cartCombinationPromotions = [arr]
+          getApp().globalData.items = itemGroups;
+          getApp().globalData.items.orderItemSource = 0;
 
-    wx.navigateTo({
-      url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0`,
-    });
+          wx.navigateTo({
+            url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0`,
+          });
+        }
+      })
+      .catch(() => {
+      })
+
+
   },
   preventTouchMove: function (e) {
     //debugger;
@@ -339,10 +365,10 @@ Page({
       .then((data) => {
 
         if (data.result[0].promotionItems.length > 0){
-          
           this.setData({
             //promoteInfo: data.result[0].promotionItems[0],
             promoteInfoList: data.result[0].promotionItems,
+            "product.itemPromotions": data.result[0].promotionItems,
             hasPromotion: true
           })
           if (data.result[0].promotionItems[0].combinationFlag == "0"){
