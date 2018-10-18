@@ -22,8 +22,8 @@
 
     <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
     <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;' class='bgc'>
-      <view class='group-container' wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
-        <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}'>
+      <view class='group-container'  wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
+        <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}' wx:if='{{!isReturn||orderItem.returnQuantit}}'>
           <view class='item-container'>
             <view class='item-container-fg'>
               <view class='order-content'>
@@ -51,7 +51,7 @@
                     </view>
                   </view>
                   <text wx:else>￥{{orderItem.unitPrice}}</text>
-                  <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' style='text-align: right;'>{{isReturn&&'拒收数量'}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
+                  <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' style='text-align: right;'>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
                 </view>
               </view>
 
@@ -63,7 +63,7 @@
     </scroll-view>
   </view>
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
-    <view class='bgc padding'>
+    <view class='bgc padding' wx:if='{{!isReturn}}'>
       <view class='money-amount '>
         <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 16rpx;">
           <view>商品总额</view>
@@ -88,16 +88,23 @@
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
-      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'退款':'实付'}}总额：
+      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}总额：
       <text style='color:#ec6515;'>￥{{isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount}}</text>
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx;">
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay||!isReturn}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style="color:#888">{{'拒收编号'}}：</text>{{orderCode}}</view>
+          <view catch:tap='copy' class='copy'>复制</view>
+        </view>
+      </view>
       <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
-            <text style="color:#888">{{isReturn?'拒收编号':'订单编号'}}：</text>{{orderCode}}</view>
-          <view catch:tap='copy' class='copy'>复制</view>
+            <text style="color:#888">{{'订单编号'}}：</text>{{order.orderId}}</view>
+          <view wx:if='{{!isReturn}}' catch:tap='copy' class='copy'>复制</view>
         </view>
       </view>
       <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>

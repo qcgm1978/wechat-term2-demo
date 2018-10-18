@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 4,
 			"list": [
 				{
 					"id": -1,
@@ -52,7 +52,7 @@
 					"id": 2,
 					"name": "transactionDetail",
 					"pathName": "pages/transactionDetail/transactionDetail",
-					"query": "orderId=180929115831267764"
+					"query": "orderId=181018110623453884"
 				},
 				{
 					"id": 4,
@@ -64,7 +64,7 @@
 					"id": 4,
 					"name": "transactionList",
 					"pathName": "pages/transactionList/transactionList",
-					"query": "tab=0"
+					"query": "tab=4"
 				},
 				{
 					"id": 5,
