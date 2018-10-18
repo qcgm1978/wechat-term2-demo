@@ -29,6 +29,7 @@ Page({
     src: './images/pic.png',
     standard: '500ML*12',
     top: '',
+    remark:'',
     showPrepayedCardInfo: "none",
     showPointPayInfo: "none",
     notShowPointPayInfo: true,
@@ -135,11 +136,12 @@ Page({
         }
         data = data.result ? data : {
           result: data
-        }
+        };
+        const order = data.result;
         this.setData({
-          order: data.result,
+          order,
         });
-        this.setOrderStatus(data.result.orderStatus)
+        this.setOrderStatus(order.orderStatus)
         wx.hideLoading();
       })
       .catch(errorCode => {
@@ -205,6 +207,7 @@ Page({
   setOrderStatus(orderStatus) {
     this.setData({
       orderStatus,
+      remark: (orderStatus === 'COMPLETED' && this.data.order.actualAmount !== this.data.order.payment.cashAmount) ? `(待入账)` : ''
 
     });
     const pages = getCurrentPages();
