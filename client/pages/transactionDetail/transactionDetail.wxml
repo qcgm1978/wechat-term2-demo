@@ -77,7 +77,12 @@
           <view class='dollar-minus'>{{order.discountTotalAmount}}</view>
         </view>
       </view>
-
+<view class='regular money-amount money ' style="margin: 0 16rpx;">
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>应付金额</view>
+          <view class='dollar'>{{isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount}}</view>
+        </view>
+      </view>
       <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin: 0 16rpx;">
 
         <view style="display:flex; justify-content: space-between; width: 100%; ">
@@ -88,7 +93,7 @@
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
-      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'应付'}}金额：
+      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：
       <text style='color:#ec6515;'>￥{{isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount}}</text>
     </view>
 
