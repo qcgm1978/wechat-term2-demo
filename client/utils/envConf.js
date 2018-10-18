@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.STG; //update this value for different env
+var env = EVN.DEV; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -56,6 +56,7 @@ const apiURLs = {
   getOrderList: `${baseUrl}/mall/order/list`,
   createOrder: `${baseUrl}/mall/order/create`,
   cancelOrder: `${baseUrl}/mall/order/cancel`,
+  countOrder: `${baseUrl}/mall/order/count`,
   
   getProduct: `${baseUrl}/product/{merchantId}/{itemId}`,
   getMerchant: `${baseUrl}/merchant/{merchantId}`,

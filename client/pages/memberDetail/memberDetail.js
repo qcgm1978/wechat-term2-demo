@@ -1,7 +1,11 @@
 import {
   getMerchant,
-  errorHander
+  errorHander,
+  postRequest
 } from '../../utils/util.js';
+import {
+  Api
+} from '../../utils/envConf.js';
 Page({
 
   /**
@@ -15,7 +19,7 @@ Page({
     id: '',
     salesmanName: '',
     salesmanCellPhone: '',
-    toShip:0
+    orderNum: {}
   },
 
   /**
@@ -27,6 +31,7 @@ Page({
         url: '/pages/login/login',
       })
     }
+
   },
   exitLogin: function() {
     getApp().exitLogin();
@@ -58,15 +63,58 @@ Page({
   onShow: function() {
     const merchant = getApp().globalData.merchant;
     // getMerchant().then(data => {
-      // const merchant = data.result;
+    // const merchant = data.result;
+    this.setData({
+      id: merchant.nsMerchantId,
+      name: merchant.merchantStoreName,
+      address: getApp().globalData.address,
+      profileName: getApp().globalData.authWechat.authMerchantList[getApp().globalData.currentIndex].userName,
+      salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : '',
+      salesmanName: merchant.salesmanName || ''
+    });
+    postRequest({
+      url: Api.countOrder,
+      postData: {
+        "merchantId": getApp().getMerchantId(),
+        "orderStatus": [
+          0, 1, 2, 3, 4, 5
+        ]
+      }
+    }).then(({result}) => {
+      debugger;
       this.setData({
-        id: merchant.nsMerchantId,
-        name: merchant.merchantStoreName,
-        address: getApp().globalData.address,
-        profileName: getApp().globalData.authWechat.authMerchantList[getApp().globalData.currentIndex].userName,
-        salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : '',
-        salesmanName: merchant.salesmanName || ''
+        orderNum:result
       });
+    }).catch(err => {
+      // todo
+      // let orderNum = [
+      //   {
+      //     "orderStatus": 0,
+      //     "count": 10
+      //   },
+      //   {
+      //     "orderStatus": 1,
+      //     "count": 3
+      //   },
+      //   {
+      //     "orderStatus": 2,
+      //     "count": 0
+      //   },
+      //   {
+      //     "orderStatus": 3,
+      //     "count": 0
+      //   },
+      //   {
+      //     "orderStatus": 4,
+      //     "count": 1
+      //   },
+      //   {
+      //     "orderStatus": 5,
+      //     "count": 0
+      //   }
+      // ];
+      // this.setData({orderNum});
+    });
     // })
   },
 

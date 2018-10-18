@@ -70,7 +70,7 @@
 					"id": 5,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "itemId=3225&categoryId=1201003"
+					"query": "categoryId=1205001&itemId=3462"
 				},
 				{
 					"id": 6,

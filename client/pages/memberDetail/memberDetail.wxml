@@ -30,8 +30,8 @@
       <view class='column' data-type='1'>
         <view class="center-center">
           <image src='./img/waiting.png' data-type='1'></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{toShip}}'>
-            {{toShip}}
+          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[0].count}}'>
+            {{orderNum[0].count}}
           </view>
         </view>
         <text class='{{tabColors[1]}} regular' data-type='1'>待发货</text>
@@ -39,8 +39,8 @@
       <view class='column' data-type='2'>
         <view class="center-center">
           <image src='./img/shipping.png' data-type='2' style='transform:rotate3d(0,1,0,180deg);'></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{toShip}}'>
-            {{toShip}}
+          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[2].count}}'>
+            {{orderNum[2].count}}
           </view>
         </view>
         <text class='{{tabColors[2]}} regular' data-type='2'>已发货</text>
@@ -48,8 +48,8 @@
       <view class='column' data-type='3'>
         <view class="center-center">
           <image src='./img/complete.png' data-type='3'></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{toShip}}'>
-            {{toShip}}
+          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[1].count+orderNum[3].count}}'>
+            {{orderNum[1].count+orderNum[3].count}}
           </view>
         </view>
         <text class='{{tabColors[3]}} regular' data-type='3'>已完成</text>
@@ -57,8 +57,8 @@
       <view class='column' data-type='4'>
         <view class="center-center">
           <image src='./img/return.png' data-type='4'>></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{toShip}}'>
-            {{toShip}}
+          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[4].count+orderNum[5].count}}'>
+            {{orderNum[4].count+orderNum[5].count}}
           </view>
         </view>
         <text class='{{tabColors[4]}} regular' data-type='4'>拒收单</text>

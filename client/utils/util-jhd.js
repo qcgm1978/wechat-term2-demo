@@ -113,9 +113,6 @@ var postRequest = function ({
       method: METHOD,
       header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
-        // 'Content-Type': 'application/json'
-
-        // 'X-Client-Id': 'mini-app'
       },
       success: res => {
         if (res.statusCode !== HTTP_SUCCSESS) {
