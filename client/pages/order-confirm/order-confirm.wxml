@@ -117,7 +117,7 @@
     </view>
     <view class='padding bgc' style="margin-top: 15rpx;">
       <view class='  center order-item-container'>
-        <text class='regular order-field '>商品总额</text>
+        <text class='regular order-field '>商品金额</text>
         <text class='medium dollar'>{{totalBeforePromotion}}</text>
       </view>
       <view class='  center order-item-container' wx:if="{{discountTotalAmount!==0 && discountTotalAmount!=='0'}}">
@@ -129,7 +129,7 @@
         <text class='medium dollar-minus' style='color: rgb(236,103,32);'>{{credit}}</text>
       </view>
       <view class='center order-item-container'>
-        <text class='regular order-field '>应付总额</text>
+        <text class='regular order-field '>应付金额</text>
         <text class='medium dollar'>{{actual}}</text>
       </view>
     </view>

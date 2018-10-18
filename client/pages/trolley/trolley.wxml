@@ -187,7 +187,7 @@
       <view style='display: flex; flex-direction: column;'>
             <text>合计:<text class='dollar trolley-num medium'>{{currentMoney}}</text></text>
             <view style='display: flex; flex-direction: row;' wx:if="{{totalDiscountMoney!=0}}">
-              <view>总额</view>
+              <view>金额</view>
               <view>¥{{filters.toFix(overallMoney)}}</view>
               <view>已省</view>
               <view>¥{{totalDiscountMoney}}</view>

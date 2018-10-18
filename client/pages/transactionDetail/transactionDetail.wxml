@@ -66,7 +66,7 @@
     <view class='bgc padding' wx:if='{{!isReturn}}'>
       <view class='money-amount '>
         <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 16rpx;">
-          <view>商品总额</view>
+          <view>商品金额</view>
           <view class='dollar'>{{order.totalAmount}}</view>
         </view>
       </view>
@@ -88,19 +88,19 @@
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
-      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}总额：
+      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'应付'}}金额：
       <text style='color:#ec6515;'>￥{{isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount}}</text>
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx;">
-      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+      <view class='regular money-amount money' hidden='{{!orderCode}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view catch:tap='turnOrderPage' data-type='return'>
             <text style="color:#888">{{'拒收编号'}}：</text>{{orderCode}}</view>
           <view catch:tap='copy' class='copy' wx:if='{{isReturn}}'>复制</view>
         </view>
       </view>
-      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+      <view class='regular money-amount money' >
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view catch:tap='turnOrderPage' data-type='order'>
             <text style="color:#888" >{{'订单编号'}}：</text>{{order.orderId}}</view>

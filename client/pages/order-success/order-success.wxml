@@ -3,7 +3,7 @@
   <text class='success'>下单成功</text>
   <view class='success-txt column'>
     <text>支付方式：货到付款</text>
-    <text class='success-money'>应付总额：<text class='success-num medium dollar'>{{orderTotalAmount}}</text>
+    <text class='success-money'>应付金额：<text class='success-num medium dollar'>{{orderTotalAmount}}</text>
     </text>
   </view>
   <navigator open-type='navigate' url='{{"../transactionDetail/transactionDetail?orderId="+orderId}}'>
