@@ -96,7 +96,7 @@ Page({
   },
   copy() {
     wx.setClipboardData({
-      data: this.data.orderCode + ''
+      data: this.data.isReturn ? (this.data.orderCode + '') : this.data.order.orderId
     })
   },
   turnPage(e) {
@@ -104,6 +104,18 @@ Page({
     wx.navigateTo({
       url: `../detail/detail?itemId=${dataset.itemid}&categoryId=${dataset.categoryid}`,
     })
+  },
+  turnOrderPage(e){
+    const dataset = e.currentTarget.dataset;
+    if(dataset.type==='order' && this.data.isReturn){
+      wx.navigateTo({
+        url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${ 'ORDER'}`
+      });
+    } else if (dataset.type === 'return' && !this.data.isReturn){
+      wx.navigateTo({
+        url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
+      });
+    }
   },
   requestTransDetail(orderId) {
     let requestData = null;
@@ -173,6 +185,7 @@ Page({
         url: '/pages/login/login',
       })
     }
+    this.isOrderPage = options.orderStatus==='ORDER';
     this.requestTransDetail.tokenRefreshed = false
     wx.showLoading({
       title: '加载中',
@@ -196,7 +209,7 @@ Page({
     });
     const pages = getCurrentPages();
     const prevPage = pages[pages.length - 2]; //上一个页面
-    const isReturn = (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
+    const isReturn = this.isOrderPage?false:(orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
     if (isReturn) {
       wx.setNavigationBarTitle({
         title: '拒收详情'
@@ -207,7 +220,7 @@ Page({
       });
     }
     this.setData({
-      orderCode: isReturn ? this.data.order.orderReturn.returnOrderId : this.data.order.orderId,
+      orderCode: this.data.order.orderReturn.returnOrderId
     })
   },
   onShow: function (options) {

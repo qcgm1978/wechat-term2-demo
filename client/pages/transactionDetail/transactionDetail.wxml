@@ -93,17 +93,17 @@
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx;">
-      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay||!isReturn}}'>
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
-          <view>
+          <view catch:tap='turnOrderPage' data-type='return'>
             <text style="color:#888">{{'拒收编号'}}：</text>{{orderCode}}</view>
-          <view catch:tap='copy' class='copy'>复制</view>
+          <view catch:tap='copy' class='copy' wx:if='{{isReturn}}'>复制</view>
         </view>
       </view>
       <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
-          <view>
-            <text style="color:#888">{{'订单编号'}}：</text>{{order.orderId}}</view>
+          <view catch:tap='turnOrderPage' data-type='order'>
+            <text style="color:#888" >{{'订单编号'}}：</text>{{order.orderId}}</view>
           <view wx:if='{{!isReturn}}' catch:tap='copy' class='copy'>复制</view>
         </view>
       </view>
