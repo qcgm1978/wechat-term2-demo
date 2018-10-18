@@ -12,7 +12,7 @@
     <swiper-item wx:for="{{[0,1,2,3]}}" wx:key='*this'>
       <scroll-view scroll-y="true" class="scoll-h" bindscrolltoupper='pullDownRefresh' bindscrolltolower="lower">
         <view class='container-fg'>
-          <navigator url='{{"../transactionDetail/transactionDetail?orderId="+item.orderId+"&orderStatus=ORDER"}}' wx:key='{{index}}' wx:for="{{order}}" wx:if='{{!item.toRemove}}'>
+          <view catch:tap='turnPage' data-order-id='{{item.orderId}}' wx:key='{{index}}' wx:for="{{order}}" wx:if='{{!item.toRemove}}'>
             <view class='item-container'>
               <view class='center regular order-container'>
                 <text class='order-num'>{{isReturn?'拒收编号':'订单号'}}：{{isReturn?item.orderReturn.returnOrderId:item.orderId}}</text>
@@ -41,7 +41,7 @@
               </view>
               <!-- </navigator> -->
             </view>
-          </navigator>
+          </view>
           <view class="container footer-container-no-msg" wx:if='{{order.length===0 && loadCompleted }}'>
             <view class="line" style='height:1rpx; z-index: 1;'></view>
             <image class='logo' style=' z-index: 1; position：absolute; top: 0; left:0;' src="{{homeLogo}}"></image>

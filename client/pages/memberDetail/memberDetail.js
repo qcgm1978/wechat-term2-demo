@@ -81,7 +81,7 @@ Page({
         ]
       }
     }).then(({result}) => {
-      debugger;
+      // debugger;
       this.setData({
         orderNum:result
       });

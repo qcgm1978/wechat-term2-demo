@@ -266,7 +266,12 @@ Page({
     })
     return promise
   },
-
+  turnPage(e){
+    const dataset = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `../transactionDetail/transactionDetail?orderId=${dataset.orderId}&orderStatus=${this.data.isReturn ? '' : 'ORDER'}`,
+    })
+  },
   onLoad: function (option) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
