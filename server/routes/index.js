@@ -72,4 +72,7 @@ router.post('/v1/order/cancel', controllers.order.cancel);
 router.get('/v1/order/:merchantId/:orderId', controllers.order.detail);
 // 商品添加到购物车列表
 router.post('/v1/trolley/list', controllers.trolley.add)
+
+router.post('/v1/trolley/list', controllers.trolley.add)
+
 module.exports = router
