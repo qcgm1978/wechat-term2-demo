@@ -313,7 +313,7 @@ const addToTrolleyByGroup = (groupList, quantity = 1,enableChecked = true, updat
     })
       .then(ret => {
         if (enableChecked) {
-          // getApp().globalData.checkedTrolley.push(groupList);
+          //getApp().globalData.checkedTrolley.push(groupList);
         }
       })
       .then(() => {
@@ -332,54 +332,54 @@ const addToTrolleyByGroup = (groupList, quantity = 1,enableChecked = true, updat
   });
 }
 
-const addToTrolley = (itemId, quantity = 1, enableChecked = true, updateAddTime = true) => {
-  showLoading({
-    title: '正在添加到购物车...'
-  })
-  const merchantId = getApp().getMerchantId();
-  const locationId = String(getApp().globalData.merchant.locationId);
-  const data = {
-    merchantId,
-    itemId,
-    locationId,
-    quantity,
-    updateAddTime,
-    addItemList: itemId instanceof Array ? itemId : [{
-      itemId,
-      quantity
-    }]
-  },
-    config = {
-      merchantId,
-      locationId
-    }
-  return new Promise((resolve, reject) => {
-    postRequest({
-      url: Api.addTrolley,
-      config,
-      data
-    })
-      .then(ret => {
-        if (enableChecked) {
-          getApp().globalData.checkedTrolley.push(itemId);
-        }
-      })
-      .then(() => {
-        console.log("updateTrolleyNum")
-        updateTrolleyNum({
-          merchantId,
-          quantity,
-          resolve
-        })
-      })
-      .then(data => {
-        hideLoading();
-      })
-      .catch(errorCode => {
-        reject()
-      });
-  });
-}
+// const addToTrolley = (itemId, quantity = 1, enableChecked = true, updateAddTime = true) => {
+//   showLoading({
+//     title: '正在添加到购物车...'
+//   })
+//   const merchantId = getApp().getMerchantId();
+//   const locationId = String(getApp().globalData.merchant.locationId);
+//   const data = {
+//     merchantId,
+//     itemId,
+//     locationId,
+//     quantity,
+//     updateAddTime,
+//     addItemList: itemId instanceof Array ? itemId : [{
+//       itemId,
+//       quantity
+//     }]
+//   },
+//     config = {
+//       merchantId,
+//       locationId
+//     }
+//   return new Promise((resolve, reject) => {
+//     postRequest({
+//       url: Api.addTrolley,
+//       config,
+//       data
+//     })
+//       .then(ret => {
+//         if (enableChecked) {
+//           getApp().globalData.checkedTrolley.push(itemId);
+//         }
+//       })
+//       .then(() => {
+//         console.log("updateTrolleyNum")
+//         updateTrolleyNum({
+//           merchantId,
+//           quantity,
+//           resolve
+//         })
+//       })
+//       .then(data => {
+//         hideLoading();
+//       })
+//       .catch(errorCode => {
+//         reject()
+//       });
+//   });
+// }
 const getFixedNum = (float, digits = 0) => {
   let ret = Number(float).toFixed(2);
   ret = Number(String(ret).replace(/\.?0+$/, ''));
@@ -393,10 +393,7 @@ const updateTrolleyNum = ({
 } = {
     merchantId: getApp().getMerchantId()
   }) => {
-  console.log(JSON.stringify({
-    merchantId,
-    locationId: getApp().globalData.merchant.locationId
-  }))
+
   return getRequest(Api.getCartCount, {
     merchantId,
     locationId: getApp().globalData.merchant.locationId
@@ -465,7 +462,7 @@ module.exports = {
   getRequest,
   errorHander,
   queryStack,
-  addToTrolley,
+  //addToTrolley,
   addToTrolleyByGroup,
   getFixedNum,
   updateTrolleyNum,

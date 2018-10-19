@@ -205,12 +205,13 @@ Page({
       }
       itemGroups.push(group)
       promises.push(promoteUtil.calcPromote({itemGroups}))
-      console.log(JSON.stringify({ itemGroups }))
+
       Promise.all(promises)
       .then(arr => {
-        console.log(arr)
         if (arr[0]){
           trollyList[i].cartCombinationPromotions = arr
+        }else{
+          trollyList[i].cartCombinationPromotions = null
         }
         resolve(trollyList[i])
       })
@@ -239,12 +240,14 @@ Page({
       })
       .then((data) => {
         let result = data.result
-
+        if(result.length > 0){
+          result.reverse()
+        }
         for(let i = 0; i<result.length; i++){
           result[i].putShelvesFlg = true
           result[i].items.map((item, index) => {
             if (!item.putShelvesFlg) {
-              putShelvesFlg = false;
+              result[i].putShelvesFlg = false;
             }
           });
 
@@ -419,9 +422,6 @@ Page({
       });
       this.setMoneyData(this.selectedRadio);
     })
-
-    // console.log(trolley[index])
-
     for (let i = 0; i < trolley[index].items.length; i++){
       trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
     }
@@ -448,11 +448,12 @@ Page({
       this.selectedRadio = [];
       getApp().globalData.toggleMerchant = false;
     }
-    getApp().globalData.checkedTrolley.map(item => {
-      if (!this.selectedRadio.includes(item)) {
-        this.selectedRadio.push(item)
-      }
-    });
+
+    // getApp().globalData.checkedTrolley.map(item => {
+    //   if (!this.selectedRadio.includes(item)) {
+    //     this.selectedRadio.push(item)
+    //   }
+    // });
     this.getTrolley()
       .then(data => {
         this.setData({
@@ -466,6 +467,7 @@ Page({
       })
     utils.updateTrolleyNum();
     utils.checkNetwork().then(utils.requestStatisLoad);
+    this.setMoneyData(this.selectedRadio)
   },
 
   onHide() {

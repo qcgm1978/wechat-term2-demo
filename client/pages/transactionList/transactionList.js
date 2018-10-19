@@ -298,120 +298,159 @@ Page({
     }
     this.requestMoreData(this.data.config);
   },
+
+  getPutShelfFlag: function (orderGroups) {
+    var promise = new Promise((resolve, reject) => {
+      let promisesArr = []
+      for (let i = 0; i < orderGroups.length;i++){
+        for (let j = 0; j < orderGroups[i].items.length; j++){
+          promisesArr.push(this.getProduct(orderGroups[i].items[j].itemId, orderGroups[i].items[j].categoryId))
+        }
+      }
+      Promise.all(promisesArr)
+        .then(arr => {
+          let soldOutNumber = 0
+          for (let i = 0; i < arr.length;i++){
+              if (!arr[i][0].putShelvesFlg) {
+                soldOutNumber++
+              }
+          }
+
+          let flag = 0
+          if (soldOutNumber == 0){
+          } else if (soldOutNumber != arr.length){
+            flag = 1
+          } else if(soldOutNumber == arr.length){
+            flag = 2
+          }
+          let items = arr
+          resolve({ flag, items })
+        })
+        .catch(e => { })
+    })
+    return promise
+  },
+
   addGotoTrolley: function (e) {
     const dataset = e.currentTarget.dataset;
-
     let orderGroups = [];
     for(let i = 0; i<this.data.order.length; i++){
       if (this.data.order[i].orderId === dataset.orderId){
         orderGroups = this.data.order[i].orderItems
       }
     }
+    this.getPutShelfFlag(orderGroups)
+    .then((data) => {
+      if(data.flag == 0){
+        //在售
+        let para = {
+          addGroupList: []
+        }
 
-    let para = {
-      addGroupList: []
-    }
+        for (let i = 0; i < orderGroups.length; i++) {
+          let items = orderGroups[i].items
+          for (let j = 0; j < items.length; j++) {
+            items[j].categoryCode = items[j].categoryId
+          }
+          orderGroups[i].count = 1
+          orderGroups[i].addItemList = items
+          let promotions = []
+          let promotion = {}
+          promotion.promotionId = orderGroups[i].promotionId
+          promotions.push(promotion)
+          orderGroups[i].promotions = promotions
+          para.addGroupList.push(orderGroups[i])
+        }
+        utils
+          .addToTrolleyByGroup(para)
+          .then(badge => {
+            //getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
+            wx.switchTab({
+              url: `/pages/trolley/trolley`,
+            })
+          })
+      } else if (data.flag == 1) {
+        //部分售完
 
-    for (let i = 0; i < orderGroups.length; i++) {
-      let items = orderGroups[i].items
-      for (let j = 0; j < items.length; j++) {
-        items[j].categoryCode = items[j].categoryId
-      }
-      orderGroups[i].count = 1
-      orderGroups[i].addItemList = items
-      let promotions = []
-      let promotion = {}
-      promotion.promotionId = orderGroups[i].promotionId
-      promotions.push(promotion)
-      orderGroups[i].promotions = promotions
-      para.addGroupList.push(orderGroups[i])
-    }
+        utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
+          let para = {
+            addGroupList: []
+          }
+          for (let i = 0; i < orderGroups.length; i++) {
+            orderGroups[i].items = orderGroups[i].items.reduce((accumulator, item) => {
+              item.categoryCode = item.categoryId
+              let isOnShelf = false
+              for (let k = 0; k < data.items.length; k++) {
+                if (data.items[k][0].itemId && item.itemId == data.items[k][0].itemId){
+                  isOnShelf = true
+                }
+              }
+              if (isOnShelf) {
+                accumulator.push(item);
+              }
+              return accumulator;
+            }, []);
 
-    utils
-      .addToTrolleyByGroup(para)
-      .then(badge => {
-        //getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
-        wx.switchTab({
-          url: `/pages/trolley/trolley`,
+            orderGroups[i].count = 1
+            orderGroups[i].addItemList = orderGroups[i].items
+            let promotions = []
+            let promotion = {}
+            promotion.promotionId = orderGroups[i].promotionId
+            promotions.push(promotion)
+            orderGroups[i].promotions = promotions
+            if (orderGroups[i].items && orderGroups[i].items.length>0){
+              para.addGroupList.push(orderGroups[i])
+            }
+          }
+
+          utils
+            .addToTrolleyByGroup(para)
+            .then(badge => {
+              //getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
+              wx.switchTab({
+                url: `/pages/trolley/trolley`,
+              })
+            })
         })
-      })
-// =======
-//     const orderItem = dataset.orderitem;
-//     const arr = orderItem.map(item => ({
-//       itemId: item.itemId,
-//       quantity: item.quantity
-//     }));
-//     const itemId = arr.reduce((accumulator, item) => {
-//       return accumulator + (accumulator ? ',' : '') + item.itemId;
-//     }, '');
-//     this.getProduct({
-//       itemId,
-//       // categoryId
-//     }).then(data => {
-//       if (arr.length === data.length) {
-//         utils
-//           .addToTrolley(arr)
-//           .then(badge => {
-//             getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
-//             wx.switchTab({
-//               url: `/pages/trolley/trolley`,
-//             })
-//           });
-//       } else if (data.length > 0) {
-//         utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
-//           const arrInStock = arr.reduce((accumulator, item) => {
-//             const inStockItem = data.find(item1 => {
-//               return (item1.itemId === item.itemId)
-//             });
-//             if (inStockItem) {
-//               accumulator.push(item);
-//             }
-//             return accumulator;
-//           }, []);
-//           utils
-//             .addToTrolley(arrInStock)
-//             .then(badge => {
-//               getApp().globalData.checkedTrolley = arrInStock.map(item => item.itemId)
-//               wx.switchTab({
-//                 url: `/pages/trolley/trolley`,
-//               })
-//             });
-//         })
-//       } else {
-//         utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
-//       }
-//     })
-//   },
-//   getProduct({
-//     itemId,
-//     categoryCd
-//   }) {
-//     const locationId = getApp().globalData.merchant.locationId;
-//     return utils.getRequest(getProductItem, {
-//       locationId,
-//       categoryCd: '',
-//       itemIds: itemId ? itemId : '',
-//     }).then(data => {
-//       console.log(data);
-//       if (data.status === 200) {
-//         const inStock = data.result.reduce((accumulator, item) => {
-//           if (item.putShelvesFlg) {
-//             accumulator.push(item);
-//           }
-//           return accumulator;
-//         }, []);
-//         return inStock;
-//       } else {
+      } else if (data.flag == 2){
+        //全部售完
+        utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
+      }
+    })
 
-//       }
-//     }).catch(err => {
-//       utils.errorHander(err, () => this.getProduct({
-//         itemId,
-//         // categoryId
-//       }))
-//       console.log(err);
-//     })
-//>>>>>>> develop
+  },
+
+  getProduct(itemId,categoryCd) {
+    const locationId = getApp().globalData.merchant.locationId;
+    return utils.getRequest(getProductItem, {
+      locationId,
+      categoryCd: categoryCd ? categoryCd : '',
+      itemIds: itemId ? itemId : '',
+    }).then(data => {
+      if (data.status === 200) {
+        let inStock = []
+        // const inStock = data.result.reduce((accumulator, item) => {
+        //   if (itemId == item.itemId) {
+        //     accumulator.push(item);
+        //   }
+        //   return accumulator;
+        // }, []);
+        for (let i = 0; i < data.result.length; i++){
+          if (itemId == data.result[i].itemId) {
+            inStock.push(data.result[i]);
+          }
+        }
+        if (inStock.length == 0){
+          let item={}
+          item.putShelvesFlg = false
+          inStock.push(item)
+        }
+        return inStock;
+      }else{
+      }
+    }).catch(err => {
+      console.log(err);
+    })
   },
   goTransDetails: function (e) {
     wx.navigateTo({

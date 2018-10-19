@@ -137,6 +137,7 @@ Page({
     });
   },
   addToTrolley(event) {
+    if (!event.currentTarget.dataset.putshelvesflg) return
     return new Promise((resolve, reject) => {
       const itemId = event.currentTarget.dataset.itemid;
       const categoryCode = event.currentTarget.dataset.categorycode

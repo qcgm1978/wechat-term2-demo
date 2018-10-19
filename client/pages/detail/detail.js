@@ -250,6 +250,7 @@ Page({
     // 获取促销信息
     promoteUtil.calcPromote(para)
       .then(arr => {
+        console.log(arr)
         if (arr) {
           if (arr.giftItems && arr.giftItems[0]){
             arr.giftItems[0].itemId = arr.giftItems[0].giftItemId 
@@ -257,13 +258,14 @@ Page({
             arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity 
           }
           itemGroups[0].cartCombinationPromotions = [arr]
-          getApp().globalData.items = itemGroups;
-          getApp().globalData.items.orderItemSource = 0;
+        }else{
 
-          wx.navigateTo({
-            url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0`,
-          });
         }
+        getApp().globalData.items = itemGroups;
+        getApp().globalData.items.orderItemSource = 0;
+        wx.navigateTo({
+          url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0`,
+        });
       })
       .catch(() => {
       })

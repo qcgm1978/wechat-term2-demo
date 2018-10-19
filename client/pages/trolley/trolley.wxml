@@ -29,7 +29,7 @@
                 <view class='center trolley-middle'>
                   <text class='trolley-spec {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
                   <view catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' class='center-center' style="width: 80rpx;height: 80rpx;">
-                    <image src='./img/del.png' class='del {{trollyGroup.putShelvesFlg?"":"trolley-invalid-del"}}' wx:if="{{!item.isfree}}" ></image>
+                    <image src='./img/del.png' class='del {{trollyGroup.putShelvesFlg?"":""}}' wx:if="{{!item.isfree}}" ></image>
                   </view>
                 </view>
                 <view class='center trolley-bottom'>
