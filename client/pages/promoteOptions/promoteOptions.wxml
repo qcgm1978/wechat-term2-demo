@@ -1,28 +1,25 @@
 <view class="promote-msg" style='padding-left: 24rpx; background-color: #ffffff; color:#333333; font-size:26rpx;'>
-  {{promoteMsg}}
+{{promoteMsg}}
 </view>
 <view class='line'></view>
 <view wx:for='{{composeProducts}}' wx:key='*this' class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
-  <radio-group>
-    <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" color='{{item.checked?"#EE711F":gray}}' style='transform:scale(.8); display: flex; align-items: center;'>
-    </radio>
-  </radio-group>
-  <image src='{{item.itemImageAddress1 }}' mode='aspectFit'>
-  </image>
+  <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}"  color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
+        </radio>
+  <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
   <view class='column regular list-container'>
     <text class='list-name'>{{item.itemName}}</text>
     <view class='list-spec' style='width: 100%; display:flex; flex-direction:row; justify-content: space-between;'>
-      <view>规格： {{item.itemSpecification}}</view>
-      <view style='display:flex;'> x{{item.minQuantity}}/套</view>
+      <view >规格：  {{item.itemSpecification}}</view>
+      <view  style='display:flex;'> x{{item.minQuantity}}/套</view>
     </view>
     <text class='dollar medium list-price'>{{item.price}}</text>
   </view>
 
 </view>
 
-<view class='bgc center btns regular padding-vertical-10  mgt fixed-position' style='z-index:10;'>
-  <view class='center-center' style='justify-content:left; margin-right: 20rpx;'>
-    <!-- <image src='{{imgTrolly}}' class='promotion-icon' style='width:54rpx;height:54rpx;' bindtap='gotoTrolley'></image> -->
+  <view class='bgc center btns regular padding-vertical-10  mgt fixed-position' style='z-index:10;'>
+    <view class='center-center' style='justify-content:left; margin-right: 20rpx;'>
+      <!-- <image src='{{imgTrolly}}' class='promotion-icon' style='width:54rpx;height:54rpx;' bindtap='gotoTrolley'></image> -->
 
 
     <view class='center-center' style='flex-grow:1; margin-left:30rpx;' bindtap='gotoTrolley'>
@@ -33,9 +30,11 @@
     </view>
 
 
-    <view class='foot-txt1' style='font-size:24rpx;color:#383838; margin-left: 20rpx;'>套装价</view>
-    <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{totalPrice}}</view>
-    <!-- <view class='foot-txt3'>已省28.8元</view> -->
+      <view class='foot-txt1' style='font-size:24rpx;color:#383838; margin-left: 20rpx;'>套装价</view>
+      <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{totalPrice}}</view>
+      <!-- <view class='foot-txt3'>已省28.8元</view> -->
+    </view>
+    <button bindtap='addToTrolley' class="without-back-image" style='margin-left: 20rpx;'>加入进货单</button>
   </view>
 <view class='promote-container' style='top:{{top}}rpx;' wx:if="{{!showPromoteDetail}}">
   <view style='display: flex; '>
@@ -57,8 +56,8 @@
     <image class='promote-arrow' style=' ' src='../../images/down-arrow.png' bindtap='togglePromoteDetail'></image>
   </view>
 
-  <view style='display: flex; flex-direction: row;  '>
-    <view wx:for='{{selectedProductList}}' wx:key='*this'>
+  <view  style='display: flex; flex-direction: row;  '>
+    <view wx:for='{{selectedProductList}}'>
       <view style='width: 150rpx; height:auto; padding:10rpx;border:1px solid rgb(236,236,236); margin: 10rpx;position: relative;'>
         <image style='width: 32rpx; height: 32rpx; position: absolute; left:130rpx; top:10rpx;' src='../../images/zeng.png' wx:if="{{item.isGift}}"></image>
         <image style='width: 120rpx; height: 120rpx;  margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
