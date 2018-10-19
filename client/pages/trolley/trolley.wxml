@@ -13,7 +13,7 @@
                 <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}'  value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && !item.isfree}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
                 </radio>
                 <text wx:elif='{{trollyGroup.putShelvesFlg && item.isfree}}' class='radio trolley-invalid regular'></text>
-                <text wx:else class='radio trolley-invalid regular'>失效</text>
+                <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;'>失效</text>
               </view>
               <view style="position: relative;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
