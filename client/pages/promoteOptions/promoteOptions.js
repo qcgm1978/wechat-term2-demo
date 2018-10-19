@@ -20,6 +20,7 @@ Page({
     selectedProductList: [],
     totalPrice: 0,
     rightArrow: "./images/grey-arrow.png",
+    gray: "#D1D1D2",
     showPromoteDetail: false
   },
 
@@ -170,6 +171,11 @@ Page({
             totalPrice: this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity
           })
         }
+        // todo temp highlight all radio clicked 
+        this.setData({
+          gray: "#EE711F"
+        })
+        break;
       }
     }
   },
@@ -250,8 +256,9 @@ Page({
     })
     .then(data => {
       if (data.status === 200) {
+        // todo set multi goods
         this.setData({
-          composeProducts: data.result.conbinationItems,
+          composeProducts: [data.result.conbinationItems[0], { ...data.result.conbinationItems[0], itemId: data.result.conbinationItems[0].itemId++ }, { ...data.result.conbinationItems[0], itemId: data.result.conbinationItems[0].itemId++ }],
           mainProduct: data.result.item,
           'selectedProductList[0]': data.result.item
         })

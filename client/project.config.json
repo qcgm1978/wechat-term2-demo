@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -70,7 +70,7 @@
 					"id": 5,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "categoryId=1205001&itemId=3462"
+					"query": "itemId=3542&categoryId=1201001"
 				},
 				{
 					"id": 6,
@@ -107,6 +107,12 @@
 					"name": "return",
 					"pathName": "pages/transactionList/transactionList",
 					"query": "tab=4"
+				},
+				{
+					"id": 12,
+					"name": "promoteOptions",
+					"pathName": "pages/promoteOptions/promoteOptions",
+					"query": "promoteInfo={\"promotionId\":\"15780\",\"promotionName\":\"10件可乐碳酸系列+10件美汁源果汁系列送惠百真惠百真蒸鲜生东北大米1袋（P内黄）\",\"startTime\":\"Thu May 24 00:00:00 CST 2018\",\"endTime\":\"Wed Oct 31 00:00:00 CST 2018\",\"promotionDescription\":\"10件可乐碳酸系列+10件美汁源果汁系列送惠百真惠百真蒸鲜生东北大米1袋（P内黄）\",\"promotionType\":\"1\",\"combinationFlag\":\"1\"}&product={\"itemImageAddress1\":\"https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3303.jpg\",\"itemName\":\"可口可乐1L\",\"itemSpecification\":\"1L*12\",\"price\":45,\"itemId\":\"3542\",\"categoryId\":\"1201001\"}"
 				}
 			]
 		}

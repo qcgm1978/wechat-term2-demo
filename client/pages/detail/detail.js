@@ -346,8 +346,10 @@ Page({
           })
           if (data.result[0].promotionItems[0].combinationFlag == "0"){
 
+              this.setData({
+                hasGroupPromotion:true
+              })
           } else if (data.result[0].promotionItems[0].combinationFlag == "1"){
-
           }
         }else{
           this.setData({
