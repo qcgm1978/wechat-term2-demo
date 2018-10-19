@@ -37,15 +37,13 @@
     <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{totalPrice}}</view>
     <!-- <view class='foot-txt3'>已省28.8元</view> -->
   </view>
-  <button bindtap='addToTrolley' class="without-back-image" style='margin-left: 20rpx;'>加入进货单</button>
-</view>
-<view class='promote-container' wx:if="{{showPromoteDetail}}">
+<view class='promote-container' style='top:{{top}}rpx;' wx:if="{{!showPromoteDetail}}">
   <view style='display: flex; '>
     <view class='' style='display: flex; align-items: center;margin-left: 24rpx; font-size:24rpx; color:#333333'>搭配商品</view>
     <view wx:for='{{selectedProductList}}'>
       <view style='position: relative;'>
         <image style='width: 80rpx; height: 80rpx; border:1px solid rgb(236,236,236); margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
-        <image style='width: 32rpx; height: 32rpx; position: absolute; left:60rpx; top:20rpx;' src='../../images/zeng.png' wx:if="{{item.isfree}}"></image>
+        <image style='width: 32rpx; height: 32rpx; position: absolute; left:60rpx; top:20rpx;' src='../../images/zeng.png'  wx:if="{{item.isGift}}"></image>
       </view>
 
     </view>
@@ -53,7 +51,7 @@
   <image class='promote-arrow' src='../../images/up-arrow.png' bindtap='togglePromoteDetail'></image>
 </view>
 
-<view class='promote-container-detail' style='padding-left:24rpx; font-size:24rpx;' wx:else>
+<view class='promote-container-detail' style='padding-left:24rpx; font-size:24rpx; top:{{top}}rpx;' wx:else>
   <view style='display: flex;   justify-content: space-between; align-items:center; padding-top: 20rpx;'>
     <view class='' style='display: flex; align-items: center; font-size:24rpx; color:#333333'>搭配商品</view>
     <image class='promote-arrow' style=' ' src='../../images/down-arrow.png' bindtap='togglePromoteDetail'></image>

@@ -11,6 +11,7 @@ let promoteInfo = {}
 let calcPromoteInfo = {}
 Page({
   data: {
+    top: getApp().globalData.systemInfo.deviceWindowHeight - 270,
     badge: 0,
     defImg: getApp().globalData.defaultImg,
     imgTrolly: "../../images/trolley-full.png",
@@ -156,7 +157,7 @@ Page({
                 this.setData({
                   'selectedProductList[2]': promoteResult.giftItems[0]
                 })
-                console.log(JSON.stringify(this.data.selectedProductList))
+
               } else if (promoteResult.discountAmount > 0) { //满减
 
               }
@@ -219,9 +220,17 @@ Page({
   },
 
   togglePromoteDetail() {
+    if (this.data.showPromoteDetail){
       this.setData({
-        showPromoteDetail: !this.data.showPromoteDetail
+        top: getApp().globalData.systemInfo.deviceWindowHeight - 270,
+        showPromoteDetail : false
       })
+    }else{
+      this.setData({
+        top: getApp().globalData.systemInfo.deviceWindowHeight - 420,
+        showPromoteDetail : true
+      })
+    }
   },
 
   getComposeProducts: function ({
@@ -239,8 +248,7 @@ Page({
           itemId: itemId
         },
     }
-    console.log(JSON.stringify(tmpData))
-    console.log(selectGoods)
+
     utils.postRequest({
       url: selectGoods,
       data: {

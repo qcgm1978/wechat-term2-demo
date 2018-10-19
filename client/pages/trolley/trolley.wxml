@@ -7,20 +7,20 @@
       <view wx:if="{{trollyGroup.combinationFlag == '0'}}">
 
         <view wx:for='{{trollyGroup.items}}' >
-          <view style='display: flex; flex-direction: column; m' >
+          <view style='display: flex; flex-direction: column; ' >
             <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
               <view class='column' style='margin-top:auto;position:relative;'>
                 <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}'  value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && !item.isfree}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
                 </radio>
                 <text wx:elif='{{trollyGroup.putShelvesFlg && item.isfree}}' class='radio trolley-invalid regular'></text>
-                <text wx:else class='radio trolley-invalid regular'>失效</text>
+                <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;'>失效</text>
               </view>
               <view style="position: relative;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <view wx:if='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
               </view>
-              <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
+              <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <view style='display:flex;'>
                   <text class='promotion-1' style='display:inline-block; margin-left:0;' wx:if='{{item.isfree}}'>赠品</text>
                   <text class='trolley-name {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
@@ -29,7 +29,7 @@
                 <view class='center trolley-middle'>
                   <text class='trolley-spec {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
                   <view catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' class='center-center' style="width: 80rpx;height: 80rpx;">
-                    <image src='./img/del.png' class='del {{trollyGroup.putShelvesFlg?"":"trolley-invalid-del"}}' wx:if="{{!item.isfree}}" ></image>
+                    <image src='./img/del.png' class='del {{trollyGroup.putShelvesFlg?"":""}}' wx:if="{{!item.isfree}}" ></image>
                   </view>
                 </view>
                 <view class='center trolley-bottom'>

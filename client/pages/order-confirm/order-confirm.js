@@ -228,7 +228,7 @@ Page({
           }
         }
       }
-      console.log(JSON.stringify(orderItems))
+
       utils.postRequest({
         url: createOrder,
         data: {
