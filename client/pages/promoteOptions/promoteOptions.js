@@ -24,7 +24,6 @@ Page({
     gray: "#D1D1D2",
     showPromoteDetail: false
   },
-
   onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
@@ -36,7 +35,7 @@ Page({
     promoteInfo = JSON.parse(options.promoteInfo)
     this.setData({
       promoteMsg: promoteInfo.promotionName,
-      mainProduct:product,
+      mainProduct: product,
       'selectedProductList[0]': product,
       totalPrice: 0
     })
@@ -49,7 +48,7 @@ Page({
     }
 
     promoteInfo = promoteInfo
-    let paraData = { itemId: product.itemId, categoryId: product.categoryId, promoteInfo}
+    let paraData = { itemId: product.itemId, categoryId: product.categoryId, promoteInfo }
     this.getComposeProducts(paraData)
   },
   getProduct({
@@ -90,22 +89,22 @@ Page({
 
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
-    
-    for (let i = 0; i < this.data.composeProducts.length; i++){
-      if (itemId == this.data.composeProducts[i].itemId){
-        for (let j = 0; j < this.data.composeProducts.length; j++){
-          if (this.data.composeProducts[j].checked){
-            if (this.data.selectedProductList.length == 3){
+
+    for (let i = 0; i < this.data.composeProducts.length; i++) {
+      if (itemId == this.data.composeProducts[i].itemId) {
+        for (let j = 0; j < this.data.composeProducts.length; j++) {
+          if (this.data.composeProducts[j].checked) {
+            if (this.data.selectedProductList.length == 3) {
               this.data.selectedProductList.splice(2, 1);
               this.setData({
                 selectedProductList: this.data.selectedProductList
               })
             }
-              
+
             var item = 'composeProducts[' + j + '].checked'
             this.setData({
               [item]: false
-              })
+            })
 
           }
         }
@@ -113,7 +112,7 @@ Page({
         this.setData({
           [item]: !this.data.composeProducts[i].checked
         })
-        if (this.data.composeProducts[i].checked){
+        if (this.data.composeProducts[i].checked) {
           this.setData({
             'selectedProductList[1]': this.data.composeProducts[i],
             totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
@@ -142,14 +141,14 @@ Page({
 
           group.groupId = ""
           group.items = groupItems
-          group.promotions = [{ promotionId: promoteInfo.promotionId}]
+          group.promotions = [{ promotionId: promoteInfo.promotionId }]
           itemGroups.push(group)
 
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
               //满赠
 
-              if (promoteResult.giftItems && promoteResult.giftItems.length>0) {
+              if (promoteResult.giftItems && promoteResult.giftItems.length > 0) {
                 promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
                 promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
                 promoteResult.giftItems[0].price = 0
@@ -165,7 +164,7 @@ Page({
             .catch(() => {
 
             })
-        }else{
+        } else {
           this.data.selectedProductList.splice(1, 2);
           this.setData({
             selectedProductList: this.data.selectedProductList,
@@ -181,7 +180,7 @@ Page({
     }
   },
   addToTrolley() {
-    if (this.data.selectedProductList.length == 1){
+    if (this.data.selectedProductList.length == 1) {
       wx.showToast({
         title: '请选择促销商品',
         icon: 'none',
@@ -201,10 +200,10 @@ Page({
 
     let para = {
       addGroupList: [{
-        count:1,
+        count: 1,
         addItemList: arr,
         promotions: [{
-          promotionId : promoteInfo.promotionId
+          promotionId: promoteInfo.promotionId
         }]
       }]
     }
@@ -220,15 +219,15 @@ Page({
   },
 
   togglePromoteDetail() {
-    if (this.data.showPromoteDetail){
+    if (this.data.showPromoteDetail) {
       this.setData({
         top: getApp().globalData.systemInfo.deviceWindowHeight - 270,
-        showPromoteDetail : false
+        showPromoteDetail: false
       })
-    }else{
+    } else {
       this.setData({
         top: getApp().globalData.systemInfo.deviceWindowHeight - 420,
-        showPromoteDetail : true
+        showPromoteDetail: true
       })
     }
   },
@@ -237,16 +236,16 @@ Page({
     itemId,
     categoryId,
     promoteInfo
-    }) {
+  }) {
     let tmpData = {
       merchantId: getApp().getMerchantId(),
       locationId: getApp().globalData.merchant.locationId,
       promotionId: promoteInfo.promotionId,
-      item: 
-        {
-          categoryCode: categoryId,
-          itemId: itemId
-        },
+      item:
+      {
+        categoryCode: categoryId,
+        itemId: itemId
+      },
     }
 
     utils.postRequest({
@@ -255,26 +254,26 @@ Page({
         merchantId: getApp().getMerchantId(),
         locationId: getApp().globalData.merchant.locationId,
         promotionId: promoteInfo.promotionId,
-        item: 
-          {
-            categoryCode: categoryId,
-            itemId: itemId
-          },
+        item:
+        {
+          categoryCode: categoryId,
+          itemId: itemId
+        },
       }
     })
-    .then(data => {
-      if (data.status === 200) {
-        // todo set multi goods
-        this.setData({
-          composeProducts: [data.result.conbinationItems[0], { ...data.result.conbinationItems[0], itemId: data.result.conbinationItems[0].itemId++ }, { ...data.result.conbinationItems[0], itemId: data.result.conbinationItems[0].itemId++ }],
-          mainProduct: data.result.item,
-          'selectedProductList[0]': data.result.item
-        })
-      } else {
-      }
-    }).catch(err => {
-      console.log(err);
-    })
+      .then(data => {
+        if (data.status === 200) {
+          // todo set multi goods
+          this.setData({
+            composeProducts: data.result.conbinationItems,
+            mainProduct: data.result.item,
+            'selectedProductList[0]': data.result.item
+          })
+        } else {
+        }
+      }).catch(err => {
+        console.log(err);
+      })
   },
   gotoTrolley: function () {
     wx.switchTab({
