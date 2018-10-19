@@ -46,21 +46,21 @@
         <text class='{{tabColors[2]}} regular' data-type='2'>已发货</text>
       </view>
       <view class='column' data-type='3'>
-        <view class="center-center">
+        <!-- <view class="center-center"> -->
           <image src='./img/complete.png' data-type='3'></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[1].count+orderNum[3].count}}'>
+          <!-- <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[1].count+orderNum[3].count}}'>
             {{orderNum[1].count+orderNum[3].count}}
           </view>
-        </view>
+        </view> -->
         <text class='{{tabColors[3]}} regular' data-type='3'>已完成</text>
       </view>
       <view class='column' data-type='4'>
-        <view class="center-center">
+        <!-- <view class="center-center"> -->
           <image src='./img/return.png' data-type='4'>></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[4].count+orderNum[5].count}}'>
+          <!-- <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[4].count+orderNum[5].count}}'>
             {{orderNum[4].count+orderNum[5].count}}
           </view>
-        </view>
+        </view> -->
         <text class='{{tabColors[4]}} regular' data-type='4'>拒收单</text>
       </view>
 
