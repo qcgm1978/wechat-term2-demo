@@ -197,7 +197,7 @@ Page({
         })
         .then(this.gotoHome)
         .catch(err=>{
-          debugger;
+          //debugger;
           console.log(err)
         })
     } else {

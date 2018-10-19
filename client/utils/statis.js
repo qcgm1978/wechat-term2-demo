@@ -76,7 +76,7 @@ export const requestStatisEnter = (systemInfo)=>{
       latitude = data.latitude;
     },
     fail() {
-      debugger;
+      //debugger;
     },
     complete() {
       // const systemInfo = getApp().globalData.systemInfo;
