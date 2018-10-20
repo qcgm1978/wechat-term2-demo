@@ -119,11 +119,12 @@ Page({
                   selectedProductList: this.data.selectedProductList
                 })
               }
-
-              // var item = 'composeProducts[' + index +'].itemList[' + j + '].checked'
-              // this.setData({
-              //   [item]: false
-              // })
+              if (!this.data.isKind) {
+                var item = 'composeProducts[' + index + '].itemList[' + j + '].checked'
+                this.setData({
+                  [item]: false
+                })
+              }
               // break loop1;
             }
           }
