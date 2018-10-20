@@ -12,6 +12,9 @@ module.exports = {
       try {
 
         ctx.state.result = Mock.mock({
+          promotionId: '@natural(3)',
+          promotionBase: 1,
+          minNumber: '@integer(2,5)',
           "item": { "itemId": "4442", "itemName": "中普啤酒瓶超爽8度", "minQuantity": "1", "itemUnit": "箱(12个)", "price": 15, "itemSpecification": "490ml*12", "itemCategoryCode": "1102004", "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg" },
           "conbinationItems": [{
             categoryCode: '@natural(10,20)',
@@ -41,6 +44,9 @@ module.exports = {
       try {
 
         ctx.state.result = Mock.mock({
+          promotionId: '@natural(3)',
+          promotionBase: 1,
+          minNumber: '@integer(2,5)',
           "item": { "itemId": "4442", "itemName": "中普啤酒瓶超爽8度", "minQuantity": "1", "itemUnit": "箱(12个)", "price": 15, "itemSpecification": "490ml*12", "itemCategoryCode": "1102004", "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg" },
           "conbinationItems|2": [{
             categoryCode: '@natural(10,20)',

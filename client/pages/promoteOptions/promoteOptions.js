@@ -99,8 +99,15 @@ Page({
 
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
+    const itemIndex = e.currentTarget.dataset.index;
     const index = this.data.tabs.indexOf(true)
     const composeProducts = this.data.composeProducts[index].itemList;
+    if (!this.data.composeProducts[index].itemList[itemIndex].checked && this.data.selectedProductList.length >= this.minNum) {
+      this.setData({
+        [`composeProducts[${index}].itemList[${itemIndex}].checked`]: false
+      })
+      return;
+    }
     loop1:
       for (let i = 0; i < composeProducts.length; i++) {
         if (itemId == composeProducts[i].itemId) {
@@ -285,6 +292,7 @@ Page({
             mainProduct: data.result.item,
             'selectedProductList[0]': data.result.item
           })
+          this.minNum = data.result.minNumber
         } else {}
       }).catch(err => {
         console.log(err);
