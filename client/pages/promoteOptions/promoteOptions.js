@@ -138,31 +138,22 @@ Page({
             }
             this.setData({
               selectedProductList,
-              totalPrice: utils.getFixedNum(totalPrice,2)
+              totalPrice: utils.getFixedNum(totalPrice, 2)
             })
 
             let itemGroups = []
             let group = {}
 
             let groupItems = []
-
-            let item1 = {}
-            item1.itemId = this.data.selectedProductList[0].itemId
-            item1.brandId = ""
-            item1.categoryCode = this.data.selectedProductList[0].itemCategoryCode
-            item1.quantity = this.data.selectedProductList[0].minQuantity
-            item1.unitPrice = this.data.selectedProductList[0].price
-            groupItems.push(item1)
-            if (this.data.selectedProductList.length > 1) {
-              let item2 = {}
-              item2.itemId = this.data.selectedProductList[1].itemId
-              item2.brandId = ""
-              item2.categoryCode = this.data.selectedProductList[1].itemCategoryCode
-              item2.quantity = this.data.selectedProductList[1].minQuantity
-              item2.unitPrice = this.data.selectedProductList[1].price
-              groupItems.push(item2)
+            for (let i = 0; i < this.data.selectedProductList.length; i++) {
+              let item1 = {}
+              item1.itemId = this.data.selectedProductList[i].itemId
+              item1.brandId = ""
+              item1.categoryCode = this.data.selectedProductList[i].itemCategoryCode
+              item1.quantity = this.data.selectedProductList[i].minQuantity
+              item1.unitPrice = this.data.selectedProductList[i].price
+              groupItems.push(item1)
             }
-
             group.groupId = ""
             group.items = groupItems
             group.promotions = [{
