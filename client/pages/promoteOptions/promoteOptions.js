@@ -95,11 +95,13 @@ Page({
 
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
-
-    for (let i = 0; i < this.data.composeProducts.length; i++) {
-      if (itemId == this.data.composeProducts[i].itemId) {
-        for (let j = 0; j < this.data.composeProducts.length; j++) {
-          if (this.data.composeProducts[j].checked) {
+    const index = this.data.tabs.indexOf(true)
+    const composeProducts = this.data.composeProducts[index].itemList;
+    loop1:
+    for (let i = 0; i < composeProducts.length; i++) {
+      if (itemId == composeProducts[i].itemId) {
+        for (let j = 0; j < composeProducts.length; j++) {
+          if (composeProducts[j].checked) {
             if (this.data.selectedProductList.length == 3) {
               this.data.selectedProductList.splice(2, 1);
               this.setData({
@@ -107,21 +109,21 @@ Page({
               })
             }
 
-            var item = 'composeProducts[' + j + '].checked'
-            this.setData({
-              [item]: false
-            })
-
+            // var item = 'composeProducts[' + index +'].itemList[' + j + '].checked'
+            // this.setData({
+            //   [item]: false
+            // })
+            // break loop1;
           }
         }
-        var item = 'composeProducts[' + i + '].checked'
+        var item = 'composeProducts['+index+'].itemList[' + i + '].checked'
         this.setData({
-          [item]: !this.data.composeProducts[i].checked
+          [item]: !composeProducts[i].checked
         })
-        if (this.data.composeProducts[i].checked) {
+        if (composeProducts[i].checked) {
           this.setData({
-            'selectedProductList[1]': this.data.composeProducts[i],
-            totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
+            'selectedProductList[1]': composeProducts[i],
+            totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(composeProducts[i].price * composeProducts[i].minQuantity)
           })
 
           let itemGroups = []
@@ -178,9 +180,9 @@ Page({
           })
         }
         // todo temp highlight all radio clicked 
-        this.setData({
-          gray: "#EE711F"
-        })
+        // this.setData({
+        //   gray: "#EE711F"
+        // })
         break;
       }
     }

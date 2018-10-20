@@ -20,7 +20,8 @@ module.exports = {
             'itemList|6-10': [
 
               {
-                "itemId": "440", "itemName": "@cword(5,10)", "minQuantity": "1", "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
+                "itemId": '@natural(3)',
+                "itemName": "@cword(5,10)", "minQuantity": "1", "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
               }
             ]
           }]

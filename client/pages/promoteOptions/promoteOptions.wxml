@@ -64,7 +64,7 @@
   </view>
 
   <view style='display: flex; flex-direction: row;  '>
-    <view wx:for='{{selectedProductList}}'>
+    <view wx:for='{{selectedProductList}}' wx:key='*this'>
       <view style='width: 150rpx; height:auto; padding:10rpx;border:1px solid rgb(236,236,236); margin: 10rpx;position: relative;'>
         <image style='width: 32rpx; height: 32rpx; position: absolute; left:130rpx; top:10rpx;' src='../../images/zeng.png' wx:if="{{item.isGift}}"></image>
         <image style='width: 120rpx; height: 120rpx;  margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
