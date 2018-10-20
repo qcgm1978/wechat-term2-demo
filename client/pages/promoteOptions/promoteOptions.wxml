@@ -44,8 +44,8 @@
   <button bindtap='addToTrolley' class="without-back-image" style='margin-left: 20rpx;'>加入进货单</button>
 </view>
 <view class='promote-container' style='top:{{top}}rpx;' wx:if="{{!showPromoteDetail}}">
-  <view style='display: flex; '>
-    <view class='' style='display: flex; align-items: center;margin-left: 24rpx; font-size:24rpx; color:#333333'>搭配商品</view>
+  <view style='display: flex; overflow:hidden;max-width:90%;'>
+    <view class='' style='display: flex; align-items: center;margin-left: 24rpx; font-size:24rpx; color:#333333;white-space:nowrap;'>搭配商品</view>
     <view wx:for='{{selectedProductList}}' wx:key='*this'>
       <view style='position: relative;'>
         <image style='width: 80rpx; height: 80rpx; border:1px solid rgb(236,236,236); margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
@@ -59,13 +59,14 @@
 
 <view class='promote-container-detail' style='padding-left:24rpx; font-size:24rpx; top:{{top}}rpx;' wx:else>
   <view style='display: flex;   justify-content: space-between; align-items:center; padding-top: 20rpx;'>
-    <view class='' style='display: flex; align-items: center; font-size:24rpx; color:#333333'>搭配商品</view>
+    <view style='display: flex; align-items: center; font-size:24rpx; color:#333333;'>搭配商品</view>
     <image class='promote-arrow' style=' ' src='../../images/down-arrow.png' bindtap='togglePromoteDetail'></image>
   </view>
 
-  <view style='display: flex; flex-direction: row;  '>
-    <view wx:for='{{selectedProductList}}' wx:key='*this'>
-      <view style='width: 150rpx; height:auto; padding:10rpx;border:1px solid rgb(236,236,236); margin: 10rpx;position: relative;'>
+  <scroll-view class="scroll-view_H center" scroll-x style="width: 100%" style='white-space: nowrap;padding:0;box-sizing:border-box;'>
+    <view style='display: flex; flex-direction: row;  '>
+      <!-- <view wx:for='{{selectedProductList}}' wx:key='*this'> -->
+      <view wx:for='{{selectedProductList}}' wx:key='*this' style='width: 150rpx; height:auto; padding:10rpx;border:1px solid rgb(236,236,236); margin: 10rpx;position: relative;'>
         <image style='width: 32rpx; height: 32rpx; position: absolute; left:130rpx; top:10rpx;' src='../../images/zeng.png' wx:if="{{item.isGift}}"></image>
         <image style='width: 120rpx; height: 120rpx;  margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
         <view style='background-color:grey; border-radius:10rpx;  width: auto; display:inline-block !important; display:inline; color: white;'>¥{{item.price}}</view>
@@ -74,7 +75,8 @@
           <view style='white-space:nowrap'>x{{item.minQuantity}}</view>
         </view>
       </view>
+      <!-- </view> -->
     </view>
-  </view>
+  </scroll-view>
 
 </view>

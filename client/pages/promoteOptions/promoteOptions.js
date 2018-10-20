@@ -28,7 +28,7 @@ Page({
     gray: "#D1D1D2",
     showPromoteDetail: false
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -54,7 +54,11 @@ Page({
     }
 
     promoteInfo = promoteInfo
-    let paraData = { itemId: product.itemId, categoryId: product.categoryId, promoteInfo }
+    let paraData = {
+      itemId: product.itemId,
+      categoryId: product.categoryId,
+      promoteInfo
+    }
     this.getComposeProducts(paraData)
   },
   getProduct({
@@ -98,94 +102,110 @@ Page({
     const index = this.data.tabs.indexOf(true)
     const composeProducts = this.data.composeProducts[index].itemList;
     loop1:
-    for (let i = 0; i < composeProducts.length; i++) {
-      if (itemId == composeProducts[i].itemId) {
-        for (let j = 0; j < composeProducts.length; j++) {
-          if (composeProducts[j].checked) {
-            if (this.data.selectedProductList.length == 3) {
-              this.data.selectedProductList.splice(2, 1);
-              this.setData({
-                selectedProductList: this.data.selectedProductList
-              })
+      for (let i = 0; i < composeProducts.length; i++) {
+        if (itemId == composeProducts[i].itemId) {
+          for (let j = 0; j < composeProducts.length; j++) {
+            if (composeProducts[j].checked) {
+              if (this.data.selectedProductList.length == 3) {
+                this.data.selectedProductList.splice(2, 1);
+                this.setData({
+                  selectedProductList: this.data.selectedProductList
+                })
+              }
+
+              // var item = 'composeProducts[' + index +'].itemList[' + j + '].checked'
+              // this.setData({
+              //   [item]: false
+              // })
+              // break loop1;
+            }
+          }
+          var item = 'composeProducts[' + index + '].itemList[' + i + '].checked'
+          this.setData({
+            [item]: !composeProducts[i].checked
+          })
+          if (composeProducts[i].checked) {
+            const selectedProductList = [];
+            let totalPrice = 0;
+            for (let i = 0; i < this.data.composeProducts.length; i++) {
+              for (let m = 0; m < this.data.composeProducts[i].itemList.length; m++) {
+                if (this.data.composeProducts[i].itemList[m].checked) {
+                  const selectedItem = this.data.composeProducts[i].itemList[m];
+                  selectedProductList.push(selectedItem);
+                  totalPrice += Number(selectedItem.price * selectedItem.minQuantity) + Number(composeProducts[i].price * composeProducts[i].minQuantity)
+                }
+              }
+            }
+            this.setData({
+              selectedProductList,
+              totalPrice: utils.getFixedNum(totalPrice,2)
+            })
+
+            let itemGroups = []
+            let group = {}
+
+            let groupItems = []
+
+            let item1 = {}
+            item1.itemId = this.data.selectedProductList[0].itemId
+            item1.brandId = ""
+            item1.categoryCode = this.data.selectedProductList[0].itemCategoryCode
+            item1.quantity = this.data.selectedProductList[0].minQuantity
+            item1.unitPrice = this.data.selectedProductList[0].price
+            groupItems.push(item1)
+            if (this.data.selectedProductList.length > 1) {
+              let item2 = {}
+              item2.itemId = this.data.selectedProductList[1].itemId
+              item2.brandId = ""
+              item2.categoryCode = this.data.selectedProductList[1].itemCategoryCode
+              item2.quantity = this.data.selectedProductList[1].minQuantity
+              item2.unitPrice = this.data.selectedProductList[1].price
+              groupItems.push(item2)
             }
 
-            // var item = 'composeProducts[' + index +'].itemList[' + j + '].checked'
-            // this.setData({
-            //   [item]: false
-            // })
-            // break loop1;
+            group.groupId = ""
+            group.items = groupItems
+            group.promotions = [{
+              promotionId: promoteInfo.promotionId
+            }]
+            itemGroups.push(group)
+
+            promoteUtil.calcPromote({
+                itemGroups
+              })
+              .then((promoteResult) => {
+                //满赠
+
+                if (promoteResult.giftItems && promoteResult.giftItems.length > 0) {
+                  promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
+                  promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
+                  promoteResult.giftItems[0].price = 0
+                  promoteResult.giftItems[0].isGift = true
+                  this.setData({
+                    'selectedProductList[2]': promoteResult.giftItems[0]
+                  })
+
+                } else if (promoteResult.discountAmount > 0) { //满减
+
+                }
+              })
+              .catch(() => {
+
+              })
+          } else {
+            this.data.selectedProductList.splice(1, 2);
+            this.setData({
+              selectedProductList: this.data.selectedProductList,
+              totalPrice: this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity
+            })
           }
+          // todo temp highlight all radio clicked 
+          // this.setData({
+          //   gray: "#EE711F"
+          // })
+          break;
         }
-        var item = 'composeProducts['+index+'].itemList[' + i + '].checked'
-        this.setData({
-          [item]: !composeProducts[i].checked
-        })
-        if (composeProducts[i].checked) {
-          this.setData({
-            'selectedProductList[1]': composeProducts[i],
-            totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(composeProducts[i].price * composeProducts[i].minQuantity)
-          })
-
-          let itemGroups = []
-          let group = {}
-
-          let groupItems = []
-
-          let item1 = {}
-          item1.itemId = this.data.selectedProductList[0].itemId
-          item1.brandId = ""
-          item1.categoryCode = this.data.selectedProductList[0].itemCategoryCode
-          item1.quantity = this.data.selectedProductList[0].minQuantity
-          item1.unitPrice = this.data.selectedProductList[0].price
-          groupItems.push(item1)
-
-          let item2 = {}
-          item2.itemId = this.data.selectedProductList[1].itemId
-          item2.brandId = ""
-          item2.categoryCode = this.data.selectedProductList[1].itemCategoryCode
-          item2.quantity = this.data.selectedProductList[1].minQuantity
-          item2.unitPrice = this.data.selectedProductList[1].price
-          groupItems.push(item2)
-
-          group.groupId = ""
-          group.items = groupItems
-          group.promotions = [{ promotionId: promoteInfo.promotionId }]
-          itemGroups.push(group)
-
-          promoteUtil.calcPromote({ itemGroups })
-            .then((promoteResult) => {
-              //满赠
-
-              if (promoteResult.giftItems && promoteResult.giftItems.length > 0) {
-                promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
-                promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
-                promoteResult.giftItems[0].price = 0
-                promoteResult.giftItems[0].isGift = true
-                this.setData({
-                  'selectedProductList[2]': promoteResult.giftItems[0]
-                })
-
-              } else if (promoteResult.discountAmount > 0) { //满减
-
-              }
-            })
-            .catch(() => {
-
-            })
-        } else {
-          this.data.selectedProductList.splice(1, 2);
-          this.setData({
-            selectedProductList: this.data.selectedProductList,
-            totalPrice: this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity
-          })
-        }
-        // todo temp highlight all radio clicked 
-        // this.setData({
-        //   gray: "#EE711F"
-        // })
-        break;
       }
-    }
   },
   addToTrolley() {
     if (this.data.selectedProductList.length == 1) {
@@ -240,7 +260,7 @@ Page({
     }
   },
 
-  getComposeProducts: function ({
+  getComposeProducts: function({
     itemId,
     categoryId,
     promoteInfo
@@ -249,26 +269,24 @@ Page({
       merchantId: getApp().getMerchantId(),
       locationId: getApp().globalData.merchant.locationId,
       promotionId: promoteInfo.promotionId,
-      item:
-      {
+      item: {
         categoryCode: categoryId,
         itemId: itemId
       },
     }
 
     utils.postRequest({
-      url: this.data.isKind ? selectGoodsKind : selectGoods,
-      data: {
-        merchantId: getApp().getMerchantId(),
-        locationId: getApp().globalData.merchant.locationId,
-        promotionId: promoteInfo.promotionId,
-        item:
-        {
-          categoryCode: categoryId,
-          itemId: itemId
-        },
-      }
-    })
+        url: this.data.isKind ? selectGoodsKind : selectGoods,
+        data: {
+          merchantId: getApp().getMerchantId(),
+          locationId: getApp().globalData.merchant.locationId,
+          promotionId: promoteInfo.promotionId,
+          item: {
+            categoryCode: categoryId,
+            itemId: itemId
+          },
+        }
+      })
       .then(data => {
         if (data.status === 200) {
           this.setData({
@@ -276,13 +294,12 @@ Page({
             mainProduct: data.result.item,
             'selectedProductList[0]': data.result.item
           })
-        } else {
-        }
+        } else {}
       }).catch(err => {
         console.log(err);
       })
   },
-  gotoTrolley: function () {
+  gotoTrolley: function() {
     wx.switchTab({
       url: '/pages/trolley/trolley'
     })
