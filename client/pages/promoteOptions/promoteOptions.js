@@ -1,5 +1,6 @@
 import utils from "../../utils/util.js";
 import promoteUtil from "../../utils/promotion.js";
+import Kind from './kind.js'
 const app = getApp();
 const globalData = app.globalData;
 import {
@@ -11,7 +12,9 @@ const getProductItem = Api.getProductItem,
 let promoteInfo = {}
 let calcPromoteInfo = {}
 Page({
+  ...Kind.methods,
   data: {
+    ...Kind.data,
     top: getApp().globalData.systemInfo.deviceWindowHeight - 270,
     badge: 0,
     defImg: getApp().globalData.defaultImg,

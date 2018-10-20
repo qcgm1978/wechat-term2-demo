@@ -1,0 +1,13 @@
+.promotion-tab {
+  font-size: 32rpx;
+  color: #707070;
+}
+.promotion-tab view{
+  padding: 18rpx 0;
+
+}
+.promotion-tab view.selected{
+  border-bottom:4rpx #EB6113 solid;
+
+  color: #eb6113;
+}

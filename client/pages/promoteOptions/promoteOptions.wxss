@@ -3,6 +3,7 @@ image {
   height: 180rpx;
 }
 
+@import './kind.wxss';
 .list-container {
   margin-left: 30rpx;
   justify-content: space-between;
