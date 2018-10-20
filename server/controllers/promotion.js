@@ -3,7 +3,36 @@ var Mock = require('mockjs');
 
 module.exports = {
   item: async ctx => {
-    ctx.state.result = [{ "itemId": "3473", "promotionItems": [{ "promotionId": "18947", "promotionName": "内黄单品促销满数量折test", "startTime": "Wed Sep 26 00:00:00 CST 2018", "endTime": "Thu Oct 31 00:00:00 CST 2019", "promotionDescription": "七喜 1L*12满3件打折98.365125%", "promotionType": "2", "combinationFlag": "1", promotionKind: 1 }] }]
+    ctx.state.result = [{ "itemId": "3473", "promotionItems": [{ "promotionId": "18947", "promotionName": "内黄单品促销满数量折test", "startTime": "Wed Sep 26 00:00:00 CST 2018", "endTime": "Thu Oct 31 00:00:00 CST 2019", "promotionDescription": "七喜 1L*12满3件打折98.365125%", "promotionType": "2", "combinationFlag": "0", promotionKind: 1 }] }]
+  },
+  goods: async ctx => {
+    const orderId = ctx.params.orderId;
+    const merchantId = ctx.params.merchantId;
+    if (!orderId || !merchantId) {
+      try {
+
+        ctx.state.result = Mock.mock({
+          "item": { "itemId": "4442", "itemName": "中普啤酒瓶超爽8度", "minQuantity": "1", "itemUnit": "箱(12个)", "price": 15, "itemSpecification": "490ml*12", "itemCategoryCode": "1102004", "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg" },
+          "conbinationItems": [{
+            categoryCode: '@natural(10,20)',
+            categoryName: '@cword(3,5)',
+            categoryMinQuantity: '@natural(1,5)',
+            'itemList|6-10': [
+
+              {
+                "itemId": '@natural(3)',
+                "itemName": "@cword(5,10)", "minQuantity": "1", "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
+              }
+            ]
+          }]
+        })
+      } catch (e) {
+        ctx.state.result = e.message;
+      } finally {
+
+      }
+    }
+
   },
   kind: async ctx => {
     const orderId = ctx.params.orderId;

@@ -73,6 +73,7 @@ router.get('/v1/order/:merchantId/:orderId', controllers.order.detail);
 // 商品添加到购物车列表
 router.post('/v1/trolley/list', controllers.trolley.add)
 
+router.post('/v1/mall/promotions/selectGoods', controllers.promotion.goods)
 router.post('/v1/mall/promotions/selectGoodsKind', controllers.promotion.kind)
 router.post('/v1/mall/promotions/item', controllers.promotion.item)
 module.exports = router

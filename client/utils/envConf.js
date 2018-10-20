@@ -69,8 +69,8 @@ const apiURLs = {
   getPromoteInfo: `${localNodejs||baseUrl}/mall/promotions/item`,
   getCombinationList: `${baseUrl}/mall/promotions/combinationList`,
   calcPromote: `${baseUrl}/mall/promotions/calc`,
-  selectGoods: `${baseUrl}/mall/promotions/selectGoods`,
-  selectGoodsKind: `${localNodejs}/mall/promotions/selectGoodsKind`,
+  selectGoods: `${localNodejs||baseUrl}/mall/promotions/selectGoods`,
+  selectGoodsKind: `${localNodejs || baseUrl}/mall/promotions/selectGoodsKind`,
 }
 
 var Api = apiURLs;

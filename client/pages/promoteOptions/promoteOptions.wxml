@@ -2,7 +2,7 @@
   {{promoteMsg}}
 </view>
 <view class='line'></view>
-<view class='center regular promotion-tab' style='justify-content:space-around;'>
+<view wx:if='{{composeProducts.length===2}}' class='center regular promotion-tab' style='justify-content:space-around;'>
 
   <view wx:for='{{composeProducts}}' wx:key='*this' class='{{tabs[index]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{index}}'>{{item.categoryName}}
   </view>
