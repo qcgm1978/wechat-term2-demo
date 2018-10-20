@@ -6,7 +6,8 @@ import {
   Api
 } from '../../utils/envConf.js'
 const getProductItem = Api.getProductItem,
-  selectGoods = Api.selectGoods;
+  selectGoods = Api.selectGoods,
+  selectGoodsKind = Api.selectGoodsKind;
 let promoteInfo = {}
 let calcPromoteInfo = {}
 Page({
@@ -37,7 +38,9 @@ Page({
       promoteMsg: promoteInfo.promotionName,
       mainProduct: product,
       'selectedProductList[0]': product,
-      totalPrice: 0
+      totalPrice: 0,
+      isKind: product.isKind,
+      kind: options.kind
     })
 
     if (getApp().globalData.badge > 0) {
@@ -249,7 +252,7 @@ Page({
     }
 
     utils.postRequest({
-      url: selectGoods,
+      url: this.data.isKind ? selectGoodsKind : selectGoods,
       data: {
         merchantId: getApp().getMerchantId(),
         locationId: getApp().globalData.merchant.locationId,
@@ -263,7 +266,6 @@ Page({
     })
       .then(data => {
         if (data.status === 200) {
-          // todo set multi goods
           this.setData({
             composeProducts: data.result.conbinationItems,
             mainProduct: data.result.item,

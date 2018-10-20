@@ -19,6 +19,7 @@ module.exports = async function (ctx, next) {
         // 如果写在 ctx.body 为空，则使用 state 作为响应
         // debugger;
         ctx.body = ctx.body ? ctx.body : {
+            "message": "OK",
             status: ctx.state.status !== undefined ? ctx.state.status : 200,
             result: ctx.state.result !== undefined ? ctx.state.result : (ctx.state.data || {})
         }
