@@ -1,3 +1,5 @@
 {
-  "navigationBarTitleText": "促销组合"
+  "navigationBarTitleText": "可选商品",
+  "navigationBarBackgroundColor": "#F7F8FA",
+  "navigationBarTextStyle": "black"
 }

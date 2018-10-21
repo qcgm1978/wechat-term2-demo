@@ -301,7 +301,7 @@ image {
 
 .line {
   width: 100%;
-  height: 8rpx;
+  height: 16rpx;
   background: rgb(236, 236, 236);
 }
 
