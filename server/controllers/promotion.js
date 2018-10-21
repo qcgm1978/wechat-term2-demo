@@ -56,7 +56,9 @@ module.exports = {
 
               {
                 "itemId": '@natural(3)',
-                "itemName": "@cword(5,10)", "minQuantity": "1", "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
+                "itemName": "@cword(5,10)",
+                "minQuantity": "@natural(1,5)",
+                "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
               }
             ]
           }]
