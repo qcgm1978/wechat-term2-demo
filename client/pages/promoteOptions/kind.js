@@ -116,11 +116,12 @@ export default {
         let groupItems = []
         for (let i = 0; i < this.data.selectedProductList.length; i++) {
           let item1 = {}
-          item1.itemId = this.data.selectedProductList[i].itemId
+          const item = this.data.selectedProductList[i];
+          item1.itemId = item.itemId
           item1.brandId = ""
-          item1.categoryCode = this.data.selectedProductList[i].itemCategoryCode
-          item1.quantity = this.data.selectedProductList[i].minQuantity
-          item1.unitPrice = this.data.selectedProductList[i].price
+          item1.categoryCode = item.itemCategoryCode
+          item1.quantity = item.quantity||item.minQuantity
+          item1.unitPrice = item.price
           groupItems.push(item1)
         }
         group.groupId = ""
