@@ -159,7 +159,7 @@ Page({
               item1.itemId = this.data.selectedProductList[i].itemId
               item1.brandId = ""
               item1.categoryCode = this.data.selectedProductList[i].itemCategoryCode
-              item1.quantity = this.data.selectedProductList[i].minQuantity
+              item1.quantity = this.data.selectedProductList[i].quantity||this.data.selectedProductList[i].minQuantity
               item1.unitPrice = this.data.selectedProductList[i].price
               groupItems.push(item1)
             }
