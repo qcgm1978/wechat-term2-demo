@@ -65,7 +65,7 @@ Page({
     });
     const trolley = this.data.trolley.map((item, index) => {
       item.checked = this.data.checkAll
-      if (this.data.checkAll) {
+      if (this.data.checkAll && item.putShelvesFlg) {
         if (!this.selectedRadio.includes(item.groupId))
           this.selectedRadio.push(item.groupId);
       } else {
@@ -167,7 +167,7 @@ Page({
     });
     this.setData({
       trolley,
-      checkAll: this.selectedRadio.length === trolley.length,
+      checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg).length,
     })
 
   },
@@ -239,6 +239,7 @@ Page({
         limit: this.limit
       })
       .then((data) => {
+        console.log(data.result)
         let result = data.result
         if(result.length > 0){
           result.reverse()
