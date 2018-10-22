@@ -37,7 +37,8 @@ Page({
 
     let product = JSON.parse(options.product)
     promoteInfo = JSON.parse(options.promoteInfo)
-    this.promoteInfo = promoteInfo
+    this.promoteInfo = promoteInfo;
+    this.product = product
     this.setData({
       promoteMsg: promoteInfo.promotionName,
       mainProduct: product,
@@ -159,7 +160,7 @@ Page({
               item1.itemId = this.data.selectedProductList[i].itemId
               item1.brandId = ""
               item1.categoryCode = this.data.selectedProductList[i].itemCategoryCode
-              item1.quantity = this.data.selectedProductList[i].quantity||this.data.selectedProductList[i].minQuantity
+              item1.quantity = this.data.selectedProductList[i].quantity || this.data.selectedProductList[i].minQuantity
               item1.unitPrice = this.data.selectedProductList[i].price
               groupItems.push(item1)
             }
@@ -289,11 +290,28 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
+          const composeProducts = data.result.conbinationItems
+          let index = undefined
+          if (this.data.isKind) {
+             [index] = composeProducts[0].itemList.reduce((accumulator, item, index) => {
+              if (item.itemId === this.product.itemId) {
+                accumulator.push(index);
+              }
+              return accumulator
+            }, []);
+          }
           this.setData({
-            composeProducts: data.result.conbinationItems,
+            composeProducts,
             mainProduct: data.result.item,
             'selectedProductList[0]': data.result.item
           })
+          if (index !== undefined) {
+            this.setComposeProducts({
+              index,
+              prop: 'checked',
+              data: true
+            });
+          }
           this.minNum = data.result.minNumber
         } else {}
       }).catch(err => {
