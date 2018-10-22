@@ -56,7 +56,12 @@ App({
     return this.globalData.merchant ? this.globalData.merchant.locationId : wx.getStorageSync('merchant').locationId
   },
   getMerchantId() {
-    return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
+    if (this.globalData.authMerchantList && this.globalData.authMerchantList.lenth>0){
+      return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
+    }else{
+      return ""
+    }
+
   },
   getPhone() {
     return this.globalData.authMerchantList[this.globalData.currentIndex].cellPhone;

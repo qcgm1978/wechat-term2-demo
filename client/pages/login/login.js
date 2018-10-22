@@ -189,7 +189,11 @@ Page({
           if (data){
             const merchant = data.result;
             getApp().globalData.merchant = merchant;
-            return (merchant.locationId);
+            if (merchant){
+              return (merchant.locationId);
+            }else{
+              return ""
+            }
           }else{
             
           }
