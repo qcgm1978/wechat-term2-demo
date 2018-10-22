@@ -113,22 +113,20 @@ Page({
     loop1:
       for (let i = 0; i < composeProducts.length; i++) {
         if (itemId == composeProducts[i].itemId) {
-          for (let j = 0; j < composeProducts.length; j++) {
-            if (composeProducts[j].checked) {
-              if (this.data.selectedProductList.length == 3) {
-                this.data.selectedProductList.splice(2, 1);
-                this.setData({
-                  selectedProductList: this.data.selectedProductList
-                })
-              }
-              if (!this.data.isKind) {
-                var item = `${kind}.itemList[` + j + '].checked'
-                this.setData({
-                  [item]: false
-                })
-              }
-              // break loop1;
+          if (composeProducts[i].checked) {
+            if (this.data.selectedProductList.length == 3) {
+              this.data.selectedProductList.splice(2, 1);
+              this.setData({
+                selectedProductList: this.data.selectedProductList
+              })
             }
+            if (!this.data.isKind) {
+              var item = `${kind}.itemList[` + i + '].checked'
+              this.setData({
+                [item]: false
+              })
+            }
+            // break loop1;
           }
           var item = `${kind}.itemList[` + i + '].checked'
           this.setData({
@@ -137,12 +135,12 @@ Page({
           if (composeProducts[i].checked) {
             const selectedProductList = [];
             let totalPrice = 0;
-            const arr = this.data.composeProducts.itemList.concat(this.data.items.itemList)
+            const arr = this.data.items.itemList.concat(this.data.composeProducts.itemList)
             for (let i = 0; i < arr.length; i++) {
-                if (arr[i].checked) {
-                  const selectedItem = arr[i];
-                  selectedProductList.push(selectedItem);
-                  totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(composeProducts[i].price * this.getItemNum(composeProducts[i]))
+              if (arr[i].checked && composeProducts[i]) {
+                const selectedItem = arr[i];
+                selectedProductList.push(selectedItem);
+                totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(composeProducts[i].price * this.getItemNum(composeProducts[i]))
               }
             }
             this.setData({
@@ -194,10 +192,13 @@ Page({
               })
           } else {
             this.data.selectedProductList.splice(1, 2);
-            this.setData({
-              selectedProductList: this.data.selectedProductList,
-              totalPrice: this.data.selectedProductList[0].price * this.getItemNum(selectedProductList[0])
-            })
+            const selectedProductList = this.data.selectedProductList
+            if (selectedProductList.length) {
+              this.setData({
+                selectedProductList,
+                totalPrice: selectedProductList[0].price * this.getItemNum(selectedProductList[0])
+              })
+            }
           }
           // todo temp highlight all radio clicked 
           // this.setData({
@@ -292,17 +293,19 @@ Page({
           const composeProducts = data.result.conbinationItems
           let index = undefined
           if (this.data.isKind) {
-             [index] = composeProducts.itemList.reduce((accumulator, item, index) => {
+            [index] = composeProducts.itemList.reduce((accumulator, item, index) => {
               if (item.itemId === this.product.itemId) {
                 accumulator.push(index);
               }
               return accumulator
             }, []);
           }
+          const items = data.result.items || data.result.item
           this.setData({
             composeProducts,
-            items: data.result.items || data.result.item,
-            'selectedProductList[0]': data.result.items.itemList[0] || data.result.item
+            items,
+            'selectedProductList[0]': data.result.items.itemList[0] || data.result.item,
+            dataForLoop: items.itemList.concat(composeProducts.itemList)
           })
           if (index !== undefined) {
             this.setComposeProducts({
