@@ -87,7 +87,7 @@
 
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>积分抵扣</view>
-          <view class='dollar-minus'>{{order.payment.usePoint/100}}</view>
+          <view >{{order.payment.usePoint}}(<text class='dollar-minus'>{{order.payment.usePoint/100}}</text>)</view>
         </view>
       </view>
     </view>
