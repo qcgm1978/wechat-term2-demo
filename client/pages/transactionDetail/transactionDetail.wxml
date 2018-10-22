@@ -145,6 +145,13 @@
             <text style='color:#888'>退款方式：</text>原返</view>
         </view>
       </view>
+<view class='regular money-amount money' hidden='{{!isReturn}}'>
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>
+            <text style='color:#888'>已退积分：</text>{{order.orderReturn.refundPoint}}</view>
+        </view>
+      </view>
+      
       <view class='regular money-amount money' hidden='{{isReturn}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
