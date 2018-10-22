@@ -108,7 +108,8 @@ Page({
   },
   getProductList(locationId) {
     return new Promise((resolve, reject) => {
-      locationId = locationId ? locationId : getApp().globalData.merchant.locationId;
+
+      locationId = locationId ? locationId : getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "";
       getRequest(getHot, {
         locationId,
         start: this.start,
@@ -169,6 +170,7 @@ Page({
     })
   },
   setStores(merchant) {
+    if (!merchant) return ""
     for (let i = 0; i < getApp().globalData.authMerchantList.length; i++) {
       if (getApp().globalData.authMerchantList[i].merchantId == merchant.nsMerchantId) {
         this.setData({
@@ -313,9 +315,11 @@ Page({
       getRequest(getBanners, {
         category: "merchant_home"
       }).then(data => {
-        this.setData({
-          imgUrls: data.result
-        })
+        if (data && data.result){
+          this.setData({
+            imgUrls: data.result
+          })
+        }
         resolve()
       })
         .catch(errorCode => {
