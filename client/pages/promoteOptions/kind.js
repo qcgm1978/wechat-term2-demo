@@ -14,9 +14,13 @@ export default {
     getCurrentTabsIndex() {
       return this.data.tabs.indexOf(true);
     },
-    getCurrentKind() {
+    getCurrentKindName(){
       const kindIndex = this.getCurrentTabsIndex();
-      return this.data.composeProducts[kindIndex].itemList;
+      return kindIndex ? 'composeProducts' : 'items'
+    },
+    getCurrentKind() {
+      const kindData=this.getCurrentKindName()
+      return this.data[kindData].itemList;
     },
     setComposeProducts({
       index,
@@ -40,7 +44,7 @@ export default {
       const index = dataset.index,
         type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
-      const currentNum = currentTrolley.quantity || currentTrolley.minQuantity;
+      const currentNum = currentTrolley.quantity || 1;
       const isMinus = (type === 'minus');
       if ((currentNum === 1) && isMinus) {
         return;
@@ -94,6 +98,9 @@ export default {
       //     utils.updateTrolleyNum();
       //   })
     },
+    getItemNum(item){
+      return this.data.isKind?(item.quantity || 1):item.minQuantity;
+    },
     calcPromote(currentTrolley) {
       if (currentTrolley.checked) {
         const selectedProductList = [];
@@ -103,7 +110,7 @@ export default {
             if (this.data.composeProducts[i].itemList[m].checked) {
               const selectedItem = this.data.composeProducts[i].itemList[m];
               selectedProductList.push(selectedItem);
-              totalPrice += Number(selectedItem.price * selectedItem.minQuantity) + Number(currentTrolley.price * currentTrolley.minQuantity)
+              totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(currentTrolley.price * this.getItemNum(currentTrolley))
             }
           }
         }

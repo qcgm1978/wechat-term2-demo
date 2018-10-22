@@ -26,7 +26,7 @@
             <text class='dollar medium list-price'>{{item.price}}</text>
             <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}">
               <text class='plus-minus center-center' style='opacity:{{item.quantity?(item.quantity>item.minQuantity?1:0.5):0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.checked&&item.quantity?item.quantity>item.minQuantity:false}}'>-</text>
-              <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity||item.minQuantity}}</text>
+              <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity||1}}</text>
               <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' data-enabled='{{item.checked}}'>+</text>
             </view>
           </view>
@@ -50,7 +50,7 @@
             <text class='dollar medium list-price'>{{item.price}}</text>
             <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}">
               <text class='plus-minus center-center' style='opacity:{{item.quantity?(item.quantity>item.minQuantity?1:0.5):0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' data-enabled='{{item.checked&&item.quantity?item.quantity>item.minQuantity:false}}'>-</text>
-              <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity||item.minQuantity}}</text>
+              <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity||1}}</text>
               <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' data-enabled='{{item.checked}}'>+</text>
             </view>
           </view>

@@ -102,11 +102,11 @@ Page({
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
     const itemIndex = e.currentTarget.dataset.index;
-    const index = this.data.tabs.indexOf(true)
-    const composeProducts = this.data.composeProducts[index].itemList;
-    if (!this.data.composeProducts[index].itemList[itemIndex].checked && this.data.selectedProductList.length >= this.minNum) {
+    const kind = this.getCurrentKindName()
+    const composeProducts = this.getCurrentKind();
+    if (!composeProducts[itemIndex].checked && this.data.selectedProductList.length >= this.minNum) {
       this.setData({
-        [`composeProducts[${index}].itemList[${itemIndex}].checked`]: false
+        [`${kind}.itemList[${itemIndex}].checked`]: false
       })
       return;
     }
@@ -122,7 +122,7 @@ Page({
                 })
               }
               if (!this.data.isKind) {
-                var item = 'composeProducts[' + index + '].itemList[' + j + '].checked'
+                var item = `${kind}.itemList[` + j + '].checked'
                 this.setData({
                   [item]: false
                 })
@@ -130,20 +130,19 @@ Page({
               // break loop1;
             }
           }
-          var item = 'composeProducts[' + index + '].itemList[' + i + '].checked'
+          var item = `${kind}.itemList[` + i + '].checked'
           this.setData({
             [item]: !composeProducts[i].checked
           })
           if (composeProducts[i].checked) {
             const selectedProductList = [];
             let totalPrice = 0;
-            for (let i = 0; i < this.data.composeProducts.length; i++) {
-              for (let m = 0; m < this.data.composeProducts[i].itemList.length; m++) {
-                if (this.data.composeProducts[i].itemList[m].checked) {
-                  const selectedItem = this.data.composeProducts[i].itemList[m];
+            const arr = this.data.composeProducts.itemList.concat(this.data.items.itemList)
+            for (let i = 0; i < arr.length; i++) {
+                if (arr[i].checked) {
+                  const selectedItem = arr[i];
                   selectedProductList.push(selectedItem);
-                  totalPrice += Number(selectedItem.price * selectedItem.minQuantity) + Number(composeProducts[i].price * composeProducts[i].minQuantity)
-                }
+                  totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(composeProducts[i].price * this.getItemNum(composeProducts[i]))
               }
             }
             this.setData({
@@ -160,7 +159,7 @@ Page({
               item1.itemId = this.data.selectedProductList[i].itemId
               item1.brandId = ""
               item1.categoryCode = this.data.selectedProductList[i].itemCategoryCode
-              item1.quantity = this.data.selectedProductList[i].quantity || this.data.selectedProductList[i].minQuantity
+              item1.quantity = this.getItemNum(selectedProductList[i])
               item1.unitPrice = this.data.selectedProductList[i].price
               groupItems.push(item1)
             }
@@ -197,7 +196,7 @@ Page({
             this.data.selectedProductList.splice(1, 2);
             this.setData({
               selectedProductList: this.data.selectedProductList,
-              totalPrice: this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity
+              totalPrice: this.data.selectedProductList[0].price * this.getItemNum(selectedProductList[0])
             })
           }
           // todo temp highlight all radio clicked 
@@ -223,7 +222,7 @@ Page({
     orderItem.push(this.data.selectedProductList[1])
     const arr = orderItem.map(item => ({
       itemId: item.itemId,
-      quantity: Number(item.minQuantity),
+      quantity: Number(this.getItemNum(item)),
       categoryCode: item.itemCategoryCode
     }));
 
