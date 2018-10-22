@@ -10,8 +10,9 @@ var env = EVN.DEV; //update this value for different env
 var baseUrl = ""
 var addrUrl = ""
 var clientSecret = ""
-let localNodejs = 'http://10.3.0.98:5757/v1';
-localNodejs = 'http://192.168.16.71:5757/v1';
+// let localNodejs = 'http://10.3.0.98:5757/v1';
+// localNodejs = 'http://192.168.16.71:5757/v1';
+const localNodejs = 'http://localhost:5757/v1';
 switch (env) {
   case EVN.DEV:
     clientSecret = "OzoStRYlQVA85pjp"
@@ -20,7 +21,6 @@ switch (env) {
     break;
   case EVN.LOCAL:
     {
-      baseUrl = 'http://localhost:5757/v1';
       baseUrl = localNodejs;
       break;
     }
