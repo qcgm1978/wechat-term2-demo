@@ -23,8 +23,10 @@ export default {
       prop,
       data
     }) {
+      const kindIndex = this.getCurrentTabsIndex();
+      const kind = kindIndex ?`composeProducts`:`items`
       this.setData({
-        [`composeProducts[${this.getCurrentTabsIndex()}].itemList[${index}].${prop}`]: data
+        [`${kind}.itemList[${index}].${prop}`]: data
       })
     },
     getCurrentData(index) {

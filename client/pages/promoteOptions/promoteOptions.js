@@ -21,7 +21,7 @@ Page({
     imgTrolly: "../../images/trolley-full.png",
     promoteMsg: "",
     composeProducts: [],
-    mainProduct: {},
+    items: {},
     selectedProductList: [],
     totalPrice: 0,
     rightArrow: "./images/grey-arrow.png",
@@ -41,7 +41,7 @@ Page({
     this.product = product
     this.setData({
       promoteMsg: promoteInfo.promotionName,
-      mainProduct: product,
+      items: product,
       'selectedProductList[0]': product,
       totalPrice: 0,
       isKind: product.isKind,
@@ -293,7 +293,7 @@ Page({
           const composeProducts = data.result.conbinationItems
           let index = undefined
           if (this.data.isKind) {
-             [index] = composeProducts[0].itemList.reduce((accumulator, item, index) => {
+             [index] = composeProducts.itemList.reduce((accumulator, item, index) => {
               if (item.itemId === this.product.itemId) {
                 accumulator.push(index);
               }
@@ -302,8 +302,8 @@ Page({
           }
           this.setData({
             composeProducts,
-            mainProduct: data.result.item,
-            'selectedProductList[0]': data.result.item
+            items: data.result.items || data.result.item,
+            'selectedProductList[0]': data.result.items.itemList[0] || data.result.item
           })
           if (index !== undefined) {
             this.setComposeProducts({
