@@ -3,7 +3,8 @@ import promoteUtil from "../../utils/promotion.js";
 export default {
   data: {
     tabs: [true, false],
-    selectedNum: [0, 0]
+    selectedNum: [0, 0],
+    enableChecked:[true,true]
   },
   methods: {
     toggleKind(e) {
@@ -84,10 +85,17 @@ export default {
         })
       }
       const data = isMinus ? (currentNum - 1) : (currentNum + 1);
+      const enableChecked = this.enableChecked()
       this.setComposeProducts({
         index,
         prop: 'addUnactive',
-        data: !this.enableChecked()
+        data: !enableChecked
+      })
+      this.setData({
+        enableChecked:this.data.enableChecked.map((item,index)=>{
+          const kindIndex = this.getCurrentTabsIndex();
+          return kindIndex===index?enableChecked:item
+        })
       })
       const trolley = this.getCurrentKind().map((item, ind) => {
         if (ind === index) {

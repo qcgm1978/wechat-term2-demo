@@ -109,17 +109,24 @@ Page({
     if (!toSelected) {
       this.setData({
         [`${kind}.itemList[${itemIndex}].quantity`]: 1,
-
       })
     }
     if (toSelected && !this.enableChecked()) {
-      // isSelected&&this.setSelectedNum(false)
       this.setData({
         [`${kind}.itemList[${itemIndex}].checked`]: false,
       })
       return;
     }
-    this.setSelectedNum(toSelected, toSelected?1: quantity)
+    this.setSelectedNum(toSelected, toSelected ? 1 : quantity)
+    const enableChecked = this.enableChecked()
+    this.setData({
+      enableChecked: this.data.enableChecked.map((item, index) => {
+        const kindIndex = this.getCurrentTabsIndex();
+        return kindIndex === index ? enableChecked : item
+      }),
+      [`${kind}.itemList[${itemIndex}].active`]: false,
+      [`${kind}.itemList[${itemIndex}].addUnactive`]: false,
+    })
     loop1:
       for (let i = 0; i < composeProducts.length; i++) {
         if (itemId == composeProducts[i].itemId) {
