@@ -370,21 +370,29 @@ Page({
             promoteInfoList: data.result[0].promotionItems,
             "product.itemPromotions": data.result[0].promotionItems,
           })
-          if (data.result[0].promotionItems[0].combinationFlag == "0") {
-            this.setData({
-              hasPromotion: true
-            })
-          } else if (data.result[0].promotionItems[0].combinationFlag == "1") {
-          }
-          if (data.result[0].promotionItems[0].promotionKind === 1) {
-            this.setData({
-              promotionKind: true
-            })
-          } else if (data.result[0].promotionItems[0].promotionKind === 2) {
-            this.setData({
-              promotionKindCategory: true
-            });
-          }
+          const items = data.result[0].promotionItems
+          const { hasPromotion=false, skuKind=false, skuKindKindCategory=false}=items.reduce((accumulator,item)=>{
+            if (item.combinationFlag === "0") {
+              if (item.promotionKind === '1'){
+                accumulator.sku=true;
+              } else if (item.promotionKind ==='2'){
+                accumulator.skuKind=true
+              }
+            } else if (item.combinationFlag === "1") {
+              if (item.promotionKind === '1'){
+                accumulator.hasPromotion=true
+              } else if (item.promotionKind === '2'){
+                accumulator.skuKindKindCategory=true
+              }
+            }
+            return accumulator
+          },{})
+          this.setData({
+            hasPromotion,
+            skuKind,
+            skuKindKindCategory
+          })
+          
         } else {
           this.setData({
             hasPromotion: false

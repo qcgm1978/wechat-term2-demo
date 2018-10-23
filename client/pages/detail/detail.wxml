@@ -14,9 +14,9 @@
         <view class='product-spec'>规格：{{product.itemSpecification}}</view>
       </view>
 
-      <view wx:if='{{hasPromotion}}'>
+      <view wx:if='{{hasPromotion||skuKind||skuKindKindCategory}}'>
         <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this'>
-          <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{false}}' catch:tap='showPromotion'>
+          <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <text class='promotion'>促销</text>
             <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
@@ -31,7 +31,7 @@
         </view>
 
       </view>
-      <view wx:if='{{promotionKind||promotionKindCategory}}'>
+      <!-- <view wx:if='{{skuKind||skuKindKindCategory}}'>
         <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this'>
           <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' catch:tap='showPromotion' data-is-kind='{{true}}'>
             <text class='promotion'>促销</text>
@@ -47,7 +47,7 @@
           </view>
         </view>
 
-      </view>
+      </view> -->
 
       <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>

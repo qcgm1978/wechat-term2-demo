@@ -312,7 +312,7 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
-          const composeProducts = data.result.conbinationItems
+          const composeProducts = data.result.conbinationItems || data.result.singleOrCombItems
           let index = undefined
           if (this.data.isKind) {
             [index] = composeProducts.itemList.reduce((accumulator, item, index) => {
