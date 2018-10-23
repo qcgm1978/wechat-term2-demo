@@ -56,7 +56,7 @@ App({
     return this.globalData.merchant ? this.globalData.merchant.locationId : wx.getStorageSync('merchant').locationId
   },
   getMerchantId() {
-    if (this.globalData.authMerchantList && this.globalData.authMerchantList.lenth>0){
+    if (this.globalData.authMerchantList && this.globalData.authMerchantList.length>0){
       return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
     }else{
       return ""
