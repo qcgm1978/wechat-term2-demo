@@ -7,7 +7,7 @@
       <text class='list-name'>{{item.itemName}}</text>
       <view class='list-spec' style='width: 100%; display:flex; flex-direction:row; justify-content: space-between;'>
         <view>规格： {{item.itemSpecification}}</view>
-        <view wx:if='{{!isKind}}' style='display:flex;'> x{{item.minQuantity}}/套</view>
+        <view wx:if='{{isKind}}' style='display:flex;'> x{{item.minQuantity}}/套</view>
       </view>
       <view class='center trolley-bottom'>
         <text class='dollar medium list-price'>{{item.price}}</text>

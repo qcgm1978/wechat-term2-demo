@@ -50,28 +50,34 @@ module.exports = {
           "items": {
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
-            categoryMinQuantity: '@natural(5,10)',
+            categoryMinQuantity: '@natural(2,5)',
             'itemList|6-10': [
 
               {
                 "itemId": '@natural(3)',
                 "itemName": "@cword(5,10)",
                 "minQuantity": "@natural(1,5)",
-                "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
+                "itemUnit": "",
+                "price": '@float(0,500,0,2)',
+                "itemSpecification": '@cword(2,8)',
+                "itemImageAddress1": '@image'
               }
             ]
           },
           "conbinationItems": {
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
-            categoryMinQuantity: '@natural(5,10)',
+            categoryMinQuantity: '@natural(2,5)',
             'itemList|6-10': [
 
               {
                 "itemId": '@natural(3)',
                 "itemName": "@cword(5,10)",
                 "minQuantity": "@natural(1,5)",
-                "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
+                "itemUnit": "",
+                "price": '@float(0,500,0,2)',
+                "itemSpecification": '@cword(2,8)',
+                "itemImageAddress1": '@image'
               }
             ]
           }

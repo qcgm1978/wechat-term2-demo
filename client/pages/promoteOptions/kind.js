@@ -3,7 +3,7 @@ import promoteUtil from "../../utils/promotion.js";
 export default {
   data: {
     tabs: [true, false],
-
+    selectedNum: [0, 0]
   },
   methods: {
     toggleKind(e) {
@@ -11,15 +11,35 @@ export default {
         tabs: this.data.tabs.map((item, index) => index === e.target.dataset.index)
       })
     },
+    setSelectedNum(isPlus = true,quantity=1) {
+      const selectedNum = this.data.selectedNum.map((item, index) => {
+        const kindIndex = this.getCurrentTabsIndex()
+        if (index === kindIndex) {
+          item = isPlus ? (item+quantity) : (item-quantity)
+        }
+        return item;
+      })
+      this.setData({
+        selectedNum
+      })
+    },
+    enableChecked() {
+      const index = this.getCurrentTabsIndex()
+      const num = this.data.selectedNum[index]
+      return num + 1 <= this.getCurrentKindMin()
+    },
     getCurrentTabsIndex() {
       return this.data.tabs.indexOf(true);
     },
-    getCurrentKindName(){
+    getCurrentKindName() {
       const kindIndex = this.getCurrentTabsIndex();
       return kindIndex ? 'composeProducts' : 'items'
     },
+    getCurrentKindMin(kindName = this.getCurrentKindName()) {
+      return this.data[kindName].categoryMinQuantity
+    },
     getCurrentKind() {
-      const kindData=this.getCurrentKindName()
+      const kindData = this.getCurrentKindName()
       return this.data[kindData].itemList;
     },
     setComposeProducts({
@@ -28,7 +48,7 @@ export default {
       data
     }) {
       const kindIndex = this.getCurrentTabsIndex();
-      const kind = kindIndex ?`composeProducts`:`items`
+      const kind = kindIndex ? `composeProducts` : `items`
       this.setData({
         [`${kind}.itemList[${index}].${prop}`]: data
       })
@@ -38,17 +58,21 @@ export default {
     },
     plusMinus(e) {
       const dataset = e.currentTarget.dataset;
-      if (!dataset.enabled) {
-        return;
-      }
       const index = dataset.index,
         type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
+      if(!currentTrolley.checked){
+        return
+      }
       const currentNum = currentTrolley.quantity || 1;
       const isMinus = (type === 'minus');
       if ((currentNum === 1) && isMinus) {
         return;
       }
+      if (!isMinus&&!this.enableChecked()) {
+        return
+      }
+      this.setSelectedNum(!isMinus)
       const data = isMinus ? (currentNum - 1) : (currentNum + 1);
 
       const trolley = this.getCurrentKind().map((item, ind) => {
@@ -98,8 +122,8 @@ export default {
       //     utils.updateTrolleyNum();
       //   })
     },
-    getItemNum(item){
-      return this.data.isKind?(item.quantity || 1):item.minQuantity;
+    getItemNum(item) {
+      return this.data.isKind ? (item.quantity || 1) : item.minQuantity;
     },
     calcPromote(currentTrolley) {
       if (currentTrolley.checked) {
@@ -129,7 +153,7 @@ export default {
           item1.itemId = item.itemId
           item1.brandId = ""
           item1.categoryCode = item.itemCategoryCode
-          item1.quantity = item.quantity||item.minQuantity
+          item1.quantity = item.quantity || item.minQuantity
           item1.unitPrice = item.price
           groupItems.push(item1)
         }

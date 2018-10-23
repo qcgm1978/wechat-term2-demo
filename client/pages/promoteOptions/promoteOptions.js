@@ -104,22 +104,32 @@ Page({
     const itemIndex = e.currentTarget.dataset.index;
     const kind = this.getCurrentKindName()
     const composeProducts = this.getCurrentKind();
-    if (!composeProducts[itemIndex].checked && this.data.selectedProductList.length >= this.minNum) {
+    const toSelected = !composeProducts[itemIndex].checked
+    const quantity = composeProducts[itemIndex].quantity
+    if (!toSelected) {
       this.setData({
-        [`${kind}.itemList[${itemIndex}].checked`]: false
+        [`${kind}.itemList[${itemIndex}].quantity`]: 1,
+
+      })
+    }
+    if (toSelected && !this.enableChecked()) {
+      // isSelected&&this.setSelectedNum(false)
+      this.setData({
+        [`${kind}.itemList[${itemIndex}].checked`]: false,
       })
       return;
     }
+    this.setSelectedNum(toSelected, toSelected?1: quantity)
     loop1:
       for (let i = 0; i < composeProducts.length; i++) {
         if (itemId == composeProducts[i].itemId) {
           if (composeProducts[i].checked) {
-            if (this.data.selectedProductList.length == 3) {
-              this.data.selectedProductList.splice(2, 1);
-              this.setData({
-                selectedProductList: this.data.selectedProductList
-              })
-            }
+            // if (this.data.selectedProductList.length == 3) {
+            // this.data.selectedProductList.splice(2, 1);
+            // this.setData({
+            //   selectedProductList: this.data.selectedProductList
+            // })
+            // }
             if (!this.data.isKind) {
               var item = `${kind}.itemList[` + i + '].checked'
               this.setData({
@@ -135,17 +145,22 @@ Page({
           if (composeProducts[i].checked) {
             const selectedProductList = [];
             let totalPrice = 0;
-            const arr = this.data.items.itemList.concat(this.data.composeProducts.itemList)
-            for (let i = 0; i < arr.length; i++) {
-              if (arr[i].checked && composeProducts[i]) {
-                const selectedItem = arr[i];
-                selectedProductList.push(selectedItem);
-                totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(composeProducts[i].price * this.getItemNum(composeProducts[i]))
-              }
-            }
+            // const arr = this.data.items.itemList.concat(this.data.composeProducts.itemList)
+            let itemsChecked = 0,
+              combinationItemsChecked = 0;
+            // for (let i = 0; i < arr.length; i++) {
+            // if (arr[i].checked && composeProducts[i]) {
+            let selectedItem = composeProducts[i];
+            // if(i<this.data.items.length){
+            selectedItem.categoryCode = composeProducts.categoryCode;
+
+            selectedProductList.push(selectedItem);
+            totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(composeProducts[i].price * this.getItemNum(composeProducts[i]))
+            // }
+            // }
             this.setData({
               selectedProductList,
-              totalPrice: utils.getFixedNum(totalPrice, 2)
+              totalPrice: utils.getFixedNum(totalPrice, 2),
             })
 
             let itemGroups = []
@@ -156,7 +171,7 @@ Page({
               let item1 = {}
               item1.itemId = this.data.selectedProductList[i].itemId
               item1.brandId = ""
-              item1.categoryCode = this.data.selectedProductList[i].itemCategoryCode
+              item1.categoryCode = this.data.selectedProductList[i].categoryCode
               item1.quantity = this.getItemNum(selectedProductList[i])
               item1.unitPrice = this.data.selectedProductList[i].price
               groupItems.push(item1)
