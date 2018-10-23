@@ -161,18 +161,21 @@ Page({
               selectedProductList: [...this.data.selectedProductList, selectedItem],
               totalPrice: utils.getFixedNum(totalPrice, 2),
             })
-
+            if (!this.enableAddTrolley()){
+              return;
+            }
             let itemGroups = []
             let group = {}
 
             let groupItems = []
             for (let i = 0; i < this.data.selectedProductList.length; i++) {
               let item1 = {}
-              item1.itemId = this.data.selectedProductList[i].itemId
+              const selectedItem = this.data.selectedProductList[i]
+              item1.itemId = selectedItem.itemId
               item1.brandId = ""
-              item1.categoryCode = this.data.selectedProductList[i].categoryCode
-              item1.quantity = this.getItemNum(selectedProductList[i])
-              item1.unitPrice = this.data.selectedProductList[i].price
+              item1.categoryCode = selectedItem.categoryCode
+              item1.quantity = this.getItemNum(selectedItem)
+              item1.unitPrice = selectedItem.price
               groupItems.push(item1)
             }
             group.groupId = ""
@@ -213,10 +216,6 @@ Page({
               })
             }
           }
-          // todo temp highlight all radio clicked 
-          // this.setData({
-          //   gray: "#EE711F"
-          // })
           break;
         }
       }
@@ -303,17 +302,17 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
-          const composeProducts = data.result.conbinationItems || data.result.singleOrCombItems
+          const composeProducts = data.result.conbinationItems || []
+          const items = data.result.items || data.result.item
           let index = undefined
           if (this.data.isKind) {
-            [index] = composeProducts.itemList.reduce((accumulator, item, index) => {
+            [index] = items.itemList.reduce((accumulator, item, index) => {
               if (item.itemId === this.product.itemId) {
                 accumulator.push(index);
               }
               return accumulator
             }, []);
           }
-          const items = data.result.items || data.result.item
           this.setData({
             composeProducts,
             items,

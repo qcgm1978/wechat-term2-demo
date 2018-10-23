@@ -128,10 +128,11 @@ export default {
       if (currentTrolley.checked) {
         const selectedProductList = [];
         let totalPrice = 0;
-        for (let i = 0; i < this.data.composeProducts.length; i++) {
-          for (let m = 0; m < this.data.composeProducts[i].itemList.length; m++) {
-            if (this.data.composeProducts[i].itemList[m].checked) {
-              const selectedItem = this.data.composeProducts[i].itemList[m];
+        const kindData=this.getCurrentKind()
+        for (let i = 0; i < kindData.length; i++) {
+          for (let m = 0; m < kindData.length; m++) {
+            if (kindData[m].checked) {
+              const selectedItem = kindData[m];
               selectedProductList.push(selectedItem);
               totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(currentTrolley.price * this.getItemNum(currentTrolley))
             }
@@ -141,7 +142,9 @@ export default {
           selectedProductList,
           totalPrice: utils.getFixedNum(totalPrice, 2)
         })
-
+        if (!this.enableAddTrolley()) {
+          return;
+        }
         let itemGroups = []
         let group = {}
 
