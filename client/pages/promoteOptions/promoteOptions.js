@@ -131,12 +131,6 @@ Page({
       for (let i = 0; i < composeProducts.length; i++) {
         if (itemId == composeProducts[i].itemId) {
           if (composeProducts[i].checked) {
-            // if (this.data.selectedProductList.length == 3) {
-            // this.data.selectedProductList.splice(2, 1);
-            // this.setData({
-            //   selectedProductList: this.data.selectedProductList
-            // })
-            // }
             if (!this.data.isKind) {
               var item = `${kind}.itemList[` + i + '].checked'
               this.setData({
@@ -163,10 +157,8 @@ Page({
 
             selectedProductList.push(selectedItem);
             totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(composeProducts[i].price * this.getItemNum(composeProducts[i]))
-            // }
-            // }
             this.setData({
-              selectedProductList,
+              selectedProductList: [...this.data.selectedProductList, selectedItem],
               totalPrice: utils.getFixedNum(totalPrice, 2),
             })
 
@@ -213,8 +205,7 @@ Page({
 
               })
           } else {
-            this.data.selectedProductList.splice(1, 2);
-            const selectedProductList = this.data.selectedProductList
+            const selectedProductList = this.data.selectedProductList.filter(item => item.itemId !== composeProducts[i].itemId)
             if (selectedProductList.length) {
               this.setData({
                 selectedProductList,
@@ -231,7 +222,7 @@ Page({
       }
   },
   addToTrolley() {
-    if (this.data.selectedProductList.length == 1) {
+    if (!this.enableAddTrolley()) {
       wx.showToast({
         title: '请选择促销商品',
         icon: 'none',
@@ -326,7 +317,7 @@ Page({
           this.setData({
             composeProducts,
             items,
-            'selectedProductList[0]': data.result.items.itemList[0] || data.result.item,
+            // 'selectedProductList[0]': data.result.items.itemList[0] || data.result.item,
             dataForLoop: items.itemList.concat(composeProducts.itemList)
           })
           if (index !== undefined) {

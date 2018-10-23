@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 12,
 			"list": [
 				{
 					"id": -1,
@@ -112,7 +112,7 @@
 					"id": 12,
 					"name": "promoteOptions",
 					"pathName": "pages/promoteOptions/promoteOptions",
-					"query": "promoteInfo={\"promotionId\":\"18947\",\"promotionName\":\"内黄单品促销满数量折test\",\"startTime\":\"Wed Sep 26 00:00:00 CST 2018\",\"endTime\":\"Thu Oct 31 00:00:00 CST 2019\",\"promotionDescription\":\"七喜 1L*12满3件打折98.365125%\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":1}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg\",\"itemName\":\"中普啤酒瓶超爽8度\",\"itemSpecification\":\"490ml*12\",\"price\":15,\"itemId\":\"4442\",\"categoryId\":\"1102004\",\"isKind\":true}&kind=1"
+					"query": "promoteInfo={\"promotionId\":\"18958\",\"promotionName\":\"滑县单品类+单品类促销减test\",\"startTime\":\"Wed Sep 05 00:00:00 CST 2018\",\"endTime\":\"Thu Aug 15 00:00:00 CST 2019\",\"promotionDescription\":\"11 酒 : 1102 啤酒 : 1102004 中普满三件+ : 01 食品 : 0102 饮料 : 010203 功能性饮料满一件立减10.3元\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg\",\"itemName\":\"中普啤酒瓶超爽8度\",\"itemSpecification\":\"490ml*12\",\"price\":15,\"itemId\":\"4442\",\"categoryId\":\"1102004\",\"isKind\":true}&kind=2"
 				}
 			]
 		}
