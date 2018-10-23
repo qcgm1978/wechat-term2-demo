@@ -11,11 +11,11 @@ export default {
         tabs: this.data.tabs.map((item, index) => index === e.target.dataset.index)
       })
     },
-    setSelectedNum(isPlus = true,quantity=1) {
+    setSelectedNum(isPlus = true, quantity = 1) {
       const selectedNum = this.data.selectedNum.map((item, index) => {
         const kindIndex = this.getCurrentTabsIndex()
         if (index === kindIndex) {
-          item = isPlus ? (item+quantity) : (item-quantity)
+          item = isPlus ? (item + quantity) : (item - quantity)
         }
         return item;
       })
@@ -23,10 +23,10 @@ export default {
         selectedNum
       })
     },
-    enableChecked() {
+    enableChecked(offset = 0) {
       const index = this.getCurrentTabsIndex()
       const num = this.data.selectedNum[index]
-      return num + 1 <= this.getCurrentKindMin()
+      return num + 1 + offset <= this.getCurrentKindMin()
     },
     getCurrentTabsIndex() {
       return this.data.tabs.indexOf(true);
@@ -61,20 +61,34 @@ export default {
       const index = dataset.index,
         type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
-      if(!currentTrolley.checked){
+      if (!currentTrolley.checked) {
         return
       }
       const currentNum = currentTrolley.quantity || 1;
       const isMinus = (type === 'minus');
       if ((currentNum === 1) && isMinus) {
+
         return;
       }
-      if (!isMinus&&!this.enableChecked()) {
+      if (!isMinus && !this.enableChecked()) {
+
         return
       }
-      this.setSelectedNum(!isMinus)
-      const data = isMinus ? (currentNum - 1) : (currentNum + 1);
 
+      this.setSelectedNum(!isMinus)
+      if ((currentNum === 2 && isMinus) || (currentNum === 1)) {
+        this.setComposeProducts({
+          index,
+          prop: 'active',
+          data: !isMinus
+        })
+      }
+      const data = isMinus ? (currentNum - 1) : (currentNum + 1);
+      this.setComposeProducts({
+        index,
+        prop: 'addUnactive',
+        data: !this.enableChecked()
+      })
       const trolley = this.getCurrentKind().map((item, ind) => {
         if (ind === index) {
           item.quantity = data;
