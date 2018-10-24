@@ -151,7 +151,9 @@ Page({
           if (composeProducts[i].checked) {
             selectedProductList = [...this.data.selectedProductList, composeProducts[i]]
           } else {
-            selectedProductList = this.data.selectedProductList.filter(item => item.itemId !== composeProducts[i].itemId)
+            selectedProductList = this.data.selectedProductList.filter(item => {
+              return (item.itemId !== composeProducts[i].itemId) && !item.isGift
+            })
           }
           this.setData({
             selectedProductList,

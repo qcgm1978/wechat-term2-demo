@@ -31,23 +31,7 @@
         </view>
 
       </view>
-      <!-- <view wx:if='{{skuKind||skuKindKindCategory}}'>
-        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this'>
-          <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' catch:tap='showPromotion' data-is-kind='{{true}}'>
-            <text class='promotion'>促销</text>
-            <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
-            <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
-            <view class='promotion-list'>
-              <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
-                <text class='promotion-type'>{{item.type}}</text>
-                <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
-              </view>
-            </view>
-            <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' wx:if='{{promoteInfo.combinationFlag == "1"}}'></image>
-          </view>
-        </view>
-
-      </view> -->
+      
 
       <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>

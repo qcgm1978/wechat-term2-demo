@@ -117,32 +117,6 @@ export default {
         // this.selectedRadio.push(trolley[index].groupId);
       }
       this.calcPromote(currentTrolley);
-      //调用计算接口
-      // this.callPromotionCacl(trolley, index)
-      //   .then((data) => {
-      //     trolley[index] = data
-      //     var singleGroup = 'trolley[' + index + ']'
-      // this.setData({
-      //   [singleGroup]: trolley[index]
-      // });
-      //     this.setMoneyData(this.selectedRadio);
-      //   })
-      // for (let i = 0; i < trolley[index].items.length; i++) {
-      //   trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
-      // }
-
-      // let para = {
-      //   addGroupList: [{
-      //     quantity: isMinus ? -1 : 1,
-      //     addItemList: trolley[index].items,
-      //   }]
-      // }
-
-      // utils
-      //   .addToTrolleyByGroup(para)
-      //   .then(badge => {
-      //     utils.updateTrolleyNum();
-      //   })
     },
     getItemNum(item) {
       return this.data.isKind ? (item.quantity || 1) : item.minQuantity;

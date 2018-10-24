@@ -134,8 +134,12 @@ export default {
     },
     calcPromote(currentTrolley) {
       if (!this.enableAddTrolley()) {
+        const selectedProductList = this.data.selectedProductList.filter(item => {
+          return !item.isGift
+        })
         this.setData({
-          enableVisible:false
+          enableVisible:false,
+          selectedProductList
         })
         return;
       }
