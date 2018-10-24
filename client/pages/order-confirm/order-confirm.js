@@ -12,7 +12,7 @@ Page({
 
     pointBalance: 0,
     usedPoints: 0,
-    heightGoods: 212 * 2, //height-8-74*2-211*2-53*2
+    heightGoods: 212 * 2 + 54, //height-8-74*2-211*2-53*2
     height: '100%',
     top: '100%',
     credit: 0,
@@ -64,12 +64,15 @@ Page({
       }
       this.setData({
         data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
-        totalItemNumber: count
+        totalItemNumber: count,
       })
 
     } else {
       this.getProduct(options);
     }
+    this.setData({
+      heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 +10
+    })
   },
   toggleGoods() {
     this.setData({

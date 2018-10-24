@@ -54,7 +54,7 @@
               <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'> 
                 <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
                   <view style="position: relative;">
-                    <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
+                    <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                     </image>
                     <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
                   </view>
@@ -91,7 +91,7 @@
             <image catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' src='./img/del.png' class='del' style="width: 48rpx;height: 48rpx; margin-left:90rpx; margin-top:5rpx;"></image>
           </view>
           <view wx:for='{{trollyGroup.items}}'>
-            <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
+            <view class='center padding trolley-container regular bgc'  style="padding-left: 40rpx; ">
 
               <view style="position: relative;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
@@ -137,7 +137,7 @@
             <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
 
               <view style="position: relative;">
-                <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
+                <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
               </view>

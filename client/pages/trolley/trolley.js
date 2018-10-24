@@ -239,7 +239,6 @@ Page({
         limit: this.limit
       })
       .then((data) => {
-        console.log(data.result)
         let result = data.result
         if(result.length > 0){
           result.reverse()
@@ -278,7 +277,7 @@ Page({
           this.setData({
             scrollTop: 0
           });
-          getApp().globalData.checkedTrolley = [];
+          // getApp().globalData.checkedTrolley = [];
         }
 
         setTimeout(() => {
@@ -450,13 +449,25 @@ Page({
       getApp().globalData.toggleMerchant = false;
     }
 
-    // getApp().globalData.checkedTrolley.map(item => {
-    //   if (!this.selectedRadio.includes(item)) {
-    //     this.selectedRadio.push(item)
-    //   }
-    // });
+
     this.getTrolley()
       .then(data => {
+        getApp().globalData.checkedTrolley.map(item => {
+          for (let i = 0; i < item.addGroupList[0].addItemList.length; i++){
+            if (item.addGroupList[0].addItemList[i].itemId == this.data.trolley[0].items[i].itemId && item.addGroupList[0].addItemList[i].quantity == this.data.trolley[0].items[i].quantity && item.addGroupList[0].addItemList[i].categoryCode == this.data.trolley[0].items[i].itemCategoryCode ){
+              if (!this.selectedRadio.includes(this.data.trolley[0].groupId)) {
+                let currentTrolley = "trolley[0].checked"
+                this.setData({
+                  [currentTrolley]: true
+                })
+                this.selectedRadio.push(this.data.trolley[0].groupId)
+                this.setMoneyData(this.selectedRadio)
+              }
+            }
+          }
+
+        });
+        getApp().globalData.checkedTrolley = [];
         this.setData({
           dataLoaded: true
         })
