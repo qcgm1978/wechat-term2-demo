@@ -185,7 +185,7 @@ export default {
             promoteResult.giftItems[0].isGift = true
             this.setData({
               'selectedProductList[2]': promoteResult.giftItems[0],
-              totalDiscountAmount: promoteResult.totalDiscountAmount
+              totalDiscountAmount: promoteResult.totalDiscountAmount||0
             })
 
           } else if (promoteResult.discountAmount > 0) { //满减

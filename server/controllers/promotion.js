@@ -64,7 +64,7 @@ module.exports = {
               }
             ]
           },
-          "conbinationItems": {
+          "combinationItems": {
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
             categoryMinQuantity: '@natural(2,5)',

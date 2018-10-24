@@ -240,7 +240,7 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
-          const composeProducts = data.result.conbinationItems || []
+          const composeProducts = data.result.combinationItems || []
           const items = data.result.items || data.result.item
           let obj={}
           if (this.data.isKind) {
@@ -257,7 +257,6 @@ Page({
           this.setData({
             composeProducts,
             items,
-            enableChecked: composeProducts ? this.data.enableChecked:[true]
           })
           if (Object.keys(obj).length) {
             this.setComposeProducts({
@@ -266,10 +265,20 @@ Page({
               data: true
             });
             this.setData({
-              selectedNum:[1,0],
-              totalPrice: utils.getFixedNum(obj.price, 2)
+              selectedNum: [1,0],
+              totalPrice: utils.getFixedNum(obj.price, 2),
             })
           }
+          const enableChecked = [...this.data.enableChecked]
+          if(!composeProducts.itemList){
+            enableChecked.pop()
+          }
+          if (items.categoryMinQuantity === 1){
+            enableChecked[0]=false
+          }
+          this.setData({
+            enableChecked
+          })
           this.minNum = data.result.minNumber
         } else {}
       }).catch(err => {
