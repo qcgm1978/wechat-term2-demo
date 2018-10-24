@@ -61,7 +61,6 @@ Page({
       categoryCd,
       itemIds: '',
     }).then(data => {
-      //console.log(data);
       if (data.status === 200) {
         let result = data.result;
         result = result.map(item => {
@@ -257,7 +256,6 @@ Page({
       }
     })
     .then(data => {
-      console.log(data)
       if (data.status === 200) {
         this.setData({
           composeProducts: data.result.conbinationItems,

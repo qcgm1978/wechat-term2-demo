@@ -54,7 +54,7 @@
               <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'> 
                 <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
                   <view style="position: relative;">
-                    <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
+                    <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                     </image>
                     <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
                   </view>
@@ -98,7 +98,7 @@
                 </image>
                 <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> 
               </view>
-              <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}'>
+              <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}'  data-categorycode='{{item.itemCategoryCode}}'>
                 <view style='display:flex; '>
                   <text class='promotion-1' style="display:inline-block; margin-left:0;" wx:if="{{item.isfree}}">赠品</text>
                   <text class='trolley-name ' style='width:380rpx;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.itemName}}</text>
@@ -106,10 +106,10 @@
 
                 <view class='center trolley-middle'>
                   <text class='trolley-spec '>规格：{{item.itemSpecification}}</text>
-
+                  <text class='trolley-spec ' style='margin-right: 30rpx;'>x{{item.quantity}}/套</text>
                 </view>
                 <view class='center trolley-bottom'>
-                  <!-- <text wx:if='{{item.putShelvesFlg}}' class='dollar medium trolley-price'>{{item.price}}</text>
+                  <!--<text class='dollar medium trolley-price'>{{item.price}}</text>
                   <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text> -->
 
                 </view>
@@ -134,10 +134,10 @@
 
 
           <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'> 
-            <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
+            <view class='center padding trolley-container regular bgc'  style="padding-left: 40rpx; ">
 
               <view style="position: relative;">
-                <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
+                <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
               </view>
@@ -154,7 +154,7 @@
                 <view class='center trolley-bottom' >
                   <view style='width:auto; margin-top:10rpx;'>
                     <text class='dollar medium trolley-price'>0</text> 
-                    <text class='dollar medium trolley-price' style='text-decoration:line-through; color:#999999;'>{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}</text> 
+                    <text class='dollar medium trolley-price' style='text-decoration:line-through; color:#999999;' wx:if="{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}">{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}</text> 
                   </view>
 
                   <!-- <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>  -->
