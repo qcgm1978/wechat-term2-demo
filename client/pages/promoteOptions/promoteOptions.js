@@ -148,17 +148,15 @@ Page({
             prop: 'categoryCode',
             data: this.data[kind].categoryCode
           })
-          let selectedProductList=[]
+          let selectedProductList = []
           if (composeProducts[i].checked) {
-            selectedProductList = [...this.data.selectedProductList,composeProducts[i]]
+            selectedProductList = [...this.data.selectedProductList, composeProducts[i]]
           } else {
             selectedProductList = this.data.selectedProductList.filter(item => item.itemId !== composeProducts[i].itemId)
           }
-          if (selectedProductList.length) {
-            this.setData({
-              selectedProductList,
-            })
-          }
+          this.setData({
+            selectedProductList,
+          })
           this.calcPromote(composeProducts[i]);
           break;
         }
@@ -180,7 +178,7 @@ Page({
     const arr = orderItem.map(item => ({
       itemId: item.itemId,
       quantity: Number(this.getItemNum(item)),
-      categoryCode: item.itemCategoryCode
+      categoryCode: item.categoryCode
     }));
 
     let para = {
@@ -278,7 +276,7 @@ Page({
             this.setData({
               selectedNum: [1, 0],
               totalPrice: utils.getFixedNum(obj.price, 2),
-              selectedProductList:[this.data.items.itemList[obj.index]]
+              selectedProductList: [this.data.items.itemList[obj.index]]
             })
           }
           const enableChecked = [...this.data.enableChecked]
