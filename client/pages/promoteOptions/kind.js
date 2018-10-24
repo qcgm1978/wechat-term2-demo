@@ -127,15 +127,15 @@ export default {
     },
     setSelected(currentTrolley) {
       if (currentTrolley.checked) {
-        const selectedProductList = [];
-        const kindData = this.getCurrentKind()
-        const selectedItem = currentTrolley;
-        selectedItem.categoryCode = this.data[this.getCurrentKindName()].categoryCode
-        selectedProductList.push(selectedItem);
+        // const selectedProductList = [];
+        // const kindData = this.getCurrentKind()
+        // const selectedItem = currentTrolley;
+        // selectedItem.categoryCode = this.data[this.getCurrentKindName()].categoryCode
+        // selectedProductList.push(selectedItem);
         const seletedItems = this.data.items.itemList.concat(this.data.composeProducts.itemList || []).filter(item => item.checked)
         const totalPrice = seletedItems.reduce((accumulator, item) => Number(accumulator) + Number(item.price * (item.quantity||1)), 0)
         this.setData({
-          selectedProductList,
+          // selectedProductList,
           totalPrice: utils.getFixedNum(totalPrice, 2),
           enableVisible: true
         })
@@ -183,8 +183,9 @@ export default {
 
             promoteResult.giftItems[0].price = 0
             promoteResult.giftItems[0].isGift = true
+            const selectedProductList = [...this.data.selectedProductList, promoteResult.giftItems[0]]
             this.setData({
-              'selectedProductList[2]': promoteResult.giftItems[0],
+              selectedProductList ,
               totalDiscountAmount: promoteResult.totalDiscountAmount||0
             })
 

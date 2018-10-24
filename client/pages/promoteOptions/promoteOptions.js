@@ -42,7 +42,7 @@ Page({
     this.setData({
       promoteMsg: promoteInfo.promotionName,
       items: product,
-      'selectedProductList[0]': product,
+      // 'selectedProductList[0]': product,
       totalPrice: 0,
       isKind: product.isKind,
       kind: options.kind
@@ -143,17 +143,23 @@ Page({
           this.setData({
             [item]: !composeProducts[i].checked
           })
-          // if (composeProducts[i].checked) {
-            this.calcPromote(composeProducts[i]);
-          // } else {
-          //   const selectedProductList = this.data.selectedProductList.filter(item => item.itemId !== composeProducts[i].itemId)
-          //   if (selectedProductList.length) {
-          //     this.setData({
-          //       selectedProductList,
-          //       totalPrice: selectedProductList[0].price * this.getItemNum(selectedProductList[0])
-          //     })
-          //   }
-          // }
+          this.setComposeProducts({
+            index: i,
+            prop: 'categoryCode',
+            data: this.data[kind].categoryCode
+          })
+          let selectedProductList=[]
+          if (composeProducts[i].checked) {
+            selectedProductList = [...this.data.selectedProductList,composeProducts[i]]
+          } else {
+            selectedProductList = this.data.selectedProductList.filter(item => item.itemId !== composeProducts[i].itemId)
+          }
+          if (selectedProductList.length) {
+            this.setData({
+              selectedProductList,
+            })
+          }
+          this.calcPromote(composeProducts[i]);
           break;
         }
       }
@@ -242,13 +248,13 @@ Page({
         if (data.status === 200) {
           const composeProducts = data.result.combinationItems || []
           const items = data.result.items || data.result.item
-          let obj={}
+          let obj = {}
           if (this.data.isKind) {
             obj = items.itemList.reduce((accumulator, item, index) => {
               if (item.itemId === this.product.itemId) {
-                accumulator={
-                  price:item.price,
-                  index 
+                accumulator = {
+                  price: item.price,
+                  index
                 };
               }
               return accumulator
@@ -260,21 +266,27 @@ Page({
           })
           if (Object.keys(obj).length) {
             this.setComposeProducts({
-              index:obj.index,
+              index: obj.index,
               prop: 'checked',
               data: true
             });
+            this.setComposeProducts({
+              index: obj.index,
+              prop: 'categoryCode',
+              data: items.categoryCode
+            });
             this.setData({
-              selectedNum: [1,0],
+              selectedNum: [1, 0],
               totalPrice: utils.getFixedNum(obj.price, 2),
+              selectedProductList:[this.data.items.itemList[obj.index]]
             })
           }
           const enableChecked = [...this.data.enableChecked]
-          if(!composeProducts.itemList){
+          if (!composeProducts.itemList) {
             enableChecked.pop()
           }
-          if (items.categoryMinQuantity === 1){
-            enableChecked[0]=false
+          if (items.categoryMinQuantity === 1) {
+            enableChecked[0] = false
           }
           this.setData({
             enableChecked
