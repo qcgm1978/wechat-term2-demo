@@ -73,7 +73,6 @@ Page({
       categoryCd,
       itemIds: '',
     }).then(data => {
-      //console.log(data);
       if (data.status === 200) {
         let result = data.result;
         result = result.map(item => {
