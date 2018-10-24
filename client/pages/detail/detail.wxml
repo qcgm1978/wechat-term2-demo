@@ -26,7 +26,7 @@
                 <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
               </view>
             </view>
-            <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' wx:if='{{promoteInfo.combinationFlag == "1"}}'></image>
+            <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' ></image>
           </view>
         </view>
 
