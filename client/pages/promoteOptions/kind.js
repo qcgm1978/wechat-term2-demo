@@ -73,14 +73,11 @@ export default {
       const currentNum = currentTrolley.quantity || 1;
       const isMinus = (type === 'minus');
       if ((currentNum === 1) && isMinus) {
-
         return;
       }
       if (!isMinus && !this.enableChecked()) {
-
         return
       }
-
       this.setSelectedNum(!isMinus)
       if ((currentNum === 2 && isMinus) || (currentNum === 1)) {
         this.setComposeProducts({
@@ -125,31 +122,24 @@ export default {
     getItemNum(item) {
       return this.data.isKind ? (item.quantity || 1) : item.minQuantity;
     },
-    setSelected(currentTrolley) {
+    setPrice(currentTrolley) {
       if (currentTrolley.checked) {
-        // const selectedProductList = [];
-        // const kindData = this.getCurrentKind()
-        // const selectedItem = currentTrolley;
-        // selectedItem.categoryCode = this.data[this.getCurrentKindName()].categoryCode
-        // selectedProductList.push(selectedItem);
         const seletedItems = this.data.items.itemList.concat(this.data.composeProducts.itemList || []).filter(item => item.checked)
         const totalPrice = seletedItems.reduce((accumulator, item) => Number(accumulator) + Number(item.price * (item.quantity||1)), 0)
         this.setData({
-          // selectedProductList,
           totalPrice: utils.getFixedNum(totalPrice, 2),
           enableVisible: true
         })
       }
     },
     calcPromote(currentTrolley) {
-
       if (!this.enableAddTrolley()) {
         this.setData({
           enableVisible:false
         })
         return;
       }
-      this.setSelected(currentTrolley)
+      this.setPrice(currentTrolley)
       let itemGroups = []
       let group = {}
 

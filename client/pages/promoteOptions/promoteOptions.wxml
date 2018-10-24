@@ -43,7 +43,7 @@
   </view>
   <button bindtap='addToTrolley' class="without-back-image" style='margin-left: 20rpx;opacity:{{enableVisible?1:0.5}}'>加入进货单</button>
 </view>
-<view class='promote-container' style='top:{{top}}rpx;' wx:if="{{!showPromoteDetail}}">
+<view class='promote-container'  wx:if="{{!showPromoteDetail}}">
   <view style='display: flex; overflow:hidden;max-width:90%;'>
     <view class='' style='display: flex; align-items: center;margin-left: 24rpx; font-size:24rpx; color:#333333;white-space:nowrap;'>搭配商品</view>
     <view wx:for='{{selectedProductList}}' wx:key='index'>
