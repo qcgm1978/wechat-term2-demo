@@ -102,10 +102,16 @@ Page({
   },
   addToTrolley() {
     if (!this.data.isSelecting) {
+      let currentMoney = this.data.product.price * this.data.quantity
+      let remaining = this.data.minAmount - currentMoney;
+      remaining = utils.getFixedNum(remaining)
+      const enableBuy = remaining <= 0;
+
       return this.setData({
         isSelecting: true,
-        buyTxt: `还差￥${this.data.minAmount}可购买`,
-        currentMoney: this.data.product.price * this.data.quantity
+        buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
+        currentMoney,
+        enableBuy
       })
     }
     const arr = [{
@@ -124,7 +130,7 @@ Page({
       .addToTrolleyByGroup(para)
       .then(badge => {
         this.setData({
-          badge: badge + 1,
+          badge: badge,
           icon: '../../images/trolley-missing.png'
         })
       })

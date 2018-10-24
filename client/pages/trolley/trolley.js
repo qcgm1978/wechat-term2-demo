@@ -65,7 +65,7 @@ Page({
     });
     const trolley = this.data.trolley.map((item, index) => {
       item.checked = this.data.checkAll
-      if (this.data.checkAll) {
+      if (this.data.checkAll && item.putShelvesFlg) {
         if (!this.selectedRadio.includes(item.groupId))
           this.selectedRadio.push(item.groupId);
       } else {
@@ -167,7 +167,7 @@ Page({
     });
     this.setData({
       trolley,
-      checkAll: this.selectedRadio.length === trolley.length,
+      checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg).length,
     })
 
   },
@@ -277,7 +277,7 @@ Page({
           this.setData({
             scrollTop: 0
           });
-          getApp().globalData.checkedTrolley = [];
+          // getApp().globalData.checkedTrolley = [];
         }
 
         setTimeout(() => {
@@ -449,13 +449,25 @@ Page({
       getApp().globalData.toggleMerchant = false;
     }
 
-    // getApp().globalData.checkedTrolley.map(item => {
-    //   if (!this.selectedRadio.includes(item)) {
-    //     this.selectedRadio.push(item)
-    //   }
-    // });
+
     this.getTrolley()
       .then(data => {
+        getApp().globalData.checkedTrolley.map(item => {
+          for (let i = 0; i < item.addGroupList[0].addItemList.length; i++){
+            if (item.addGroupList[0].addItemList[i].itemId == this.data.trolley[0].items[i].itemId && item.addGroupList[0].addItemList[i].quantity == this.data.trolley[0].items[i].quantity && item.addGroupList[0].addItemList[i].categoryCode == this.data.trolley[0].items[i].itemCategoryCode ){
+              if (!this.selectedRadio.includes(this.data.trolley[0].groupId)) {
+                let currentTrolley = "trolley[0].checked"
+                this.setData({
+                  [currentTrolley]: true
+                })
+                this.selectedRadio.push(this.data.trolley[0].groupId)
+                this.setMoneyData(this.selectedRadio)
+              }
+            }
+          }
+
+        });
+        getApp().globalData.checkedTrolley = [];
         this.setData({
           dataLoaded: true
         })
