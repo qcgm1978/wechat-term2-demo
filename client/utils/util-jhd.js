@@ -310,7 +310,7 @@ const addToTrolleyByGroup = (groupList, quantity = 1,enableChecked = true, updat
     })
       .then(ret => {
         if (enableChecked) {
-          //getApp().globalData.checkedTrolley.push(groupList);
+          getApp().globalData.checkedTrolley.push(groupList);
         }
       })
       .then(() => {

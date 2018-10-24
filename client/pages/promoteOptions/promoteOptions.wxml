@@ -2,7 +2,7 @@
 {{promoteMsg}}
 </view>
 <view class='line'></view>
-<view wx:for='{{composeProducts}}' wx:key='*this' class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
+<view wx:for='{{composeProducts}}' wx:key='*this' class='center padding bgc mgt' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}' bind:tap='turnPage'>
   <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}"  color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
         </radio>
   <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>

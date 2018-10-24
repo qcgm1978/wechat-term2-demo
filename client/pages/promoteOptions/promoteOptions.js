@@ -257,6 +257,7 @@ Page({
       }
     })
     .then(data => {
+      console.log(data)
       if (data.status === 200) {
         this.setData({
           composeProducts: data.result.conbinationItems,
@@ -272,6 +273,14 @@ Page({
   gotoTrolley: function () {
     wx.switchTab({
       url: '/pages/trolley/trolley'
+    })
+  },
+  
+  turnPage(e) {
+    const itemId = e.currentTarget.dataset.itemid;
+    const itemCategoryCode = e.currentTarget.dataset.categorycode;
+    wx.navigateTo({
+      url: `/pages/detail/detail?itemId=${itemId}&categoryId=${itemCategoryCode}`,
     })
   },
 })
