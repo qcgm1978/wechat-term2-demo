@@ -54,8 +54,9 @@ Page({
       tmpProduct.itemId = this.data.product.itemId
       tmpProduct.categoryId = this.data.product.itemCategoryCode
       tmpProduct.isKind = isKind
+      const kindStr=isKind?'Kind':''
       wx.navigateTo({
-        url: '/pages/promoteOptions/promoteOptions?promoteInfo=' + JSON.stringify(this.data.promoteInfoList[index]) + "&product=" + JSON.stringify(tmpProduct) + '&kind=' + this.data.promoteInfoList[index].promotionKind,
+        url: `/pages/promoteOptions${kindStr}/promoteOptions${kindStr}?promoteInfo=` + JSON.stringify(this.data.promoteInfoList[index]) + "&product=" + JSON.stringify(tmpProduct) + '&kind=' + this.data.promoteInfoList[index].promotionKind,
       })
     }
   },
