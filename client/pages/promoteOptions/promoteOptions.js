@@ -143,79 +143,17 @@ Page({
           this.setData({
             [item]: !composeProducts[i].checked
           })
-          if (composeProducts[i].checked) {
-            const selectedProductList = [];
-            let totalPrice = 0;
-            // const arr = this.data.items.itemList.concat(this.data.composeProducts.itemList)
-            let itemsChecked = 0,
-              combinationItemsChecked = 0;
-            // for (let i = 0; i < arr.length; i++) {
-            // if (arr[i].checked && composeProducts[i]) {
-            let selectedItem = composeProducts[i];
-            // if(i<this.data.items.length){
-            selectedItem.categoryCode = composeProducts.categoryCode;
-
-            selectedProductList.push(selectedItem);
-            totalPrice += Number(selectedItem.price * this.getItemNum(selectedItem)) + Number(composeProducts[i].price * this.getItemNum(composeProducts[i]))
-            this.setData({
-              selectedProductList: [...this.data.selectedProductList, selectedItem],
-              totalPrice: utils.getFixedNum(totalPrice, 2),
-            })
-            if (!this.enableAddTrolley()){
-              return;
-            }
-            let itemGroups = []
-            let group = {}
-
-            let groupItems = []
-            for (let i = 0; i < this.data.selectedProductList.length; i++) {
-              let item1 = {}
-              const selectedItem = this.data.selectedProductList[i]
-              item1.itemId = selectedItem.itemId
-              item1.brandId = ""
-              item1.categoryCode = selectedItem.categoryCode
-              item1.quantity = this.getItemNum(selectedItem)
-              item1.unitPrice = selectedItem.price
-              groupItems.push(item1)
-            }
-            group.groupId = ""
-            group.items = groupItems
-            group.promotions = [{
-              promotionId: promoteInfo.promotionId
-            }]
-            itemGroups.push(group)
-
-            promoteUtil.calcPromote({
-                itemGroups
-              })
-              .then((promoteResult) => {
-                //满赠
-
-                if (promoteResult.giftItems && promoteResult.giftItems.length > 0) {
-                  promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
-                  promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
-                  promoteResult.giftItems[0].price = 0
-                  promoteResult.giftItems[0].isGift = true
-                  this.setData({
-                    'selectedProductList[2]': promoteResult.giftItems[0]
-                  })
-
-                } else if (promoteResult.discountAmount > 0) { //满减
-
-                }
-              })
-              .catch(() => {
-
-              })
-          } else {
-            const selectedProductList = this.data.selectedProductList.filter(item => item.itemId !== composeProducts[i].itemId)
-            if (selectedProductList.length) {
-              this.setData({
-                selectedProductList,
-                totalPrice: selectedProductList[0].price * this.getItemNum(selectedProductList[0])
-              })
-            }
-          }
+          // if (composeProducts[i].checked) {
+            this.calcPromote(composeProducts[i]);
+          // } else {
+          //   const selectedProductList = this.data.selectedProductList.filter(item => item.itemId !== composeProducts[i].itemId)
+          //   if (selectedProductList.length) {
+          //     this.setData({
+          //       selectedProductList,
+          //       totalPrice: selectedProductList[0].price * this.getItemNum(selectedProductList[0])
+          //     })
+          //   }
+          // }
           break;
         }
       }
@@ -304,27 +242,33 @@ Page({
         if (data.status === 200) {
           const composeProducts = data.result.conbinationItems || []
           const items = data.result.items || data.result.item
-          let index = undefined
+          let obj={}
           if (this.data.isKind) {
-            [index] = items.itemList.reduce((accumulator, item, index) => {
+            obj = items.itemList.reduce((accumulator, item, index) => {
               if (item.itemId === this.product.itemId) {
-                accumulator.push(index);
+                accumulator={
+                  price:item.price,
+                  index 
+                };
               }
               return accumulator
-            }, []);
+            }, {});
           }
           this.setData({
             composeProducts,
             items,
-            // 'selectedProductList[0]': data.result.items.itemList[0] || data.result.item,
-            dataForLoop: items.itemList.concat(composeProducts.itemList)
+            enableChecked: composeProducts ? this.data.enableChecked:[true]
           })
-          if (index !== undefined) {
+          if (Object.keys(obj).length) {
             this.setComposeProducts({
-              index,
+              index:obj.index,
               prop: 'checked',
               data: true
             });
+            this.setData({
+              selectedNum:[1,0],
+              totalPrice: utils.getFixedNum(obj.price, 2)
+            })
           }
           this.minNum = data.result.minNumber
         } else {}

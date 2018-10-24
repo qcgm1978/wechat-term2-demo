@@ -3,11 +3,11 @@
   {{promoteMsg}}
 </view>
 <view class='line'></view>
-<view wx:if='{{items.itemList.length}}' class='center regular promotion-tab bgc' style='justify-content:space-around;'>
+<view wx:if='{{items.itemList.length&&composeProducts.itemList}}' class='center regular promotion-tab bgc' style='justify-content:space-around;'>
 
-  <view class='{{tabs[0]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{0}}'>{{composeProducts.categoryName}}
+  <view class='{{tabs[0]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{0}}'>{{items.categoryName}}
   </view>
-  <view class='{{tabs[1]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{1}}'>{{items.categoryName}}
+  <view class='{{tabs[1]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{1}}'>{{composeProducts.categoryName}}
   </view>
 </view>
 <scroll-view scroll-y style='height:{{108*2*4-100}}rpx;'>
@@ -39,9 +39,9 @@
     <view class='column' style="align-items: left;margin-left: 20rpx;">
       <view class='center' style="align-items: center;">
         <view class='foot-txt1' style='font-size:24rpx;color:#383838; '>套装价</view>
-        <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{totalPrice}}</view>
+        <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{enableVisible?totalPrice:0}}</view>
       </view>
-      <view class='foot-txt3'>已省28.8元</view>
+      <view class='foot-txt3' wx:if='{{totalDiscountAmount}}'>已省{{totalDiscountAmount}}</view>
     </view>
   </view>
   <button bindtap='addToTrolley' class="without-back-image" style='margin-left: 20rpx;'>加入进货单</button>

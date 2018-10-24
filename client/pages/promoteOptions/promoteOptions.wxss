@@ -319,8 +319,8 @@ image {
 }
 
 .foot-txt3 {
-  font-size: 30rpx;
-  color: rgb(236, 236, 236);
+  font-size: 24rpx;
+  color: #EC6515;
   width: auto;
 }
 
