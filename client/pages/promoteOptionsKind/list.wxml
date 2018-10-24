@@ -14,7 +14,7 @@
         <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}">
           <text class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' >-</text>
           <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity||1}}</text>
-          <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' style='opacity:{{(item.addUnactive||!enableChecked)?0.5:1}};'>+</text>
+          <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' style='opacity:{{((item.addUnactive||!enableChecked)||!item.checked)?0.5:1}};'>+</text>
         </view>
       </view>
     </view>

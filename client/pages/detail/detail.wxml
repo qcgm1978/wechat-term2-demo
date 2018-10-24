@@ -15,8 +15,8 @@
       </view>
 
       <view wx:if='{{hasPromotion||skuKind||skuKindKindCategory}}'>
-        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this'>
-          <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
+        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this' >
+          <view wx:if='{{!((item.combinationFlag === "0")&&(item.promotionKind === "1"))}}' class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <text class='promotion'>促销</text>
             <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
