@@ -43,7 +43,7 @@ Page({
   showPromotion(e) {
     const index = e.currentTarget.dataset.index
     const isKind=e.currentTarget.dataset.isKind
-    if (!this.data.product.putShelvesFlg) return;
+    if (!this.data.product.putShelvesFlg || (this.data.promoteInfoList[index].combinationFlag == "0" && this.data.promoteInfoList[index].promotionKind=="1")) return;
     if (this.data.promoteInfoList[index].combinationFlag !== "1" || this.data.promoteInfoList[index].promotionKind) {
       let tmpProduct = {}
       tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
