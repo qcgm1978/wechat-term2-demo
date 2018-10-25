@@ -1,4 +1,5 @@
 var URLs = require("../../utils/envConf.js").Api;
+const getProductItem = URLs.getProductItem;
 var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessToken;
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 var utils = require("../../utils/util.js");
@@ -339,5 +340,37 @@ Page({
     this.setData({
       soldOutDialogFlag: true
     })
-  }
+  },
+  getProduct(itemId, categoryCd) {
+    const locationId = getApp().globalData.merchant.locationId;
+    return utils.getRequest(getProductItem, {
+      locationId,
+      categoryCd: categoryCd ? categoryCd : '',
+      itemIds: itemId ? itemId : '',
+    }).then(data => {
+      if (data.status === 200) {
+        let inStock = []
+        // const inStock = data.result.reduce((accumulator, item) => {
+        //   if (itemId == item.itemId) {
+        //     accumulator.push(item);
+        //   }
+        //   return accumulator;
+        // }, []);
+        for (let i = 0; i < data.result.length; i++) {
+          if (itemId == data.result[i].itemId) {
+            inStock.push(data.result[i]);
+          }
+        }
+        if (inStock.length == 0) {
+          let item = {}
+          item.putShelvesFlg = false
+          inStock.push(item)
+        }
+        return inStock;
+      } else {
+      }
+    }).catch(err => {
+      console.log(err);
+    })
+  },
 })
