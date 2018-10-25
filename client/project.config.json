@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 12,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -110,13 +110,13 @@
 				},
 				{
 					"id": 12,
-					"name": "promoteOptions",
+					"name": "promoteOptionsKind",
 					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
 					"query": "promoteInfo={\"promotionId\":\"18964\",\"promotionName\":\"1203011 CNPOWER类一个+ 1401009 食用油（散油）1个折扣12.0%\",\"startTime\":\"Wed Sep 26 00:00:00 CST 2018\",\"endTime\":\"Thu Oct 31 00:00:00 CST 2019\",\"promotionDescription\":\"1203011 CNPOWER类一个+ 1401009 食用油（散油）1个折扣12.0%\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png\",\"itemName\":\"CNPOWER\",\"itemSpecification\":\"250ml*24\",\"price\":108,\"itemId\":\"3338\",\"categoryId\":\"1203011\",\"isKind\":true}&kind=2"
 				},
 				{
 					"id": 13,
-					"name": "promoteOptions-multi",
+					"name": "promoteOptionsKind-multi",
 					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
 					"query": "promoteInfo={\"promotionId\":\"18958\",\"promotionName\":\"滑县单品类+单品类促销减test\",\"startTime\":\"Wed Sep 05 00:00:00 CST 2018\",\"endTime\":\"Thu Aug 15 00:00:00 CST 2019\",\"promotionDescription\":\"11 酒 : 1102 啤酒 : 1102004 中普满三件+ : 01 食品 : 0102 饮料 : 010203 功能性饮料满两件立减10.3元\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg\",\"itemName\":\"中普啤酒瓶超爽8度\",\"itemSpecification\":\"490ml*12\",\"price\":15,\"itemId\":\"4442\",\"categoryId\":\"1102004\",\"isKind\":true}&kind=2"
 				}
