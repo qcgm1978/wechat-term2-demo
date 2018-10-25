@@ -46,13 +46,13 @@
              <!-- && !item.isfree -->
             <view class='promotion' style='font-size:24rpx; padding-bottom:10rpx; margin-bottom:0;' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '2'}}">
               <text class='promotion-1' style='margin-left: 100rpx;'>满减</text>
-              <text class='promotion-2'>{{trollyGroup.cartCombinationPromotions[0].promotionDescription}}</text>
+              <text class='promotion-2'>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</text>
               <text class='promotion-3'>已省¥{{filters.toFix(trollyGroup.cartCombinationPromotions[0].discountAmount)}}</text>
             </view>
              <!-- && item.isfree -->
             <view class='promotion' style='font-size:24rpx; padding-bottom:0rpx;margin-bottom:0;' wx:elif="{{trollyGroup.cartCombinationPromotions[0].promotionType == '1'}}">
               <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'> 
-                <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
+                <view class='center padding trolley-container regular bgc'  style="padding-left: 40rpx; ">
                   <view style="position: relative;">
                     <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                     </image>
@@ -85,12 +85,12 @@
               <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}"  color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); margin:auto 8rpx 2rpx;'>
               </radio>
             <view class='promotion-1' style='height:34rpx;'>套装</view>
-            <view class='promotion-2' style='height:30rpx;'>{{trollyGroup.cartCombinationPromotions[0].promotionDescription}}</view>
+            <view class='promotion-2' style='height:30rpx;'>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</view>
             <!-- <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;"> -->
             <image catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' src='./img/del.png' class='del' style="width: 48rpx;height: 48rpx; margin-left:90rpx; margin-top:5rpx;"></image>
           </view>
           <view wx:for='{{trollyGroup.items}}'>
-            <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
+            <view class='center padding trolley-container regular bgc'  style="padding-left: 40rpx; ">
 
               <view style="position: relative;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
@@ -133,7 +133,7 @@
 
 
           <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'> 
-            <view class='center padding trolley-container regular bgc'  style="padding-left: 0; ">
+            <view class='center padding trolley-container regular bgc'  style="padding-left: 40rpx; ">
 
               <view style="position: relative;">
                 <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
