@@ -14,9 +14,9 @@
         <view class='product-spec'>规格：{{product.itemSpecification}}</view>
       </view>
 
-      <view wx:if='{{hasPromotion||skuKind||skuKindKindCategory}}'>
+      <view >
         <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this' >
-          <view wx:if='{{!((item.combinationFlag === "0")&&(item.promotionKind === "1"))}}' class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
+          <view  class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <text class='promotion'>促销</text>
             <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
@@ -26,7 +26,7 @@
                 <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
               </view>
             </view>
-            <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' ></image>
+            <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' wx:if='{{!(promoteInfo.combinationFlag=="0"&&promoteInfo.promotionKind=="1")}}'></image>
           </view>
         </view>
 
