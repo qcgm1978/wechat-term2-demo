@@ -39,7 +39,9 @@ Page({
     promoteInfo = JSON.parse(options.promoteInfo)
     this.promoteInfo = promoteInfo;
     this.product = product
+    const offset=4
     this.setData({
+      scrollHeight: getApp().globalData.systemInfo.windowHeight - 42 * 2 - 16 - 42 * 2 - 68 * 2 - 50 * 2-offset,
       promoteMsg: promoteInfo.promotionName,
       items: product,
       // 'selectedProductList[0]': product,

@@ -2,6 +2,7 @@ import utils from "../../utils/util.js";
 import promoteUtil from "../../utils/promotion.js";
 export default {
   data: {
+    scrollHeight:0,
     totalDiscountAmount: 0,
     enableVisible: false,
     tabs: [true, false],

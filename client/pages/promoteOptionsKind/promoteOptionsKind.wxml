@@ -10,7 +10,7 @@
   <view class='{{tabs[1]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{1}}'>{{composeProducts.categoryName}}
   </view>
 </view>
-<scroll-view scroll-y style='height:{{108*2*4-100}}rpx;'>
+<scroll-view scroll-y style='height:{{scrollHeight}}rpx;box-shadow: 0 -2rpx 10rpx 0 rgba(0,0,0,0.05);'>
   <view hidden='{{!tabs[0]}}'>
     <view wx:for='{{items.itemList}}' wx:key='*this' style='opacity:{{(item.checked||enableChecked[0])?1:0.5}};'>
       <template is="msgItem" data="{{item,index,enableChecked:enableChecked[0]}}" />
