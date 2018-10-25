@@ -127,6 +127,7 @@ Page({
       })
         .then((data) => {
           const result = data.result;
+
           const totalPages = Math.ceil(result.orderTotalCount / 10);
           this.setData({
             totalPages,
@@ -353,12 +354,15 @@ Page({
         }
 
         for (let i = 0; i < orderGroups.length; i++) {
+          orderGroups[i].addItemList = []
           let items = orderGroups[i].items
           for (let j = 0; j < items.length; j++) {
             items[j].categoryCode = items[j].categoryId
+            if (!items[j].gift) {
+              orderGroups[i].addItemList.push(items[j])
+            }
           }
           orderGroups[i].count = 1
-          orderGroups[i].addItemList = items
           let promotions = []
           let promotion = {}
           promotion.promotionId = orderGroups[i].promotionId
