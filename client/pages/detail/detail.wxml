@@ -14,28 +14,28 @@
         <view class='product-spec'>规格：{{product.itemSpecification}}</view>
       </view>
 
-      <view wx:if='{{hasPromotion}}' >
-        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo">
-          <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' catch:tap='showPromotion'>
-            <text class='promotion' >促销</text>
+      <view wx:if='{{hasPromotion||skuKind||skuKindKindCategory}}'>
+        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this' >
+          <view wx:if='{{!((item.combinationFlag === "0")&&(item.promotionKind === "1"))}}' class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
+            <text class='promotion'>促销</text>
             <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
-            <text class='promotion-2' >{{promoteInfo.promotionName}}</text>
+            <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
             <view class='promotion-list'>
               <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
                 <text class='promotion-type'>{{item.type}}</text>
                 <text class='ellipse' style='width:490rpx;'>{{item.content}}</text>
               </view>
             </view>
-            <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' wx:if='{{promoteInfo.combinationFlag == "1"}}'></image>
+            <image src='../../images/right-arrow.png' class='order-arrow1' style='width:44rpx; height:52rpx;' ></image>
           </view>
         </view>
 
       </view>
-
+      
 
       <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>
-        <view class='promotion-list'>   
+        <view class='promotion-list'>
           <view class='center' style="height: 36rpx;">
             <text class='ellipse' style='width:490rpx;'>{{product.itemCategoryName}}</text>
             <text class='promotion-type'></text>
@@ -44,7 +44,7 @@
         <view></view>
       </view>
       <view class='center promotion-container padding regular bgc mgt' wx:if='{{product.itemExpirationDays || product.itemOrigin || product.itemBrand}}'>
-        <text class='promotion' style="align-self: start;" >信息</text>
+        <text class='promotion' style="align-self: start;">信息</text>
         <view class='promotion-list'>
           <view class='center'>
             <text style='width:490rpx;'>{{product.itemExpirationDays?'保质期('+product.itemExpirationDays+'天);':''}}{{product.itemOrigin?'产地：'+product.itemOrigin+';':''}}{{product.itemBrand?'品牌：'+product.itemBrand:''}}</text>
@@ -88,7 +88,7 @@
       </swiper>
     </view>
 
-    <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top}}rpx;' >
+    <view wx:if='{{isSelecting}}' class='select-goods bgc ' style='top:{{top}}rpx;'>
       <view class='center padding' style='justify-content:space-between;'>
         <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit'></image>
         <view>
@@ -135,7 +135,7 @@
   </view>
   <text class='sold-out btn-container center-center fixed-position-text' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
   <!-- wx:if='{{!promotion}}'  wx:if='{{!isSelecting}}'-->
-  <view  class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
+  <view class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
     <view class='center-center' style='flex-grow:1;' bindtap='gotoTrolley'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
       <view class='medium cart-num center-center' wx:if='{{badge}}'>

@@ -21,7 +21,7 @@ Page({
     isSelecting: false,
     hasPromotion: false,
     unionPromotion: false,
-    promoteInfo:{},
+    promoteInfo: {},
     promoteInfoList: [],
     autoplay: true,
     interval: 3000,
@@ -39,24 +39,26 @@ Page({
     imgManjian: "../../images/manjian.png",
     imgManzeng: "../../images/manzeng.png",
   },
-  relatedChange(e){
-  },
+  relatedChange(e) {},
   showPromotion(e) {
     const index = e.currentTarget.dataset.index
-
-    if (this.data.promoteInfoList[index].combinationFlag !== "1" || !this.data.product.putShelvesFlg) return
-    let tmpProduct = {}
-    tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
-    tmpProduct.itemName = this.data.product.itemName
-    tmpProduct.itemSpecification = this.data.product.itemSpecification
-    tmpProduct.quantity = this.data.promoteInfoList[index].mainQuantity
-    tmpProduct.price = this.data.product.price
-    tmpProduct.itemId = this.data.product.itemId
-    tmpProduct.categoryId = this.data.product.itemCategoryCode
-
-    wx.navigateTo({
-      url: '/pages/promoteOptions/promoteOptions?promoteInfo=' + JSON.stringify(this.data.promoteInfoList[index]) + "&product=" + JSON.stringify(tmpProduct),
-    })
+    const isKind=e.currentTarget.dataset.isKind
+    if (!this.data.product.putShelvesFlg) return;
+    if (this.data.promoteInfoList[index].combinationFlag !== "1" || this.data.promoteInfoList[index].promotionKind) {
+      let tmpProduct = {}
+      tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
+      tmpProduct.itemName = this.data.product.itemName
+      tmpProduct.itemSpecification = this.data.product.itemSpecification
+      tmpProduct.quantity = this.data.promoteInfoList[index].mainQuantity
+      tmpProduct.price = this.data.product.price
+      tmpProduct.itemId = this.data.product.itemId
+      tmpProduct.categoryId = this.data.product.itemCategoryCode
+      tmpProduct.isKind = isKind
+      const kindStr=isKind?'Kind':''
+      wx.navigateTo({
+        url: `/pages/promoteOptions${kindStr}/promoteOptions${kindStr}?promoteInfo=` + JSON.stringify(this.data.promoteInfoList[index]) + "&product=" + JSON.stringify(tmpProduct) + '&kind=' + this.data.promoteInfoList[index].promotionKind,
+      })
+    }
   },
   plusMinus(e) {
     const dataset = e.currentTarget.dataset;
@@ -80,13 +82,13 @@ Page({
       enableBuy
     })
   },
-  
+
   closePopup() {
     this.setData({
       isSelecting: false,
       buyTxt: '立即购买',
       currentMoney: 0,
-      quantity:1,
+      quantity: 1,
       enableBuy: false,
       specificationList: this.data.specificationList.map(item => {
         item.num = 0;
@@ -150,11 +152,11 @@ Page({
         result.unitPrice = result.price
         result.categoryCode = result.itemCategoryCode
         result.brandId = ""
-        result.itemImageAddress = (Array(5).fill('')).reduce((accumulator,item,index)=>{
+        result.itemImageAddress = (Array(5).fill('')).reduce((accumulator, item, index) => {
           const imgAddress = result['itemImageAddress' + (index + 1)];
           imgAddress !== '' && accumulator.push(`${imgAddress}?x-oss-process=style/750w`);
           return accumulator;
-        },[]);
+        }, []);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg)
         this.setData({
           product: result,
@@ -168,7 +170,7 @@ Page({
         }
       }
     }).catch(err => {
-      utils.errorHander(err, ()=>this.getProduct({
+      utils.errorHander(err, () => this.getProduct({
         itemId,
         // categoryId
       }))
@@ -187,8 +189,8 @@ Page({
     }).then(data => {
       if (data.status === 200) {
         let result = []
-        for (let i = 0; i < data.result.length; i++){
-          if (data.result[i].itemId != itemId){
+        for (let i = 0; i < data.result.length; i++) {
+          if (data.result[i].itemId != itemId) {
             result.push(data.result[i])
           }
         }
@@ -221,7 +223,7 @@ Page({
         buyTxt: `还差￥${this.data.minAmount - this.data.product.price}可购买`,
         currentMoney: this.data.product.price * this.data.quantity
       })
-    } else if (!this.data.isSelecting && this.data.minAmount <= this.data.product.price){
+    } else if (!this.data.isSelecting && this.data.minAmount <= this.data.product.price) {
       return this.setData({
         isSelecting: true,
         currentMoney: this.data.product.price * this.data.quantity,
@@ -232,16 +234,16 @@ Page({
       return;
     }
     this.data.product.quantity = this.data.quantity
-    if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId){
+    if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId) {
       this.data.product.itemPromotions[0].itemPromotionId = this.data.product.itemPromotions[0].promotionId
-    } 
+    }
     let itemGroups = []
     let group = {}
     group.groupId = ""
     group.count = 1
     group.combinationFlag = false
     group.checked = true
-    group.cartCombinationPromotions  = null
+    group.cartCombinationPromotions = null
     group.items = [this.data.product]
     group.promotions = null
     group.putShelvesFlg = this.data.product.putShelvesFlg
@@ -250,7 +252,7 @@ Page({
     itemGroups.push(group)
 
     let para = {}
-    para.locationId = getApp().globalData.merchant.locationId+""
+    para.locationId = getApp().globalData.merchant.locationId + ""
     para.merchantId = getApp().getMerchantId()
     para.itemGroups = itemGroups
     // 获取促销信息
@@ -258,13 +260,13 @@ Page({
       .then(arr => {
         console.log(arr)
         if (arr) {
-          if (arr.giftItems && arr.giftItems[0]){
-            arr.giftItems[0].itemId = arr.giftItems[0].giftItemId 
+          if (arr.giftItems && arr.giftItems[0]) {
+            arr.giftItems[0].itemId = arr.giftItems[0].giftItemId
             arr.giftItems[0].itemName = arr.giftItems[0].giftItemName
-            arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity 
+            arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity
           }
           itemGroups[0].cartCombinationPromotions = [arr]
-        }else{
+        } else {
 
         }
         getApp().globalData.items = itemGroups;
@@ -273,12 +275,11 @@ Page({
           url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0`,
         });
       })
-      .catch(() => {
-      })
+      .catch(() => {})
 
 
   },
-  preventTouchMove: function (e) {
+  preventTouchMove: function(e) {
     //debugger;
   },
   onLoad: function(options) {
@@ -288,12 +289,12 @@ Page({
       })
     }
     this.getProduct(options)
-    .then(data=>{
-      this.setData({
-        top: getApp().globalData.systemInfo.deviceWindowHeight-750
-      })
-      this.getPromoteInfo(options)
-    });
+      .then(data => {
+        this.setData({
+          top: getApp().globalData.systemInfo.deviceWindowHeight - 750
+        })
+        this.getPromoteInfo(options)
+      });
     this.getRelated(options);
     if (getApp().globalData.badge > 0) {
       this.setData({
@@ -347,60 +348,78 @@ Page({
   onShareAppMessage: function() {
 
   },
-  gotoTrolley: function () {
+  gotoTrolley: function() {
     wx.switchTab({
       url: '/pages/trolley/trolley'
     })
   },
 
-  getPromoteInfo: function ({
+  getPromoteInfo: function({
     itemId,
     categoryId
   }) {
     utils.postRequest({
-      url: getPromoteInfo,
-      data: {
-        merchantId: getApp().getMerchantId(),
-        locationId: getApp().globalData.merchant.locationId,
-        items: [
-          {
-            categoryCode: categoryId ? categoryId:"",
+        url: getPromoteInfo,
+        data: {
+          merchantId: getApp().getMerchantId(),
+          locationId: getApp().globalData.merchant.locationId,
+          items: [{
+            categoryCode: categoryId ? categoryId : "",
             itemId: itemId
-          }
-        ],
-      }
-    })
+          }],
+        }
+      })
       .then((data) => {
 
-        if (data.result[0].promotionItems.length > 0){
+        if (data.result[0].promotionItems.length > 0) {
           this.setData({
             //promoteInfo: data.result[0].promotionItems[0],
             promoteInfoList: data.result[0].promotionItems,
             "product.itemPromotions": data.result[0].promotionItems,
-            hasPromotion: true
           })
-          if (data.result[0].promotionItems[0].combinationFlag == "0"){
-
-          } else if (data.result[0].promotionItems[0].combinationFlag == "1"){
-
-          }
-        }else{
+          const items = data.result[0].promotionItems
+          const { hasPromotion=false, skuKind=false, skuKindKindCategory=false}=items.reduce((accumulator,item)=>{
+            if (item.combinationFlag === "0") {
+              if (item.promotionKind === '1'){
+                accumulator.sku=true;
+              } else if (item.promotionKind ==='2'){
+                accumulator.skuKind=true
+              }
+            } else if (item.combinationFlag === "1") {
+              if (item.promotionKind === '1'){
+                accumulator.hasPromotion=true
+              } else if (item.promotionKind === '2'){
+                accumulator.skuKindKindCategory=true
+              }
+            }
+            return accumulator
+          },{})
+          this.setData({
+            hasPromotion,
+            skuKind,
+            skuKindKindCategory
+          })
+          
+        } else {
           this.setData({
             hasPromotion: false
           })
         }
       })
-      .catch (errorCode => {
-          console.log(errorCode)
-          utils.errorHander(errorCode, this.getPromoteInfo, this.emptyFunc, {itemId,categoryId})
-            .then(() => {
-              
-            })
-            .catch(() => {
-              
-            })
+      .catch(errorCode => {
+        console.log(errorCode)
+        utils.errorHander(errorCode, this.getPromoteInfo, this.emptyFunc, {
+            itemId,
+            categoryId
+          })
+          .then(() => {
+
+          })
+          .catch(() => {
+
+          })
       })
   },
 
-  emptyFunc: function () { },
+  emptyFunc: function() {},
 })
