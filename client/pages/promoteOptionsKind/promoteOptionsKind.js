@@ -174,8 +174,9 @@ Page({
     }
 
     let orderItem = []
-    orderItem.push(this.data.selectedProductList[0])
-    orderItem.push(this.data.selectedProductList[1])
+    // orderItem.push(this.data.selectedProductList[0])
+    // orderItem.push(this.data.selectedProductList[1])
+    orderItem = this.data.selectedProductList.filter(item => !item.isGift)
     const arr = orderItem.map(item => ({
       itemId: item.itemId,
       quantity: Number(this.getItemNum(item)),
