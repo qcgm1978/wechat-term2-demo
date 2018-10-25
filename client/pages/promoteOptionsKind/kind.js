@@ -27,12 +27,17 @@ export default {
       })
     },
     enableChecked(offset = 0) {
-      const index = this.getCurrentTabsIndex()
-      const num = this.data.selectedNum[index]
-      return num + 1 + offset <= this.getCurrentKindMin()
+      if (this.data.isQuantity) {
+        const index = this.getCurrentTabsIndex()
+        const num = this.data.selectedNum[index]
+        return num + 1 + offset <= this.getCurrentKindMin()
+      } else {
+        const totalPrice = this.getTotalPrice()
+        return totalPrice < this.minNum
+      }
     },
     enableAddTrolley(offset = 0) {
-      return !this.data.enableChecked.includes(true)
+      return this.data.enableChecked.includes(true)
     },
     getCurrentTabsIndex() {
       return this.data.tabs.indexOf(true);
@@ -99,33 +104,25 @@ export default {
           return kindIndex === index ? enableChecked : item
         })
       })
-      const trolley = this.getCurrentKind().map((item, ind) => {
-        if (ind === index) {
-          item.quantity = data;
-          //item.suitePrice = this.getSuitePrice(item);
-        }
-        return item;
-      })
+      
       this.setComposeProducts({
         index,
         prop: 'quantity',
         data
       })
-      if (currentTrolley.checked) {
-        trolley[index].quantity = data
-      } else {
-        trolley[index].checked = true
-        trolley[index].quantity = data
-      }
+      
       this.calcPromote(currentTrolley);
     },
     getItemNum(item) {
       return this.data.isKind ? (item.quantity || 1) : item.minQuantity;
     },
+    getTotalPrice(){
+      const seletedItems = this.data.items.itemList.concat(this.data.composeProducts.itemList || []).filter(item => item.checked)
+      return seletedItems.reduce((accumulator, item) => Number(accumulator) + Number(item.price * (item.quantity || 1)), 0)
+    },
     setPrice(currentTrolley) {
       if (currentTrolley.checked) {
-        const seletedItems = this.data.items.itemList.concat(this.data.composeProducts.itemList || []).filter(item => item.checked)
-        const totalPrice = seletedItems.reduce((accumulator, item) => Number(accumulator) + Number(item.price * (item.quantity||1)), 0)
+        const totalPrice=this.getTotalPrice()
         this.setData({
           totalPrice: utils.getFixedNum(totalPrice, 2),
           enableVisible: true
@@ -133,12 +130,12 @@ export default {
       }
     },
     calcPromote(currentTrolley) {
-      if (!this.enableAddTrolley()) {
+      if (this.data.isQuantity ? this.enableAddTrolley():this.enableChecked()) {
         const selectedProductList = this.data.selectedProductList.filter(item => {
           return !item.isGift
         })
         this.setData({
-          enableVisible:false,
+          enableVisible: false,
           selectedProductList
         })
         return;
@@ -179,8 +176,8 @@ export default {
             promoteResult.giftItems[0].isGift = true
             const selectedProductList = [...this.data.selectedProductList, promoteResult.giftItems[0]]
             this.setData({
-              selectedProductList ,
-              totalDiscountAmount: promoteResult.totalDiscountAmount||0
+              selectedProductList,
+              totalDiscountAmount: promoteResult.totalDiscountAmount || 0
             })
 
           } else if (promoteResult.discountAmount > 0) { //满减

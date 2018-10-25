@@ -45,8 +45,8 @@ module.exports = {
 
         ctx.state.result = Mock.mock({
           promotionId: '@natural(3)',
-          promotionBase: 1,
-          minNumber: '@integer(2,5)',
+          promotionBase: 2,
+          minNumber: '@integer(1000,2000)',
           "items": {
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
