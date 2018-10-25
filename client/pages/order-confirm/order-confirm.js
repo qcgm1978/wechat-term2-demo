@@ -61,6 +61,9 @@ Page({
 
       for (let i = 0; i < tempData.length; i++){
           count += tempData[i].items.length
+        if (tempData[i].cartCombinationPromotions && tempData[i].cartCombinationPromotions.length > 0 && tempData[i].cartCombinationPromotions[0].giftItems && tempData[i].cartCombinationPromotions[0].giftItems.length > 0){
+          count += tempData[i].cartCombinationPromotions[0].giftItems.length
+        }
       }
       this.setData({
         data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
@@ -210,17 +213,7 @@ Page({
         }
         
         orderItems[i].cartGroupId = orderItems[i].groupId
-        for (let j = 0; j < orderItems[i].items.length; j++) {
-          orderItems[i].items[j].unit = orderItems[i].items[j].saleUnit
 
-          if (orderItems[i].combinationFlag){
-            orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
-          }else{
-            orderItems[i].items[j].promotionId = orderItems[i].promotionId
-            orderItems[i].items[j].discountAmount = orderItems[i].discountAmount
-            orderItems[i].items[j].discountPercentage = orderItems[i].discountPercentage
-          }
-        }
         if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]){
           orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount ? orderItems[i].cartCombinationPromotions[0].discountAmount: "0"
           orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].discountPercentage
@@ -230,8 +223,11 @@ Page({
           if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length>0){
             for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++){
               orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
-              orderItems[i].cartCombinationPromotions[0].giftItems[j].promotionId = orderItems[i].promotionId
-              orderItems[i].cartCombinationPromotions[0].giftItems[j].discountAmount = 0
+              // if (!orderItems[i].combinationFlag) {
+                orderItems[i].cartCombinationPromotions[0].giftItems[j].promotionId = orderItems[i].promotionId
+                orderItems[i].cartCombinationPromotions[0].giftItems[j].discountAmount = 0
+                orderItems[i].cartCombinationPromotions[0].giftItems[j].discountPercentage = 0
+              // }
               orderItems[i].cartCombinationPromotions[0].giftItems[j].unit = "个"
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemId
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemName = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemName
@@ -239,7 +235,25 @@ Page({
             }
           }
         }
+
+        for (let j = 0; j < orderItems[i].items.length; j++) {
+          orderItems[i].items[j].unit = orderItems[i].items[j].saleUnit
+
+          if (orderItems[i].combinationFlag) {
+            orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
+          } else {
+            orderItems[i].items[j].promotionId = orderItems[i].promotionId
+            orderItems[i].items[j].discountAmount = orderItems[i].discountAmount
+            orderItems[i].items[j].discountPercentage = orderItems[i].discountPercentage
+          }
+        }
+        if (!orderItems[i].combinationFlag) {
+          delete orderItems[i]["promotionId"]
+          delete orderItems[i]["discountAmount"]
+          delete orderItems[i]["discountPercentage"]
+        }
       }
+
       console.log("createOrder JSON.stringify(orderItems)")
       let tempdata = {
         orderItems,

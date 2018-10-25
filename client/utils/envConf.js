@@ -14,7 +14,7 @@ var clientSecret = ""
 switch (env) {
   case EVN.DEV:
     clientSecret = "OzoStRYlQVA85pjp"
-    baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
+    baseUrl = "http://192.168.2.56:10090/v1" //"http://dev.jhdmall.com/weapp/merchant-mall/v1"
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     break;
   case EVN.LOCAL:
