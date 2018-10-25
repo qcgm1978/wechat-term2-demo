@@ -61,39 +61,126 @@ Page({
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
 
+  getPutShelfFlag: function (orderGroups) {
+    var promise = new Promise((resolve, reject) => {
+      let promisesArr = []
+      for (let i = 0; i < orderGroups.length;i++){
+        for (let j = 0; j < orderGroups[i].items.length; j++){
+          promisesArr.push(this.getProduct(orderGroups[i].items[j].itemId, orderGroups[i].items[j].categoryId))
+        }
+      }
+      Promise.all(promisesArr)
+        .then(arr => {
+          let soldOutNumber = 0
+          for (let i = 0; i < arr.length;i++){
+              if (!arr[i][0].putShelvesFlg) {
+                soldOutNumber++
+              }
+          }
+
+          let flag = 0
+          if (soldOutNumber == 0){
+          } else if (soldOutNumber != arr.length){
+            flag = 1
+          } else if(soldOutNumber == arr.length){
+            flag = 2
+          }
+          let items = arr
+          resolve({ flag, items })
+        })
+        .catch(e => { })
+    })
+    return promise
+  },
+  
   addGotoTrolley: function(e) {
 
     let orderGroups = [];
     orderGroups = this.data.order.orderItems
 
-    let para = {
-      addGroupList: []
-    }
+    this.getPutShelfFlag(orderGroups)
+    .then((data) => {
+      if(data.flag == 0){
+        //在售
+        let para = {
+          addGroupList: []
+        }
 
-    for (let i = 0; i < orderGroups.length; i++) {
-      let items = orderGroups[i].items
-      for (let j = 0; j < items.length; j++) {
-        items[j].categoryCode = items[j].categoryId
-      }
-      orderGroups[i].count = 1
-      orderGroups[i].addItemList = items
-      let promotions = []
-      let promotion = {}
-      promotion.promotionId = orderGroups[i].promotionId
-      promotions.push(promotion)
-      orderGroups[i].promotions = promotions
-      para.addGroupList.push(orderGroups[i])
-    }
+        for (let i = 0; i < orderGroups.length; i++) {
+          orderGroups[i].addItemList = []
+          let items = orderGroups[i].items
+          for (let j = 0; j < items.length; j++) {
+            items[j].categoryCode = items[j].categoryId
+            if (!items[j].gift) {
+              orderGroups[i].addItemList.push(items[j])
+            }
+          }
+          orderGroups[i].count = 1
 
-    utils
-      .addToTrolleyByGroup(para)
-      .then(badge => {
-        //getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
-        wx.switchTab({
-          url: `/pages/trolley/trolley`,
+          let promotions = []
+          let promotion = {}
+          promotion.promotionId = orderGroups[i].promotionId
+          promotions.push(promotion)
+          orderGroups[i].promotions = promotions
+          para.addGroupList.push(orderGroups[i])
+        }
+
+        utils
+          .addToTrolleyByGroup(para)
+          .then(badge => {
+            //getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
+            wx.switchTab({
+              url: `/pages/trolley/trolley`,
+            })
+          })
+
+      } else if (data.flag == 1) {
+        //部分售完
+        utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
+          let para = {
+            addGroupList: []
+          }
+          for (let i = 0; i < orderGroups.length; i++) {
+            orderGroups[i].items = orderGroups[i].items.reduce((accumulator, item) => {
+              item.categoryCode = item.categoryId
+              let isOnShelf = false
+              for (let k = 0; k < data.items.length; k++) {
+                if (data.items[k][0].itemId && item.itemId == data.items[k][0].itemId && !item.gift){
+                  isOnShelf = true
+                }
+              }
+              if (isOnShelf) {
+                accumulator.push(item);
+              }
+              return accumulator;
+            }, []);
+
+            orderGroups[i].count = 1
+            orderGroups[i].addItemList = orderGroups[i].items
+            let promotions = []
+            let promotion = {}
+            promotion.promotionId = orderGroups[i].promotionId
+            promotions.push(promotion)
+            orderGroups[i].promotions = promotions
+            if (orderGroups[i].items && orderGroups[i].items.length>0){
+              para.addGroupList.push(orderGroups[i])
+            }
+          }
+
+          utils
+            .addToTrolleyByGroup(para)
+            .then(badge => {
+              //getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
+              wx.switchTab({
+                url: `/pages/trolley/trolley`,
+              })
+            })
         })
-      });
-
+      } else if (data.flag == 2){
+        //全部售完
+        utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
+      }
+    })
   },
   copy() {
     wx.setClipboardData({
