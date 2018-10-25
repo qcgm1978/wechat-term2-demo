@@ -115,7 +115,7 @@ Page({
         if (this.data.composeProducts[i].checked){
           this.setData({
             'selectedProductList[1]': this.data.composeProducts[i],
-            // totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
+            totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
           })
 
           let itemGroups = []
