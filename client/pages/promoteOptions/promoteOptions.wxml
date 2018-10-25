@@ -22,17 +22,23 @@
       <!-- <image src='{{imgTrolly}}' class='promotion-icon' style='width:54rpx;height:54rpx;' bindtap='gotoTrolley'></image> -->
 
 
-    <view class='center-center' style='flex-grow:1; margin-left:30rpx;' bindtap='gotoTrolley'>
-      <image src='{{imgTrolly}}' style='width:54rpx;height:54rpx;'></image>
-      <view class='medium cart-num center-center' wx:if='{{badge}}'>
-        {{badge}}
+      <view class='center-center' style='flex-grow:1; margin-left:30rpx;' bindtap='gotoTrolley'>
+        <image src='{{imgTrolly}}' style='width:54rpx;height:54rpx;'></image>
+        <view class='medium cart-num center-center' wx:if='{{badge}}'>
+          {{badge}}
+        </view>
       </view>
-    </view>
+
+      <view style='display:flex; flex-direction:column; margin-left: 20rpx;'>
+        <view style='display:flex; flex-direction:row; align-items:center;'>
+          <view class='foot-txt1' style='font-size:24rpx;color:#383838; '>套装价</view>
+          <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{totalPrice}}</view>
+        </view>
+        <view class='foot-txt3' style='font-size:24rpx;color:#EE711F;' wx:if="{{totalDiscount!==0}}">已省{{totalDiscount}}元</view>
+      </view>
 
 
-      <view class='foot-txt1' style='font-size:24rpx;color:#383838; margin-left: 20rpx;'>套装价</view>
-      <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{totalPrice}}</view>
-      <!-- <view class='foot-txt3'>已省28.8元</view> -->
+
     </view>
     <button bindtap='addToTrolley' class="without-back-image" style='margin-left: 20rpx;'>加入进货单</button>
   </view>

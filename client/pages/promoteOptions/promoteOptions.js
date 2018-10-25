@@ -21,7 +21,8 @@ Page({
     selectedProductList: [],
     totalPrice: 0,
     rightArrow: "./images/grey-arrow.png",
-    showPromoteDetail: false
+    showPromoteDetail: false,
+    totalDiscount: 0
   },
 
   onLoad: function (options) {
@@ -114,7 +115,7 @@ Page({
         if (this.data.composeProducts[i].checked){
           this.setData({
             'selectedProductList[1]': this.data.composeProducts[i],
-            totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
+            // totalPrice: Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity)
           })
 
           let itemGroups = []
@@ -145,6 +146,7 @@ Page({
 
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
+              console.log(promoteResult)
               //满赠
 
               if (promoteResult.giftItems && promoteResult.giftItems.length>0) {
@@ -157,7 +159,14 @@ Page({
                 })
 
               } else if (promoteResult.discountAmount > 0) { //满减
-
+                this.setData({
+                  totalDiscount: promoteResult.discountAmount,
+                  totalPrice: utils.getFixedNum(Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity) - promoteResult.discountAmount, 2)
+                })
+              }else{
+                this.setData({
+                  totalPrice: utils.getFixedNum(Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity), 2)
+                })
               }
             })
             .catch(() => {
