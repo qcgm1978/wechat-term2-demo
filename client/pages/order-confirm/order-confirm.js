@@ -60,7 +60,10 @@ Page({
       let count = 0
 
       for (let i = 0; i < tempData.length; i++){
-          count += tempData[i].items.length
+        count += tempData[i].items.length
+        if (tempData[i].cartCombinationPromotions && tempData[i].cartCombinationPromotions.length > 0 && tempData[i].cartCombinationPromotions[0].giftItems && tempData[i].cartCombinationPromotions[0].giftItems.length > 0) {
+          count += tempData[i].cartCombinationPromotions[0].giftItems.length
+        }
       }
       this.setData({
         data: getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items],
