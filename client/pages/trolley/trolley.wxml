@@ -46,7 +46,7 @@
              <!-- && !item.isfree -->
             <view class='promotion' style='font-size:24rpx; padding-bottom:10rpx; margin-bottom:0;' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '2'}}">
               <text class='promotion-1' style='margin-left: 100rpx;'>满减</text>
-              <text class='promotion-2'>{{trollyGroup.cartCombinationPromotions[0].promotionDescription}}</text>
+              <text class='promotion-2'>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</text>
               <text class='promotion-3'>已省¥{{filters.toFix(trollyGroup.cartCombinationPromotions[0].discountAmount)}}</text>
             </view>
              <!-- && item.isfree -->
@@ -86,7 +86,7 @@
               </radio>
               <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;margin:auto 8rpx 8rpx'>失效</text>
             <view class='promotion-1' style='height:34rpx;'>套装</view>
-            <view class='promotion-2' style='height:30rpx;'>{{trollyGroup.cartCombinationPromotions[0].promotionDescription}}</view>
+            <view class='promotion-2' style='height:30rpx;'>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</view>
             <!-- <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;"> -->
             <image catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' src='./img/del.png' class='del' style="width: 48rpx;height: 48rpx; margin-left:90rpx; margin-top:5rpx;"></image>
           </view>

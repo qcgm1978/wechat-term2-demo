@@ -229,7 +229,7 @@ Page({
       start: this.start,
       limit: this.limit
     }
-
+    console.log(JSON.stringify(temdata))
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {

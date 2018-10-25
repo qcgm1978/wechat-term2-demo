@@ -211,8 +211,14 @@ Page({
         
         orderItems[i].cartGroupId = orderItems[i].groupId
         for (let j = 0; j < orderItems[i].items.length; j++) {
+          orderItems[i].items[j].unit = orderItems[i].items[j].saleUnit
+
           if (orderItems[i].combinationFlag){
             orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
+          }else{
+            orderItems[i].items[j].promotionId = orderItems[i].promotionId
+            orderItems[i].items[j].discountAmount = orderItems[i].discountAmount
+            orderItems[i].items[j].discountPercentage = orderItems[i].discountPercentage
           }
         }
         if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]){
@@ -224,6 +230,9 @@ Page({
           if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length>0){
             for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++){
               orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].promotionId = orderItems[i].promotionId
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].discountAmount = 0
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].unit = "个"
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemId
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemName = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemName
               orderItems[i].items.push(orderItems[i].cartCombinationPromotions[0].giftItems[j])
@@ -231,6 +240,26 @@ Page({
           }
         }
       }
+      console.log("createOrder JSON.stringify(orderItems)")
+      let tempdata = {
+        orderItems,
+        orderPomotionId: "0",
+        orderPomotionDiscountAmount: 0,
+        cashAmount: this.data.total - this.data.credit,
+        discountTotalAmount: sumDiscount,
+        merchantId: app.getMerchantId(),
+        locationId: String(locationId),
+        orderItemSource: getApp().globalData.items.orderItemSource,
+        usePoint,
+        totalAmount: this.data.total,
+        receiverInfo: {
+          receiverName,
+          receiverCellPhone,
+          receiverAddress
+        },
+      }
+
+      console.log(JSON.stringify(tempdata))
 
       utils.postRequest({
         url: createOrder,
