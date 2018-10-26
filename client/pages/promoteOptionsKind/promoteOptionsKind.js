@@ -128,7 +128,6 @@ Page({
       [`${kind}.itemList[${itemIndex}].active`]: false,
       [`${kind}.itemList[${itemIndex}].addUnactive`]: false,
     })
-    loop1:
       for (let i = 0; i < composeProducts.length; i++) {
         if (itemId == composeProducts[i].itemId) {
           if (composeProducts[i].checked) {
@@ -138,7 +137,6 @@ Page({
                 [item]: false
               })
             }
-            // break loop1;
           }
           var item = `${kind}.itemList[` + i + '].checked'
           this.setData({
@@ -166,7 +164,7 @@ Page({
       }
   },
   addToTrolley() {
-    if (!this.enableAddTrolley()) {
+    if (this.enableChecked()) {
       wx.showToast({
         title: '请选择促销商品',
         icon: 'none',
@@ -265,6 +263,7 @@ Page({
           this.setData({
             composeProducts,
             items,
+            isQuantity: data.result.promotionBase===1
           })
           if (Object.keys(obj).length) {
             this.setComposeProducts({
