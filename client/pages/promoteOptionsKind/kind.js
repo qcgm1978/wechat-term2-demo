@@ -61,9 +61,11 @@ export default {
     }) {
       const kindIndex = this.getCurrentTabsIndex();
       const kind = kindIndex ? `composeProducts` : `items`
+      const currentItem = `${kind}.itemList[${index}]`
       this.setData({
-        [`${kind}.itemList[${index}].${prop}`]: data
+        [`${currentItem}.${prop}`]: data
       })
+      
     },
     getCurrentData(index) {
       return this.getCurrentKind()[index];
@@ -111,7 +113,15 @@ export default {
         prop: 'quantity',
         data
       })
-      
+      const selectedProductList = this.data.selectedProductList.map(item => {
+        if (item.itemId === currentTrolley.itemId) {
+          item.quantity = data
+        }
+        return item
+      })
+      this.setData({
+        selectedProductList
+      })
       this.calcPromote(currentTrolley);
     },
     getItemNum(item) {
