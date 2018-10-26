@@ -21,7 +21,7 @@ exports.calcPromote = function (postData) {
     .then(data => {
       if (data.status === 200) {
         let calcPromoteInfo = data.result[0]
-        resolve(calcPromoteInfo.promotionActives[0])
+        resolve(calcPromoteInfo.promotionActives.find(item => item.promotionId === postData.itemGroups[0].promotions[0].promotionId))
       } else {
         reject()
       }
