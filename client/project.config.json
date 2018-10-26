@@ -118,7 +118,7 @@
 					"id": 13,
 					"name": "promoteOptionsKind-multi",
 					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
-					"query": "promoteInfo={\"promotionId\":\"18958\",\"promotionName\":\"滑县单品类+单品类促销减test\",\"startTime\":\"Wed Sep 05 00:00:00 CST 2018\",\"endTime\":\"Fri Nov 30 00:00:00 CST 2018\",\"promotionDescription\":\"11 酒 : 1102 啤酒 : 1102004 中普满三件+ : 01 食品 : 0102 饮料 : 010203 功能性饮料满两件立减10.3元\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg\",\"itemName\":\"中普啤酒瓶超爽8度\",\"itemSpecification\":\"490ml*12\",\"price\":15,\"itemId\":\"4442\",\"categoryId\":\"1102004\",\"isKind\":true}&kind=2"
+					"query": "promoteInfo={\"promotionId\":\"18957\",\"promotionName\":\"滑县单品类促销满金额赠test\",\"startTime\":\"Wed Sep 26 00:00:00 CST 2018\",\"endTime\":\"Thu Oct 31 00:00:00 CST 2019\",\"promotionDescription\":\"18 休闲食品 : 1808 糕点膨化 : 1808002 上好佳35G满300元，赠送中普啤酒瓶超爽8度 490ml*12两箱\",\"promotionType\":\"1\",\"combinationFlag\":\"0\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/item-test/u%3D1129204911%2C2564220944%26fm%3D26%26gp%1D0.jpg\",\"itemName\":\"上好佳烧烤味薯片35G*40\",\"itemSpecification\":\"1*40\",\"price\":2.25,\"itemId\":\"6051\",\"categoryId\":\"1808002\",\"isKind\":true}&kind=2"
 				}
 			]
 		}
