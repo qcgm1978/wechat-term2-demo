@@ -100,7 +100,7 @@
     <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
       <text class='regular order-field '>积分抵扣</text>
       <text wx:if='{{points}}' class='medium' style='width:60%;'>共有{{pointBalance}}积分，本单可用{{points}}积分，抵￥{{maxDeduction}}</text>
-      <text wx:else>共有{{pointBalance}}积分，未达到20000积分不可用</text>
+      <text wx:else>共有{{pointBalance}}积分，未达到5000积分不可用</text>
       <view>
         <checkbox-ios id='checkbox-ios' bindchangechecked="onChangeChecked" enable-tap='{{pointBalance}}'>
           <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->

@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -70,7 +70,7 @@
 					"id": 5,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "categoryId=1205001&itemId=3462"
+					"query": "itemId=4442&categoryId=1102004"
 				},
 				{
 					"id": 6,
@@ -107,6 +107,18 @@
 					"name": "return",
 					"pathName": "pages/transactionList/transactionList",
 					"query": "tab=4"
+				},
+				{
+					"id": 12,
+					"name": "promoteOptionsKind",
+					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
+					"query": "promoteInfo={\"promotionId\":\"18964\",\"promotionName\":\"1203011 CNPOWER类一个+ 1401009 食用油（散油）1个折扣12.0%\",\"startTime\":\"Wed Sep 26 00:00:00 CST 2018\",\"endTime\":\"Thu Oct 31 00:00:00 CST 2019\",\"promotionDescription\":\"1203011 CNPOWER类一个+ 1401009 食用油（散油）1个折扣12.0%\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png\",\"itemName\":\"CNPOWER\",\"itemSpecification\":\"250ml*24\",\"price\":108,\"itemId\":\"3338\",\"categoryId\":\"1203011\",\"isKind\":true}&kind=2"
+				},
+				{
+					"id": 13,
+					"name": "promoteOptionsKind-multi",
+					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
+					"query": "promoteInfo={\"promotionId\":\"18965\",\"promotionName\":\"开发test\",\"startTime\":\"Wed Sep 26 00:00:00 CST 2018\",\"endTime\":\"Thu Oct 31 00:00:00 CST 2019\",\"promotionDescription\":\"开发test\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png\",\"itemName\":\"上好佳日式鱼果35G*40\",\"itemSpecification\":\"1*40\",\"price\":2.25,\"itemId\":\"6024\",\"categoryId\":\"1808002\",\"isKind\":true}&kind=2"
 				}
 			]
 		}

@@ -1,0 +1,25 @@
+.promotion-tab {
+  font-size: 32rpx;
+  color: #707070;
+}
+.promotion-tab view{
+  padding: 18rpx 0;
+
+}
+.promotion-tab view.selected{
+  border-bottom:4rpx #EB6113 solid;
+
+  color: #eb6113;
+}
+.plus-minus {
+  width: 60rpx;
+  height: 40rpx;
+  border: 1px solid rgb(236, 236, 236);
+  /* display: inline-block; *//* font-size: 26rpx; */
+  color: #666;
+}
+.trolley-bottom {
+  /* margin-top: 46rpx; */
+  justify-content: space-between;
+  width: 100%;
+}
