@@ -225,16 +225,16 @@ Page({
 
     let temdata = {
       merchantId: app.getMerchantId(),
-      locationId: getApp().globalData.merchant.locationId,
+      locationId: getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "",
       start: this.start,
       limit: this.limit
     }
-
+    console.log(JSON.stringify(temdata))
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
         merchantId: app.getMerchantId(),
-        locationId: getApp().globalData.merchant.locationId,
+        locationId: getApp().globalData.merchant? getApp().globalData.merchant.locationId:"",
         start: this.start,
         limit: this.limit
       })

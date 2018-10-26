@@ -68,6 +68,10 @@ Page({
       confirmColor: "#fcb052",
       success: res => {
         if (res.confirm) {
+          console.log(JSON.stringify({
+            orderId: selectData.orderId,
+            merchantId: app.getMerchantId()
+          }))
           utils.postRequest({
             url: cancelOrder,
             data: {
@@ -302,6 +306,7 @@ Page({
         })
       }
     }
+    console.log(JSON.stringify(this.data.config))
     this.requestMoreData(this.data.config);
   },
 
