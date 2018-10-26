@@ -37,6 +37,15 @@ export default {
         return totalPrice < this.minNum
       }
     },
+    enablePlus(offset = 0) {
+      if (this.data.isQuantity) {
+        const index = this.getCurrentTabsIndex()
+        const num = this.data.selectedNum[index]
+        return num + 1 + offset <= this.getCurrentKindMin()
+      } else {
+        return true
+      }
+    },
     enableAddTrolley(offset = 0) {
       return this.data.enableChecked.includes(true)
     },
@@ -83,7 +92,7 @@ export default {
       if ((currentNum === 1) && isMinus) {
         return;
       }
-      if (!isMinus && !this.enableChecked()) {
+      if (!isMinus && !this.enablePlus()) {
         return
       }
       this.setSelectedNum(!isMinus)

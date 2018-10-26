@@ -12,14 +12,14 @@
 </view>
 <scroll-view scroll-y style='height:{{scrollHeight}}rpx;box-shadow: 0 -2rpx 10rpx 0 rgba(0,0,0,0.05);'>
   <view hidden='{{!tabs[0]}}'>
-    <view wx:for='{{items.itemList}}' wx:key='*this' style='opacity:{{(item.checked||enableChecked[0])?1:0.5}};'>
-      <template is="msgItem" data="{{item,index,enableChecked:enableChecked[0]}}" />
+    <view wx:for='{{items.itemList}}' wx:key='*this' >
+      <template is="msgItem" data="{{item,index,enableChecked:enableChecked[0],isQuantity}}" />
 
     </view>
   </view>
   <view hidden='{{!tabs[1]}}'>
-    <view wx:for='{{composeProducts.itemList}}' wx:key='*this' style='opacity:{{(item.checked||enableChecked[1])?1:0.5}};'>
-      <template is="msgItem" data="{{item,index,enableChecked:enableChecked[1]}}" />
+    <view wx:for='{{composeProducts.itemList}}' wx:key='*this' >
+      <template is="msgItem" data="{{item,index,enableChecked:enableChecked[1],isQuantity}}" />
 
     </view>
   </view>
