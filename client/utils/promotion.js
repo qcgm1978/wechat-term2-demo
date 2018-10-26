@@ -21,7 +21,13 @@ exports.calcPromote = function (postData) {
     .then(data => {
       if (data.status === 200) {
         let calcPromoteInfo = data.result[0]
-        resolve(calcPromoteInfo.promotionActives ? calcPromoteInfo.promotionActives.find(item => item.promotionId === postData.itemGroups[0].promotions[0].promotionId): calcPromoteInfo.promotionActives)
+        let ret=null
+        try{
+         ret=calcPromoteInfo.promotionActives.find(item => item.promotionId === postData.itemGroups[0].promotions[0].promotionId)
+        }catch(e){
+
+        }
+        resolve(calcPromoteInfo.promotionActives ? ret: calcPromoteInfo.promotionActives)
       } else {
         reject()
       }
