@@ -71,7 +71,7 @@
         <view style='background-color:grey; border-radius:10rpx;  width: auto; display:inline-block !important; display:inline; color: white;transform:translate(-150rpx,0);'>¥{{item.price}}</view>
         <view style='display: flex; justify-content: space-between;'>
           <view style='white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.itemName}}</view>
-          <view style='white-space:nowrap'>x{{item.minQuantity}}</view>
+          <view style='white-space:nowrap'>x{{item.quantity||1}}</view>
         </view>
       </view>
       <!-- </view> -->
