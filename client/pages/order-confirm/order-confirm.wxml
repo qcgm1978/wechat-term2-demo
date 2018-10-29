@@ -19,6 +19,27 @@
     </view>
   </view>
   <view class='color-bg bgc'></view>
+  <view class='padding mgt bgc center order-item-container'>
+    <text class='regular confirm-payment'>支付方式</text>
+    <text class='medium order-val'></text>
+  </view>
+  <view class='line'></view>
+  <view class='padding mgt bgc center order-item-container'>
+    <text class='regular  confirm-title'>在线支付<text class='confirm-comment'>成功的订单仅支持全部拒收</text></text>
+    <radio catch:tap='radioClick' class="radio" data-index='{{0}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{checked[0]}}" color='{{checked[0]?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
+    </radio>
+  </view>
+  <view class='line'></view>
+  <view class='padding mgt bgc center order-item-container'>
+    <text class='regular confirm-title '>货到付款</text>
+    <radio catch:tap='radioClick' class="radio" data-index='{{1}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{checked[1]}}" color='{{checked[1]?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
+    </radio>
+  </view>
+  <view class='line'></view>
+  <view class='padding mgt bgc center order-item-container'>
+    <text class='regular confirm-payment'>商品信息</text>
+    <text class='medium order-val'></text>
+  </view>
   <view class='bgc goods-container'>
     <view class='scroll-container' scroll-top="{{scrollTop}}">
       <view>
@@ -82,24 +103,21 @@
     </view>
   </view>
   <view>
+
     <view class='padding mgt bgc center order-item-container'>
-      <text class='regular order-field '>支付方式</text>
-      <text class='medium order-val'>货到付款</text>
-    </view>
-    <view class='padding mgt bgc center order-item-container'>
-      <text class='regular order-field '>配送方式</text>
+      <text class='regular  '>配送方式</text>
       <text class='medium'>上门配送</text>
     </view>
     <!-- <view class='padding mgt bgc center order-item-container'>
-    <text class='regular order-field '>买家留言：</text>
+    <text class='regular  '>买家留言：</text>
     <textarea class='textarea' placeholder="选填" value='{{textarea}}' bindblur='textareaConfirm' auto-height='{{true}}' />
   </view> -->
     <view class='padding mgt bgc center order-item-container' style="margin-top: 15rpx;">
-      <!-- <text class='regular order-field '>促销折扣</text> -->
+      <!-- <text class='regular  '>促销折扣</text> -->
       <!-- <text class='medium'>满减活动；满送活动</text> -->
     </view>
     <view class='padding mgt bgc center order-item-container' style='align-items:center;'>
-      <text class='regular order-field '>积分抵扣</text>
+      <text class='regular  '>积分抵扣</text>
       <text wx:if='{{points}}' class='medium' style='width:60%;'>共有{{pointBalance}}积分，本单可用{{points}}积分，抵￥{{maxDeduction}}</text>
       <text wx:else>共有{{pointBalance}}积分，未达到5000积分不可用</text>
       <view>
@@ -110,7 +128,7 @@
       </view>
     </view>
     <view wx-if='{{isVisible}}' class='padding mgt center order-item-container' style='align-items: center;background: #F7F8FA;justify-content:flex-start;'>
-      <text class='regular order-field '>使用积分</text>
+      <text class='regular  '>使用积分</text>
       <view style="margin-left: 30rpx;">
         <input type="number" value='{{usedPoints}}' class='input' bindinput='bindinput' />
       </view>
@@ -118,19 +136,19 @@
     </view>
     <view class='padding bgc' style="margin-top: 15rpx;">
       <view class='  center order-item-container'>
-        <text class='regular order-field '>商品金额</text>
+        <text class='regular  '>商品金额</text>
         <text class='medium dollar'>{{totalBeforePromotion}}</text>
       </view>
       <view class='  center order-item-container' wx:if="{{discountTotalAmount!==0 && discountTotalAmount!=='0'}}">
-        <text class='regular order-field '>促销折扣</text>
+        <text class='regular  '>促销折扣</text>
         <text class='medium dollar-minus'>{{discountTotalAmount}}</text>
       </view>
       <view wx:if='{{isVisible && credit}}' class='  center order-item-container'>
-        <text class='regular order-field '>积分折扣</text>
+        <text class='regular  '>积分折扣</text>
         <text class='medium dollar-minus' style='color: rgb(236,103,32);'>{{credit}}</text>
       </view>
       <view class='center order-item-container'>
-        <text class='regular order-field '>应付金额</text>
+        <text class='regular  '>应付金额</text>
         <text class='medium dollar'>{{actual}}</text>
       </view>
     </view>
@@ -138,7 +156,7 @@
   </view>
 </scroll-view>
 <view class='padding mgt bgc center order-item-container confirm-view' style='top:{{height}}rpx;'>
-  <text class='medium order-field dollar' style='color:#EE711F;font-size: 44rpx;'>{{actual}}</text>
+  <text class='medium  dollar' style='color:#EE711F;font-size: 44rpx;'>{{actual}}</text>
   <button class='medium submit regular' catch:tap='createOrder'>提交订单</button>
 </view>
 <block wx:if="{{isFailed}}">

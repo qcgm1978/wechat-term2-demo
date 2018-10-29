@@ -9,7 +9,6 @@ Page({
   data: {
     data: {},
     points: 0,
-
     pointBalance: 0,
     usedPoints: 0,
     heightGoods: 212 * 2 + 54, //height-8-74*2-211*2-53*2
@@ -21,6 +20,7 @@ Page({
     isVisible: true,
     isReturn: false,
     isFailed: false,
+    checked: [true, false],
     total: '',
     textarea: '',
     order: {},
@@ -80,6 +80,14 @@ Page({
         })
       });
     }
+  },
+  radioClick(e){
+    this.setData({
+      checked: this.data.checked.map((item, index) => {
+        const currentIndex = e.currentTarget.dataset.index;
+        return currentIndex === index 
+      }),
+    })
   },
   toggleGoods() {
     this.setData({
