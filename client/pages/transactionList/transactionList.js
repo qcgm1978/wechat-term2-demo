@@ -53,8 +53,10 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth) - 80,
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  arrOrderStatus: [null, [0],
-    [2],
+  arrOrderStatus: [
+    null,
+    [],
+    [0,2],
     [1, 3,4,5],
     [4, 5]
   ],

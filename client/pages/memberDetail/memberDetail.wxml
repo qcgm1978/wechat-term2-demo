@@ -34,7 +34,7 @@
             {{orderNum[0].count}}
           </view>
         </view>
-        <text class='{{tabColors[1]}} regular' data-type='1'>待发货</text>
+        <text class='{{tabColors[1]}} regular' data-type='1'>待付款</text>
       </view>
       <view class='column' data-type='2'>
         <view class="center-center">
@@ -43,7 +43,7 @@
             {{orderNum[2].count}}
           </view>
         </view>
-        <text class='{{tabColors[2]}} regular' data-type='2'>已发货</text>
+        <text class='{{tabColors[2]}} regular' data-type='2'>待收货</text>
       </view>
       <view class='column' data-type='3'>
         <!-- <view class="center-center"> -->
