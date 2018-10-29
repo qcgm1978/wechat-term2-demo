@@ -1,6 +1,6 @@
-// pages/checkstand/checkstand.js
+import HandleOrder from '../transactionDetail/payDetail.js'
 Page({
-
+  ...HandleOrder,
   /**
    * Page initial data
    */

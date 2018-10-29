@@ -59,6 +59,7 @@ const apiURLs = {
   createOrder: `${baseUrl}/mall/order/create`,
   cancelOrder: `${baseUrl}/mall/order/cancel`,
   countOrder: `${localNodejs || baseUrl}/mall/order/count`,
+  backendUrlRequestment: `${localNodejs || baseUrl}/mall/order/start`,
 
   getProduct: `${baseUrl}/product/{merchantId}/{itemId}`,
   getMerchant: `${baseUrl}/merchant/{merchantId}`,

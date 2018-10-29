@@ -34,7 +34,7 @@ export function requestPayment(evt) {
             title: '提示',
             content: '请重新支付',
             showCancel: false,
-            success: res => { }
+            success: res => {}
           })
         },
         complete() {
@@ -46,12 +46,16 @@ export function requestPayment(evt) {
   }
 
   promise.then(code => {
-    return postRequest(paymentUrl, {
-      transactionId: evt.currentTarget.dataset.trasaction,
-      jsCode: code ? code : getApp().globalData.token.jscode,
-      loginType: code ? 2 : 1,
+      // todo to support by server side
+      return postRequest({
+        url: paymentUrl,
+        postData: {
+          transactionId: evt.currentTarget.dataset.trasaction,
+          jsCode: code ? code : getApp().globalData.token.jscode,
+          loginType: code ? 2 : 1,
+        }
+      })
     })
-  })
     // todo get interface
     // getRequest(`${paymentUrl}/${evt.currentTarget.dataset.trasaction}`)
 

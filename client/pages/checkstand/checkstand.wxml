@@ -11,5 +11,5 @@
   </view>
 </view>
 <view class='stand-button'>
-  <button >确认支付</button>
+  <button bindtap="requestPayment">确认支付</button>
 </view>
