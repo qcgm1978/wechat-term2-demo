@@ -54,7 +54,7 @@
         <view></view>
       </view>
       <view class='center promotion-container padding regular bgc mgt' wx:if='{{product.salesDescription}}'>
-        <text class='promotion' style="align-self: start;">介绍</text>
+        <text class='promotion' style="align-self: start;">商品说明</text>
         <view class='promotion-list'>
           <view class='center'>
             <text style='width:490rpx;'>{{product.salesDescription}}</text>
