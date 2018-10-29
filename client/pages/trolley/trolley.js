@@ -251,6 +251,7 @@ Page({
             if (!item.putShelvesFlg) {
               result[i].putShelvesFlg = false;
             }
+            item.price = utils.getFixedNum(item.price, 2)
           });
 
           if (result[i].putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(result[i].groupId))) {
@@ -259,7 +260,7 @@ Page({
             result[i].checked = false;
           }
           result[i].combinationFlag = result[i].items.length > 1 ? true : false
-          result[i].suitePrice = this.getSuitePrice(result[i])
+          result[i].suitePrice = utils.getFixedNum(this.getSuitePrice(result[i]), 2);
           
         }
         let trolley = []

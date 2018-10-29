@@ -41,8 +41,15 @@
                       <view class='darker-gray-chars item-name regular' style='width:auto;'>{{item.itemName}}</view>
                       <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
                       <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
-                        <text class='confirm-price'>￥{{item.price}}</text>
-                        <text>x{{item.quantity}}</text>
+                        <block wx:if="{{orderGroup.combinationFlag}}">
+                          <text class='confirm-price'></text>
+                          <text >x{{item.quantity}}/套</text>
+                        </block>
+                        <block wx:else>
+                          <text class='confirm-price'>￥{{item.price}}</text>
+                          <text >x{{item.quantity}}</text>
+                        </block>
+                        
                       </view>
                     </view>
                   </view>

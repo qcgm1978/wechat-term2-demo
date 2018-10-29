@@ -160,7 +160,11 @@ Page({
             if (currentItem.orderReturn) {
               currentItem.isReturn = true;
               currentItem.usePoints = currentItem.orderReturn.returnStatus === 1 && currentItem.orderReturn.refundPoint > 0
+              if (currentItem.orderReturn.refundCashAmount){
+                currentItem.orderReturn.refundCashAmount = utils.getFixedNum(currentItem.orderReturn.refundCashAmount, 2)
+              }
             }
+            currentItem.totalAmount = utils.getFixedNum(currentItem.totalAmount,2)
             return currentItem;
           });
           this.setData({

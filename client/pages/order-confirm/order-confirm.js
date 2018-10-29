@@ -97,7 +97,7 @@ Page({
         isVisible: false
       })
     }
-    const credit = this.data.isVisible ? utils.getFixedNum(points / 100,2) : 0;
+    const credit = utils.getFixedNum(this.data.isVisible ? utils.getFixedNum(points / 100,2) : 0, 2);
     const windowHeight = wx.getSystemInfoSync().windowHeight;
     points = utils.getFixedNum(points);
     this.setData({
