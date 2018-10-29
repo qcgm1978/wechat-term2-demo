@@ -1,0 +1,49 @@
+page {
+  background: #fff;
+}
+
+.total {
+  font-size: 56rpx;
+  color: #151515;
+  letter-spacing: 0;
+  text-align: center;
+  line-height: 40rpx;
+  margin: 32rpx auto 40rpx;
+}
+
+.payment {
+  box-shadow: 0 2rpx 12rpx 0 rgba(0, 0, 0, 0.05);
+  border-radius: 4rpx;
+  width: 686rpx;
+  margin:0 32rpx;
+  padding:48rpx 0;
+
+}
+
+.payment-txt {
+  margin-left: 16rpx;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+  line-height: 48rpx;
+}
+
+.stand-button {
+  position: absolute;
+  width: 100%;
+  bottom: 48rpx;
+}
+
+.stand-button button {
+  background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
+  border-radius: 4rpx;
+  margin: 0 32rpx;
+  font-size: 32rpx;
+  color: #fff;
+}
+
+.stand-button::after {
+  /* position: absolute; */
+  content: "";
+  width: 32rpx;
+}

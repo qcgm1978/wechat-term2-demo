@@ -10,6 +10,7 @@
     "pages/detail/detail",
     "pages/memberDetail/memberDetail",
     "pages/order-confirm/order-confirm",
+    "pages/checkstand/checkstand",
     "pages/trolley/trolley",
     "pages/order-success/order-success",
     "pages/sort/sort",

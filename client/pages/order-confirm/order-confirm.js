@@ -74,18 +74,18 @@ Page({
         heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 10
       })
     } else {
-      this.getProduct(options).then(data=>{
+      this.getProduct(options).then(data => {
         this.setData({
           heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 10
         })
       });
     }
   },
-  radioClick(e){
+  radioClick(e) {
     this.setData({
       checked: this.data.checked.map((item, index) => {
         const currentIndex = e.currentTarget.dataset.index;
-        return currentIndex === index 
+        return currentIndex === index
       }),
     })
   },
@@ -166,7 +166,7 @@ Page({
   getProduct({
     itemId,
     categoryCd,
-    quantity
+    quantity = 1
   }) {
     const locationId = getApp().getLocationId();
     return utils.getRequest(getProductItem, {
@@ -183,7 +183,17 @@ Page({
         }, []);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg);
         result.quantity = quantity;
-        let dataWrapper = [{items:[result]}];
+        let dataWrapper = [{
+          // "groupId": "",
+          // "count": 1,
+          // "combinationFlag": false,
+          // "checked": true,
+          // "cartCombinationPromotions": null,
+          // "promotions": null,
+          // "putShelvesFlg": true,
+          // "suitePrice": 6250,
+          items: [result]
+        }];
         // todo create array with multi ele
         // dataWrapper=new Array(10).fill(result)
         this.setData({
@@ -276,7 +286,7 @@ Page({
         discountTotalAmount: sumDiscount,
         merchantId: app.getMerchantId(),
         locationId: String(locationId),
-        orderItemSource: getApp().globalData.items.orderItemSource,
+        orderItemSource: getApp().globalData.items ? getApp().globalData.items.orderItemSource : 0,
         usePoint,
         totalAmount: this.data.total,
         receiverInfo: {
@@ -298,7 +308,7 @@ Page({
           discountTotalAmount: sumDiscount,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
-          orderItemSource: getApp().globalData.items.orderItemSource,
+          orderItemSource: getApp().globalData.items ? getApp().globalData.items.orderItemSource : 0,
           usePoint,
           totalAmount: this.data.total,
           receiverInfo: {
@@ -317,7 +327,7 @@ Page({
             trolley.selectedRadio = [];
           }
           wx.redirectTo({
-            url: `/pages/order-success/order-success?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
+            url: `/pages/${this.data.checked[0]?'checkstand/checkstand':'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
         } else {}
       }).catch(err => {
