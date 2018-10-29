@@ -228,303 +228,52 @@ module.exports = {
    * 
    */
   list: async ctx => {
-    if (ctx.request.body.orderStatus === null) {
-
-      ctx.state.result = {
-        "orderTotalCount": 2,
-        "orders": [
+    if (ctx.request.body.orderStatus.includes(2) && ctx.request.body.orderStatus.includes(0)) {
+      ctx.state.result = Mock.mock({
+        "orderTotalCount": 10,
+        "orders|10": [
           {
-            "orderId": "180831233122880",
-            "orderStatus": "CANCELED",
-            "totalAmount": 42,
+            "orderId": "181029143259643356",
+            "orderStatus": "WAIT_SHIPMENT",
+            "totalAmount": 6250,
+            "actualAmount": null,
+            "discountTotalAmount": null,
             "itemTotalCount": 1,
             "itemSaleCount": 1,
             "itemReturnCount": 0,
-            "createTime": "2018-08-31 23:31:41",
+            "createTime": "2018-10-29 14:32:59",
             "payment": null,
-            "orderItem": [
+            "orderItems": [
               {
-                "itemId": "3211",
-                "itemSku": null,
-                "itemName": "美好优级王中王火腿肠",
-                "quantity": 1,
-                "unitPrice": 42,
-                "locationId": "55",
-                "itemSpecification": "38g*60",
-                "returnQuantit": 0,
-                "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
+                "groupId": "7aa3952adb4411e88f58e13c69f60a3d",
+                "promotionId": null,
+                "discountAmount": 0,
+                "items": [
+                  {
+                    "itemId": "3351",
+                    "itemSku": null,
+                    "itemName": "一级大豆油",
+                    "quantity": 1,
+                    "unitPrice": 6250,
+                    "locationId": "140",
+                    "itemIcon": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E9%BC%8E%E4%B8%80%E7%BA%A7%E5%A4%A7%E8%B1%86%E6%B2%B9.png",
+                    "itemSpecification": "1ton*1",
+                    "returnQuantit": 0,
+                    "categoryId": "1401009",
+                    "promotionId": null,
+                    "gift": false
+                  }
+                ]
               }
             ],
-            "orderReturn": null
+            "orderReturn": null,
+            "receiverInfo": null
           },
-          {
-            "orderId": "180831221428843",
-            "orderStatus": "WAIT_SHIPMENT",
-            "totalAmount": 91,
-            "itemTotalCount": 2,
-            "itemSaleCount": 2,
-            "itemReturnCount": 0,
-            "createTime": "2018-08-31 22:14:40",
-            "payment": null,
-            "orderItem": [
-              {
-                "itemId": "3318",
-                "itemSku": null,
-                "itemName": "宝丰大曲（大象托小象）42度浓香型",
-                "quantity": 1,
-                "unitPrice": 51,
-                "locationId": "55",
-                "itemSpecification": "1*500ml*6",
-                "returnQuantit": 0, "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
 
-              },
-              {
-                "itemId": "2276",
-                "itemSku": null,
-                "itemName": "同福桂圆莲子碗粥",
-                "quantity": 1,
-                "unitPrice": 40,
-                "locationId": "55",
-                "itemSpecification": "300g*12",
-                "returnQuantit": 0,
-                "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-              }
-            ],
-            "orderReturn": null
-          }
         ]
-      }
-
-    } else if (ctx.request.body.orderStatus === 1) {
-      ctx.state.result = {
-        orders: [{
-          "orderId": "123456",
-          "orderStatus": "WAIT_SHIPMENT",
-          "totalAmount": 8,
-          "itemTotalCount": 2,
-          "createTime": "2018-08-21 13:25:45",
-          "payment": null,
-          "orderItem": [
-            {
-              "itemId": "9503c54ba50211e8969e09fe0c96017b",
-              "itemSku": null,
-              "itemName": "雪碧",
-              "quantity": 1,
-              "unitPrice": 4.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 0,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            },
-            {
-              "itemId": "8e163dfea50211e8bb72c5949b847d3c",
-              "itemSku": null,
-              "itemName": "可乐",
-              "quantity": 1,
-              "unitPrice": 3.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 0,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            }
-          ],
-          "orderReturn": null
-        },]
-      }
-    } else if (ctx.request.body.orderStatus === 2) {
-      ctx.state.result = {
-        orders: [{
-          "orderId": "123456",
-          "orderStatus": "WAIT_RECEIVE",
-          "totalAmount": 8,
-          "itemTotalCount": 2,
-          "createTime": "2018-08-21 13:25:45",
-          "payment": null,
-          "orderItem": [
-            {
-              "itemId": "9503c54ba50211e8969e09fe0c96017b",
-              "itemSku": null,
-              "itemName": "雪碧",
-              "quantity": 1,
-              "unitPrice": 4.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 0,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            },
-            {
-              "itemId": "8e163dfea50211e8bb72c5949b847d3c",
-              "itemSku": null,
-              "itemName": "可乐",
-              "quantity": 1,
-              "unitPrice": 3.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 0,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            }
-          ],
-          "orderReturn": null
-        },]
-      }
-    } else if (ctx.request.body.orderStatus === 3) {
-      ctx.state.result = {
-        orders: [{
-          "orderId": "111111",
-          "orderStatus": "RETURN_PART",
-          "totalAmount": 196.06,
-          "itemTotalCount": 2,
-          "createTime": "2018-08-21 15:56:47",
-          "payment": null,
-          "orderItem": [
-            {
-              "itemId": "5d3eaeb6a51711e883ef9bbb4d02df55",
-              "itemSku": null,
-              "itemName": "金龙鱼食用油",
-              "quantity": 1,
-              "unitPrice": 95.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 1,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            },
-            {
-              "itemId": "8fa2774fa51711e8b8cfb3142c4e3689",
-              "itemSku": null,
-              "itemName": "福临门花生油",
-              "quantity": 1,
-              "unitPrice": 100.56,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 0,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            }
-          ],
-          "orderReturn": null
-        },
-        {
-          "orderId": "111111",
-          "orderStatus": "RETURN_FULL",
-          "totalAmount": 53.6,
-          "itemTotalCount": 1,
-          "createTime": "2018-08-21 16:58:47",
-          "payment": null,
-          "orderItem": [
-            {
-              "itemId": "0f58c5fca52111e88b67d7386c4577a7",
-              "itemSku": null,
-              "itemName": "黄鹤楼精品香烟",
-              "quantity": 1,
-              "unitPrice": 53.6,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 1,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            }
-          ],
-          "orderReturn": null
-        },]
-      }
-    } else if (ctx.request.body.orderStatus.includes(2) && ctx.request.body.orderStatus.includes(4)) {
-      ctx.state.result = {
-        orders: [{
-          "orderId": "123456",
-          "orderStatus": "RECEIVED",
-          "totalAmount": 8,
-          "itemTotalCount": 2,
-          "createTime": "2018-08-21 13:25:45",
-          "payment": null,
-          "orderItem": [
-            {
-              "itemId": "9503c54ba50211e8969e09fe0c96017b",
-              "itemSku": null,
-              "itemName": "雪碧",
-              "quantity": 1,
-              "unitPrice": 4.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 0,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            },
-            {
-              "itemId": "8e163dfea50211e8bb72c5949b847d3c",
-              "itemSku": null,
-              "itemName": "可乐",
-              "quantity": 1,
-              "unitPrice": 3.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 0,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            }
-          ],
-          "orderReturn": null
-        },]
-      }
-    } else if (ctx.request.body.orderStatus.includes(5) && ctx.request.body.orderStatus.includes(6)) {
-      ctx.state.result = {
-        orders: [{
-          "orderId": "789",
-          "orderStatus": "RETURN_FULL",
-          "totalAmount": 8,
-          "itemTotalCount": 2,
-          "createTime": "2018-08-21 13:25:45",
-          "payment": null,
-          itemReturnCount: 1,
-          "orderItem": [
-            {
-              "itemId": "9503c54ba50211e8969e09fe0c96017b",
-              "itemSku": null,
-              "itemName": "雪碧",
-              "quantity": 1,
-              "unitPrice": 4.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 1,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            },
-            {
-              "itemId": "8e163dfea50211e8bb72c5949b847d3c",
-              "itemSku": null,
-              "itemName": "可乐",
-              "quantity": 1,
-              "unitPrice": 3.5,
-              "locationId": "2",
-              "itemSpecification": "200*10",
-              "returnQuantit": 2,
-              "itemIcon": "http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg"
-            }
-          ],
-          "orderReturn": null
-        },]
-      }
+      })
     }
     return;
-    let user = ctx.state.$wxInfo.userinfo.openId
-
-    let list = await DB.query('SELECT order_user.id AS `id`, order_user.user AS `user`, order_user.create_time AS `create_time`, order_product.product_id AS `product_id`, order_product.count AS `count`, product.name AS `name`, product.image AS `image`, product.price AS `price` FROM order_user LEFT JOIN order_product ON order_user.id = order_product.order_id LEFT JOIN product ON order_product.product_id = product.id WHERE order_user.user = ? ORDER BY order_product.order_id', [user])
-
-    // 将数据库返回的数据组装成页面呈现所需的格式
-
-    let ret = []
-    let cacheMap = {}
-    let block = []
-    let id = 0
-    list.forEach(order => {
-      if (!cacheMap[order.id]) {
-        block = []
-        ret.push({
-          id: ++id,
-          list: block
-        })
-
-        cacheMap[order.id] = true
-      }
-
-      block.push(order)
-    })
-
-    ctx.state.data = ret
   },
   cancel: async ctx => {
     if (ctx.request.body.orderId && ctx.request.body.merchantId) {

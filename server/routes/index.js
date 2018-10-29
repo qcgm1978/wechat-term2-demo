@@ -65,7 +65,7 @@ router.get('/v1/mall/items/hot', controllers.product.list)
 router.get('/v1/mall/items', controllers.product.detail)
 router.get('/v1/product/:merchantId/:orderId', controllers.product.detail)
 // 显示订单
-router.post('/v1/order/list', controllers.order.list);
+router.post('/v1/mall/order/list', controllers.order.list);
 router.post('/v1/order/create', controllers.order.create);
 router.post('/v1/order/cancel', controllers.order.cancel);
 router.post('/v1/mall/order/count', controllers.order.count);

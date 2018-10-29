@@ -55,7 +55,7 @@ const apiURLs = {
   getCartCount: `${baseUrl}/mall/cart/count/{merchantId}/{locationId}`, //统计购物车商品数量
 
   getOrder: `${baseUrl}/mall/order/{merchantId}/{orderId}`,
-  getOrderList: `${baseUrl}/mall/order/list`,
+  getOrderList: `${localNodejs || baseUrl}/mall/order/list`,
   createOrder: `${baseUrl}/mall/order/create`,
   cancelOrder: `${baseUrl}/mall/order/cancel`,
   countOrder: `${localNodejs || baseUrl}/mall/order/count`,
