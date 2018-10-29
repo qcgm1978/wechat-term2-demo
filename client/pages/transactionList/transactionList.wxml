@@ -2,12 +2,15 @@
   <!-- <view style='background-color:rgb(236,236,236); width:100%; height:{{windowHeight}}rpx; z-index: 1;'></view> -->
   <view class='tab medium center' bindtap='toggleTab' wx:if='{{!isReturn}}'>
     <text class='{{tabColors[0]}}' data-index='0'>全部</text>
-    <text class='{{tabColors[1]}}' data-index='1'>待发货</text>
-    <text class='{{tabColors[2]}}' data-index='2'>已发货</text>
-    <!-- <text class='{{tabColors[3]}}'  data-type='3'>已拒收</text> -->
+    <text class='{{tabColors[1]}}' data-index='1'>待付款</text>
+    <text class='{{tabColors[2]}}' data-index='2'>待收货</text>
+    <!-- <view class="center-center">
+      <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[1].count+orderNum[3].count}}'>
+        {{orderNum[1].count+orderNum[3].count}}
+      </view> -->
     <text class='{{tabColors[3]}}' data-index='3'>已完成</text>
+    <!-- </view> -->
   </view>
-
   <swiper wx:if='{{hasNetwork}}' class="tab-content" current="{{currentTab}}" duration="300" bindchange="switchTab" style="height:{{windowHeight}}rpx">
     <swiper-item wx:for="{{[0,1,2,3]}}" wx:key='*this'>
       <scroll-view scroll-y="true" class="scoll-h" bindscrolltoupper='pullDownRefresh' bindscrolltolower="lower">
@@ -23,9 +26,9 @@
               <scroll-view class="scroll-view_H" scroll-x='{{true}}' style="width: 100%" style='background: #F7F8FA;border-radius: 4rpx; height:192rpx;white-space: nowrap;padding:0 24rpx;box-sizing:border-box;'>
                 <block class='group-container' wx:for="{{item.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
                   <block class='item-container' wx:for="{{orderGroup.items}}" wx:key='{{itemIndex}}' wx:for-item="orderItem" style=" margin-top:0rpx;">
-                      <image src='{{orderItem.itemIcon?(orderItem.itemIcon+"?x-oss-process=style/180w"):defImg}}' style="width: 160rpx;height: 160rpx;border-radius: 8rpx;margin:16rpx 0 16rpx 8rpx;background:#fff;display:inline-block;" mode='aspectFit'></image>
+                    <image src='{{orderItem.itemIcon?(orderItem.itemIcon+"?x-oss-process=style/180w"):defImg}}' style="width: 160rpx;height: 160rpx;border-radius: 8rpx;margin:16rpx 0 16rpx 8rpx;background:#fff;display:inline-block;" mode='aspectFit'></image>
                   </block>
-                </block> 
+                </block>
               </scroll-view>
               <view class='total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款金额':'合计金额'}}：
                 <text style='color:#ec6515;'>￥{{isReturn?item.orderReturn.refundCashAmount:item.totalAmount}}</text>

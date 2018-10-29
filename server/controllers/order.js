@@ -1,6 +1,40 @@
 const DB = require('../utils/db.js')
+var Mock = require('mockjs');
 
 module.exports = {
+  count: async ctx => {
+    ctx.state.data = Mock.mock([
+      {
+        "orderStatus": 0,
+        "count": '@integer(2,5)'
+      },
+      {
+        "orderStatus": 1,
+        "count": '@integer(2,5)'
+      },
+      {
+        "orderStatus": 2,
+        "count": '@integer(2,5)'
+      },
+      {
+        "orderStatus": 3,
+        "count": '@integer(2,5)'
+      },
+      {
+        "orderStatus": 4,
+        "count": '@integer(2,5)'
+      },
+      {
+        "orderStatus": 5,
+        "count": '@integer(2,5)'
+      },
+      {
+        "orderStatus": 6,
+        "count": '@integer(2,5)'
+      }
+    ])
+  },
+
   detail: async ctx => {
     const orderId = ctx.params.orderId;
     const merchantId = ctx.params.merchantId;

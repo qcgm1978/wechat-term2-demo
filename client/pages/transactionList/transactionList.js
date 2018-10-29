@@ -55,7 +55,7 @@ Page({
   },
   arrOrderStatus: [
     null,
-    [],
+    [6],
     [0,2],
     [1, 3,4,5],
     [4, 5]
@@ -290,6 +290,7 @@ Page({
       const currentIndex = Number(option.tab);
       const tabColors = this.data.tabColors.map((item, index) => index === currentIndex ? 'selected' : 'unselected');
       this.setData({
+        // orderNum: JSON.parse(option.orderNum),
         tabColors,
         config: {
           ...this.data.config,

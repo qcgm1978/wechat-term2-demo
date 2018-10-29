@@ -13,7 +13,7 @@ var clientSecret = ""
 // let localNodejs = 'http://10.3.0.98:5757/v1';
 // localNodejs = 'http://192.168.16.71:5757/v1';
 let localNodejs = 'http://localhost:5757/v1';
-localNodejs = ''
+// localNodejs = ''
 switch (env) {
   case EVN.DEV:
     clientSecret = "OzoStRYlQVA85pjp"
@@ -58,7 +58,7 @@ const apiURLs = {
   getOrderList: `${baseUrl}/mall/order/list`,
   createOrder: `${baseUrl}/mall/order/create`,
   cancelOrder: `${baseUrl}/mall/order/cancel`,
-  countOrder: `${baseUrl}/mall/order/count`,
+  countOrder: `${localNodejs || baseUrl}/mall/order/count`,
 
   getProduct: `${baseUrl}/product/{merchantId}/{itemId}`,
   getMerchant: `${baseUrl}/merchant/{merchantId}`,

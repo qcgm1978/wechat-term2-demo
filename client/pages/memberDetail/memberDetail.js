@@ -47,7 +47,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: `/pages/transactionList/transactionList?tab=${index}`,
+      url: `/pages/transactionList/transactionList?tab=${index}&orderNum=${JSON.stringify(this.data.orderNum)}`,
     })
   },
   /**

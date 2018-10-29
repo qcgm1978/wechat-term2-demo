@@ -68,6 +68,7 @@ router.get('/v1/product/:merchantId/:orderId', controllers.product.detail)
 router.post('/v1/order/list', controllers.order.list);
 router.post('/v1/order/create', controllers.order.create);
 router.post('/v1/order/cancel', controllers.order.cancel);
+router.post('/v1/mall/order/count', controllers.order.count);
 
 router.get('/v1/order/:merchantId/:orderId', controllers.order.detail);
 // 商品添加到购物车列表
