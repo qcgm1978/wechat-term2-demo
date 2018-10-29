@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -70,13 +70,13 @@
 					"id": 5,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "itemId=4442&categoryId=1102004"
+					"query": "itemId=3351&categoryId=1401009"
 				},
 				{
 					"id": 6,
 					"name": "order-confirm",
 					"pathName": "pages/order-confirm/order-confirm",
-					"query": "itemId=3317&orderStatus=&total=696&quantity=4"
+					"query": "total=6250.00&totalDiscount=0.00&itemId=3351"
 				},
 				{
 					"id": -1,

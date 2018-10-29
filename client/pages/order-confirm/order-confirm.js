@@ -33,7 +33,7 @@ Page({
     addressStore: '../transactionDetail/images/address.png',
     discountTotalAmount: 0,
     totalBeforePromotion: 0,
-    totalItemNumber:0
+    totalItemNumber: 0
   },
   changedTxt: `很抱歉,订单中的商品信息发生变更,请确认商品信息后重新下单`,
   failTxt: `很抱歉，提交订单时遇到未知故障
@@ -59,7 +59,7 @@ Page({
       let tempData = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items]
       let count = 0
 
-      for (let i = 0; i < tempData.length; i++){
+      for (let i = 0; i < tempData.length; i++) {
         count += tempData[i].items.length
         if (tempData[i].cartCombinationPromotions && tempData[i].cartCombinationPromotions.length > 0 && tempData[i].cartCombinationPromotions[0].giftItems && tempData[i].cartCombinationPromotions[0].giftItems.length > 0) {
           count += tempData[i].cartCombinationPromotions[0].giftItems.length
@@ -70,12 +70,16 @@ Page({
         totalItemNumber: count,
       })
 
+      this.setData({
+        heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 10
+      })
     } else {
-      this.getProduct(options);
+      this.getProduct(options).then(data=>{
+        this.setData({
+          heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 10
+        })
+      });
     }
-    this.setData({
-      heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 +10
-    })
   },
   toggleGoods() {
     this.setData({
@@ -97,7 +101,7 @@ Page({
         isVisible: false
       })
     }
-    const credit = this.data.isVisible ? utils.getFixedNum(points / 100,2) : 0;
+    const credit = this.data.isVisible ? utils.getFixedNum(points / 100, 2) : 0;
     const windowHeight = wx.getSystemInfoSync().windowHeight;
     points = utils.getFixedNum(points);
     this.setData({
@@ -117,7 +121,7 @@ Page({
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
       discountTotalAmount: options.totalDiscount,
-      totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2) 
+      totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2)
     })
   },
   onChangeChecked(myEventDetail, myEventOption) {
@@ -157,7 +161,7 @@ Page({
     quantity
   }) {
     const locationId = getApp().getLocationId();
-    utils.getRequest(getProductItem, {
+    return utils.getRequest(getProductItem, {
       locationId,
       categoryCd: '',
       itemIds: itemId ? itemId : '',
@@ -171,7 +175,7 @@ Page({
         }, []);
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg);
         result.quantity = quantity;
-        let dataWrapper = [result];
+        let dataWrapper = [{items:[result]}];
         // todo create array with multi ele
         // dataWrapper=new Array(10).fill(result)
         this.setData({
@@ -202,22 +206,22 @@ Page({
         receiverAddress = getApp().globalData.address,
         orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
 
-      const usePoint = this.data.isVisible ? this.data.credit*100 : 0;
+      const usePoint = this.data.isVisible ? this.data.credit * 100 : 0;
       let sumDiscount = 0
-      for (let i = 0; i < orderItems.length; i++){
+      for (let i = 0; i < orderItems.length; i++) {
         orderItems[i].discountAmount = "0"
-        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]){
+        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]) {
           orderItems[i].promotionId = orderItems[i].cartCombinationPromotions[0].promotionId
-        }else{
+        } else {
           orderItems[i].promotionId = ""
         }
-        
+
         orderItems[i].cartGroupId = orderItems[i].groupId
 
-        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]){
-          orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount ? orderItems[i].cartCombinationPromotions[0].discountAmount: "0"
+        if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]) {
+          orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount ? orderItems[i].cartCombinationPromotions[0].discountAmount : "0"
           orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].discountPercentage
-          if (orderItems[i].discountAmount && orderItems[i].discountAmount>0){
+          if (orderItems[i].discountAmount && orderItems[i].discountAmount > 0) {
             sumDiscount += orderItems[i].discountAmount
           }
           for (let j = 0; j < orderItems[i].items.length; j++) {
@@ -231,13 +235,13 @@ Page({
               orderItems[i].items[j].discountPercentage = orderItems[i].discountPercentage
             }
           }
-          if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length>0){
-            for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++){
+          if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length > 0) {
+            for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++) {
               orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
               // if (!orderItems[i].combinationFlag) {
-                orderItems[i].cartCombinationPromotions[0].giftItems[j].promotionId = orderItems[i].promotionId
-                orderItems[i].cartCombinationPromotions[0].giftItems[j].discountAmount = 0
-                orderItems[i].cartCombinationPromotions[0].giftItems[j].discountPercentage = 0
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].promotionId = orderItems[i].promotionId
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].discountAmount = 0
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].discountPercentage = 0
               // }
               orderItems[i].cartCombinationPromotions[0].giftItems[j].unit = "个"
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemId
@@ -356,7 +360,7 @@ Page({
   onHide() {
     utils.requestStatisUnload();
   },
-  onUnload(){
+  onUnload() {
     utils.requestStatisUnload();
   },
 
