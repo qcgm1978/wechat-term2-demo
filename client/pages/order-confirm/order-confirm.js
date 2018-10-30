@@ -297,10 +297,11 @@ Page({
       }
 
       console.log(JSON.stringify(tempdata))
-
+      const isWechat = this.data.checked[0]
       utils.postRequest({
         url: createOrder,
         data: {
+          paymentMethod:isWechat?1:3,
           orderItems,
           orderPomotionId: "0",
           orderPomotionDiscountAmount: 0,
@@ -327,7 +328,7 @@ Page({
             trolley.selectedRadio = [];
           }
           wx.redirectTo({
-            url: `/pages/${this.data.checked[0]?'checkstand/checkstand':'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
+            url: `/pages/${isWechat?'checkstand/checkstand':'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
         } else {}
       }).catch(err => {

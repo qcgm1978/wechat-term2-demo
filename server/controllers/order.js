@@ -40,14 +40,11 @@ module.exports = {
     const merchantId = ctx.params.merchantId;
     if (!orderId || !merchantId) {
       ctx.state.data = 'no data'
-    } else if (orderId === '111111') {
-
-
-
     } else {
       ctx.state.result = {
         "orderId": "181029143259643356",
         "orderStatus": "TO_PAY",
+        // "orderStatus": "WAIT_RECEIVE",
         "totalAmount": 6250,
         "actualAmount": 0,
         "discountTotalAmount": 0,
@@ -58,6 +55,7 @@ module.exports = {
         "payment": {
           "paymentId": null,
           "paymentMethod": "online",
+          // "paymentMethod": "COD",
           "paymentTime": "2018-10-29 14:32:59",
           "usePoint": 0,
           "cashAmount": 6250
