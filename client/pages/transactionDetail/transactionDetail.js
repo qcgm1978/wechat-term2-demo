@@ -39,7 +39,7 @@ Page({
     showDiscountInfo: "none",
     notShowDiscountInfo,
     amount: 0,
-    // netAmount: 0,
+    expiration: 0,
     discountAmount: 0,
     earnedPoint: 0,
     itemData: [],
@@ -205,6 +205,12 @@ Page({
         url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
       });
     }
+  },
+  requestPayment(e) {
+    const dataset = e.currentTarget.dataset
+    wx.navigateTo({
+      url: `/pages/checkstand/checkstand?orderId=${dataset.orderId}&orderTotalAmount=${dataset.totalAmount}`,
+    })
   },
   requestTransDetail(orderId) {
     let requestData = null;

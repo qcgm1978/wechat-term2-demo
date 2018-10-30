@@ -3,12 +3,15 @@
   top: 80rpx;
   color: #fdb658;
 }
-.no-points{
- width: 250rpx;
-} 
-.use-points{
-  width:140rpx;
+
+.no-points {
+  width: 250rpx;
 }
+
+.use-points {
+  width: 140rpx;
+}
+
 .complete-login-content {
   align-self: center;
   position: absolute;
@@ -138,7 +141,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-left:16rpx;
+  margin-left: 16rpx;
 }
 
 .title {
@@ -151,7 +154,7 @@
   top: 100rpx;
   z-index: 10;
   height: 144rpx;
-  box-shadow: 0 30rpx  rgb(254, 240, 231);
+  box-shadow: 0 30rpx rgb(254, 240, 231);
 }
 
 .trans-number-time {
@@ -183,7 +186,7 @@
   color: #333;
   letter-spacing: 0;
   text-align: right;
-  height:44rpx;
+  height: 44rpx;
   margin: 16rpx;
 }
 
@@ -207,47 +210,46 @@
   margin: 10rpx 40rpx;
 }
 
-
-.modal-box{
-  position:fixed;
-  width:100%;
-  height:100%;
-  top:0px;
-  background:rgba(0,0,0,0.4);
+.modal-box {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  background: rgba(0, 0, 0, 0.4);
   overflow: hidden;
   z-index: 200;
-  }
-
-.modal-body{
-  width: 100%;
-  position:relative;
 }
 
-.modal-content{
+.modal-body {
+  width: 100%;
+  position: relative;
+}
 
+.modal-content {
   width: 90%;
-  height:418px; 
-  margin:50% auto;
+  height: 418px;
+  margin: 50% auto;
   overflow: hidden;
   border-radius: 10rpx;
   text-align: center;
 }
-.content-img{
-  width: 550rpx; 
-  height: 292rpx;
-  background:rgba(255,255,255,1);
-  border-radius:40rpx;
 
+.content-img {
+  width: 550rpx;
+  height: 292rpx;
+  background: rgba(255, 255, 255, 1);
+  border-radius: 40rpx;
 }
+
 .content-txt {
-  position:absolute ; 
-  top: 40rpx; 
+  position: absolute;
+  top: 40rpx;
   left: 80rpx;
-  font-size: 32rpx; 
-  color:rgb(51,51,51); 
-  width: 600rpx; 
-  height: 418rpx;  
-  margin:30rpx auto;
+  font-size: 32rpx;
+  color: rgb(51, 51, 51);
+  width: 600rpx;
+  height: 418rpx;
+  margin: 30rpx auto;
   text-align: left;
 }
 
@@ -255,20 +257,29 @@
   display: flex;
   align-items: center;
   text-align: center;
-  font-size: 32rpx; 
-  color:rgb(51,51,51); 
+  font-size: 32rpx;
+  color: rgb(51, 51, 51);
   border-radius: 10rpx;
-  background:red;
-  height:60rpx;
-  width:260rpx;
-  justify-content:center;
+  background: red;
+  height: 60rpx;
+  width: 260rpx;
+  justify-content: center;
 }
 
 .promotion-1 {
-  display:inline-block;
+  display: inline-block;
   width: 72rpx;
   text-align: left;
-  color: #EC6515;
+  color: #ec6515;
   font-size: 26rpx;
   height: 30rpx;
+}
+
+.topay-comment {
+  font-size: 26rpx;
+  color: #fff;
+  letter-spacing: 0;
+  text-align: right;
+  line-height: 36rpx;
+  margin-left: 106rpx;
 }

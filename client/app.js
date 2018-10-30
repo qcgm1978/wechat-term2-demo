@@ -26,7 +26,8 @@ const iniGlobalData = {
     "WAIT_RECEIVE": '待收货',
     COMPLETED: '已完成',
     "RETURN_FULL": '全部拒收',
-    "RETURN_PART": '部分拒收'
+    "RETURN_PART": '部分拒收',
+    'TO_PAY':'等待付款'
   }
 };
 App({

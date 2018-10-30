@@ -70,7 +70,7 @@ router.post('/v1/order/create', controllers.order.create);
 router.post('/v1/order/cancel', controllers.order.cancel);
 router.post('/v1/mall/order/count', controllers.order.count);
 
-router.get('/v1/order/:merchantId/:orderId', controllers.order.detail);
+router.get('/v1/mall/order/:merchantId/:orderId', controllers.order.detail);
 // 商品添加到购物车列表
 router.post('/v1/trolley/list', controllers.trolley.add)
 

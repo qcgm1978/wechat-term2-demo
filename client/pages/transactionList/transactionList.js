@@ -60,6 +60,12 @@ Page({
     [1, 3,4,5],
     [4, 5]
   ],
+  requestPayment(e){
+    const dataset = e.currentTarget.dataset
+    wx.navigateTo({
+      url: `/pages/checkstand/checkstand?orderId=${dataset.orderId}&orderTotalAmount=${dataset.totalAmount}`,
+    })
+  },
   removeOrder(evt) {
     const arr = this.data.order;
     const selectData = arr[evt.target.dataset.index];

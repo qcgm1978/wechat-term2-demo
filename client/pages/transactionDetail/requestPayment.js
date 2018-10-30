@@ -84,6 +84,10 @@ export function requestPayment(evt) {
         fail(err) {
           // do nothing and wait next perhaps paying
           console.log(err)
+          wx.showToast({
+            icon:'loading',
+            title: '交易未成功',
+          })
           debugger;
 
         },
