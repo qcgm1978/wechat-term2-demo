@@ -43,8 +43,8 @@ module.exports = {
     } else {
       ctx.state.result = {
         "orderId": "181029143259643356",
-        "orderStatus": "TO_PAY",
-        // "orderStatus": "WAIT_RECEIVE",
+        // "orderStatus": "TO_PAY",
+        "orderStatus": "WAIT_RECEIVE",
         "totalAmount": 6250,
         "actualAmount": 0,
         "discountTotalAmount": 0,
@@ -266,7 +266,7 @@ module.exports = {
       // orderId: '181029143259643356'
       paymentMethodId: 1,
       appId: '@string("number",10)',
-      timeStamp: `@integer(${new Date().getTime()})`,
+      timeStamp: `@now`,
       nonceStr: '@string("lower",20,31)',
       prepayId: '@string("lower",10,20)',
       paySign: '@string("lower",5,10)',

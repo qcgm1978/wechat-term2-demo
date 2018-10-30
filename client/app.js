@@ -18,7 +18,7 @@ const iniGlobalData = {
   currentIndex: 0,
   badge: 0,
   toggleMerchant: false,
-
+  orderId:'',
   defaultImg: '/images/default.png',
   payStyle: {
     "WAIT_SHIPMENT": '待发货',
@@ -27,7 +27,7 @@ const iniGlobalData = {
     COMPLETED: '已完成',
     "RETURN_FULL": '全部拒收',
     "RETURN_PART": '部分拒收',
-    'TO_PAY':'等待付款'
+    'TO_PAY': '等待付款'
   }
 };
 App({
@@ -57,9 +57,9 @@ App({
     return this.globalData.merchant ? this.globalData.merchant.locationId : wx.getStorageSync('merchant').locationId
   },
   getMerchantId() {
-    if (this.globalData.authMerchantList && this.globalData.authMerchantList.length>0){
+    if (this.globalData.authMerchantList && this.globalData.authMerchantList.length > 0) {
       return String(this.globalData.authMerchantList[this.globalData.currentIndex].merchantId);
-    }else{
+    } else {
       return ""
     }
 
@@ -142,11 +142,17 @@ App({
       data: this.globalData
     });
   },
-  onShow() {
+  onShow(options) {
     this.checkProgramUpdate();
     updateSessionId()
+    if (options.scene == 1034) {
+      return wx.navigateTo({
+        url: `/pages/transactionDetail/transactionDetail?orderId=${this.globalData.orderId}`,
+
+      })
+    }
   },
-  onHide(){
+  onHide() {
     requestStatisDispose()
   },
   checkProgramUpdate() {

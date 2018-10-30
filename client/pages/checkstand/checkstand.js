@@ -16,6 +16,7 @@ Page({
     this.setData({
       orderTotalAmount: options.orderTotalAmount
     })
+    getApp().globalData.orderId=options.orderId
   },
 
   /**
