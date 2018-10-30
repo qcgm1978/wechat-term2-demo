@@ -254,14 +254,23 @@ module.exports = {
     }
   },
   create: async ctx => {
-    // const items = ctx.request.body.orderItems;
-    // if (items && ctx.request.body.locationId && items.itemId && items.quantity && (typeof ctx.request.body.merchantId === 'string')) {
-
     ctx.state.data = {
       message: '',
       orderId: '123456',
       orderTotalAmount: 200
     }
-    // }
+  },
+  pay: async ctx => {
+    ctx.state.result = Mock.mock({
+      orderId: '@string("number",18)',
+      // orderId: '181029143259643356'
+      paymentMethodId: 1,
+      appId: '@string("number",10)',
+      timeStamp: `@integer(${new Date().getTime()})`,
+      nonceStr: '@string("lower",20,31)',
+      prepayId: '@string("lower",10,20)',
+      paySign: '@string("lower",5,10)',
+      signType: 'MD5'
+    })
   },
 }

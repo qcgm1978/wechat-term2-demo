@@ -50,9 +50,10 @@ export function requestPayment(evt) {
       return postRequest({
         url: paymentUrl,
         postData: {
-          transactionId: evt.currentTarget.dataset.trasaction,
+          orderId: this.options.orderId,
+          merchantId:getApp().getMerchantId(),
           jsCode: code ? code : getApp().globalData.token.jscode,
-          loginType: code ? 2 : 1,
+          paymentMethodId:1,
         }
       })
     })
@@ -88,8 +89,7 @@ export function requestPayment(evt) {
             icon:'loading',
             title: '交易未成功',
           })
-          debugger;
-
+          // debugger;
         },
         complete() {
           self.setData({

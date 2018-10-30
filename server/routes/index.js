@@ -73,6 +73,7 @@ router.post('/v1/mall/order/count', controllers.order.count);
 router.get('/v1/mall/order/:merchantId/:orderId', controllers.order.detail);
 // 商品添加到购物车列表
 router.post('/v1/trolley/list', controllers.trolley.add)
+router.post('/v1/mall/order/onlinePayment', controllers.order.pay);
 
 router.post('/v1/mall/promotions/selectGoods', controllers.promotion.goods)
 router.post('/v1/mall/promotions/selectCombGoods', controllers.promotion.kind)
