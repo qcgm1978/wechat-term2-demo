@@ -15,6 +15,7 @@ export function requestPayment(evt) {
   });
   const state = wx.getStorageSync('isWechatLogin');
   let promise = null;
+  // state always false because wx.setStorage not executed in phoneLogin.js. If needed those code to modify
   if (state) {
     promise = Promise.resolve(0)
   } else {

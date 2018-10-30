@@ -87,7 +87,7 @@ Page({
 
         this.doPhoneLogin()
           .then(() => {
-            // getApp().globalData.isWechatLogin=false;
+            // turn page already and the code not execute
             wx.setStorage({
               key: "isWechatLogin",
               data: false
