@@ -229,7 +229,7 @@ Page({
       start: this.start,
       limit: this.limit
     }
-    console.log(JSON.stringify(temdata))
+    // console.log(JSON.stringify(temdata))
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -240,8 +240,8 @@ Page({
       })
       .then((data) => {
         let result = data.result
-        console.log("getTrolley result")
-        console.log(result)
+        // console.log("getTrolley result")
+        // console.log(result)
         if(result.length > 0){
           result.reverse()
         }

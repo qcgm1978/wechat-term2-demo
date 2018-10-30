@@ -22,12 +22,12 @@ exports.calcPromote = function (postData) {
       if (data.status === 200) {
         let calcPromoteInfo = data.result[0]
         let ret=null
-        try{
-         ret=calcPromoteInfo.promotionActives.find(item => item.promotionId === postData.itemGroups[0].promotions[0].promotionId)
-        }catch(e){
-
+        if (postData.itemGroups[0].promotions && postData.itemGroups[0].promotions.length>0 && postData.itemGroups[0].promotions[0].promotionId){
+          ret = calcPromoteInfo.promotionActives.find(item => item.promotionId === postData.itemGroups[0].promotions[0].promotionId)
+        }else{
+          ret = calcPromoteInfo.promotionActives && calcPromoteInfo.promotionActives.length > 0 ? calcPromoteInfo.promotionActives[0]: null
         }
-        resolve(calcPromoteInfo.promotionActives ? ret: calcPromoteInfo.promotionActives)
+        resolve(calcPromoteInfo.promotionActives ? ret : calcPromoteInfo.promotionActives[0])
       } else {
         reject()
       }

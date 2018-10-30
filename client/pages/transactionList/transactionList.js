@@ -68,10 +68,7 @@ Page({
       confirmColor: "#fcb052",
       success: res => {
         if (res.confirm) {
-          console.log(JSON.stringify({
-            orderId: selectData.orderId,
-            merchantId: app.getMerchantId()
-          }))
+
           utils.postRequest({
             url: cancelOrder,
             data: {
@@ -131,7 +128,7 @@ Page({
       })
         .then((data) => {
           const result = data.result;
-
+          console.log(result)
           const totalPages = Math.ceil(result.orderTotalCount / 10);
           this.setData({
             totalPages,
@@ -310,7 +307,7 @@ Page({
         })
       }
     }
-    console.log(JSON.stringify(this.data.config))
+
     this.requestMoreData(this.data.config);
   },
 
