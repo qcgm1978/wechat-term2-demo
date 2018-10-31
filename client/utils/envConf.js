@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.DEV; //update this value for different env
+var env = EVN.PRO; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -38,7 +38,8 @@ switch (env) {
     clientSecret = "9sxyZhzgKIjSVuQQ"
     baseUrl = "https://app.jihuiduo.cn/member"
     addrUrl = "https://app.jihuiduo.cn/address"
-    statistics ='http://39.107.250.241:8081'
+    // statistics ='http://39.107.250.241:8081'
+    statistics = 'https://sitecatalyst.jihuiduo.cn'
     break
   default:
     clientSecret = "Rn2eJRBN0cDEXSBl"
