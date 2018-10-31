@@ -79,9 +79,9 @@ export function requestPayment(evt) {
         paySign: payargs.paySign,
         success() {
           // debugger;
-          wx.navigateTo({
-            url: '../member/member?transaction=true',
-          })
+          // wx.navigateTo({
+          //   url: '../member/member?transaction=true',
+          // })
         },
         fail(err) {
           // do nothing and wait next perhaps paying
