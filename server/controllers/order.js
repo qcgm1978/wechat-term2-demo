@@ -43,8 +43,8 @@ module.exports = {
     } else {
       ctx.state.result = {
         "orderId": "181029143259643356",
-        // "orderStatus": "TO_PAY",
-        "orderStatus": "WAIT_RECEIVE",
+        "orderStatus": "TO_PAY",
+        // "orderStatus": "WAIT_RECEIVE",
         "totalAmount": 6250,
         "actualAmount": 0,
         "discountTotalAmount": 0,

@@ -1,6 +1,6 @@
 
-const baseUrl =`http://39.105.120.6:8081`;
-
+import { Api} from './envConf.js'
+const baseUrl = Api.statistics
 export const urlObj = {
   test: `/user/jhduser`,
   getToken: `/b2b/getToken`,
