@@ -5,7 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "pm2 start process.prod.json --no-daemon",
-    "dev": "nodemon --config nodemon.json --inspect app.js",
+    "dev": "nodemon --config nodemon.json --inspect=127.0.0.1:9330 app.js ",
     "initdb": "npm install && node tools/initdb.js",
     "ws": "nodemon server.js",
     "mysql": "export PATH=${PATH}:/usr/local/mysql/bin && mysql -u root -p",
