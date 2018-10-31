@@ -312,7 +312,6 @@ Page({
     // 获取促销信息
     promoteUtil.calcPromote(para)
       .then(arr => {
-        console.log(arr)
         if (arr) {
           if (arr.giftItems && arr.giftItems[0]) {
             arr.giftItems[0].itemId = arr.giftItems[0].giftItemId
@@ -326,7 +325,7 @@ Page({
         getApp().globalData.items = itemGroups;
         getApp().globalData.items.orderItemSource = 0;
         wx.navigateTo({
-          url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0`,
+          url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${arr.discountAmount}`,
         });
       })
       .catch(() => {})

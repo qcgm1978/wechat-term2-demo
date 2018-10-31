@@ -1,4 +1,4 @@
-<scroll-view scroll-y style="height:{{height-53*2}}rpx;">
+<scroll-view scroll-y style="height:{{height-53*2}}rpx; white-space:nowrap;">
   <view class='regular bgc padding'>
     <view class='trans-shop' wx:if='{{isReturn}}'>
       <view class='trans-shop-lable regular'>{{salesReturn}}</view>
@@ -100,7 +100,7 @@
     <text class='regular order-field '>买家留言：</text>
     <textarea class='textarea' placeholder="选填" value='{{textarea}}' bindblur='textareaConfirm' auto-height='{{true}}' />
   </view> -->
-    <view class='padding mgt bgc center order-item-container' style="margin-top: 15rpx;">
+    <view class=' mgt bgc center order-item-container' style="margin-top: 15rpx;">
       <!-- <text class='regular order-field '>促销折扣</text> -->
       <!-- <text class='medium'>满减活动；满送活动</text> -->
     </view>

@@ -455,14 +455,18 @@ Page({
       .then(data => {
         getApp().globalData.checkedTrolley.map(item => {
           for (let i = 0; i < item.addGroupList[0].addItemList.length; i++){
-            if (item.addGroupList[0].addItemList[i].itemId == this.data.trolley[0].items[i].itemId && item.addGroupList[0].addItemList[i].quantity == this.data.trolley[0].items[i].quantity && item.addGroupList[0].addItemList[i].categoryCode == this.data.trolley[0].items[i].itemCategoryCode ){
-              if (!this.selectedRadio.includes(this.data.trolley[0].groupId)) {
-                let currentTrolley = "trolley[0].checked"
-                this.setData({
-                  [currentTrolley]: true
-                })
-                this.selectedRadio.push(this.data.trolley[0].groupId)
-                this.setMoneyData(this.selectedRadio)
+            for (let j = 0; j < this.data.trolley.length; j++){
+              for (let k = 0; k < this.data.trolley[j].items.length; k++){
+                if (item.addGroupList[0].addItemList[i].itemId == this.data.trolley[j].items[k].itemId && item.addGroupList[0].addItemList[i].quantity == this.data.trolley[j].items[k].quantity && item.addGroupList[0].addItemList[i].categoryCode == this.data.trolley[j].items[k].itemCategoryCode) {
+                  if (!this.selectedRadio.includes(this.data.trolley[j].groupId)) {
+                    let currentTrolley = "trolley[" + j + "].checked"
+                    this.setData({
+                      [currentTrolley]: true
+                    })
+                    this.selectedRadio.push(this.data.trolley[j].groupId)
+                    this.setMoneyData(this.selectedRadio)
+                  }
+                }
               }
             }
           }
@@ -472,11 +476,26 @@ Page({
         this.setData({
           dataLoaded: true
         })
+        this.setMoneyData(this.selectedRadio)
+
+        const trolley = this.data.trolley.map((item, index) => {
+          if (this.selectedRadio.includes(item.groupId)) {
+            item.checked = true;
+          } else {
+            item.checked = false;
+          }
+          return item;
+        });
+        this.setData({
+          trolley
+        })
       })
       .catch(e => {
+        getApp().globalData.checkedTrolley = [];
         this.setData({
           dataLoaded: true
         })
+        this.setMoneyData(this.selectedRadio)
       })
     utils.updateTrolleyNum();
     utils.checkNetwork().then(utils.requestStatisLoad);
