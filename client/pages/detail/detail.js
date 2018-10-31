@@ -325,7 +325,7 @@ Page({
         getApp().globalData.items = itemGroups;
         getApp().globalData.items.orderItemSource = 0;
         wx.navigateTo({
-          url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${arr.discountAmount}`,
+          url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${arr && arr.discountAmount != 0 ? arr.discountAmount : 0}`,
         });
       })
       .catch(() => {})

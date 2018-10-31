@@ -1,6 +1,6 @@
 
-const baseUrl =`http://39.105.120.6:8081`;
-
+//const baseUrl =`http://39.105.120.6:8081`;
+const baseUrl = `https://sitecatalyst.jihuiduo.cn`;
 export const urlObj = {
   test: `/user/jhduser`,
   getToken: `/b2b/getToken`,
