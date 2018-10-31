@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.PRO; //update this value for different env
+var env = EVN.DEV; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -45,6 +45,7 @@ switch (env) {
     clientSecret = "Rn2eJRBN0cDEXSBl"
     baseUrl = "https://dev.jhdmall.com/weapp/member"
     addrUrl = "https://dev.jhdmall.com/weapp/address"
+    statistics = 'https://sitecatalyst.jihuiduo.cn'
     break
 }
 const apiURLs = {
