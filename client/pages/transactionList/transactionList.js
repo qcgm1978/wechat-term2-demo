@@ -128,7 +128,7 @@ Page({
       })
         .then((data) => {
           const result = data.result;
-          console.log(result)
+
           const totalPages = Math.ceil(result.orderTotalCount / 10);
           this.setData({
             totalPages,
@@ -392,12 +392,14 @@ Page({
             addGroupList: []
           }
           for (let i = 0; i < orderGroups.length; i++) {
+            let onShelfNumber = 0
             orderGroups[i].items = orderGroups[i].items.reduce((accumulator, item) => {
               item.categoryCode = item.categoryId
               let isOnShelf = false
               for (let k = 0; k < data.items.length; k++) {
-                if (data.items[k][0].itemId && item.itemId == data.items[k][0].itemId){
+                if (data.items[k][0].itemId && item.itemId == data.items[k][0].itemId && !item.gift){
                   isOnShelf = true
+                  onShelfNumber++
                 }
               }
               if (isOnShelf) {
@@ -406,18 +408,37 @@ Page({
               return accumulator;
             }, []);
 
-            orderGroups[i].count = 1
-            orderGroups[i].addItemList = orderGroups[i].items
-            let promotions = []
-            let promotion = {}
-            promotion.promotionId = orderGroups[i].promotionId
-            promotions.push(promotion)
-            orderGroups[i].promotions = promotions
-            if (orderGroups[i].items && orderGroups[i].items.length>0){
-              para.addGroupList.push(orderGroups[i])
+            if (onShelfNumber == orderGroups[i].items.length) {
+              orderGroups[i].isAllOnShelf = true
+            } else {
+              orderGroups[i].isAllOnShelf = false
             }
-          }
 
+            if (orderGroups[i].isAllOnShelf){
+              orderGroups[i].count = 1
+              orderGroups[i].addItemList = orderGroups[i].items
+              let promotions = []
+              let promotion = {}
+              promotion.promotionId = orderGroups[i].promotionId
+              promotions.push(promotion)
+              orderGroups[i].promotions = promotions
+              if (orderGroups[i].items && orderGroups[i].items.length > 0) {
+                para.addGroupList.push(orderGroups[i])
+              }
+            }else{
+              for (let m = 0; m < orderGroups[i].items.length; m++){
+                orderGroups[i].count = 1
+                orderGroups[i].addItemList = [orderGroups[i].items[m]]
+                let promotions = []
+                let promotion = {}
+                promotion.promotionId = orderGroups[i].promotionId
+                promotions.push(promotion)
+                orderGroups[i].promotions = promotions
+                para.addGroupList.push(orderGroups[i])
+              }
+            }
+
+          }
           utils
             .addToTrolleyByGroup(para)
             .then(badge => {

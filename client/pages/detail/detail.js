@@ -13,6 +13,8 @@ const getProductItem = Api.getProductItem,
 Page({
   data: {
     currentMoney: 0,
+    totalMoney: 0,
+    discountAmount: 0,
     badge: 0,
     quantity: 1,
     product: {},
@@ -70,19 +72,71 @@ Page({
       return;
     }
     const num = isMinus ? (currentNum - 1) : (currentNum + 1);
-    let currentMoney = num * this.data.product.price;
-    let remaining = this.data.minAmount - currentMoney;
-    remaining = utils.getFixedNum(remaining)
-    const enableBuy = remaining <= 0;
-    currentMoney = utils.getFixedNum(currentMoney);
-    this.setData({
-      quantity: num,
-      currentMoney,
-      buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
-      enableBuy
+
+    this.callPromotionCacl([this.data.product], 0, num)
+      .then((data)=>{ 
+        let discountAmount = 0
+        if (data.cartCombinationPromotions && data.cartCombinationPromotions.length > 0 && data.cartCombinationPromotions[0].discountAmount){
+          discountAmount = utils.getFixedNum(data.cartCombinationPromotions[0].discountAmount)
+        }
+        let totalMoney = num * this.data.product.price
+        let currentMoney = totalMoney - discountAmount
+        let remaining = this.data.minAmount - currentMoney;
+        remaining = utils.getFixedNum(remaining)
+        const enableBuy = remaining <= 0;
+        currentMoney = utils.getFixedNum(currentMoney);
+        this.setData({
+          quantity: num,
+          totalMoney,
+          currentMoney,
+          discountAmount,
+          buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
+          enableBuy
+        })
+      })
+      .catch((e) => { })
+
+  },
+  
+  callPromotionCacl(trollyList, i, num) {
+    return new Promise((resolve, reject) => {
+      let promises = []
+      let itemGroups = []
+      let group = {}
+      let groupItems = []
+      
+        let item = {}
+        item.itemId = trollyList[i].itemId
+        item.brandId = ""
+        item.categoryCode = trollyList[i].itemCategoryCode
+        item.quantity = num
+        item.unitPrice = trollyList[i].price
+        groupItems.push(item)
+
+      group.groupId = ""
+      group.items = groupItems
+      if (trollyList[i].combinationFlag) {
+        group.promotions = trollyList[i].promotions
+      } else {
+        group.promotions = trollyList[i].cartCombinationPromotions
+      }
+      itemGroups.push(group)
+      promises.push(promoteUtil.calcPromote({ itemGroups }))
+
+      Promise.all(promises)
+        .then(arr => {
+          if (arr[0]) {
+            trollyList[i].cartCombinationPromotions = arr
+          } else {
+            trollyList[i].cartCombinationPromotions = null
+          }
+          resolve(trollyList[i])
+        })
+        .catch(() => {
+          reject()
+        })
     })
   },
-
   closePopup() {
     this.setData({
       isSelecting: false,

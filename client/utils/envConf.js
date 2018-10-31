@@ -33,8 +33,8 @@ switch (env) {
     break
   case EVN.PRO:
     clientSecret = "9sxyZhzgKIjSVuQQ"
-    baseUrl = "https://app.jihuiduo.cn/member"
-    addrUrl = "https://app.jihuiduo.cn/address"
+    baseUrl = "https://api.jihuiduo.cn/bmall/merchant-mall/v1"
+    addrUrl = "https://api.jihuiduo.cn/bmall/merchant-mall/v1"
     break
   default:
     clientSecret = "Rn2eJRBN0cDEXSBl"

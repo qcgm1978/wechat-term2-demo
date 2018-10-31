@@ -240,8 +240,6 @@ Page({
       })
       .then((data) => {
         let result = data.result
-        // console.log("getTrolley result")
-        // console.log(result)
         if(result.length > 0){
           result.reverse()
         }

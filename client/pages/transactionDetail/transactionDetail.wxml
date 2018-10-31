@@ -95,7 +95,7 @@
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
       共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：
-      <text style='color:#ec6515;'>￥{{isReturn?order.orderReturn.refundCashAmount:order.actualAmount}}{{remark}}</text>
+      <text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx;">
