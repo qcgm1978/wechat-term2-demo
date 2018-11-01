@@ -20,6 +20,35 @@ const iniGlobalData = {
   toggleMerchant: false,
   orderId:'',
   defaultImg: '/images/default.png',
+  /**
+  * 待发货
+  */
+    // WAIT_SHIPMENT("WAIT_SHIPMENT", 0),
+    //   /**
+    //    * 订单取消
+    //    */
+    //   CANCELED("CANCELED", 1),
+
+    //   /**
+    //    * 已发货,待收货
+    //    */
+    //   WAIT_RECEIVE("WAIT_RECEIVE", 2),
+
+    //   /**
+    //    * 已完成
+    //    */
+    //   COMPLETED("COMPLETED", 3),
+
+    //   /**
+    //    * (拒收)全部退货
+    //    */
+    //   RETURN_FULL("RETURN_FULL", 4),
+
+    //   /**
+    //    * (拒收)部分退货
+    //    */
+    //   RETURN_PART("RETURN_PART", 5),
+    //   RETURN_PART("RETURN_PART", 6),//todo to change
   payStyle: {
     "WAIT_SHIPMENT": '待发货',
     CANCELED: '订单取消',

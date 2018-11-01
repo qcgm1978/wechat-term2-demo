@@ -30,7 +30,7 @@
       <view class='column' data-type='1'>
         <view class="center-center">
           <image src='./img/waiting.png' data-type='1'></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[0].count}}'>
+          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[6].count}}'>
             {{orderNum[6].count}}
           </view>
         </view>
