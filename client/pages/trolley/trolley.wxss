@@ -66,6 +66,7 @@ color: #707070;
 .trolley-spec {
   font-size: 24rpx;
   color: #949494;
+  width: 300rpx;
 }
 
 .trolley-price {

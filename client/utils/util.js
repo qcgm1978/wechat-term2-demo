@@ -43,8 +43,8 @@ var showModal = (title, showCancel = true) => {
     return new Promise((resolve, reject) => {
         wx.hideToast();
         wx.showModal({
-            title,
-            // content: JSON.stringify(content),
+            title:"提示",
+            content: title,
             showCancel,
             // confirmColor: '#EE711F',
             // cancelColor: '#EE711F',

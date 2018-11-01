@@ -10,7 +10,7 @@ var env = EVN.DEV; //update this value for different env
 var baseUrl = ""
 var addrUrl = ""
 var clientSecret = ""
-let statistics=''
+let statistics = ''
 // let localNodejs = 'http://10.3.0.98:5757/v1';
 // localNodejs = 'http://192.168.16.71:5757/v1';
 let localNodejs = 'http://localhost:5757/v1';
@@ -32,13 +32,12 @@ switch (env) {
     clientSecret = "OzoStRYlQVA85pjp"
     baseUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
     addrUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
-    statistics ='http://39.105.120.6:8081'
+    statistics = 'http://39.105.120.6:8081'
     break
   case EVN.PRO:
     clientSecret = "9sxyZhzgKIjSVuQQ"
-    baseUrl = "https://app.jihuiduo.cn/member"
-    addrUrl = "https://app.jihuiduo.cn/address"
-    // statistics ='http://39.107.250.241:8081'
+    baseUrl = "https://api.jihuiduo.cn/bmall/merchant-mall/v1"
+    addrUrl = "https://api.jihuiduo.cn/bmall/merchant-mall/v1"
     statistics = 'https://sitecatalyst.jihuiduo.cn'
     break
   default:
@@ -78,7 +77,7 @@ const apiURLs = {
   getPromoteInfo: `${baseUrl}/mall/promotions/item`,
   getCombinationList: `${baseUrl}/mall/promotions/combinationList`,
   calcPromote: `${baseUrl}/mall/promotions/calc`,
-  selectGoods: `${localNodejs||baseUrl}/mall/promotions/selectGoods`,
+  selectGoods: `${localNodejs || baseUrl}/mall/promotions/selectGoods`,
   selectGoodsKind: `${localNodejs || baseUrl}/mall/promotions/selectCombGoods`,
 
   statistics: statistics

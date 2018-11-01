@@ -1,5 +1,5 @@
 
-import { Api} from './envConf.js'
+import { Api } from './envConf.js'
 const baseUrl = Api.statistics
 export const urlObj = {
   test: `/user/jhduser`,
@@ -20,7 +20,7 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
   header: {
     'Content-Type': 'application/json'
   },
-  success: function(result) {
+  success: function (result) {
 
     const token = result.data.jhd_token;
     if (token === undefined) {
@@ -55,7 +55,7 @@ export const requestStatis = (postData = {}) => {
       header: {
         'Content-Type': 'application/json'
       },
-      success: function(result) {
+      success: function (result) {
         if (result.statusCode === 401 && result.data.error === 'invalid_token') {
           getToken().then(() => requestStatis(data))
         } else {
@@ -67,7 +67,7 @@ export const requestStatis = (postData = {}) => {
     console.log(e.data.error)
   });
 }
-export const requestStatisEnter = (systemInfo)=>{
+export const requestStatisEnter = (systemInfo) => {
   let longitude = '',
     latitude = '';
   wx.getLocation({
@@ -110,15 +110,15 @@ export const requestStatisLoad = () => requestStatis({
 export const requestStatisUnload = ({
   nextUrl
 } = {
-  nextUrl: ''
-}) => requestStatis({
-  url: urlObj.unload,
-  pageUrl: getCurrentPages().slice(-1)[0].route,
-  event: 'evn_quit_page',
-  eventDetail: '',
-  time: new Date().getTime(),
-  nextUrl
-});
+    nextUrl: ''
+  }) => requestStatis({
+    url: urlObj.unload,
+    pageUrl: getCurrentPages().slice(-1)[0].route,
+    event: 'evn_quit_page',
+    eventDetail: '',
+    time: new Date().getTime(),
+    nextUrl
+  });
 export const requestStatisDispose = () => requestStatis({
   url: urlObj.dispose,
   pageUrl: getCurrentPages().slice(-1)[0].route,

@@ -3,6 +3,7 @@ const getProductItem = URLs.getProductItem;
 var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessToken;
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 var utils = require("../../utils/util.js");
+import promoteUtil from "../../utils/promotion.js";
 const getOrder = URLs.getOrder
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
@@ -119,48 +120,79 @@ Page({
         let para = {
           addGroupList: []
         }
-
+        let promises = []
         for (let i = 0; i < orderGroups.length; i++) {
-          orderGroups[i].addItemList = []
-          let items = orderGroups[i].items
-          for (let j = 0; j < items.length; j++) {
-            items[j].categoryCode = items[j].categoryId
-            if (!items[j].gift) {
-              orderGroups[i].addItemList.push(items[j])
-            }
-          }
-          orderGroups[i].count = 1
-
-          let promotions = []
-          let promotion = {}
-          promotion.promotionId = orderGroups[i].promotionId
-          promotions.push(promotion)
-          orderGroups[i].promotions = promotions
-          para.addGroupList.push(orderGroups[i])
+          promises.push(promoteUtil.isValidPromotion(orderGroups[i]))
         }
 
-        utils
-          .addToTrolleyByGroup(para)
-          .then(badge => {
-            //getApp().globalData.checkedTrolley = arr.map(item => item.itemId)
-            wx.switchTab({
-              url: `/pages/trolley/trolley`,
+        Promise.all(promises)
+          .then((arr) => {
+            for (let i = 0; i < arr.length; i++ ){
+              if (arr[i]) {
+                orderGroups[i].count = 1
+                orderGroups[i].addItemList = []
+                let items = orderGroups[i].items
+                for (let j = 0; j < items.length; j++) {
+                  items[j].categoryCode = items[j].categoryId
+                  if (!items[j].gift) {
+                    orderGroups[i].addItemList.push(items[j])
+                  }
+                }
+                let promotions = []
+                let promotion = {}
+                promotion.promotionId = orderGroups[i].promotionId
+                promotions.push(promotion)
+                orderGroups[i].promotions = promotions
+                if (orderGroups[i].items && orderGroups[i].items.length > 0) {
+                  para.addGroupList.push(orderGroups[i])
+                }
+              } else {
+                for (let j = 0; j < orderGroups[i].items.length; j++) {
+                  if (orderGroups[i].items[j].gift) {
+                    continue
+                  }
+                  orderGroups[i].count = 1
+                  orderGroups[i].addItemList = []
+                  orderGroups[i].items[j].categoryCode = orderGroups[i].items[j].categoryId
+                  
+                  orderGroups[i].addItemList.push(orderGroups[i].items[j])
+                 
+                  let promotions = []
+                  let promotion = {}
+                  promotion.promotionId = orderGroups[i].promotionId
+                  promotions.push(promotion)
+                  orderGroups[i].promotions = promotions
+                  let temp = { ...orderGroups[i]}
+                  para.addGroupList.push(temp)
+                }
+              }
+            }
+            utils
+            .addToTrolleyByGroup(para, 1, false)
+            .then(badge => {
+              wx.switchTab({
+                url: `/pages/trolley/trolley`,
+              })
             })
           })
-
+          .catch(() => {
+          })
       } else if (data.flag == 1) {
         //部分售完
+
         utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
           let para = {
             addGroupList: []
           }
           for (let i = 0; i < orderGroups.length; i++) {
+            let onShelfNumber = 0
             orderGroups[i].items = orderGroups[i].items.reduce((accumulator, item) => {
               item.categoryCode = item.categoryId
               let isOnShelf = false
               for (let k = 0; k < data.items.length; k++) {
                 if (data.items[k][0].itemId && item.itemId == data.items[k][0].itemId && !item.gift){
                   isOnShelf = true
+                  onShelfNumber++
                 }
               }
               if (isOnShelf) {
@@ -169,22 +201,40 @@ Page({
               return accumulator;
             }, []);
 
-            orderGroups[i].count = 1
-            orderGroups[i].addItemList = orderGroups[i].items
-            let promotions = []
-            let promotion = {}
-            promotion.promotionId = orderGroups[i].promotionId
-            promotions.push(promotion)
-            orderGroups[i].promotions = promotions
-            if (orderGroups[i].items && orderGroups[i].items.length>0){
-              para.addGroupList.push(orderGroups[i])
+            if (onShelfNumber == orderGroups[i].items.length) {
+              orderGroups[i].isAllOnShelf = true
+            } else {
+              orderGroups[i].isAllOnShelf = false
             }
-          }
 
+            if (orderGroups[i].isAllOnShelf){
+              orderGroups[i].count = 1
+              orderGroups[i].addItemList = orderGroups[i].items
+              let promotions = []
+              let promotion = {}
+              promotion.promotionId = orderGroups[i].promotionId
+              promotions.push(promotion)
+              orderGroups[i].promotions = promotions
+              if (orderGroups[i].items && orderGroups[i].items.length > 0) {
+                para.addGroupList.push(orderGroups[i])
+              }
+            }else{
+              for (let m = 0; m < orderGroups[i].items.length; m++){
+                orderGroups[i].count = 1
+                orderGroups[i].addItemList = [orderGroups[i].items[m]]
+                let promotions = []
+                let promotion = {}
+                promotion.promotionId = orderGroups[i].promotionId
+                promotions.push(promotion)
+                orderGroups[i].promotions = promotions
+                para.addGroupList.push(orderGroups[i])
+              }
+            }
+
+          }
           utils
-            .addToTrolleyByGroup(para)
+            .addToTrolleyByGroup(para,1,false)
             .then(badge => {
-              //getApp().globalData.checkedTrolley = arr.map(item=>item.itemId)
               wx.switchTab({
                 url: `/pages/trolley/trolley`,
               })

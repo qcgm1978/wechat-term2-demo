@@ -7,7 +7,8 @@ export default {
     enableVisible: false,
     tabs: [true, false],
     selectedNum: [0, 0],
-    enableChecked: [true, true]
+    enableChecked: [true, true],
+    dataLoading : false,
   },
   methods: {
     toggleKind(e) {
@@ -150,13 +151,28 @@ export default {
       }
     },
     calcPromote(currentTrolley) {
+      if (this.data.dataLoading) return
+      this.setData({
+        dataLoading: true
+      })
+      wx.showLoading({
+        title: '请等待',
+      })
       if (this.data.isQuantity ? this.enableAddTrolley():this.enableChecked()) {
         const selectedProductList = this.data.selectedProductList.filter(item => {
+          wx.hideLoading()
+          this.setData({
+            dataLoading: false
+          })
           return !item.isGift
         })
         this.setData({
           enableVisible: false,
           selectedProductList
+        })
+        wx.hideLoading()
+        this.setData({
+          dataLoading: false
         })
         return;
       }
@@ -187,7 +203,6 @@ export default {
         })
         .then((promoteResult) => {
           //满赠
-
           if (promoteResult.giftItems && promoteResult.giftItems.length > 0) {
             promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
             promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
@@ -203,9 +218,16 @@ export default {
           } else if (promoteResult.discountAmount > 0) { //满减
 
           }
+          wx.hideLoading()
+          this.setData({
+            dataLoading: false
+          })
         })
         .catch(() => {
-
+          this.setData({
+            dataLoading: false
+          })
+          wx.hideLoading()
         })
 
     }

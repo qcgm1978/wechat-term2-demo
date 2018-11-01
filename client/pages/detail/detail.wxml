@@ -99,7 +99,7 @@
       </view>
       <view class='line'></view>
       <view class='padding'>
-        <scroll-view scroll-y style="height: 340rpx;">
+        <scroll-view scroll-y style="height: 240rpx;">
 
           <view wx:for='{{specificationList}}' wx:key='{{index}}' style='padding:18rpx 0;'>
             <view class='center regular specification '>
@@ -118,7 +118,11 @@
         </scroll-view>
 
       </view>
-      <view class='padding subtotal ' style='padding-top:0;'>小计 :{{quantity}}件 ¥{{currentMoney}}</view>
+      <view style='padding-top:0;'>
+        <view class='padding subtotal ' style='padding-top:0;'>小计:{{quantity}}件 金额：¥{{currentMoney}} <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view></view>
+        
+      </view>
+
     </view>
     <view wx:if='{{promotion}}' class='select-goods bgc padding center' style='top:{{top}}rpx; justify-content:space-between;'>
       <view class='promotion-list regular'>

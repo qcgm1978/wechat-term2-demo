@@ -41,7 +41,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -109,7 +109,7 @@ Page({
         isVisible: false
       })
     }
-    const credit = this.data.isVisible ? utils.getFixedNum(points / 100, 2) : 0;
+    const credit = utils.getFixedNum(this.data.isVisible ? utils.getFixedNum(points / 100, 2) : 0, 2);
     const windowHeight = wx.getSystemInfoSync().windowHeight;
     points = utils.getFixedNum(points);
     this.setData({
@@ -301,7 +301,7 @@ Page({
       utils.postRequest({
         url: createOrder,
         data: {
-          paymentMethod:isWechat?1:3,
+          paymentMethod: isWechat ? 1 : 3,
           orderItems,
           orderPomotionId: "0",
           orderPomotionDiscountAmount: 0,
@@ -328,9 +328,9 @@ Page({
             trolley.selectedRadio = [];
           }
           wx.redirectTo({
-            url: `/pages/${isWechat?'checkstand/checkstand':'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
+            url: `/pages/${isWechat ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
-        } else {}
+        } else { }
       }).catch(err => {
         // todo test 409
         // err=409;
@@ -368,12 +368,12 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {},
+  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function(options) {
+  onShow: function (options) {
     utils.checkNetwork().then(utils.requestStatisLoad);
   },
   onHide() {
@@ -386,21 +386,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

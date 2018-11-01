@@ -1,4 +1,4 @@
-<scroll-view scroll-y style="height:{{height-53*2}}rpx;">
+<scroll-view scroll-y style="height:{{height-53*2}}rpx; white-space:nowrap;">
   <view class='regular bgc padding'>
     <view class='trans-shop' wx:if='{{isReturn}}'>
       <view class='trans-shop-lable regular'>{{salesReturn}}</view>
@@ -62,8 +62,15 @@
                       <view class='darker-gray-chars item-name regular' style='width:auto;'>{{item.itemName}}</view>
                       <text class='regular item-standard'>规格：{{item.itemSpecification}}</text>
                       <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
-                        <text class='confirm-price'>￥{{item.price}}</text>
-                        <text>x{{item.quantity}}</text>
+                        <block wx:if="{{orderGroup.combinationFlag}}">
+                          <text class='confirm-price'></text>
+                          <text >x{{item.quantity}}/套</text>
+                        </block>
+                        <block wx:else>
+                          <text class='confirm-price'>￥{{item.price}}</text>
+                          <text >x{{item.quantity}}</text>
+                        </block>
+                        
                       </view>
                     </view>
                   </view>
@@ -112,8 +119,8 @@
     <text class='regular  '>买家留言：</text>
     <textarea class='textarea' placeholder="选填" value='{{textarea}}' bindblur='textareaConfirm' auto-height='{{true}}' />
   </view> -->
-    <view class='padding mgt bgc center order-item-container' style="margin-top: 15rpx;">
-      <!-- <text class='regular  '>促销折扣</text> -->
+    <view class=' mgt bgc center order-item-container' style="margin-top: 15rpx;">
+      <!-- <text class='regular order-field '>促销折扣</text> -->
       <!-- <text class='medium'>满减活动；满送活动</text> -->
     </view>
     <view class='padding mgt bgc center order-item-container' style='align-items:center;'>

@@ -229,7 +229,7 @@ Page({
       start: this.start,
       limit: this.limit
     }
-    console.log(JSON.stringify(temdata))
+    // console.log(JSON.stringify(temdata))
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -240,8 +240,6 @@ Page({
       })
       .then((data) => {
         let result = data.result
-        console.log("getTrolley result")
-        console.log(result)
         if(result.length > 0){
           result.reverse()
         }
@@ -251,6 +249,7 @@ Page({
             if (!item.putShelvesFlg) {
               result[i].putShelvesFlg = false;
             }
+            item.price = utils.getFixedNum(item.price, 2)
           });
 
           if (result[i].putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(result[i].groupId))) {
@@ -259,7 +258,7 @@ Page({
             result[i].checked = false;
           }
           result[i].combinationFlag = result[i].items.length > 1 ? true : false
-          result[i].suitePrice = this.getSuitePrice(result[i])
+          result[i].suitePrice = utils.getFixedNum(this.getSuitePrice(result[i]), 2);
           
         }
         let trolley = []
@@ -456,14 +455,18 @@ Page({
       .then(data => {
         getApp().globalData.checkedTrolley.map(item => {
           for (let i = 0; i < item.addGroupList[0].addItemList.length; i++){
-            if (item.addGroupList[0].addItemList[i].itemId == this.data.trolley[0].items[i].itemId && item.addGroupList[0].addItemList[i].quantity == this.data.trolley[0].items[i].quantity && item.addGroupList[0].addItemList[i].categoryCode == this.data.trolley[0].items[i].itemCategoryCode ){
-              if (!this.selectedRadio.includes(this.data.trolley[0].groupId)) {
-                let currentTrolley = "trolley[0].checked"
-                this.setData({
-                  [currentTrolley]: true
-                })
-                this.selectedRadio.push(this.data.trolley[0].groupId)
-                this.setMoneyData(this.selectedRadio)
+            for (let j = 0; j < this.data.trolley.length; j++){
+              for (let k = 0; k < this.data.trolley[j].items.length; k++){
+                if (item.addGroupList[0].addItemList[i].itemId == this.data.trolley[j].items[k].itemId && item.addGroupList[0].addItemList[i].quantity == this.data.trolley[j].items[k].quantity && item.addGroupList[0].addItemList[i].categoryCode == this.data.trolley[j].items[k].itemCategoryCode) {
+                  if (!this.selectedRadio.includes(this.data.trolley[j].groupId)) {
+                    let currentTrolley = "trolley[" + j + "].checked"
+                    this.setData({
+                      [currentTrolley]: true
+                    })
+                    this.selectedRadio.push(this.data.trolley[j].groupId)
+                    this.setMoneyData(this.selectedRadio)
+                  }
+                }
               }
             }
           }
@@ -473,11 +476,26 @@ Page({
         this.setData({
           dataLoaded: true
         })
+        this.setMoneyData(this.selectedRadio)
+
+        const trolley = this.data.trolley.map((item, index) => {
+          if (this.selectedRadio.includes(item.groupId)) {
+            item.checked = true;
+          } else {
+            item.checked = false;
+          }
+          return item;
+        });
+        this.setData({
+          trolley
+        })
       })
       .catch(e => {
+        getApp().globalData.checkedTrolley = [];
         this.setData({
           dataLoaded: true
         })
+        this.setMoneyData(this.selectedRadio)
       })
     utils.updateTrolleyNum();
     utils.checkNetwork().then(utils.requestStatisLoad);
