@@ -1,7 +1,7 @@
 <wxs module="filters" src="../../utils/math.wxs"></wxs>
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
   <view id="main" class='main-view'>
-    <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}<text class='topay-comment' wx:if='{{payStyle[orderStatus]==="等待付款"}}'>{{expiration}} 订单将自动取消</text></text>
+    <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}<text class='topay-comment' wx:if='{{payStyle[orderStatus]==="等待付款"}}'>{{expireTime}} 订单将自动取消</text></text>
 
     <view class='title'>
       <view class='trans-shop' wx:if='{{isReturn}}'>

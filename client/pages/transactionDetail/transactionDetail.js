@@ -31,7 +31,7 @@ Page({
     src: './images/pic.png',
     standard: '500ML*12',
     top: '',
-    remark:'',
+    remark: '',
     showPrepayedCardInfo: "none",
     showPointPayInfo: "none",
     notShowPointPayInfo: true,
@@ -40,7 +40,7 @@ Page({
     showDiscountInfo: "none",
     notShowDiscountInfo,
     amount: 0,
-    expiration: 0,
+    expireTime: 0,
     discountAmount: 0,
     earnedPoint: 0,
     itemData: [],
@@ -67,77 +67,151 @@ Page({
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var year = a.getFullYear();
     // var month = months[a.getMonth()];
-    var month = a.getMonth()+1;
+    var month = a.getMonth() + 1;
     var date = a.getDate();
     var hour = a.getHours();
     var min = a.getMinutes();
     var sec = a.getSeconds();
     // var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-    const time=`${month}月${date}日${hour}:${min}`
+    const time = `${month}月${date}日${hour}:${min}`
     return time;
   },
-  getPutShelfFlag: function (orderGroups) {
+  getPutShelfFlag: function(orderGroups) {
     var promise = new Promise((resolve, reject) => {
       let promisesArr = []
-      for (let i = 0; i < orderGroups.length;i++){
-        for (let j = 0; j < orderGroups[i].items.length; j++){
+      for (let i = 0; i < orderGroups.length; i++) {
+        for (let j = 0; j < orderGroups[i].items.length; j++) {
           promisesArr.push(this.getProduct(orderGroups[i].items[j].itemId, orderGroups[i].items[j].categoryId))
         }
       }
       Promise.all(promisesArr)
         .then(arr => {
           let soldOutNumber = 0
-          for (let i = 0; i < arr.length;i++){
-              if (!arr[i][0].putShelvesFlg) {
-                soldOutNumber++
-              }
+          for (let i = 0; i < arr.length; i++) {
+            if (!arr[i][0].putShelvesFlg) {
+              soldOutNumber++
+            }
           }
 
           let flag = 0
-          if (soldOutNumber == 0){
-          } else if (soldOutNumber != arr.length){
+          if (soldOutNumber == 0) {} else if (soldOutNumber != arr.length) {
             flag = 1
-          } else if(soldOutNumber == arr.length){
+          } else if (soldOutNumber == arr.length) {
             flag = 2
           }
           let items = arr
-          resolve({ flag, items })
+          resolve({
+            flag,
+            items
+          })
         })
-        .catch(e => { })
+        .catch(e => {})
     })
     return promise
   },
-  
+
   addGotoTrolley: function(e) {
 
     let orderGroups = [];
     orderGroups = this.data.order.orderItems
 
     this.getPutShelfFlag(orderGroups)
-    .then((data) => {
-      if(data.flag == 0){
-        //在售
-        let para = {
-          addGroupList: []
-        }
-        let promises = []
-        for (let i = 0; i < orderGroups.length; i++) {
-          promises.push(promoteUtil.isValidPromotion(orderGroups[i]))
-        }
+      .then((data) => {
+        if (data.flag == 0) {
+          //在售
+          let para = {
+            addGroupList: []
+          }
+          let promises = []
+          for (let i = 0; i < orderGroups.length; i++) {
+            promises.push(promoteUtil.isValidPromotion(orderGroups[i]))
+          }
 
-        Promise.all(promises)
-          .then((arr) => {
-            for (let i = 0; i < arr.length; i++ ){
-              if (arr[i]) {
-                orderGroups[i].count = 1
-                orderGroups[i].addItemList = []
-                let items = orderGroups[i].items
-                for (let j = 0; j < items.length; j++) {
-                  items[j].categoryCode = items[j].categoryId
-                  if (!items[j].gift) {
-                    orderGroups[i].addItemList.push(items[j])
+          Promise.all(promises)
+            .then((arr) => {
+              for (let i = 0; i < arr.length; i++) {
+                if (arr[i]) {
+                  orderGroups[i].count = 1
+                  orderGroups[i].addItemList = []
+                  let items = orderGroups[i].items
+                  for (let j = 0; j < items.length; j++) {
+                    items[j].categoryCode = items[j].categoryId
+                    if (!items[j].gift) {
+                      orderGroups[i].addItemList.push(items[j])
+                    }
+                  }
+                  let promotions = []
+                  let promotion = {}
+                  promotion.promotionId = orderGroups[i].promotionId
+                  promotions.push(promotion)
+                  orderGroups[i].promotions = promotions
+                  if (orderGroups[i].items && orderGroups[i].items.length > 0) {
+                    para.addGroupList.push(orderGroups[i])
+                  }
+                } else {
+                  for (let j = 0; j < orderGroups[i].items.length; j++) {
+                    if (orderGroups[i].items[j].gift) {
+                      continue
+                    }
+                    orderGroups[i].count = 1
+                    orderGroups[i].addItemList = []
+                    orderGroups[i].items[j].categoryCode = orderGroups[i].items[j].categoryId
+
+                    orderGroups[i].addItemList.push(orderGroups[i].items[j])
+
+                    let promotions = []
+                    let promotion = {}
+                    promotion.promotionId = orderGroups[i].promotionId
+                    promotions.push(promotion)
+                    orderGroups[i].promotions = promotions
+                    let temp = { ...orderGroups[i]
+                    }
+                    para.addGroupList.push(temp)
                   }
                 }
+              }
+              utils
+                .addToTrolleyByGroup(para, 1, false)
+                .then(badge => {
+                  wx.switchTab({
+                    url: `/pages/trolley/trolley`,
+                  })
+                })
+            })
+            .catch(() => {})
+        } else if (data.flag == 1) {
+          //部分售完
+
+          utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
+            let para = {
+              addGroupList: []
+            }
+            for (let i = 0; i < orderGroups.length; i++) {
+              let onShelfNumber = 0
+              orderGroups[i].items = orderGroups[i].items.reduce((accumulator, item) => {
+                item.categoryCode = item.categoryId
+                let isOnShelf = false
+                for (let k = 0; k < data.items.length; k++) {
+                  if (data.items[k][0].itemId && item.itemId == data.items[k][0].itemId && !item.gift) {
+                    isOnShelf = true
+                    onShelfNumber++
+                  }
+                }
+                if (isOnShelf) {
+                  accumulator.push(item);
+                }
+                return accumulator;
+              }, []);
+
+              if (onShelfNumber == orderGroups[i].items.length) {
+                orderGroups[i].isAllOnShelf = true
+              } else {
+                orderGroups[i].isAllOnShelf = false
+              }
+
+              if (orderGroups[i].isAllOnShelf) {
+                orderGroups[i].count = 1
+                orderGroups[i].addItemList = orderGroups[i].items
                 let promotions = []
                 let promotion = {}
                 promotion.promotionId = orderGroups[i].promotionId
@@ -147,104 +221,32 @@ Page({
                   para.addGroupList.push(orderGroups[i])
                 }
               } else {
-                for (let j = 0; j < orderGroups[i].items.length; j++) {
-                  if (orderGroups[i].items[j].gift) {
-                    continue
-                  }
+                for (let m = 0; m < orderGroups[i].items.length; m++) {
                   orderGroups[i].count = 1
-                  orderGroups[i].addItemList = []
-                  orderGroups[i].items[j].categoryCode = orderGroups[i].items[j].categoryId
-                  
-                  orderGroups[i].addItemList.push(orderGroups[i].items[j])
-                 
+                  orderGroups[i].addItemList = [orderGroups[i].items[m]]
                   let promotions = []
                   let promotion = {}
                   promotion.promotionId = orderGroups[i].promotionId
                   promotions.push(promotion)
                   orderGroups[i].promotions = promotions
-                  let temp = { ...orderGroups[i]}
-                  para.addGroupList.push(temp)
+                  para.addGroupList.push(orderGroups[i])
                 }
               }
+
             }
             utils
-            .addToTrolleyByGroup(para, 1, false)
-            .then(badge => {
-              wx.switchTab({
-                url: `/pages/trolley/trolley`,
+              .addToTrolleyByGroup(para, 1, false)
+              .then(badge => {
+                wx.switchTab({
+                  url: `/pages/trolley/trolley`,
+                })
               })
-            })
           })
-          .catch(() => {
-          })
-      } else if (data.flag == 1) {
-        //部分售完
-
-        utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
-          let para = {
-            addGroupList: []
-          }
-          for (let i = 0; i < orderGroups.length; i++) {
-            let onShelfNumber = 0
-            orderGroups[i].items = orderGroups[i].items.reduce((accumulator, item) => {
-              item.categoryCode = item.categoryId
-              let isOnShelf = false
-              for (let k = 0; k < data.items.length; k++) {
-                if (data.items[k][0].itemId && item.itemId == data.items[k][0].itemId && !item.gift){
-                  isOnShelf = true
-                  onShelfNumber++
-                }
-              }
-              if (isOnShelf) {
-                accumulator.push(item);
-              }
-              return accumulator;
-            }, []);
-
-            if (onShelfNumber == orderGroups[i].items.length) {
-              orderGroups[i].isAllOnShelf = true
-            } else {
-              orderGroups[i].isAllOnShelf = false
-            }
-
-            if (orderGroups[i].isAllOnShelf){
-              orderGroups[i].count = 1
-              orderGroups[i].addItemList = orderGroups[i].items
-              let promotions = []
-              let promotion = {}
-              promotion.promotionId = orderGroups[i].promotionId
-              promotions.push(promotion)
-              orderGroups[i].promotions = promotions
-              if (orderGroups[i].items && orderGroups[i].items.length > 0) {
-                para.addGroupList.push(orderGroups[i])
-              }
-            }else{
-              for (let m = 0; m < orderGroups[i].items.length; m++){
-                orderGroups[i].count = 1
-                orderGroups[i].addItemList = [orderGroups[i].items[m]]
-                let promotions = []
-                let promotion = {}
-                promotion.promotionId = orderGroups[i].promotionId
-                promotions.push(promotion)
-                orderGroups[i].promotions = promotions
-                para.addGroupList.push(orderGroups[i])
-              }
-            }
-
-          }
-          utils
-            .addToTrolleyByGroup(para,1,false)
-            .then(badge => {
-              wx.switchTab({
-                url: `/pages/trolley/trolley`,
-              })
-            })
-        })
-      } else if (data.flag == 2){
-        //全部售完
-        utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
-      }
-    })
+        } else if (data.flag == 2) {
+          //全部售完
+          utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
+        }
+      })
   },
   copy() {
     wx.setClipboardData({
@@ -257,13 +259,13 @@ Page({
       url: `../detail/detail?itemId=${dataset.itemid}&categoryId=${dataset.categoryid}`,
     })
   },
-  turnOrderPage(e){
+  turnOrderPage(e) {
     const dataset = e.currentTarget.dataset;
-    if(dataset.type==='order' && this.data.isReturn){
+    if (dataset.type === 'order' && this.data.isReturn) {
       wx.navigateTo({
         url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${ 'ORDER'}`
       });
-    } else if (dataset.type === 'return' && !this.data.isReturn){
+    } else if (dataset.type === 'return' && !this.data.isReturn) {
       wx.navigateTo({
         url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
       });
@@ -295,9 +297,11 @@ Page({
           result: data
         };
         const order = data.result;
+        // const expireTime = (new Date().getTime() + 6 * 60 * 60 * 1000) / 1000
+        const expireTime=order.expireTime
         this.setData({
           order,
-          expiration: this.timeConverter((new Date().getTime()+6*60*60*1000)/1000)//todo to pass the timestampe in data.result
+          expireTime: this.timeConverter(expireTime) //todo to pass the timestampe in data.result
         });
         this.setOrderStatus(order.orderStatus)
         wx.hideLoading();
@@ -319,8 +323,8 @@ Page({
                   this.requestTransDetail.tokenRefreshed = true
                   return this.requestTransDetail()
                 })
-                .then(() => { })
-                .catch(() => { })
+                .then(() => {})
+                .catch(() => {})
             } else {
               getApp().globalData.userInfo.registerStatus = false
               wx.reLaunch({
@@ -339,13 +343,13 @@ Page({
       });
   },
 
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
       })
     }
-    this.isOrderPage = options.orderStatus==='ORDER';
+    this.isOrderPage = options.orderStatus === 'ORDER';
     this.requestTransDetail.tokenRefreshed = false
     wx.showLoading({
       title: '加载中',
@@ -370,7 +374,7 @@ Page({
     });
     const pages = getCurrentPages();
     const prevPage = pages[pages.length - 2]; //上一个页面
-    const isReturn = this.isOrderPage?false:(orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
+    const isReturn = this.isOrderPage ? false : (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
     if (isReturn) {
       wx.setNavigationBarTitle({
         title: '拒收详情'
@@ -384,7 +388,7 @@ Page({
       orderCode: this.data.order.orderReturn.returnOrderId
     })
   },
-  onShow: function (options) {
+  onShow: function(options) {
     utils.checkNetwork().then(utils.requestStatisLoad);
   },
   onHide() {
@@ -394,19 +398,19 @@ Page({
     utils.requestStatisUnload();
   },
 
-  letMeThink: function () {
+  letMeThink: function() {
     this.setData({
       dialogFlag: true
     })
   },
 
-  proceedBuy: function () {
-    
+  proceedBuy: function() {
+
     this.setData({
       dialogFlag: false
     })
   },
-  confirmClose: function () {
+  confirmClose: function() {
     this.setData({
       soldOutDialogFlag: true
     })
@@ -437,8 +441,7 @@ Page({
           inStock.push(item)
         }
         return inStock;
-      } else {
-      }
+      } else {}
     }).catch(err => {
       console.log(err);
     })
