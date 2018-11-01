@@ -207,3 +207,6 @@ page{
   border-radius: 50%;
   transform: translate(-10rpx, -10rpx);
 }
+.debug {
+  background-color: hotpink;
+}

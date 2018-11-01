@@ -61,7 +61,20 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-
+  timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    // var month = months[a.getMonth()];
+    var month = a.getMonth()+1;
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    // var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    const time=`${month}月${date}日${hour}:${min}`
+    return time;
+  },
   getPutShelfFlag: function (orderGroups) {
     var promise = new Promise((resolve, reject) => {
       let promisesArr = []
@@ -234,6 +247,7 @@ Page({
         const order = data.result;
         this.setData({
           order,
+          expiration: this.timeConverter((new Date().getTime()+6*60*60*1000)/1000)//todo to pass the timestampe in data.result
         });
         this.setOrderStatus(order.orderStatus)
         wx.hideLoading();
