@@ -20,9 +20,11 @@ image {
 .list-spec {
   font-size: 24rpx;
   color: #949494;
+  width:470rpx;
 }
 
 .list-price {
   font-size: 32rpx;
   color: #ee711f;
+  width:470rpx;
 }

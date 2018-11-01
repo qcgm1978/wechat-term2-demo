@@ -182,17 +182,20 @@ Page({
       quantity: Number(this.getItemNum(item)),
       categoryCode: item.categoryCode
     }));
-
+    let count = 1
+    if (arr.length == 1){
+      count = arr[0].quantity
+      arr[0].quantity = 1
+    }
     let para = {
       addGroupList: [{
-        count: 1,
+        count,
         addItemList: arr,
         promotions: [{
           promotionId: promoteInfo.promotionId
         }]
       }]
     }
-
     utils
       .addToTrolleyByGroup(para)
       .then(badge => {

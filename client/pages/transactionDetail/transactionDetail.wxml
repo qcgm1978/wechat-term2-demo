@@ -52,7 +52,7 @@
                     </view>
                   </view>
                   <text wx:else>￥{{filters.toFix(orderItem.unitPrice)}}</text>
-                  <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' style='text-align: right;'>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
+                  <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' style='text-align: right; width:300rpx;'>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
                 </view>
               </view>
 

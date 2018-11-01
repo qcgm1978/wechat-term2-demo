@@ -273,9 +273,6 @@ Page({
           receiverAddress
         },
       }
-
-      console.log(JSON.stringify(tempdata))
-
       utils.postRequest({
         url: createOrder,
         data: {
