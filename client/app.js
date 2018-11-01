@@ -48,7 +48,7 @@ const iniGlobalData = {
     //    * (拒收)部分退货
     //    */
     //   RETURN_PART("RETURN_PART", 5),
-    //   RETURN_PART("RETURN_PART", 6),//todo to change
+    //   RETURN_PART("UNPAY", 6),//todo to change
   payStyle: {
     "WAIT_SHIPMENT": '待发货',
     CANCELED: '订单取消',
@@ -56,7 +56,7 @@ const iniGlobalData = {
     COMPLETED: '已完成',
     "RETURN_FULL": '全部拒收',
     "RETURN_PART": '部分拒收',
-    'TO_PAY': '等待付款'
+    'UNPAY': '等待付款'
   }
 };
 App({
