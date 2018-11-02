@@ -288,7 +288,7 @@ Page({
         locationId: String(locationId),
         orderItemSource: getApp().globalData.items ? getApp().globalData.items.orderItemSource : 0,
         usePoint,
-        totalAmount: this.data.total,
+        totalAmount: /*0.01||*/this.data.total,
         receiverInfo: {
           receiverName,
           receiverCellPhone,
