@@ -54,13 +54,13 @@
 
     </view>
   </view>
-  <image class='promote-arrow' src='../../images/down-arrow.png' bindtap='togglePromoteDetail'></image>
+  <image class='promote-arrow' src='../../images/up-arrow.png' bindtap='togglePromoteDetail'></image>
 </view>
 
 <view class='promote-container-detail' style='padding-left:24rpx; font-size:24rpx; top:{{top}}rpx;' wx:else>
   <view style='display: flex;   justify-content: space-between; align-items:center; padding-top: 20rpx;'>
     <view style='display: flex; align-items: center; font-size:24rpx; color:#333333;'>搭配商品</view>
-    <image class='promote-arrow' src='../../images/up-arrow.png' bindtap='togglePromoteDetail'></image>
+    <image class='promote-arrow' src='../../images/down-arrow.png' bindtap='togglePromoteDetail'></image>
   </view>
 
   <scroll-view class="scroll-view_H center" scroll-x style="width: 100%" style='white-space: nowrap;padding:0;box-sizing:border-box;'>

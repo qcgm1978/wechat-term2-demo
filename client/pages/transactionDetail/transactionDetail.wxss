@@ -4,7 +4,7 @@
   color: #fdb658;
 }
 .no-points{
- width: 250rpx;
+ width: 270rpx;
 } 
 .use-points{
   width:140rpx;
