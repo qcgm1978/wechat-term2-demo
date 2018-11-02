@@ -296,6 +296,10 @@ Page({
             enableChecked
           })
           this.minNum = data.result.minNumber
+          if(!this.enableChecked()){
+            const currentItem = this.getCurrentData(obj.index)
+            this.calcPromote(currentItem);
+          }
         } else {}
       }).catch(err => {
         console.log(err);
