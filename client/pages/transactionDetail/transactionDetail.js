@@ -301,7 +301,7 @@ Page({
         const expireTime=order.expireTime
         this.setData({
           order,
-          expireTime: this.timeConverter(expireTime) //todo to pass the timestampe in data.result
+          expireTime: this.timeConverter(expireTime) 
         });
         this.setOrderStatus(order.orderStatus)
         wx.hideLoading();
