@@ -16,6 +16,7 @@ Page({
     top: '100%',
     credit: 0,
     actual: 0,
+    enableCreateOrder:true,
     expandAll: false,
     isVisible: true,
     isReturn: false,
@@ -45,6 +46,11 @@ Page({
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
+      })
+    }
+    if(this.inTimeRange()){
+      this.setData({
+        enableCreateOrder: false
       })
     }
     utils.getMerchant().then(data => {
@@ -213,7 +219,19 @@ Page({
       console.log(err);
     })
   },
+  inTimeRange() {
+    var a = new Date();
+    // todo emulate 3 oclock
+    // a.setHours(3)
+    var hour = a.getHours();
+    return hour<4;
+  },
   createOrder(itemId) {
+    if(this.inTimeRange()){
+      return this.setData({
+        enableCreateOrder:false
+      })
+    }
     return new Promise((resolve, reject) => {
       wx.showLoading({
         title: '正在创建订单...',

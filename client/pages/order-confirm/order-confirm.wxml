@@ -164,7 +164,7 @@
 </scroll-view>
 <view class='padding mgt bgc center order-item-container confirm-view' style='top:{{height}}rpx;'>
   <text class='medium  dollar' style='color:#EE711F;font-size: 44rpx;'>{{actual}}</text>
-  <button class='medium submit regular' catch:tap='createOrder'>提交订单</button>
+  <button class='medium submit regular' style='opacity:{{enableCreateOrder?1:0.5}}' catch:tap='createOrder'>提交订单</button>
 </view>
 <block wx:if="{{isFailed}}">
   <view class='popup-container grey-overlay'></view>
