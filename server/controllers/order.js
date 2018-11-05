@@ -44,6 +44,7 @@ module.exports = {
       ctx.state.result = Mock.mock({
         "orderId": "181101112552053870",
         "orderStatus": "RETURN_FULL",
+        // "orderStatus": "CANCELED",
         "totalAmount": 576,
         "actualAmount": 0,
         "discountTotalAmount": 0,
