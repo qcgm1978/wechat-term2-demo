@@ -40,7 +40,63 @@ module.exports = {
     const merchantId = ctx.params.merchantId;
     if (!orderId || !merchantId) {
       ctx.state.data = 'no data'
-    } else {
+    } else if (orderId === '181101112552053870') {
+      ctx.state.result = Mock.mock({
+        "orderId": "181101112552053870",
+        "orderStatus": "RETURN_FULL",
+        "totalAmount": 576,
+        "actualAmount": 0,
+        "discountTotalAmount": 0,
+        "itemTotalCount": 4,
+        "itemSaleCount": 0,
+        "itemReturnCount": 4,
+        "createTime": "2018-11-01 11:26:09",
+        "expireTime": 1541064369672,
+        "payment": {
+          "paymentId": null,
+          "paymentMethod": "WECHAT_PAY",
+          "paymentTime": "2018-11-01 11:26:09",
+          "usePoint": 0,
+          "cashAmount": 576
+        },
+        "orderItems": [
+          {
+            "groupId": "dd2d1c9edd8511e8b0684f66c7dc16ed",
+            "promotionId": null,
+            "discountAmount": 0,
+            "items": [
+              {
+                "itemId": "5911",
+                "itemSku": null,
+                "itemName": "惠百真无芯卷纸本色750g（10+2）*16",
+                "quantity": 4,
+                "unitPrice": 144,
+                "locationId": "140",
+                "itemIcon": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/5911.png",
+                "itemSpecification": "750g*12*16",
+                "returnQuantit": 4,
+                "categoryId": "2301001",
+                "promotionId": null,
+                "gift": false
+              }
+            ]
+          }
+        ],
+        "orderReturn": {
+          "refundTotalAmount": 0,
+          "refundCashAmount": 0,
+          "refundPoint": 0,
+          "returnOrderId": `@string('number',10)`,
+          "returnStatus": 0
+        },
+        "receiverInfo": {
+          "receiverName": "张红亮",
+          "receiverCellPhone": "18602481789",
+          "receiverAddress": "河南省安阳市内黄县 内黄县后河镇桑村"
+        }
+      })
+    }
+    else {
       ctx.state.result = {
         "orderId": "181029143259643356",
         "orderStatus": "TO_PAY",

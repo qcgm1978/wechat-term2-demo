@@ -1,3 +1,14 @@
+.line.separate {
+  width: 200%;
+  margin-left: -24rpx;
+  height: 14rpx;
+}
+
+.view-detail {
+  font-size: 26rpx;
+  color: #333;
+}
+
 .return-state {
   position: absolute;
   top: 80rpx;

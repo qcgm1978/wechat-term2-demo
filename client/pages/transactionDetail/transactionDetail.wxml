@@ -99,20 +99,25 @@
       <text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
     </view>
 
-    <view class='bgc padding' style="margin-top: 15rpx;">
+    <view class='bgc padding' style="margin-top: 15rpx; padding-top:0;">
+    <view style='display:flex; flex-direction:{{isReturn?"column-reverse":"column"}};'>
       <view class='regular money-amount money' hidden='{{!orderCode}}'>
-        <view style="display:flex; justify-content: space-between; width: 100%; ">
-          <view catch:tap='turnOrderPage' data-type='return'>
+        <view style="display:flex; justify-content: space-between; width: 100%; align-items:center;">
+          <view catch:tap='turnOrderPage' data-type='return' >
             <text style="color:#888">{{'拒收编号'}}：</text>{{orderCode}}</view>
           <view catch:tap='copy' class='copy' wx:if='{{isReturn}}'>复制</view>
+          <view catch:tap='turnOrderPage' data-type='return' wx:else class='view-detail'>查看拒收详情 ></view>
         </view>
       </view>
+      <view class='line separate'></view>
       <view class='regular money-amount money'>
-        <view style="display:flex; justify-content: space-between; width: 100%; ">
+        <view style="display:flex; justify-content: space-between; width: 100%; align-items:center;">
           <view catch:tap='turnOrderPage' data-type='order'>
             <text style="color:#888">{{'订单编号'}}：</text>{{order.orderId}}</view>
           <view wx:if='{{!isReturn}}' catch:tap='copy' class='copy'>复制</view>
+          <view catch:tap='turnOrderPage' data-type='order' wx:else class='view-detail'>查看原订单详情 ></view>
         </view>
+      </view>
       </view>
       <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
