@@ -8,24 +8,30 @@
         <view class='trans-shop-lable regular'>{{usePoints?(salesReturn+usePointsStr):salesReturn}}</view>
         <text wx:if='{{isWechat}}' style='font-size: 24rpx;color: #707070;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
       </view>
-      <view wx:else>
-        <view class='trans-shop'>
-          <view class='center'>
-            <image class='trans-shop-img' src="{{addressStore}}"></image>
-            <view class='trans-shop-lable regular'>{{order.receiverInfo.receiverName}}</view>
-            <view class='trans-shop-value'>{{order.receiverInfo.receiverCellPhone}}</view>
-          </view>
+      <view wx:elif='{{isCanceled&&isWechat}}'>
+        <view style="margin:auto auto 16px 24px;">
+          <view class='center trans-shop-lable regular'>
+          <image src='./images/cancel.png' class='cancel-icon'></image>
+          取消/退款进度:已取消</view>
+          <text style='font-size: 24rpx;color: #707070; margin-left:60rpx;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
         </view>
-        <view class='trans-number-time'>
-          <view style='display: flex; flex-direction:row;'>
-            <view class="gray-chars">{{order.receiverInfo.receiverAddress}}</view>
-          </view>
+      </view>
+      <view class='trans-shop'>
+        <view class='center'>
+          <image class='trans-shop-img' src="{{addressStore}}"></image>
+          <view class='trans-shop-lable regular'>{{order.receiverInfo.receiverName}}</view>
+          <view class='trans-shop-value'>{{order.receiverInfo.receiverCellPhone}}</view>
+        </view>
+      </view>
+      <view class='trans-number-time'>
+        <view style='display: flex; flex-direction:row;'>
+          <view class="gray-chars">{{order.receiverInfo.receiverAddress}}</view>
+        </view>
 
-        </view>
       </view>
     </view>
 
-    <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
+    <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:18rpx;position:relative;">商品信息</view>
     <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;' class='bgc'>
       <view class='group-container' wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
         <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}' wx:if='{{!isReturn||orderItem.returnQuantit}}'>

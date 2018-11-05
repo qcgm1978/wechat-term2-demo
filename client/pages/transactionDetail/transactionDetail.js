@@ -299,9 +299,11 @@ Page({
         const order = data.result;
         // const expireTime = (new Date().getTime() + 6 * 60 * 60 * 1000) / 1000
         const expireTime=order.expireTime
+        const isWechat = order.payment.paymentMethod === 'WECHAT_PAY'
         this.setData({
           order,
-          expireTime: this.timeConverter(expireTime) 
+          expireTime: this.timeConverter(expireTime), 
+          isWechat,
         });
         this.setOrderStatus(order.orderStatus)
         wx.hideLoading();
@@ -367,8 +369,10 @@ Page({
     }
   },
   setOrderStatus(orderStatus) {
+    const isCanceled = this.data.payStyle[orderStatus] === "订单取消"
     this.setData({
       orderStatus,
+      isCanceled,
       remark: (orderStatus === 'COMPLETED' && this.data.order.actualAmount !== this.data.order.payment.cashAmount) ? `(待入账)` : ''
 
     });
@@ -379,12 +383,10 @@ Page({
       wx.setNavigationBarTitle({
         title: '拒收详情'
       });
-      const isWechat = this.data.order.payment.paymentMethod === 'WECHAT_PAY'
       this.setData({
         isReturn,
         usePoints: this.data.order.orderReturn.returnStatus === 1 && this.data.order.orderReturn.refundPoint > 0,
-        salesReturn: isWechat ? '拒收/退款进度:已拒收' : this.data.salesReturn,
-        isWechat
+        salesReturn: this.data.isWechat ? '拒收/退款进度:已拒收' : this.data.salesReturn,
       });
     }
     this.setData({
