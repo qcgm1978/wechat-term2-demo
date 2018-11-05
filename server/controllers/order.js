@@ -55,6 +55,7 @@ module.exports = {
         "payment": {
           "paymentId": null,
           "paymentMethod": "WECHAT_PAY",
+          // "paymentMethod": "OCD",
           "paymentTime": "2018-11-01 11:26:09",
           "usePoint": 0,
           "cashAmount": 576

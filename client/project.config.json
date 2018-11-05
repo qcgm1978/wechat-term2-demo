@@ -52,7 +52,7 @@
 					"id": 2,
 					"name": "transactionDetail",
 					"pathName": "pages/transactionDetail/transactionDetail",
-					"query": "orderId=181101112552053870&orderStatus=ORDER"
+					"query": "orderId=181101112552053870&orderStatus=undefined"
 				},
 				{
 					"id": 4,

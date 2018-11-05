@@ -379,9 +379,12 @@ Page({
       wx.setNavigationBarTitle({
         title: '拒收详情'
       });
+      const isWechat = this.data.order.payment.paymentMethod === 'WECHAT_PAY'
       this.setData({
         isReturn,
-        usePoints: this.data.order.orderReturn.returnStatus === 1 && this.data.order.orderReturn.refundPoint > 0
+        usePoints: this.data.order.orderReturn.returnStatus === 1 && this.data.order.orderReturn.refundPoint > 0,
+        salesReturn: isWechat ? '拒收/退款进度:已拒收' : this.data.salesReturn,
+        isWechat
       });
     }
     this.setData({
