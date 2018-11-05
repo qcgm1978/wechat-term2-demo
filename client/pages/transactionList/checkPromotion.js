@@ -5,6 +5,9 @@ import {
 var promoteUtil = require("../../utils/promotion.js");
 const getProductItem = Api.getProductItem;
 const getPromoteInfo = Api.getPromoteInfo
+const selectGoodsKind = Api.selectGoodsKind
+const selectGoods = Api.selectGoods
+
 var util = require("../../utils/util.js");
 export default {
   methods: {
@@ -84,14 +87,19 @@ export default {
             Promise.all(promises)
               .then((arr) => {
                 for (let i = 0; i < arr.length; i++) {
-                  if (arr[i]) {
-
+                  if (arr[i].flag) {
                     orderGroups[i].count = 1
                     orderGroups[i].addItemList = []
                     let items = orderGroups[i].items
                     if (items.length == 1) {
                       orderGroups[i].count = items[0].quantity
                       items[0].quantity = 1
+                    }else{
+                      if (items.length == arr[i].itemsResult.length){
+                        for (let j = 0; j < items.length; j++) {
+                          items[j].quantity = arr[i].itemsResult[j].minQuantity
+                        }
+                      }
                     }
                     for (let j = 0; j < items.length; j++) {
                       items[j].categoryCode = items[j].categoryId
@@ -150,6 +158,12 @@ export default {
               let promises = []
               for (let i = 0; i < orderGroups.length; i++) {
                 let onShelfNumber = 0
+                let origItemsLength = 0
+                for (let j = 0; j < orderGroups[i].items.length; j++){
+                  if (!orderGroups[i].items[j].gift){
+                    origItemsLength++
+                  }
+                }
                 orderGroups[i].items = orderGroups[i].items.reduce((accumulator, item) => {
                   item.categoryCode = item.categoryId
                   let isOnShelf = false
@@ -165,12 +179,11 @@ export default {
                   return accumulator;
                 }, []);
 
-                if (onShelfNumber == orderGroups[i].items.length) {
+                if (onShelfNumber == origItemsLength) {
                   orderGroups[i].isAllOnShelf = true
                 } else {
                   orderGroups[i].isAllOnShelf = false
                 }
-
                 if (orderGroups[i].isAllOnShelf) {
                   orderGroups[i].count = 1
                   if (orderGroups[i].items.length == 1) {
@@ -184,7 +197,8 @@ export default {
                   promotions.push(promotion)
                   orderGroups[i].promotions = promotions
                   if (orderGroups[i].items && orderGroups[i].items.length > 0) {
-                    para.addGroupList.push(orderGroups[i])
+                    let tempOrderGroups = { ...orderGroups[i] }
+                    para.addGroupList.push(tempOrderGroups)
                   }
                 } else {
                   for (let m = 0; m < orderGroups[i].items.length; m++) {
@@ -193,13 +207,16 @@ export default {
                       orderGroups[i].count = orderGroups[i].items[0].quantity
                       orderGroups[i].items[0].quantity = 1
                     }
-                    orderGroups[i].addItemList = [orderGroups[i].items[m]]
+                    let tempItem = {...orderGroups[i].items[m]}
+                    orderGroups[i].addItemList = [tempItem]
+
                     let promotions = []
                     let promotion = {}
                     promotion.promotionId = orderGroups[i].promotionId
                     promotions.push(promotion)
                     orderGroups[i].promotions = promotions
-                    para.addGroupList.push(orderGroups[i])
+                    let tempOrderGroups = { ...orderGroups[i]}
+                    para.addGroupList.push(tempOrderGroups)
                   }
                 }
 
@@ -219,6 +236,60 @@ export default {
 
     },
 
+    getPromoteItemsNumber(items, promotionKind, promotionId, flag) {
+      return new Promise((resolve, reject) => {
+        if (items.length < 2) {
+          resolve({flag, count:1})
+        }
+        let count  = 1
+        util.postRequest({
+          url: promotionKind == "2" ? selectGoodsKind : selectGoods,
+          data: {
+            merchantId: getApp().getMerchantId(),
+            locationId: getApp().globalData.merchant.locationId,
+            promotionId: promotionId,
+            item:
+              {
+                categoryCode: items[0].categoryId,
+                itemId: items[0].itemId
+              },
+          }
+          })
+          .then(data => {
+            if (data.status === 200) {
+              let itemsResult = []
+              for (let i = 0; i < data.result.items.itemList.length; i++){
+                if (data.result.items.itemList[i].itemId == items[0].itemId){
+                  let tempItem = {}
+                  tempItem.itemId = data.result.items.itemList[i].itemId
+                  tempItem.minQuantity = data.result.items.itemList[i].minQuantity
+                  itemsResult.push(tempItem)
+                }
+              }
+              for (let i = 1; i < items.length; i++) {
+                for (let j = 0; j < data.result.combinationItems.itemList.length; j++) {
+                  if (data.result.combinationItems.itemList[j].itemId == items[i].itemId) {
+                    let tempItem = {}
+                    tempItem.itemId = data.result.combinationItems.itemList[j].itemId
+                    tempItem.minQuantity = data.result.combinationItems.itemList[j].minQuantity
+                    itemsResult.push(tempItem)
+                  }
+                }
+              }
+              if (itemsResult.length == items.length){
+                flag = true
+              }else{
+                flag = false
+              }
+              resolve({ flag, itemsResult} )
+            }
+          })
+          .catch((e) =>{
+            reject(e)
+          })
+      })
+    },
+
     getPromoteInfoFunc(items) {
       return new Promise((resolve, reject) => {
         util.postRequest({
@@ -231,10 +302,9 @@ export default {
         })
           .then((data) => {
             if (data.result[0].promotionItems && data.result[0].promotionItems.length>0){
-
-              resolve(true)
+              resolve({ flag: true, promotionKind: data.result[0] && data.result[0].promotionItems && data.result[0].promotionItems.length > 0 ? data.result[0].promotionItems[0].promotionKind : null, promotionId: data.result[0] && data.result[0].promotionItems && data.result[0].promotionItems.length > 0 ? data.result[0].promotionItems[0].promotionId:null, items: items})
             }else{
-              resolve(false)
+              resolve({ flag: false, promotionKind: data.result[0] && data.result[0].promotionItems && data.result[0].promotionItems.length > 0 ? data.result[0].promotionItems[0].promotionKind : null, promotionId: data.result[0] && data.result[0].promotionItems && data.result[0].promotionItems.length > 0 ?data.result[0].promotionItems[0].promotionId:null, items: items})
             }
             
           })
@@ -244,6 +314,7 @@ export default {
       })
     },
     isValidPromotion (orderGroup) {
+      return new Promise((resolve, reject) => {
         let items = []
         for (let j = 0; j < orderGroup.items.length; j++) {
           if (!orderGroup.items.gift) {
@@ -252,14 +323,24 @@ export default {
             item.brandId = ""
             item.categoryCode = orderGroup.items[j].categoryId
             item.categoryId = orderGroup.items[j].categoryId
-            item.promotionId = orderGroup.items[j].promotionId
+            item.promotionId = orderGroup.items[j].promotionId ? orderGroup.items[j].promotionId : orderGroup.promotionId
             item.quantity = orderGroup.items[j].quantity
             item.unitPrice = orderGroup.items[j].unitPrice
             item.locationId = orderGroup.items[j].locationId
             items.push(item)
           }
         }
-        return this.getPromoteInfoFunc(items)
+      this.getPromoteInfoFunc(items)
+        .then((data) => {
+          return this.getPromoteItemsNumber(data.items, data.promotionKind, data.promotionId, data.flag)
+        })
+        .then((data) => {
+          resolve(data)  //flag and count
+        })
+        .catch((e)=>{
+          console.log(e)
+        })
+      })
     }
   }
 }
