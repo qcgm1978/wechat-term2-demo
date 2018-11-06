@@ -285,7 +285,7 @@ Page({
       })
     }
     if (!this.data.enableBuy) {
-      return;
+      // return;
     }
     this.data.product.quantity = this.data.quantity
     if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId) {

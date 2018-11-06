@@ -181,8 +181,8 @@
   flex-direction: row;
   justify-content: space-between;
   /* margin-top: 35rpx; *//* margin-bottom: 30rpx; */
-  margin-left: 120rpx;
-  margin-right: 48rpx;
+  margin-left: 111rpx;
+  /* margin-right: 48rpx; */
 }
 
 .item-number {

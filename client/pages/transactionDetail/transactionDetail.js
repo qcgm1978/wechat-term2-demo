@@ -56,6 +56,7 @@ Page({
         amount: 0
       }
     },
+    isReturn:false,
     partSoldOutDialogFlag: false,
     soldOutDialogFlag: false,
     addressStore: "images/address.png",
@@ -63,7 +64,7 @@ Page({
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
   timeConverter(UNIX_timestamp) {
-    var a = new Date(UNIX_timestamp );
+    var a = new Date(UNIX_timestamp);
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var year = a.getFullYear();
     // var month = months[a.getMonth()];
@@ -298,11 +299,11 @@ Page({
         };
         const order = data.result;
         // const expireTime = (new Date().getTime() + 6 * 60 * 60 * 1000) / 1000
-        const expireTime=order.expireTime
+        const expireTime = order.expireTime
         const isWechat = order.payment.paymentMethod === 'WECHAT_PAY'
         this.setData({
           order,
-          expireTime: this.timeConverter(expireTime), 
+          expireTime: this.timeConverter(expireTime),
           isWechat,
         });
         this.setOrderStatus(order.orderStatus)
@@ -370,22 +371,30 @@ Page({
   },
   setOrderStatus(orderStatus) {
     const isCanceled = this.data.payStyle[orderStatus] === "订单取消"
+    const isReturnOrder = this.data.payStyle[orderStatus] === '全部拒收' || this.data.payStyle[orderStatus] === '部分拒收'
     this.setData({
       orderStatus,
       isCanceled,
+      isReturnOrder,
       remark: (orderStatus === 'COMPLETED' && this.data.order.actualAmount !== this.data.order.payment.cashAmount) ? `(待入账)` : ''
 
     });
     const pages = getCurrentPages();
     const prevPage = pages[pages.length - 2]; //上一个页面
     const isReturn = this.isOrderPage ? false : (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
+    const returnCompleted = this.data.order.orderReturn.returnStatus === 1
+    if (returnCompleted) {
+      this.setData({
+        returnCompleted,
+      })
+    }
     if (isReturn) {
       wx.setNavigationBarTitle({
         title: '拒收详情'
       });
       this.setData({
         isReturn,
-        usePoints: this.data.order.orderReturn.returnStatus === 1 && this.data.order.orderReturn.refundPoint > 0,
+        usePoints: returnCompleted && this.data.order.orderReturn.refundPoint > 0,
         salesReturn: this.data.isWechat ? '拒收/退款进度:已拒收' : this.data.salesReturn,
       });
     }

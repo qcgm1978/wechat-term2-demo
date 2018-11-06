@@ -9,21 +9,21 @@
         <text wx:if='{{isWechat}}' style='font-size: 24rpx;color: #707070;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
       </view>
       <view wx:elif='{{isCanceled&&isWechat}}'>
-        <view style="margin:auto auto 16px 24px;">
+        <view  style="margin:auto auto 16px 24px;">
           <view class='center trans-shop-lable regular'>
           <image src='./images/cancel.png' class='cancel-icon'></image>
-          取消/退款进度:已取消</view>
-          <text style='font-size: 24rpx;color: #707070; margin-left:60rpx;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
+          取消/退款进度:{{returnCompleted?"已取消":"退款处理中"}}</view>
+          <text wx:if='{{returnCompleted}}' style='font-size: 24rpx;color: #707070; margin-left:60rpx;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
         </view>
       </view>
-      <view class='trans-shop'>
+      <view class='trans-shop' wx:if='{{!isReturn}}'>
         <view class='center'>
           <image class='trans-shop-img' src="{{addressStore}}"></image>
           <view class='trans-shop-lable regular'>{{order.receiverInfo.receiverName}}</view>
           <view class='trans-shop-value'>{{order.receiverInfo.receiverCellPhone}}</view>
         </view>
       </view>
-      <view class='trans-number-time'>
+      <view class='trans-number-time' wx:if='{{!isReturn}}'>
         <view style='display: flex; flex-direction:row;'>
           <view class="gray-chars">{{order.receiverInfo.receiverAddress}}</view>
         </view>
@@ -105,13 +105,13 @@
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
-      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：
+      共{{isReturn?'拒收':''}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：
       <text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx; padding-top:0;">
       <view style='display:flex; flex-direction:{{isReturn?"column-reverse":"column"}};'>
-        <view class='regular money-amount money' hidden='{{!orderCode}}'>
+        <view class='regular money-amount money' wx:if='{{isReturn||isReturnOrder}}'>
           <view style="display:flex; justify-content: space-between; width: 100%; align-items:center;">
             <view catch:tap='turnOrderPage' data-type='return'>
               <text style="color:#888">{{'拒收编号'}}：</text>{{orderCode}}</view>
@@ -119,7 +119,7 @@
             <view catch:tap='turnOrderPage' data-type='return' wx:else class='view-detail'>查看拒收详情 ></view>
           </view>
         </view>
-        <view class='line separate'></view>
+        <view class='line separate' wx:if='{{isReturn||isReturnOrder}}'></view>
         <view class='regular money-amount money'>
           <view style="display:flex; justify-content: space-between; width: 100%; align-items:center;">
             <view catch:tap='turnOrderPage' data-type='order'>

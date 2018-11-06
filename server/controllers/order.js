@@ -43,8 +43,9 @@ module.exports = {
     } else if (orderId === '181101112552053870') {
       ctx.state.result = Mock.mock({
         "orderId": "181101112552053870",
+        orderStatus: 'COMPLETED',
         // "orderStatus": "RETURN_FULL",
-        "orderStatus": "CANCELED",
+        // "orderStatus": "CANCELED",
         "totalAmount": 576,
         "actualAmount": 0,
         "discountTotalAmount": 0,
@@ -89,6 +90,7 @@ module.exports = {
           "refundCashAmount": 0,
           "refundPoint": 0,
           "returnOrderId": `@string('number',10)`,
+          // "returnStatus": 1
           "returnStatus": 0
         },
         "receiverInfo": {
