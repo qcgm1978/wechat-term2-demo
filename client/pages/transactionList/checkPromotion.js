@@ -266,13 +266,15 @@ export default {
                   itemsResult.push(tempItem)
                 }
               }
-              for (let i = 1; i < items.length; i++) {
-                for (let j = 0; j < data.result.combinationItems.itemList.length; j++) {
-                  if (data.result.combinationItems.itemList[j].itemId == items[i].itemId) {
-                    let tempItem = {}
-                    tempItem.itemId = data.result.combinationItems.itemList[j].itemId
-                    tempItem.minQuantity = data.result.combinationItems.itemList[j].minQuantity
-                    itemsResult.push(tempItem)
+              if (data.result.combinationItems && data.result.combinationItems.itemList && data.result.combinationItems.itemList.length>0){
+                for (let i = 1; i < items.length; i++) {
+                  for (let j = 0; j < data.result.combinationItems.itemList.length; j++) {
+                    if (data.result.combinationItems.itemList[j].itemId == items[i].itemId) {
+                      let tempItem = {}
+                      tempItem.itemId = data.result.combinationItems.itemList[j].itemId
+                      tempItem.minQuantity = data.result.combinationItems.itemList[j].minQuantity
+                      itemsResult.push(tempItem)
+                    }
                   }
                 }
               }
