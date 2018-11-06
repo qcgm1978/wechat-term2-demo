@@ -258,31 +258,53 @@ export default {
           .then(data => {
             if (data.status === 200) {
               let itemsResult = []
-              for (let i = 0; i < data.result.items.itemList.length; i++){
-                if (data.result.items.itemList[i].itemId == items[0].itemId){
-                  let tempItem = {}
-                  tempItem.itemId = data.result.items.itemList[i].itemId
-                  tempItem.minQuantity = data.result.items.itemList[i].minQuantity
-                  itemsResult.push(tempItem)
+              if (promotionKind == "2"){
+                for (let i = 0; i < data.result.items.itemList.length; i++) {
+                  if (data.result.items.itemList[i].itemId == items[0].itemId) {
+                    let tempItem = {}
+                    tempItem.itemId = data.result.items.itemList[i].itemId
+                    tempItem.minQuantity = data.result.items.itemList[i].minQuantity
+                    itemsResult.push(tempItem)
+                  }
                 }
-              }
-              if (data.result.combinationItems && data.result.combinationItems.itemList && data.result.combinationItems.itemList.length>0){
-                for (let i = 1; i < items.length; i++) {
-                  for (let j = 0; j < data.result.combinationItems.itemList.length; j++) {
-                    if (data.result.combinationItems.itemList[j].itemId == items[i].itemId) {
-                      let tempItem = {}
-                      tempItem.itemId = data.result.combinationItems.itemList[j].itemId
-                      tempItem.minQuantity = data.result.combinationItems.itemList[j].minQuantity
-                      itemsResult.push(tempItem)
+                if (data.result.combinationItems && data.result.combinationItems.itemList && data.result.combinationItems.itemList.length > 0) {
+                  for (let i = 1; i < items.length; i++) {
+                    for (let j = 0; j < data.result.combinationItems.itemList.length; j++) {
+                      if (data.result.combinationItems.itemList[j].itemId == items[i].itemId) {
+                        let tempItem = {}
+                        tempItem.itemId = data.result.combinationItems.itemList[j].itemId
+                        tempItem.minQuantity = data.result.combinationItems.itemList[j].minQuantity
+                        itemsResult.push(tempItem)
+                      }
+                    }
+                  }
+                }
+              }else{
+                let tempItem = {}
+                tempItem.itemId = data.result.item.itemId
+                tempItem.minQuantity = data.result.item.minQuantity
+                itemsResult.push(tempItem)
+
+                if (data.result.conbinationItems && data.result.conbinationItems.length > 0) {
+                  for (let i = 1; i < items.length; i++) {
+                    for (let j = 0; j < data.result.conbinationItems.length; j++) {
+                      if (data.result.conbinationItems[j].itemId == items[i].itemId) {
+                        let tempItem = {}
+                        tempItem.itemId = data.result.conbinationItems[j].itemId
+                        tempItem.minQuantity = data.result.conbinationItems[j].minQuantity
+                        itemsResult.push(tempItem)
+                      }
                     }
                   }
                 }
               }
-              if (itemsResult.length == items.length){
-                flag = true
-              }else{
-                flag = false
-              }
+
+
+                // if (itemsResult.length == items.length) {
+                //   flag = true
+                // } else {
+                //   flag = false
+                // }
               resolve({ flag, itemsResult} )
             }
           })
@@ -303,10 +325,24 @@ export default {
           }
         })
           .then((data) => {
-            if (data.result[0].promotionItems && data.result[0].promotionItems.length>0){
-              resolve({ flag: true, promotionKind: data.result[0] && data.result[0].promotionItems && data.result[0].promotionItems.length > 0 ? data.result[0].promotionItems[0].promotionKind : null, promotionId: data.result[0] && data.result[0].promotionItems && data.result[0].promotionItems.length > 0 ? data.result[0].promotionItems[0].promotionId:null, items: items})
+            let promotionFound = 0
+            let promotionKind = null
+            let promotionId = null
+            for (let i = 0; i < items.length; i++){
+              if (data.result[i] && data.result[i].promotionItems && data.result[i].promotionItems.length){
+                for (let j = 0; j < data.result[i].promotionItems.length; j++) {
+                  if (items[i].promotionId == data.result[i].promotionItems[j].promotionId) {
+                    promotionKind = data.result[i].promotionItems[j].promotionKind
+                    promotionId = data.result[i].promotionItems[j].promotionId
+                    promotionFound++
+                  }
+                }
+              }
+            }
+            if (items.length == promotionFound){
+              resolve({ flag: true, promotionKind: promotionKind, promotionId: promotionId, items: items})
             }else{
-              resolve({ flag: false, promotionKind: data.result[0] && data.result[0].promotionItems && data.result[0].promotionItems.length > 0 ? data.result[0].promotionItems[0].promotionKind : null, promotionId: data.result[0] && data.result[0].promotionItems && data.result[0].promotionItems.length > 0 ?data.result[0].promotionItems[0].promotionId:null, items: items})
+              resolve({ flag: false, promotionKind: promotionKind, promotionId: promotionId, items: items})
             }
             
           })
