@@ -12,6 +12,9 @@ const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
+    isSelecting: false,
+    top: getApp().globalData.systemInfo.windowHeight - 600,
+    promotionOptions: [{ name: "123123123", checked: false }, { name: "afsfsdfsdf", checked: false}, {name:"ooooooooo", checked: false}],
     defImg: getApp().globalData.defaultImg,
     trolley: [],
     minAmount: 500,
@@ -528,5 +531,28 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }
+  },
+  selectPromotion: function (e) {
+    const index = e.currentTarget.dataset.index;
+    for (let i = 0; i < this.data.promotionOptions.length; i++){
+      let prop = "promotionOptions[" + i +"].checked"
+      this.setData({
+        [prop]: false
+      })
+    }
+    let prop = "promotionOptions[" + index + "].checked"
+    this.setData({
+      [prop]: true
+    })
+  },
+  closePopup() {
+    this.setData({
+      isSelecting: false,
+    })
+  },
+  showPromotions() {
+    this.setData({
+      isSelecting: true,
+    })
+  },
 })

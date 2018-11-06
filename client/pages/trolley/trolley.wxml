@@ -45,11 +45,15 @@
               </view>
             </view>
              <!-- && !item.isfree -->
-            <view class='promotion' style='font-size:24rpx; padding-bottom:10rpx; margin-bottom:0;' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '2'}}">
-              <text class='promotion-1' style='margin-left: 100rpx;'>满减</text>
-              <text class='promotion-2'>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</text>
-              <text class='promotion-3'>已省¥{{filters.toFix(trollyGroup.cartCombinationPromotions[0].discountAmount)}}</text>
+            <view class='promotion' style='display: flex; justify-content: space-between; font-size:24rpx; padding-top:10rpx; padding-bottom:10rpx; margin-bottom:0;margin-right: 50rpx; background-color:#FFF6F0;' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType !== '2'}}">
+              <view>
+                <text class='promotion-3' style='margin-left: 100rpx;'>满减</text>
+                <text class='promotion-2' style='margin-left: 10rpx'>{{trollyGroup.cartCombinationPromotions[0].promotionName}}111</text>
+                <text class='promotion-3'>已省¥{{filters.toFix(trollyGroup.cartCombinationPromotions[0].discountAmount)}}</text>
+              </view>
+              <image src='./img/arrow-down.png' class='' style='width:32rpx; height: 36rpx;margin-right:50rpx;' bind:tap='showPromotions'></image>
             </view>
+
              <!-- && item.isfree -->
             <view class='promotion' style='font-size:24rpx; padding-bottom:0rpx;margin-bottom:0;' wx:elif="{{trollyGroup.cartCombinationPromotions[0].promotionType == '1'}}">
               <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'> 
@@ -208,4 +212,24 @@
     <text>您的购物车还没有商品喔</text>
     <button catch:tap='gotoSort'>去商城逛逛</button>
   </view>
+</view>
+
+<view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0;' >
+    <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.5;'></view> 
+    <view  class='select-goods bgc ' style='top:{{top}}rpx;z-index: 21;'>
+      <view class='center padding' style='justify-content:space-between;'>
+        <view style='font-size:32rpx; margin-left:4rpx;'>切换促销</view>
+        <image src='../../images/close.png' class='close-popup' style='margin-right:4rpx;' catch:tap='closePopup'></image>
+      </view>
+      <view class='line'></view>
+      <view class='padding' style='padding:18rpx 0rpx;'>
+        <scroll-view scroll-y style="height: 400rpx;">
+          <view wx:for='{{promotionOptions}}' wx:key='{{index}}' style='padding:18rpx 0;'>
+            <radio style='transform:scale(.8);' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
+              <view style="font-size: 42rpx; padding-left:0rpx;">{{item.name}}</view>
+            </radio>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
 </view>
