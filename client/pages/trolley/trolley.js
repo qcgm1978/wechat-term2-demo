@@ -26,7 +26,10 @@ Page({
   },
   selectedRadio: [],
   start: 0,
-  limit: 20,
+  limit: 5,
+  upperEnable: true,
+  lowerEnable: true,
+  noMoreData: false,
   scrollDataLoading: false,
   enablePullDownRefresh: false,
   onLoad: function (options) {
@@ -88,16 +91,20 @@ Page({
     })
   },
   upper() {
-    this.start = 0;
-    if (this.scrollDataLoading) {
-      return
-    }
-
   },
   lower() {
-    // this.start += this.limit;
-    if (this.scrollDataLoading) return
+    if (!this.lowerEnable || this.scrollDataLoading || this.noMoreData) {
+      return
+    }
+    setTimeout(() => {
+      this.lowerEnable = true
+    }, 3000)
+    this.lowerEnable = false
+    this.start += this.limit;
 
+    this.getTrolley()
+      .then((data) => {})
+      .catch((e) => {})
   },
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
@@ -240,6 +247,9 @@ Page({
       })
       .then((data) => {
         let result = data.result
+        if (result && result.length < this.limit){
+          this.noMoreData = true
+        }
         if(result.length > 0){
           result.reverse()
         }
