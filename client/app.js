@@ -174,12 +174,12 @@ App({
   onShow(options) {
     this.checkProgramUpdate();
     updateSessionId()
-    if (options.scene == 1034) {
-      return wx.navigateTo({
-        url: `/pages/transactionDetail/transactionDetail?orderId=${this.globalData.orderId}`,
+    // if (options.scene == 1034 || (/checkstand/.test(options.path) && options.scene === 1011)) {
+    //   return wx.navigateTo({
+    //     url: `/pages/transactionDetail/transactionDetail?orderId=${this.globalData.orderId}`,
 
-      })
-    }
+    //   })
+    // }
   },
   onHide() {
     requestStatisDispose()

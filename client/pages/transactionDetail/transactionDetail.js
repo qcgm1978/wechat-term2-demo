@@ -74,7 +74,7 @@ Page({
     var min = a.getMinutes();
     var sec = a.getSeconds();
     // var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-    const time = `${month}月${date}日${hour}:${min}`
+    const time = `${month}月${date}日${hour<10?('0'+hour):hour}:${min<10?('0'+min):min}`
     return time;
   },
   getPutShelfFlag: function(orderGroups) {

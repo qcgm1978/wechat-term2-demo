@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -52,7 +52,7 @@
 					"id": 2,
 					"name": "transactionDetail",
 					"pathName": "pages/transactionDetail/transactionDetail",
-					"query": "orderId=181101112552053870&orderStatus=undefined"
+					"query": "orderId=181107140946513459&orderStatus=ORDER"
 				},
 				{
 					"id": 4,
@@ -70,7 +70,7 @@
 					"id": 5,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "categoryId=1808003&itemId=5921"
+					"query": "itemId=6075&categoryId=1808006"
 				},
 				{
 					"id": 6,

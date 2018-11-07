@@ -78,10 +78,9 @@ export function requestPayment(evt) {
         signType: payargs.signType,
         paySign: payargs.paySign,
         success() {
-          // debugger;
-          // wx.navigateTo({
-          //   url: '../member/member?transaction=true',
-          // })
+            return wx.navigateTo({
+              url: `/pages/transactionDetail/transactionDetail?orderId=${getApp().globalData.orderId}`,
+            })
         },
         fail(err) {
           // do nothing and wait next perhaps paying
