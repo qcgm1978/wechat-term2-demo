@@ -1,5 +1,5 @@
 <template name="msgItem">
-  <view class='center padding bgc mgt' data-itemid='{{item.itemId}}' style='opacity:{{(item.checked||(enableChecked||!isQuantity))?1:0.5}};'>
+  <view class='center padding bgc mgt' data-itemid='{{item.itemId}}' >
     <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
     <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
@@ -14,7 +14,7 @@
         <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}">
           <text class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' >-</text>
           <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity||1}}</text>
-          <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}' style='opacity:{{(((item.addUnactive||!enableChecked)||!item.checked)&&isQuantity)?0.5:1}};'>+</text>
+          <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'>+</text>
         </view>
       </view>
     </view>

@@ -112,12 +112,12 @@ Page({
         [`${kind}.itemList[${itemIndex}].quantity`]: 1,
       })
     }
-    if (toSelected && !this.enableChecked()) {
-      this.setData({
-        [`${kind}.itemList[${itemIndex}].checked`]: false,
-      })
-      return;
-    }
+    // if (toSelected && !this.enableChecked()) {
+    //   this.setData({
+    //     [`${kind}.itemList[${itemIndex}].checked`]: false,
+    //   })
+    //   return;
+    // }
     this.setSelectedNum(toSelected, toSelected ? 1 : quantity)
     const enableChecked = this.enableChecked()
     this.setData({

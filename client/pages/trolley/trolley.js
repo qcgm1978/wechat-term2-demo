@@ -45,6 +45,7 @@ Page({
         if (item.checked) {
           if (item.items.length == 1){
             item.items[0].quantity = item.count
+            item.count = 1
           }
           accumulator.push(item)
         }

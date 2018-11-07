@@ -42,7 +42,8 @@ export default {
       if (this.data.isQuantity) {
         const index = this.getCurrentTabsIndex()
         const num = this.data.selectedNum[index]
-        return num + 1 + offset <= this.getCurrentKindMin()
+        //return num + 1 + offset <= this.getCurrentKindMin()
+        return true
       } else {
         return true
       }
@@ -106,11 +107,11 @@ export default {
       }
       const data = isMinus ? (currentNum - 1) : (currentNum + 1);
       const enableChecked = this.enableChecked()
-      this.setComposeProducts({
-        index,
-        prop: 'addUnactive',
-        data: !enableChecked
-      })
+      // this.setComposeProducts({
+      //   index,
+      //   prop: 'addUnactive',
+      //   data: !enableChecked
+      // })
       this.setData({
         enableChecked: this.data.enableChecked.map((item, index) => {
           const kindIndex = this.getCurrentTabsIndex();
@@ -197,7 +198,6 @@ export default {
         promotionId: this.promoteInfo.promotionId
       }]
       itemGroups.push(group)
-
       promoteUtil.calcPromote({
           itemGroups
         })
