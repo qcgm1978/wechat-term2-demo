@@ -78,7 +78,7 @@ export function requestPayment(evt) {
         signType: payargs.signType,
         paySign: payargs.paySign,
         success() {
-            return wx.navigateTo({
+            return wx.redirectTo({
               url: `/pages/transactionDetail/transactionDetail?orderId=${getApp().globalData.orderId}`,
             })
         },
