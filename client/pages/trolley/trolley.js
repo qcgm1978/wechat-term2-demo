@@ -93,12 +93,12 @@ Page({
   upper() {
   },
   lower() {
-    if (!this.lowerEnable || this.scrollDataLoading || this.noMoreData) {
+    if (!this.lowerEnable || this.scrollDataLoading) {
       return
     }
     setTimeout(() => {
       this.lowerEnable = true
-    }, 3000)
+    }, 2000)
     this.lowerEnable = false
     this.start += this.limit;
 
