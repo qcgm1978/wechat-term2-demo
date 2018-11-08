@@ -3,6 +3,7 @@ import promoteUtil from "../../utils/promotion.js";
 import {
   Api
 } from '../../utils/envConf.js';
+import testData from 'data.js'
 import {
   getRequest
 } from '../../utils/util.js';
@@ -225,6 +226,14 @@ Page({
     })
   },
 
+  getSuteTitle(orderGroup){
+    let suiteTitle = "套装"
+    if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].combinationFlag == 0 && orderGroup.cartCombinationPromotions[0].promotionKind == 2){
+      suiteTitle = orderGroup.cartCombinationPromotions[0].promotionType == 2? "满减":"满赠"
+    }
+    return suiteTitle
+  },
+
   getTrolley() {
 
     let temdata = {
@@ -233,7 +242,7 @@ Page({
       start: this.start,
       limit: this.limit
     }
-    console.log(JSON.stringify(temdata))
+    // console.log(JSON.stringify(temdata))
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -244,10 +253,13 @@ Page({
       })
       .then((data) => {
         let result = data.result
+        //let result = testData.testData
         if(result.length > 0){
           result.reverse()
         }
+        console.log(JSON.stringify(result))
         for(let i = 0; i<result.length; i++){
+          result[i].suiteTitle = this.getSuteTitle(result[i])
           result[i].putShelvesFlg = true
           result[i].items.map((item, index) => {
             if (!item.putShelvesFlg) {
