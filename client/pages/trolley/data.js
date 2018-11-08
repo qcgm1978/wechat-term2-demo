@@ -38,15 +38,35 @@ let testData = [
     "addTime": "2018-11-08T03:37:28.053+0000",
     "cartCombinationPromotions": [
       {
-        "discountAmount": 87.75,
-        "giftItems": null,
-        "promotionDescription": "21非食品 : 21非食品 : 2103纸类 : 21非食品 : 2103纸类 : 210303女性卫生用品类满500元折85.0%",
+        "discountAmount": null,
+        "giftItems": [
+          {
+            "giftItemId": "5917",
+            "giftItemName": "上好佳洋葱圈35G*40",
+            "itemImageAddress1": "https://stg-statics.jihuiduo.cn/jhb_images/%E4%B8%83%E5%96%9C3303.jpg",
+            "itemSpecification": "1*40",
+            "price": "2.25",
+            "quantity": 2
+          }
+        ],
+        "promotionDescription": "上好佳35G系列：满1件送2袋上好佳洋葱圈35G*40（P浚县）",
         "promotionId": "18955",
         "promotionKind": "2",
-        "promotionName": "滑县单品类促销满金额折test",
-        "promotionType": "2",
+        "promotionName": "内黄单品类满一件促销测试",
+        "promotionType": "1",
         "combinationFlag": "0"
       }
+
+      // {
+      //   "discountAmount": 87.75,
+      //   "giftItems": null,
+      //   "promotionDescription": "21非食品 : 21非食品 : 2103纸类 : 21非食品 : 2103纸类 : 210303女性卫生用品类满500元折85.0%",
+      //   "promotionId": "18955",
+      //   "promotionKind": "2",
+      //   "promotionName": "滑县单品类促销满金额折test",
+      //   "promotionType": "1",
+      //   "combinationFlag": "0"
+      // }
     ],
     "cartSelectPromotions": [
       {

@@ -403,13 +403,15 @@ Page({
 
   plusMinus(e) {
     const dataset = e.currentTarget.dataset;
+    console.log(dataset)
     if (!dataset.enabled) {
       return;
     }
     const index = dataset.index,
       type = dataset.type;
     const currentTrolley = this.data.trolley[index];
-    const currentNum = currentTrolley.count;
+    // const currentNum = currentTrolley.count;
+    const currentNum = currentTrolley.items.find(item => item.itemId === dataset.itemid).quantity;
     const isMinus = (type === 'minus');
     if ((currentNum === 1) && isMinus) {
       return;
@@ -418,17 +420,18 @@ Page({
 
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
-        item.count = num;
+        //item.count = num;
+        item.items.find(item => item.itemId === dataset.itemid).quantity = num
         //item.suitePrice = this.getSuitePrice(item);
       }
       return item;
     })
 
     if (currentTrolley.checked) {
-      trolley[index].count = num
+      // trolley[index].count = num
     } else {
       trolley[index].checked = true
-      trolley[index].count = num
+      // trolley[index].count = num
       this.selectedRadio.push(trolley[index].groupId);
     }
 
