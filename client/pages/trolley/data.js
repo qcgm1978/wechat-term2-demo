@@ -44,7 +44,8 @@ let testData = [
         "promotionId": "18955",
         "promotionKind": "2",
         "promotionName": "滑县单品类促销满金额折test",
-        "promotionType": "2"
+        "promotionType": "2",
+        "combinationFlag": "0"
       }
     ],
     "cartSelectPromotions": [
@@ -68,7 +69,7 @@ let testData = [
         ]
       },
       {
-        "promotionId": "18953",
+        "promotionId": "18955",
         "promotionName": "单品类test2",
         "minNumber": 6,
         "entities": [
@@ -185,7 +186,8 @@ let testData = [
         "promotionId": "18955",
         "promotionKind": "2",
         "promotionName": "滑县单品类促销满金额折test",
-        "promotionType": "2"
+        "promotionType": "2",
+        "combinationFlag": "0"
       }
     ],
     "cartSelectPromotions": [

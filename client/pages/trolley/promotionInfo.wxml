@@ -1,11 +1,14 @@
 <template name = "promotionInfo">
   <view class='promotion' style='display: flex; justify-content: space-between; font-size:24rpx; padding-top:10rpx; padding-bottom:10rpx; margin-bottom:0;margin-right: 50rpx; background-color:#FFF6F0;'>
-    <view>
-      <text class='promotion-3' style='margin-left: 80rpx; '>满减</text>
-      <text class='promotion-2' style='margin-left: 10rpx; display:inline-block; width: 232rpx; '>{{trollyGroup.cartCombinationPromotions[0].promotionName}}111342342342342342342342342342</text>
-      <text class='promotion-3'>已省{{filters.toFix(trollyGroup.cartCombinationPromotions[0].discountAmount?trollyGroup.cartCombinationPromotions[0].discountAmount:2330)}}元</text>
-      <text class='promotion-2'>可选{{promotionOptions.length}}个</text>
+    <view style='display:flex; flex-direction: row; justify-content: space-between; width:100%;'>
+      <view>
+        <text class='promotion-3' style='margin-left: 80rpx; '>{{trollyGroup.suiteTitle}}</text>
+        <text class='promotion-2' style='margin-left: 10rpx; display:inline-block; width: 232rpx; '>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</text>
+        <text class='promotion-3'>已省{{trollyGroup.cartCombinationPromotions[0].discountAmount?trollyGroup.cartCombinationPromotions[0].discountAmount:0}}元</text>
+      </view>
+
+      <view class='promotion-2' style='line-height:40rpx;'>可选{{trollyGroup.cartSelectPromotions.length}}个</view>
     </view>
-    <image src='./img/arrow-down.png' class='' style='width:32rpx; height: 36rpx;margin-right:50rpx;' bind:tap='showPromotions'></image>
+    <image src='./img/arrow-down.png' class='' style='width:32rpx; height: 36rpx;margin-right:50rpx;' data-groupid='{{trollyGroup.groupId}}' bind:tap='showPromotions'></image>
   </view>
 </template>

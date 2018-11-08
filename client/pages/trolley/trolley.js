@@ -15,7 +15,7 @@ Page({
   data: {
     isSelecting: false,
     top: getApp().globalData.systemInfo.windowHeight - 600,
-    promotionOptions: [{ name: "123123123", checked: false }, { name: "afsfsdfsdf", checked: false}, {name:"ooooooooo", checked: false}],
+    promotionOptions: [{ promotionName: "123123123", checked: false }, { promotionName: "afsfsdfsdf", checked: false }, { promotionName:"ooooooooo", checked: false}],
     defImg: getApp().globalData.defaultImg,
     trolley: [],
     minAmount: 500,
@@ -227,10 +227,13 @@ Page({
   },
 
   getSuteTitle(orderGroup){
-    let suiteTitle = "套装"
-    if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].combinationFlag == 0 && orderGroup.cartCombinationPromotions[0].promotionKind == 2){
-      suiteTitle = orderGroup.cartCombinationPromotions[0].promotionType == 2? "满减":"满赠"
+    let suiteTitle = "套装1"
+
+    if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].combinationFlag == "0" && orderGroup.cartCombinationPromotions[0].promotionKind == "2"){
+      console.log(orderGroup.cartCombinationPromotions[0])
+      suiteTitle = orderGroup.cartCombinationPromotions[0].promotionType == "2"? "满减":"满赠"
     }
+    console.log(suiteTitle)
     return suiteTitle
   },
 
@@ -252,8 +255,8 @@ Page({
         limit: this.limit
       })
       .then((data) => {
-        let result = data.result
-        //let result = testData.testData
+        //let result = data.result
+        let result = testData.testData
         if(result.length > 0){
           result.reverse()
         }
@@ -558,14 +561,34 @@ Page({
       [prop]: true
     })
   },
+
   closePopup() {
     this.setData({
       isSelecting: false,
     })
   },
-  showPromotions() {
+  showPromotions(e) {
+    let selectedGroup = this.data.trolley.find(item => {
+      return (item.groupId == e.currentTarget.dataset.groupid)
+    })
     this.setData({
       isSelecting: true,
+      promotionOptions: selectedGroup.cartSelectPromotions
     })
+    if (selectedGroup.cartCombinationPromotions[0].combinationFlag == 0 && selectedGroup.cartCombinationPromotions[0].promotionKind == 1 ){
+      let prop = "promotionOptions[0].checked"
+      this.setData({
+        [prop]: true
+      })
+    }else{
+      let defaultPromotionOption = this.data.promotionOptions.find(item => item.promotionId === selectedGroup.cartCombinationPromotions[0].promotionId)
+      let index = this.data.promotionOptions.indexOf(defaultPromotionOption)
+      if(index >= 0){
+        let prop = "promotionOptions[" + index + "].checked"
+        this.setData({
+          [prop]: true
+        })
+      }
+    }
   },
 })
