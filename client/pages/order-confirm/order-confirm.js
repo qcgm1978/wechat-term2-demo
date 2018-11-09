@@ -344,8 +344,9 @@ Page({
           if (trolley && trolley.route.includes('trolley/trolley')) {
             trolley.selectedRadio = [];
           }
+          const isToCheckstand = isWechat&&!!this.data.actual
           wx.redirectTo({
-            url: `/pages/${isWechat ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
+            url: `/pages/${isToCheckstand ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
         } else { }
       }).catch(err => {
