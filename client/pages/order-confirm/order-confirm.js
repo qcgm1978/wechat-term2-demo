@@ -255,7 +255,6 @@ Page({
         }
       }
 
-      console.log("createOrder JSON.stringify(orderItems)")
       let tempdata = {
         orderItems,
         orderPomotionId: "0",

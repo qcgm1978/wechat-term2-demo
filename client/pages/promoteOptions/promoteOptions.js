@@ -143,11 +143,11 @@ Page({
           group.items = groupItems
           group.promotions = [{ promotionId: promoteInfo.promotionId}]
           itemGroups.push(group)
-          console.log(JSON.stringify({ itemGroups }))
+
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
               //满赠
-              console.log(JSON.stringify(promoteResult))
+
               if (promoteResult.giftItems && promoteResult.giftItems.length>0) {
                 promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
                 promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
@@ -249,7 +249,7 @@ Page({
           itemId: itemId
         },
     }
-    console.log(JSON.stringify(tmpData))
+
     utils.postRequest({
       url: selectGoods,
       data: {
@@ -264,9 +264,6 @@ Page({
       }
     })
     .then(data => {
-      console.log("JSON.stringify(data)====")
-      console.log(JSON.stringify(data))
-      console.log("JSON.stringify(data)=====")
       if (data.status === 200) {
         this.setData({
           composeProducts: data.result.conbinationItems,

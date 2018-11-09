@@ -1,4 +1,5 @@
 const getUserInfo = require('./getUserInfo').default;
+var currentEnv = require("../../utils/envConf.js").env;
 import {
   Api
 } from '../../utils/envConf.js';
@@ -183,6 +184,20 @@ Page({
     return merchant.locationId;
   },
   onLoad: function (options) {
+    var navigationBarTitle = "首页"
+    switch (currentEnv) {
+      case 0:
+        navigationBarTitle = navigationBarTitle + "(DEV)"
+        break
+      case 1:
+        navigationBarTitle = navigationBarTitle + "(STG)"
+        break
+      default:
+        break
+    }
+    wx.setNavigationBarTitle({
+      title: navigationBarTitle
+    });
     this.getBanners()
       .then(data => { })
       .catch(err => { });
