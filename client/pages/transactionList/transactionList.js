@@ -168,7 +168,7 @@ Page({
             return currentItem;
           });
           this.setData({
-            order,
+            order: this.data.config.offset == 1 ? order: this.data.order.concat(order),
             hasNetwork: true
           })
           resolve()
@@ -245,19 +245,19 @@ Page({
   },
   //下拉刷新
   pullDownRefresh: function () {
-    const offset = this.data.config.offset - 1;
-    if (offset > 0) {
-      this.setData({
-        config: {
-          ...this.data.config,
-          offset
-        },
-        isLast: false
-      });
-      this.requestMoreData(this.data.config);
-    } else {
-      wx.stopPullDownRefresh();
-    }
+    // const offset = this.data.config.offset - 1;
+    // if (offset > 0) {
+    //   this.setData({
+    //     config: {
+    //       ...this.data.config,
+    //       offset
+    //     },
+    //     isLast: false
+    //   });
+    //   this.requestMoreData(this.data.config);
+    // } else {
+    //   wx.stopPullDownRefresh();
+    // }
 
   },
 
