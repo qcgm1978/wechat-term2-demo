@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -70,7 +70,7 @@
 					"id": 5,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "itemId=6075&categoryId=1808006"
+					"query": "itemId=501&categoryId=210303"
 				},
 				{
 					"id": 6,

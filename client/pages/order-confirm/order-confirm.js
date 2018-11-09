@@ -322,7 +322,7 @@ Page({
           orderItems,
           orderPomotionId: "0",
           orderPomotionDiscountAmount: 0,
-          cashAmount: this.data.total - this.data.credit,
+          cashAmount: utils.getFixedNum(this.data.total - this.data.credit),
           discountTotalAmount: sumDiscount,
           merchantId: app.getMerchantId(),
           locationId: String(locationId),
@@ -344,7 +344,7 @@ Page({
           if (trolley && trolley.route.includes('trolley/trolley')) {
             trolley.selectedRadio = [];
           }
-          const isToCheckstand = isWechat&&!!this.data.actual
+          const isToCheckstand = isWechat && (this.data.actual !== '0.00')
           wx.redirectTo({
             url: `/pages/${isToCheckstand ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
