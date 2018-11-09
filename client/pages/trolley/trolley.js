@@ -26,7 +26,10 @@ Page({
   },
   selectedRadio: [],
   start: 0,
-  limit: 20,
+  limit: 5,
+  upperEnable: true,
+  lowerEnable: true,
+  noMoreData: false,
   scrollDataLoading: false,
   enablePullDownRefresh: false,
   onLoad: function (options) {
@@ -88,16 +91,20 @@ Page({
     })
   },
   upper() {
-    this.start = 0;
-    if (this.scrollDataLoading) {
-      return
-    }
-
   },
   lower() {
+    if (!this.lowerEnable || this.scrollDataLoading) {
+      return
+    }
+    setTimeout(() => {
+      this.lowerEnable = true
+    }, 2000)
+    this.lowerEnable = false
     this.start += this.limit;
-    if (this.scrollDataLoading) return
 
+    this.getTrolley()
+      .then((data) => {})
+      .catch((e) => {})
   },
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
@@ -229,7 +236,7 @@ Page({
       start: this.start,
       limit: this.limit
     }
-    // console.log(JSON.stringify(temdata))
+    console.log(JSON.stringify(temdata))
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -240,6 +247,9 @@ Page({
       })
       .then((data) => {
         let result = data.result
+        if (result && result.length < this.limit){
+          this.noMoreData = true
+        }
         if(result.length > 0){
           result.reverse()
         }

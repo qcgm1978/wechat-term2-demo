@@ -21,9 +21,10 @@
                 <view wx:if='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
               </view>
               <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
-                <view style='display:flex;'>
+                <view style='display:flex;  width:100%;'>
                   <text class='promotion-1' style='display:inline-block; margin-left:0;' wx:if='{{item.isfree}}'>赠品</text>
                   <text class='trolley-name {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
+                  <text></text>
                 </view>
 
                 <view class='center trolley-middle'>
@@ -59,9 +60,9 @@
                     <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
                   </view>
                   <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
-                    <view style='display:flex; '>
+                    <view style='display:flex;  width:100%;'>
                       <text class='promotion-1' style="display:inline-block; margin-left:0;">赠品</text>
-                      <text class='trolley-name' style='width:380rpx;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemName}}</text>
+                      <text class='trolley-name' style='width:380rpx;'>{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemName}}</text>
                     </view>
 
                     <view class='center trolley-middle'>
@@ -99,9 +100,9 @@
                 <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> 
               </view>
               <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}'  data-categorycode='{{item.itemCategoryCode}}'>
-                <view style='display:flex; '>
+                <view style='display:flex; width:100%;'>
                   <text class='promotion-1' style="display:inline-block; margin-left:0;" wx:if="{{item.isfree}}">赠品</text>
-                  <text class='trolley-name ' style='width:380rpx;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.itemName}}</text>
+                  <text class='trolley-name ' style='width:380rpx'>{{item.itemName}}</text>
                 </view>
 
                 <view class='center trolley-middle'>
@@ -142,7 +143,7 @@
                 <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
               </view>
               <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
-                <view style='display:flex; '>
+                <view style='display:flex; width:100%;'>
                   <text class='promotion-1' style="display:inline-block; margin-left:0;">赠品</text>
                   <text class='trolley-name '>{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemName}}</text>
                 </view>

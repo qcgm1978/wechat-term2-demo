@@ -10,7 +10,7 @@ page{
 
 .categoryright {
   position: absolute;
-  left: 188rpx;
+  left: 200rpx;
   width: 517rpx;
   min-height: 100%;
 }

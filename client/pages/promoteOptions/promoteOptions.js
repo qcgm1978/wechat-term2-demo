@@ -143,10 +143,9 @@ Page({
           group.items = groupItems
           group.promotions = [{ promotionId: promoteInfo.promotionId}]
           itemGroups.push(group)
-          
+
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
-              console.log(promoteResult)
               //满赠
 
               if (promoteResult.giftItems && promoteResult.giftItems.length>0) {

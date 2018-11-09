@@ -4,6 +4,7 @@ var refreshAccessToken = require("../../utils/refreshToken.js").refreshAccessTok
 var ERROR_CODE = require("../../utils/index.js").config.errorCode;
 var utils = require("../../utils/util.js");
 import promoteUtil from "../../utils/promotion.js";
+import checkPromotion from '../transactionList/checkPromotion.js'
 const getOrder = URLs.getOrder
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
 const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
@@ -21,6 +22,7 @@ var partSoldOut = false
 var soldOut = false
 Page({
   ...payDetail,
+  ...checkPromotion.methods,
   data: {
     disable: false,
     payStyle: globalData.payStyle,
@@ -56,7 +58,7 @@ Page({
         amount: 0
       }
     },
-    isReturn:false,
+    isReturn: false,
     partSoldOutDialogFlag: false,
     soldOutDialogFlag: false,
     addressStore: "images/address.png",
@@ -74,180 +76,14 @@ Page({
     var min = a.getMinutes();
     var sec = a.getSeconds();
     // var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-    const time = `${month}月${date}日${hour<10?('0'+hour):hour}:${min<10?('0'+min):min}`
+    const time = `${month}月${date}日${hour < 10 ? ('0' + hour) : hour}:${min < 10 ? ('0' + min) : min}`
     return time;
   },
-  getPutShelfFlag: function(orderGroups) {
-    var promise = new Promise((resolve, reject) => {
-      let promisesArr = []
-      for (let i = 0; i < orderGroups.length; i++) {
-        for (let j = 0; j < orderGroups[i].items.length; j++) {
-          promisesArr.push(this.getProduct(orderGroups[i].items[j].itemId, orderGroups[i].items[j].categoryId))
-        }
-      }
-      Promise.all(promisesArr)
-        .then(arr => {
-          let soldOutNumber = 0
-          for (let i = 0; i < arr.length; i++) {
-            if (!arr[i][0].putShelvesFlg) {
-              soldOutNumber++
-            }
-          }
-
-          let flag = 0
-          if (soldOutNumber == 0) {} else if (soldOutNumber != arr.length) {
-            flag = 1
-          } else if (soldOutNumber == arr.length) {
-            flag = 2
-          }
-          let items = arr
-          resolve({
-            flag,
-            items
-          })
-        })
-        .catch(e => {})
-    })
-    return promise
-  },
-
-  addGotoTrolley: function(e) {
+  addGotoTrolley: function (e) {
 
     let orderGroups = [];
     orderGroups = this.data.order.orderItems
-
-    this.getPutShelfFlag(orderGroups)
-      .then((data) => {
-        if (data.flag == 0) {
-          //在售
-          let para = {
-            addGroupList: []
-          }
-          let promises = []
-          for (let i = 0; i < orderGroups.length; i++) {
-            promises.push(promoteUtil.isValidPromotion(orderGroups[i]))
-          }
-
-          Promise.all(promises)
-            .then((arr) => {
-              for (let i = 0; i < arr.length; i++) {
-                if (arr[i]) {
-                  orderGroups[i].count = 1
-                  orderGroups[i].addItemList = []
-                  let items = orderGroups[i].items
-                  for (let j = 0; j < items.length; j++) {
-                    items[j].categoryCode = items[j].categoryId
-                    if (!items[j].gift) {
-                      orderGroups[i].addItemList.push(items[j])
-                    }
-                  }
-                  let promotions = []
-                  let promotion = {}
-                  promotion.promotionId = orderGroups[i].promotionId
-                  promotions.push(promotion)
-                  orderGroups[i].promotions = promotions
-                  if (orderGroups[i].items && orderGroups[i].items.length > 0) {
-                    para.addGroupList.push(orderGroups[i])
-                  }
-                } else {
-                  for (let j = 0; j < orderGroups[i].items.length; j++) {
-                    if (orderGroups[i].items[j].gift) {
-                      continue
-                    }
-                    orderGroups[i].count = 1
-                    orderGroups[i].addItemList = []
-                    orderGroups[i].items[j].categoryCode = orderGroups[i].items[j].categoryId
-
-                    orderGroups[i].addItemList.push(orderGroups[i].items[j])
-
-                    let promotions = []
-                    let promotion = {}
-                    promotion.promotionId = orderGroups[i].promotionId
-                    promotions.push(promotion)
-                    orderGroups[i].promotions = promotions
-                    let temp = { ...orderGroups[i]
-                    }
-                    para.addGroupList.push(temp)
-                  }
-                }
-              }
-              utils
-                .addToTrolleyByGroup(para, 1, false)
-                .then(badge => {
-                  wx.switchTab({
-                    url: `/pages/trolley/trolley`,
-                  })
-                })
-            })
-            .catch(() => {})
-        } else if (data.flag == 1) {
-          //部分售完
-
-          utils.showModal(`订单中的部分商品卖光了,您是否继续购买其余商品?`).then(() => {
-            let para = {
-              addGroupList: []
-            }
-            for (let i = 0; i < orderGroups.length; i++) {
-              let onShelfNumber = 0
-              orderGroups[i].items = orderGroups[i].items.reduce((accumulator, item) => {
-                item.categoryCode = item.categoryId
-                let isOnShelf = false
-                for (let k = 0; k < data.items.length; k++) {
-                  if (data.items[k][0].itemId && item.itemId == data.items[k][0].itemId && !item.gift) {
-                    isOnShelf = true
-                    onShelfNumber++
-                  }
-                }
-                if (isOnShelf) {
-                  accumulator.push(item);
-                }
-                return accumulator;
-              }, []);
-
-              if (onShelfNumber == orderGroups[i].items.length) {
-                orderGroups[i].isAllOnShelf = true
-              } else {
-                orderGroups[i].isAllOnShelf = false
-              }
-
-              if (orderGroups[i].isAllOnShelf) {
-                orderGroups[i].count = 1
-                orderGroups[i].addItemList = orderGroups[i].items
-                let promotions = []
-                let promotion = {}
-                promotion.promotionId = orderGroups[i].promotionId
-                promotions.push(promotion)
-                orderGroups[i].promotions = promotions
-                if (orderGroups[i].items && orderGroups[i].items.length > 0) {
-                  para.addGroupList.push(orderGroups[i])
-                }
-              } else {
-                for (let m = 0; m < orderGroups[i].items.length; m++) {
-                  orderGroups[i].count = 1
-                  orderGroups[i].addItemList = [orderGroups[i].items[m]]
-                  let promotions = []
-                  let promotion = {}
-                  promotion.promotionId = orderGroups[i].promotionId
-                  promotions.push(promotion)
-                  orderGroups[i].promotions = promotions
-                  para.addGroupList.push(orderGroups[i])
-                }
-              }
-
-            }
-            utils
-              .addToTrolleyByGroup(para, 1, false)
-              .then(badge => {
-                wx.switchTab({
-                  url: `/pages/trolley/trolley`,
-                })
-              })
-          })
-        } else if (data.flag == 2) {
-          //全部售完
-          utils.showModal(`您想购买的商品已下架，无法再次购买`, false);
-        }
-      })
+    this.buyOrderGroupsAgain(orderGroups)
   },
   copy() {
     wx.setClipboardData({
@@ -264,7 +100,7 @@ Page({
     const dataset = e.currentTarget.dataset;
     if (dataset.type === 'order' && this.data.isReturn) {
       wx.navigateTo({
-        url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${ 'ORDER'}`
+        url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${'ORDER'}`
       });
     } else if (dataset.type === 'return' && !this.data.isReturn) {
       wx.navigateTo({
@@ -326,8 +162,8 @@ Page({
                   this.requestTransDetail.tokenRefreshed = true
                   return this.requestTransDetail()
                 })
-                .then(() => {})
-                .catch(() => {})
+                .then(() => { })
+                .catch(() => { })
             } else {
               getApp().globalData.userInfo.registerStatus = false
               wx.reLaunch({
@@ -346,7 +182,7 @@ Page({
       });
   },
 
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -402,7 +238,7 @@ Page({
       orderCode: this.data.order.orderReturn.returnOrderId
     })
   },
-  onShow: function(options) {
+  onShow: function (options) {
     utils.checkNetwork().then(utils.requestStatisLoad);
   },
   onHide() {
@@ -412,52 +248,21 @@ Page({
     utils.requestStatisUnload();
   },
 
-  letMeThink: function() {
+  letMeThink: function () {
     this.setData({
       dialogFlag: true
     })
   },
 
-  proceedBuy: function() {
+  proceedBuy: function () {
 
     this.setData({
       dialogFlag: false
     })
   },
-  confirmClose: function() {
+  confirmClose: function () {
     this.setData({
       soldOutDialogFlag: true
-    })
-  },
-  getProduct(itemId, categoryCd) {
-    const locationId = getApp().globalData.merchant.locationId;
-    return utils.getRequest(getProductItem, {
-      locationId,
-      categoryCd: categoryCd ? categoryCd : '',
-      itemIds: itemId ? itemId : '',
-    }).then(data => {
-      if (data.status === 200) {
-        let inStock = []
-        // const inStock = data.result.reduce((accumulator, item) => {
-        //   if (itemId == item.itemId) {
-        //     accumulator.push(item);
-        //   }
-        //   return accumulator;
-        // }, []);
-        for (let i = 0; i < data.result.length; i++) {
-          if (itemId == data.result[i].itemId) {
-            inStock.push(data.result[i]);
-          }
-        }
-        if (inStock.length == 0) {
-          let item = {}
-          item.putShelvesFlg = false
-          inStock.push(item)
-        }
-        return inStock;
-      } else {}
-    }).catch(err => {
-      console.log(err);
     })
   },
 })

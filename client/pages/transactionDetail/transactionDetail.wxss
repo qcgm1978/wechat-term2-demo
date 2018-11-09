@@ -14,13 +14,11 @@
   top: 80rpx;
   color: #fdb658;
 }
-
-.no-points {
-  width: 250rpx;
-}
-
-.use-points {
-  width: 140rpx;
+.no-points{
+ width: 270rpx;
+} 
+.use-points{
+  width:140rpx;
 }
 
 .complete-login-content {

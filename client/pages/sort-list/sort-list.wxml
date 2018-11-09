@@ -3,8 +3,8 @@
   <view class='column regular list-container'>
     <text class='list-name'>{{item.itemName}}</text>
     <text class='list-spec'>规格：  {{item.itemSpecification}}</text>
-    <view style='display: flex;'>
-      <text class='dollar medium list-price'>{{item.price}}</text>
+    <view style='display: flex; width: 100%;'>
+      <text class='dollar medium list-price' style='width:auto;'>{{item.price}}</text>
       <image style='width:64rpx; height:32rpx; margin-left: 10rpx;margin-top:8rpx;' src='{{item.promotionTypes[0]=="2"?imgManjian:""}}' wx:if="{{item.promotionTypes[0]=='2'}}"></image>
       <image style='width:64rpx; height:32rpx; margin-left: 10rpx;margin-top:8rpx;' src='{{item.promotionTypes[0]=="1"?imgManzeng:""}}' wx:if="{{item.promotionTypes[0]=='1'}}"></image>
     </view>

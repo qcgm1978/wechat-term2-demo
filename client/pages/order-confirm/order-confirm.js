@@ -16,7 +16,7 @@ Page({
     top: '100%',
     credit: 0,
     actual: 0,
-    enableCreateOrder:true,
+    enableCreateOrder: true,
     expandAll: false,
     isVisible: true,
     isReturn: false,
@@ -48,7 +48,7 @@ Page({
         url: '/pages/login/login',
       })
     }
-    if(this.inTimeRange()){
+    if (this.inTimeRange()) {
       this.setData({
         enableCreateOrder: false
       })
@@ -224,12 +224,12 @@ Page({
     // todo emulate 3 oclock
     // a.setHours(3)
     var hour = a.getHours();
-    return hour<4;
+    return hour < 4;
   },
   createOrder(itemId) {
-    if(this.inTimeRange()){
+    if (this.inTimeRange()) {
       return this.setData({
-        enableCreateOrder:false
+        enableCreateOrder: false
       })
     }
     return new Promise((resolve, reject) => {
@@ -295,7 +295,6 @@ Page({
         }
       }
 
-      console.log("createOrder JSON.stringify(orderItems)")
       let tempdata = {
         orderItems,
         orderPomotionId: "0",
