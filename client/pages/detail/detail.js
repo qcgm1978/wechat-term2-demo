@@ -171,12 +171,12 @@ Page({
     }
     const arr = [{
       itemId: this.data.product.itemId,
-      quantity: 1,
+      quantity: this.data.quantity,
       categoryCode: this.data.product.itemCategoryCode
     }]
     let para = {
       addGroupList: [{
-        count: this.data.quantity,
+        count: 1,
         addItemList: arr,
       }]
     }

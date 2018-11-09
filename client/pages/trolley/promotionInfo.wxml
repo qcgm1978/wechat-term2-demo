@@ -7,7 +7,7 @@
         <text class='promotion-3' wx:if="{{trollyGroup.suiteTitle == '满减'}}">已省{{trollyGroup.cartCombinationPromotions[0].discountAmount?trollyGroup.cartCombinationPromotions[0].discountAmount:0}}元</text>
       </view>
 
-      <view class='promotion-2' style='line-height:40rpx; margin-right:20rpx;'>可选{{trollyGroup.cartSelectPromotions.length}}个</view>
+      <view class='promotion-2' style='line-height:40rpx; margin-right:20rpx;'>修改促销</view>
     </view>
     <image src='./img/arrow-down.png' class='' style='width:32rpx; height: 36rpx;margin-right:50rpx;' data-groupid='{{trollyGroup.groupId}}' bind:tap='showPromotions'></image>
   </view>

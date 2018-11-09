@@ -227,8 +227,10 @@
 .product-add text {
   width: 32rpx;
   height: 32rpx;
-  line-height: 32rpx;
+  line-height: 25rpx;
   text-align: center;
+  margin-left:3rpx;
+
 }
 
 .product-price {
@@ -237,6 +239,7 @@
   font-size: 32rpx;
   color: #ee711f;
   align-items: center;
+  font-weight:bold;
 }
 
 .product-add-button {

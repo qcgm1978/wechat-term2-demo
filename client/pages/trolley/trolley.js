@@ -109,7 +109,7 @@ Page({
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
       if (selectedRadio.includes(item.groupId)) {
-        return accumulator + item.suitePrice * item.count
+        return accumulator + Number(item.suitePrice)
       } else {
         return accumulator;
       }
@@ -257,8 +257,8 @@ Page({
         limit: this.limit
       })
       .then((data) => {
-        //let result = data.result
-        let result = testData.testData
+        let result = data.result
+        //let result = testData.testData
         if(result.length > 0){
           result.reverse()
         }
@@ -397,7 +397,7 @@ Page({
       }
     } else {
       if (groupItem.items.length > 0) {
-        suitePrice = groupItem.items[0].price
+        suitePrice = groupItem.items[0].price * groupItem.items[0].quantity
       }
     }
     return suitePrice
@@ -414,6 +414,7 @@ Page({
     const currentTrolley = this.data.trolley[index];
     // const currentNum = currentTrolley.count;
     const currentNum = currentTrolley.items.find(item => item.itemId === dataset.itemid).quantity;
+    console.log(currentNum)
     const isMinus = (type === 'minus');
     if ((currentNum === 1) && isMinus) {
       return;
@@ -424,20 +425,23 @@ Page({
       if (ind === index) {
         //item.count = num;
         item.items.find(item => item.itemId === dataset.itemid).quantity = num
-        //item.suitePrice = this.getSuitePrice(item);
+        item.suitePrice = this.getSuitePrice(item);
       }
       return item;
     })
 
-    if (currentTrolley.checked) {
-      // trolley[index].count = num
+    if (trolley[index].checked) {
     } else {
       trolley[index].checked = true
-      // trolley[index].count = num
       this.selectedRadio.push(trolley[index].groupId);
     }
 
-    this.updateTrolley(trolley, index, isMinus ? -1 : 1)
+    this.setData({
+      trolley
+    })
+
+    this.setMoneyData(this.selectedRadio);
+    //this.updateTrolley(trolley, index, isMinus ? -1 : 1)
 
     //调用计算接口
     // this.callPromotionCacl(trolley, index)
@@ -585,9 +589,31 @@ Page({
       return (item.groupId == e.currentTarget.dataset.groupid)
     })
     this.currentTrolleyIndex = this.data.trolley.indexOf(selectedGroup)
-    this.getPromotionList(selectedGroup)
-    .then((data) => {
-      this.setData({
+    // this.getPromotionList(selectedGroup)
+    // .then((data) => {
+    //   this.setData({
+    //     isSelecting: true,
+    //     promotionOptions: selectedGroup.cartSelectPromotions
+    //   })
+    //   if (selectedGroup.cartCombinationPromotions[0].combinationFlag == 0 && selectedGroup.cartCombinationPromotions[0].promotionKind == 1) {
+    //     let prop = "promotionOptions[0].checked"
+    //     this.setData({
+    //       [prop]: true
+    //     })
+    //   } else {
+    //     let defaultPromotionOption = this.data.promotionOptions.find(item => item.promotionId === selectedGroup.cartCombinationPromotions[0].promotionId)
+    //     let index = this.data.promotionOptions.indexOf(defaultPromotionOption)
+    //     if (index >= 0) {
+    //       let prop = "promotionOptions[" + index + "].checked"
+    //       this.setData({
+    //         [prop]: true
+    //       })
+    //     }
+    //   }
+    // })
+    // .catch((e) => {})
+    
+    this.setData({
         isSelecting: true,
         promotionOptions: selectedGroup.cartSelectPromotions
       })
@@ -606,9 +632,6 @@ Page({
           })
         }
       }
-    })
-    .catch((e) => {})
-
   },
 
   updateTrolley(trolley, index, count){
@@ -623,6 +646,7 @@ Page({
       })
     for (let i = 0; i < trolley[index].items.length; i++) {
       trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
+      trolley[index].items[i].quantity = trolley[index].items[i].quantity * count
     }
 
     let para = {
