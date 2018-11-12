@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 2,
 			"list": [
 				{
 					"id": -1,
@@ -52,7 +52,7 @@
 					"id": 2,
 					"name": "transactionDetail",
 					"pathName": "pages/transactionDetail/transactionDetail",
-					"query": "orderId=181107140946513459&orderStatus=ORDER"
+					"query": "orderId=181109131941313698&orderStatus=ORDER"
 				},
 				{
 					"id": 4,

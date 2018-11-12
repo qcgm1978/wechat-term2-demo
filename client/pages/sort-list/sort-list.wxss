@@ -28,3 +28,9 @@ image {
   color: #ee711f;
   width:470rpx;
 }
+.sales-unit{
+  font-size: 24rpx;
+color: #2A2A2A;
+letter-spacing: 0;
+line-height: 44rpx;
+}

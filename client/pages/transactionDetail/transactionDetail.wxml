@@ -58,10 +58,10 @@
                   <view wx:if='{{orderItem.gift}}'>
                     <view style='display: flex; flex-direction: column;'>
                       <text style='text-align: right;'>￥0</text>
-                      <text style='color:#949494;text-decoration:line-through;'>￥{{filters.toFix(orderItem.unitPrice)}}</text>
+                      <text style='color:#949494;text-decoration:line-through;'>￥{{filters.toFix(orderItem.unitPrice)}}/{{orderItem.saleUnit}}</text>
                     </view>
                   </view>
-                  <text wx:else>￥{{filters.toFix(orderItem.unitPrice)}}</text>
+                  <text wx:else>￥{{filters.toFix(orderItem.unitPrice)}}/{{orderItem.saleUnit}}</text>
                   <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' style='text-align: right; '>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
                 </view>
               </view>

@@ -23,7 +23,7 @@ color: #707070;
 }
 
 .trolley-right {
-  margin-left: 50rpx;
+  /* margin-left: 50rpx; */
   flex-flow: 1;
   flex-grow: 1;
   align-items: left;
@@ -214,4 +214,10 @@ page {
   color: #f5b87a;
   font-size: 24rpx;
   margin-left: 10rpx;
+}
+.sales-unit{
+  font-size: 24rpx;
+color: #2A2A2A;
+letter-spacing: 0;
+line-height: 44rpx;
 }

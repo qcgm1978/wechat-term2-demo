@@ -9,14 +9,16 @@
     </swiper>
     <view>
       <view class='padding medium bgc'>
-        <view class='product-price'>￥{{product.price}}</view>
+        <view class='product-price'>￥{{product.price}}
+          <text class='saleUnit'>/{{product.saleUnit}}</text>
+        </view>
         <view class='product-name'>{{product.itemName}}</view>
         <view class='product-spec'>规格：{{product.itemSpecification}}</view>
       </view>
 
-      <view >
-        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this' >
-          <view  class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
+      <view>
+        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this'>
+          <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <text class='promotion'>促销</text>
             <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
@@ -31,7 +33,7 @@
         </view>
 
       </view>
-      
+
 
       <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>
@@ -80,7 +82,7 @@
             </view>
             <view class='regular relative-name' style="justify-content:center;text-align:center;">{{item.itemName}}</view>
             <view class='center' style="width: 100%;justify-content:center;">
-              <view class='relative-money dollar'>{{item.price}}</view>
+              <view class='relative-money dollar'>{{item.price}}<text class='related-unit'>/{{item.saleUnit}}</text></view>
               <!-- <text class='promotion-type'>{{item.itemSpecification}}</text> -->
             </view>
           </swiper-item>
@@ -93,7 +95,8 @@
         <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit'></image>
         <view>
           <view class='product-name' style="width: 444rpx;">{{product.item_brand}}</view>
-          <text class='dollar product-price'>{{product.price}}</text>
+          <text class='dollar product-price'>{{product.price}}<text class='popup-unit'>/{{product.saleUnit}}</text>
+          </text>
         </view>
         <image src='../../images/close.png' class='close-popup' catch:tap='closePopup'></image>
       </view>
@@ -119,8 +122,10 @@
 
       </view>
       <view style='padding-top:0;'>
-        <view class='padding subtotal ' style='padding-top:0;'>小计:{{quantity}}件 金额：¥{{currentMoney}} <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view></view>
-        
+        <view class='padding subtotal ' style='padding-top:0;'>小计:{{quantity+product.saleUnit}} 金额：¥{{currentMoney}}
+          <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view>
+        </view>
+
       </view>
 
     </view>

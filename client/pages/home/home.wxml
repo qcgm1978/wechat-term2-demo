@@ -29,7 +29,7 @@
     <view class='product-spec'>{{pitem.itemSpecification}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
-      <view class='product-price'>￥{{pitem.price}}
+      <view class='product-price'>￥{{pitem.price}}<text class='regular sales-unit'>/{{pitem.saleUnit}}</text>
         <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
         <image style='width:64rpx; height:32rpx;' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='2'}}"></image>
         <image style='width:64rpx; height:32rpx;' src='{{imgManzeng}}' wx:elif="{{pitem.promotionTypes[0]=='1'}}"></image>

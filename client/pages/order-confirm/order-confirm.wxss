@@ -183,3 +183,9 @@
   font-size: 26rpx;
   color: #707070;
 }
+.sales-unit{
+  font-size: 24rpx;
+color: #2A2A2A;
+letter-spacing: 0;
+line-height: 40rpx;
+}

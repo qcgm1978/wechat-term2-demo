@@ -4,13 +4,15 @@
   top: 0;
   width: 100%;
 }
-.indexFixed{
+
+.indexFixed {
   position: fixed;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
+
 .selecting-btn {
   width: 344rpx !important;
 }
@@ -46,8 +48,6 @@
   letter-spacing: 0;
   text-align: right;
 }
-
-
 
 .short-line {
   width: 82rpx;
@@ -175,6 +175,7 @@
   font-size: 28rpx;
   color: #8b8b8b;
 }
+
 .product-source {
   margin: 5rpx 49rpx 0;
   font-size: 28rpx;
@@ -344,7 +345,7 @@
 
 .promotion-1 {
   width: 80rpx;
-  border-radius:10rpx;
+  border-radius: 10rpx;
   text-align: center;
   color: #febb5c;
   background-color: #fae5c7a2;
@@ -352,4 +353,24 @@
 
 .promotion-2 {
   width: 500rpx;
+}
+
+.saleUnit {
+  font-size: 32rpx;
+  color: #2a2a2a;
+  letter-spacing: 0;
+  line-height: 60rpx;
+}
+
+.popup-unit {
+  font-size: 28rpx;
+  color: #2a2a2a;
+  letter-spacing: 0;
+  line-height: 50rpx;
+}
+.related-unit{
+  font-size: 24rpx;
+color: #2A2A2A;
+letter-spacing: 0;
+line-height: 40rpx;
 }

@@ -67,7 +67,7 @@
                           <text >x{{item.quantity}}/套</text>
                         </block>
                         <block wx:else>
-                          <text class='confirm-price'>￥{{item.price}}</text>
+                          <text class='confirm-price'>￥{{item.price}}<text class='sales-unit'>/{{item.saleUnit}}</text></text>
                           <text >x{{item.quantity}}</text>
                         </block>
                         
