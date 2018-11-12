@@ -257,8 +257,8 @@ Page({
         limit: this.limit
       })
       .then((data) => {
-        let result = data.result
-        //let result = testData.testData
+        //let result = data.result
+        let result = testData.testData
         if(result.length > 0){
           result.reverse()
         }

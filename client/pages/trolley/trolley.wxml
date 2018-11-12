@@ -229,15 +229,15 @@
     <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.5;'></view> 
     <view  class='select-goods bgc ' style='top:{{top}}rpx;z-index: 21;'>
       <view class='center padding' style='justify-content:space-between;'>
-        <view style='font-size:32rpx; margin-left:4rpx;'>切换促销</view>
+        <view style='font-size:34rpx; margin-left:4rpx;'>切换促销</view>
         <image src='../../images/close.png' class='close-popup' style='margin-right:4rpx;' catch:tap='closePopup'></image>
       </view>
       <view class='line'></view>
       <view class='padding' style='padding:18rpx 0rpx;'>
         <scroll-view scroll-y style="height: 400rpx;">
-          <view wx:for='{{promotionOptions}}' wx:key='{{index}}' style='padding:18rpx 0;'>
+          <view wx:for='{{promotionOptions}}' wx:key='{{index}}' style='padding:18rpx 18rpx; '>
             <radio style='transform:scale(.8);' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
-              <view style="font-size: 42rpx; padding-left:0rpx;">{{item.promotionName}}</view>
+              <view style="width:700rpx;font-size: 40rpx; padding-left:0rpx;word-wrap:break-word;">{{item.promotionName}}</view>
             </radio>
           </view>
         </scroll-view>

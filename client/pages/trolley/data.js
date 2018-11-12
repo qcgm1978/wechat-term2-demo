@@ -213,7 +213,7 @@ let testData = [
     "cartSelectPromotions": [
       {
         "promotionId": "18952",
-        "promotionName": "test1",
+        "promotionName": "test1test1test1test1test1test1test1test1test1test1test1test1",
         "minNumber": 3,
         "entities": [
           {
@@ -224,7 +224,7 @@ let testData = [
       },
       {
         "promotionId": "18953",
-        "promotionName": "test2",
+        "promotionName": "test2test2test2test2test2test2test2test2test2test2test2test2test2",
         "minNumber": 6,
         "entities": [
           {
