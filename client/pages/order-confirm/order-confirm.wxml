@@ -1,5 +1,5 @@
 <scroll-view scroll-y style="height:{{height-53*2}}rpx; white-space:nowrap;">
-  <view class='regular bgc padding'>
+  <view class='regular bgc ' style="padding: 32rpx;">
     <view class='trans-shop' wx:if='{{isReturn}}'>
       <view class='trans-shop-lable regular'>{{salesReturn}}</view>
     </view>

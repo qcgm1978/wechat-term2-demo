@@ -9,10 +9,10 @@
         <text wx:if='{{isWechat}}' style='font-size: 24rpx;color: #707070;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
       </view>
       <view wx:elif='{{isCanceled&&isWechat}}'>
-        <view  style="margin:auto auto 16px 24px;">
+        <view style="margin:auto auto 16px 24px;">
           <view class='center trans-shop-lable regular'>
-          <image src='./images/cancel.png' class='cancel-icon'></image>
-          取消/退款进度:{{returnCompleted?"已取消":"退款处理中"}}</view>
+            <image src='./images/cancel.png' class='cancel-icon'></image>
+            取消/退款进度:{{returnCompleted?"已取消":"退款处理中"}}</view>
           <text wx:if='{{returnCompleted}}' style='font-size: 24rpx;color: #707070; margin-left:60rpx;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
         </view>
       </view>
@@ -88,18 +88,19 @@
           <view class='dollar-minus'>{{filters.toFix(order.discountTotalAmount)}}</view>
         </view>
       </view>
-      <view class='regular money-amount money ' style="margin: 0 16rpx;">
-        <view style="display:flex; justify-content: space-between; width: 100%; ">
-          <view>应付金额</view>
-          <view class='dollar'>{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount)}}</view>
-        </view>
-      </view>
+
       <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin: 0 16rpx;">
 
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>积分抵扣</view>
           <view>{{order.payment.usePoint}}(
             <text class='dollar-minus'>{{filters.toFix(order.payment.usePoint/100)}}</text>)</view>
+        </view>
+      </view>
+      <view class='regular money-amount money ' style="margin: 0 16rpx;">
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>应付金额</view>
+          <view class='dollar'>{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount)}}</view>
         </view>
       </view>
     </view>
