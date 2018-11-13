@@ -10,7 +10,7 @@
       </view>
       <view wx:elif='{{isCanceled&&isWechat}}'>
         <view style="margin:auto auto 16px 24px;">
-          <view class='center trans-shop-lable regular'>
+          <view class='center trans-shop-lable regular' hidden='{{order.orderReturn.returnStatus === 2}}'>
             <image src='./images/cancel.png' class='cancel-icon'></image>
             取消/退款进度:{{returnCompleted?"已取消":"退款处理中"}}</view>
           <text wx:if='{{returnCompleted}}' style='font-size: 24rpx;color: #707070; margin-left:60rpx;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
