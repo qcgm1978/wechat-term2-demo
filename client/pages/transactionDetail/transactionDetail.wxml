@@ -180,7 +180,7 @@
     <view class='regular  bgc padding center' hidden='{{isReturn}}' style='margin:6rpx 0 0 0;align-items:center;justify-content:flex-end;'>
       <view class='buy-again mgt' catch:tap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[orderStatus]==="待发货"||payStyle[orderStatus]==="等待付款"}}' style="border-color: #D1D1D2;color: #707070;">取消订单</view>
       <view wx:else catch:tap='addGotoTrolley' class='buy-again mgt' hover-class='btn-hover' data-orderitem='{{order.orderItem}}'>再次购买</view>
-      <view class='buy-again mgt' catch:tap='requestPayment' data-order-id="{{order.orderId}}" data-total-amount='{{order.actualAmount}}' wx:if='{{payStyle[orderStatus]==="等待付款"}}' style="margin-left: 20rpx;">去支付</view>
+      <view class='buy-again mgt' catch:tap='requestPayment' data-order-id="{{order.orderId}}" data-total-amount='{{order.payment.cashAmount}}' wx:if='{{payStyle[orderStatus]==="等待付款"}}' style="margin-left: 20rpx;">去支付</view>
     </view>
   </view>
 </view>
