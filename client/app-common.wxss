@@ -210,3 +210,4 @@ page{
 .debug {
   background-color: hotpink;
 }
+button::after{ border: none; } 
