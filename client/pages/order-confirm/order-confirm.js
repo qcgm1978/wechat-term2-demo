@@ -141,12 +141,12 @@ Page({
   onChangeChecked(myEventDetail, myEventOption) {
     const isVisible = myEventDetail.detail.checked;
     this.setData({
-      credit: isVisible ? this.data.credit / 100 : 0,
+      credit: utils.getFixedNum(isVisible ? this.data.usedPoints / 100 : 0),
     })
     this.setData({
       isVisible,
-      usedPoints: utils.getFixedNum(this.data.credit * 100),
-      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.credit / 100 : 0), 2)
+      // usedPoints: utils.getFixedNum(this.data.credit * 100),
+      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.usedPoints / 100 : 0), 2)
     })
   },
   textareaConfirm(e) {
