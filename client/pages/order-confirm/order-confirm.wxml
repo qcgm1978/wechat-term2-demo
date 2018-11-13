@@ -19,12 +19,13 @@
     </view>
   </view>
   <view class='color-bg bgc'></view>
+  <view class='line' style='height:16rpx; background:#f0f1f5;'></view>
   <view class='padding mgt bgc center order-item-container'>
     <text class='regular confirm-payment'>支付方式</text>
     <text class='medium order-val'></text>
   </view>
   <view class='line'></view>
-  <view class='padding mgt bgc center order-item-container'>
+  <view class='padding bgc center order-item-container'>
     <text class='regular  confirm-title'>在线支付<text class='confirm-comment'>成功的订单仅支持全部拒收</text></text>
     <radio catch:tap='radioClick' class="radio" data-index='{{0}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{checked[0]}}" color='{{checked[0]?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
@@ -35,15 +36,15 @@
     <radio catch:tap='radioClick' class="radio" data-index='{{1}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{checked[1]}}" color='{{checked[1]?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
   </view>
-  <view class='line'></view>
-  <view class='padding mgt bgc center order-item-container'>
+  <!-- <view class='line'></view> -->
+  <view class='padding  bgc center order-item-container' style='margin-top:16rpx;'>
     <text class='regular confirm-payment'>商品信息</text>
     <text class='medium order-val'></text>
   </view>
   <view class='bgc goods-container'>
     <view class='scroll-container' scroll-top="{{scrollTop}}">
       <view>
-        <view style='height: {{ expandAll?"auto":(heightGoods+"rpx")}}; overflow:{{expandAll?"auto":"hidden"}};'>
+        <view style='height: {{ (expandAll||data.length<2)?"auto":(heightGoods+"rpx")}}; overflow:{{expandAll?"auto":"hidden"}};'>
           <view class='item-container' style='margin-top:10rpx' wx:for="{{data}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" itemId='{{orderGroup.groupId}}' locationId='{{item.locationId}}'>
             <view style='display:flex; justify-content: space-between; background-color: white; margin-top: 0rpx; align-items:center;' wx:if="{{orderGroup.combinationFlag}}">
               <view style=''>
@@ -119,7 +120,7 @@
     <text class='regular  '>买家留言：</text>
     <textarea class='textarea' placeholder="选填" value='{{textarea}}' bindblur='textareaConfirm' auto-height='{{true}}' />
   </view> -->
-    <view class=' mgt bgc center order-item-container' style="margin-top: 15rpx;">
+    <view class=' mgt bgc center order-item-container' style="margin-top: 16rpx;">
       <!-- <text class='regular order-field '>促销折扣</text> -->
       <!-- <text class='medium'>满减活动；满送活动</text> -->
     </view>
