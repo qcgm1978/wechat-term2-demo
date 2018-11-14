@@ -55,7 +55,7 @@
               <image src='./img/arrow-down.png' class='' style='width:32rpx; height: 36rpx;margin-right:50rpx;' bind:tap='showPromotions'></image>
             </view> -->
 
-            <template is="promotionInfo" data="{{trollyGroup}}" wx:if="{{trollyGroup.cartSelectPromotions.length >0}}"/>
+            <template is="promotionInfo" data="{{trollyGroup}}" wx:if="{{trollyGroup.cartCombinationPromotions.length >0}}"/>
 
              <!-- && item.isfree -->
             <view class='promotion' style='font-size:24rpx; padding-bottom:0rpx;margin-bottom:0;' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '1'}}">
@@ -147,7 +147,7 @@
             </view>
           </view> -->
 
-          <template is="promotionInfo" data="{{trollyGroup}}"  wx:if="{{trollyGroup.cartSelectPromotions.length >0}}"/>
+          <template is="promotionInfo" data="{{trollyGroup}}"  wx:if="{{trollyGroup.cartCombinationPromotions.length >0}}"/>
 
           <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'> 
             <view class='center padding trolley-container regular bgc'  style="padding-left: 40rpx; ">
@@ -236,8 +236,8 @@
       <view class='padding' style='padding:18rpx 0rpx;'>
         <scroll-view scroll-y style="height: 400rpx;">
           <view wx:for='{{promotionOptions}}' wx:key='{{index}}' style='padding:18rpx 18rpx; '>
-            <radio style='transform:scale(.8);' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
-              <view style="width:700rpx;font-size: 40rpx; padding-left:0rpx;word-wrap:break-word;">{{item.promotionName}}</view>
+            <radio style='transform:scale(.8); margin-left: -80rpx;' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
+              <view style="width:800rpx;font-size: 40rpx; padding-left:0rpx;word-wrap:break-word;">{{item.promotionName}}</view>
             </radio>
           </view>
         </scroll-view>

@@ -106,7 +106,9 @@ var postRequest = function ({
       }
     }
     showLoading()
-
+    console.log("------------------------------------------")
+    console.log(url)
+    console.log(JSON.stringify(postData || data))
     wx.request({
       url: url,
       data: postData || data,
