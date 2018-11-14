@@ -48,11 +48,11 @@ Page({
         url: '/pages/login/login',
       })
     }
-    if (this.inTimeRange()) {
-      this.setData({
-        enableCreateOrder: false
-      })
-    }
+    // if (this.inTimeRange()) {
+    //   this.setData({
+    //     enableCreateOrder: false
+    //   })
+    // }
     utils.getMerchant().then(data => {
       const points = data.result.availablePoint;
       this.updateData({
@@ -230,11 +230,11 @@ Page({
     return hour < 4;
   },
   createOrder(itemId) {
-    if (this.inTimeRange()) {
-      return this.setData({
-        enableCreateOrder: false
-      })
-    }
+    // if (this.inTimeRange()) {
+    //   return this.setData({
+    //     enableCreateOrder: false
+    //   })
+    // }
     return new Promise((resolve, reject) => {
       wx.showLoading({
         title: '正在创建订单...',
