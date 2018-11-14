@@ -39,7 +39,7 @@
                 <text style="flex-grow: 1;"></text>
                 <button class='btn regular' catchtap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[item.orderStatus]==="待发货"}}'>取消订单</button>
                 <button wx:elif='{{isReturn}}' class='btn regular buy-again' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" catch:tap="goTransDetails">拒收详情</button>
-                <button wx:elif='{{payStyle[item.orderStatus]==="等待付款"}}' class='btn regular buy-again' data-order-id="{{item.orderId}}" data-total-amount='{{item.totalAmount}}' data-order-status="{{item.orderStatus}}" catch:tap="requestPayment">去支付</button>
+                <button wx:elif='{{payStyle[item.orderStatus]==="等待付款"}}' class='btn regular buy-again' data-order-id="{{item.orderId}}" data-total-amount='{{item.payment.cashAmount}}' data-order-status="{{item.orderStatus}}" catch:tap="requestPayment">去支付</button>
 
                 <button wx:else class='btn regular buy-again' data-orderitem='{{item.orderItem}}' data-order-id="{{item.orderId}}" data-order-status="{{item.orderStatus}}" catch:tap="addGotoTrolley">再次购买</button>
               </view>
