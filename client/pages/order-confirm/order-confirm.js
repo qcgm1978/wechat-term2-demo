@@ -321,7 +321,7 @@ Page({
       utils.postRequest({
         url: createOrder,
         data: {
-          paymentMethod: isWechat ? 1 : 3,
+          paymentMethod: (isWechat && this.isNotFullCredits()) ? 1 : 3,
           orderItems,
           orderPomotionId: "0",
           orderPomotionDiscountAmount: 0,
@@ -347,7 +347,7 @@ Page({
           if (trolley && trolley.route.includes('trolley/trolley')) {
             trolley.selectedRadio = [];
           }
-          const isToCheckstand = isWechat && (this.data.actual !== '0.00')
+          const isToCheckstand = isWechat && this.isNotFullCredits()
           wx.redirectTo({
             url: `/pages/${isToCheckstand ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
@@ -375,6 +375,9 @@ Page({
         wx.hideLoading();
       })
     })
+  },
+  isNotFullCredits(){
+    return this.data.actual !== '0.00'
   },
   closePopup() {
     this.setData({

@@ -21,19 +21,19 @@ switch (env) {
     baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     baseUrl ='http://192.168.2.56:17000/merchant-mall/v1'
-    statistics = 'http://39.105.120.6:8081'
+    statistics = 'https://sitecatalyst.jihuiduo.cn'
     break;
   case EVN.LOCAL:
     {
       baseUrl = localNodejs;
-      statistics = 'http://39.105.120.6:8081'
+      statistics = 'https://sitecatalyst.jihuiduo.cn'
       break;
     }
   case EVN.STG:
     clientSecret = "OzoStRYlQVA85pjp"
     baseUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
     addrUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
-    statistics = 'http://39.105.120.6:8081'
+    statistics = 'https://sitecatalyst.jihuiduo.cn'
     break
   case EVN.PRO:
     clientSecret = "9sxyZhzgKIjSVuQQ"

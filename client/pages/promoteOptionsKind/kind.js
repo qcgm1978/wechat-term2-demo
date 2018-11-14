@@ -216,7 +216,9 @@ export default {
             })
 
           } else if (promoteResult.discountAmount > 0) { //满减
-
+            this.setData({
+              totalDiscountAmount: utils.getFixedNum(promoteResult.discountAmount,2),
+            })
           }
           wx.hideLoading()
           this.setData({
