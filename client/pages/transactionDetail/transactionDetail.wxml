@@ -106,8 +106,7 @@
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
-      共{{isReturn?'拒收':''}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：
-      <text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
+      共{{isReturn?'拒收':''}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：<text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx; padding-top:0;">
@@ -130,7 +129,7 @@
           </view>
         </view>
       </view>
-      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}' style="margin: 0 16rpx;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
             <text style="color:#888">创建时间：</text>{{order.createTime}}</view>
@@ -170,7 +169,7 @@
         </view>
       </view>
       <view class='line'></view>
-      <view class='regular money-amount money' hidden='{{isReturn}}'>
+      <view class='regular money-amount money' hidden='{{isReturn}}' style="margin-bottom: 0;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
             <text style='color:#888'>支付方式：</text>{{order.payment.paymentMethod==='COD'?'货到付款':'在线支付'}}</view>
