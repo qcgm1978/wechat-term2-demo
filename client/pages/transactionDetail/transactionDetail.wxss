@@ -14,11 +14,13 @@
   top: 80rpx;
   color: #fdb658;
 }
-.no-points{
- width: 270rpx;
-} 
-.use-points{
-  width:140rpx;
+
+.no-points {
+  width: 270rpx;
+}
+
+.use-points {
+  width: 140rpx;
 }
 
 .complete-login-content {
@@ -160,7 +162,7 @@
   background: #fff;
   margin: auto;
   padding-top: 32rpx;
-  padding-bottom:34rpx;
+  padding-bottom: 32rpx;
   border-radius: 8rpx;
   position: relative;
   /* top: 100rpx; */
@@ -169,11 +171,13 @@
   /* height: 144rpx; */
   box-shadow: 0 8rpx rgb(254, 240, 231);
 }
-.cancel-icon{
-  width:40rpx;
+
+.cancel-icon {
+  width: 40rpx;
   height: 40rpx;
   margin-right: 20rpx;
 }
+
 .trans-number-time {
   display: flex;
   flex-direction: row;
@@ -299,4 +303,14 @@
   text-align: right;
   line-height: 36rpx;
   margin-left: 106rpx;
+}
+
+.goods-info {
+  background: #fff;
+  font-size: 26rpx;
+  padding: 18rpx 32rpx;
+  z-index: 30;
+  margin-top: 26rpx;
+  position: relative;
+  color: #666;
 }

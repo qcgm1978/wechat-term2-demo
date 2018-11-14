@@ -31,7 +31,7 @@
       </view>
     </view>
 
-    <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:18rpx;position:relative;">商品信息</view>
+    <view class='regular goods-info'>商品信息</view>
     <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;' class='bgc'>
       <view class='group-container' wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
         <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}' wx:if='{{!isReturn||orderItem.returnQuantit}}'>
@@ -40,7 +40,7 @@
               <view class='order-content'>
                 <view style="display: flex; flex-direction:row;">
 
-                  <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                  <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
                   <view style='display: flex; flex-direction: column;'>
                     <view wx:if='{{orderItem.gift}}'>
                       <view style='display: flex; flex-direction: row;'>
@@ -76,20 +76,20 @@
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
     <view class='bgc padding' wx:if='{{!isReturn}}'>
       <view class='money-amount '>
-        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 16rpx;">
+        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 0 0 16rpx;">
           <view>商品金额</view>
           <view class='dollar'>{{filters.toFix(order.totalAmount)}}</view>
         </view>
       </view>
 
-      <view class='regular money-amount money ' style="margin: 0 16rpx;">
+      <view class='regular money-amount money ' style="margin: 0 0 0 16rpx;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>促销优惠</view>
           <view class='dollar-minus'>{{filters.toFix(order.discountTotalAmount)}}</view>
         </view>
       </view>
 
-      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin: 0 16rpx;">
+      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin: 0 0 0 16rpx;">
 
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>积分抵扣</view>
@@ -97,7 +97,7 @@
             <text class='dollar-minus'>{{filters.toFix(order.payment.usePoint/100)}}</text>)</view>
         </view>
       </view>
-      <view class='regular money-amount money ' style="margin: 0 16rpx;">
+      <view class='regular money-amount money ' style="margin: 0 0 0 16rpx;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>应付金额</view>
           <view class='dollar'>{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount)}}</view>
