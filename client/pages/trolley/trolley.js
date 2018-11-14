@@ -228,6 +228,12 @@ Page({
     })
   },
 
+  adjustCartCombinationPromotions(trolleyGroup){
+    if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0){
+      let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
+      trolleyGroup.cartCombinationPromotions[0] = rightPromotion ? rightPromotion: null
+    }
+  },
   getTrolley() {
 
     let temdata = {
@@ -254,6 +260,7 @@ Page({
           result.reverse()
         }
         for(let i = 0; i<result.length; i++){
+          this.adjustCartCombinationPromotions(result[i])
           result[i].putShelvesFlg = true
           result[i].items.map((item, index) => {
             if (!item.putShelvesFlg) {

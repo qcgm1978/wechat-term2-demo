@@ -307,6 +307,12 @@ App({
 
   exitLogin: function() {
     getApp().globalData.registerStatus = false
+    delete getApp().globalData["merchant"]
+    delete getApp().globalData["authMerchantList"]
+    delete getApp().globalData["address"]
+    delete getApp().globalData["authWechat"]
+    getApp().globalData.currentIndex = 0
+    
     wx.setStorage({
       key: "globalData",
       data: this.globalData
