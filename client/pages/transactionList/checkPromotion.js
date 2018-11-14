@@ -238,7 +238,7 @@ export default {
 
     getPromoteItemsNumber(items, promotionKind, promotionId, flag) {
       return new Promise((resolve, reject) => {
-        if (items.length < 2 || !flag) {
+        if (items.length < 2 || !flag || !promotionId) {
           resolve({flag, count:1})
         }
         let count  = 1
