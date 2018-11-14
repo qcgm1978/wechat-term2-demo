@@ -27,10 +27,11 @@ color: #FDB658;
   /* border: 2rpx solid #d1d1d2; */
   border-radius: 8rpx;
   margin: 16rpx 32rpx;
+  padding:0;
   background: #fff;
   width: 152rpx;
   height: 52rpx;
-  font-size: 23rpx;
+  font-size: 26rpx;
   line-height: 52rpx;
   color: #666;
   letter-spacing: 0;
