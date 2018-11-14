@@ -13,7 +13,9 @@ page{
 .padding {
   padding: 18rpx 24rpx;
 }
-.mgt{
+.padding-big {
+  padding: 24rpx 24rpx;
+}.mgt{
   margin-top:3rpx
 }
 .ellipse{

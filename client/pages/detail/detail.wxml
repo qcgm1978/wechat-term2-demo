@@ -35,7 +35,7 @@
       </view>
 
 
-      <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
+      <view class='center promotion-container padding-big regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>
         <view class='promotion-list'>
           <view class='center' style="height: 36rpx;">
@@ -45,7 +45,7 @@
         </view>
         <view></view>
       </view>
-      <view class='center promotion-container padding regular bgc mgt' wx:if='{{product.itemExpirationDays || product.itemOrigin || product.itemBrand}}'>
+      <view class='center promotion-container padding-big regular bgc mgt' wx:if='{{product.itemExpirationDays || product.itemOrigin || product.itemBrand}}'>
         <text class='promotion' style="align-self: start;">信息</text>
         <view class='promotion-list'>
           <view class='center'>
