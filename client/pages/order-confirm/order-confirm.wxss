@@ -7,6 +7,8 @@
   width: 100%; *//* transform:translate(0,-100%); */
   align-items: center;
   z-index: 20;
+  box-shadow:0 -2rpx 10rpx 0 rgba(0,0,0,0.05);
+
 }
 
 .confirm-price {
@@ -70,7 +72,7 @@
 
 .submit {
   background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
-  border-radius: 4rpx;
+  border-radius: 8rpx;
   font-size: 32rpx;
   color: #fff;
   width: 236rpx;

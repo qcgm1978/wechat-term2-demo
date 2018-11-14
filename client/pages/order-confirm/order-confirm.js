@@ -48,11 +48,11 @@ Page({
         url: '/pages/login/login',
       })
     }
-    if (this.inTimeRange()) {
-      this.setData({
-        enableCreateOrder: false
-      })
-    }
+    // if (this.inTimeRange()) {
+    //   this.setData({
+    //     enableCreateOrder: false
+    //   })
+    // }
     utils.getMerchant().then(data => {
       const points = data.result.availablePoint;
       this.updateData({
@@ -141,9 +141,12 @@ Page({
   onChangeChecked(myEventDetail, myEventOption) {
     const isVisible = myEventDetail.detail.checked;
     this.setData({
+      credit: utils.getFixedNum(isVisible ? this.data.usedPoints / 100 : 0),
+    })
+    this.setData({
       isVisible,
-      credit: isVisible ? this.data.credit / 100 : 0,
-      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.credit / 100 : 0), 2)
+      // usedPoints: utils.getFixedNum(this.data.credit * 100),
+      actual: utils.getFixedNum(this.data.total - (isVisible ? this.data.usedPoints / 100 : 0), 2)
     })
   },
   textareaConfirm(e) {
@@ -227,11 +230,11 @@ Page({
     return hour < 4;
   },
   createOrder(itemId) {
-    if (this.inTimeRange()) {
-      return this.setData({
-        enableCreateOrder: false
-      })
-    }
+    // if (this.inTimeRange()) {
+    //   return this.setData({
+    //     enableCreateOrder: false
+    //   })
+    // }
     return new Promise((resolve, reject) => {
       wx.showLoading({
         title: '正在创建订单...',

@@ -286,7 +286,7 @@ Page({
     }
     if (!this.data.enableBuy) {
       // todo cancel amount restriction to test payment
-      // return;
+      return;
     }
     this.data.product.quantity = this.data.quantity
     if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId) {

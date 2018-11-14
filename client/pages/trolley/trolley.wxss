@@ -140,7 +140,7 @@ color: #707070;
 .trolley-arrow {
   width: 26rpx;
   height: 26rpx;
-  margin-left: 10rpx;
+  /* margin-left: 10rpx; */
 }
 
 page {

@@ -223,3 +223,7 @@ color: #FDB658;
   font-size: 26rpx;
   height: 30rpx;
 }
+button{
+  border:1rpx solid;
+
+}
