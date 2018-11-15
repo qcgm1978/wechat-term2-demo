@@ -295,12 +295,13 @@ const addToTrolleyByGroup = (groupList, quantity = 1,enableChecked = true, updat
   const merchantId = getApp().getMerchantId();
   const locationId = String(getApp().globalData.merchant.locationId);
   console.log(JSON.stringify(groupList))
-  // for (let i = 0; i < groupList.addGroupList.length; i++){
-  //   for (let j = 0; j < groupList.addGroupList[i].addItemList.length; j++){
-  //     groupList.addGroupList[i].addItemList[j].quantity = groupList.addGroupList[i].addItemList[j].quantity * groupList.addGroupList[i].count
-  //   }
-  //   //delete groupList.addGroupList[i]["count"]
-  // }
+  //废除count，用quantity
+  for (let i = 0; i < groupList.addGroupList.length; i++){
+    for (let j = 0; j < groupList.addGroupList[i].addItemList.length; j++){
+      groupList.addGroupList[i].addItemList[j].quantity = groupList.addGroupList[i].addItemList[j].quantity * groupList.addGroupList[i].count
+    }
+    //delete groupList.addGroupList[i]["count"]
+  }
   const data = {
     merchantId,
     locationId,

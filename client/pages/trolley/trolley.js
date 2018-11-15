@@ -405,16 +405,13 @@ Page({
 
   plusMinus(e) {
     const dataset = e.currentTarget.dataset;
-    //console.log(dataset)
     if (!dataset.enabled) {
       return;
     }
     const index = dataset.index,
       type = dataset.type;
     const currentTrolley = this.data.trolley[index];
-    // const currentNum = currentTrolley.count;
     const currentNum = currentTrolley.items.find(item => item.itemId === dataset.itemid).quantity;
-    //console.log(currentNum)
     const isMinus = (type === 'minus');
     if ((currentNum === 1) && isMinus) {
       return;
@@ -441,37 +438,16 @@ Page({
     })
 
     this.setMoneyData(this.selectedRadio);
-    //this.updateTrolley(trolley, index, isMinus ? -1 : 1)
-
-    //调用计算接口
-    this.callPromotionCacl(trolley, index)
-    .then((data) =>{
-      trolley[index] = data
-      var singleGroup = 'trolley[' + index + ']'
-      this.setData({
-        [singleGroup]: trolley[index]
-      });
-      this.setMoneyData(this.selectedRadio);
-    })
-    for (let i = 0; i < trolley[index].items.length; i++){
-      trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
-    }
-    var trollyRequest = JSON.parse(JSON.stringify(trolley[index].items))
-
-    for (let i = 0; i < trollyRequest.length; i++) {
-      trollyRequest[i].quantity = isMinus ? -1 : 1
-    }
-
-    let para = {
-      addGroupList: [{
-        count: isMinus ? -1 : 1,
-        addItemList: trollyRequest,
-      }]
-    }
-    utils
-      .addToTrolleyByGroup(para)
+    this.updateTrolley(trolley, index, isMinus ? -1 : 1)
+      .then((para) => {
+        return utils.addToTrolleyByGroup(para)
+      })
       .then(badge => {
         utils.updateTrolleyNum();
+        this.start = 0
+        this.getTrolley()
+          .then((data) => { })
+          .catch((e) => { })
       })
   },
   onReady: function () {
@@ -594,34 +570,16 @@ Page({
       [trolleyItemCartCombinationPromotions]: [currentPromotion],
     })
 
-    // updateTrolley(this.data.trolley, this.currentTrolleyIndex, 0)
-    let trolley = this.data.trolley
-    let index = this.currentTrolleyIndex
-    this.callPromotionCacl(trolley, index)
-      .then((data) => {
-        console.log(JSON.stringify(data))
-        trolley[index] = data
-        var singleGroup = 'trolley[' + index + ']'
-        this.setData({
-          [singleGroup]: trolley[index]
-        });
-        this.setMoneyData(this.selectedRadio);
+    this.updateTrolley(this.data.trolley, this.currentTrolleyIndex, 0)
+      .then((para) => {
+        return utils.addToTrolleyByGroup(para)
       })
-    for (let i = 0; i < trolley[index].items.length; i++) {
-      trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
-    }
-    var trollyRequest = JSON.parse(JSON.stringify(trolley[index].items))
-
-    for (let i = 0; i < trollyRequest.length; i++) {
-      trollyRequest[i].quantity = 0
-    }
-
-    let para = {
-      addGroupList: [{
-        count: 1,
-        addItemList: trollyRequest,
-      }]
-    }
+      .then(data => {
+        this.start = 0
+        this.getTrolley()
+          .then((data) => { })
+          .catch((e) => { })
+      })
   },
   showPromotions(e) {
     let selectedGroup = this.data.trolley.find(item => {
@@ -651,32 +609,21 @@ Page({
   },
 
   updateTrolley(trolley, index, count){
-    this.callPromotionCacl(trolley, index)
-      .then((data) => {
-        trolley[index] = data
-        var singleGroup = 'trolley[' + index + ']'
-        this.setData({
-          [singleGroup]: trolley[index]
-        });
-        this.setMoneyData(this.selectedRadio);
-      })
-    for (let i = 0; i < trolley[index].items.length; i++) {
-      trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
-      trolley[index].items[i].quantity = trolley[index].items[i].quantity * count
-    }
+    return new Promise((resolve, reject) => {
+      for (let i = 0; i < trolley[index].items.length; i++) {
+        trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
+        trolley[index].items[i].quantity = count
+      }
 
-    let para = {
-      addGroupList: [{
-        count,
-        addItemList: trolley[index].items,
-      }]
-    }
-
-    utils
-      .addToTrolleyByGroup(para)
-      .then(badge => {
-        utils.updateTrolleyNum();
-      })
+      let para = {
+        addGroupList: [{
+          count : 1,
+          promotions: trolley[index].promotions,
+          addItemList: trolley[index].items,
+        }]
+      }
+      resolve(para)
+    })
   },
 
   getPromotionList(selectedGroup) {
