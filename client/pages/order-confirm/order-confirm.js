@@ -134,7 +134,7 @@ Page({
       address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
-      discountTotalAmount: options.totalDiscount,
+      discountTotalAmount: utils.getFixedNum(options.totalDiscount,2),
       totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2)
     })
   },
