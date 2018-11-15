@@ -24,8 +24,8 @@
 }
 
 .close-popup {
-  width: 43rpx;
-  height: 43rpx;
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .specification {
@@ -47,6 +47,7 @@
   color: #ee711f;
   letter-spacing: 0;
   text-align: right;
+  margin-top:-20rpx;
 }
 
 .short-line {

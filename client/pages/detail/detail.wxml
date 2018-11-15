@@ -1,6 +1,6 @@
 <view style='display: flex;flex-direction: column;' class='{{isSelecting?"indexFixed":""}}'>
   <view class='product-card'>
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx; opacity:{{isSelecting?.5:1}}">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx; opacity:{{isSelecting?.3:1}}">
       <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
         <swiper-item class='center-center' style='height:100%;'>
           <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="max-height:100%;" mode='aspectFit' />
@@ -102,7 +102,7 @@
       </view>
       <view class='line'></view>
       <view class='padding'>
-        <scroll-view scroll-y style="height: 240rpx;">
+        <scroll-view scroll-y >
 
           <view wx:for='{{specificationList}}' wx:key='{{index}}' style='padding:18rpx 0;'>
             <view class='center regular specification '>
@@ -146,7 +146,7 @@
   <!-- wx:if='{{!promotion}}'  wx:if='{{!isSelecting}}'-->
   <view class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
     <view class='center-center' style='flex-grow:1;' bindtap='gotoTrolley'>
-      <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
+      <image src='{{icon}}' style='width:54rpx;height:54rpx; margin:auto 32rpx;'></image>
       <view class='medium cart-num center-center' wx:if='{{badge}}'>
         {{badge}}
       </view>
