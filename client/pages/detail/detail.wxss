@@ -105,13 +105,15 @@
 }
 
 .btns button:nth-of-type(2n) {
-  background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
+  /* background: #ec6515; */
+  /* background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%); */
   margin: auto 24rpx auto 2rpx;
   border-radius:0 4rpx 4rpx 0;
 }
 
 .buy-btn {
-  background: #ec6515;
+  /* background: #ec6515; */
+  background:linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
 }
 
 .buy-selecting {
