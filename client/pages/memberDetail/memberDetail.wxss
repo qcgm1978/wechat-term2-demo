@@ -1,6 +1,6 @@
 .my-container {
   padding:24rpx;
-  align-items: left;
+  align-items: flex-start;
   box-shadow: 0 0 10rpx 0 rgba(0, 0, 0, 0.05);
   border-radius: 8rpx;
   margin: 16rpx;
