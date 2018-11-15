@@ -159,7 +159,7 @@ Page({
 
               } else if (promoteResult.discountAmount > 0) { //满减
                 this.setData({
-                  totalDiscount: promoteResult.discountAmount,
+                  totalDiscount: utils.getFixedNum(promoteResult.discountAmount, 2),
                   totalPrice: utils.getFixedNum(Number(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity) + Number(this.data.composeProducts[i].price * this.data.composeProducts[i].minQuantity) - promoteResult.discountAmount, 2)
                 })
               }else{
@@ -175,7 +175,8 @@ Page({
           this.data.selectedProductList.splice(1, 2);
           this.setData({
             selectedProductList: this.data.selectedProductList,
-            totalPrice: utils.getFixedNum(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity, 2)
+            totalPrice: utils.getFixedNum(this.data.selectedProductList[0].price * this.data.selectedProductList[0].minQuantity, 2),
+            totalDiscount: 0
           })
         }
       }
