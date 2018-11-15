@@ -265,6 +265,7 @@ Page({
           }
           for (let j = 0; j < orderItems[i].items.length; j++) {
             orderItems[i].items[j].unit = orderItems[i].items[j].saleUnit
+            orderItems[i].items[j].itemUnit = orderItems[i].items[j].saleUnit
 
             if (orderItems[i].combinationFlag) {
               orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
