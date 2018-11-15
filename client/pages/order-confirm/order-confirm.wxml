@@ -26,7 +26,7 @@
   </view>
   <view class='line'></view>
   <view class='padding bgc center order-item-container'>
-    <text class='regular  confirm-title'>在线支付<text class='confirm-comment'>成功的订单仅支持全部拒收</text></text>
+    <text class='regular  confirm-title'>在线支付<text class='confirm-comment'>在线支付成功的订单仅支持全部拒收</text></text>
     <radio catch:tap='radioClick' class="radio" data-index='{{0}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{checked[0]}}" color='{{checked[0]?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
   </view>
