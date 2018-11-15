@@ -1,4 +1,3 @@
-@import './kind.wxss';
 image {
   width: 180rpx;
   height: 180rpx;
@@ -253,8 +252,6 @@ image {
   position: fixed;
   left: 0;
   bottom: 0;
-  justify-content:space-between;
-
 }
 
 .fixed-position-text {
@@ -288,8 +285,7 @@ image {
 
 .padding-vertical-10 {
   padding-top: 10rpx;
-  padding-bottom: 16rpx;
-  width:100%;
+  padding-bottom: 10rpx;
 }
 .padding-hor-10 {
   padding-left: 20rpx;
@@ -299,12 +295,12 @@ image {
   background-color: whitesmoke;
   color:#949494;
   font-size: 30rpx;
-  padding: 37rpx 32rpx;
+  padding: 23rpx 20rpx;
 }
 
 .line {
   width: 100%;
-  height: 16rpx;
+  height: 8rpx;
   background: rgb(236, 236, 236);
 }
 
@@ -322,8 +318,8 @@ image {
 }
 
 .foot-txt3 {
-  font-size: 24rpx;
-  color: #EC6515;
+  font-size: 30rpx;
+  color: rgb(236, 236, 236);
   width: auto;
 }
 
@@ -341,11 +337,10 @@ align-items: center;
   bottom:100rpx;
   left:0; 
   width: 100%; 
-  /* height: 200rpx;  */
+  height: 200rpx; 
   background: rgb(255, 255,255);
   align-items: center;
   justify-content: space-between;
-  padding:32rpx 0 22rpx;
 }
 
 .promote-container-detail {
@@ -357,7 +352,6 @@ align-items: center;
   width: 100%; 
   height: 350rpx; 
   background: rgb(255, 255,255);
-  box-sizing:border-box;
 
 }
 

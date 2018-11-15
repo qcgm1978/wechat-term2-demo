@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 2,
+			"current": 15,
 			"list": [
 				{
 					"id": -1,
@@ -125,6 +125,12 @@
 					"name": "checkstand",
 					"pathName": "pages/checkstand/checkstand",
 					"query": "orderId=181102154912553997&orderTotalAmount=600.00"
+				},
+				{
+					"id": -1,
+					"name": "promoteOptions",
+					"pathName": "pages/promoteOptions/promoteOptions",
+					"query": "promoteInfo={\"promotionId\":\"18995\",\"promotionName\":\"测试促销：3a+2b，立减20元\",\"startTime\":\"Mon Nov 12 00:00:00 CST 2018\",\"endTime\":\"Mon Nov 19 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"1\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%B8%83%E5%96%9C1.jpg\",\"itemName\":\"七喜\",\"itemSpecification\":\"1L*12\",\"price\":38,\"itemId\":\"3473\",\"categoryId\":\"1201013\",\"isKind\":false}&kind=1"
 				}
 			]
 		}
