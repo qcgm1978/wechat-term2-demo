@@ -41,7 +41,7 @@
       <view class='foot-txt3' wx:if='{{totalDiscountAmount}}'>已省{{totalDiscountAmount}}</view>
     </view>
   </view>
-  <button bindtap='addToTrolley' class="without-back-image" style='margin-right:24rpx;padding:0;opacity:{{enableVisible?1:0.5}}'>加入进货单</button>
+  <button bindtap='addToTrolley' class="without-back-image" style='padding:0;opacity:{{enableVisible?1:0.5}}'>加入进货单</button>
 </view>
 <view class='promote-container'  wx:if="{{!showPromoteDetail}}">
   <view style='display: flex; overflow:hidden;max-width:90%;'>
@@ -68,7 +68,7 @@
       <view wx:for='{{selectedProductList}}' wx:key='*this' style='width: 150rpx; height:auto; padding:10rpx;border:1px solid rgb(236,236,236); margin: 10rpx;position: relative;'>
         <image style='width: 32rpx; height: 32rpx; position: absolute; left:130rpx; top:10rpx;' src='../../images/zeng.png' wx:if="{{item.isGift}}"></image>
         <image style='width: 120rpx; height: 120rpx;  margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
-        <view style='background-color:grey; border-radius:10rpx;  width: auto; display:inline-block !important; display:inline; color: white;transform:translate(-150rpx,-100%);'>¥{{item.price}}</view>
+        <view class='buys-price' >¥{{item.price}}</view>
         <view style='display: flex; justify-content: space-between;'>
           <view style='white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.itemName}}</view>
           <view style='white-space:nowrap'>x{{item.quantity||1}}</view>
