@@ -220,3 +220,6 @@ display:-webkit-box;
 white-space:normal;
 
 }
+.column-start{
+  align-items:flex-start;
+}

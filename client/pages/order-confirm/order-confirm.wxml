@@ -60,18 +60,20 @@
                   <view class='center' style='width:100%;'>
                     <image src='{{item.itemImageAddress1?item.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
                     <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
-                      <view class='darker-gray-chars item-name regular' style='width:100%;'>{{item.itemName}}</view>
-                      <text class='regular item-standard' style='width:100%;'>规格：{{item.itemSpecification}}</text>
+                      <view class='column column-start'>
+                        <view class='darker-gray-chars item-name regular' style='width:100%;'>{{item.itemName}}</view>
+                        <text class='regular item-standard' style='width:100%; margin-top:8rpx;'>规格：{{item.itemSpecification}}</text>
+                      </view>
                       <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
                         <block wx:if="{{orderGroup.combinationFlag}}">
                           <text class='confirm-price'></text>
-                          <text >x{{item.quantity}}/套</text>
+                          <text>x{{item.quantity}}/套</text>
                         </block>
                         <block wx:else>
                           <text class='confirm-price'>￥{{item.price}}<text class='sales-unit'>/{{item.saleUnit}}</text></text>
-                          <text >x{{item.quantity}}</text>
+                          <text>x{{item.quantity}}</text>
                         </block>
-                        
+
                       </view>
                     </view>
                   </view>
@@ -86,9 +88,11 @@
 
                     <image src='{{gift.itemImageAddress1?gift.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
                     <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
-                      <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'>
-                        <view class='free-gift' style='font-size: 24rpx;'>赠品</view>{{gift.giftItemName}}</view>
-                      <text class='regular item-standard' style='width:100%'>规格：{{gift.itemUnit}}</text>
+                      <view class='column column-start'>
+                        <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'>
+                          <view class='free-gift' style='font-size: 24rpx;'>赠品</view>{{gift.giftItemName}}</view>
+                        <text class='regular item-standard' style='width:100%; margin-top:8rpx;'>规格：{{gift.itemUnit}}</text>
+                      </view>
                       <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
                         <text class='confirm-price'>￥0</text>
                         <text>x{{gift.quantity}}</text>
