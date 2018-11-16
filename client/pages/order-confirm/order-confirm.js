@@ -67,7 +67,7 @@ Page({
 
       for (let i = 0; i < tempData.length; i++) {
         count += tempData[i].items.length
-        if (tempData[i].cartCombinationPromotions && tempData[i].cartCombinationPromotions.length > 0 && tempData[i].cartCombinationPromotions[0].giftItems && tempData[i].cartCombinationPromotions[0].giftItems.length > 0) {
+        if (tempData[i].cartCombinationPromotions && tempData[i].cartCombinationPromotions.length > 0 && tempData[i].cartCombinationPromotions[0] && tempData[i].cartCombinationPromotions[0].giftItems && tempData[i].cartCombinationPromotions[0].giftItems.length > 0) {
           count += tempData[i].cartCombinationPromotions[0].giftItems.length
         }
       }
@@ -77,12 +77,12 @@ Page({
       })
 
       this.setData({
-        heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 10
+        heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 54
       })
     } else {
       this.getProduct(options).then(data => {
         this.setData({
-          heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 10
+          heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 54
         })
       });
     }
@@ -134,7 +134,7 @@ Page({
       address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
-      discountTotalAmount: options.totalDiscount,
+      discountTotalAmount: utils.getFixedNum(options.totalDiscount,2),
       totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2)
     })
   },

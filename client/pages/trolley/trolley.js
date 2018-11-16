@@ -256,9 +256,6 @@ Page({
         if (result && result.length < this.limit){
           this.noMoreData = true
         }
-        if(result.length > 0){
-          result.reverse()
-        }
         for(let i = 0; i<result.length; i++){
           this.adjustCartCombinationPromotions(result[i])
           result[i].putShelvesFlg = true
