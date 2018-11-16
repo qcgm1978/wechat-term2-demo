@@ -213,3 +213,10 @@ page{
   background-color: hotpink;
 }
 button::after{ border: none; } 
+.two-lines{
+  -webkit-line-clamp:2;
+display:-webkit-box;
+-webkit-box-orient:vertical;
+white-space:normal;
+
+}

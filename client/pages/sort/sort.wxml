@@ -3,13 +3,13 @@
     <view class='{{(currentIndex===index)?"bgc":""}}' style='padding:22rpx 0;position:fixed;left:0;width:200rpx; top:{{88*index}}rpx;' catch:tap='toggleFirst' data-index="{{index}}" wx:if='{{item.childCategory.length}}'>
       <text class='regular category-first center-center {{(currentIndex===index)?"current":""}}'>{{item.itemCategoryName}}</text>
     </view>
-    <view class='column' hidden='{{!(index===currentIndex)}}' class='categoryright bgc padding'>
+    <view class='column' hidden='{{!(index===currentIndex)}}' class='categoryright bgc padding-second'>
       <view wx:for='{{item.childCategory}}' wx:key='{{index}}' wx:for-item='second' class='second-container' style="clear: both;margin-bottom:16rpx; ">
         <view class='medium category-second'>{{second.itemCategoryName}}</view>
-        <view class='clearfix padding' style="padding-left: 0;width:516rpx; " >
+        <view class='clearfix padding-third' >
           <view catch:tap='turnPage' wx:for="{{second.childCategory}}" wx:for-item='third' wx:key='{{index-third}}' class='column category-third' data-categorycode='{{third.itemCategoryCode}}' data-name='{{third.itemCategoryName}}' style="float: left;">
             <image src='{{third.itemCategoryImage?(third.itemCategoryImage+"?x-oss-process=style/180w"):defImg}}' mode='aspectFit'></image>
-            <text class='category-name ellipse'>{{third.itemCategoryName}}</text>
+            <text class='category-name ellipse two-lines'>{{third.itemCategoryName}}</text>
           </view>
         </view>
         <view class='line'></view>
