@@ -194,7 +194,7 @@
         <view class='center' style='align-items:center;'>
           <text>合计:</text>
           
-          <text class='dollar trolley-num medium'><template is="price" data="{{price:currentMoney,style:'decimal-part'}}" /></text>
+          <text class='dollar trolley-num medium'><template is="price" data="{{price:currentMoney,fontSize:28}}" /></text>
         </view>
         <view style='display: flex; flex-direction: row;' wx:if="{{totalDiscountMoney!=0}}">
           <view>金额</view>
