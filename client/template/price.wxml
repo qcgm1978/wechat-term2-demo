@@ -1,4 +1,4 @@
 <wxs module="filters" src="../utils/math.wxs"></wxs>
 <template name="price">
-  <text>{{filters.parseInt(price)}}<text class='decimal-part24'>{{filters.getDecimals(price)}}</text></text>
+  <text>{{filters.parseInt(price)}}<text class='{{style||"decimal-part24"}}'>{{filters.getDecimals(price)}}</text></text>
 </template>

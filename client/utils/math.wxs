@@ -7,7 +7,7 @@ var filters = {
     return parseInt(num)
   },
   getDecimals:function(num){
-    console.log(num.split('.')[1])
+    // console.log(num.split('.')[1])
     return num.toString().split('.')[1]||'00'
   }
 }
