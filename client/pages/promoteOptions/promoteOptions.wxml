@@ -1,3 +1,4 @@
+<import src="../../template/price.wxml" />
 <view class="promote-msg" style='padding-left: 24rpx; background-color: #ffffff; color:#333333; font-size:26rpx;'>
 {{promoteMsg}}
 </view>
@@ -12,7 +13,7 @@
       <view >规格：  {{item.itemSpecification}}</view>
       <view  style='display:flex;'> x{{item.minQuantity}}/套</view>
     </view>
-    <text class='dollar medium list-price'>{{item.price}}</text>
+    <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /></text>
   </view>
 
 </view>

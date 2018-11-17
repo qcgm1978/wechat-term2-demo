@@ -250,6 +250,6 @@ button::after {
 .decimal-part24{
   font-size:24rpx;
 }
-.decimal-part::before,.decimal-part24::before{
+.decimal-dot::before{
   content:'.'
 }

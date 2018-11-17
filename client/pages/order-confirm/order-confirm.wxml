@@ -1,3 +1,4 @@
+<import src="../../template/price.wxml" />
 <scroll-view scroll-y style="height:{{height-53*2}}rpx; white-space:nowrap;">
   <view class='regular bgc ' style="padding: 32rpx;">
     <view class='trans-shop' wx:if='{{isReturn}}'>
@@ -49,7 +50,7 @@
             <view style='display:flex; justify-content: space-between; background-color: white; margin-top: 0rpx; align-items:center;' wx:if="{{orderGroup.combinationFlag}}">
               <view style=''>
                 <view class='suite-1' style='height:34rpx;'>套装</view>
-                <view class='dollar suite-2' style='height:34rpx;'>{{orderGroup.suitePrice}}</view>
+                <view class='dollar suite-2' style='height:34rpx;'><template is="price" data="{{price:orderGroup.suitePrice}}" /></view>
               </view>
               <view class='suite-3'>x{{orderGroup.count}}</view>
             </view>
@@ -70,7 +71,7 @@
                           <text>x{{item.quantity}}/套</text>
                         </block>
                         <block wx:else>
-                          <text class='confirm-price'>￥{{item.price}}<text class='sales-unit'>/{{item.saleUnit}}</text></text>
+                          <text class='confirm-price'>￥<template is="price" data="{{price:item.price}}" /><text class='sales-unit'>/{{item.saleUnit}}</text></text>
                           <text>x{{item.quantity}}</text>
                         </block>
 
@@ -94,7 +95,7 @@
                         <text class='regular item-standard' style='width:100%; margin-top:8rpx;'>规格：{{gift.itemUnit}}</text>
                       </view>
                       <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
-                        <text class='confirm-price'>￥0</text>
+                        <text class='confirm-price'>￥<template is="price" data="{{price:'0'}}" /></text>
                         <text>x{{gift.quantity}}</text>
                       </view>
                     </view>
@@ -171,7 +172,7 @@
   </view>
 </scroll-view>
 <view class='padding mgt bgc center order-item-container confirm-view' style='top:{{height}}rpx;'>
-  <text class='medium dollar' style='color:#EE711F;font-size: 44rpx;'>{{actual}}</text>
+  <text class='medium dollar' style='color:#EE711F;font-size: 44rpx;'><template is="price" data="{{price:actual,fontSize:32}}" /></text>
   <button class='medium submit regular' style='opacity:{{enableCreateOrder?1:0.5}}' catch:tap='createOrder'>提交订单</button>
 </view>
 <block wx:if="{{isFailed}}">
