@@ -1,3 +1,4 @@
+<import src="../../template/price.wxml" />
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
   <!-- <view style='background-color:rgb(236,236,236); width:100%; height:{{windowHeight}}rpx; z-index: 1;'></view> -->
   <view class='tab medium center' bindtap='toggleTab' wx:if='{{!isReturn}}'>
@@ -30,7 +31,7 @@
                   </block>
                 </block>
               </scroll-view>
-              <view class='regular total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款金额':'合计金额'}}：<text style='color:#333; margin-right:14rpx;'>￥{{isReturn?item.orderReturn.refundCashAmount:item.totalAmount}}</text>
+              <view class='regular total-money'>共{{isReturn?'拒收':''}}{{isReturn?item.itemReturnCount:item.itemTotalCount}}件商品 {{isReturn?'退款金额':'合计金额'}}：<text style='color:#333; margin-right:14rpx; font-size:32rpx;'>￥<template is="price" data="{{fontSize:28,price:isReturn?item.orderReturn.refundCashAmount:item.totalAmount}}" /></text>
               </view>
               <view class="line" style='height:2rpx; z-index: 1;'></view>
 
