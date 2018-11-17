@@ -3,10 +3,10 @@
 <view wx:if='{{trolley.length}}' style="height: 100%;">
   <scroll-view scroll-y style="height:85%;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
     <!-- <view wx:for='{{trolley}}' wx:key='{{index}}'> -->
-    <view wx:for='{{trolley}}' wx:for-index="groupIndex" wx:for-item="trollyGroup" style='margin-top:15rpx;margin-bottom:0rpx;'>
+    <view wx:for='{{trolley}}' wx:for-index="groupIndex" wx:key='*this' wx:for-item="trollyGroup" style='margin-top:15rpx;margin-bottom:0rpx;'>
       <view wx:if="{{trollyGroup.combinationFlag == '0'}}">
 
-        <view wx:for='{{trollyGroup.items}}'>
+        <view wx:for='{{trollyGroup.items}}' wx:key='*this'>
           <view style='display: flex; flex-direction: column; '>
             <view class='center padding trolley-container regular bgc' style="padding-left: 0; ">
               <view class='column' style='margin-top:auto;position:relative;'>
@@ -35,7 +35,7 @@
                   </view>
                 </view>
                 <view class='center trolley-bottom'>
-                  <text wx:if='{{trollyGroup.putShelvesFlg}}' class='dollar medium trolley-price'>{{item.price}}<text class='regular sales-unit'>/{{item.saleUnit}}</text></text>
+                  <text wx:if='{{trollyGroup.putShelvesFlg}}' class='dollar medium trolley-price'>{{filters.parseInt(item.price)}}<text class='decimal-part24'>{{filters.getDecimals(item.price)}}</text><text class='regular sales-unit'>/{{item.saleUnit}}</text></text>
                   <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
                   <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; margin-right:7rpx;' wx:if="{{!item.isfree}}">
                     <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'>-</text>
@@ -191,7 +191,8 @@
       <view style='display: flex; flex-direction: column;'>
         <view class='center' style='align-items:center;'>
           <text>合计:</text>
-          <text class='dollar trolley-num medium'>{{currentMoney}}</text>
+          
+          <text class='dollar trolley-num medium'>{{filters.parseInt(currentMoney)}}<text class='decimal-part'>{{filters.getDecimals(currentMoney)}}</text></text>
         </view>
         <view style='display: flex; flex-direction: row;' wx:if="{{totalDiscountMoney!=0}}">
           <view>金额</view>

@@ -244,3 +244,12 @@ button::after {
 .column-start {
   align-items: flex-start;
 }
+.decimal-part{
+  font-size:28rpx;
+}
+.decimal-part24{
+  font-size:24rpx;
+}
+.decimal-part::before,.decimal-part24::before{
+  content:'.'
+}
