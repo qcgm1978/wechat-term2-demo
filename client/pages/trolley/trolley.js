@@ -232,10 +232,10 @@ Page({
     let suiteTitle = "套装"
 
     if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].combinationFlag == "0" && orderGroup.cartCombinationPromotions[0].promotionKind == "2"){
-      //console.log(orderGroup.cartCombinationPromotions[0])
+
       suiteTitle = orderGroup.cartCombinationPromotions[0].promotionType == "2"? "满减":"满赠"
     }
-    //console.log(suiteTitle)
+
     return suiteTitle
   },
 
@@ -247,7 +247,7 @@ Page({
       start: this.start,
       limit: this.limit
     }
-    // console.log(JSON.stringify(temdata))
+
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -437,8 +437,9 @@ Page({
       trolley
     })
 
+    let itemIndex = currentTrolley.items.findIndex(item => item.itemId === dataset.itemid)
     this.setMoneyData(this.selectedRadio);
-    this.updateTrolley(trolley, index, isMinus ? -1 : 1)
+    this.updateTrolley(trolley, index, isMinus ? -1 : 1, itemIndex)
       .then((para) => {
         return utils.addToTrolleyByGroup(para)
       })
@@ -608,11 +609,22 @@ Page({
     .catch((e) => {})
   },
 
-  updateTrolley(trolley, index, count){
+  updateTrolley(trolley, index, count, itemIndex){
     return new Promise((resolve, reject) => {
-      for (let i = 0; i < trolley[index].items.length; i++) {
-        trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
-        trolley[index].items[i].quantity = count
+      if (arguments.length == 4){
+        for (let i = 0; i < trolley[index].items.length; i++) {
+          trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
+          if (itemIndex == i){
+            trolley[index].items[i].quantity = count
+          }else{
+            trolley[index].items[i].quantity = 0
+          }
+        }
+      }else{
+        for (let i = 0; i < trolley[index].items.length; i++) {
+          trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
+          trolley[index].items[i].quantity = count
+        }
       }
 
       let para = {
@@ -685,7 +697,7 @@ Page({
         merchantId: app.getMerchantId(),
         locationId: getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "",
       }
-      //console.log(JSON.stringify(postData))
+
       return utils.postRequest({
           url: getPromotionList,
           config: {
@@ -694,7 +706,7 @@ Page({
           data: postData
         })
         .then((data) => {
-          //console.log(JSON.stringify(data))
+
           resolve(data)
         }).catch((e) => {
           reject(e)
