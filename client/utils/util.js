@@ -1,12 +1,4 @@
-import {
-  urlObj,
-  requestStatis,
-  requestStatisLoad,
-  requestStatisUnload,
-  requestStatisDispose,
-  updateSessionId,
-  requestStatisEnter
-} from './statis.js';
+import * as Statics from './statis.js';
 const util = require('./util-jhd')
 const formatTime = date => {
     const year = date.getFullYear()
@@ -58,5 +50,4 @@ var showModal = (title, showCancel = true) => {
 }
 
 module.exports = {
-  formatTime, showBusy, showSuccess, showModal, urlObj,
-  requestStatis, requestStatisLoad, requestStatisUnload, requestStatisDispose, updateSessionId, requestStatisEnter, ...util }
+  formatTime, showBusy, showSuccess, showModal, ...Statics,...util }

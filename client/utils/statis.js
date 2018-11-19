@@ -10,7 +10,8 @@ export const urlObj = {
   unload: `/b2b/page/unload`,
   dispose: `/b2b/page/dispose`,
 
-  loginWechat: `/b2b/login/wxlogin`
+  loginWechat: `/b2b/login/wxlogin`,
+  loginPhone:`/b2b/login/phonelogin`
 };
 let statisToken = wx.getStorageSync('statis').token || '';
 let sessionId = '';
@@ -126,8 +127,12 @@ export const requestStatisDispose = () => requestStatis({
   event: 'evn_hide_app',
 });
 export const requestWechatLogin = () => requestStatis({
-  url: urlObj.dispose,
+  url: urlObj.loginWechat,
   event: 'evn_wechat_login',
+})
+export const requestPhoneLogin = () => requestStatis({
+  url: urlObj.loginPhone,
+  event: 'evn_phone_login',
 })
 export const updateSessionId = () => {
   sessionId = generateGuid();

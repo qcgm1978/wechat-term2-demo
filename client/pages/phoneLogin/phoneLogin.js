@@ -76,6 +76,7 @@ Page({
   },
   phoneLogin: function () {
     if (this.data.loginSrc.active) {
+      utils.requestPhoneLogin()
       clearInterval(interval)
       if (this.verifyInput()) {
         this.setData({
