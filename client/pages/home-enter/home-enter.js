@@ -27,7 +27,10 @@ Page({
   },
   callPhone(evt) {
     wx.makePhoneCall({
-      phoneNumber: '400-101-5288' //仅为示例，并非真实的电话号码
+      phoneNumber: '400-101-5288', //仅为示例，并非真实的电话号码
+      success(data){
+        debugger
+      }
     })
   },
   exitLogin() {

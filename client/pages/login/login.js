@@ -159,6 +159,7 @@ Page({
       this.setData({
         loadingState: true,
       });
+      utils.requestWechatLogin()
       this.decryptPhoneNumber(e.detail.iv, e.detail.encryptedData, getApp().globalData.token.jscode)
     } else {
       // todo 目前该接口针对非个人开发者，且完成了认证的小程序开放

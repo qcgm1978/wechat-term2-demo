@@ -1,5 +1,6 @@
-
-import { Api } from './envConf.js'
+import {
+  Api
+} from './envConf.js'
 const baseUrl = Api.statistics
 export const urlObj = {
   test: `/user/jhduser`,
@@ -7,7 +8,9 @@ export const urlObj = {
   clientInfo: `/b2b/clientInfo`,
   load: `/b2b/page/load`,
   unload: `/b2b/page/unload`,
-  dispose: `/b2b/page/dispose`
+  dispose: `/b2b/page/dispose`,
+
+  loginWechat: `/b2b/login/wxlogin`
 };
 let statisToken = wx.getStorageSync('statis').token || '';
 let sessionId = '';
@@ -20,7 +23,7 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
   header: {
     'Content-Type': 'application/json'
   },
-  success: function (result) {
+  success: function(result) {
 
     const token = result.data.jhd_token;
     if (token === undefined) {
@@ -47,6 +50,10 @@ export const requestStatis = (postData = {}) => {
       ...postData,
       sessionId,
       userId,
+      pageUrl: getCurrentPages().slice(-1)[0].route,
+      eventDetail: '',
+      time: new Date().getTime(),
+      preUrl: getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : '' //getCurrentPages().slice(-1)[0].route
     };
     wx.request({
       method: "POST",
@@ -55,11 +62,10 @@ export const requestStatis = (postData = {}) => {
       header: {
         'Content-Type': 'application/json'
       },
-      success: function (result) {
+      success: function(result) {
         if (result.statusCode === 401 && result.data.error === 'invalid_token') {
           getToken().then(() => requestStatis(data))
-        } else {
-        }
+        } else {}
 
       }
     })
@@ -101,31 +107,28 @@ export const requestStatisEnter = (systemInfo) => {
 }
 export const requestStatisLoad = () => requestStatis({
   url: urlObj.load,
-  pageUrl: getCurrentPages().slice(-1)[0].route,
   event: 'evn_open_page',
-  eventDetail: '',
-  time: new Date().getTime(),
-  preUrl: getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : ''//getCurrentPages().slice(-1)[0].route
 });
 export const requestStatisUnload = ({
   nextUrl
 } = {
-    nextUrl: ''
-  }) => requestStatis({
-    url: urlObj.unload,
-    pageUrl: getCurrentPages().slice(-1)[0].route,
-    event: 'evn_quit_page',
-    eventDetail: '',
-    time: new Date().getTime(),
-    nextUrl
-  });
-export const requestStatisDispose = () => requestStatis({
-  url: urlObj.dispose,
+  nextUrl: ''
+}) => requestStatis({
+  url: urlObj.unload,
   pageUrl: getCurrentPages().slice(-1)[0].route,
-  event: 'evn_hide_app',
+  event: 'evn_quit_page',
   eventDetail: '',
   time: new Date().getTime(),
+  nextUrl
 });
+export const requestStatisDispose = () => requestStatis({
+  url: urlObj.dispose,
+  event: 'evn_hide_app',
+});
+export const requestWechatLogin = () => requestStatis({
+  url: urlObj.dispose,
+  event: 'evn_wechat_login',
+})
 export const updateSessionId = () => {
   sessionId = generateGuid();
 }
