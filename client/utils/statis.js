@@ -11,7 +11,10 @@ export const urlObj = {
   dispose: `/b2b/page/dispose`,
 
   loginWechat: `/b2b/login/wxlogin`,
-  loginPhone:`/b2b/login/phonelogin`
+  loginPhone:`/b2b/login/phonelogin`,
+  enterHome:`/b2b/livesite`,
+  callEnterPhone:`/b2b/call`,
+  exitHomeLogin:`/b2b/loginout`
 };
 let statisToken = wx.getStorageSync('statis').token || '';
 let sessionId = '';
@@ -133,6 +136,18 @@ export const requestWechatLogin = () => requestStatis({
 export const requestPhoneLogin = () => requestStatis({
   url: urlObj.loginPhone,
   event: 'evn_phone_login',
+})
+export const requestEnter = () => requestStatis({
+  url: urlObj.enterHome,
+  event: 'evn_register',
+})
+export const requestEnterCall = () => requestStatis({
+  url: urlObj.callEnterPhone,
+  event: 'evn_call',
+})
+export const requestHomeExit = () => requestStatis({
+  url: urlObj.exitHomeLogin,
+  event: 'evn_logout',
 })
 export const updateSessionId = () => {
   sessionId = generateGuid();

@@ -5,7 +5,10 @@ import {
   getRequest,
   requestStatisLoad,
   requestStatisUnload,
-  checkNetwork
+  checkNetwork,
+  requestEnter,
+  requestEnterCall,
+  requestHomeExit
 } from '../../utils/util.js';
 const getBanners = Api.getBanners;
 
@@ -26,14 +29,16 @@ Page({
     ],
   },
   callPhone(evt) {
+    requestEnter()
     wx.makePhoneCall({
       phoneNumber: '400-101-5288', //仅为示例，并非真实的电话号码
       success(data){
-        debugger
+        requestEnterCall()
       }
     })
   },
   exitLogin() {
+    requestHomeExit()
     getApp().exitLogin();
   },
   getProductList() {
