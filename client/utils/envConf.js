@@ -34,6 +34,7 @@ switch (env) {
     baseUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
     addrUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
     statistics = 'https://sitecatalyst.jihuiduo.cn'
+    statistics =`http://192.168.2.58:8081`
     break
   case EVN.PRO:
     clientSecret = "9sxyZhzgKIjSVuQQ"
