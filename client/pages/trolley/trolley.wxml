@@ -1,3 +1,7 @@
+<import src="../../template/freeze.wxml" />
+<freeze-time is-to-open='{{isToOpen}}' >
+</freeze-time>
+<template is="freeze" data='{{isFreezing}}'/>
 <import src="../../template/price.wxml" />
 <wxs module="filters" src="../../utils/math.wxs"></wxs>
 <import src="./promotionInfo.wxml" />

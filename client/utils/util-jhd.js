@@ -1,6 +1,7 @@
 import {
   Api
 } from './envConf.js';
+import * as Freezing from './freezing.js'
 var ERROR_CODE = require("index.js").config.errorCode;
 var refreshAccessToken = require("./refreshToken.js").refreshAccessToken;
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
@@ -92,42 +93,7 @@ var putRequest = function(url, data) {
   });
   return promise;
 }
-const verifyClientFreezing = () => {
-  const interval = setInterval(() => {
-    const currentPage = getCurrentPages().slice(-1)[0]
-    if (currentPage) {
-      if (isFreezingTime()) {
-        currentPage.setData({
-          isFreezing: true
-        })
-      }
-      clearInterval(interval)
-    }
-  }, 500)
-}
-const isFreezingTime = () => {
-  var a = new Date();
-  // todo emulate 3 oclock
-  a.setHours(3)
-  var hour = a.getHours();
-  return hour < 4;
-}
-const verifyFreezing = (statusCode) => {
-  if (statusCode === FREEZING_TIME) {
-    console.log('freezing')
-    getCurrentPages().slice(-1)[0].setData({
-      isFreezing: true
-    })
-    getCurrentPages().slice(-1)[0].setData({
-      isToOpen: true
-    })
 
-  } else {
-    getCurrentPages().slice(-1)[0].setData({
-      isFreezing: false
-    })
-  }
-}
 var postRequest = function({
   METHOD = 'POST',
   url,
@@ -150,8 +116,8 @@ var postRequest = function({
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
       },
       success: res => {
-        // todo test code
-        if (url.includes('cart/add')) {
+        // todo test code: cart/remove, cart/add
+        if (url.includes('cart/remove')) {
           res.statusCode = FREEZING_TIME
         }
         if (res.statusCode !== HTTP_SUCCSESS) {
@@ -471,5 +437,5 @@ module.exports = {
   getFixedNum,
   updateTrolleyNum,
   getMerchant,
-  verifyClientFreezing
+  ...Freezing
 }

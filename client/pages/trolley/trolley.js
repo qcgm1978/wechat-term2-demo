@@ -1,4 +1,5 @@
 import utils from "../../utils/util.js";
+import { verifyFreezing} from '../../utils/freezing.js'
 import promoteUtil from "../../utils/promotion.js";
 import {
   Api
@@ -7,6 +8,8 @@ import testData from 'data.js'
 import {
   getRequest
 } from '../../utils/util.js';
+var ERROR_CODE = require("../../utils/index.js").config.errorCode;
+const FREEZING_TIME = ERROR_CODE.FREEZING_TIME
 const getCart = Api.getCart;
 const calcPromoteRule = Api.calcPromoteRule;
 const getPromotionList = Api.getPromotionList
@@ -46,6 +49,10 @@ Page({
     }
   },
   confirmOrder() {
+    if (utils.isFreezingTime()){
+      utils.verifyFreezing(FREEZING_TIME)
+      return
+    }
     if (!this.data.disableBuy) {
       getApp().globalData.items = this.data.trolley.reduce((accumulator, item) => {
         if (item.checked) {

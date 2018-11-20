@@ -254,4 +254,7 @@ font-size: 28rpx;
 color: #FFFFFF;
 letter-spacing: 0;
 padding: 14rpx 28rpx;
+position:fixed;
+z-index:90;
+width:100%;
 }
