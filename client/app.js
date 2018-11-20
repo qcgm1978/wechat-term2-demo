@@ -141,7 +141,7 @@ App({
     }
     this.getSystemInfo();
     requestStatisEnter(this.globalData.systemInfo)
-    verifyClientFreezing()
+    
   },
   
   saveGlobalData(result) {
@@ -177,6 +177,7 @@ App({
   onShow(options) {
     this.checkProgramUpdate();
     updateSessionId()
+    verifyClientFreezing()
     // if (options.scene == 1034 || (/checkstand/.test(options.path) && options.scene === 1011)) {
     //   return wx.navigateTo({
     //     url: `/pages/transactionDetail/transactionDetail?orderId=${this.globalData.orderId}`,

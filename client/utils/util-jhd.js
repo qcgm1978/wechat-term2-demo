@@ -153,6 +153,8 @@ var postRequest = function({
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
       },
       success: res => {
+        // todo test code
+        res.statusCode=419
         verifyFreezing(res.statusCode)
         if (res.statusCode !== HTTP_SUCCSESS) {
           reject(res.statusCode);
