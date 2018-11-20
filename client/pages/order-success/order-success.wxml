@@ -6,7 +6,7 @@
     <text class='success-money'>应付金额：<text class='success-num medium dollar'>{{orderTotalAmount}}</text>
     </text>
   </view>
-  <navigator open-type='navigate' url='{{"../transactionDetail/transactionDetail?orderId="+orderId}}'>
+  <navigator open-type='navigate' url='{{"../transactionDetail/transactionDetail?orderId="+orderId}}' style="margin-top: 12rpx;">
     <button>查看详情</button>
   </navigator>
 </view>

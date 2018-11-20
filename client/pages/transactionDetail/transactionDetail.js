@@ -33,7 +33,7 @@ Page({
     src: './images/pic.png',
     standard: '500ML*12',
     top: '',
-    remark:'',
+    remark: '',
     showPrepayedCardInfo: "none",
     showPointPayInfo: "none",
     notShowPointPayInfo: true,
@@ -42,7 +42,7 @@ Page({
     showDiscountInfo: "none",
     notShowDiscountInfo,
     amount: 0,
-    // netAmount: 0,
+    expireTime: 0,
     discountAmount: 0,
     earnedPoint: 0,
     itemData: [],
@@ -58,16 +58,28 @@ Page({
         amount: 0
       }
     },
+    isReturn: false,
     partSoldOutDialogFlag: false,
     soldOutDialogFlag: false,
     addressStore: "images/address.png",
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-
-
-  
-  addGotoTrolley: function(e) {
+  timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    // var month = months[a.getMonth()];
+    var month = a.getMonth() + 1;
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    // var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    const time = `${month}月${date}日${hour < 10 ? ('0' + hour) : hour}:${min < 10 ? ('0' + min) : min}`
+    return time;
+  },
+  addGotoTrolley: function (e) {
 
     let orderGroups = [];
     orderGroups = this.data.order.orderItems
@@ -84,17 +96,23 @@ Page({
       url: `../detail/detail?itemId=${dataset.itemid}&categoryId=${dataset.categoryid}`,
     })
   },
-  turnOrderPage(e){
+  turnOrderPage(e) {
     const dataset = e.currentTarget.dataset;
-    if(dataset.type==='order' && this.data.isReturn){
+    if (dataset.type === 'order' && this.data.isReturn) {
       wx.navigateTo({
-        url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${ 'ORDER'}`
+        url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${'ORDER'}`
       });
-    } else if (dataset.type === 'return' && !this.data.isReturn){
+    } else if (dataset.type === 'return' && !this.data.isReturn) {
       wx.navigateTo({
         url: `../transactionDetail/transactionDetail?orderId=${this.data.order.orderId}&orderStatus=${e.currentTarget.dataset.orderStatus}`
       });
     }
+  },
+  requestPayment(e) {
+    const dataset = e.currentTarget.dataset
+    wx.navigateTo({
+      url: `/pages/checkstand/checkstand?orderId=${dataset.orderId}&orderTotalAmount=${dataset.totalAmount}`,
+    })
   },
   requestTransDetail(orderId) {
     let requestData = null;
@@ -116,8 +134,13 @@ Page({
           result: data
         };
         const order = data.result;
+        // const expireTime = (new Date().getTime() + 6 * 60 * 60 * 1000) / 1000
+        const expireTime = order.expireTime
+        const isWechat = order.payment.paymentMethod === 'WECHAT_PAY'
         this.setData({
           order,
+          expireTime: this.timeConverter(expireTime),
+          isWechat,
         });
         this.setOrderStatus(order.orderStatus)
         wx.hideLoading();
@@ -165,7 +188,7 @@ Page({
         url: '/pages/login/login',
       })
     }
-    this.isOrderPage = options.orderStatus==='ORDER';
+    this.isOrderPage = options.orderStatus === 'ORDER';
     this.requestTransDetail.tokenRefreshed = false
     wx.showLoading({
       title: '加载中',
@@ -183,21 +206,32 @@ Page({
     }
   },
   setOrderStatus(orderStatus) {
+    const isCanceled = this.data.payStyle[orderStatus] === "订单取消"
+    const isReturnOrder = this.data.payStyle[orderStatus] === '全部拒收' || this.data.payStyle[orderStatus] === '部分拒收'
     this.setData({
       orderStatus,
+      isCanceled,
+      isReturnOrder,
       remark: (orderStatus === 'COMPLETED' && this.data.order.actualAmount !== this.data.order.payment.cashAmount) ? `(待入账)` : ''
 
     });
     const pages = getCurrentPages();
     const prevPage = pages[pages.length - 2]; //上一个页面
-    const isReturn = this.isOrderPage?false:(orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
+    const isReturn = this.isOrderPage ? false : (orderStatus === "RETURN_FULL" || orderStatus === "RETURN_PART");
+    const returnCompleted = this.data.order.orderReturn.returnStatus === 1
+    if (returnCompleted) {
+      this.setData({
+        returnCompleted,
+      })
+    }
     if (isReturn) {
       wx.setNavigationBarTitle({
         title: '拒收详情'
       });
       this.setData({
         isReturn,
-        usePoints: this.data.order.orderReturn.returnStatus === 1 && this.data.order.orderReturn.refundPoint > 0
+        usePoints: returnCompleted && this.data.order.orderReturn.refundPoint > 0,
+        salesReturn: this.data.isWechat ? '拒收/退款进度:已拒收' : this.data.salesReturn,
       });
     }
     this.setData({
@@ -221,7 +255,7 @@ Page({
   },
 
   proceedBuy: function () {
-    
+
     this.setData({
       dialogFlag: false
     })
@@ -231,5 +265,4 @@ Page({
       soldOutDialogFlag: true
     })
   },
-
 })

@@ -206,6 +206,18 @@ Page({
         })
     } else {
       // appUtil.getJsCode()
+
+      //清除店铺信息
+      delete getApp().globalData["merchant"]
+      delete getApp().globalData["authMerchantList"]
+      delete getApp().globalData["address"]
+      delete getApp().globalData["authWechat"]
+      getApp().globalData.currentIndex = 0
+
+      wx.setStorage({
+        key: "globalData",
+        data: this.globalData
+      });
     }
   },
 

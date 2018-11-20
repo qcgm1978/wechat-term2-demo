@@ -3,8 +3,8 @@
   justify-content: space-between;
   padding: 0 16px;
   background: #fff;
-  margin: 19rpx 0 0;
-  height: 64rpx;
+  margin: 17rpx 0 0;
+  height: 76rpx;
   align-items: center;
 }
 .list-return{
@@ -24,21 +24,23 @@ color: #FDB658;
 }
 
 .btn {
-  /* border: 2rpx solid #d1d1d2; */
   border-radius: 8rpx;
-  margin: 16rpx 32rpx;
+  margin: 20rpx 32rpx;
+  padding:0;
   background: #fff;
   width: 152rpx;
-  height: 52rpx;
-  font-size: 23rpx;
+  height: 56rpx;
+  font-size: 26rpx;
   line-height: 52rpx;
-  color: #666;
+  
   letter-spacing: 0;
+  border-color:#d1d1d2;
+  color:#707070;
 }
 
 .btn.buy-again {
   border-color: #ee711f;
-  color: #ee711f;
+  color: #eb6113;
 }
 
 .top-balance-value {
@@ -146,7 +148,7 @@ color: #FDB658;
 }
 .selected{
   border-bottom:4rpx solid #EB6113;
-
+  font-size: 32rpx;
 }
 .item-trans-shop-number {
   display: flex;
@@ -192,7 +194,8 @@ color: #FDB658;
   display: flex;
   flex-direction: column;
   position: relative;
-  background: rgb(236, 236, 236);
+  font-size: 26rpx;
+  color:#949494;
   padding-top: 94rpx;
   padding-bottom: 94rpx;
 }
@@ -204,7 +207,6 @@ color: #FDB658;
   transform: translate(-50%, -50%);
   align-self: center;
   z-index: 100;
-  background: rgb(236, 236, 236);
   padding: 0 40rpx;
 }
 
@@ -222,4 +224,8 @@ color: #FDB658;
   color: #EC6515;
   font-size: 26rpx;
   height: 30rpx;
+}
+button{
+  border:1rpx solid;
+
 }

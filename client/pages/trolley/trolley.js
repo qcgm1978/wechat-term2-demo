@@ -32,7 +32,10 @@ Page({
   currentTrolleyIndex: 0,
   selectedRadio: [],
   start: 0,
-  limit: 20,
+  limit: 5,
+  upperEnable: true,
+  lowerEnable: true,
+  noMoreData: false,
   scrollDataLoading: false,
   enablePullDownRefresh: false,
   onLoad: function (options) {
@@ -95,16 +98,20 @@ Page({
     })
   },
   upper() {
-    this.start = 0;
-    if (this.scrollDataLoading) {
-      return
-    }
-
   },
   lower() {
-    // this.start += this.limit;
-    if (this.scrollDataLoading) return
+    if (!this.lowerEnable || this.scrollDataLoading) {
+      return
+    }
+    setTimeout(() => {
+      this.lowerEnable = true
+    }, 2000)
+    this.lowerEnable = false
+    this.start += this.limit;
 
+    this.getTrolley()
+      .then((data) => {})
+      .catch((e) => {})
   },
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
@@ -228,6 +235,7 @@ Page({
     })
   },
 
+
   getSuteTitle(orderGroup){
     let suiteTitle = "套装"
 
@@ -259,6 +267,7 @@ Page({
           })
         })
         .catch((e) => { })
+
     }
   },
   getTrolley() {
@@ -280,11 +289,9 @@ Page({
       })
       .then((data) => {
         let result = data.result
-        //let result = testData.testData
-        // if(result.length > 0){
-        //   result.reverse()
-        // }
-        //(JSON.stringify(result))
+        if (result && result.length < this.limit) {
+          this.noMoreData = true
+        }
         for(let i = 0; i<result.length; i++){
           result[i].suiteTitle = this.getSuteTitle(result[i])
           this.adjustCartCombinationPromotions(result[i], i)

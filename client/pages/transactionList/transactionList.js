@@ -56,11 +56,19 @@ Page({
     windowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth) - 80,
     windowWidth: getApp().globalData.systemInfo.windowWidth * (750 / getApp().globalData.systemInfo.windowWidth)
   },
-  arrOrderStatus: [null, [0],
-    [2],
+  arrOrderStatus: [
+    null,
+    [6],
+    [0,2],
     [1, 3,4,5],
     [4, 5]
   ],
+  requestPayment(e){
+    const dataset = e.currentTarget.dataset
+    wx.navigateTo({
+      url: `/pages/checkstand/checkstand?orderId=${dataset.orderId}&orderTotalAmount=${dataset.totalAmount}`,
+    })
+  },
   removeOrder(evt) {
     const arr = this.data.order;
     const selectData = arr[evt.target.dataset.index];
@@ -168,7 +176,7 @@ Page({
             return currentItem;
           });
           this.setData({
-            order,
+            order: this.data.config.offset == 1 ? order: this.data.order.concat(order),
             hasNetwork: true
           })
           resolve()
@@ -245,19 +253,19 @@ Page({
   },
   //下拉刷新
   pullDownRefresh: function () {
-    const offset = this.data.config.offset - 1;
-    if (offset > 0) {
-      this.setData({
-        config: {
-          ...this.data.config,
-          offset
-        },
-        isLast: false
-      });
-      this.requestMoreData(this.data.config);
-    } else {
-      wx.stopPullDownRefresh();
-    }
+    // const offset = this.data.config.offset - 1;
+    // if (offset > 0) {
+    //   this.setData({
+    //     config: {
+    //       ...this.data.config,
+    //       offset
+    //     },
+    //     isLast: false
+    //   });
+    //   this.requestMoreData(this.data.config);
+    // } else {
+    //   wx.stopPullDownRefresh();
+    // }
 
   },
 
@@ -292,6 +300,7 @@ Page({
       const currentIndex = Number(option.tab);
       const tabColors = this.data.tabColors.map((item, index) => index === currentIndex ? 'selected' : 'unselected');
       this.setData({
+        // orderNum: JSON.parse(option.orderNum),
         tabColors,
         config: {
           ...this.data.config,

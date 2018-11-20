@@ -10,6 +10,7 @@
     "pages/detail/detail",
     "pages/memberDetail/memberDetail",
     "pages/order-confirm/order-confirm",
+    "pages/checkstand/checkstand",
     "pages/trolley/trolley",
     "pages/order-success/order-success",
     "pages/sort/sort",
@@ -18,11 +19,11 @@
     "pages/promoteOptionsKind/promoteOptionsKind"
   ],
   "window": {
+    "navigationBarBackgroundColor": "white",
+    "navigationBarTextStyle": "black",
     "backgroundColor": "#eeeff4",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#ec6515",
-    "navigationBarTitleText": "Wafer Quick Start",
-    "navigationBarTextStyle": "white"
+    "navigationBarTitleText": "Wafer Quick Start"
   },
   "tabBar": {
     "color": "#919090",

@@ -1,0 +1,15 @@
+<view class='column' style="margin-top: 64rpx;">
+  <text>需支付</text>
+  <text class='dollar total'>{{orderTotalAmount}}</text>
+  <view class='center payment'>
+    <image src='./img/wechat.png' style='width:48rpx; height:48rpx;margin-left:32rpx;'></image>
+    <text class='payment-txt'>微信支付</text>
+    <view style="flex-grow: 1;text-align: right;">
+      <radio catch:tap='radioClick' class="radio" data-index='{{0}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{checked}}" color='{{checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(1);margin-right:32rpx;'>
+      </radio>
+    </view>
+  </view>
+</view>
+<view class='stand-button'>
+  <button bindtap="requestPayment">确认支付</button>
+</view>

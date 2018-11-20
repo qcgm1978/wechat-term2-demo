@@ -1,5 +1,5 @@
 <view>
-  <view class='column bgc my-container' style="padding-top: 38rpx;margin-top:24rpx;">
+  <view class='column bgc my-container' style="padding: 38rpx 24rpx 32rpx;margin-top:24rpx;">
     <view class='center medium'>
       <image src='img/store.png' style='width:112rpx;height:112rpx;'></image>
       <view class='column ' style='margin-left:24rpx;font-size: 32rpx;color: #333333;'>
@@ -22,28 +22,28 @@
       <text class='my-category-name'>我的订单</text>
       <navigator class='center' style="align-items: center;" url='/pages/transactionList/transactionList?tab=0'>
         <text class='my-category-val' style="margin-left: auto;">查看全部订单</text>
-        <image src='img/arrow.png' style='width:36rpx; height:42rpx;'></image>
+        <image src='img/arrow.png' style='width:36rpx; height:42rpx; '></image>
       </navigator>
     </view>
-    <view class='line' style='margin:16rpx auto 38rpx;'></view>
+    <view class='line' style='margin:16rpx auto 38rpx; width:200%; margin-left:-24rpx;'></view>
     <view class='tab medium center' bindtap='toggleTab'>
       <view class='column' data-type='1'>
         <view class="center-center">
           <image src='./img/waiting.png' data-type='1'></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[0].count}}'>
-            {{orderNum[0].count}}
+          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[6].count}}'>
+            {{orderNum[6].count}}
           </view>
         </view>
-        <text class='{{tabColors[1]}} regular' data-type='1'>待发货</text>
+        <text class='{{tabColors[1]}} regular' data-type='1'>待付款</text>
       </view>
       <view class='column' data-type='2'>
         <view class="center-center">
           <image src='./img/shipping.png' data-type='2' style='transform:rotate3d(0,1,0,180deg);'></image>
-          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[2].count}}'>
-            {{orderNum[2].count}}
+          <view class='medium cart-num center-center member-icon' wx:if='{{orderNum[0].count||orderNum[2].count}}'>
+            {{orderNum[0].count+orderNum[2].count}}
           </view>
         </view>
-        <text class='{{tabColors[2]}} regular' data-type='2'>已发货</text>
+        <text class='{{tabColors[2]}} regular' data-type='2'>待收货</text>
       </view>
       <view class='column' data-type='3'>
         <!-- <view class="center-center"> -->
@@ -67,21 +67,21 @@
     </view>
   </view>
 
-  <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column bgc my-container' style="padding-bottom: 32rpx;">
+  <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column bgc my-container' style="padding-bottom: 32rpx; padding-top:33rpx;">
     <view class='center regular my-category-container'>
       <text class='my-category-name'>专属管家</text>
 
       <text class='my-category-val' style="margin:0 auto 0 13rpx;"> |  您的购物贴心管家</text>
 
     </view>
-    <view class='line' style='margin:24rpx auto 28rpx;'></view>
+    <view class='line' style='margin:33rpx auto 28rpx;'></view>
     <view class='center' style='align-items:center;width:100%;'>
       <image src='img/promoter.png' style='width:112rpx; height:112rpx;'></image>
       <view class='column' style="flex-grow: 1;align-items: flex-start;margin-left:24rpx;">
         <text class='medium' style='font-size: 32rpx;color: #333333;'>{{salesmanName}}</text>
         <text class='regular' style='font-size: 28rpx;color: #2E2E2E;'>{{salesmanCellPhone}}</text>
       </view>
-      <image wx:if='{{salesmanCellPhone}}' src='img/ic_phone@2x.png' catch:tap='call' style='width:48rpx;height:48rpx;'></image>
+      <image wx:if='{{salesmanCellPhone}}' src='img/ic_phone@2x.png' catch:tap='call' style='width:48rpx;height:48rpx; margin-right:24rpx;'></image>
     </view>
   </view>
   <view class='regular my-exit' catch:tap='exitLogin' hover-class='btn-hover'>退出登录</view>

@@ -18,6 +18,9 @@ page{
 .category-second {
   font-size: 26rpx;
   color: #333;
+  line-height:36rpx;
+  margin-left:16rpx;
+
 }
 
 .category-third:nth-of-type(3n+3) {
@@ -67,4 +70,11 @@ image {
   font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   border-left: 8rpx solid #ee711f;
   background: #fff;
+}
+.padding-second{
+  padding: 24rpx 16rpx;
+}
+.padding-third{
+  padding: 16rpx 24rpx 16rpx 0;
+  width:516rpx;
 }

@@ -1,33 +1,50 @@
-page{
-  background: #eeeff4;
+page {
+  background: #f0f2f4;
 }
+
 .dollar::before {
   content: '￥';
 }
-.dollar-minus::before{
-  content:'-￥';
+
+.dollar-minus::before {
+  content: '-￥';
 }
-.bgc{
-  background:#fff;
+
+.bgc {
+  background: #fff;
 }
+
 .padding {
   padding: 18rpx 24rpx;
 }
-.mgt{
-  margin-top:3rpx
+
+.padding-big {
+  padding: 24rpx;
 }
-.ellipse{
+
+.mgt {
+  margin-top: 3rpx;
+}
+
+.ellipse {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  
 }
-.order-arrow{
+.two-lines {
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+
+.order-arrow {
   width: 18rpx;
   height: 33rpx;
-  margin-right:55rpx;
-
+  margin-right: 55rpx;
 }
+
 .container {
   height: 100%;
   display: flex;
@@ -43,6 +60,7 @@ page{
   align-items: center;
   justify-content: center;
 }
+
 .trolley-soldout {
   width: 112rpx;
   height: 112rpx;
@@ -54,8 +72,9 @@ page{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  opacity:.7;
+  opacity: 0.7;
 }
+
 .light {
   font-family: PingFang-SC-Light, 'Source Han Sans CN Light', 'Noto Sans CJK SC Light';
 }
@@ -80,14 +99,16 @@ page{
   justify-content: start;
   align-items: center;
 }
+
 .total-money {
   font-size: 24rpx;
-  color: #002f00;
+  color: #707070;
   letter-spacing: 0;
   text-align: right;
   padding: 26rpx;
   background: #fff;
 }
+
 @font-face {
   font-family: 'iconfont'; /* project id 625845 */
   src: url('//at.alicdn.com/t/font_625845_19qlzsi705p.eot');
@@ -143,8 +164,8 @@ page{
 
 .line {
   width: 100%;
-  height: 2rpx;
-  background: rgb(236, 236, 236);
+  height: 1px;
+  background: #f0f1f5;
 }
 
 .clearfix {
@@ -159,6 +180,7 @@ page{
   clear: both;
   height: 0;
 }
+
 .trolley-empty {
   height: 100%;
 }
@@ -182,10 +204,11 @@ page{
   width: 280rpx;
   height: 80rpx;
 }
-.btn-hover{
-  opacity:0.6;
 
+.btn-hover {
+  opacity: 0.6;
 }
+
 .exit {
   width: 670rpx;
   height: 96rpx;
@@ -197,6 +220,7 @@ page{
   background: rgb(202, 202, 202);
   margin: 0 auto;
 }
+
 .cart-num {
   font-size: 18rpx;
   color: #ee711f;
@@ -206,4 +230,21 @@ page{
   border: 2rpx solid #ee711f;
   border-radius: 50%;
   transform: translate(-10rpx, -10rpx);
+}
+
+.debug {
+  background-color: hotpink;
+}
+
+button::after {
+  border: none;
+}
+
+
+.column-start {
+  align-items: flex-start;
+}
+
+.decimal-dot::before{
+  content:'.'
 }

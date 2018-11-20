@@ -15,6 +15,7 @@ export function requestPayment(evt) {
   });
   const state = wx.getStorageSync('isWechatLogin');
   let promise = null;
+  // state always false because wx.setStorage not executed in phoneLogin.js. If needed those code to modify
   if (state) {
     promise = Promise.resolve(0)
   } else {
@@ -34,7 +35,7 @@ export function requestPayment(evt) {
             title: '提示',
             content: '请重新支付',
             showCancel: false,
-            success: res => { }
+            success: res => {}
           })
         },
         complete() {
@@ -46,12 +47,17 @@ export function requestPayment(evt) {
   }
 
   promise.then(code => {
-    return postRequest(paymentUrl, {
-      transactionId: evt.currentTarget.dataset.trasaction,
-      jsCode: code ? code : getApp().globalData.token.jscode,
-      loginType: code ? 2 : 1,
+      // todo to support by server side
+      return postRequest({
+        url: paymentUrl,
+        postData: {
+          orderId: this.options.orderId,
+          merchantId:getApp().getMerchantId(),
+          jsCode: code ? code : getApp().globalData.token.jscode,
+          paymentMethodId:1,
+        }
+      })
     })
-  })
     // todo get interface
     // getRequest(`${paymentUrl}/${evt.currentTarget.dataset.trasaction}`)
 
@@ -72,16 +78,18 @@ export function requestPayment(evt) {
         signType: payargs.signType,
         paySign: payargs.paySign,
         success() {
-          // debugger;
-          wx.navigateTo({
-            url: '../member/member?transaction=true',
-          })
+            return wx.redirectTo({
+              url: `/pages/transactionDetail/transactionDetail?orderId=${getApp().globalData.orderId}`,
+            })
         },
         fail(err) {
           // do nothing and wait next perhaps paying
           console.log(err)
-          debugger;
-
+          wx.showToast({
+            icon:'loading',
+            title: '交易未成功',
+          })
+          // debugger;
         },
         complete() {
           self.setData({

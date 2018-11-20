@@ -6,7 +6,7 @@ image {
 .list-container {
   margin-left: 30rpx;
   justify-content: space-between;
-  align-items:left;
+  align-items:flex-start;
 
 }
 
@@ -27,4 +27,13 @@ image {
   font-size: 32rpx;
   color: #ee711f;
   width:470rpx;
+}
+.sales-unit{
+  font-size: 24rpx;
+color: #2A2A2A;
+letter-spacing: 0;
+line-height: 44rpx;
+}
+.padding24{
+  padding: 24rpx;
 }

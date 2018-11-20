@@ -47,7 +47,7 @@ Page({
       return;
     }
     wx.navigateTo({
-      url: `/pages/transactionList/transactionList?tab=${index}`,
+      url: `/pages/transactionList/transactionList?tab=${index}&orderNum=${JSON.stringify(this.data.orderNum)}`,
     })
   },
   /**
@@ -72,12 +72,13 @@ Page({
       salesmanCellPhone: merchant.salesmanCellPhone ? String(merchant.salesmanCellPhone) : '',
       salesmanName: merchant.salesmanName || ''
     });
+    
     postRequest({
       url: Api.countOrder,
       postData: {
         "merchantId": getApp().getMerchantId(),
         "orderStatus": [
-          0, 1, 2, 3, 4, 5
+          0, 1, 2, 3, 4, 5,6
         ]
       }
     }).then(({result}) => {

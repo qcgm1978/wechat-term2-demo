@@ -4,13 +4,15 @@
   top: 0;
   width: 100%;
 }
-.indexFixed{
+
+.indexFixed {
   position: fixed;
-  top:0;
-  left:0;
-  bottom:0;
-  right:0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
 }
+
 .selecting-btn {
   width: 344rpx !important;
 }
@@ -22,8 +24,8 @@
 }
 
 .close-popup {
-  width: 43rpx;
-  height: 43rpx;
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .specification {
@@ -45,9 +47,8 @@
   color: #ee711f;
   letter-spacing: 0;
   text-align: right;
+  margin-top:-20rpx;
 }
-
-
 
 .short-line {
   width: 82rpx;
@@ -92,7 +93,6 @@
 }
 
 .btns button {
-  border-radius: 4rpx;
   width: 296rpx;
   height: 80rpx;
   font-size: 32rpx;
@@ -100,16 +100,21 @@
 }
 
 .btns button:nth-of-type(1) {
-  background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
+  border-radius:4rpx 0 0 4rpx ;
+  /* background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%); */
   margin: 0;
 }
 
 .btns button:nth-of-type(2n) {
-  margin: auto 48rpx auto 2rpx;
+  /* background: #ec6515; */
+  /* background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%); */
+  margin: auto 24rpx auto 2rpx;
+  border-radius:0 4rpx 4rpx 0;
 }
 
 .buy-btn {
-  background: #ec6515;
+  /* background: #ec6515; */
+  background:linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
 }
 
 .buy-selecting {
@@ -123,8 +128,8 @@
 
 .promotion-container {
   align-items: center;
-  font-size: 26rpx;
-  color: #949494;
+  font-size: 28rpx;
+  color: #333;
   justify-content: space-between;
 }
 
@@ -175,6 +180,7 @@
   font-size: 28rpx;
   color: #8b8b8b;
 }
+
 .product-source {
   margin: 5rpx 49rpx 0;
   font-size: 28rpx;
@@ -329,7 +335,8 @@
 }
 
 .with-back-image {
-  background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
+  /* background-image: linear-gradient(90deg, #febb5c 0%, #eb6112 100%); */
+  background: #ec6515;
   margin: 0;
 }
 
@@ -344,7 +351,7 @@
 
 .promotion-1 {
   width: 80rpx;
-  border-radius:10rpx;
+  border-radius: 10rpx;
   text-align: center;
   color: #febb5c;
   background-color: #fae5c7a2;
@@ -352,4 +359,24 @@
 
 .promotion-2 {
   width: 500rpx;
+}
+
+.saleUnit {
+  font-size: 32rpx;
+  color: #2a2a2a;
+  letter-spacing: 0;
+  line-height: 60rpx;
+}
+
+.popup-unit {
+  font-size: 28rpx;
+  color: #2a2a2a;
+  letter-spacing: 0;
+  line-height: 50rpx;
+}
+.related-unit{
+  font-size: 24rpx;
+color: #2A2A2A;
+letter-spacing: 0;
+line-height: 40rpx;
 }

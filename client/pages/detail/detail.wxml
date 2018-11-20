@@ -1,6 +1,6 @@
 <view style='display: flex;flex-direction: column;' class='{{isSelecting?"indexFixed":""}}'>
   <view class='product-card'>
-    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx; opacity:{{isSelecting?.5:1}}">
+    <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx; opacity:{{isSelecting?.3:1}}">
       <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
         <swiper-item class='center-center' style='height:100%;'>
           <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="max-height:100%;" mode='aspectFit' />
@@ -9,14 +9,16 @@
     </swiper>
     <view>
       <view class='padding medium bgc'>
-        <view class='product-price'>￥{{product.price}}</view>
+        <view class='product-price'>￥{{product.price}}
+          <text class='saleUnit'>/{{product.saleUnit}}</text>
+        </view>
         <view class='product-name'>{{product.itemName}}</view>
         <view class='product-spec'>规格：{{product.itemSpecification}}</view>
       </view>
 
-      <view >
-        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this' >
-          <view  class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
+      <view>
+        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this'>
+          <view class='center promotion-container padding regular bgc mgt' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <text class='promotion'>促销</text>
             <image style='width:64rpx; height:32rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
@@ -31,9 +33,9 @@
         </view>
 
       </view>
-      
 
-      <view class='center promotion-container padding regular bgc' style='margin-top:15rpx;'>
+
+      <view class='center promotion-container padding-big regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别</text>
         <view class='promotion-list'>
           <view class='center' style="height: 36rpx;">
@@ -43,7 +45,7 @@
         </view>
         <view></view>
       </view>
-      <view class='center promotion-container padding regular bgc mgt' wx:if='{{product.itemExpirationDays || product.itemOrigin || product.itemBrand}}'>
+      <view class='center promotion-container padding-big regular bgc mgt' wx:if='{{product.itemExpirationDays || product.itemOrigin || product.itemBrand}}'>
         <text class='promotion' style="align-self: start;">信息</text>
         <view class='promotion-list'>
           <view class='center'>
@@ -54,7 +56,7 @@
         <view></view>
       </view>
       <view class='center promotion-container padding regular bgc mgt' wx:if='{{product.salesDescription}}'>
-        <text class='promotion' style="align-self: start;">介绍</text>
+        <text class='promotion' style="align-self: start;">商品说明</text>
         <view class='promotion-list'>
           <view class='center'>
             <text style='width:490rpx;'>{{product.salesDescription}}</text>
@@ -65,14 +67,14 @@
       </view>
     </view>
 
-    <view wx:if="{{related.length}}" class='bgc' style="margin-top: 15rpx;">
-      <view class='center-center regular' style="height: 76rpx;font-size:28rpx;color: #EE711F;">
+    <view wx:if="{{related.length}}" class='bgc' style="margin-top: 14rpx;">
+      <view class='center-center regular' style="padding:24rpx 0 6rpx;font-size:28rpx;color: #EE711F;">
         <view class='short-line'></view>
         <text class='dot' style="margin-left: 0;">.</text>相关宝贝
         <text class='dot' style="margin-right: 0;">.</text>
         <view class='short-line'></view>
       </view>
-      <swiper bindchange='relatedChange' indicator-dots="{{false}}" indicator-active-color='#FDB658' autoplay="{{true}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding' style="height: 350rpx;">
+      <swiper bindchange='relatedChange' indicator-dots="{{false}}" indicator-active-color='#FDB658' autoplay="{{true}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding' >
         <navigator wx:for="{{related}}" wx:key='{{index}}' url='{{"../detail/detail?itemId="+item.itemId+"&categoryId="+item.itemCategoryCode}}'>
           <swiper-item class='column' style=' margin:0 6rpx;justify-content:center;'>
             <view class='center-center' style="width: 100%;height:150rpx;justify-content:center;">
@@ -80,7 +82,7 @@
             </view>
             <view class='regular relative-name' style="justify-content:center;text-align:center;">{{item.itemName}}</view>
             <view class='center' style="width: 100%;justify-content:center;">
-              <view class='relative-money dollar'>{{item.price}}</view>
+              <view class='relative-money dollar'>{{item.price}}<text class='related-unit'>/{{item.saleUnit}}</text></view>
               <!-- <text class='promotion-type'>{{item.itemSpecification}}</text> -->
             </view>
           </swiper-item>
@@ -93,13 +95,14 @@
         <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit'></image>
         <view>
           <view class='product-name' style="width: 444rpx;">{{product.item_brand}}</view>
-          <text class='dollar product-price'>{{product.price}}</text>
+          <text class='dollar product-price'>{{product.price}}<text class='popup-unit'>/{{product.saleUnit}}</text>
+          </text>
         </view>
         <image src='../../images/close.png' class='close-popup' catch:tap='closePopup'></image>
       </view>
       <view class='line'></view>
       <view class='padding'>
-        <scroll-view scroll-y style="height: 240rpx;">
+        <scroll-view scroll-y >
 
           <view wx:for='{{specificationList}}' wx:key='{{index}}' style='padding:18rpx 0;'>
             <view class='center regular specification '>
@@ -119,8 +122,10 @@
 
       </view>
       <view style='padding-top:0;'>
-        <view class='padding subtotal ' style='padding-top:0;'>小计:{{quantity}}件 金额：¥{{currentMoney}} <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view></view>
-        
+        <view class='padding subtotal ' style='padding-top:0;'>小计:{{quantity+product.saleUnit}} 金额：¥{{currentMoney}}
+          <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view>
+        </view>
+
       </view>
 
     </view>
@@ -135,13 +140,13 @@
 
     </view>
   </view>
-  <view style='height:160rpx; background-color:rgb(255,255,255);'>
+  <view style='height:118rpx; background-color:rgb(255,255,255);'>
   </view>
   <text class='sold-out btn-container center-center fixed-position-text' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
   <!-- wx:if='{{!promotion}}'  wx:if='{{!isSelecting}}'-->
   <view class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
     <view class='center-center' style='flex-grow:1;' bindtap='gotoTrolley'>
-      <image src='{{icon}}' style='width:54rpx;height:54rpx;'></image>
+      <image src='{{icon}}' style='width:54rpx;height:54rpx; margin:auto 32rpx;'></image>
       <view class='medium cart-num center-center' wx:if='{{badge}}'>
         {{badge}}
       </view>

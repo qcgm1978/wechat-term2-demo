@@ -1,36 +1,46 @@
 <wxs module="filters" src="../../utils/math.wxs"></wxs>
 <view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
   <view id="main" class='main-view'>
-    <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}</text>
+    <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}<text class='topay-comment' wx:if='{{payStyle[orderStatus]==="等待付款"}}'>{{expireTime}} 订单将自动取消</text></text>
+
     <view class='title'>
       <view class='trans-shop' wx:if='{{isReturn}}'>
         <view class='trans-shop-lable regular'>{{usePoints?(salesReturn+usePointsStr):salesReturn}}</view>
+        <text wx:if='{{isWechat}}' style='font-size: 24rpx;color: #707070;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
       </view>
-      <view wx:else>
-        <view class='trans-shop'>
+      <view wx:elif='{{isCanceled&&isWechat}}'>
+        <view style="margin:auto auto 16px 24px;">
+          <view class='center trans-shop-lable regular' hidden='{{order.orderReturn.returnStatus === 2}}'>
+            <image src='./images/cancel.png' class='cancel-icon'></image>
+            取消/退款进度:{{returnCompleted?"已取消":"退款处理中"}}</view>
+          <text wx:if='{{returnCompleted}}' style='font-size: 24rpx;color: #707070; margin-left:60rpx;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
+        </view>
+      </view>
+      <view class='trans-shop' wx:if='{{!isReturn}}'>
+        <view class='center'>
           <image class='trans-shop-img' src="{{addressStore}}"></image>
           <view class='trans-shop-lable regular'>{{order.receiverInfo.receiverName}}</view>
           <view class='trans-shop-value'>{{order.receiverInfo.receiverCellPhone}}</view>
         </view>
-        <view class='trans-number-time'>
-          <view style='display: flex; flex-direction:row;'>
-            <view class="gray-chars">{{order.receiverInfo.receiverAddress}}</view>
-          </view>
-
+      </view>
+      <view class='trans-number-time' wx:if='{{!isReturn}}'>
+        <view style='display: flex; flex-direction:row;'>
+          <view class="gray-chars">{{order.receiverInfo.receiverAddress}}</view>
         </view>
+
       </view>
     </view>
 
-    <view class='regular' style="background: #fff;font-size: 26rpx;padding: 9px 16px;wxcs_style_padding: 18rpx 32rpx;z-index:30;margin-top:50rpx;position:relative;">商品信息</view>
+    <view class='regular goods-info'>商品信息</view>
     <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;' class='bgc'>
-      <view class='group-container'  wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
+      <view class='group-container' wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
         <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}' wx:if='{{!isReturn||orderItem.returnQuantit}}'>
           <view class='item-container'>
             <view class='item-container-fg'>
               <view class='order-content'>
                 <view style="display: flex; flex-direction:row;">
 
-                  <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;" mode='aspectFit'></image>
+                  <image src='{{orderItem.itemIcon?orderItem.itemIcon:defImg}}' style="width: 128rpx;height: 128rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
                   <view style='display: flex; flex-direction: column;'>
                     <view wx:if='{{orderItem.gift}}'>
                       <view style='display: flex; flex-direction: row;'>
@@ -48,10 +58,10 @@
                   <view wx:if='{{orderItem.gift}}'>
                     <view style='display: flex; flex-direction: column;'>
                       <text style='text-align: right;'>￥0</text>
-                      <text style='color:#949494;text-decoration:line-through;'>￥{{filters.toFix(orderItem.unitPrice)}}</text>
+                      <text style='color:#949494;text-decoration:line-through;'>￥{{filters.toFix(orderItem.unitPrice)}}/{{orderItem.saleUnit}}</text>
                     </view>
                   </view>
-                  <text wx:else>￥{{filters.toFix(orderItem.unitPrice)}}</text>
+                  <text wx:else>￥{{filters.toFix(orderItem.unitPrice)}}/{{orderItem.saleUnit}}</text>
                   <text class='item-standard regular {{isReturn?"return-state":""}} {{usePoints?"no-points":"use-points"}}' style='text-align: right; '>{{isReturn?'拒收数量':''}}x{{isReturn?orderItem.returnQuantit:orderItem.quantity}} {{isReturn?(usePoints?'退款成功':''):''}}</text>
                 </view>
               </view>
@@ -66,54 +76,60 @@
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
     <view class='bgc padding' wx:if='{{!isReturn}}'>
       <view class='money-amount '>
-        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 16rpx;">
+        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 0 0 16rpx;">
           <view>商品金额</view>
           <view class='dollar'>{{filters.toFix(order.totalAmount)}}</view>
         </view>
       </view>
 
-      <view class='regular money-amount money ' style="margin: 0 16rpx;">
+      <view class='regular money-amount money ' style="margin: 0 0 0 16rpx;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>促销优惠</view>
           <view class='dollar-minus'>{{filters.toFix(order.discountTotalAmount)}}</view>
         </view>
       </view>
-<view class='regular money-amount money ' style="margin: 0 16rpx;">
+
+      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin: 0 0 0 16rpx;">
+
+        <view style="display:flex; justify-content: space-between; width: 100%; ">
+          <view>积分抵扣</view>
+          <view>{{order.payment.usePoint}}(
+            <text class='dollar-minus'>{{filters.toFix(order.payment.usePoint/100)}}</text>)</view>
+        </view>
+      </view>
+      <view class='regular money-amount money ' style="margin: 0 0 0 16rpx;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>应付金额</view>
           <view class='dollar'>{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount)}}</view>
         </view>
       </view>
-      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin: 0 16rpx;">
-
-        <view style="display:flex; justify-content: space-between; width: 100%; ">
-          <view>积分抵扣</view>
-          <view >{{order.payment.usePoint}}(<text class='dollar-minus'>{{filters.toFix(order.payment.usePoint/100)}}</text>)</view>
-        </view>
-      </view>
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
-      共{{isReturn&&'拒收'}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：
-      <text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
+      共{{isReturn?'拒收':''}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：<text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
     </view>
 
-    <view class='bgc padding' style="margin-top: 15rpx;">
-      <view class='regular money-amount money' hidden='{{!orderCode}}'>
-        <view style="display:flex; justify-content: space-between; width: 100%; ">
-          <view catch:tap='turnOrderPage' data-type='return'>
-            <text style="color:#888">{{'拒收编号'}}：</text>{{orderCode}}</view>
-          <view catch:tap='copy' class='copy' wx:if='{{isReturn}}'>复制</view>
+    <view class='bgc padding' style="margin-top: 15rpx; padding-top:0;">
+      <view style='display:flex; flex-direction:{{isReturn?"column-reverse":"column"}};'>
+        <view class='regular money-amount money' wx:if='{{isReturn||isReturnOrder}}'>
+          <view style="display:flex; justify-content: space-between; width: 100%; align-items:center;">
+            <view catch:tap='turnOrderPage' data-type='return'>
+              <text style="color:#888">{{'拒收编号'}}：</text>{{orderCode}}</view>
+            <view catch:tap='copy' class='copy' wx:if='{{isReturn}}'>复制</view>
+            <view catch:tap='turnOrderPage' data-type='return' wx:else class='view-detail'>查看拒收详情 ></view>
+          </view>
+        </view>
+        <view class='line separate' wx:if='{{isReturn||isReturnOrder}}'></view>
+        <view class='regular money-amount money'>
+          <view style="display:flex; justify-content: space-between; width: 100%; align-items:center;">
+            <view catch:tap='turnOrderPage' data-type='order'>
+              <text style="color:#888">{{'订单编号'}}：</text>{{order.orderId}}</view>
+            <view wx:if='{{!isReturn}}' catch:tap='copy' class='copy'>复制</view>
+            <view catch:tap='turnOrderPage' data-type='order' wx:else class='view-detail'>查看原订单详情 ></view>
+          </view>
         </view>
       </view>
-      <view class='regular money-amount money' >
-        <view style="display:flex; justify-content: space-between; width: 100%; ">
-          <view catch:tap='turnOrderPage' data-type='order'>
-            <text style="color:#888" >{{'订单编号'}}：</text>{{order.orderId}}</view>
-          <view wx:if='{{!isReturn}}' catch:tap='copy' class='copy'>复制</view>
-        </view>
-      </view>
-      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}'>
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}' style="margin: 0 16rpx;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
             <text style="color:#888">创建时间：</text>{{order.createTime}}</view>
@@ -146,29 +162,25 @@
             <text style='color:#888'>退款方式：</text>原返</view>
         </view>
       </view>
-<view class='regular money-amount money' hidden='{{!isReturn}}'>
+      <view class='regular money-amount money' hidden='{{!isReturn}}'>
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
             <text style='color:#888'>已退积分：</text>{{order.orderReturn.refundPoint}}</view>
         </view>
       </view>
-      
-      <view class='regular money-amount money' hidden='{{isReturn}}'>
+      <view class='line'></view>
+      <view class='regular money-amount money' hidden='{{isReturn}}' style="margin-bottom: 0;">
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
-            <text style='color:#888'>支付方式：</text>{{'货到付款'||order.payment.paymentMethod}}</view>
+            <text style='color:#888'>支付方式：</text>{{order.payment.paymentMethod==='COD'?'货到付款':'在线支付'}}</view>
         </view>
       </view>
     </view>
     <view class='regular  bgc padding center' hidden='{{isReturn}}' style='margin:6rpx 0 0 0;align-items:center;justify-content:flex-end;'>
-      <view class='buy-again mgt' catch:tap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[orderStatus]==="待发货"}}'>取消订单</view>
+      <view class='buy-again mgt' catch:tap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[orderStatus]==="待发货"||payStyle[orderStatus]==="等待付款"}}' style="border-color: #D1D1D2;color: #707070;">取消订单</view>
       <view wx:else catch:tap='addGotoTrolley' class='buy-again mgt' hover-class='btn-hover' data-orderitem='{{order.orderItem}}'>再次购买</view>
+      <view class='buy-again mgt' catch:tap='requestPayment' data-order-id="{{order.orderId}}" data-total-amount='{{order.payment.cashAmount}}' wx:if='{{payStyle[orderStatus]==="等待付款"}}' style="margin-left: 20rpx;">去支付</view>
     </view>
-
-
-
-
-
   </view>
 </view>
 
@@ -176,25 +188,25 @@
 <view class="modal-box" hidden="{{!partSoldOutDialogFlag}}" bindtap="hideDialog">
   <view class="modal-body">
     <view class="modal-content">
-      <image class="content-img" src="images/pop-up.png" ></image>
+      <image class="content-img" src="images/pop-up.png"></image>
       <view class="content-txt" style='font-size:28rpx; color:#666666; margin-left: 56rpx; width: 450rpx;'>订单中的部分商品卖光了，您是否继续购买其余商品？</view>
-      <view style='display: flex;justify-content: space-between; width:480rpx; position:absolute ; top: 180rpx; left: 130rpx;text-align: center;line-height: 200rpx;'  >
+      <view style='display: flex;justify-content: space-between; width:480rpx; position:absolute ; top: 180rpx; left: 130rpx;text-align: center;line-height: 200rpx;'>
         <view class='dialog-btn' style='background:white; border:2rpx solid #949494; width:224rpx; height:68rpx;' bindtap='letMeThink'>我再想想</view>
         <view class='dialog-btn' style='color:white;background: #EC6515; width:224rpx; height:68rpx;' bindtap='proceedBuy'>继续购买</view>
       </view>
     </view>
   </view>
-</view> 
+</view>
 
 <view class="modal-box" hidden="{{!soldOutDialogFlag}}" bindtap="hideDialog">
   <view class="modal-body">
     <view class="modal-content">
-      <image class="content-img" src="images/pop-up.png" ></image>
+      <image class="content-img" src="images/pop-up.png"></image>
       <view class="content-txt" style='font-size:28rpx; color:#666666; margin-left: 56rpx; width: 450rpx;'>订单中的商品全部卖光了，再看看其他商品吧</view>
-      <view style='display: flex; width:auto; position:absolute; top:160rpx; left:220rpx;text-align: center;line-height: 200rpx;'  >
+      <view style='display: flex; width:auto; position:absolute; top:160rpx; left:220rpx;text-align: center;line-height: 200rpx;'>
         <!-- <view class='dialog-btn' style='background:white; border:2rpx solid #949494;' bindtap='letMeThink'>我再想想</view> -->
         <view class='dialog-btn' style='color:white; width: 307rpx; height: 68rpx; background: #EC6515; top:160rpx; left:180rpx;' bindtap='confirmClose'>确定</view>
       </view>
     </view>
   </view>
-</view> 
+</view>

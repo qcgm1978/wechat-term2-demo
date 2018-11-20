@@ -1,8 +1,18 @@
 var filters = {
   toFix: function (value) {
     return Number(value).toFixed(2)//此处2为保留两位小数
+  },
+  parseInt:function(num){
+    // const number1 = Number(num)
+    return parseInt(num)
+  },
+  getDecimals:function(num){
+    // console.log(num.split('.')[1])
+    return num.toString().split('.')[1]||'00'
   }
 }
 module.exports = {
-  toFix: filters.toFix
+  toFix: filters.toFix,
+  parseInt:filters.parseInt,
+  getDecimals: filters.getDecimals
 }

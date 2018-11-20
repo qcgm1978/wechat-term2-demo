@@ -29,16 +29,16 @@
     <view class='product-spec'>{{pitem.itemSpecification}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
-      <view class='product-price'>￥{{pitem.price}}
+      <view class='product-price'>￥{{pitem.price}}<text class='regular sales-unit'>/{{pitem.saleUnit}}</text>
         <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
         <image style='width:64rpx; height:32rpx;' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='2'}}"></image>
         <image style='width:64rpx; height:32rpx;' src='{{imgManzeng}}' wx:elif="{{pitem.promotionTypes[0]=='1'}}"></image>
         <block wx:else></block>
       </view>
 
-      <view class='product-add center-center' catchtap='addToTrolley' data-putshelvesflg="{{pitem.putShelvesFlg}}" data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
-        <text>+</text>
-      </view>
+      <image src='./img/add.png' class='product-add center-center' catchtap='addToTrolley' data-putshelvesflg="{{pitem.putShelvesFlg}}" data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
+        <!-- <text>+</text> -->
+      </image>
     </view>
     <view class='product-add-button' catchtap='addToTrolley' data-putshelvesflg="{{pitem.putShelvesFlg}}" data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
     </view>
