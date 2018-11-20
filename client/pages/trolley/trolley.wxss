@@ -166,7 +166,6 @@ page {
   width: 280rpx;
   height: 80rpx;
 }
-
 .promotion {
   width: 100%;
   background: white;
@@ -187,15 +186,15 @@ page {
 }
 
 .promotion-2 {
-  display: inline-block;
-  width: 400rpx;
+  /* display: inline-block;
+  width: 400rpx; */
   color: #b1afad;
   font-size: 24rpx;
   margin-left: 10rpx;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  height: 30rpx;
+  vertical-align:middle;
 }
 
 .promotion-2-bottom {
@@ -214,6 +213,24 @@ page {
   color: #f5b87a;
   font-size: 24rpx;
   margin-left: 10rpx;
+  vertical-align:middle;
+}
+
+.mask {
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+
+.select-goods {
+  height: 750rpx;
+  position: fixed;
+  width: 100%;
+  border-radius: 16rpx 16rpx 0 0;
+}
+.close-popup {
+  width: 48rpx;
+  height: 48rpx;
 }
 
 .sales-unit {

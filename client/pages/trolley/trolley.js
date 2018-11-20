@@ -3,15 +3,20 @@ import promoteUtil from "../../utils/promotion.js";
 import {
   Api
 } from '../../utils/envConf.js';
+import testData from 'data.js'
 import {
   getRequest
 } from '../../utils/util.js';
 const getCart = Api.getCart;
 const calcPromoteRule = Api.calcPromoteRule;
+const getPromotionList = Api.getPromotionList
 const app = getApp();
 let globalData = app.globalData;
 Page({
   data: {
+    isSelecting: false,
+    top: getApp().globalData.systemInfo.windowHeight - 600,
+    promotionOptions: [],
     defImg: getApp().globalData.defaultImg,
     trolley: [],
     minAmount: 500,
@@ -24,6 +29,7 @@ Page({
     totalDiscountMoney: 0,
     overallMoney: 0
   },
+  currentTrolleyIndex: 0,
   selectedRadio: [],
   start: 0,
   limit: 5,
@@ -45,6 +51,7 @@ Page({
         if (item.checked) {
           if (item.items.length == 1){
             item.items[0].quantity = item.count
+            item.count = 1
           }
           accumulator.push(item)
         }
@@ -109,7 +116,7 @@ Page({
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
       if (selectedRadio.includes(item.groupId)) {
-        return accumulator + item.suitePrice * item.count
+        return accumulator + Number(item.suitePrice)
       } else {
         return accumulator;
       }
@@ -228,10 +235,39 @@ Page({
     })
   },
 
-  adjustCartCombinationPromotions(trolleyGroup){
-    if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0){
+
+  getSuteTitle(orderGroup){
+    let suiteTitle = "套装"
+
+    if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].combinationFlag == "0" && orderGroup.cartCombinationPromotions[0].promotionKind == "2"){
+
+      suiteTitle = orderGroup.cartCombinationPromotions[0].promotionType == "2"? "满减":"满赠"
+    }
+
+    return suiteTitle
+  },
+
+  adjustCartCombinationPromotions(trolleyGroup, index) {
+    if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
       let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
-      trolleyGroup.cartCombinationPromotions[0] = rightPromotion ? rightPromotion: null
+      if (rightPromotion){
+        trolleyGroup.cartCombinationPromotions[0] = rightPromotion
+      }else{
+        trolleyGroup.cartCombinationPromotions = null
+        trolleyGroup.suiteTitle = "套装"
+      }
+    }
+
+    if (trolleyGroup.items.length == 1 && trolleyGroup.cartCombinationPromotions == null) {
+      this.getPromotionList(trolleyGroup)
+        .then((data) => {
+          let trolleyItemCartCombinationPromotions = "trolley["+index+"].cartCombinationPromotions"
+          this.setData({
+            [trolleyItemCartCombinationPromotions]: data.result[0].promotions,
+          })
+        })
+        .catch((e) => { })
+
     }
   },
   getTrolley() {
@@ -242,7 +278,7 @@ Page({
       start: this.start,
       limit: this.limit
     }
-    console.log(JSON.stringify(temdata))
+
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
@@ -253,11 +289,12 @@ Page({
       })
       .then((data) => {
         let result = data.result
-        if (result && result.length < this.limit){
+        if (result && result.length < this.limit) {
           this.noMoreData = true
         }
         for(let i = 0; i<result.length; i++){
-          this.adjustCartCombinationPromotions(result[i])
+          result[i].suiteTitle = this.getSuteTitle(result[i])
+          this.adjustCartCombinationPromotions(result[i], i)
           result[i].putShelvesFlg = true
           result[i].items.map((item, index) => {
             if (!item.putShelvesFlg) {
@@ -390,7 +427,7 @@ Page({
       }
     } else {
       if (groupItem.items.length > 0) {
-        suitePrice = groupItem.items[0].price
+        suitePrice = groupItem.items[0].price * groupItem.items[0].quantity
       }
     }
     return suitePrice
@@ -404,7 +441,7 @@ Page({
     const index = dataset.index,
       type = dataset.type;
     const currentTrolley = this.data.trolley[index];
-    const currentNum = currentTrolley.count;
+    const currentNum = currentTrolley.items.find(item => item.itemId === dataset.itemid).quantity;
     const isMinus = (type === 'minus');
     if ((currentNum === 1) && isMinus) {
       return;
@@ -413,45 +450,35 @@ Page({
 
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
-        item.count = num;
-        //item.suitePrice = this.getSuitePrice(item);
+        //item.count = num;
+        item.items.find(item => item.itemId === dataset.itemid).quantity = num
+        item.suitePrice = this.getSuitePrice(item);
       }
       return item;
     })
 
-    if (currentTrolley.checked) {
-      trolley[index].count = num
+    if (trolley[index].checked) {
     } else {
       trolley[index].checked = true
-      trolley[index].count = num
       this.selectedRadio.push(trolley[index].groupId);
     }
 
-    //调用计算接口
-    this.callPromotionCacl(trolley, index)
-    .then((data) =>{
-      trolley[index] = data
-      var singleGroup = 'trolley[' + index + ']'
-      this.setData({
-        [singleGroup]: trolley[index]
-      });
-      this.setMoneyData(this.selectedRadio);
+    this.setData({
+      trolley
     })
-    for (let i = 0; i < trolley[index].items.length; i++){
-      trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
-    }
 
-    let para = {
-      addGroupList: [{
-        count: isMinus ? -1 : 1,
-        addItemList: trolley[index].items,
-      }]
-    }
-
-    utils
-      .addToTrolleyByGroup(para)
+    let itemIndex = currentTrolley.items.findIndex(item => item.itemId === dataset.itemid)
+    this.setMoneyData(this.selectedRadio);
+    this.updateTrolley(trolley, index, isMinus ? -1 : 1, itemIndex)
+      .then((para) => {
+        return utils.addToTrolleyByGroup(para)
+      })
       .then(badge => {
         utils.updateTrolleyNum();
+        this.start = 0
+        this.getTrolley()
+          .then((data) => { })
+          .catch((e) => { })
       })
   },
   onReady: function () {
@@ -542,5 +569,180 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+  selectPromotion: function (e) {
+    const index = e.currentTarget.dataset.index;
+    for (let i = 0; i < this.data.promotionOptions.length; i++){
+      let prop = "promotionOptions[" + i +"].checked"
+      this.setData({
+        [prop]: false
+      })
+    }
+    let prop = "promotionOptions[" + index + "].checked"
+    this.setData({
+      [prop]: true
+    })
+  },
+
+  closePopup() {
+    this.setData({
+      isSelecting: false,
+    })
+    let currentPromotion = this.data.promotionOptions.find(item => {
+      return (item.checked == true)
+    })
+    
+    let trolleyItemPromotions = "trolley[" + this.currentTrolleyIndex + "].promotions"
+    let trolleyItemCartCombinationPromotions = "trolley[" + this.currentTrolleyIndex + "].cartCombinationPromotions"
+    let tempPromotion = this.data.trolley[this.currentTrolleyIndex].cartCombinationPromotions[0]
+
+    this.setData({
+      [trolleyItemPromotions]: [currentPromotion],
+      [trolleyItemCartCombinationPromotions]: [currentPromotion],
+    })
+    this.updateTrolley(this.data.trolley, this.currentTrolleyIndex, 0)
+      .then((para) => {
+        return utils.addToTrolleyByGroup(para)
+      })
+      .then(data => {
+        this.start = 0
+        this.getTrolley()
+          .then((data) => { })
+          .catch((e) => { })
+      })
+  },
+  showPromotions(e) {
+    let selectedGroup = this.data.trolley.find(item => {
+      return (item.groupId == e.currentTarget.dataset.groupid)
+    })
+    this.currentTrolleyIndex = this.data.trolley.indexOf(selectedGroup)
+    this.getPromotionList(selectedGroup)
+    .then((data) => {
+
+      this.setData({
+        isSelecting: true,
+        promotionOptions: data.result[0].promotions
+      })
+
+      let defaultPromotionOption = data.result[0].promotions.find(item => item.promotionId === selectedGroup.cartCombinationPromotions[0].promotionId)
+
+      let index = data.result[0].promotions.indexOf(defaultPromotionOption)
+      if (index >= 0) {
+        let prop = "promotionOptions[" + index + "].checked"
+        this.setData({
+          [prop]: true
+        })
+      }
+
+    })
+    .catch((e) => {})
+  },
+
+  updateTrolley(trolley, index, count, itemIndex){
+    return new Promise((resolve, reject) => {
+      if (arguments.length == 4){
+        for (let i = 0; i < trolley[index].items.length; i++) {
+          trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
+          if (itemIndex == i){
+            trolley[index].items[i].quantity = count
+          }else{
+            trolley[index].items[i].quantity = 0
+          }
+        }
+      }else{
+        for (let i = 0; i < trolley[index].items.length; i++) {
+          trolley[index].items[i].categoryCode = trolley[index].items[i].itemCategoryCode
+          trolley[index].items[i].quantity = count
+        }
+      }
+
+      let para = {
+        addGroupList: [{
+          count : 1,
+          promotions: trolley[index].promotions,
+          addItemList: trolley[index].items,
+        }]
+      }
+      resolve(para)
+    })
+  },
+
+  getPromotionList(selectedGroup) {
+    return new Promise((resolve, reject) => {
+      let categoryCodes = "";
+      let itemIds = "";
+      // 单品促销：combinationFlag = 0   promotionKind = 1
+      // 单品 + 单品组合促销：combinationFlag = 1 promotionKind = 1
+      // 单品类促销：combinationFlag = 0   promotionKind = 2
+      // 单品类 + 单品类组合促销：combinationFlag = 1   promotionKind = 2
+      if (selectedGroup.cartCombinationPromotions && selectedGroup.cartCombinationPromotions.length > 0 && selectedGroup.cartCombinationPromotions[0]){
+        if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "0" && selectedGroup.cartCombinationPromotions[0].promotionKind == "1") {
+          itemIds = selectedGroup.items.reduce((accumulator, item, index) => {
+            if (index == 0) {
+              accumulator = accumulator + (item.itemId);
+            } else {
+              accumulator = accumulator + "," + (item.itemId);
+            }
+            return accumulator
+          }, "")
+        } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "1" && selectedGroup.cartCombinationPromotions[0].promotionKind == "1") {
+          itemIds = selectedGroup.items.reduce((accumulator, item, index) => {
+            if (index == 0) {
+              accumulator = accumulator + (item.itemId);
+            } else {
+              accumulator = accumulator + "," + (item.itemId);
+            }
+            return accumulator
+          }, "")
+        } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "0" && selectedGroup.cartCombinationPromotions[0].promotionKind == "2") {
+          categoryCodes = selectedGroup.items.reduce((accumulator, item, index) => {
+            if (index == 0) {
+              accumulator = accumulator + (item.itemCategoryCode);
+            } else {
+              accumulator = accumulator + "," + (item.itemCategoryCode);
+            }
+            return accumulator
+          }, "")
+        } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "1" && selectedGroup.cartCombinationPromotions[0].promotionKind == "2") {
+          categoryCodes = selectedGroup.items.reduce((accumulator, item, index) => {
+            if (index == 0) {
+              accumulator = accumulator + (item.itemCategoryCode);
+            } else {
+              accumulator = accumulator + "," + (item.itemCategoryCode);
+            }
+
+            return accumulator
+          }, "")
+        }
+      }else{
+        itemIds = selectedGroup.items[0].itemId
+      }
+
+
+      let postData = {
+        itemGroups: [
+          {
+            categoryCodes,
+            groupId: selectedGroup.groupId,
+            itemIds
+          }
+        ],
+        merchantId: app.getMerchantId(),
+        locationId: getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "",
+      }
+      return utils.postRequest({
+          url: getPromotionList,
+          config: {
+            merchantId: app.getMerchantId()
+          },
+          data: postData
+        })
+        .then((data) => {
+
+          resolve(data)
+        }).catch((e) => {
+          reject(e)
+        })
+    })
   }
 })

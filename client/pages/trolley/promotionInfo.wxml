@@ -4,8 +4,8 @@
       <view style='display:flex; flex-direction: row; justify-content: space-between; width:100%;'>
         <view>
           <text class='promotion-3' style='margin-left: 10rpx; '>{{trollyGroup.suiteTitle}}</text>
-          <text class='promotion-2' style='margin-left: 10rpx; display:inline-block; width: {{trollyGroup.cartCombinationPromotions[0].discountAmount && trollyGroup.cartCombinationPromotions[0].discountAmount !== 0?232:400}}rpx; '>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</text>
-          <text class='promotion-3' wx:if="{{trollyGroup.cartCombinationPromotions[0].discountAmount && trollyGroup.cartCombinationPromotions[0].discountAmount !== 0}}">已省{{trollyGroup.cartCombinationPromotions[0].discountAmount?trollyGroup.cartCombinationPromotions[0].discountAmount:0}}元</text>
+          <text class='promotion-2' style='margin-left: 10rpx; display:inline-block; width: {{trollyGroup.cartCombinationPromotions[0].discountAmount ||trollyGroup.cartCombinationPromotions[0].discountAmount == 0 ?232:400}}rpx; '>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</text>
+          <text class='promotion-3' wx:if="{{trollyGroup.cartCombinationPromotions[0].discountAmount||trollyGroup.cartCombinationPromotions[0].discountAmount == 0}}">已省{{trollyGroup.cartCombinationPromotions[0].discountAmount?trollyGroup.cartCombinationPromotions[0].discountAmount:0}}元</text>
         </view>
 
         <view class='promotion-2' style='line-height:40rpx; margin-right:10rpx;'>更多优惠</view>
