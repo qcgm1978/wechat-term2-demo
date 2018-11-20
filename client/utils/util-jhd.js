@@ -8,6 +8,7 @@ const DATA_NOT_FOUND = ERROR_CODE.DATA_NOT_FOUND
 const HTTP_SUCCSESS = ERROR_CODE.HTTP_SUCCSESS
 const CONNECTION_TIMEOUT = ERROR_CODE.CONNECTION_TIMEOUT
 const INVALID_USER_STATUS = ERROR_CODE.INVALID_USER_STATUS
+const FREEZING_TIME = ERROR_CODE.FREEZING_TIME
 const formatTime = strDate => {
   // dd/MM/yyyy hh:mm:ss -> yyyy-MM-dd hh:mm:ss
   var array = strDate.split(" ")
@@ -120,7 +121,7 @@ const verifyFreezing = (statusCode) => {
     getCurrentPages().slice(-1)[0].setData({
       isToOpen: true
     })
-    throw (419)
+    // throw (419)
 
   } else {
     getCurrentPages().slice(-1)[0].setData({
@@ -155,8 +156,10 @@ var postRequest = function({
       success: res => {
         // todo test code
         res.statusCode=419
-        verifyFreezing(res.statusCode)
         if (res.statusCode !== HTTP_SUCCSESS) {
+          if (res.statusCode === FREEZING_TIME){
+            verifyFreezing(res.statusCode)
+          }
           reject(res.statusCode);
         } else {
           resolve(res.data);
@@ -318,6 +321,10 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler, callbackPar
         })
         reject(errorCode)
         break;
+      // case FREEZING_TIME:
+      //   verifyFreezing(errorCode)
+      //   reject(errorCode)
+        break
       default:
         reject(errorCode)
         break;

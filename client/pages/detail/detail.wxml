@@ -1,3 +1,7 @@
+<import src="../../template/freeze.wxml" />
+<freeze-time is-to-open='{{isToOpen}}' >
+</freeze-time>
+<template is="freeze" data='{{isFreezing}}'/>
 <view style='display: flex;flex-direction: column;' class='{{isSelecting?"indexFixed":""}}'>
   <view class='product-card'>
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx; opacity:{{isSelecting?.3:1}}">
