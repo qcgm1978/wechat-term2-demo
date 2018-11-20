@@ -8,8 +8,6 @@ import testData from 'data.js'
 import {
   getRequest
 } from '../../utils/util.js';
-var ERROR_CODE = require("../../utils/index.js").config.errorCode;
-const FREEZING_TIME = ERROR_CODE.FREEZING_TIME
 const getCart = Api.getCart;
 const calcPromoteRule = Api.calcPromoteRule;
 const getPromotionList = Api.getPromotionList
@@ -49,8 +47,7 @@ Page({
     }
   },
   confirmOrder() {
-    if (utils.isFreezingTime()){
-      utils.verifyFreezing(FREEZING_TIME)
+    if (utils.disbaleOperation()) {
       return
     }
     if (!this.data.disableBuy) {

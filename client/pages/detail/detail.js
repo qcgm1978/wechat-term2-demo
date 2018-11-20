@@ -269,8 +269,10 @@ Page({
       urls: this.data.product.itemImageAddress // 需要预览的图片http链接列表
     });
   },
-
   buy() {
+    if (utils.disbaleOperation()){
+      return
+    }
     if (!this.data.isSelecting && this.data.minAmount > this.data.product.price) {
       return this.setData({
         isSelecting: true,

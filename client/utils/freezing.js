@@ -44,4 +44,11 @@ const verifyFreezing = (statusCode) => {
   }
   return isFreezing
 }
-export { verifyClientFreezing, promptFreezing, verifyFreezing, isFreezingTime}
+const disbaleOperation=()=>{
+  const isFreezing = isFreezingTime()
+  if (isFreezing) {
+    verifyFreezing(FREEZING_TIME)
+  }
+  return isFreezing
+}
+export { verifyClientFreezing, promptFreezing, verifyFreezing, isFreezingTime, disbaleOperation}

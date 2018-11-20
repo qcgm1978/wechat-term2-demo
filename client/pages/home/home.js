@@ -10,7 +10,8 @@ import {
   errorHander,
   updateTrolleyNum,
   requestStatisLoad,
-  requestStatisUnload
+  requestStatisUnload,
+  promptFreezing
 } from '../../utils/util.js';
 const getProductList = Api.getProductList,
   getBanners = Api.getBanners,
@@ -281,6 +282,7 @@ Page({
     }
     getApp().setBadge();
     requestStatisLoad();
+    promptFreezing()
   },
 
   /**
