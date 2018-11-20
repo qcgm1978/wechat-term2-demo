@@ -143,7 +143,7 @@
 .product-row {
   display: flex;
   justify-content: center;
-  margin-bottom: 16rpx;
+  margin-bottom: 8rpx;
 }
 
 .product-card {
@@ -252,7 +252,10 @@
 }
 .sales-unit{
   font-size: 24rpx;
-color: #2A2A2A;
+color: #707070;
 letter-spacing: 0;
 line-height: 44rpx;
+font-weight:normal;
+max-width:110rpx;
+
 }
