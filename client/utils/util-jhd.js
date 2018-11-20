@@ -92,7 +92,7 @@ var putRequest = function(url, data) {
   });
   return promise;
 }
-const verifyClientFreezing=()=> {
+const verifyClientFreezing = () => {
   const interval = setInterval(() => {
     const currentPage = getCurrentPages().slice(-1)[0]
     if (currentPage) {
@@ -113,7 +113,7 @@ const isFreezingTime = () => {
   return hour < 4;
 }
 const verifyFreezing = (statusCode) => {
-  if (statusCode === 419) {
+  if (statusCode === FREEZING_TIME) {
     console.log('freezing')
     getCurrentPages().slice(-1)[0].setData({
       isFreezing: true
@@ -121,7 +121,6 @@ const verifyFreezing = (statusCode) => {
     getCurrentPages().slice(-1)[0].setData({
       isToOpen: true
     })
-    // throw (419)
 
   } else {
     getCurrentPages().slice(-1)[0].setData({
@@ -136,16 +135,13 @@ var postRequest = function({
   postData,
   data
 }) {
-
   var promise = new Promise((resolve, reject) => {
     if (config) {
       for (const prop in config) {
-
         url = url.replace(`{${prop}}`, config[prop]);
       }
     }
     showLoading()
-
     wx.request({
       url: url,
       data: postData || data,
@@ -155,9 +151,11 @@ var postRequest = function({
       },
       success: res => {
         // todo test code
-        res.statusCode=419
+        if (url.includes('cart/add')) {
+          res.statusCode = FREEZING_TIME
+        }
         if (res.statusCode !== HTTP_SUCCSESS) {
-          if (res.statusCode === FREEZING_TIME){
+          if (res.statusCode === FREEZING_TIME) {
             verifyFreezing(res.statusCode)
           }
           reject(res.statusCode);
@@ -178,7 +176,7 @@ var postRequest = function({
 }
 
 var getRequest = function(url, data) {
-  
+
   showLoading()
   var promise = new Promise((resolve, reject) => {
     if (data) {
@@ -321,9 +319,9 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler, callbackPar
         })
         reject(errorCode)
         break;
-      // case FREEZING_TIME:
-      //   verifyFreezing(errorCode)
-      //   reject(errorCode)
+        // case FREEZING_TIME:
+        //   verifyFreezing(errorCode)
+        //   reject(errorCode)
         break
       default:
         reject(errorCode)
