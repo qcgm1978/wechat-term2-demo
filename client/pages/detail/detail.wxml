@@ -147,7 +147,7 @@
   <view class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}};'>
     <view class='center-center' style='flex-grow:1;' bindtap='gotoTrolley'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx; margin:auto 32rpx;'></image>
-      <view class='medium cart-num center-center' wx:if='{{badge}}'>
+      <view class='medium cart-num center-center' wx:if='{{badge}}' style='transform:translate(-45rpx, -10rpx);'>
         {{badge}}
       </view>
     </view>
