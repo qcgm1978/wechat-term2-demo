@@ -143,7 +143,9 @@ Page({
           group.items = groupItems
           group.promotions = [{ promotionId: promoteInfo.promotionId}]
           itemGroups.push(group)
-
+          console.log(JSON.stringify({
+            itemGroups
+          }))
           promoteUtil.calcPromote({ itemGroups })
             .then((promoteResult) => {
               //满赠

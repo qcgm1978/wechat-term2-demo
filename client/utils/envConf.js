@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.STG; //update this value for different env
+var env = EVN.DEV; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -80,8 +80,9 @@ const apiURLs = {
   calcPromote: `${baseUrl}/mall/promotions/calc`,
   selectGoods: `${localNodejs || baseUrl}/mall/promotions/selectGoods`,
   selectGoodsKind: `${localNodejs || baseUrl}/mall/promotions/selectCombGoods`,
-
+  getPromotionList: `${localNodejs || baseUrl}/mall/promotions/selectPromotions`,
   statistics: statistics
+
 }
 
 var Api = apiURLs;
