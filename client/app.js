@@ -18,6 +18,7 @@ const iniGlobalData = {
   currentIndex: 0,
   badge: 0,
   toggleMerchant: false,
+  isActiveTime:true,
   orderId:'',
   defaultImg: '/images/default.png',
   /**

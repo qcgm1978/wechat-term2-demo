@@ -1,0 +1,45 @@
+/* component/freeze-time/freeze-time.wxss */
+@import '../../app-common.wxss';
+
+image.maintain {
+  width: 516rpx;
+  height: 516rpx;
+}
+
+.close {
+  width: 48rpx;
+  height: 48rpx;
+  margin-top: 30rpx;
+}
+
+.freeze-container {
+  z-index: 100;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  position: absolute;
+  font-size: 28rpx;
+  color: #151515;
+  letter-spacing: 0;
+  line-height: 40rpx;
+}
+
+.freeze-box {
+  padding: 72rpx 72rpx 66rpx;
+  border-radius: 16rpx;
+}
+
+.freeze-bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  /* opacity: 0.5; */
+  background: rgba(0, 0, 0, 0.30);
+  z-index: 100;
+}
+
+.sleep {
+  font-size: 24rpx;
+  color: #2e2e2e;
+}

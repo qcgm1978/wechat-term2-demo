@@ -25,13 +25,13 @@ Page({
     stores: [],
     productList: [], // 商品列表
     imgUrls: [{
-      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home1.jpeg",
-      "pageUrl": ""
-    },
-    {
-      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home2.jpeg",
-      "pageUrl": ""
-    },
+        "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home1.jpeg",
+        "pageUrl": ""
+      },
+      {
+        "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home2.jpeg",
+        "pageUrl": ""
+      },
     ],
     defImg: getApp().globalData.defaultImg,
     imgManjian: "img/manjian.png",
@@ -152,7 +152,7 @@ Page({
       }]
       let para = {
         addGroupList: [{
-          count:1,
+          count: 1,
           addItemList: arr
         }]
       }
@@ -163,6 +163,11 @@ Page({
         });
       }).catch((errorCode) => {
         console.log(errorCode)
+        if (errorCode === 419) {
+          // this.setData({
+          //   isActiveTime: getApp().globalData.isActiveTime
+          // })
+        }
         wx.showToast({
           icon: 'none',
           title: '添加到购物车失败',
@@ -183,7 +188,7 @@ Page({
     getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
     return merchant.locationId;
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     var navigationBarTitle = "首页"
     switch (currentEnv) {
       case 0:
@@ -199,11 +204,13 @@ Page({
       title: navigationBarTitle
     });
     this.getBanners()
-      .then(data => { })
-      .catch(err => { });
+      .then(data => {})
+      .catch(err => {});
 
     const merchant = getApp().globalData.merchant;
-    const hasLocationId = merchant ? Promise.resolve({ result: merchant }) : getMerchant();
+    const hasLocationId = merchant ? Promise.resolve({
+      result: merchant
+    }) : getMerchant();
     hasLocationId
       .then(data => {
         if (data.result) {
@@ -256,14 +263,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     if (!getApp().globalData.registerStatus) {
       setTimeout(() => {
         wx.reLaunch({
@@ -279,10 +286,10 @@ Page({
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
     requestStatisUnload()
   },
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
     if (this.enableRequest) {
       this.enableRequest = false;
       this.start = 0;
@@ -300,7 +307,7 @@ Page({
         });
     }
   },
-  onReachBottom: function () {
+  onReachBottom: function() {
     if (this.enableRequest) {
       this.enableRequest = false;
       this.start += this.limit;
@@ -315,28 +322,28 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  bannerClick: function (e) {
+  bannerClick: function(e) {
     if (e.target.dataset.postid) {
       wx.navigateTo({
         url: '../webView/webView?targetUrl=' + e.target.dataset.postid
       })
     }
   },
-  getBanners: function () {
+  getBanners: function() {
     return new Promise((resolve, reject) => {
       getRequest(getBanners, {
-        category: "merchant_home"
-      }).then(data => {
-        if (data && data.result){
-          this.setData({
-            imgUrls: data.result
-          })
-        }
-        resolve()
-      })
+          category: "merchant_home"
+        }).then(data => {
+          if (data && data.result) {
+            this.setData({
+              imgUrls: data.result
+            })
+          }
+          resolve()
+        })
         .catch(errorCode => {
           reject()
         });

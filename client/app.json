@@ -54,5 +54,8 @@
         "selectedIconPath": "images/user-sel.png"
       }
     ]
+  },
+  "usingComponents":{
+    "freeze-time": "/component/freeze-time/freeze-time"
   }
 }

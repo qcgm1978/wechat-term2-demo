@@ -248,3 +248,10 @@ button::after {
 .decimal-dot::before{
   content:'.'
 }
+.freeze-top{
+  background: rgba(253,182,88,0.90);
+font-size: 28rpx;
+color: #FFFFFF;
+letter-spacing: 0;
+padding: 14rpx 28rpx;
+}

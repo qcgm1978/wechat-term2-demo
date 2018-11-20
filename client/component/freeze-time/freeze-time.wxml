@@ -1,0 +1,17 @@
+<!--component/freeze-time/freeze-time.wxml-->
+<view hidden='{{!(isToOpen)}}' style='height:{{height}}rpx; position: absolute; width:100%;' >
+  <view class='freeze-bg'></view>
+  <view class='freeze-container'>
+    <view class='column '>
+      <view class='column freeze-box bgc'>
+        <image src='./img/maintain.png' class='maintain'></image>
+        <text>
+00:00-04:00为系统维护时间
+程序员维护中,暂不支持该功能
+<text class='sleep'>夜已深,请注意休息喔~</text>
+        </text>
+      </view>
+      <image src='./img/close.png' class='close' bind:tap='close'></image>
+    </view>
+  </view>
+</view>

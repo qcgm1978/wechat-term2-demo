@@ -36,6 +36,13 @@ const hideLoading = () => {
     isLoading = false;
   }
 }
+const isFreezingTime=()=> {
+  var a = new Date();
+  // todo emulate 3 oclock
+  a.setHours(3)
+  var hour = a.getHours();
+  return hour < 4;
+}
 var postRequestWithoutToken = function (url, data) {
   var promise = new Promise((resolve, reject) => {
     var postData = data;
@@ -90,7 +97,17 @@ var putRequest = function (url, data) {
   });
   return promise;
 }
-
+const verifyFreezing=({type}={type:'POST'})=>{
+  if (isFreezingTime()) {
+    console.log('freezing')
+    getCurrentPages().slice(-1)[0].setData({ isFreezing: true })
+    if(type==='POST'){
+      getCurrentPages().slice(-1)[0].setData({ isToOpen: true })
+      throw (419)
+    }else{
+    }
+  }
+}
 var postRequest = function ({
   METHOD = 'POST',
   url,
@@ -98,6 +115,7 @@ var postRequest = function ({
   postData,
   data
 }) {
+  verifyFreezing()
   var promise = new Promise((resolve, reject) => {
     if (config) {
       for (const prop in config) {
@@ -134,6 +152,7 @@ var postRequest = function ({
 }
 
 var getRequest = function (url, data) {
+  verifyFreezing({type:'GET'})
   showLoading()
   var promise = new Promise((resolve, reject) => {
     if (data) {

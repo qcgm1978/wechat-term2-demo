@@ -1,3 +1,7 @@
+<import src="../../template/freeze.wxml" />
+<freeze-time bindchangechecked="onChangeChecked" is-to-open='{{isToOpen}}' >
+</freeze-time>
+<template is="freeze" hidden='{{!isFreezing}}'/>
 <picker wx:if="{{stores.length>1}}" bindchange="bindPickerChange" value="{{index}}" range="{{stores}}" range-key='{{"merchantStoreName"}}'>
 
   <view class='center-center store'>
@@ -44,3 +48,4 @@
     </view>
   </navigator>
 </view>
+        

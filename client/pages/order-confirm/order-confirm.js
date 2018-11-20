@@ -222,13 +222,7 @@ Page({
       console.log(err);
     })
   },
-  inTimeRange() {
-    var a = new Date();
-    // todo emulate 3 oclock
-    // a.setHours(3)
-    var hour = a.getHours();
-    return hour < 4;
-  },
+  
   createOrder(itemId) {
     // if (this.inTimeRange()) {
     //   return this.setData({
