@@ -9,7 +9,7 @@ image.maintain {
 .close {
   width: 48rpx;
   height: 48rpx;
-  margin-top: 30rpx;
+  /* margin-top: 30rpx; */
 }
 
 .freeze-container {
@@ -42,4 +42,8 @@ image.maintain {
 .sleep {
   font-size: 24rpx;
   color: #2e2e2e;
+}
+.vertical-bar{
+  width: 2rpx;
+  height: 34rpx;
 }

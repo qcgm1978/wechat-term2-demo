@@ -11,6 +11,7 @@
 <text class='sleep'>夜已深,请注意休息喔~</text>
         </text>
       </view>
+      <view class='vertical-bar bgc'></view>
       <image src='./img/close.png' class='close' bind:tap='close'></image>
     </view>
   </view>
