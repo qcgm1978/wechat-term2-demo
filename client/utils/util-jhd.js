@@ -36,13 +36,7 @@ const hideLoading = () => {
     isLoading = false;
   }
 }
-const isFreezingTime=()=> {
-  var a = new Date();
-  // todo emulate 3 oclock
-  a.setHours(3)
-  var hour = a.getHours();
-  return hour < 4;
-}
+
 var postRequestWithoutToken = function (url, data) {
   var promise = new Promise((resolve, reject) => {
     var postData = data;
@@ -97,6 +91,13 @@ var putRequest = function (url, data) {
   });
   return promise;
 }
+const isFreezingTime = () => {
+  var a = new Date();
+  // todo emulate 3 oclock
+  a.setHours(3)
+  var hour = a.getHours();
+  return hour < 4;
+}
 const verifyFreezing=({type}={type:'POST'})=>{
   if (isFreezingTime()) {
     console.log('freezing')
@@ -106,6 +107,8 @@ const verifyFreezing=({type}={type:'POST'})=>{
       throw (419)
     }else{
     }
+  }else{
+    getCurrentPages().slice(-1)[0].setData({ isFreezing: false })
   }
 }
 var postRequest = function ({

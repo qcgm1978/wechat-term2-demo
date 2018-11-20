@@ -1,3 +1,3 @@
 <template name="freeze">
-  <view class='medium freeze-top' >00:00-04:00为系统维护时间,仅支持浏览商品信息</view>
+  <view class='medium freeze-top' hidden='{{!isFreezing}}'>00:00-04:00为系统维护时间,仅支持浏览商品信息</view>
 </template>
