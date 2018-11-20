@@ -239,6 +239,28 @@ Page({
     return suiteTitle
   },
 
+  adjustCartCombinationPromotions(trolleyGroup, index) {
+    if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
+      let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
+      if (rightPromotion){
+        trolleyGroup.cartCombinationPromotions[0] = rightPromotion
+      }else{
+        trolleyGroup.cartCombinationPromotions = null
+        trolleyGroup.suiteTitle = "套装"
+      }
+    }
+
+    if (trolleyGroup.items.length == 1 && trolleyGroup.cartCombinationPromotions == null) {
+      this.getPromotionList(trolleyGroup)
+        .then((data) => {
+          let trolleyItemCartCombinationPromotions = "trolley["+index+"].cartCombinationPromotions"
+          this.setData({
+            [trolleyItemCartCombinationPromotions]: data.result[0].promotions,
+          })
+        })
+        .catch((e) => { })
+    }
+  },
   getTrolley() {
 
     let temdata = {
@@ -259,12 +281,13 @@ Page({
       .then((data) => {
         let result = data.result
         //let result = testData.testData
-        if(result.length > 0){
-          result.reverse()
-        }
+        // if(result.length > 0){
+        //   result.reverse()
+        // }
         //(JSON.stringify(result))
         for(let i = 0; i<result.length; i++){
           result[i].suiteTitle = this.getSuteTitle(result[i])
+          this.adjustCartCombinationPromotions(result[i], i)
           result[i].putShelvesFlg = true
           result[i].items.map((item, index) => {
             if (!item.putShelvesFlg) {
@@ -570,7 +593,6 @@ Page({
       [trolleyItemPromotions]: [currentPromotion],
       [trolleyItemCartCombinationPromotions]: [currentPromotion],
     })
-
     this.updateTrolley(this.data.trolley, this.currentTrolleyIndex, 0)
       .then((para) => {
         return utils.addToTrolleyByGroup(para)
@@ -646,43 +668,47 @@ Page({
       // 单品 + 单品组合促销：combinationFlag = 1 promotionKind = 1
       // 单品类促销：combinationFlag = 0   promotionKind = 2
       // 单品类 + 单品类组合促销：combinationFlag = 1   promotionKind = 2
-      if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "0" && selectedGroup.cartCombinationPromotions[0].promotionKind == "1" ){
-        itemIds = selectedGroup.items.reduce((accumulator, item, index) => {
-          if (index == 0) {
-            accumulator = accumulator + (item.itemId);
-          } else {
-            accumulator = accumulator + "," + (item.itemId);
-          }
-          return accumulator
-        }, "")
-      } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "1" && selectedGroup.cartCombinationPromotions[0].promotionKind == "1"){
-        itemIds = selectedGroup.items.reduce((accumulator, item, index) => {
-          if (index == 0) {
-            accumulator = accumulator + (item.itemId);
-          } else {
-            accumulator = accumulator + "," + (item.itemId);
-          }
-          return accumulator
-        }, "")
-      } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "0" && selectedGroup.cartCombinationPromotions[0].promotionKind == "2") {
-        categoryCodes = selectedGroup.items.reduce((accumulator, item, index) => {
-          if (index == 0) {
-            accumulator = accumulator + (item.itemCategoryCode);
-          } else {
-            accumulator = accumulator + "," + (item.itemCategoryCode);
-          }
-          return accumulator
-        }, "")
-      } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "1" && selectedGroup.cartCombinationPromotions[0].promotionKind == "2") {
-        categoryCodes = selectedGroup.items.reduce((accumulator, item, index) => {
-          if (index == 0){
-            accumulator = accumulator + (item.itemCategoryCode);
-          }else{
-            accumulator = accumulator + "," + (item.itemCategoryCode);
-          }
-          
-          return accumulator
-        }, "")
+      if (selectedGroup.cartCombinationPromotions && selectedGroup.cartCombinationPromotions.length > 0 && selectedGroup.cartCombinationPromotions[0]){
+        if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "0" && selectedGroup.cartCombinationPromotions[0].promotionKind == "1") {
+          itemIds = selectedGroup.items.reduce((accumulator, item, index) => {
+            if (index == 0) {
+              accumulator = accumulator + (item.itemId);
+            } else {
+              accumulator = accumulator + "," + (item.itemId);
+            }
+            return accumulator
+          }, "")
+        } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "1" && selectedGroup.cartCombinationPromotions[0].promotionKind == "1") {
+          itemIds = selectedGroup.items.reduce((accumulator, item, index) => {
+            if (index == 0) {
+              accumulator = accumulator + (item.itemId);
+            } else {
+              accumulator = accumulator + "," + (item.itemId);
+            }
+            return accumulator
+          }, "")
+        } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "0" && selectedGroup.cartCombinationPromotions[0].promotionKind == "2") {
+          categoryCodes = selectedGroup.items.reduce((accumulator, item, index) => {
+            if (index == 0) {
+              accumulator = accumulator + (item.itemCategoryCode);
+            } else {
+              accumulator = accumulator + "," + (item.itemCategoryCode);
+            }
+            return accumulator
+          }, "")
+        } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "1" && selectedGroup.cartCombinationPromotions[0].promotionKind == "2") {
+          categoryCodes = selectedGroup.items.reduce((accumulator, item, index) => {
+            if (index == 0) {
+              accumulator = accumulator + (item.itemCategoryCode);
+            } else {
+              accumulator = accumulator + "," + (item.itemCategoryCode);
+            }
+
+            return accumulator
+          }, "")
+        }
+      }else{
+        itemIds = selectedGroup.items[0].itemId
       }
 
 
@@ -697,7 +723,6 @@ Page({
         merchantId: app.getMerchantId(),
         locationId: getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "",
       }
-
       return utils.postRequest({
           url: getPromotionList,
           config: {
