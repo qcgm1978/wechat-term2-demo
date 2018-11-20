@@ -21,8 +21,8 @@ let isLoading = false;
 const showLoading = ({
   title
 } = {
-    title: '正在加载'
-  }) => {
+  title: '正在加载'
+}) => {
   if (!isLoading) {
     wx.showLoading({
       title,
@@ -37,7 +37,7 @@ const hideLoading = () => {
   }
 }
 
-var postRequestWithoutToken = function (url, data) {
+var postRequestWithoutToken = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     var postData = data;
     wx.request({
@@ -55,7 +55,7 @@ var postRequestWithoutToken = function (url, data) {
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
@@ -64,7 +64,7 @@ var postRequestWithoutToken = function (url, data) {
   return promise;
 }
 
-var putRequest = function (url, data) {
+var putRequest = function(url, data) {
   var promise = new Promise((resolve, reject) => {
     var putData = data;
     wx.request({
@@ -83,13 +83,26 @@ var putRequest = function (url, data) {
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       }
     })
   });
   return promise;
+}
+const verifyClientFreezing=()=> {
+  const interval = setInterval(() => {
+    const currentPage = getCurrentPages().slice(-1)[0]
+    if (currentPage) {
+      if (isFreezingTime()) {
+        currentPage.setData({
+          isFreezing: true
+        })
+      }
+      clearInterval(interval)
+    }
+  }, 500)
 }
 const isFreezingTime = () => {
   var a = new Date();
@@ -98,27 +111,31 @@ const isFreezingTime = () => {
   var hour = a.getHours();
   return hour < 4;
 }
-const verifyFreezing=({type}={type:'POST'})=>{
-  if (isFreezingTime()) {
+const verifyFreezing = (statusCode) => {
+  if (statusCode === 419) {
     console.log('freezing')
-    getCurrentPages().slice(-1)[0].setData({ isFreezing: true })
-    if(type==='POST'){
-      getCurrentPages().slice(-1)[0].setData({ isToOpen: true })
-      throw (419)
-    }else{
-    }
-  }else{
-    getCurrentPages().slice(-1)[0].setData({ isFreezing: false })
+    getCurrentPages().slice(-1)[0].setData({
+      isFreezing: true
+    })
+    getCurrentPages().slice(-1)[0].setData({
+      isToOpen: true
+    })
+    throw (419)
+
+  } else {
+    getCurrentPages().slice(-1)[0].setData({
+      isFreezing: false
+    })
   }
 }
-var postRequest = function ({
+var postRequest = function({
   METHOD = 'POST',
   url,
   config,
   postData,
   data
 }) {
-  verifyFreezing()
+
   var promise = new Promise((resolve, reject) => {
     if (config) {
       for (const prop in config) {
@@ -136,13 +153,14 @@ var postRequest = function ({
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
       },
       success: res => {
+        verifyFreezing(res.statusCode)
         if (res.statusCode !== HTTP_SUCCSESS) {
           reject(res.statusCode);
         } else {
           resolve(res.data);
         }
       },
-      fail: function (e) {
+      fail: function(e) {
         console.log(e)
         reject(CONNECTION_TIMEOUT);
       },
@@ -154,8 +172,8 @@ var postRequest = function ({
   return promise;
 }
 
-var getRequest = function (url, data) {
-  verifyFreezing({type:'GET'})
+var getRequest = function(url, data) {
+  
   showLoading()
   var promise = new Promise((resolve, reject) => {
     if (data) {
@@ -192,7 +210,7 @@ var getRequest = function (url, data) {
   return promise;
 }
 
-var getRequestWithoutToken = function (url) {
+var getRequestWithoutToken = function(url) {
   var promise = new Promise((resolve, reject) => {
     wx.request({
       url: url,
@@ -218,7 +236,7 @@ var getRequestWithoutToken = function (url) {
   return promise;
 }
 
-var checkNetwork = function () {
+var checkNetwork = function() {
   return new Promise((resolve, reject) => {
     wx.getNetworkType({
       success: res => {
@@ -266,12 +284,12 @@ var errorHander = function(errorCode, callback, dataNotFoundHandler, callbackPar
           refreshAccessToken()
             .then(() => {
               callback.tokenRefreshed = true
-              if (callbackPara){
+              if (callbackPara) {
                 return callback(callbackPara)
-              }else{
+              } else {
                 return callback()
               }
-              
+
             })
             .then(data => {
               resolve(data)
@@ -308,28 +326,28 @@ const queryStack = (e) => {
   window.open(`http://stackoverflow.com/search?q=[js]${e.message}`)
 }
 
-const addToTrolleyByGroup = (groupList, quantity = 1,enableChecked = true, updateAddTime = true) => {
+const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, updateAddTime = true) => {
   showLoading({
     title: '正在添加到购物车...'
   })
   const merchantId = getApp().getMerchantId();
   const locationId = String(getApp().globalData.merchant.locationId);
   const data = {
-    merchantId,
-    locationId,
-    updateAddTime,
-    addGroupList: groupList
-  },
+      merchantId,
+      locationId,
+      updateAddTime,
+      addGroupList: groupList
+    },
     config = {
       merchantId,
       locationId
     }
   return new Promise((resolve, reject) => {
     postRequest({
-      url: Api.addTrolley,
-      config,
-      data:groupList
-    })
+        url: Api.addTrolley,
+        config,
+        data: groupList
+      })
       .then(ret => {
         if (enableChecked) {
           getApp().globalData.checkedTrolley.push(groupList);
@@ -362,13 +380,13 @@ const updateTrolleyNum = ({
   quantity,
   resolve
 } = {
-    merchantId: getApp().getMerchantId()
-  }) => {
+  merchantId: getApp().getMerchantId()
+}) => {
 
   return getRequest(Api.getCartCount, {
-    merchantId,
-    locationId: getApp().globalData.merchant.locationId
-  })
+      merchantId,
+      locationId: getApp().globalData.merchant.locationId
+    })
     .then(data => {
       let count = 0;
       if (data.status === 200) {
@@ -399,12 +417,12 @@ const getMerchant = () => {
   });
   return new Promise((resolve, reject) => {
     getRequest(Api.getMerchant, {
-      merchantId: getApp().getMerchantId()
-    })
+        merchantId: getApp().getMerchantId()
+      })
       .then((data) => {
         const merchant = data.result;
         getApp().globalData.merchant = merchant;
-        if (merchant){
+        if (merchant) {
           getApp().globalData.address = (merchant.province + merchant.city + merchant.county + merchant.town + ' ' + merchant.address).replace(/undefined/g, '').replace(/null/g, '');
         }
         wx.getStorage({
@@ -438,5 +456,6 @@ module.exports = {
   addToTrolleyByGroup,
   getFixedNum,
   updateTrolleyNum,
-  getMerchant
+  getMerchant,
+  verifyClientFreezing
 }

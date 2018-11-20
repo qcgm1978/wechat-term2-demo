@@ -7,7 +7,8 @@ import {
   requestStatis,
   requestStatisDispose,
   updateSessionId,
-  requestStatisEnter
+  requestStatisEnter,
+  verifyClientFreezing
 } from './utils/util.js';
 
 const getUserInfo = require('./pages/home/getUserInfo').default;
@@ -18,38 +19,38 @@ const iniGlobalData = {
   currentIndex: 0,
   badge: 0,
   toggleMerchant: false,
-  isActiveTime:true,
-  orderId:'',
+  isActiveTime: true,
+  orderId: '',
   defaultImg: '/images/default.png',
   /**
-  * 待发货
-  */
-    // WAIT_SHIPMENT("WAIT_SHIPMENT", 0),
-    //   /**
-    //    * 订单取消
-    //    */
-    //   CANCELED("CANCELED", 1),
+   * 待发货
+   */
+  // WAIT_SHIPMENT("WAIT_SHIPMENT", 0),
+  //   /**
+  //    * 订单取消
+  //    */
+  //   CANCELED("CANCELED", 1),
 
-    //   /**
-    //    * 已发货,待收货
-    //    */
-    //   WAIT_RECEIVE("WAIT_RECEIVE", 2),
+  //   /**
+  //    * 已发货,待收货
+  //    */
+  //   WAIT_RECEIVE("WAIT_RECEIVE", 2),
 
-    //   /**
-    //    * 已完成
-    //    */
-    //   COMPLETED("COMPLETED", 3),
+  //   /**
+  //    * 已完成
+  //    */
+  //   COMPLETED("COMPLETED", 3),
 
-    //   /**
-    //    * (拒收)全部退货
-    //    */
-    //   RETURN_FULL("RETURN_FULL", 4),
+  //   /**
+  //    * (拒收)全部退货
+  //    */
+  //   RETURN_FULL("RETURN_FULL", 4),
 
-    //   /**
-    //    * (拒收)部分退货
-    //    */
-    //   RETURN_PART("RETURN_PART", 5),
-    //   RETURN_PART("UNPAY", 6),//todo to change
+  //   /**
+  //    * (拒收)部分退货
+  //    */
+  //   RETURN_PART("RETURN_PART", 5),
+  //   RETURN_PART("UNPAY", 6),//todo to change
   payStyle: {
     "WAIT_SHIPMENT": '待发货',
     CANCELED: '订单取消',
@@ -140,8 +141,9 @@ App({
     }
     this.getSystemInfo();
     requestStatisEnter(this.globalData.systemInfo)
+    verifyClientFreezing()
   },
-
+  
   saveGlobalData(result) {
     this.globalData = {
       ...this.globalData,
@@ -313,7 +315,7 @@ App({
     delete getApp().globalData["address"]
     delete getApp().globalData["authWechat"]
     getApp().globalData.currentIndex = 0
-    
+
     wx.setStorage({
       key: "globalData",
       data: this.globalData
