@@ -116,13 +116,13 @@ var postRequest = function({
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
       },
       success: res => {
-        // todo test code: cart/remove, cart/add
-        if (url.includes('cart/remove')) {
+        // todo test code: cart/remove, cart/add, order/cancel
+        if (url.includes('order/cancel') || url.includes('cart/add')) {
           res.statusCode = FREEZING_TIME
         }
         if (res.statusCode !== HTTP_SUCCSESS) {
           if (res.statusCode === FREEZING_TIME) {
-            verifyFreezing(res.statusCode)
+            Freezing.verifyFreezing(res.statusCode)
           }
           reject(res.statusCode);
         } else {
