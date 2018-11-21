@@ -4,13 +4,13 @@
 	"miniprogramRoot": "client/",
 	"qcloudRoot": "server/",
 	"setting": {
-		"urlCheck": false,
+		"urlCheck": true,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true
 	},
-	"appid": "wx093196720f54b05b",
+	"appid": "wx44aeb10d0359834d",
 	"projectname": "jhd-o2o-mall",
 	"condition": {
 		"search": {
