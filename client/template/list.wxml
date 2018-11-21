@@ -13,9 +13,9 @@
       <view class='center trolley-bottom'>
         <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /></text>
         <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}">
-          <text class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' >-</text>
-          <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity||1}}</text>
-          <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'>+</text>
+          <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus' ></image>
+          <text class='plus-minus center-center btn-txt-1' style="font-size: 26rpx;">{{item.quantity||1}}</text>
+          <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
         </view>
       </view>
     </view>
