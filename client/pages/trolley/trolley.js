@@ -32,7 +32,7 @@ Page({
   currentTrolleyIndex: 0,
   selectedRadio: [],
   start: 0,
-  limit: 5,
+  limit: 1000,
   upperEnable: true,
   lowerEnable: true,
   noMoreData: false,
@@ -49,10 +49,7 @@ Page({
     if (!this.data.disableBuy) {
       getApp().globalData.items = this.data.trolley.reduce((accumulator, item) => {
         if (item.checked) {
-          if (item.items.length == 1){
-            item.items[0].quantity = item.count
-            item.count = 1
-          }
+          item.count = 1
           accumulator.push(item)
         }
         return accumulator;
@@ -100,18 +97,18 @@ Page({
   upper() {
   },
   lower() {
-    if (!this.lowerEnable || this.scrollDataLoading) {
-      return
-    }
-    setTimeout(() => {
-      this.lowerEnable = true
-    }, 2000)
-    this.lowerEnable = false
-    this.start += this.limit;
+    // if (!this.lowerEnable || this.scrollDataLoading) {
+    //   return
+    // }
+    // setTimeout(() => {
+    //   this.lowerEnable = true
+    // }, 2000)
+    // this.lowerEnable = false
+    // this.start += this.limit;
 
-    this.getTrolley()
-      .then((data) => {})
-      .catch((e) => {})
+    // this.getTrolley()
+    //   .then((data) => {})
+    //   .catch((e) => {})
   },
   getTotalPrice(selectedRadio) {
     return this.data.trolley.reduce((accumulator, item) => {
@@ -126,7 +123,7 @@ Page({
     return this.data.trolley.reduce((accumulator, item) => {
       if (selectedRadio.includes(item.groupId)) {
         if (item.cartCombinationPromotions && item.cartCombinationPromotions.length > 0 && item.cartCombinationPromotions[0] && item.cartCombinationPromotions[0].promotionType == 2){
-          return accumulator + item.cartCombinationPromotions[0].discountAmount
+          return accumulator + item.cartCombinationPromotions[0].discountAmount ? item.cartCombinationPromotions[0].discountAmount:0
         } else{
           return accumulator
         }
@@ -219,7 +216,7 @@ Page({
       }
       itemGroups.push(group)
       promises.push(promoteUtil.calcPromote({itemGroups}))
-      console.log(JSON.stringify({ itemGroups }))
+
       Promise.all(promises)
       .then(arr => {
         if (arr[0]){
@@ -237,9 +234,11 @@ Page({
 
 
   getSuteTitle(orderGroup){
+    if (!orderGroup) {
+      return ""
+    }
     let suiteTitle = "套装"
-
-    if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length>0 && orderGroup.cartCombinationPromotions[0].combinationFlag == "0" && orderGroup.cartCombinationPromotions[0].promotionKind == "2"){
+    if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length > 0 && (orderGroup.cartCombinationPromotions[0].combinationFlag == "0" || orderGroup.cartCombinationPromotions[0].combinationFlag == 0) && (orderGroup.cartCombinationPromotions[0].promotionKind == "2" || orderGroup.cartCombinationPromotions[0].promotionKind == "1")){
 
       suiteTitle = orderGroup.cartCombinationPromotions[0].promotionType == "2"? "满减":"满赠"
     }
@@ -268,18 +267,16 @@ Page({
             [promotions]: data.result[0].promotions[0]
           })
 
-          // this.callPromotionCacl([trolleyGroup], 0)
-          // .then((data)=>{
-          //   this.setData({
-          //     [trolleyItemCartCombinationPromotions]: data.cartCombinationPromotions,
-          //   })
-          // })
-          // .catch((e)=>{
-
-          // })
+          let suiteTitle = "trolley[" + index + "].suiteTitle"
+          this.setData({
+            [suiteTitle]: this.getSuteTitle(this.data.trolley[index])
+          })
         })
         .catch((e) => { })
 
+    }else{
+      let suiteTitle = "trolley[" + index + "].suiteTitle"
+      trolleyGroup.suiteTitle = this.getSuteTitle(trolleyGroup)
     }
   },
   getTrolley() {
@@ -305,7 +302,6 @@ Page({
           this.noMoreData = true
         }
         for(let i = 0; i<result.length; i++){
-          result[i].suiteTitle = this.getSuteTitle(result[i])
           this.adjustCartCombinationPromotions(result[i], i)
           result[i].putShelvesFlg = true
           result[i].items.map((item, index) => {
@@ -623,6 +619,15 @@ Page({
           .catch((e) => { })
       })
   },
+
+
+  compare (obj1, obj2) {
+    var val1 = obj1.promotionId;
+    var val2 = obj2.promotionId;
+    return val1 - val2
+  },
+
+
   showPromotions(e) {
     let selectedGroup = this.data.trolley.find(item => {
       return (item.groupId == e.currentTarget.dataset.groupid)
@@ -630,6 +635,9 @@ Page({
     this.currentTrolleyIndex = this.data.trolley.indexOf(selectedGroup)
     this.getPromotionList(selectedGroup)
     .then((data) => {
+      for (let i = 0; i < data.result.length; i++){
+        data.result[i].promotions.sort(this.compare)
+      }
       this.setData({
         isSelecting: true,
         promotionOptions: data.result[0].promotions

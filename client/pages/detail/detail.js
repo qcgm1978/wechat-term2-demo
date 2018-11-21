@@ -178,6 +178,7 @@ Page({
       addGroupList: [{
         count: 1,
         addItemList: arr,
+        promotions: this.data.product.cartCombinationPromotions
       }]
     }
 

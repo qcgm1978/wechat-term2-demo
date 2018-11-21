@@ -231,7 +231,7 @@
       </view>
       <view class='line'></view>
       <view class='padding' style='padding:18rpx 0rpx;'>
-        <scroll-view scroll-y style="height: 400rpx;">
+        <scroll-view scroll-y style="height: 300rpx;">
           <view wx:for='{{promotionOptions}}' wx:key='{{index}}' style='padding:18rpx 18rpx; '>
             <radio style='transform:scale(.8); margin-left: -80rpx;' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
               <view style="width:800rpx;font-size: 40rpx; padding-left:0rpx;word-wrap:break-word;">{{item.promotionName}}</view>
