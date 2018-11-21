@@ -216,11 +216,7 @@ page {
   vertical-align:middle;
 }
 
-.mask {
-  height: 100%;
-  position: fixed;
-  width: 100%;
-}
+
 
 .select-goods {
   height: 750rpx;

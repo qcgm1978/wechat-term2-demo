@@ -248,3 +248,8 @@ button::after {
 .decimal-dot::before{
   content:'.'
 }
+.mask {
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}

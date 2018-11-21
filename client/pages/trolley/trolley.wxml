@@ -223,7 +223,7 @@
 </view>
 
 <view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0;' >
-    <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.5;'></view> 
+    <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.3;'></view> 
     <view  class='select-goods bgc ' style='top:{{top}}rpx;z-index: 21;'>
       <view class='center padding' style='justify-content:space-between;'>
         <view style='font-size:34rpx; margin-left:4rpx;'>切换促销</view>
