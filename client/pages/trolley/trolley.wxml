@@ -70,7 +70,10 @@
 
                     </view>
                     <view class='center trolley-bottom'>
-                      <text class='dollar medium trolley-price' style='margin-top:20rpx;'><template is="price" data="{{price:'0'}}" /></text>
+                      <view style='width:auto; margin-top:10rpx;'>
+                        <text class='dollar medium trolley-price' style='margin-top:20rpx;'><template is="price" data="{{price:'0'}}" /></text>
+                        <text class='dollar medium trolley-price' style='text-decoration:line-through; color:#999999;' wx:if="{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}">{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}<text class='sales-unit'>/个</text></text> 
+                      </view>
                       <text class='medium trolley-price' style='color:#999999; margin: 20rpx;'>x{{trollyGroup.cartCombinationPromotions[0].giftItems[0].quantity}}</text>
                     </view>
                   </view>
@@ -113,32 +116,17 @@
                   <!-- <text class='trolley-spec ' style='margin-right: 30rpx;'>x{{item.quantity}}/套</text> -->
                 </view>
                 <view class='center trolley-bottom'>
-                  <text class='dollar medium trolley-price'>{{item.price}}</text>
+                  <text class='dollar medium trolley-price'>{{item.price}}<text class='sales-unit'>/{{item.saleUnit}}</text></text>
                   <!-- <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text> -->
                   <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}">
-                    <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'>-</text>
-                    <text class='plus-minus center-center' style="font-size: 26rpx;">{{item.quantity}}</text>
-                    <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'>+</text>
+                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}'  data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
+                    <text class='plus-minus center-center btn-txt-1' style="font-size: 26rpx;">{{item.quantity}}</text>
+                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}'  data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
                   </view>
                 </view>
               </view>
             </view>
           </view>
-          <!-- <view class='promotion' style='display:flex; flex-direction:row; margin-bottom: {{trollyGroup.cartCombinationPromotions[0].giftItems.length>0?0:0+"rpx;"}}'>
-            <view style='display:flex; flex-direction:row; width:500rpx;'>
-              <text class='promotion-2-bottom'>套装价</text>
-              <text class='promotion-2-bottom' style='color:#EE711F; '>¥{{trollyGroup.suitePrice}}</text>
-              <text class='promotion-3' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '2'}}">已省¥{{filters.toFix(trollyGroup.cartCombinationPromotions[0].discountAmount)}}</text>
-            </view>
-
-
-
-            <view class='center' style='align-items:center; display:inline-block; width: 190rpx; display:flex; flex-direction:row; margin-left: 10rpx; margin-bottom: 20rpx;'>
-              <text class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'>-</text>
-              <text class='plus-minus center-center' style="font-size: 26rpx;">{{trollyGroup.count}}</text>
-              <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-enabled='{{trollyGroup.putShelvesFlg}}'>+</text>
-            </view>
-          </view> -->
 
           <template is="promotionInfo" data="{{trollyGroup}}"  wx:if="{{trollyGroup.cartCombinationPromotions.length >0}}"/>
 
@@ -162,8 +150,8 @@
                 </view>
                 <view class='center trolley-bottom'>
                   <view style='width:auto; margin-top:10rpx;'>
-                    <text class='dollar medium trolley-price'>0</text> 
-                    <text class='dollar medium trolley-price' style='text-decoration:line-through; color:#999999;' wx:if="{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}">{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}<text class='sales-unit'>/{{trollyGroup.cartCombinationPromotions[0].giftItems[0].saleUnit}}</text></text> 
+                    <text class='dollar medium trolley-price' style='margin-top:20rpx;'><template is="price" data="{{price:'0'}}" /></text>
+                    <text class='dollar medium trolley-price' style='text-decoration:line-through; color:#999999;' wx:if="{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}">{{trollyGroup.cartCombinationPromotions[0].giftItems[0].price}}<text class='sales-unit'>/个</text></text> 
                   </view>
 
                   <!-- <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>  -->
