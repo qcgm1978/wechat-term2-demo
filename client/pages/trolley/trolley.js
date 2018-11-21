@@ -219,7 +219,7 @@ Page({
       }
       itemGroups.push(group)
       promises.push(promoteUtil.calcPromote({itemGroups}))
-
+      console.log(JSON.stringify({ itemGroups }))
       Promise.all(promises)
       .then(arr => {
         if (arr[0]){
@@ -262,9 +262,21 @@ Page({
       this.getPromotionList(trolleyGroup)
         .then((data) => {
           let trolleyItemCartCombinationPromotions = "trolley["+index+"].cartCombinationPromotions"
+          let promotions = "trolley[" + index + "].promotions[0]"
           this.setData({
             [trolleyItemCartCombinationPromotions]: data.result[0].promotions,
+            [promotions]: data.result[0].promotions[0]
           })
+
+          // this.callPromotionCacl([trolleyGroup], 0)
+          // .then((data)=>{
+          //   this.setData({
+          //     [trolleyItemCartCombinationPromotions]: data.cartCombinationPromotions,
+          //   })
+          // })
+          // .catch((e)=>{
+
+          // })
         })
         .catch((e) => { })
 
@@ -468,7 +480,7 @@ Page({
     })
 
     let itemIndex = currentTrolley.items.findIndex(item => item.itemId === dataset.itemid)
-    this.setMoneyData(this.selectedRadio);
+    // this.setMoneyData(this.selectedRadio);
     this.updateTrolley(trolley, index, isMinus ? -1 : 1, itemIndex)
       .then((para) => {
         return utils.addToTrolleyByGroup(para)
@@ -618,7 +630,6 @@ Page({
     this.currentTrolleyIndex = this.data.trolley.indexOf(selectedGroup)
     this.getPromotionList(selectedGroup)
     .then((data) => {
-
       this.setData({
         isSelecting: true,
         promotionOptions: data.result[0].promotions
@@ -696,21 +707,24 @@ Page({
           }, "")
         } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "0" && selectedGroup.cartCombinationPromotions[0].promotionKind == "2") {
           categoryCodes = selectedGroup.items.reduce((accumulator, item, index) => {
-            if (index == 0) {
-              accumulator = accumulator + (item.itemCategoryCode);
-            } else {
-              accumulator = accumulator + "," + (item.itemCategoryCode);
+            if (accumulator.indexOf(item.itemCategoryCode) == -1) {
+              if (index == 0) {
+                accumulator = accumulator + (item.itemCategoryCode);
+              } else {
+                accumulator = accumulator + "," + (item.itemCategoryCode);
+              }
             }
             return accumulator
           }, "")
         } else if (selectedGroup.cartCombinationPromotions[0].combinationFlag == "1" && selectedGroup.cartCombinationPromotions[0].promotionKind == "2") {
           categoryCodes = selectedGroup.items.reduce((accumulator, item, index) => {
-            if (index == 0) {
-              accumulator = accumulator + (item.itemCategoryCode);
-            } else {
-              accumulator = accumulator + "," + (item.itemCategoryCode);
+            if (accumulator.indexOf(item.itemCategoryCode) == -1) {
+              if (index == 0) {
+                accumulator = accumulator + (item.itemCategoryCode);
+              } else {
+                accumulator = accumulator + "," + (item.itemCategoryCode);
+              }
             }
-
             return accumulator
           }, "")
         }
