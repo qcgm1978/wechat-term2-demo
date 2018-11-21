@@ -253,3 +253,9 @@ button::after {
   position: fixed;
   width: 100%;
 }
+.btn-txt{
+  border-top: 2rpx solid #D1D1D2;
+  border-bottom: 2rpx solid #D1D1D2;
+  box-sizing:border-box;
+
+}

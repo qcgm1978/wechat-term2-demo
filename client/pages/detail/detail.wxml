@@ -122,9 +122,9 @@
             <view class='center regular specification ' style="margin-top: 58rpx;">
               <text>购买数量</text>
               <view class='center' style='align-items:center'>
-                <text class='plus-minus center-center' style='opacity:{{quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'>-</text>
-                <text class='plus-minus center-center' style="font-size: 32rpx;">{{quantity}}</text>
-                <text class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'>+</text>
+                <image src='./img/minus.png' class='plus-minus center-center' style='opacity:{{quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
+                <text class='plus-minus center-center btn-txt' style="font-size: 32rpx;">{{quantity}}</text>
+                <image src='./img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
               </view>
             </view>
           </view>
@@ -154,7 +154,7 @@
   </view>
   <text class='sold-out btn-container center-center fixed-position-text' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
   <!-- wx:if='{{!promotion}}'  wx:if='{{!isSelecting}}'-->
-  <view class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}}; {{isSelecting?"":"box-shadow:0 -2rpx 10rpx 0 rgba(0,0,0,0.05);"}}'>
+  <view class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}}; {{isSelecting?"":"box-shadow:0 -2rpx 10rpx 0 rgba(0,0,0,0.05);"}} z-index:20;'>
     <view class='center-center' style='flex-grow:1;' bindtap='gotoTrolley'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx; margin:auto 32rpx;'></image>
       <view class='medium cart-num center-center' wx:if='{{badge}}' style='transform:translate(-45rpx, -10rpx);'>

@@ -84,11 +84,16 @@
 .plus-minus {
   width: 40rpx;
   height: 40rpx;
-  border: 1px solid rgb(236, 236, 236);
+  /* border: 1px solid rgb(236, 236, 236); */
   /* display: inline-block; *//* font-size: 26rpx; */
   color: #666;
 }
+.btn-txt-1{
+  border-top: 2rpx solid #D1D1D2;
+  border-bottom: 2rpx solid #D1D1D2;
+  box-sizing:border-box;
 
+}
 .trolley-total {
   /* position: absolute; *//* top: 100%; *//* transform: translate(0, -100%); */
   width: 100%;

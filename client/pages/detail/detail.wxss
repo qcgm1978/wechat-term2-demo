@@ -39,10 +39,10 @@
 .plus-minus {
   width: 68rpx;
   height: 60rpx;
-  border: 1px solid rgb(236, 236, 236);
   /* display: inline-block; */
   font-size: 60rpx;
 }
+
 
 .subtotal {
   font-size: 24rpx;
