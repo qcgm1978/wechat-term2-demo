@@ -18,9 +18,8 @@
   <image src='./img/hot@2x.png' class='icon-wares'></image>
   <text class='light icon-txt'>畅销商品</text>
 </view>
-
 <view class='product-row' wx:for='{{productList}}' wx:key='id' wx:if='{{index===0||index%2=== 0}}'>
-  <navigator class='product-card' wx:for='{{[productList[index], productList[index+1]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?itemId={{pitem.itemId}}&categoryId={{pitem.itemCategoryCode}}" style='width:350rpx; {{pindex%2?"margin-left:16rpx;":""}}; visibility:{{pitem?"visible":"hidden"}};'>
+  <navigator class='product-card' wx:for='{{[productList[index], productList[index+1]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?itemId={{pitem.itemId}}&categoryId={{pitem.itemCategoryCode}}" style='width:350rpx; {{pindex%2?"margin-left:8rpx;":""}}; visibility:{{pitem?"visible":"hidden"}};'>
     <view style="position: relative;">
       <image class='product-image {{pitem.putShelvesFlg?"":"opacity-sold-out"}}' src='{{pitem.itemImageAddress1?(pitem.itemImageAddress1+"?x-oss-process=style/350w"):defImg}}' mode='aspectFit' data-errorimg="{{index}}"></image>
       <view wx:if='{{!pitem.putShelvesFlg}}' class='trolley-soldout regular center-center' style="width: 144rpx;height: 144rpx;font-size:32rpx;">售罄</view>
@@ -29,9 +28,10 @@
     <view class='product-spec'>{{pitem.itemSpecification}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
-      <view class='product-price'>￥{{pitem.price}}<text class='regular sales-unit'>/{{pitem.saleUnit}}</text>
+      <view class='center product-price'>￥{{pitem.price}}
+      <text class='regular sales-unit ellipse'>/{{pitem.saleUnit}}</text>
         <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
-        <image style='width:64rpx; height:32rpx;' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='2'}}"></image>
+        <image style='width:64rpx; height:32rpx; transform:translate(8rpx,0);' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='2'}}"></image>
         <image style='width:64rpx; height:32rpx;' src='{{imgManzeng}}' wx:elif="{{pitem.promotionTypes[0]=='1'}}"></image>
         <block wx:else></block>
       </view>

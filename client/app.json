@@ -19,11 +19,11 @@
     "pages/promoteOptionsKind/promoteOptionsKind"
   ],
   "window": {
-    "navigationBarBackgroundColor": "white",
+    "navigationBarBackgroundColor": "#fff",
     "navigationBarTextStyle": "black",
     "backgroundColor": "#eeeff4",
     "backgroundTextStyle": "light",
-    "navigationBarTitleText": "Wafer Quick Start"
+    "navigationBarTitleText": ""
   },
   "tabBar": {
     "color": "#919090",

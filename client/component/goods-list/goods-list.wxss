@@ -20,7 +20,6 @@
   background:  #F7F8FA;
   
 }
-
 .order-content {
   display: flex;
   justify-content: space-between;
@@ -30,7 +29,7 @@
 }
 
 .item-container {
-  background-color: rgb(238, 238, 238);
+  /* background-color: rgb(238, 238, 238); */
   width: 100%;
   display: flex;
   flex-direction: column;
