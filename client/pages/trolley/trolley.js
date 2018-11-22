@@ -15,7 +15,7 @@ let globalData = app.globalData;
 Page({
   data: {
     isSelecting: false,
-    top: getApp().globalData.systemInfo.deviceWindowHeight - (34+142)*2 - 180,
+    top: getApp().globalData.systemInfo.deviceWindowHeight - (34+142)*2 - 180 -374,
     promotionOptions: [],
     defImg: getApp().globalData.defaultImg,
     trolley: [],
