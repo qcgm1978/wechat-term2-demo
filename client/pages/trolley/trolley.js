@@ -15,7 +15,7 @@ let globalData = app.globalData;
 Page({
   data: {
     isSelecting: false,
-    top: getApp().globalData.systemInfo.windowHeight - 600,
+    top: getApp().globalData.systemInfo.deviceWindowHeight - (34+142)*2 - 180,
     promotionOptions: [],
     defImg: getApp().globalData.defaultImg,
     trolley: [],
@@ -123,7 +123,8 @@ Page({
     return this.data.trolley.reduce((accumulator, item) => {
       if (selectedRadio.includes(item.groupId)) {
         if (item.cartCombinationPromotions && item.cartCombinationPromotions.length > 0 && item.cartCombinationPromotions[0] && item.cartCombinationPromotions[0].promotionType == 2){
-          return accumulator + item.cartCombinationPromotions[0].discountAmount ? item.cartCombinationPromotions[0].discountAmount:0
+          let totalDiscount = item.cartCombinationPromotions[0].discountAmount ? item.cartCombinationPromotions[0].discountAmount : 0
+          return accumulator + totalDiscount
         } else{
           return accumulator
         }
@@ -249,7 +250,7 @@ Page({
   adjustCartCombinationPromotions(trolleyGroup, index) {
     if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
       let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
-      if (rightPromotion){
+      if (rightPromotion && rightPromotion.activeFlg){
         trolleyGroup.cartCombinationPromotions[0] = rightPromotion
       }else{
         trolleyGroup.cartCombinationPromotions = null
@@ -760,7 +761,9 @@ Page({
           data: postData
         })
         .then((data) => {
-
+          for (let i = 0; i < data.result.length; i++) {
+            data.result[i].promotions.sort(this.compare)
+          }
           resolve(data)
         }).catch((e) => {
           reject(e)

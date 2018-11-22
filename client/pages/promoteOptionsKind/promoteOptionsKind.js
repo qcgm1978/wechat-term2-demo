@@ -41,7 +41,7 @@ Page({
     this.product = product
     const offset=4
     this.setData({
-      scrollHeight: wx.getSystemInfoSync().windowHeight * 2 - 42 * 2 - 16 - 68 * 2 - 50 * 2-offset,
+      scrollHeight: wx.getSystemInfoSync().windowHeight * 2 - (46 + 6 + 33 + 71 + 44) * 2 - offset,
       promoteMsg: promoteInfo.promotionName,
       items: product,
       // 'selectedProductList[0]': product,
