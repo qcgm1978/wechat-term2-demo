@@ -123,7 +123,8 @@ Page({
     return this.data.trolley.reduce((accumulator, item) => {
       if (selectedRadio.includes(item.groupId)) {
         if (item.cartCombinationPromotions && item.cartCombinationPromotions.length > 0 && item.cartCombinationPromotions[0] && item.cartCombinationPromotions[0].promotionType == 2){
-          return accumulator + item.cartCombinationPromotions[0].discountAmount ? item.cartCombinationPromotions[0].discountAmount:0
+          let totalDiscount = item.cartCombinationPromotions[0].discountAmount ? item.cartCombinationPromotions[0].discountAmount : 0
+          return accumulator + totalDiscount
         } else{
           return accumulator
         }
