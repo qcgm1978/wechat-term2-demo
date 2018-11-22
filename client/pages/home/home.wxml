@@ -14,9 +14,9 @@
 <swiper indicator-dots="{{true}}" class='hot-card' style="width: 100%; height: 234rpx" autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}" catchtap="bannerClick">
   <block wx:for="{{imgUrls}}" wx:key="index">
     <swiper-item style='display:flex;'>
-      <navigator url="/pages/detail/detail?itemId={{item.itemId}}&categoryId={{item.itemCategoryCode}}" style="width: 100%;">
+      <!-- <navigator url="/pages/detail/detail?itemId={{item.itemId}}&categoryId={{item.itemCategoryCode}}" style="width: 100%;"> -->
         <image src="{{item.imageUrl}}" class="slide-image" style="width: 100%; height: 234rpx" data-postId="{{item.pageUrl}}" />
-      </navigator>
+      <!-- </navigator> -->
     </swiper-item>
   </block>
 </swiper>

@@ -2,8 +2,8 @@ var ERROR_CODE = require("index.js").config.errorCode;
 const FREEZING_TIME = ERROR_CODE.FREEZING_TIME
 const promptFreezing = () => {
   const isFreezing = isFreezingTime()
-  if (isFreezing) {
     const currentPage = getCurrentPages().slice(-1)[0] 
+  if (isFreezing && currentPage.data.isFreezing === undefined) {
     currentPage.setData({
       isFreezing: true
     })

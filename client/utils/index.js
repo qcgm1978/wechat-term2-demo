@@ -8,7 +8,7 @@ exports.config = {
     HTTP_SUCCSESS: 200,
     CONNECTION_TIMEOUT: 503,
     REFRESH_ERR:500,
-    FREEZING_TIME:419
+    FREEZING_TIME:406
   },
   memeberStatus: {
     DELETED: 0,

@@ -117,9 +117,9 @@ var postRequest = function({
       },
       success: res => {
         // todo test code: cart/remove, cart/add, order/cancel
-        if (url.includes('order/cancel') || url.includes('cart/add')) {
-          res.statusCode = FREEZING_TIME
-        }
+        // if (url.includes('order/cancel') || url.includes('cart/add')) {
+        //   res.statusCode = FREEZING_TIME
+        // }
         if (res.statusCode !== HTTP_SUCCSESS) {
           if (res.statusCode === FREEZING_TIME) {
             Freezing.verifyFreezing(res.statusCode)
