@@ -54,7 +54,7 @@ export const requestStatis = (postData = {}) => {
       ...postData,
       sessionId,
       userId,
-      pageUrl: getCurrentPages().slice(-1)[0].route,
+      pageUrl: postData.pageUrl||getCurrentPages().slice(-1)[0].route,
       eventDetail: '',
       time: new Date().getTime(),
       preUrl: getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : '' //getCurrentPages().slice(-1)[0].route
@@ -74,7 +74,8 @@ export const requestStatis = (postData = {}) => {
       }
     })
   }).catch(e => {
-    console.log(e.data.error)
+    debugger
+    console.log(e.error)
   });
 }
 export const requestStatisEnter = (systemInfo) => {
@@ -92,6 +93,7 @@ export const requestStatisEnter = (systemInfo) => {
       // const systemInfo = getApp().globalData.systemInfo;
       requestStatis({
         url: urlObj.clientInfo,
+        pageUrl: systemInfo.options.path,
         miniappVer: systemInfo.SDKVersion,
         phoneBrand: systemInfo.brand,
         phoneModel: systemInfo.model,

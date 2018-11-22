@@ -32,7 +32,7 @@ Component({
   data: {
     isFreezing: true,
     toOpen: true,
-    height: getApp().globalData.systemInfo.windowHeight,
+    // height: getApp().globalData.systemInfo.windowHeight,
     init: true,
   },
   /**

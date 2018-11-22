@@ -1,5 +1,5 @@
 <!--component/freeze-time/freeze-time.wxml-->
-<view hidden='{{!(isToOpen)}}' style='height:{{height}}rpx; position: fixed; width:100%; z-index:100;' >
+<view hidden='{{!(isToOpen)}}' style='height:100%; position: fixed; width:100%; z-index:100;' >
   <view class='freeze-bg'></view>
   <view class='freeze-container'>
     <view class='column '>

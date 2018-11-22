@@ -140,7 +140,7 @@ App({
       };
     }
     this.getSystemInfo();
-    requestStatisEnter(this.globalData.systemInfo)
+    requestStatisEnter({ ...this.globalData.systemInfo, options})
     
   },
   
