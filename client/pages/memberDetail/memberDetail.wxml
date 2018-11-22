@@ -1,3 +1,7 @@
+<import src="../../template/freeze.wxml" />
+<freeze-time is-to-open='{{isToOpen}}' >
+</freeze-time>
+<template is="freeze" data='{{isFreezing}}'/>
 <view>
   <view class='column bgc my-container' style="padding: 38rpx 24rpx 32rpx;margin-top:24rpx;">
     <view class='center medium'>

@@ -1,3 +1,7 @@
+<import src="../../template/freeze.wxml" />
+<freeze-time is-to-open='{{isToOpen}}' >
+</freeze-time>
+<template is="freeze" data='{{isFreezing}}'/>
 <view catch:tap='turnPage' wx:for='{{product}}' wx:key='*this' class='center padding24 bgc ' data-itemid='{{item.itemId}}' style='margin-top:2rpx;'>
   <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
   <view class='column regular list-container'>

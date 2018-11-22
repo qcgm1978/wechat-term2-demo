@@ -1,3 +1,7 @@
+<import src="../../template/freeze.wxml" />
+<freeze-time is-to-open='{{isToOpen}}' >
+</freeze-time>
+<template is="freeze" data='{{isFreezing}}'/>
 <view class='column category-left'>
   <block wx:for='{{data}}' wx:key='{{index}}'>
     <view class='{{(currentIndex===index)?"bgc":""}}' style='padding:22rpx 0;position:fixed;left:0;width:200rpx; top:{{88*index}}rpx;' catch:tap='toggleFirst' data-index="{{index}}" wx:if='{{item.childCategory.length}}'>
