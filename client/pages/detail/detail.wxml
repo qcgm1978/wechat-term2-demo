@@ -161,7 +161,7 @@
         {{badge}}
       </view>
     </view>
-    <button bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"with-back-image":"without-back-image"}} {{isSelecting?"selecting-btn":""}} '>加入进货单</button>
+    <button id="btnAddToTrolley" bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"with-back-image":"without-back-image"}} {{isSelecting?"selecting-btn":""}} '>加入进货单</button>
     <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"buy-btn":"buy-selecting"}} {{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}} '>{{buyTxt}}</button>
   </view>
 </view>
