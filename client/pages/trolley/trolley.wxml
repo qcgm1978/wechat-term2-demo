@@ -178,7 +178,7 @@
       </block>
       <text wx:else>订单最低起定价:¥500</text>
     </view>
-    <view class='center trolley-confirm'>
+    <view class='center trolley-confirm bottom-box-shadow'>
       <radio style='transform:scale(.74);' value="{{item.name}}" checked='{{checkAll}}' catch:tap='selectAll' color='{{checkAll?"#EE711F":"#D1D1D2"}}'>
         <view style="font-size: 36rpx; padding-left:0rpx;">全选</view>
       </radio>
