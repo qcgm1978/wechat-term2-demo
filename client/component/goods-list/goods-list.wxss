@@ -17,13 +17,13 @@
   flex-direction: column;
   /* position: absolute; */
   width: 100%;
-  background:  #F7F8FA;
+  background:  rgba(247,248,250,0.6);
   
 }
 .order-content {
   display: flex;
   justify-content: space-between;
-  margin: 10rpx 16rpx 10rpx 10rpx;
+  margin: 10rpx 32rpx 10rpx 24rpx;
   height: 212rpx;
   align-items: center;
 }

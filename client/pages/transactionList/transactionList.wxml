@@ -24,7 +24,7 @@
               </view>
 
               <!-- <scroll-view scroll-y="true" style='max-height:{{isTiled? "330rpx":"none"}};' class='bgc'> -->
-              <scroll-view class="scroll-view_H" scroll-x='{{true}}' style="width: 100%" style='background: #F7F8FA;border-radius: 4rpx; height:192rpx;white-space: nowrap;padding:0 24rpx;box-sizing:border-box;'>
+              <scroll-view class="scroll-view_H" scroll-x='{{true}}' style="width: 100%" style='background: rgba(247,248,250,0.6);border-radius: 4rpx; height:192rpx;white-space: nowrap;padding:0 24rpx;box-sizing:border-box;'>
                 <block class='group-container' wx:for="{{item.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
                   <block class='item-container' wx:for="{{orderGroup.items}}" wx:key='{{itemIndex}}' wx:for-item="orderItem" style=" margin-top:0rpx;">
                     <image src='{{orderItem.itemIcon?(orderItem.itemIcon+"?x-oss-process=style/180w"):defImg}}' style="width: 160rpx;height: 160rpx;border-radius: 8rpx;margin:16rpx 0 16rpx 8rpx;background:#fff;display:inline-block;" mode='aspectFit'></image>

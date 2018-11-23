@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 7,
+			"current": 8,
 			"list": [
 				{
 					"id": -1,
@@ -53,7 +53,7 @@
 					"id": 3,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "itemId=3467&categoryId=1204001"
+					"query": "itemId=6103&categoryId=1101010"
 				},
 				{
 					"id": -1,
@@ -78,6 +78,12 @@
 					"name": "order-confirm",
 					"pathName": "pages/order-confirm/order-confirm",
 					"query": "total=8650.41&totalDiscount=20.10"
+				},
+				{
+					"id": -1,
+					"name": "checkstand",
+					"pathName": "pages/checkstand/checkstand",
+					"query": "orderId=181123171734980597&orderTotalAmount=600.00"
 				}
 			]
 		}
