@@ -11,7 +11,7 @@
     <view>
       <view class='padding medium bgc'>
         <view class='product-price'>￥{{product.price}}
-          <text class='saleUnit regular'>/{{product.saleUnit}}</text>
+          <text class='saleUnit regular unit-color'>/{{product.saleUnit}}</text>
         </view>
         <view class='product-name'>{{product.itemName}}</view>
         <view class='product-spec regular'>规格：{{product.itemSpecification}}</view>
@@ -20,7 +20,7 @@
       <view class='bgc' style="margin-top: 16rpx;">
         <view wx:if='{{promoteInfoList.length}}'>
           <view class='center promotion-container padding regular bgc '>
-            <text style='color:#333;'>促销 <text style='font-size:24rpx; color:#949494;'>在购物车可修改促销信息</text></text>
+            <text style='color:#333;'>促销 <text style='font-size:24rpx; color:#949494; margin-left:16rpx;'>在购物车可修改促销信息</text></text>
           </view>
           <view class='line' style='margin:0 24rpx; width:92%;'></view>
         </view>
@@ -44,9 +44,9 @@
 
 
       <view class='center promotion-container padding-big regular bgc' style='margin-top:15rpx;'>
-        <text class='promotion' style="align-self: start;">类别</text>
+        <text class='promotion' style="align-self: start;">类别 </text>
         <view class='promotion-list' style='margin-left:16rpx;'>
-          <view class='center' style="height: 36rpx;">
+          <view class='center' >
             <text class='ellipse' style='width:490rpx;'>{{product.itemCategoryName}}</text>
             <text class='promotion-type'></text>
           </view>
@@ -54,7 +54,7 @@
         <view></view>
       </view>
       <view class='center promotion-container padding-big regular bgc mgt' wx:if='{{product.itemExpirationDays || product.itemOrigin || product.itemBrand}}'>
-        <text class='promotion' style="align-self: start;">信息</text>
+        <text class='promotion' style="align-self: start;">信息 </text>
         <view class='promotion-list' style='margin-left:16rpx;'>
           <view class='center'>
             <text style='width:490rpx;'>{{product.itemExpirationDays?'保质期('+product.itemExpirationDays+'天);':''}}{{product.itemOrigin?'产地：'+product.itemOrigin+';':''}}{{product.itemBrand?'品牌：'+product.itemBrand:''}}</text>
@@ -91,7 +91,7 @@
             <view class='regular relative-name' style="justify-content:center;text-align:center;">{{item.itemName}}</view>
             <view class='center' style="width: 100%;justify-content:center;">
               <view class='relative-money dollar'>{{item.price}}
-                <text class='related-unit'>/{{item.saleUnit}}</text>
+                <text class='related-unit unit-color'>/{{item.saleUnit}}</text>
               </view>
               <!-- <text class='promotion-type'>{{item.itemSpecification}}</text> -->
             </view>
@@ -105,8 +105,9 @@
         <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit'></image>
         <view>
           <view class='product-name' style="width: 444rpx;">{{product.item_brand}}</view>
-          <text class='dollar product-price'>{{product.price}}<text class='popup-unit'>/{{product.saleUnit}}</text>
+          <text class='dollar product-price'>{{product.price}}<text class='popup-unit unit-color'>/{{product.saleUnit}}</text>
           </text>
+          
         </view>
         <image src='../../images/close.png' class='close-popup' catch:tap='closePopup'></image>
       </view>
@@ -157,7 +158,7 @@
   <view class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}}; {{isSelecting?"":"box-shadow:0 -2rpx 10rpx 0 rgba(0,0,0,0.05);"}} z-index:20;'>
     <view class='center-center' style='flex-grow:1;' bindtap='gotoTrolley'>
       <image src='{{icon}}' style='width:54rpx;height:54rpx; margin:auto 32rpx;'></image>
-      <view class='medium cart-num center-center' wx:if='{{badge}}' style='transform:translate(-45rpx, -10rpx);'>
+      <view class='medium cart-num center-center' wx:if='{{badge}}' style='transform:translate(-25px, -8px);'>
         {{badge}}
       </view>
     </view>
