@@ -330,7 +330,8 @@ Page({
   bannerClick: function(e) {
     if (e.target.dataset.postid) {
       wx.navigateTo({
-        url: '../webView/webView?targetUrl=' + e.target.dataset.postid
+        // url: '../webView/webView?targetUrl=' + e.target.dataset.postid
+        url: e.target.dataset.postid
       })
     }
   },
