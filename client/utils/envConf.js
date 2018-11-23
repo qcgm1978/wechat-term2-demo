@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.STG; //update this value for different env
+var env = EVN.DEV; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -22,6 +22,7 @@ switch (env) {
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     // baseUrl ='http://192.168.2.56:17000/merchant-mall/v1'
     statistics = 'https://sitecatalyst.jihuiduo.cn'
+    statistics = `http://192.168.2.58:8081`
     break;
   case EVN.LOCAL:
     {

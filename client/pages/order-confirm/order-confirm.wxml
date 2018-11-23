@@ -1,3 +1,7 @@
+<import src="../../template/freeze.wxml" />
+<freeze-time is-to-open='{{isToOpen}}' >
+</freeze-time>
+<template is="freeze" data='{{isFreezing}}'/>
 <import src="../../template/price.wxml" />
 <scroll-view scroll-y style="height:{{height-53*2}}rpx; white-space:nowrap;">
   <view class='regular bgc ' style="padding: 32rpx;">
