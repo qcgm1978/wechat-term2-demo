@@ -37,6 +37,7 @@ Page({
   lowerEnable: true,
   noMoreData: false,
   scrollDataLoading: false,
+  scrollViewY: 0,
   enablePullDownRefresh: false,
   onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
@@ -334,12 +335,12 @@ Page({
         });
         this.setMoneyData(this.selectedRadio);
 
-        if (getApp().globalData.checkedTrolley.length) {
+        //if (getApp().globalData.checkedTrolley.length) {
           this.setData({
-            scrollTop: 0
+            scrollTop: this.scrollViewY
           });
           // getApp().globalData.checkedTrolley = [];
-        }
+        //}
 
         setTimeout(() => {
           this.scrollDataLoading = false;
@@ -591,6 +592,7 @@ Page({
     this.setData({
       [prop]: true
     })
+    this.closePopup()
   },
 
   closePopup() {
@@ -679,6 +681,7 @@ Page({
       let para = {
         addGroupList: [{
           count : 1,
+          groupId: trolley[index].groupId,
           promotions: trolley[index].promotions,
           addItemList: trolley[index].items,
         }]
@@ -769,5 +772,8 @@ Page({
           reject(e)
         })
     })
+  },
+  scroll(event){
+    this.scrollViewY = event.detail.scrollTop
   }
 })

@@ -2,7 +2,7 @@
 <wxs module="filters" src="../../utils/math.wxs"></wxs>
 <import src="./promotionInfo.wxml" />
 <view wx:if='{{trolley.length}}' style="height: 100%;">
-  <scroll-view scroll-y style="height:85%;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}">
+  <scroll-view scroll-y style="height:85%;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" bindscroll="scroll">
     <!-- <view wx:for='{{trolley}}' wx:key='{{index}}'> -->
     <view wx:for='{{trolley}}' wx:for-index="groupIndex" wx:key='*this' wx:for-item="trollyGroup" style='margin-top:15rpx;margin-bottom:0rpx;'>
       <view wx:if="{{trollyGroup.combinationFlag == '0'}}">
@@ -211,7 +211,7 @@
 </view>
 
 <view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0;' >
-    <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.3;'></view> 
+    <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.3;' catch:tap='closePopup'></view> 
     <view  class='select-goods bgc ' style='bottom:0rpx;z-index: 21;'>
       <view class='center padding' style='justify-content:space-between;'>
         <view style='font-size:32rpx; margin-left:0rpx;'>切换促销</view>
