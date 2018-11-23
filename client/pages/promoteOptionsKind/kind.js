@@ -183,14 +183,16 @@ export default {
 
       let groupItems = []
       for (let i = 0; i < this.data.selectedProductList.length; i++) {
-        let item1 = {}
-        const item = this.data.selectedProductList[i];
-        item1.itemId = item.itemId
-        item1.brandId = ""
-        item1.categoryCode = item.categoryCode
-        item1.quantity = item.quantity || item.minQuantity
-        item1.unitPrice = item.price
-        groupItems.push(item1)
+        if (!this.data.selectedProductList[i].isGift){
+          let item1 = {}
+          const item = this.data.selectedProductList[i];
+          item1.itemId = item.itemId
+          item1.brandId = ""
+          item1.categoryCode = item.categoryCode
+          item1.quantity = item.quantity || item.minQuantity
+          item1.unitPrice = item.price
+          groupItems.push(item1)
+        }
       }
       group.groupId = ""
       group.items = groupItems
@@ -209,7 +211,10 @@ export default {
 
             promoteResult.giftItems[0].price = 0
             promoteResult.giftItems[0].isGift = true
-            const selectedProductList = [...this.data.selectedProductList, promoteResult.giftItems[0]]
+            let productListWithoutGift = this.data.selectedProductList.filter(item => {
+              return !item.isGift
+            })
+            const selectedProductList = [...productListWithoutGift, promoteResult.giftItems[0]]
             this.setData({
               selectedProductList,
               totalDiscountAmount: promoteResult.totalDiscountAmount || 0

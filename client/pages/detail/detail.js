@@ -73,12 +73,12 @@ Page({
     }
     const num = isMinus ? (currentNum - 1) : (currentNum + 1);
 
-    this.callPromotionCacl([this.data.product], 0, num)
-      .then((data)=>{ 
+    // this.callPromotionCacl([this.data.product], 0, num)
+    //   .then((data)=>{ 
         let discountAmount = 0
-        if (data.cartCombinationPromotions && data.cartCombinationPromotions.length > 0 && data.cartCombinationPromotions[0].discountAmount){
-          discountAmount = utils.getFixedNum(data.cartCombinationPromotions[0].discountAmount)
-        }
+        // if (data.cartCombinationPromotions && data.cartCombinationPromotions.length > 0 && data.cartCombinationPromotions[0].discountAmount){
+        //   discountAmount = utils.getFixedNum(data.cartCombinationPromotions[0].discountAmount)
+        // }
         let totalMoney = num * this.data.product.price
         let currentMoney = totalMoney - discountAmount
         let remaining = this.data.minAmount - currentMoney;
@@ -93,8 +93,8 @@ Page({
           buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
           enableBuy
         })
-      })
-      .catch((e) => { })
+      // })
+      // .catch((e) => { })
 
   },
   
