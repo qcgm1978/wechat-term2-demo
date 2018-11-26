@@ -255,6 +255,6 @@ color: #707070;
 letter-spacing: 0;
 line-height: 44rpx;
 font-weight:normal;
-max-width:110rpx;
+max-width:77rpx;
 
 }
