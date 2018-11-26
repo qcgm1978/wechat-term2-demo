@@ -299,6 +299,10 @@ Page({
           delete orderItems[i]["discountAmount"]
           delete orderItems[i]["discountPercentage"]
         }
+        //itemUnit补全
+        for (let j = 0; j < orderItems[i].items.length; j++) {
+          orderItems[i].items[j].itemUnit = orderItems[i].items[j].itemUnit ? orderItems[i].items[j].itemUnit:orderItems[i].items[j].saleUnit
+        }
       }
 
       let tempdata = {
