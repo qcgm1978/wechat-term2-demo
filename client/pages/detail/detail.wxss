@@ -59,7 +59,7 @@
 }
 
 .dot {
-  margin: 12rpx 9rpx auto;
+  margin: -6rpx 9rpx auto;
 }
 
 .relative-name {
@@ -117,7 +117,7 @@
 
 .buy-btn {
   /* background: #ec6515; */
-  background:linear-gradient(90deg, #febb5c 0%, #eb6112 100%);
+  background:linear-gradient(90deg,#eb6112 0%,  #febb5c 100%);
 }
 
 .buy-selecting {
@@ -177,7 +177,7 @@
 .product-name {
   font-size: 32rpx;
   color: #333;
-  margin-bottom: 10rpx 0 6rpx;
+  margin: 12rpx 0 8rpx;
 }
 
 .product-spec {
@@ -376,13 +376,15 @@
 
 .popup-unit {
   font-size: 28rpx;
-  color: #2a2a2a;
   letter-spacing: 0;
   line-height: 50rpx;
 }
 .related-unit{
   font-size: 24rpx;
-color: #2A2A2A;
+
 letter-spacing: 0;
 line-height: 40rpx;
+}
+.unit-color{
+  color: rgb(151, 151, 151);
 }

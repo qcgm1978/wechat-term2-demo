@@ -25,7 +25,7 @@
         <image src='img/arrow.png' style='width:36rpx; height:42rpx; '></image>
       </navigator>
     </view>
-    <view class='line' style='margin:16rpx auto 38rpx; width:200%; margin-left:-24rpx;'></view>
+    <view class='line' style='margin:16rpx auto 38rpx; '></view>
     <view class='tab medium center' bindtap='toggleTab'>
       <view class='column' data-type='1'>
         <view class="center-center">

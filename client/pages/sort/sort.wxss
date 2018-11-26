@@ -13,6 +13,7 @@ page{
   left: 200rpx;
   width: 517rpx;
   min-height: 100%;
+  overflow-x:hidden;
 }
 
 .category-second {
@@ -77,4 +78,9 @@ image {
 .padding-third{
   padding: 16rpx 24rpx 16rpx 0;
   width:516rpx;
+}
+.sort-line{
+  position:relative;
+z-index:10;
+
 }

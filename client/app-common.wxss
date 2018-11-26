@@ -1,5 +1,5 @@
 page {
-  background: #f0f2f4;
+  background: #f7f8fa;
 }
 
 .dollar::before {
@@ -222,14 +222,15 @@ page {
 }
 
 .cart-num {
-  font-size: 18rpx;
-  color: #ee711f;
+  font-size: 22rpx;
+  background: #ee711f;
+  color: #fff;
   letter-spacing: -1.4rpx;
-  width: 18rpx;
-  height: 18rpx;
+  width: 28rpx;
+  height: 28rpx;
   border: 2rpx solid #ee711f;
   border-radius: 50%;
-  transform: translate(-10rpx, -10rpx);
+  transform: translate(-12rpx, -15rpx);
 }
 
 .debug {
@@ -262,6 +263,9 @@ button::after {
 .btn-txt-1{
   border-top: 1rpx solid #D1D1D2;
   border-bottom: 1rpx solid #D1D1D2;
-  box-sizing:border-box;
+  box-sizing:content-box;
+}
+.bottom-box-shadow{
+  box-shadow:0 -2rpx 10rpx 0 rgba(0,0,0,0.05);
 
 }
