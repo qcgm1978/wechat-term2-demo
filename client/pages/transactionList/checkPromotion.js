@@ -13,7 +13,7 @@ export default {
   methods: {
     getProduct(itemId, categoryCd) {
       const locationId = getApp().globalData.merchant.locationId;
-      return util.getRequest(getProductItem, {
+      return util.getRequest(getProductItem + "&start=0&limit=1000", {
         locationId,
         categoryCd: categoryCd ? categoryCd : '',
         itemIds: itemId ? itemId : '',
