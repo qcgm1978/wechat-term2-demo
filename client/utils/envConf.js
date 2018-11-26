@@ -20,7 +20,7 @@ switch (env) {
     clientSecret = "OzoStRYlQVA85pjp"
     baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
-    baseUrl ='http://192.168.2.56:17000/merchant-mall/v1'
+    // baseUrl ='http://192.168.2.56:17000/merchant-mall/v1'
     statistics = 'https://sitecatalyst.jihuiduo.cn'
     break;
   case EVN.LOCAL:
