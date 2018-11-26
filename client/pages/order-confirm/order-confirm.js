@@ -284,6 +284,8 @@ Page({
               orderItems[i].cartCombinationPromotions[0].giftItems[j].discountPercentage = 0
               // }
               orderItems[i].cartCombinationPromotions[0].giftItems[j].unit = "个"
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].itemUnit = "个"
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].saleUnit = "个"
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemId
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemName = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemName
               orderItems[i].items.push(orderItems[i].cartCombinationPromotions[0].giftItems[j])
