@@ -261,3 +261,6 @@ position:relative;
 z-index:90;
 width:100%; */
 }
+.line-through{
+  text-decoration:line-through;
+}
