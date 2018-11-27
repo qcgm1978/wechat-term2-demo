@@ -34,7 +34,7 @@
     <view class='product-spec'>{{pitem.itemSpecification}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
-      <view class='center product-price ellipse {{"line-through"}}'>￥{{pitem.price}}
+      <view class='center product-price ellipse {{pitem.promotionTypes[0]=="2"?"line-through":""}}'>￥{{pitem.price}}
       <text class='regular sales-unit ellipse' style='max-width:{{pitem.promotionTypes[0]=="2"|| pitem.promotionTypes[0]=="1"?77:110}}rpx'>/{{pitem.saleUnit}}</text>
         <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
         <image style='width:64rpx; height:32rpx; transform:translate(8rpx,0);' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='2'}}"></image>
