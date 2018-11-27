@@ -1,7 +1,4 @@
 import utils from "../../utils/util.js";
-import {
-  verifyFreezing
-} from '../../utils/freezing.js'
 import promoteUtil from "../../utils/promotion.js";
 import {
   Api
@@ -50,9 +47,6 @@ Page({
     }
   },
   confirmOrder() {
-    if (utils.disbaleOperation()) {
-      return
-    }
     if (!this.data.disableBuy) {
       getApp().globalData.items = this.data.trolley.reduce((accumulator, item) => {
         if (item.checked) {
@@ -101,7 +95,8 @@ Page({
       url: '/pages/home/home',
     })
   },
-  upper() { },
+  upper() {
+  },
   lower() {
     // if (!this.lowerEnable || this.scrollDataLoading) {
     //   return
@@ -225,9 +220,7 @@ Page({
         }
       }
       itemGroups.push(group)
-      promises.push(promoteUtil.calcPromote({
-        itemGroups
-      }))
+      promises.push(promoteUtil.calcPromote({ itemGroups }))
 
       Promise.all(promises)
         .then(arr => {
@@ -405,15 +398,13 @@ Page({
               if (!item.putShelvesFlg) {
                 result[i].putShelvesFlg = false;
               }
-              result[i].combinationFlag = result[i].items.length > 1 ? true : false
-              result[i].suitePrice = utils.getFixedNum(this.getSuitePrice(result[i]), 2);
+              item.price = utils.getFixedNum(item.price, 2)
+            });
 
-            })
-            let trolley = []
-            if (this.start === 0) {
-              trolley = result;
+            if (result[i].putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(result[i].groupId))) {
+              result[i].checked = true;
             } else {
-              trolley = this.data.trolley.concat(result);
+              result[i].checked = false;
             }
             result[i].combinationFlag = result[i].items.length > 1 ? true : false
             result[i].suitePrice = utils.getFixedNum(this.getSuitePrice(result[i]), 2);
@@ -438,13 +429,6 @@ Page({
           });
           // getApp().globalData.checkedTrolley = [];
           //}
-
-          if (getApp().globalData.checkedTrolley.length) {
-            this.setData({
-              scrollTop: 0
-            });
-            // getApp().globalData.checkedTrolley = [];
-          }
 
           setTimeout(() => {
             this.scrollDataLoading = false;
@@ -571,25 +555,21 @@ Page({
       return item;
     })
 
-    if (trolley[index].checked) { } else {
+    if (trolley[index].checked) {
+    } else {
       trolley[index].checked = true
       this.selectedRadio.push(trolley[index].groupId);
     }
 
-
+    this.setData({
+      trolley
+    })
 
     let itemIndex = currentTrolley.items.findIndex(item => item.itemId === dataset.itemid)
     // this.setMoneyData(this.selectedRadio);
     this.updateTrolley(trolley, index, isMinus ? -1 : 1, itemIndex)
       .then((para) => {
         return utils.addToTrolleyByGroup(para)
-      })
-      .then(para => {
-        this.setData({
-          trolley
-        })
-        this.setMoneyData(this.selectedRadio);
-        return para
       })
       .then(badge => {
         utils.updateTrolleyNum();
@@ -756,13 +736,6 @@ Page({
 
         let defaultPromotionOption = data.result[0].promotions.find(item => item.promotionId === selectedGroup.cartCombinationPromotions[0].promotionId)
 
-        this.setData({
-          isSelecting: true,
-          promotionOptions: data.result[0].promotions
-        })
-
-        let defaultPromotionOption = data.result[0].promotions.find(item => item.promotionId === selectedGroup.cartCombinationPromotions[0].promotionId)
-
         let index = data.result[0].promotions.indexOf(defaultPromotionOption)
         if (index >= 0) {
           let prop = "promotionOptions[" + index + "].checked"
@@ -861,11 +834,13 @@ Page({
 
 
       let postData = {
-        itemGroups: [{
-          categoryCodes,
-          groupId: selectedGroup.groupId,
-          itemIds
-        }],
+        itemGroups: [
+          {
+            categoryCodes,
+            groupId: selectedGroup.groupId,
+            itemIds
+          }
+        ],
         merchantId: app.getMerchantId(),
         locationId: getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "",
       }
