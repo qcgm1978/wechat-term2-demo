@@ -143,13 +143,11 @@ export default {
       return seletedItems.reduce((accumulator, item) => Number(accumulator) + Number(item.price * (item.quantity || 1)), 0)
     },
     setPrice(currentTrolley) {
-      if (currentTrolley.checked) {
         const totalPrice=this.getTotalPrice()
         this.setData({
           totalPrice: utils.getFixedNum(totalPrice, 2),
           enableVisible: true
         })
-      }
     },
     calcPromote(currentTrolley) {
       if (this.data.dataLoading) return

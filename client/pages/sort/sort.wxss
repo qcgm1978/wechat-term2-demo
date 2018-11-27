@@ -24,16 +24,14 @@ page{
 
 }
 
-.category-third:nth-of-type(3n+3) {
-  margin-left: 18rpx;
-}
-
 .category-third:nth-of-type(3n+2) {
   margin-left: 18rpx;
 }
-
-.category-third:nth-of-type(n+4) {
-  margin-top: 16rpx;
+.category-third:nth-of-type(3n+1) {
+  margin-left: 18rpx;
+}
+.category-third:nth-of-type(3n) {
+  margin-left: 0rpx;
 }
 
 .category-left {
