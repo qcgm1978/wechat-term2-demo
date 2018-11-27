@@ -12,9 +12,9 @@
   color: #eb6113;
 }
 .plus-minus {
-  width: 60rpx;
+  width: 46rpx;
   height: 40rpx;
-  border: 1px solid rgb(236, 236, 236);
+  /* border: 1px solid rgb(236, 236, 236); */
   /* display: inline-block; *//* font-size: 26rpx; */
   color: #666;
 }

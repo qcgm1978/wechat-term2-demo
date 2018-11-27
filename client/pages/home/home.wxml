@@ -24,7 +24,6 @@
   <image src='./img/hot@2x.png' class='icon-wares'></image>
   <text class='light icon-txt'>畅销商品</text>
 </view>
-
 <view class='product-row' wx:for='{{productList}}' wx:key='id' wx:if='{{index===0||index%2=== 0}}'>
   <navigator class='product-card' wx:for='{{[productList[index], productList[index+1]]}}' wx:key='id' wx:for-index='pindex' wx:for-item='pitem' url="/pages/detail/detail?itemId={{pitem.itemId}}&categoryId={{pitem.itemCategoryCode}}" style='width:350rpx; {{pindex%2?"margin-left:8rpx;":""}}; visibility:{{pitem?"visible":"hidden"}};'>
     <view style="position: relative;">
@@ -35,8 +34,8 @@
     <view class='product-spec'>{{pitem.itemSpecification}}</view>
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
-      <view class='center product-price'>￥{{pitem.price}}
-        <text class='regular sales-unit ellipse'>/{{pitem.saleUnit}}</text>
+      <view class='center product-price ellipse'>￥{{pitem.price}}
+      <text class='regular sales-unit ellipse' style='max-width:{{pitem.promotionTypes[0]=="2"|| pitem.promotionTypes[0]=="1"?77:110}}rpx'>/{{pitem.saleUnit}}</text>
         <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
         <image style='width:64rpx; height:32rpx; transform:translate(8rpx,0);' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='2'}}"></image>
         <image style='width:64rpx; height:32rpx;' src='{{imgManzeng}}' wx:elif="{{pitem.promotionTypes[0]=='1'}}"></image>

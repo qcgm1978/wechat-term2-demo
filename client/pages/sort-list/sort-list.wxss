@@ -30,7 +30,7 @@ image {
 }
 .sales-unit{
   font-size: 24rpx;
-color: #2A2A2A;
+color: #666;
 letter-spacing: 0;
 line-height: 44rpx;
 }

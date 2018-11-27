@@ -29,7 +29,7 @@
 
       <view class='center-center' style='flex-grow:1; margin-left:30rpx;' bindtap='gotoTrolley'>
         <image src='{{imgTrolly}}' style='width:54rpx;height:54rpx;'></image>
-        <view class='medium cart-num center-center' wx:if='{{badge}}'>
+        <view class='medium cart-num center-center' style='color:#fff;' wx:if='{{badge}}'>
           {{badge}}
         </view>
       </view>

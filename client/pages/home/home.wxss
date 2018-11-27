@@ -9,7 +9,6 @@
 .opacity-sold-out {
   opacity: 0.3;
 }
-
 .store {
   background-image: linear-gradient(90deg, #eb6112 0%, #febb5c 100%);
   justify-content: flex-start;

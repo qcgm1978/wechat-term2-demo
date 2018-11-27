@@ -13,7 +13,7 @@
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.2.4",
-	"appid": "wx093196720f54b05b",
+	"appid": "wx44aeb10d0359834d",
 	"projectname": "o2o-mall",
 	"isGameTourist": false,
 	"condition": {
@@ -70,7 +70,7 @@
 					"id": 5,
 					"name": "detail",
 					"pathName": "pages/detail/detail",
-					"query": "itemId=272&orderStatus=&total=868&quantity=6&totalDiscount=20"
+					"query": "itemId=4442&categoryId=1102004"
 				},
 				{
 					"id": 6,
@@ -131,6 +131,12 @@
 					"name": "promoteOptions",
 					"pathName": "pages/promoteOptions/promoteOptions",
 					"query": "promoteInfo={\"promotionId\":\"18995\",\"promotionName\":\"测试促销：3a+2b，立减20元\",\"startTime\":\"Mon Nov 12 00:00:00 CST 2018\",\"endTime\":\"Mon Nov 19 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"1\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%B8%83%E5%96%9C1.jpg\",\"itemName\":\"七喜\",\"itemSpecification\":\"1L*12\",\"price\":38,\"itemId\":\"3473\",\"categoryId\":\"1201013\",\"isKind\":false}&kind=1"
+				},
+				{
+					"id": 16,
+					"name": "detail-6250",
+					"pathName": "pages/detail/detail",
+					"query": "itemId=3351&categoryId=1401009"
 				}
 			]
 		}
