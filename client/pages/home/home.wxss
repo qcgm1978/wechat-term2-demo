@@ -184,7 +184,7 @@
 
 .product-meta {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   margin: 9rpx 21rpx 15rpx;
 }
 
@@ -237,7 +237,7 @@
   /* margin: 0 10rpx; */
   font-size: 32rpx;
   color: #ee711f;
-  align-items: center;
+  align-items: flex-end;
   font-weight:bold;
 }
 
@@ -257,4 +257,10 @@ line-height: 44rpx;
 font-weight:normal;
 max-width:110rpx;
 
+}
+.promotion-icon{
+  position:relative;
+left:8rpx;
+top:-7rpx;
+width:64rpx; height:32rpx;
 }
