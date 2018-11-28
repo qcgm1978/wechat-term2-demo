@@ -168,9 +168,10 @@ export const requestHomeExit = () => requestStatis({
 export const updateSessionId = () => {
   sessionId = generateGuid();
 }
-export const addcart = () => requestStatis({
+export const addcart = (postData) => requestStatis({
   url: urlObj.addcart,
   event: getCurrentPages().slice(-1)[0].route.includes('detail') ? 'click_add_cart':'env_add_cart',
+  ...postData
 })
 export const buySku = (postData) => requestStatis({
   url: urlObj.buy,

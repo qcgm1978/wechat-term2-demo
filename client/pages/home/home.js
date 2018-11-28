@@ -11,7 +11,8 @@ import {
   updateTrolleyNum,
   requestStatisLoad,
   requestStatisUnload,
-  promptFreezing
+  promptFreezing,
+  addcart
 } from '../../utils/util.js';
 const getProductList = Api.getProductList,
   getBanners = Api.getBanners,
@@ -142,8 +143,9 @@ Page({
   addToTrolley(event) {
     if (!event.currentTarget.dataset.putshelvesflg) return
     return new Promise((resolve, reject) => {
-      const itemId = event.currentTarget.dataset.itemid;
-      const categoryCode = event.currentTarget.dataset.categorycode
+      const dataset = event.currentTarget.dataset
+      const itemId = dataset.itemid;
+      const categoryCode = dataset.categorycode
 
 
       const arr = [{
@@ -157,12 +159,23 @@ Page({
           addItemList: arr
         }]
       }
-      addToTrolleyByGroup(para).catch(errorCode => {
+      addToTrolleyByGroup(para)
+        .then(data => {
+          const related = this.data.productList[dataset.index]
+          addcart({
+            itemId: related.itemId,
+            itemPro: related.promotionTypes,
+            itemName: related.itemName,
+            price: related.price
+          })
+        })
+      .catch(errorCode => {
         // getApp().failRequest();
         return errorHander(errorCode, () => {
           addToTrolleyByGroup(event);
         });
-      }).catch((errorCode) => {
+      })
+      .catch((errorCode) => {
         console.log(errorCode)
         if (errorCode === 419) {
           // this.setData({

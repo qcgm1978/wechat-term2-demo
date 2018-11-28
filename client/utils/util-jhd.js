@@ -345,9 +345,7 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
       .then(data => {
         hideLoading();
       })
-      .then(data=>{
-        Statis.addcart()
-      })
+      
       .catch(errorCode => {
         reject(errorCode)
       });

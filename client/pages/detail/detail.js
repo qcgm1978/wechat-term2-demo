@@ -36,12 +36,12 @@ Page({
       specification: '',
       num: 1
 
-    }, ],
+    },],
     icon: '../../images/trolley-full.png',
     imgManjian: "../../images/manjian.png",
     imgManzeng: "../../images/manzeng.png",
   },
-  relatedChange(e) {},
+  relatedChange(e) { },
   showPromotion(e) {
     const index = e.currentTarget.dataset.index
     const isKind = e.currentTarget.dataset.isKind
@@ -190,6 +190,15 @@ Page({
         this.setData({
           badge: badge,
           icon: '../../images/trolley-missing.png'
+        })
+      })
+      .then(data => {
+        const related = this.data.product
+        utils.addcart({
+          itemId: related.itemId,
+          itemPro: related.itemSpecification,
+          itemName: related.itemName,
+          price: related.price
         })
       })
   },
@@ -343,7 +352,7 @@ Page({
           url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${arr && arr.discountAmount && arr.discountAmount != 0 ? arr.discountAmount : 0}`,
         });
       })
-      .catch(() => {})
+      .catch(() => { })
 
 
   },
@@ -352,7 +361,7 @@ Page({
     const related = this.data.related[dataset.index]
     utils.tapSameCategory({
       itemId: related.itemId,
-      itemPro: related.temSpecification,
+      itemPro: related.itemSpecification,
       itemName: related.itemName,
       price: related.price
     })
@@ -360,10 +369,10 @@ Page({
       url: dataset.url,
     })
   },
-  preventTouchMove: function(e) {
+  preventTouchMove: function (e) {
     //debugger;
   },
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -388,14 +397,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
     utils.checkNetwork().then(utils.requestStatisLoad);
   },
   onHide() {
@@ -405,51 +414,51 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   },
-  gotoTrolley: function() {
+  gotoTrolley: function () {
     wx.switchTab({
       url: '/pages/trolley/trolley'
     })
   },
 
-  getPromoteInfo: function({
+  getPromoteInfo: function ({
     itemId,
     categoryId
   }) {
     utils.postRequest({
-        url: getPromoteInfo,
-        data: {
-          merchantId: getApp().getMerchantId(),
-          locationId: getApp().globalData.merchant.locationId,
-          items: [{
-            categoryCode: categoryId ? categoryId : "",
-            itemId: itemId
-          }],
-        }
-      })
+      url: getPromoteInfo,
+      data: {
+        merchantId: getApp().getMerchantId(),
+        locationId: getApp().globalData.merchant.locationId,
+        items: [{
+          categoryCode: categoryId ? categoryId : "",
+          itemId: itemId
+        }],
+      }
+    })
       .then((data) => {
 
         if (data.result[0].promotionItems.length > 0) {
@@ -492,9 +501,9 @@ Page({
       .catch(errorCode => {
         console.log(errorCode)
         utils.errorHander(errorCode, this.getPromoteInfo, this.emptyFunc, {
-            itemId,
-            categoryId
-          })
+          itemId,
+          categoryId
+        })
           .then(() => {
 
           })
@@ -504,5 +513,5 @@ Page({
       })
   },
 
-  emptyFunc: function() {},
+  emptyFunc: function () { },
 })
