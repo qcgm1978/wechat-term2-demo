@@ -315,6 +315,9 @@ Page({
     para.itemGroups = itemGroups
     // 获取促销信息
     promoteUtil.calcPromote(para)
+      .then(arr=>{
+        utils.buySku()
+      })
       .then(arr => {
         if (arr) {
           if (arr.giftItems && arr.giftItems[0]) {
@@ -335,6 +338,13 @@ Page({
       .catch(() => {})
 
 
+  },
+  navigateTo(evt){
+    const dataset = evt.currentTarget.dataset;
+    utils.tapSameCategory()
+    wx.navigateTo({
+      url: dataset.url,
+    })
   },
   preventTouchMove: function(e) {
     //debugger;

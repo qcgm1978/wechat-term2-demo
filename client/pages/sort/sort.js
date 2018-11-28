@@ -38,9 +38,15 @@ Page({
     })
   },
   toggleFirst(e){
-    const index=e.currentTarget.dataset.index;
+    const dataset=e.currentTarget.dataset
+    const index=dataset.index;
     this.setData({
       currentIndex:index
+    })
+    const data = this.data.data[index]
+    utils.tapTopLevel({
+        categoryName: data.itemCategoryName,
+        categoryId: data.itemCategoryCode
     })
   },
   /**
