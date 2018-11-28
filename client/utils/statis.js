@@ -172,13 +172,15 @@ export const addcart = () => requestStatis({
   url: urlObj.addcart,
   event: getCurrentPages().slice(-1)[0].route.includes('detail') ? 'click_add_cart':'env_add_cart',
 })
-export const buySku = () => requestStatis({
+export const buySku = (postData) => requestStatis({
   url: urlObj.buy,
   event: 'evn_direct_buy',
+  ...postData
 })
-export const tapSameCategory = () => requestStatis({
+export const tapSameCategory = (postData) => requestStatis({
   url: urlObj.samecategory,
   event: 'evn_same_ca',
+  ...postData
 })
 export const tapTopLevel = (postData) => requestStatis({
   url: urlObj.toplevel,

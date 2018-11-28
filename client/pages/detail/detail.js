@@ -44,8 +44,8 @@ Page({
   relatedChange(e) {},
   showPromotion(e) {
     const index = e.currentTarget.dataset.index
-    const isKind=e.currentTarget.dataset.isKind
-    if (!this.data.product.putShelvesFlg || (this.data.promoteInfoList[index].combinationFlag == "0" && this.data.promoteInfoList[index].promotionKind=="1")) return;
+    const isKind = e.currentTarget.dataset.isKind
+    if (!this.data.product.putShelvesFlg || (this.data.promoteInfoList[index].combinationFlag == "0" && this.data.promoteInfoList[index].promotionKind == "1")) return;
     if (this.data.promoteInfoList[index].combinationFlag !== "1" || this.data.promoteInfoList[index].promotionKind) {
       let tmpProduct = {}
       tmpProduct.itemImageAddress1 = this.data.product.itemImageAddress1
@@ -56,7 +56,7 @@ Page({
       tmpProduct.itemId = this.data.product.itemId
       tmpProduct.categoryId = this.data.product.itemCategoryCode
       tmpProduct.isKind = isKind
-      const kindStr=isKind?'Kind':''
+      const kindStr = isKind ? 'Kind' : ''
       wx.navigateTo({
         url: `/pages/promoteOptions${kindStr}/promoteOptions${kindStr}?promoteInfo=` + JSON.stringify(this.data.promoteInfoList[index]) + "&product=" + JSON.stringify(tmpProduct) + '&kind=' + this.data.promoteInfoList[index].promotionKind,
       })
@@ -75,43 +75,43 @@ Page({
 
     // this.callPromotionCacl([this.data.product], 0, num)
     //   .then((data)=>{ 
-        let discountAmount = 0
-        // if (data.cartCombinationPromotions && data.cartCombinationPromotions.length > 0 && data.cartCombinationPromotions[0].discountAmount){
-        //   discountAmount = utils.getFixedNum(data.cartCombinationPromotions[0].discountAmount)
-        // }
-        let totalMoney = num * this.data.product.price
-        let currentMoney = totalMoney - discountAmount
-        let remaining = this.data.minAmount - currentMoney;
-        remaining = utils.getFixedNum(remaining)
-        const enableBuy = remaining <= 0;
-        currentMoney = utils.getFixedNum(currentMoney);
-        this.setData({
-          quantity: num,
-          totalMoney,
-          currentMoney,
-          discountAmount,
-          buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
-          enableBuy
-        })
-      // })
-      // .catch((e) => { })
+    let discountAmount = 0
+    // if (data.cartCombinationPromotions && data.cartCombinationPromotions.length > 0 && data.cartCombinationPromotions[0].discountAmount){
+    //   discountAmount = utils.getFixedNum(data.cartCombinationPromotions[0].discountAmount)
+    // }
+    let totalMoney = num * this.data.product.price
+    let currentMoney = totalMoney - discountAmount
+    let remaining = this.data.minAmount - currentMoney;
+    remaining = utils.getFixedNum(remaining)
+    const enableBuy = remaining <= 0;
+    currentMoney = utils.getFixedNum(currentMoney);
+    this.setData({
+      quantity: num,
+      totalMoney,
+      currentMoney,
+      discountAmount,
+      buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
+      enableBuy
+    })
+    // })
+    // .catch((e) => { })
 
   },
-  
+
   callPromotionCacl(trollyList, i, num) {
     return new Promise((resolve, reject) => {
       let promises = []
       let itemGroups = []
       let group = {}
       let groupItems = []
-      
-        let item = {}
-        item.itemId = trollyList[i].itemId
-        item.brandId = ""
-        item.categoryCode = trollyList[i].itemCategoryCode
-        item.quantity = num
-        item.unitPrice = trollyList[i].price
-        groupItems.push(item)
+
+      let item = {}
+      item.itemId = trollyList[i].itemId
+      item.brandId = ""
+      item.categoryCode = trollyList[i].itemCategoryCode
+      item.quantity = num
+      item.unitPrice = trollyList[i].price
+      groupItems.push(item)
 
       group.groupId = ""
       group.items = groupItems
@@ -121,7 +121,9 @@ Page({
         group.promotions = trollyList[i].cartCombinationPromotions
       }
       itemGroups.push(group)
-      promises.push(promoteUtil.calcPromote({ itemGroups }))
+      promises.push(promoteUtil.calcPromote({
+        itemGroups
+      }))
 
       Promise.all(promises)
         .then(arr => {
@@ -271,7 +273,7 @@ Page({
     });
   },
   buy() {
-    if (utils.disbaleOperation()){
+    if (utils.disbaleOperation()) {
       return
     }
     if (!this.data.isSelecting && this.data.minAmount > this.data.product.price) {
@@ -315,8 +317,14 @@ Page({
     para.itemGroups = itemGroups
     // 获取促销信息
     promoteUtil.calcPromote(para)
-      .then(arr=>{
-        utils.buySku()
+      .then(arr => {
+        const product = this.data.product
+        utils.buySku({
+          itemId: product.itemId,
+          itemPro: product.promotionTypes,
+          itemName: product.itemName,
+          price: product.unitPrice
+        })
       })
       .then(arr => {
         if (arr) {
@@ -339,9 +347,15 @@ Page({
 
 
   },
-  navigateTo(evt){
+  navigateTo(evt) {
     const dataset = evt.currentTarget.dataset;
-    utils.tapSameCategory()
+    const related = this.data.related[dataset.index]
+    utils.tapSameCategory({
+      itemId: related.itemId,
+      itemPro: related.temSpecification,
+      itemName: related.itemName,
+      price: related.price
+    })
     wx.navigateTo({
       url: dataset.url,
     })
@@ -445,28 +459,30 @@ Page({
             "product.itemPromotions": data.result[0].promotionItems,
           })
           const items = data.result[0].promotionItems
-          const { hasPromotion=false, skuKind=false, skuKindKindCategory=false}=items.reduce((accumulator,item)=>{
+          const {
+            hasPromotion = false, skuKind = false, skuKindKindCategory = false
+          } = items.reduce((accumulator, item) => {
             if (item.combinationFlag === "0") {
-              if (item.promotionKind === '1'){
-                accumulator.sku=true;
-              } else if (item.promotionKind ==='2'){
-                accumulator.skuKind=true
+              if (item.promotionKind === '1') {
+                accumulator.sku = true;
+              } else if (item.promotionKind === '2') {
+                accumulator.skuKind = true
               }
             } else if (item.combinationFlag === "1") {
-              if (item.promotionKind === '1'){
-                accumulator.hasPromotion=true
-              } else if (item.promotionKind === '2'){
-                accumulator.skuKindKindCategory=true
+              if (item.promotionKind === '1') {
+                accumulator.hasPromotion = true
+              } else if (item.promotionKind === '2') {
+                accumulator.skuKindKindCategory = true
               }
             }
             return accumulator
-          },{})
+          }, {})
           this.setData({
             hasPromotion,
             skuKind,
             skuKindKindCategory
           })
-          
+
         } else {
           this.setData({
             hasPromotion: false
