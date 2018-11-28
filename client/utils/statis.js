@@ -23,6 +23,7 @@ export const urlObj = {
 };
 let statisToken = wx.getStorageSync('statis').token || '';
 let sessionId = '';
+const phone = wx.getStorageSync('authWechat').authMerchantList[0].cellPhone
 const generateGuid = () => {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -66,6 +67,7 @@ export const requestStatis = (postData = {}) => {
     const userId = getApp().getMerchantId() || '';
     const data = {
       ...postData,
+      phone,
       sessionId,
       userId,
       pageUrl: postData.pageUrl||getCurrentPages().slice(-1)[0].route,
