@@ -67,9 +67,9 @@ export const requestStatis = (postData = {}) => {
     const userId = getApp().getMerchantId() || '';
     const data = {
       ...postData,
-      phone,
+      // phone,
       sessionId,
-      userId,
+      userId: phone,
       pageUrl: postData.pageUrl||getCurrentPages().slice(-1)[0].route,
       eventDetail: '',
       time: new Date().getTime(),
