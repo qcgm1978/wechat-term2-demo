@@ -14,10 +14,24 @@ export const urlObj = {
   loginPhone:`/b2b/login/phonelogin`,
   enterHome:`/b2b/livesite`,
   callEnterPhone:`/b2b/call`,
-  exitHomeLogin:`/b2b/loginout`
+  exitHomeLogin:`/b2b/loginout`,
+
+  addcart:`/b2b/productindex/addcart`,
+  buy:`/b2b/productdetail/buy`,
+  samecategory:`/b2b/recomment/samecategory`,
+  toplevel:`/b2b/category/toplevel`,
 };
 let statisToken = wx.getStorageSync('statis').token || '';
 let sessionId = '';
+const generateGuid = () => {
+  function s4() {
+    return Math.floor((1 + Math.random()) * 0x10000)
+      .toString(16)
+      .substring(1);
+  }
+  const PRE = 's_';
+  return PRE + s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
 const getToken = () => new Promise((resolve, reject) => wx.request({
   method: "POST",
   url: `${baseUrl}${urlObj.getToken}`,
@@ -154,12 +168,7 @@ export const requestHomeExit = () => requestStatis({
 export const updateSessionId = () => {
   sessionId = generateGuid();
 }
-const generateGuid = () => {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-  const PRE = 's_';
-  return PRE + s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
-}
+export const addcart = () => requestStatis({
+  url: urlObj.addcart,
+  event: getCurrentPages().slice(-1)[0].route.includes('detail') ? 'click_add_cart':'env_add_cart',
+})

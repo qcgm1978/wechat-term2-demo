@@ -2,6 +2,7 @@ import {
   Api
 } from './envConf.js';
 import * as Freezing from './freezing.js'
+import * as Statis from './statis.js';
 var ERROR_CODE = require("index.js").config.errorCode;
 var refreshAccessToken = require("./refreshToken.js").refreshAccessToken;
 const ACCESS_TOCKEN_EXPIRED = ERROR_CODE.ACCESS_TOCKEN_EXPIRED
@@ -343,6 +344,9 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
       })
       .then(data => {
         hideLoading();
+      })
+      .then(data=>{
+        Statis.addcart()
       })
       .catch(errorCode => {
         reject(errorCode)
