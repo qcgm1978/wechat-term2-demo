@@ -242,6 +242,9 @@ Page({
     if (!orderGroup) {
       return ""
     }
+    if (orderGroup.suiteTitle && orderGroup.suiteTitle !== "套装"){
+      return orderGroup.suiteTitle
+    }
     let suiteTitle = "套装"
     if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length > 0 && (orderGroup.cartCombinationPromotions[0].combinationFlag == "0" || orderGroup.cartCombinationPromotions[0].combinationFlag == 0) && (orderGroup.cartCombinationPromotions[0].promotionKind == "2" || orderGroup.cartCombinationPromotions[0].promotionKind == "1")){
 
@@ -258,7 +261,7 @@ Page({
         trolleyGroup.cartCombinationPromotions[0] = rightPromotion
       }else{
         trolleyGroup.cartCombinationPromotions = null
-        trolleyGroup.suiteTitle = "套装"
+        // trolleyGroup.suiteTitle = "套装"
       }
     }
 
@@ -297,7 +300,7 @@ Page({
           trolleyGroup.cartCombinationPromotions[0] = rightPromotion
         } else {
           trolleyGroup.cartCombinationPromotions = null
-          trolleyGroup.suiteTitle = "套装"
+          // trolleyGroup.suiteTitle = "套装"
         }
       }
 
