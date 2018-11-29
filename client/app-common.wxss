@@ -263,8 +263,8 @@ button::after {
 
 }
 .btn-txt-1{
-  border-top: 1rpx solid #D1D1D2;
-  border-bottom: 1rpx solid #D1D1D2;
+  border-top: 2rpx solid #D1D1D2;
+  border-bottom: 2rpx solid #D1D1D2;
   box-sizing:content-box;
 }
 .bottom-box-shadow{
