@@ -224,7 +224,6 @@ Page({
 
       Promise.all(promises)
       .then(arr => {
-        // console.log(JSON.stringify(arr))
         if (arr[0]){
           trollyList[i].cartCombinationPromotions = arr
         }else{
@@ -243,39 +242,56 @@ Page({
     if (!orderGroup) {
       return ""
     }
+    if (orderGroup.suiteTitle && orderGroup.suiteTitle !== "套装"){
+      return orderGroup.suiteTitle
+    }
     let suiteTitle = "套装"
     if (orderGroup.cartCombinationPromotions && orderGroup.cartCombinationPromotions.length > 0 && (orderGroup.cartCombinationPromotions[0].combinationFlag == "0" || orderGroup.cartCombinationPromotions[0].combinationFlag == 0) && (orderGroup.cartCombinationPromotions[0].promotionKind == "2" || orderGroup.cartCombinationPromotions[0].promotionKind == "1")){
 
       suiteTitle = orderGroup.cartCombinationPromotions[0].promotionType == "2"? "满减":"满赠"
     }
-
     return suiteTitle
+  },
+
+  removeKindPromotionForSingleProduct(trolleyGroup){
+    if (!trolleyGroup.promotions || !trolleyGroup.promotions[0] || !trolleyGroup.promotions[0].promotionId){
+      if (trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0 && trolleyGroup.cartCombinationPromotions[0]){
+        if (trolleyGroup.cartCombinationPromotions[0].promotionKind == "2"){
+          trolleyGroup.cartCombinationPromotions = null
+        }
+      }
+    }
   },
 
   adjustCartCombinationPromotions1(trolleyGroup, index) {
     if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
       let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
-      if (rightPromotion && rightPromotion.activeFlg){
+      if (rightPromotion /*&& rightPromotion.activeFlg*/){
         trolleyGroup.cartCombinationPromotions[0] = rightPromotion
       }else{
         trolleyGroup.cartCombinationPromotions = null
-        trolleyGroup.suiteTitle = "套装"
       }
     }
-
     if (trolleyGroup.items.length == 1 && trolleyGroup.cartCombinationPromotions == null) {
       this.getPromotionList(trolleyGroup)
         .then((data) => {
-          let trolleyItemCartCombinationPromotions = "trolley["+index+"].cartCombinationPromotions"
-          let promotions = "trolley[" + index + "].promotions[0]"
-          this.setData({
-            [trolleyItemCartCombinationPromotions]: data.result[0].promotions,
-            [promotions]: data.result[0].promotions[0]
-          })
+          let rightPromotion = null
+          if (trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.promotions[0] && trolleyGroup.promotions[0].promotionId){
+            rightPromotion = data.result[0].promotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
+          }else{
+            rightPromotion = data.result[0].promotions[0]
+          }
 
+          trolleyGroup.cartCombinationPromotions = [rightPromotion]
+          this.removeKindPromotionForSingleProduct(trolleyGroup)
+          trolleyGroup.promotions = [rightPromotion]
           let suiteTitle = "trolley[" + index + "].suiteTitle"
+          let cartCombinationPromotions = "trolley[" + index + "].cartCombinationPromotions"
           this.setData({
-            [suiteTitle]: this.getSuteTitle(this.data.trolley[index])
+            [cartCombinationPromotions]: [rightPromotion]
+          })
+          this.setData({
+            [suiteTitle]: this.getSuteTitle(this.data.trolley[index]),
           })
         })
         .catch((e) => { })
@@ -283,6 +299,7 @@ Page({
     }else{
       let suiteTitle = "trolley[" + index + "].suiteTitle"
       trolleyGroup.suiteTitle = this.getSuteTitle(trolleyGroup)
+      this.removeKindPromotionForSingleProduct(trolleyGroup)
     }
   },
 
@@ -290,19 +307,17 @@ Page({
     return new Promise((resolve, reject) => {
       if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
         let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
-        if (rightPromotion && rightPromotion.activeFlg) {
+        if (rightPromotion /*&& rightPromotion.activeFlg*/) {
           trolleyGroup.cartCombinationPromotions[0] = rightPromotion
         } else {
           trolleyGroup.cartCombinationPromotions = null
-          trolleyGroup.suiteTitle = "套装"
         }
       }
 
       if (trolleyGroup.items.length == 1 && trolleyGroup.cartCombinationPromotions == null) {
         this.getPromotionList(trolleyGroup)
           .then((data) => {
-            
-            trolleyGroup.suiteTitle = this.getSuteTitle(this.data.trolley[index])
+            //trolleyGroup.suiteTitle = this.getSuteTitle(this.data.trolley[index])
             if (data.result && data.result.length > 0 && data.result[0]){
               trolleyGroup.cartCombinationPromotions = data.result[0].promotions
               trolleyGroup.items[0].promotions = []
@@ -320,7 +335,7 @@ Page({
 
       } else {
         let suiteTitle = "trolley[" + index + "].suiteTitle"
-        trolleyGroup.suiteTitle = this.getSuteTitle(trolleyGroup)
+        //trolleyGroup.suiteTitle = this.getSuteTitle(trolleyGroup)
         resolve(trolleyGroup)
       }
     })
@@ -363,7 +378,7 @@ Page({
     })
   },
 
-  getTrolley() {
+  getTrolley(adjustResult = false) {
 
     let temdata = {
       merchantId: app.getMerchantId(),
@@ -381,10 +396,18 @@ Page({
         limit: this.limit
       })
       .then((data) => {
-        return this.fillPromotionInfo(data)
+          if (adjustResult){
+            return this.fillPromotionInfo(data)
+          }else{
+            return data
+          }
         })
       .then((data) => {
-        return this.calcPromotionInfo(data)
+        if (adjustResult) {
+          return this.calcPromotionInfo(data)
+        } else {
+          return data
+        }
       })
       .then((data) => {
         let result = data.result
@@ -392,7 +415,7 @@ Page({
           this.noMoreData = true
         }
         for(let i = 0; i<result.length; i++){
-          //this.adjustCartCombinationPromotions1(result[i], i)
+          this.adjustCartCombinationPromotions1(result[i], i)
           result[i].putShelvesFlg = true
           result[i].items.map((item, index) => {
             if (!item.putShelvesFlg) {
@@ -590,7 +613,7 @@ Page({
     }
 
 
-    this.getTrolley()
+    this.getTrolley(true)
       .then(data => {
         getApp().globalData.checkedTrolley.map(item => {
           for (let i = 0; i < item.addGroupList[0].addItemList.length; i++){
@@ -770,7 +793,7 @@ Page({
         addGroupList: [{
           count : 1,
           groupId: trolley[index].groupId,
-          promotions: trolley[index].promotions,
+          promotions: trolley[index].promotions ? trolley[index].promotions : trolley[index].cartCombinationPromotions,
           addItemList: trolley[index].items,
         }]
       }
