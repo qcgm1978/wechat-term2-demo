@@ -254,17 +254,25 @@ Page({
     return suiteTitle
   },
 
+  removeKindPromotionForSingleProduct(trolleyGroup){
+    if (!trolleyGroup.promotions || !trolleyGroup.promotions[0] || !trolleyGroup.promotions[0].promotionId){
+      if (trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0 && trolleyGroup.cartCombinationPromotions[0]){
+        if (trolleyGroup.cartCombinationPromotions[0].promotionKind == "2"){
+          trolleyGroup.cartCombinationPromotions = null
+        }
+      }
+    }
+  },
+
   adjustCartCombinationPromotions1(trolleyGroup, index) {
     if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
       let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
-      if (rightPromotion && rightPromotion.activeFlg){
+      if (rightPromotion /*&& rightPromotion.activeFlg*/){
         trolleyGroup.cartCombinationPromotions[0] = rightPromotion
       }else{
         trolleyGroup.cartCombinationPromotions = null
-        // trolleyGroup.suiteTitle = "套装"
       }
     }
-
     if (trolleyGroup.items.length == 1 && trolleyGroup.cartCombinationPromotions == null) {
       this.getPromotionList(trolleyGroup)
         .then((data) => {
@@ -276,6 +284,7 @@ Page({
           }
 
           trolleyGroup.cartCombinationPromotions = [rightPromotion]
+          this.removeKindPromotionForSingleProduct(trolleyGroup)
           trolleyGroup.promotions = [rightPromotion]
           let suiteTitle = "trolley[" + index + "].suiteTitle"
           let cartCombinationPromotions = "trolley[" + index + "].cartCombinationPromotions"
@@ -289,6 +298,7 @@ Page({
     }else{
       let suiteTitle = "trolley[" + index + "].suiteTitle"
       trolleyGroup.suiteTitle = this.getSuteTitle(trolleyGroup)
+      this.removeKindPromotionForSingleProduct(trolleyGroup)
     }
   },
 
@@ -296,18 +306,16 @@ Page({
     return new Promise((resolve, reject) => {
       if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
         let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
-        if (rightPromotion && rightPromotion.activeFlg) {
+        if (rightPromotion /*&& rightPromotion.activeFlg*/) {
           trolleyGroup.cartCombinationPromotions[0] = rightPromotion
         } else {
           trolleyGroup.cartCombinationPromotions = null
-          // trolleyGroup.suiteTitle = "套装"
         }
       }
 
       if (trolleyGroup.items.length == 1 && trolleyGroup.cartCombinationPromotions == null) {
         this.getPromotionList(trolleyGroup)
           .then((data) => {
-            
             trolleyGroup.suiteTitle = this.getSuteTitle(this.data.trolley[index])
             if (data.result && data.result.length > 0 && data.result[0]){
               trolleyGroup.cartCombinationPromotions = data.result[0].promotions
@@ -784,7 +792,7 @@ Page({
         addGroupList: [{
           count : 1,
           groupId: trolley[index].groupId,
-          promotions: trolley[index].promotions,
+          promotions: trolley[index].promotions ? trolley[index].promotions : trolley[index].cartCombinationPromotions,
           addItemList: trolley[index].items,
         }]
       }
