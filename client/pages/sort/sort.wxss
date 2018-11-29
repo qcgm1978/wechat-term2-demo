@@ -74,7 +74,7 @@ image {
   padding: 24rpx 16rpx;
 }
 .padding-third{
-  padding: 16rpx 24rpx 16rpx 0;
+  padding: 16rpx 24rpx 0 0;
   width:516rpx;
 }
 .sort-line{

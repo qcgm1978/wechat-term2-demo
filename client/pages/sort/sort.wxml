@@ -5,7 +5,7 @@
       <text class='regular category-first center-center {{(currentIndex===index)?"current":""}}'>{{item.itemCategoryName}}</text>
     </view>
     <view class='column' hidden='{{!(index===currentIndex)}}' class='categoryright bgc padding-second'>
-      <view wx:for='{{item.childCategory}}' wx:key='{{index}}' wx:for-item='second' class='second-container' style="clear: both;margin-bottom:16rpx; ">
+      <view wx:for='{{item.childCategory}}' wx:key='{{index}}' wx:for-item='second' class='second-container' style="clear: both;margin-bottom:24rpx; ">
         <view class='medium category-second'>{{second.itemCategoryName}}</view>
         <view class='clearfix padding-third' >
           <view catch:tap='turnPage' wx:for="{{second.childCategory}}" wx:for-item='third' wx:key='{{index-third}}' class='column category-third' data-categorycode='{{third.itemCategoryCode}}' data-name='{{third.itemCategoryName}}' style="float: left;">

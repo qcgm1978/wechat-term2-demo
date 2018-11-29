@@ -98,6 +98,8 @@ page {
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  margin-bottom:24rpx;
+
 }
 
 .total-money {
