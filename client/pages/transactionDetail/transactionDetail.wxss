@@ -169,7 +169,7 @@
   margin-top: 100rpx;
   z-index: 10;
   /* height: 144rpx; */
-  box-shadow: 0 8rpx rgb(254, 240, 231);
+  box-shadow:0 4rpx 20rpx 0 rgba(242,103,21,0.08);
 }
 
 .cancel-icon {
@@ -313,4 +313,14 @@
   margin-top: 26rpx;
   position: relative;
   color: #666;
+}
+.order-btn{
+  margin:6rpx 0 0 0;
+align-items:center;
+justify-content:flex-end;
+position:fixed;
+bottom:0;
+z-index:10;
+width:calc(100% - 48rpx);
+
 }

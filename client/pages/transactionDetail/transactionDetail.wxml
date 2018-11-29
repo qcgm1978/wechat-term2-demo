@@ -1,5 +1,5 @@
 <wxs module="filters" src="../../utils/math.wxs"></wxs>
-<view style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; '>
+ <scroll-view scroll-y style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; height:{{windowHeight-102}}rpx;'>
   <view id="main" class='main-view'>
     <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}<text class='topay-comment' wx:if='{{payStyle[orderStatus]==="等待付款"}}'>{{expireTime}} 订单将自动取消</text></text>
 
@@ -10,7 +10,7 @@
       </view>
       <view wx:elif='{{isCanceled&&isWechat}}'>
         <view style="margin:auto auto 16px 24px;" wx:if='{{order.orderReturn.returnStatus !== 2}}'>
-          <view class='center trans-shop-lable regular' >
+          <view class='center trans-shop-lable regular'>
             <image src='./images/cancel.png' class='cancel-icon'></image>
             取消/退款进度:{{returnCompleted?"已取消":"退款处理中"}}</view>
           <text wx:if='{{returnCompleted}}' style='font-size: 24rpx;color: #707070; margin-left:60rpx;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
@@ -34,7 +34,7 @@
     <view class='regular goods-info'>商品信息</view>
     <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;' class='bgc'>
       <view class='group-container' wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
-        <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}'  wx:if='{{!isReturn||orderItem.returnQuantit}}' style='margin-top:4rpx;'>
+        <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' wx:if='{{!isReturn||orderItem.returnQuantit}}' style='margin-top:4rpx;'>
           <view class='item-container'>
             <view class='item-container-fg'>
               <view class='order-content'>
@@ -106,7 +106,8 @@
     </view>
     <view class="line" style='height:2rpx;  margin: 0 auto;width:90%;'></view>
     <view class='total-money'>
-      共{{isReturn?'拒收':''}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：<text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
+      共{{isReturn?'拒收':''}}{{isReturn?order.itemReturnCount:order.itemTotalCount}}件商品 {{isReturn?'拒收商品':'实付'}}金额：
+      <text style='color:#ec6515;'>￥{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.actualAmount)}}{{remark}}</text>
     </view>
 
     <view class='bgc padding' style="margin-top: 15rpx; padding-top:0;">
@@ -176,12 +177,12 @@
         </view>
       </view>
     </view>
-    <view class='regular  bgc padding center' hidden='{{isReturn}}' style='margin:6rpx 0 0 0;align-items:center;justify-content:flex-end;'>
-      <view class='buy-again mgt' catch:tap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[orderStatus]==="待发货"||payStyle[orderStatus]==="等待付款"}}' style="border-color: #D1D1D2;color: #707070;">取消订单</view>
-      <view wx:else catch:tap='addGotoTrolley' class='buy-again mgt' hover-class='btn-hover' data-orderitem='{{order.orderItem}}'>再次购买</view>
-      <view class='buy-again mgt' catch:tap='requestPayment' data-order-id="{{order.orderId}}" data-total-amount='{{order.payment.cashAmount}}' wx:if='{{payStyle[orderStatus]==="等待付款"}}' style="margin-left: 20rpx;">去支付</view>
-    </view>
   </view>
+</scroll-view>
+<view class='regular  bgc padding center order-btn' hidden='{{isReturn}}' >
+  <view class='buy-again mgt' catch:tap='removeOrder' data-index='{{index}}' wx:if='{{payStyle[orderStatus]==="待发货"||payStyle[orderStatus]==="等待付款"}}' style="border-color: #D1D1D2;color: #707070;">取消订单</view>
+  <view wx:else catch:tap='addGotoTrolley' class='buy-again mgt' hover-class='btn-hover' data-orderitem='{{order.orderItem}}'>再次购买</view>
+  <view class='buy-again mgt' catch:tap='requestPayment' data-order-id="{{order.orderId}}" data-total-amount='{{order.payment.cashAmount}}' wx:if='{{payStyle[orderStatus]==="等待付款"}}' style="margin-left: 20rpx;">去支付</view>
 </view>
 
 
