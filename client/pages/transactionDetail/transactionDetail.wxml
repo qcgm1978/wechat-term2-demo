@@ -9,8 +9,8 @@
         <text wx:if='{{isWechat}}' style='font-size: 24rpx;color: #707070;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
       </view>
       <view wx:elif='{{isCanceled&&isWechat}}'>
-        <view style="margin:auto auto 16px 24px;">
-          <view class='center trans-shop-lable regular' hidden='{{order.orderReturn.returnStatus === 2}}'>
+        <view style="margin:auto auto 16px 24px;" wx:if='{{order.orderReturn.returnStatus !== 2}}'>
+          <view class='center trans-shop-lable regular' >
             <image src='./images/cancel.png' class='cancel-icon'></image>
             取消/退款进度:{{returnCompleted?"已取消":"退款处理中"}}</view>
           <text wx:if='{{returnCompleted}}' style='font-size: 24rpx;color: #707070; margin-left:60rpx;'>退款将返还实际支付金额,1~3个工作日将返回至原账户</text>
@@ -34,7 +34,7 @@
     <view class='regular goods-info'>商品信息</view>
     <scroll-view scroll-y="true" style='max-height: {{isTiled? 330:"none"}}rpx;' class='bgc'>
       <view class='group-container' wx:for="{{order.orderItems}}" wx:key='{{groupIndex}}' wx:for-item="orderGroup" style=" margin-top:5rpx;">
-        <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}' data-categoryId='{{itorderItemem.categoryId}}' wx:if='{{!isReturn||orderItem.returnQuantit}}'>
+        <view catch:tap='turnPage' wx:for="{{orderGroup.items}}" wx:key='{{index}}' wx:for-item="orderItem" data-itemId='{{orderItem.itemId}}'  wx:if='{{!isReturn||orderItem.returnQuantit}}' style='margin-top:4rpx;'>
           <view class='item-container'>
             <view class='item-container-fg'>
               <view class='order-content'>
@@ -54,7 +54,7 @@
                   </view>
 
                 </view>
-                <view class='darker-gray-chars column' style="align-items: flex-end;padding-top:20px;margin-bottom:auto;">
+                <view class='darker-gray-chars column' style="align-items: flex-end;margin-bottom:auto;">
                   <view wx:if='{{orderItem.gift}}'>
                     <view style='display: flex; flex-direction: column;'>
                       <text style='text-align: right;'>￥0</text>

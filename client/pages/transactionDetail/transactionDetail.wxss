@@ -44,12 +44,12 @@
   border: 3rpx solid rgba(238, 113, 31, 0.80);
   border-radius: 8rpx;
   width: 152rpx;
-  height: 52rpx;
+  height: 60rpx;
   font-size: 26rpx;
   color: #ee711f;
   letter-spacing: 0;
   text-align: center;
-  line-height: 52rpx;
+  line-height: 60rpx;
 }
 
 .exit-login-content {
@@ -130,7 +130,7 @@
 .trans-shop {
   display: flex;
   flex-direction: column;
-  margin-left: 48rpx;
+  margin-left: 32rpx;
   /* align-items: center; */
 }
 
@@ -183,7 +183,7 @@
   flex-direction: row;
   justify-content: space-between;
   /* margin-top: 35rpx; *//* margin-bottom: 30rpx; */
-  margin-left: 111rpx;
+  margin-left: 93rpx;
   /* margin-right: 48rpx; */
 }
 
@@ -203,12 +203,12 @@
 }
 
 .money {
-  font-size: 22rpx;
+  font-size: 24rpx;
   color: #333;
   letter-spacing: 0;
   text-align: right;
   height: 44rpx;
-  margin: 16rpx;
+  margin: 16rpx 0 16rpx 16rpx;
 }
 
 .earned-point-outer {

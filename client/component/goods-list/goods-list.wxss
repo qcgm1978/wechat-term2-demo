@@ -23,8 +23,8 @@
 .order-content {
   display: flex;
   justify-content: space-between;
-  margin: 10rpx 32rpx 10rpx 24rpx;
-  height: 212rpx;
+  margin: 16rpx 32rpx 16rpx 24rpx;
+  /* height: 212rpx; */
   align-items: center;
 }
 

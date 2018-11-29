@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 10,
+			"current": 11,
 			"list": [
 				{
 					"id": -1,
@@ -96,6 +96,12 @@
 					"name": "trolley",
 					"pathName": "pages/trolley/trolley",
 					"query": "orderId=181123171734980597&orderTotalAmount=600.00"
+				},
+				{
+					"id": -1,
+					"name": "transactionDetail",
+					"pathName": "pages/transactionDetail/transactionDetail",
+					"query": "orderId=181123171734980597&orderStatus=ORDER"
 				}
 			]
 		}
