@@ -250,7 +250,6 @@ Page({
 
       suiteTitle = orderGroup.cartCombinationPromotions[0].promotionType == "2"? "满减":"满赠"
     }
-
     return suiteTitle
   },
 
@@ -289,8 +288,10 @@ Page({
           let suiteTitle = "trolley[" + index + "].suiteTitle"
           let cartCombinationPromotions = "trolley[" + index + "].cartCombinationPromotions"
           this.setData({
-            [suiteTitle]: this.getSuteTitle(this.data.trolley[index]),
             [cartCombinationPromotions]: [rightPromotion]
+          })
+          this.setData({
+            [suiteTitle]: this.getSuteTitle(this.data.trolley[index]),
           })
         })
         .catch((e) => { })
@@ -316,7 +317,7 @@ Page({
       if (trolleyGroup.items.length == 1 && trolleyGroup.cartCombinationPromotions == null) {
         this.getPromotionList(trolleyGroup)
           .then((data) => {
-            trolleyGroup.suiteTitle = this.getSuteTitle(this.data.trolley[index])
+            //trolleyGroup.suiteTitle = this.getSuteTitle(this.data.trolley[index])
             if (data.result && data.result.length > 0 && data.result[0]){
               trolleyGroup.cartCombinationPromotions = data.result[0].promotions
               trolleyGroup.items[0].promotions = []
@@ -334,7 +335,7 @@ Page({
 
       } else {
         let suiteTitle = "trolley[" + index + "].suiteTitle"
-        trolleyGroup.suiteTitle = this.getSuteTitle(trolleyGroup)
+        //trolleyGroup.suiteTitle = this.getSuteTitle(trolleyGroup)
         resolve(trolleyGroup)
       }
     })
