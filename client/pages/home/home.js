@@ -164,7 +164,7 @@ Page({
           const related = this.data.productList[dataset.index]
           addcart({
             itemId: related.itemId,
-            itemPro: related.promotionTypes,
+            itemPro: related.promotionTypes||'',
             itemName: related.itemName,
             price: related.price
           })

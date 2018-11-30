@@ -196,7 +196,7 @@ Page({
         const related = this.data.product
         utils.addcart({
           itemId: related.itemId,
-          itemPro: related.itemSpecification,
+          itemPro: related.itemSpecification||'',
           itemName: related.itemName,
           price: related.price
         })
@@ -330,7 +330,7 @@ Page({
         const product = this.data.product
         utils.buySku({
           itemId: product.itemId,
-          itemPro: product.promotionTypes,
+          itemPro: product.promotionTypes||'',
           itemName: product.itemName,
           price: product.unitPrice
         })
