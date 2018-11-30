@@ -29,12 +29,12 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 11,
+			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "user",
-					"pathName": "pages/user/user",
+					"pathName": "pages/memberDetail/memberDetail",
 					"query": ""
 				},
 				{
