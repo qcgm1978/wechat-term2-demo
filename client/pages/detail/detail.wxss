@@ -392,3 +392,10 @@ line-height: 40rpx;
 .unit-color{
   color: rgb(151, 151, 151);
 }
+.detail-gift{
+  width:100%;
+height:750rpx;
+position:absolute;
+z-index:10;
+
+}
