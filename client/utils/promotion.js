@@ -12,7 +12,7 @@ exports.calcPromote = calcPromoteFunc = function (postData) {
   if (!postData.merchantId) {
     postData.merchantId = getApp().getMerchantId()
   }
-   console.log(JSON.stringify(postData))
+  //  console.log(JSON.stringify(postData))
   return new Promise((resolve, reject) => {
   let promotionResult = {}
   utils.postRequest({

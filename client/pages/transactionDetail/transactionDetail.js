@@ -83,6 +83,12 @@ Page({
 
     let orderGroups = [];
     orderGroups = this.data.order.orderItems
+    utils.buyAgain({
+      event:'env_reorder2',
+      eventDetail: {
+        items: orderGroups.reduce((accumulator, group) => accumulator.concat(group.items.map(item => ({ ...item, itemPro: '' }))), [])
+      }
+    })
     this.buyOrderGroupsAgain(orderGroups)
   },
   copy() {

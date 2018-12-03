@@ -28,6 +28,14 @@ export default {
                 duration: 2000
               })
             })
+            .then(data => {
+              utils.cancelOrder({
+                event:'env_cancel_order2',
+                eventDetail: {
+                  orderId: selectData.orderId,
+                }
+              })
+            })
             .catch(err => {
               wx.showToast({
                 title: '取消订单失败，请重试',

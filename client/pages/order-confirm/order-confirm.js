@@ -320,7 +320,10 @@ Page({
       console.log(JSON.stringify(tempdata))
       const isWechat = this.data.checked[0]
       utils.submitOrder({
-        eventDetail: { ...orderItems, points: usePoint},
+        eventDetail: { 
+          items:orderItems.reduce((accumulator, group) =>accumulator.concat(group.items.map(item => ({...item,itemPro:''}))), []),
+          points: usePoint
+        },
       })
       utils.postRequest({
         url: createOrder,

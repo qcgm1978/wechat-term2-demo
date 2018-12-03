@@ -337,7 +337,9 @@ Page({
       }
     }
     utils.buyAgain({
-      eventDetail:orderGroups
+      eventDetail: {
+        items:orderGroups.reduce((accumulator, group) => accumulator.concat(group.items.map(item => ({ ...item, itemPro: '' }))), [])
+      }
     })
     this.buyOrderGroupsAgain(orderGroups)
   },
