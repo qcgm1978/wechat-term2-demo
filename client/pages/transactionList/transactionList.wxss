@@ -18,20 +18,20 @@ color: #FDB658;
 }
 
 .order-state {
-  font-size: 28rpx;
+  font-size: 26rpx;
   color: #ee711f;
   letter-spacing: 0;
 }
 
 .btn {
   border-radius: 8rpx;
-  margin: 20rpx 32rpx;
+  margin: 16rpx 32rpx;
   padding:0;
   background: #fff;
   width: 152rpx;
-  height: 56rpx;
+  height: 60rpx;
   font-size: 26rpx;
-  line-height: 52rpx;
+  line-height: 60rpx;
   
   letter-spacing: 0;
   border-color:#d1d1d2;

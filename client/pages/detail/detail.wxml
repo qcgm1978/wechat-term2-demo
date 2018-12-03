@@ -20,7 +20,7 @@
         <view class='product-name'>{{product.itemName}}</view>
         <view class='product-spec regular'>规格：{{product.itemSpecification}}</view>
       </view>
-      <view class='line'></view>
+      <!-- <view class='line'></view> -->
       <view class='bgc' style="margin-top: 16rpx;">
         <view wx:if='{{promoteInfoList.length}}'>
           <view class='center promotion-container padding regular bgc '>
@@ -28,8 +28,8 @@
           </view>
           <view class='line' style='margin:0 24rpx; width:92%;'></view>
         </view>
-        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this'>
-          <view class='center promotion-container padding regular bgc ' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
+        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this' >
+          <view class='center promotion-container padding-prom regular bgc ' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <!-- <text class='promotion'></text> -->
             <image style='width:64rpx; height:32rpx; margin-right:16rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>

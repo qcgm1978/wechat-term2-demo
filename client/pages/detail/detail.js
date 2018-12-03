@@ -341,6 +341,8 @@ Page({
             arr.giftItems[0].itemId = arr.giftItems[0].giftItemId
             arr.giftItems[0].itemName = arr.giftItems[0].giftItemName
             arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity
+          }else{
+            this.data.currentMoney = this.data.currentMoney - arr.discountAmount
           }
           itemGroups[0].cartCombinationPromotions = [arr]
         } else {

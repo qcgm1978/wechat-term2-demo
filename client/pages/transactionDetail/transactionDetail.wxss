@@ -44,12 +44,12 @@
   border: 3rpx solid rgba(238, 113, 31, 0.80);
   border-radius: 8rpx;
   width: 152rpx;
-  height: 52rpx;
+  height: 60rpx;
   font-size: 26rpx;
   color: #ee711f;
   letter-spacing: 0;
   text-align: center;
-  line-height: 52rpx;
+  line-height: 60rpx;
 }
 
 .exit-login-content {
@@ -130,7 +130,7 @@
 .trans-shop {
   display: flex;
   flex-direction: column;
-  margin-left: 48rpx;
+  margin-left: 32rpx;
   /* align-items: center; */
 }
 
@@ -169,7 +169,7 @@
   margin-top: 100rpx;
   z-index: 10;
   /* height: 144rpx; */
-  box-shadow: 0 8rpx rgb(254, 240, 231);
+  box-shadow:0 4rpx 20rpx 0 rgba(242,103,21,0.08);
 }
 
 .cancel-icon {
@@ -183,7 +183,7 @@
   flex-direction: row;
   justify-content: space-between;
   /* margin-top: 35rpx; *//* margin-bottom: 30rpx; */
-  margin-left: 111rpx;
+  margin-left: 93rpx;
   /* margin-right: 48rpx; */
 }
 
@@ -203,12 +203,12 @@
 }
 
 .money {
-  font-size: 22rpx;
+  font-size: 24rpx;
   color: #333;
   letter-spacing: 0;
   text-align: right;
   height: 44rpx;
-  margin: 16rpx;
+  margin: 16rpx 0 16rpx 16rpx;
 }
 
 .earned-point-outer {
@@ -313,4 +313,14 @@
   margin-top: 26rpx;
   position: relative;
   color: #666;
+}
+.order-btn{
+  margin:6rpx 0 0 0;
+align-items:center;
+justify-content:flex-end;
+position:fixed;
+bottom:0;
+z-index:10;
+width:calc(100% - 48rpx);
+
 }

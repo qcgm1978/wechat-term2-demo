@@ -98,6 +98,8 @@ page {
   flex-direction: column;
   justify-content: start;
   align-items: center;
+  margin-bottom:24rpx;
+
 }
 
 .total-money {
@@ -105,7 +107,7 @@ page {
   color: #707070;
   letter-spacing: 0;
   text-align: right;
-  padding: 26rpx;
+  padding: 16rpx 32rpx;
   background: #fff;
 }
 
@@ -279,8 +281,8 @@ width:100%; */
 
 }
 .btn-txt-1{
-  border-top: 1rpx solid #D1D1D2;
-  border-bottom: 1rpx solid #D1D1D2;
+  border-top: 2rpx solid #D1D1D2;
+  border-bottom: 2rpx solid #D1D1D2;
   box-sizing:content-box;
 }
 .bottom-box-shadow{

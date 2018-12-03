@@ -71,14 +71,14 @@
     </view>
   </view>
 
-  <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column bgc my-container' style="padding-bottom: 32rpx; padding-top:33rpx;">
+  <view wx:if='{{salesmanName || salesmanCellPhone}}' class='column bgc my-container' style="padding-bottom: 32rpx; padding-top:16rpx;">
     <view class='center regular my-category-container'>
       <text class='my-category-name'>专属管家</text>
 
       <text class='my-category-val' style="margin:0 auto 0 13rpx;"> |  您的购物贴心管家</text>
 
     </view>
-    <view class='line' style='margin:33rpx auto 28rpx;'></view>
+    <view class='line' style='margin:16rpx auto 28rpx;'></view>
     <view class='center' style='align-items:center;width:100%;'>
       <image src='img/promoter.png' style='width:112rpx; height:112rpx;'></image>
       <view class='column' style="flex-grow: 1;align-items: flex-start;margin-left:24rpx;">
