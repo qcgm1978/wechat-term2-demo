@@ -79,7 +79,6 @@ Page({
       confirmColor: "#fcb052",
       success: res => {
         if (res.confirm) {
-
           utils.postRequest({
             url: cancelOrder,
             data: {
@@ -91,6 +90,12 @@ Page({
               this.setData({
                 order: arr,
               });
+            }).then(data=>{
+              utils.cancelOrder({
+                eventDetail:{
+                  orderId: selectData.orderId,
+                }
+              })
             })
             .catch(err => {
               wx.showToast({
@@ -331,6 +336,9 @@ Page({
         orderGroups = this.data.order[i].orderItems
       }
     }
+    utils.buyAgain({
+      eventDetail:orderGroups
+    })
     this.buyOrderGroupsAgain(orderGroups)
   },
 

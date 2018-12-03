@@ -22,7 +22,7 @@ export const urlObj = {
   toplevel:`/b2b/category/toplevel`,
 
   buyTrolley:"/b2b/order/buy",
-  submitOrder:`http://192.168.2.53:8081/b2b/order/submit`,
+  submitOrder:`/b2b/order/submit`,
   cancelOrder:`/b2b/orderlist/cancel`,
   buyAgain:`/b2b/orderlist/repeat`
 // http://192.168.2.53:8081/b2b/orderlist/cancel
@@ -68,7 +68,7 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
   fail(err){
     // reject(err)
     // todo test code
-    resolve()
+    resolve('toToToken')
   }
 }));
 export const requestStatis = (postData = {}) => {
@@ -204,5 +204,20 @@ export const tapTopLevel = (postData) => requestStatis({
 export const buyTrolley = (postData) => requestStatis({
   url: urlObj.buyTrolley,
   event: 'evn_buy',
+  ...postData
+})
+export const submitOrder = (postData) => requestStatis({
+  url: urlObj.submitOrder,
+  event: 'evn_place_order',
+  ...postData
+})
+export const buyAgain = (postData) => requestStatis({
+  url: urlObj.buyAgain,
+  event: 'env_reorder',
+  ...postData
+})
+export const cancelOrder = (postData) => requestStatis({
+  url: urlObj.cancelOrder,
+  event: 'env_cancel_order',
   ...postData
 })

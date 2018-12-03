@@ -319,6 +319,9 @@ Page({
 
       console.log(JSON.stringify(tempdata))
       const isWechat = this.data.checked[0]
+      utils.submitOrder({
+        eventDetail: { ...orderItems, points: usePoint},
+      })
       utils.postRequest({
         url: createOrder,
         data: {
