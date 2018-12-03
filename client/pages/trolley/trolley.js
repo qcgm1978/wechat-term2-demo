@@ -56,6 +56,9 @@ Page({
         return accumulator;
       }, []);
       getApp().globalData.items.orderItemSource = 1;
+      utils.buyTrolley({
+        eventDetail: getApp().globalData.items
+      })
       wx.navigateTo({
         url: `../order-confirm/order-confirm?total=${this.data.currentMoney}&totalDiscount=${this.data.totalDiscountMoney}`,
       });

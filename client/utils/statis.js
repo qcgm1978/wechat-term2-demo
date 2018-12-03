@@ -20,6 +20,13 @@ export const urlObj = {
   buy:`/b2b/productdetail/buy`,
   samecategory:`/b2b/recomment/samecategory`,
   toplevel:`/b2b/category/toplevel`,
+
+  buyTrolley:"/b2b/order/buy",
+  submitOrder:`http://192.168.2.53:8081/b2b/order/submit`,
+  cancelOrder:`/b2b/orderlist/cancel`,
+  buyAgain:`/b2b/orderlist/repeat`
+// http://192.168.2.53:8081/b2b/orderlist/cancel
+// http://192.168.2.53:8081/b2b/orderdetail/repeat
 };
 let statisToken = wx.getStorageSync('statis').token || '';
 let sessionId = '';
@@ -43,7 +50,6 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
     'Content-Type': 'application/json'
   },
   success: function(result) {
-
     const token = result.data.jhd_token;
     if (token === undefined) {
       return reject(result)
@@ -58,6 +64,11 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
         resolve(token)
       }
     })
+  },
+  fail(err){
+    // reject(err)
+    // todo test code
+    resolve()
   }
 }));
 export const requestStatis = (postData = {}) => {
@@ -66,12 +77,12 @@ export const requestStatis = (postData = {}) => {
     //使用access_token,获取java后台数据
     const userId = getApp().getMerchantId() || '';
     const data = {
+      eventDetail: '',
       ...postData,
       // phone,
       sessionId,
       userId: phone,
       pageUrl: postData.pageUrl||getCurrentPages().slice(-1)[0].route,
-      eventDetail: '',
       time: new Date().getTime(),
       preUrl: getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : '' //getCurrentPages().slice(-1)[0].route
     };
@@ -188,5 +199,10 @@ export const tapSameCategory = (postData) => requestStatis({
 export const tapTopLevel = (postData) => requestStatis({
   url: urlObj.toplevel,
   event: 'evn_category_menu',
+  ...postData
+})
+export const buyTrolley = (postData) => requestStatis({
+  url: urlObj.buyTrolley,
+  event: 'evn_buy',
   ...postData
 })
