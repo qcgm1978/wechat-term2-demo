@@ -112,6 +112,7 @@ export default {
                     promotion.promotionId = orderGroups[i].promotionId
                     promotions.push(promotion)
                     orderGroups[i].promotions = promotions
+                    orderGroups[i].groupId = null
                     if (orderGroups[i].items && orderGroups[i].items.length > 0) {
                       para.addGroupList.push(orderGroups[i])
                     }
@@ -199,6 +200,7 @@ export default {
                   promotion.promotionId = orderGroups[i].promotionId
                   promotions.push(promotion)
                   orderGroups[i].promotions = promotions
+                  orderGroups[i].groupId = null
                   if (orderGroups[i].items && orderGroups[i].items.length > 0) {
                     let tempOrderGroups = { ...orderGroups[i] }
                     para.addGroupList.push(tempOrderGroups)
