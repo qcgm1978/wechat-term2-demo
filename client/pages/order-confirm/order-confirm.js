@@ -21,6 +21,7 @@ Page({
     isVisible: true,
     isReturn: false,
     isFailed: false,
+    isStockout:true,
     checked: [true, false],
     total: '',
     textarea: '',

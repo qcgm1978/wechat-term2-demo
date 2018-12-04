@@ -191,3 +191,12 @@
     </view>
   </view>
 </block>
+<block wx:if="{{isStockout}}">
+  <view class='popup-container grey-overlay'></view>
+  <view class=' center-center popup-container'>
+    <view class='confirm-popup column bgc regular'>
+      
+      
+    </view>
+  </view>
+</block>
