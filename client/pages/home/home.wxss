@@ -266,3 +266,9 @@ left:8rpx;
 top:-7rpx;
 width:64rpx; height:32rpx;
 }
+.home-gift{
+  width:100%;
+height:350rpx;
+position:absolute;
+z-index:10;
+}
