@@ -300,7 +300,7 @@ image {
   background-color: whitesmoke;
   color: #949494;
   font-size: 30rpx;
-  padding: 37rpx 32rpx;
+  padding: 24rpx 32rpx;
 }
 
 .line {
