@@ -323,7 +323,6 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
       merchantId,
       locationId
     }
-  console.log(JSON.stringify(groupList))
   return new Promise((resolve, reject) => {
     postRequest({
         url: Api.addTrolley,
