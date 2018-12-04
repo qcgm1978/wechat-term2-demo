@@ -129,11 +129,14 @@ export default {
                         orderGroups[i].count = orderGroups[i].items[0].quantity
                         orderGroups[i].items[0].quantity = 1
                       }
-                      let promotions = []
-                      let promotion = {}
-                      promotion.promotionId = orderGroups[i].promotionId
-                      promotions.push(promotion)
-                      orderGroups[i].promotions = promotions
+                      // let promotions = []
+                      // let promotion = {}
+                      // promotion.promotionId = orderGroups[i].promotionId
+                      // promotions.push(promotion)
+                      // orderGroups[i].promotions = promotions
+                      orderGroups[i].groupId = null
+                      orderGroups[i].promotions = null
+                      orderGroups[i].promotionId = null
                       let temp = { ...orderGroups[i] }
                       para.addGroupList.push(temp)
                     }
@@ -210,11 +213,14 @@ export default {
                     let tempItem = {...orderGroups[i].items[m]}
                     orderGroups[i].addItemList = [tempItem]
 
-                    let promotions = []
-                    let promotion = {}
-                    promotion.promotionId = orderGroups[i].promotionId
-                    promotions.push(promotion)
-                    orderGroups[i].promotions = promotions
+                    // let promotions = []
+                    // let promotion = {}
+                    // promotion.promotionId = orderGroups[i].promotionId
+                    // promotions.push(promotion)
+                    // orderGroups[i].promotions = promotions
+                    orderGroups[i].groupId = null
+                    orderGroups[i].promotions = null
+                    orderGroups[i].promotionId = null
                     let tempOrderGroups = { ...orderGroups[i]}
                     para.addGroupList.push(tempOrderGroups)
                   }
