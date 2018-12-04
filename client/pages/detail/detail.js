@@ -468,6 +468,7 @@ Page({
             //promoteInfo: data.result[0].promotionItems[0],
             promoteInfoList: data.result[0].promotionItems,
             "product.itemPromotions": data.result[0].promotionItems,
+            hasConsumedGift: data.result[0].promotionItems.some(promoteInfo => promoteInfo.promotionType == "2")
           })
           const items = data.result[0].promotionItems
           const {
