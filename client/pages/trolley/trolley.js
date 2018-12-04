@@ -265,7 +265,12 @@ Page({
 
   adjustCartCombinationPromotions1(trolleyGroup, index) {
     if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
-      let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
+      let rightPromotion = null
+      if (trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.promotions[0] && trolleyGroup.promotions[0].promotionId){
+        rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
+      }else{
+        rightPromotion = trolleyGroup.cartCombinationPromotions[0]
+      }
       if (rightPromotion /*&& rightPromotion.activeFlg*/){
         trolleyGroup.cartCombinationPromotions[0] = rightPromotion
       }else{
