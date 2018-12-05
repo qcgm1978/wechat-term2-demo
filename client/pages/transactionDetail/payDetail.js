@@ -15,12 +15,12 @@ export default {
       success: res => {
         if (res.confirm) {
           utils.postRequest({
-            url: cancelOrder,
-            data: {
-              orderId: this.data.order.orderId,
-              merchantId: getApp().getMerchantId()
-            }
-          })
+              url: cancelOrder,
+              data: {
+                orderId: this.data.order.orderId,
+                merchantId: getApp().getMerchantId()
+              }
+            })
             .then((data) => {
               wx.showToast({
                 title: '取消订单成功',
@@ -30,10 +30,8 @@ export default {
             })
             .then(data => {
               utils.cancelOrder({
-                event:'env_cancel_order2',
-                eventDetail: {
-                  orderId: selectData.orderId,
-                }
+                event: 'env_cancel_order2',
+                orderId: this.data.order.orderId,
               })
             })
             .catch(err => {

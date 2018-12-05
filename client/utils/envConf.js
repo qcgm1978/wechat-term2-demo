@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.LOCAL; //update this value for different env
+var env = EVN.STG; //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -18,7 +18,6 @@ switch (env) {
     baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     // baseUrl ='http://192.168.2.56:17000/merchant-mall/v1'
-    statistics = 'https://sitecatalyst.jihuiduo.cn'
     statistics = `http://192.168.2.58:8081`
     break;
   case EVN.LOCAL:
@@ -27,8 +26,8 @@ switch (env) {
       // localNodejs = 'http://192.168.16.71:5757/v1';
       let localNodejs = 'http://localhost:5757/v1';
       // localNodejs = ''
-      baseUrl = localNodejs;
-      statistics = 'https://sitecatalyst.jihuiduo.cn'
+      statistics = `http://192.168.2.58:8081`
+      baseUrl = localNodejs
       break;
     }
   case EVN.STG:

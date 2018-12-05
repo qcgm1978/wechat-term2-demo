@@ -77,6 +77,7 @@ export const requestStatis = (postData = {}) => {
     const userId = getApp().getMerchantId() || '';
     // phone = phone === '' ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : phone
     phone = wx.getStorageSync('authWechat') ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : generateGuid()
+    postData.eventDetail = postData.eventDetail ? JSON.stringify(postData.eventDetail):''
     const data = {
       eventDetail: '',
       ...postData,
