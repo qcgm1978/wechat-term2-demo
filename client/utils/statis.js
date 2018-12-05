@@ -29,8 +29,7 @@ export const urlObj = {
 // http://192.168.2.53:8081/b2b/orderdetail/repeat
 };
 let statisToken = wx.getStorageSync('statis').token || '';
-let sessionId = '';
-const phone = wx.getStorageSync('authWechat').authMerchantList[0].cellPhone
+let sessionId = '',phone='';
 const generateGuid = () => {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -76,6 +75,8 @@ export const requestStatis = (postData = {}) => {
   setToken().then(statisToken => {
     //使用access_token,获取java后台数据
     const userId = getApp().getMerchantId() || '';
+    // phone = phone === '' ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : phone
+    phone = wx.getStorageSync('authWechat') ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : generateGuid()
     const data = {
       eventDetail: '',
       ...postData,

@@ -127,6 +127,14 @@
       <text class='regular  '>配送方式</text>
       <text class='medium'>上门配送</text>
     </view>
+    <view class='padding mgt bgc center order-item-container' style="justify-content:space-between;">
+      <text class='regular  '>配送时间</text>
+      <!-- <text class='medium'>上门配送</text> -->
+      <view class='medium' style="display:flex;align-items:center;">
+        <text>次日达，若遇节假日顺延</text>
+        <image bindtap="showDeliveryTime" mode="aspectFit" src="../../images/que@2x.png" style='width:44rpx;height:44rpx;'></image>
+      </view>
+    </view>
     <!-- <view class='padding mgt bgc center order-item-container'>
     <text class='regular  '>买家留言：</text>
     <textarea class='textarea' placeholder="选填" value='{{textarea}}' bindblur='textareaConfirm' auto-height='{{true}}' />
@@ -141,7 +149,7 @@
         <view class='medium' style='width:100%;overflow:auto;'>共有{{pointBalance}}积分，</view>
         <view class='medium' style='width:100%;overflow:auto;'>可用{{points}}积分，抵￥{{maxDeduction}}</view>
       </view>
-      <text wx:else>共有{{pointBalance}}积分，未达到5000积分不可用</text>
+      <text wx:else>共有{{pointBalance}}积分，未达到20000积分不可用</text>
       <view>
         <checkbox-ios id='checkbox-ios' bindchangechecked="onChangeChecked" enable-tap='{{pointBalance}}'>
           <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->

@@ -1,0 +1,26 @@
+<!--pages/userAgreement/userAgreement.wxml-->
+<view class="line"></view>
+<view  class="font-term">
+  <view class="font-title"><text class='redline'></text>次日达标准</view>
+  <view class="font-detail">1）平日：即非法定节日，可次日到达。\n2）包括周六也可次日到达。</view>
+  <view class="font-title"><text class='redline'></text>非次日达标准</view>
+  <view class="font-detail">1）所有法定节日，都不可次日到达。\n2）假日为周日不可次日达，但周六非工作人员休息日，可次日达。</view>
+  <view class="font-title"><text class='redline'></text>节假日下单和配送对应关系</view>
+  <view class="table">
+    <view class="tr bg-w">
+      <view class="th">下单日期</view>
+      <view class="th">配送日期</view>
+    </view>
+    <block>
+      <view class="tr bg-g">
+        <view class="td">节假日前一天</view>
+        <view class="td">节假日后第一天</view>
+      </view>
+      <view class="tr">
+        <view class="td">节假日内</view>
+        <view class="td">节假日后第二天</view>
+      </view>
+    </block>
+  </view>
+</view>
+

@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 17,
 			"list": [
 				{
 					"id": -1,
@@ -137,6 +137,11 @@
 					"name": "detail-6250",
 					"pathName": "pages/detail/detail",
 					"query": "itemId=3351&categoryId=1401009"
+				},
+				{
+					"id": -1,
+					"name": "deliveryTimeDetail",
+					"pathName": "pages/deliveryTimeDetail/deliveryTimeDetail"
 				}
 			]
 		}

@@ -148,7 +148,7 @@ Page({
           expireTime: this.timeConverter(expireTime),
           isWechat,
         });
-        this.setOrderStatus(order.orderStatus)
+        this.setOrderStatus(order.orderStatus, order.orderCancelSource)
         wx.hideLoading();
       })
       .catch(errorCode => {
@@ -211,13 +211,19 @@ Page({
       this.requestTransDetail(options.orderId || options.itemId)
     }
   },
-  setOrderStatus(orderStatus) {
+  setOrderStatus(orderStatus, orderCancelSource) {
     const isCanceled = this.data.payStyle[orderStatus] === "订单取消"
     const isReturnOrder = this.data.payStyle[orderStatus] === '全部拒收' || this.data.payStyle[orderStatus] === '部分拒收'
+    const orderCancelSourceObj={
+      1:'用户取消',
+      2:'平台取消',
+      3:'自动取消'
+    }
     this.setData({
       orderStatus,
       isCanceled,
       isReturnOrder,
+      orderCancelSource: orderCancelSourceObj[orderCancelSource],
       remark: (orderStatus === 'COMPLETED' && this.data.order.actualAmount !== this.data.order.payment.cashAmount) ? `(待入账)` : ''
 
     });
@@ -242,6 +248,12 @@ Page({
     }
     this.setData({
       orderCode: this.data.order.orderReturn.returnOrderId
+    })
+  },
+  //跳转配送时间详情页
+  showDeliveryTime: function () {
+    wx.navigateTo({
+      url: '../deliveryTimeDetail/deliveryTimeDetail'
     })
   },
   onShow: function (options) {

@@ -1,0 +1,15 @@
+.font-term {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  color: rgb(85, 85, 85);
+  font-size: 24rpx;
+  margin: 40rpx;
+  line-height: 50rpx;
+}
+.font-title {
+  font-size: 28rpx;
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
+}
+.font-detail {
+  font-size: 24rpx;
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+}
