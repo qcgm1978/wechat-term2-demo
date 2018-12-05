@@ -334,6 +334,7 @@ Page({
           itemName: product.itemName,
           price: product.unitPrice
         })
+        return arr
       })
       .then(arr => {
         if (arr) {
