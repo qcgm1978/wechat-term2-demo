@@ -92,9 +92,7 @@ Page({
               });
             }).then(data=>{
               utils.cancelOrder({
-                eventDetail:{
                   orderId: selectData.orderId,
-                }
               })
             })
             .catch(err => {

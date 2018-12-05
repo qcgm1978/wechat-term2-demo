@@ -30,10 +30,8 @@ export default {
             })
             .then(data => {
               utils.cancelOrder({
-                event:'env_cancel_order2',
-                eventDetail: {
-                  orderId: selectData.orderId,
-                }
+                event: 'env_cancel_order2',
+                orderId: this.data.order.orderId,
               })
             })
             .catch(err => {
