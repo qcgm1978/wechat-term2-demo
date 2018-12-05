@@ -327,7 +327,7 @@ module.exports = {
         {
           "itemId": "3351",
           "itemSku": null,
-          "itemName": "@cword(3,5)",
+          "itemName": "@cword(3,35)",
           "quantity": 1,
           "unitPrice": 6250,
           "locationId": "140",

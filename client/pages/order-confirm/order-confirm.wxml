@@ -199,13 +199,14 @@
     <scroll-view scroll-y style="height:512rpx;">
       <view wx:for='{{stockoutList.items}}' wx:key='*this' class='center stock-item'>
         <image src='{{item.itemIcon}}'></image>
-        <text>{{item.itemName}}</text>
-        <view class='column'>
+        <text class='stockout-name ellipse two-lines'>{{item.itemName}}</text>
+        <view class='column stockout-inventory'>
           <text>库存</text>
           <text>{{item.num}}</text>
         </view>
       </view>
       </scroll-view>
+      <button class='regular' catch:tap='navigateBack'>去修改</button>
     </view>
   </view>
 </block>
