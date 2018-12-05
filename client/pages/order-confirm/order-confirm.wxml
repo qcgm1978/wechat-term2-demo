@@ -193,10 +193,19 @@
 </block>
 <block wx:if="{{isStockout}}">
   <view class='popup-container grey-overlay'></view>
-  <view class=' center-center popup-container'>
-    <view class='confirm-popup column bgc regular'>
-      
-      
+  <view class=' center-center popup-container stockout'>
+    <view class='column bgc regular stockout-container'>
+    <text class='title'>抱歉，以下商品库存不足，请根据库存量修改</text>
+    <scroll-view scroll-y style="height:512rpx;">
+      <view wx:for='{{stockoutList.items}}' wx:key='*this' class='center stock-item'>
+        <image src='{{item.itemIcon}}'></image>
+        <text>{{item.itemName}}</text>
+        <view class='column'>
+          <text>库存</text>
+          <text>{{item.num}}</text>
+        </view>
+      </view>
+      </scroll-view>
     </view>
   </view>
 </block>

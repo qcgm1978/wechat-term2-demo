@@ -66,9 +66,9 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
     })
   },
   fail(err){
-    // reject(err)
+    reject(err)
     // todo test code
-    resolve('toToToken')
+    // resolve('toToToken')
   }
 }));
 export const requestStatis = (postData = {}) => {

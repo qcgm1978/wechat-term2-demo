@@ -89,7 +89,7 @@ Page({
             .then((data) => {
               this.setData({
                 order: arr,
-              });
+              })
             }).then(data=>{
               utils.cancelOrder({
                 eventDetail:{

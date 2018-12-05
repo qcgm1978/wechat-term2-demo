@@ -319,6 +319,27 @@ module.exports = {
       orderId: '123456',
       orderTotalAmount: 200
     }
+    ctx.state.status = 201
+    ctx.state.result = Mock.mock({
+      "orderTotalCount": 10,
+
+      "items|10": [
+        {
+          "itemId": "3351",
+          "itemSku": null,
+          "itemName": "@cword(3,5)",
+          "quantity": 1,
+          "unitPrice": 6250,
+          "locationId": "140",
+          "itemIcon": "@image",
+          "itemSpecification": "1ton*1",
+          "num": '@integer(2,5)',
+          "categoryId": "1401009",
+          "promotionId": null,
+          "gift": false
+        }
+      ]
+    })
   },
   pay: async ctx => {
     ctx.state.result = Mock.mock({

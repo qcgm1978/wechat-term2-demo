@@ -21,7 +21,7 @@ Page({
     isVisible: true,
     isReturn: false,
     isFailed: false,
-    isStockout:true,
+    isStockout:false,
     checked: [true, false],
     total: '',
     textarea: '',
@@ -225,11 +225,6 @@ Page({
   },
   
   createOrder(itemId) {
-    // if (this.inTimeRange()) {
-    //   return this.setData({
-    //     enableCreateOrder: false
-    //   })
-    // }
     return new Promise((resolve, reject) => {
       wx.showLoading({
         title: '正在创建订单...',
@@ -318,7 +313,7 @@ Page({
         },
       }
 
-      console.log(JSON.stringify(tempdata))
+      // console.log(JSON.stringify(tempdata))
       const isWechat = this.data.checked[0]
       utils.submitOrder({
         eventDetail: { 
@@ -359,7 +354,12 @@ Page({
           wx.redirectTo({
             url: `/pages/${isToCheckstand ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
-        } else { }
+        } else if (data.status === 201) {//stockout
+          this.setData({
+            isStockout:true,
+            stockoutList:data.result
+          })
+         }
       }).catch(err => {
         // todo test 409
         // err=409;

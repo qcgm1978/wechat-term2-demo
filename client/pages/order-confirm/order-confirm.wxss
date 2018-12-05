@@ -197,3 +197,22 @@ color: #2A2A2A;
 letter-spacing: 0;
 line-height: 40rpx;
 }
+.stockout-container{
+  padding: 48rpx 32rpx;
+  background: #FFFFFF;
+border-radius: 16rpx;
+width: 610rpx;
+}
+.stockout image{
+  width: 96rpx;
+  height: 96rpx;
+}
+.stockout .title{
+  font-size: 28rpx;
+color: #666666;
+letter-spacing: 0;
+}
+.stock-item{
+  margin-top: 16rpx;
+  justify-content: space-between;
+}
