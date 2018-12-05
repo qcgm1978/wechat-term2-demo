@@ -168,6 +168,7 @@ Page({
             itemName: related.itemName,
             price: related.price
           })
+          return data
         })
       .catch(errorCode => {
         // getApp().failRequest();
