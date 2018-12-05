@@ -93,8 +93,12 @@ Page({
               });
             })
             .catch(err => {
+              let title = "取消订单失败，请重试"
+              if(err == 409){
+                title = "订单处理中，请稍后重试"
+              }
               wx.showToast({
-                title: '取消订单失败，请重试',
+                title: title,
                 icon: 'none',
                 duration: 2000
               })
