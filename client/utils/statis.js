@@ -9,27 +9,26 @@ export const urlObj = {
   load: `/b2b/page/load`,
   unload: `/b2b/page/unload`,
   dispose: `/b2b/page/dispose`,
-
   loginWechat: `/b2b/login/wxlogin`,
-  loginPhone:`/b2b/login/phonelogin`,
-  enterHome:`/b2b/livesite`,
-  callEnterPhone:`/b2b/call`,
-  exitHomeLogin:`/b2b/loginout`,
+  loginPhone: `/b2b/login/phonelogin`,
+  enterHome: `/b2b/livesite`,
+  callEnterPhone: `/b2b/call`,
+  exitHomeLogin: `/b2b/loginout`,
 
-  addcart:`/b2b/productindex/addcart`,
-  buy:`/b2b/productdetail/buy`,
-  samecategory:`/b2b/recomment/samecategory`,
-  toplevel:`/b2b/category/toplevel`,
+  addcart: `/b2b/productindex/addcart`,
+  buy: `/b2b/productdetail/buy`,
+  samecategory: `/b2b/recomment/samecategory`,
+  toplevel: `/b2b/category/toplevel`,
 
-  buyTrolley:"/b2b/order/buy",
-  submitOrder:`/b2b/order/submit`,
-  cancelOrder:`/b2b/orderlist/cancel`,
-  buyAgain:`/b2b/orderlist/repeat`
-// http://192.168.2.53:8081/b2b/orderlist/cancel
-// http://192.168.2.53:8081/b2b/orderdetail/repeat
+  buyTrolley: "/b2b/order/buy",
+  submitOrder: `/b2b/order/submit`,
+  cancelOrder: `/b2b/orderlist/cancel`,
+  buyAgain: `/b2b/orderlist/repeat`
+  // http://192.168.2.53:8081/b2b/orderlist/cancel
+  // http://192.168.2.53:8081/b2b/orderdetail/repeat
 };
 let statisToken = wx.getStorageSync('statis').token || '';
-let sessionId = '',phone='';
+let sessionId = '', phone = '';
 const generateGuid = () => {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -48,7 +47,7 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
   header: {
     'Content-Type': 'application/json'
   },
-  success: function(result) {
+  success: function (result) {
     const token = result.data.jhd_token;
     if (token === undefined) {
       return reject(result)
@@ -64,7 +63,7 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
       }
     })
   },
-  fail(err){
+  fail(err) {
     reject(err)
     // todo test code
     // resolve('toToToken')
@@ -77,13 +76,14 @@ export const requestStatis = (postData = {}) => {
     const userId = getApp().getMerchantId() || '';
     // phone = phone === '' ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : phone
     phone = wx.getStorageSync('authWechat') ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : generateGuid()
+    postData.eventDetail = postData.eventDetail ? JSON.stringify(postData.eventDetail) : ''
     const data = {
       eventDetail: '',
       ...postData,
       // phone,
       sessionId,
       userId: phone,
-      pageUrl: postData.pageUrl||getCurrentPages().slice(-1)[0].route,
+      pageUrl: postData.pageUrl || getCurrentPages().slice(-1)[0].route,
       time: new Date().getTime(),
       preUrl: getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : '' //getCurrentPages().slice(-1)[0].route
     };
@@ -94,10 +94,10 @@ export const requestStatis = (postData = {}) => {
       header: {
         'Content-Type': 'application/json'
       },
-      success: function(result) {
+      success: function (result) {
         if (result.statusCode === 401 && result.data.error === 'invalid_token') {
           getToken().then(() => requestStatis(data))
-        } else {}
+        } else { }
 
       }
     })
@@ -146,15 +146,15 @@ export const requestStatisLoad = () => requestStatis({
 export const requestStatisUnload = ({
   nextUrl
 } = {
-  nextUrl: ''
-}) => requestStatis({
-  url: urlObj.unload,
-  pageUrl: getCurrentPages().slice(-1)[0].route,
-  event: 'evn_quit_page',
-  eventDetail: '',
-  time: new Date().getTime(),
-  nextUrl
-});
+    nextUrl: ''
+  }) => requestStatis({
+    url: urlObj.unload,
+    pageUrl: getCurrentPages().slice(-1)[0].route,
+    event: 'evn_quit_page',
+    eventDetail: '',
+    time: new Date().getTime(),
+    nextUrl
+  });
 export const requestStatisDispose = () => requestStatis({
   url: urlObj.dispose,
   event: 'evn_hide_app',
@@ -184,7 +184,7 @@ export const updateSessionId = () => {
 }
 export const addcart = (postData) => requestStatis({
   url: urlObj.addcart,
-  event: getCurrentPages().slice(-1)[0].route.includes('detail') ? 'click_add_cart':'env_add_cart',
+  event: getCurrentPages().slice(-1)[0].route.includes('detail') ? 'click_add_cart' : 'env_add_cart',
   ...postData
 })
 export const buySku = (postData) => requestStatis({
