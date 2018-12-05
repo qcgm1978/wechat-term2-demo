@@ -11,10 +11,7 @@ var baseUrl = ""
 var addrUrl = ""
 var clientSecret = ""
 let statistics = ''
-// let localNodejs = 'http://10.3.0.98:5757/v1';
-// localNodejs = 'http://192.168.16.71:5757/v1';
-let localNodejs = 'http://localhost:5757/v1';
-// localNodejs = ''
+
 switch (env) {
   case EVN.DEV:
     clientSecret = "OzoStRYlQVA85pjp"
@@ -26,6 +23,10 @@ switch (env) {
     break;
   case EVN.LOCAL:
     {
+      // let localNodejs = 'http://10.3.0.98:5757/v1';
+      // localNodejs = 'http://192.168.16.71:5757/v1';
+      let localNodejs = 'http://localhost:5757/v1';
+      // localNodejs = ''
       baseUrl = localNodejs;
       statistics = 'https://sitecatalyst.jihuiduo.cn'
       break;
@@ -35,7 +36,7 @@ switch (env) {
     baseUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
     addrUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
     statistics = 'https://sitecatalyst.jihuiduo.cn'
-    statistics =`http://192.168.2.58:8081`
+    statistics = `http://192.168.2.58:8081`
     break
   case EVN.PRO:
     clientSecret = "9sxyZhzgKIjSVuQQ"
@@ -62,12 +63,12 @@ const apiURLs = {
   removeCart: `${baseUrl}/mall/cart/remove/{merchantId}`, //删除购物车中的商品
   getCartCount: `${baseUrl}/mall/cart/count/{merchantId}/{locationId}`, //统计购物车商品数量
 
-  getOrder: `${localNodejs || baseUrl}/mall/order/{merchantId}/{orderId}`,
-  getOrderList: `${localNodejs || baseUrl}/mall/order/list`,
+  getOrder: `${baseUrl}/mall/order/{merchantId}/{orderId}`,
+  getOrderList: `${baseUrl}/mall/order/list`,
   createOrder: `${baseUrl}/mall/order/create`,
   cancelOrder: `${baseUrl}/mall/order/cancel`,
-  countOrder: `${localNodejs || baseUrl}/mall/order/count`,
-  backendUrlRequestment: `${localNodejs || baseUrl}/mall/order/onlinePayment`,
+  countOrder: `${baseUrl}/mall/order/count`,
+  backendUrlRequestment: `${baseUrl}/mall/order/onlinePayment`,
 
   getProduct: `${baseUrl}/product/{merchantId}/{itemId}`,
   getMerchant: `${baseUrl}/merchant/{merchantId}`,
@@ -80,9 +81,9 @@ const apiURLs = {
   getPromoteInfo: `${baseUrl}/mall/promotions/item`,
   getCombinationList: `${baseUrl}/mall/promotions/combinationList`,
   calcPromote: `${baseUrl}/mall/promotions/calc`,
-  selectGoods: `${localNodejs || baseUrl}/mall/promotions/selectGoods`,
-  selectGoodsKind: `${localNodejs || baseUrl}/mall/promotions/selectCombGoods`,
-  getPromotionList: `${localNodejs || baseUrl}/mall/promotions/selectPromotions`,
+  selectGoods: `${baseUrl}/mall/promotions/selectGoods`,
+  selectGoodsKind: `${baseUrl}/mall/promotions/selectCombGoods`,
+  getPromotionList: `${baseUrl}/mall/promotions/selectPromotions`,
   statistics: statistics
 
 }
