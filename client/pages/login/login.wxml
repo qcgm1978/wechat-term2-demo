@@ -21,7 +21,19 @@
       <view class='phone-register-btn'>{{phoneBtnContent}}</view>
     </view>
   </view> 
-
+  <view class='checkbox-container'>
+    <view class='checkbox-container-row'>
+      <checkbox-group class='checkbox-left' bindchange="checkboxChange">
+        <label class="checkbox-content hori-align" wx:for="{{item}}">
+          <checkbox  style='transform:scale(.7);' value="{{item.value}}" checked="{{item.checked}}"/>
+          <view>{{item.name}}</view>
+        </label>
+      </checkbox-group>
+      <view  class='user-agreement' bindtap="userAgreement">
+      《用户服务协议》
+      </view>
+    </view>
+  </view>
 
   <view class="modal-box" hidden="{{dialogFlag}}" bindtap="hideDialog">
     <view class="modal-body">

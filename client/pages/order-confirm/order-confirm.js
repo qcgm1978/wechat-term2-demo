@@ -87,6 +87,12 @@ Page({
       });
     }
   },
+  //跳转配送时间详情页
+  showDeliveryTime: function () {
+    wx.navigateTo({
+      url: '../deliveryTimeDetail/deliveryTimeDetail'
+    })
+  },
   radioClick(e) {
     this.setData({
       checked: this.data.checked.map((item, index) => {
