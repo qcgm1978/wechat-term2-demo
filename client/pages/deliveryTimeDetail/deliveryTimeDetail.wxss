@@ -1,0 +1,63 @@
+page { background-color: #fff;color:#333; }
+.font-term {
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  color: rgb(85, 85, 85);
+  font-size: 24rpx;
+  line-height: 50rpx;
+}
+.font-title {
+  font-family: PingFang-SC-Semibold, 'Source Han Sans CN Bold', 'Noto Sans CJK SC Bold';
+  font-size: 32rpx;
+  color: #333333;
+  line-height: 48rpx;
+  margin:48rpx 0 16rpx;
+}
+.font-detail {
+  display: flex;    /*设置显示样式**/
+  align-items: center;    /**子view垂直居中*/
+  vertical-align: center;
+  font-size: 28rpx;
+  line-height: 52rpx;
+  padding: 20rpx 16rpx;
+  background: #F6F6F8;
+  white-space: pre-wrap;
+  font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
+  margin: 0 32rpx;
+}
+.redline {
+  width: 4rpx;
+  height: 24rpx;
+  display: inline-block;
+  background: #EE711F;
+  margin-right: 32rpx;
+}
+.table {
+  margin: 0 32rpx;
+}
+.tr {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+.td {
+    width:50%;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    height: 80rpx;
+    border: 1rpx solid #F0F1F5;
+    font-size: 28rpx;
+}
+.th {
+  width: 50%;
+  height: 80rpx;
+  justify-content: center;
+  background: #F7F8FA;
+  border-radius: 2px 2px 0px 0px;
+  display: flex;
+  align-items: center;
+  border: 1rpx solid #F0F1F5;
+  font-size: 28rpx;
+  color: #666;
+}
