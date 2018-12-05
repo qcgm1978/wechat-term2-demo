@@ -55,6 +55,9 @@ Page({
 
     loadingState: false,
     deviceWindowHeight: getApp().globalData.systemInfo.windowHeight * (750 / getApp().globalData.systemInfo.windowWidth),
+    item: [
+      { name: '我已阅读并同意', value: 'ticked', checked: 'true' }
+    ]
   },
 
   gotoHome: function() {
@@ -82,11 +85,27 @@ Page({
     })
   },
 
-  phoneLogin: function() {
+  checkUserAgreement: function () {
+    if (this.data.item[0].value == "ticked") {
+      return true
+    }
+    return false
+  },
+  phoneLogin: function () {
     //this.showDialog()
-    wx.navigateTo({
-      url: '../phoneLogin/phoneLogin'
-    })
+    if (this.checkUserAgreement()) {
+      wx.navigateTo({
+        url: '../phoneLogin/phoneLogin'
+      })
+    } else {
+      wx.showModal({
+        title: '',
+        content: '请先阅读并同意《用户服务协议》后再登录',
+        showCancel: false,
+        success: function (res) {
+        }
+      })
+    }
   },
 
   decryptPhoneNumber: function(iv, encryptedData, jsCode) {
@@ -152,10 +171,37 @@ Page({
       }
     })
   },
-
+  //增加用户服务协议
+  checkboxChange: function (e) {
+    if (e.detail.value[0]) {
+      this.setData({
+        'item[0].value': "ticked"
+      })
+    } else {
+      this.setData({
+        'item[0].value': "unticked"
+      })
+    }
+  },
+  userAgreement: function () {
+    console.log('userAgreement clicked')
+    wx.navigateTo({
+      url: '../userAgreement/userAgreement'
+    })
+  },
 
   getPhoneNumber(e) {
     if (e.detail.iv && e.detail.encryptedData) {
+      if (!this.checkUserAgreement()) {
+        wx.showModal({
+          title: '',
+          content: '请先阅读并同意《用户服务协议》后再登录',
+          showCancel: false,
+          success: function (res) {
+          }
+        })
+        return
+      }
       this.setData({
         loadingState: true,
       });

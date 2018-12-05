@@ -28,6 +28,18 @@ Page({
     gray: "#D1D1D2",
     showPromoteDetail: false
   },
+
+  setScrollHeight: function(){
+
+    const query = wx.createSelectorQuery()
+    query.select('#promotion-msg-id').boundingClientRect((res) => {
+      this.setData({
+        scrollHeight: getApp().globalData.systemInfo.deviceWindowHeight - (res.height + 8 + 42 + 85 + 53 ) * 2
+      })
+    })
+    query.exec()
+  },
+
   onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
@@ -40,9 +52,12 @@ Page({
     this.promoteInfo = promoteInfo;
     this.product = product
     const offset=4
+
+    setTimeout(this.setScrollHeight, 1000);
+
     this.setData({
       //scrollHeight: wx.getSystemInfoSync().windowHeight * 2 - (46 + 6 + 33 + 71 + 44) * 2 - offset,
-      scrollHeight: getApp().globalData.systemInfo.deviceWindowHeight - (54 + 8 + 42 + 85 + 53) * 2 - offset,
+      scrollHeight: getApp().globalData.systemInfo.deviceWindowHeight - (42 + 8 + 42 + 85 + 53) * 2 - offset,
       promoteMsg: promoteInfo.promotionName,
       items: product,
       // 'selectedProductList[0]': product,

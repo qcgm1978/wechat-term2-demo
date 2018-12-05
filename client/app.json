@@ -16,7 +16,9 @@
     "pages/sort/sort",
     "pages/sort-list/sort-list",
     "pages/promoteOptions/promoteOptions",
-    "pages/promoteOptionsKind/promoteOptionsKind"
+    "pages/promoteOptionsKind/promoteOptionsKind",
+    "pages/userAgreement/userAgreement",
+    "pages/deliveryTimeDetail/deliveryTimeDetail"
   ],
   "window": {
     "navigationBarBackgroundColor": "#fff",

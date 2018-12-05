@@ -1,0 +1,9 @@
+<!--pages/userAgreement/userAgreement.wxml-->
+<view class="line"></view>
+<view  class="font-term">
+  <view class="font-title">{{termTitle1}}</view>
+  <view class="font-detail">{{term1}}</view>
+  <view class="font-title">{{termTitle2}}</view>
+  <view class="font-detail">{{term2}}</view>
+</view>
+

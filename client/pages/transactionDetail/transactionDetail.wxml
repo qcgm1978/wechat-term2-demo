@@ -6,7 +6,7 @@
  <scroll-view scroll-y style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; height:{{windowHeight-102}}rpx;'>
   <view id="main" class='main-view'>
     <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}<text class='topay-comment' wx:if='{{payStyle[orderStatus]==="等待付款"}}'>{{expireTime}} 订单将自动取消</text></text>
-
+    <text wx:if='{{isCanceled&&orderCancelSource=="平台取消"}}' style='color: #fff;position:relative;top:50rpx;left:95rpx;font-size:32rpx;'>\n{{orderCancelSource}}</text>
     <view class='title'>
       <view class='trans-shop' wx:if='{{isReturn}}'>
         <view class='trans-shop-lable regular'>{{usePoints?(salesReturn+usePointsStr):salesReturn}}</view>
@@ -138,6 +138,16 @@
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
             <text style="color:#888">创建时间：</text>{{order.createTime}}</view>
+        </view>
+
+      </view>
+      <view class='regular money-amount money' style="margin: 0 16rpx;">
+        <view style="display:flex; width: 100%; align-items:center;">
+          <block>
+            <text style="color:#888">配送时间：</text>
+            <text>次日达，若遇节假日顺延</text>
+            <image bindtap="showDeliveryTime" mode="aspectFit" src="../../images/que@2x.png" style='width:44rpx;height:44rpx;'></image>
+          </block>
         </view>
 
       </view>
