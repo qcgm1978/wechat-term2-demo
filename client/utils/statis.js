@@ -75,7 +75,7 @@ export const requestStatis = (postData = {}) => {
     //使用access_token,获取java后台数据
     const userId = getApp().getMerchantId() || '';
     // phone = phone === '' ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : phone
-    phone = wx.getStorageSync('authWechat') ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : generateGuid()
+    phone = wx.getStorageSync('authWechat') ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : 0
     postData.eventDetail = postData.eventDetail ? JSON.stringify(postData.eventDetail) : ''
     const data = {
       eventDetail: '',

@@ -1,5 +1,5 @@
 const DB = require('../utils/db.js')
-var Mock = require('mockjs');
+const Mock = require('mockjs');
 
 module.exports = {
   item: async ctx => {
