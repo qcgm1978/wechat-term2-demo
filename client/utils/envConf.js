@@ -11,31 +11,30 @@ var baseUrl = ""
 var addrUrl = ""
 var clientSecret = ""
 let statistics = ''
-
+let localNodejs = ''
 switch (env) {
+  case EVN.LOCAL:
+    {
+      baseUrl = 'http://localhost:5757/v1'
+      // localNodejs = 'http://10.3.0.98:5757/v1';
+      // localNodejs = 'http://192.168.16.71:5757/v1';
+      statistics = `http://192.168.2.58:8081`
+      break;
+    }
   case EVN.DEV:
     clientSecret = "OzoStRYlQVA85pjp"
     baseUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
     addrUrl = "http://dev.jhdmall.com/weapp/merchant-mall/v1"
-    // baseUrl ='http://192.168.2.56:17000/merchant-mall/v1'
+    statistics = 'https://sitecatalyst.jihuiduo.cn'
     statistics = `http://192.168.2.58:8081`
     break;
-  case EVN.LOCAL:
-    {
-      // let localNodejs = 'http://10.3.0.98:5757/v1';
-      // localNodejs = 'http://192.168.16.71:5757/v1';
-      let localNodejs = 'http://localhost:5757/v1';
-      // localNodejs = ''
-      statistics = `http://192.168.2.58:8081`
-      baseUrl = localNodejs
-      break;
-    }
   case EVN.STG:
     clientSecret = "OzoStRYlQVA85pjp"
     baseUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
     addrUrl = "https://stg-api.jihuiduo.cn/bmall/merchant-mall/v1"
-    statistics = 'https://sitecatalyst.jihuiduo.cn'
-    statistics = `http://192.168.2.58:8081`
+    statistics = 'http://172.17.76.39:8081'
+    statistics = 'http://39.105.120.6:8081'
+    // statistics =`http://192.168.2.58:8081`
     break
   case EVN.PRO:
     clientSecret = "9sxyZhzgKIjSVuQQ"

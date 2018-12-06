@@ -191,6 +191,7 @@ Page({
           badge: badge,
           icon: '../../images/trolley-missing.png'
         })
+        return badge
       })
       .then(data => {
         const related = this.data.product
@@ -200,6 +201,7 @@ Page({
           itemName: related.itemName,
           price: related.price
         })
+        return data
       })
   },
   getProduct({
@@ -334,6 +336,7 @@ Page({
           itemName: product.itemName,
           price: product.unitPrice
         })
+        return arr
       })
       .then(arr => {
         if (arr) {

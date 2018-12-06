@@ -21,7 +21,7 @@ Page({
     isVisible: true,
     isReturn: false,
     isFailed: false,
-    isStockout:false,
+    isStockout: false,
     checked: [true, false],
     total: '',
     textarea: '',
@@ -141,7 +141,7 @@ Page({
       address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
-      discountTotalAmount: utils.getFixedNum(options.totalDiscount,2),
+      discountTotalAmount: utils.getFixedNum(options.totalDiscount, 2),
       totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2)
     })
   },
@@ -229,7 +229,7 @@ Page({
       console.log(err);
     })
   },
-  
+
   createOrder(itemId) {
     return new Promise((resolve, reject) => {
       wx.showLoading({
@@ -297,7 +297,7 @@ Page({
         }
         //itemUnit补全
         for (let j = 0; j < orderItems[i].items.length; j++) {
-          orderItems[i].items[j].itemUnit = orderItems[i].items[j].itemUnit ? orderItems[i].items[j].itemUnit:orderItems[i].items[j].saleUnit
+          orderItems[i].items[j].itemUnit = orderItems[i].items[j].itemUnit ? orderItems[i].items[j].itemUnit : orderItems[i].items[j].saleUnit
         }
       }
 
@@ -311,7 +311,7 @@ Page({
         locationId: String(locationId),
         orderItemSource: getApp().globalData.items ? getApp().globalData.items.orderItemSource : 0,
         usePoint,
-        totalAmount: /*0.01||*/this.data.total,
+        totalAmount: /*0.01||*/ this.data.total,
         receiverInfo: {
           receiverName,
           receiverCellPhone,
@@ -322,8 +322,11 @@ Page({
       // console.log(JSON.stringify(tempdata))
       const isWechat = this.data.checked[0]
       utils.submitOrder({
-        eventDetail: { 
-          items:orderItems.reduce((accumulator, group) =>accumulator.concat(group.items.map(item => ({...item,itemPro:''}))), []),
+        eventDetail: {
+          items: orderItems.reduce((accumulator, group) => accumulator.concat(group.items.map(item => ({
+            ...item,
+            itemPro: ''
+          }))), []),
           points: usePoint
         },
       })
@@ -362,10 +365,10 @@ Page({
           })
         } else if (data.status === 201) {//stockout
           this.setData({
-            isStockout:true,
-            stockoutList:data.result
+            isStockout: true,
+            stockoutList: data.result
           })
-         }
+        }
       }).catch(err => {
         // todo test 409
         // err=409;
@@ -377,20 +380,22 @@ Page({
           this.setData({
             prompt: this.changedTxt
           })
-        } else {
+        } else if (err !== 406) {
           console.log(err);
           this.setData({
             prompt: this.failTxt
           })
         }
-        this.setData({
-          isFailed: true
-        });
-        wx.hideLoading();
+        if (err !== 406) {
+          this.setData({
+            isFailed: true
+          });
+          wx.hideLoading();
+        }
       })
     })
   },
-  isNotFullCredits(){
+  isNotFullCredits() {
     return this.data.actual !== '0.00'
   },
   closePopup() {
@@ -403,9 +408,9 @@ Page({
       });
     }
   },
-  navigateBack(){
+  navigateBack() {
     wx.navigateBack({
-      
+
     })
   },
   /**
