@@ -164,30 +164,27 @@ Page({
           const related = this.data.productList[dataset.index]
           addcart({
             itemId: related.itemId,
-            itemPro: related.promotionTypes||'',
+            itemPro: related.promotionTypes || '',
             itemName: related.itemName,
             price: related.price
           })
           return data
         })
-      .catch(errorCode => {
-        // getApp().failRequest();
-        return errorHander(errorCode, () => {
-          addToTrolleyByGroup(event);
-        });
-      })
-      .catch((errorCode) => {
-        console.log(errorCode)
-        if (errorCode === 419) {
-          // this.setData({
-          //   isActiveTime: getApp().globalData.isActiveTime
-          // })
-        }
-        wx.showToast({
-          icon: 'none',
-          title: '添加到购物车失败',
+        .catch(errorCode => {
+          // getApp().failRequest();
+          return errorHander(errorCode, () => {
+            addToTrolleyByGroup(event);
+          });
         })
-      });
+        .catch((errorCode) => {
+          console.log(errorCode)
+          if (errorCode !== 406) {
+            wx.showToast({
+              icon: 'none',
+              title: '添加到购物车失败',
+            })
+          }
+        });
     })
   },
   setStores(merchant) {
