@@ -11,7 +11,7 @@
   </view>
 </picker>
 
-<swiper indicator-dots="{{true}}" class='hot-card' style="width: 100%; height: 234rpx" autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}" catchtap="bannerClick">
+<swiper indicator-dots="{{true}}" class='hot-card' style="width: 100%; height: 234rpx" autoplay="{{true}}" interval="{{3000}}" duration="{{1000}}" catchtap="bannerClick" circular='true'>
   <block wx:for="{{imgUrls}}" wx:key="index">
     <swiper-item style='display:flex;'>
       <!-- <navigator url="/pages/detail/detail?itemId={{item.itemId}}&categoryId={{item.itemCategoryCode}}" style="width: 100%;"> -->
@@ -36,9 +36,7 @@
     <view class='product-meta'>
       <!-- <view class='product-money'>￥</view> -->
       <view class='center product-price '>
-        <text class=' ellipse {{pitem.promotionTypes[0]=="2"?"line-through":""}}'>
-      ￥{{pitem.price}}
-      </text>
+        <text class=' ellipse {{pitem.promotionTypes[0]=="2"?"line-through":""}}'>￥{{pitem.price}}</text>
         <text class='regular sales-unit ellipse' style='max-width:{{pitem.promotionTypes[0]=="2"|| pitem.promotionTypes[0]=="1"?77:110}}rpx'>/{{pitem.saleUnit}}</text>
         <!-- <text class='minus'>{{pitem.promoteType}}</text> -->
         <image class='promotion-icon' src='{{imgManjian}}' wx:if="{{pitem.promotionTypes[0]=='2'}}"></image>
