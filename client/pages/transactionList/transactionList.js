@@ -64,6 +64,9 @@ Page({
     [4, 5]
   ],
   requestPayment(e){
+    if (utils.disbaleOperation()) {
+      return
+    }
     const dataset = e.currentTarget.dataset
     wx.navigateTo({
       url: `/pages/checkstand/checkstand?orderId=${dataset.orderId}&orderTotalAmount=${dataset.totalAmount}`,
