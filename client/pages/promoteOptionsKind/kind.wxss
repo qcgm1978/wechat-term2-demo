@@ -1,6 +1,7 @@
 .promotion-tab {
   font-size: 32rpx;
   color: #707070;
+  /* border-bottom: 1rpx #f7f8fa solid; */
 }
 .promotion-tab view{
   padding: 18rpx 0;
