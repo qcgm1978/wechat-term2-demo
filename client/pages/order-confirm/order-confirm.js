@@ -363,12 +363,7 @@ Page({
           wx.redirectTo({
             url: `/pages/${isToCheckstand ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
-        } else if (data.status === 201) {//stockout
-          this.setData({
-            isStockout: true,
-            stockoutList: data.result
-          })
-        }
+        } 
       }).catch(err => {
         // todo test 409
         // err=409;
@@ -380,7 +375,12 @@ Page({
           this.setData({
             prompt: this.changedTxt
           })
-        } else if (err !== 406) {
+        } else if (err.statusCode === 417) {//stockout
+          return this.setData({
+            isStockout: true,
+            stockoutList: JSON.parse(err.data.result.message)
+          })
+        }else if (err !== 406) {
           console.log(err);
           this.setData({
             prompt: this.failTxt

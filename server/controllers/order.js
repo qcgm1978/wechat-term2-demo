@@ -319,26 +319,26 @@ module.exports = {
       orderId: '123456',
       orderTotalAmount: 200
     }
-    ctx.state.status = 201
+    ctx.state.status = 417
     ctx.state.result = Mock.mock({
-      "orderTotalCount": 10,
+      "message": "[{\"itemIcon\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%B8%83%E5%96%9C1.jpg\",\"itemId\":\"3473\",\"itemName\":\"七喜\",\"quantity\":3},{\"itemIcon\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E9%BC%8E%E4%B8%80%E7%BA%A7%E5%A4%A7%E8%B1%86%E6%B2%B9.png\",\"itemId\":\"3473\",\"itemName\":\"七喜\",\"quantity\":3},{\"itemIcon\":\"https://stg-statics.jihuiduo.cn/jhb_images/%E6%83%A0%E7%99%BE%E7%9C%9F%E6%B4%97%E8%A1%A3%E6%B6%B21.jpg\",\"itemId\":\"1841\",\"itemName\":\"惠百真护色香氛洗衣液洗衣液\",\"quantity\":5}]"
 
-      "items|10": [
-        {
-          "itemId": "3351",
-          "itemSku": null,
-          "itemName": "@cword(3,35)",
-          "quantity": 1,
-          "unitPrice": 6250,
-          "locationId": "140",
-          "itemIcon": "@image",
-          "itemSpecification": "1ton*1",
-          "num": '@integer(2,5)',
-          "categoryId": "1401009",
-          "promotionId": null,
-          "gift": false
-        }
-      ]
+      // "items|10": [
+      //   {
+      //     "itemId": "3351",
+      //     "itemSku": null,
+      //     "itemName": "@cword(3,35)",
+      //     "quantity": 1,
+      //     "unitPrice": 6250,
+      //     "locationId": "140",
+      //     "itemIcon": "@image",
+      //     "itemSpecification": "1ton*1",
+      //     "num": '@integer(2,5)',
+      //     "categoryId": "1401009",
+      //     "promotionId": null,
+      //     "gift": false
+      //   }
+      // ]
     })
   },
   pay: async ctx => {

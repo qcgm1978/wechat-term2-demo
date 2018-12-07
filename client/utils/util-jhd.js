@@ -124,8 +124,12 @@ var postRequest = function({
         if (res.statusCode !== HTTP_SUCCSESS) {
           if (res.statusCode === FREEZING_TIME) {
             Freezing.verifyFreezing(res.statusCode)
+          } else if (res.statusCode === 417) {
+            reject(res);
+
+          } else {
+            reject(res.statusCode);
           }
-          reject(res.statusCode);
         } else {
           resolve(res.data);
         }
@@ -307,8 +311,8 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
   const merchantId = getApp().getMerchantId();
   const locationId = String(getApp().globalData.merchant.locationId);
   //废除count，用quantity
-  for (let i = 0; i < groupList.addGroupList.length; i++){
-    for (let j = 0; j < groupList.addGroupList[i].addItemList.length; j++){
+  for (let i = 0; i < groupList.addGroupList.length; i++) {
+    for (let j = 0; j < groupList.addGroupList[i].addItemList.length; j++) {
       groupList.addGroupList[i].addItemList[j].quantity = groupList.addGroupList[i].addItemList[j].quantity * groupList.addGroupList[i].count
     }
     //delete groupList.addGroupList[i]["count"]
@@ -344,7 +348,7 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
       .then(data => {
         hideLoading();
       })
-      
+
       .catch(errorCode => {
         reject(errorCode)
       });

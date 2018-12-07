@@ -18,9 +18,10 @@ module.exports = async function (ctx, next) {
         // 如果直接写入在 body 中，则不作处理
         // 如果写在 ctx.body 为空，则使用 state 作为响应
         // debugger;
+        ctx.status = ctx.state.status || 200
         ctx.body = ctx.body ? ctx.body : {
             "message": "OK",
-            status: ctx.state.status !== undefined ? ctx.state.status : 200,
+            status: ctx.state.status || 200,
             result: ctx.state.result !== undefined ? ctx.state.result : (ctx.state.data || {})
         }
     } catch (e) {
