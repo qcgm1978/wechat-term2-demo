@@ -104,7 +104,7 @@
           <view wx:for='{{trollyGroup.items}}'>
             <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx; ">
 
-              <view style="position: relative;">
+              <view style="position: relative;  margin-left:34rpx;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
@@ -135,7 +135,7 @@
           <template is="promotionInfo" data="{{trollyGroup}}"  wx:if="{{trollyGroup.cartCombinationPromotions.length >0}}"/>
 
           <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'>
-            <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx; ">
+            <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx;">
 
               <view style="position: relative;">
                 <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>

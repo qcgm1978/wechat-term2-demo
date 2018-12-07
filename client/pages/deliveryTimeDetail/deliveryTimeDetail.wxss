@@ -1,4 +1,4 @@
-page { background-color: #fff;color:#333; }
+page { background-color: #fff!important;color:#333; }
 .font-term {
   font-family: PingFang-SC-Medium, 'Source Han Sans CN Medium', 'Noto Sans CJK SC Medium';
   color: rgb(85, 85, 85);
@@ -48,6 +48,14 @@ page { background-color: #fff;color:#333; }
     height: 80rpx;
     border: 1rpx solid #F0F1F5;
     font-size: 28rpx;
+}
+.td:nth-of-type(n+1){
+  border-top:0;
+  
+}
+.td:nth-of-type(2n){
+  border-left:0;
+  
 }
 .th {
   width: 50%;
