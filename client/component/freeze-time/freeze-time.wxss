@@ -9,6 +9,8 @@ image.maintain {
 .close {
   width: 48rpx;
   height: 48rpx;
+  z-index: 10;
+  position: relative;
   /* margin-top: 30rpx; */
 }
 
@@ -43,7 +45,8 @@ image.maintain {
   font-size: 24rpx;
   color: #2e2e2e;
 }
-.vertical-bar{
+
+.vertical-bar {
   width: 2rpx;
   height: 34rpx;
 }
