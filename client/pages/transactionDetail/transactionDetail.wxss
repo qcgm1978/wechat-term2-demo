@@ -208,7 +208,7 @@
   letter-spacing: 0;
   text-align: right;
   height: 44rpx;
-  margin: 16rpx 0 16rpx 16rpx;
+  margin: 16rpx 0 16rpx 0;
 }
 
 .earned-point-outer {

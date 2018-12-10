@@ -56,6 +56,8 @@ router.get('/comment', controllers.comment.list)
 
 // for o2o
 
+router.post('/v1/mall/banners/merchant_home', controllers.login.wechat)
+
 // 获取商品列表
 router.post('/v1/auth/wechat', controllers.login.wechat)
 router.get('/v1/mall/category', controllers.product.category)

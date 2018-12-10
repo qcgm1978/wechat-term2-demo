@@ -98,7 +98,7 @@ page {
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  margin-bottom:24rpx;
+  /* margin-bottom:24rpx; */
 
 }
 
@@ -283,7 +283,7 @@ width:100%; */
 .btn-txt-1{
   border-top: 2rpx solid #D1D1D2;
   border-bottom: 2rpx solid #D1D1D2;
-  box-sizing:content-box;
+  box-sizing:border-box;
 }
 .bottom-box-shadow{
   box-shadow:0 -2rpx 10rpx 0 rgba(0,0,0,0.05);

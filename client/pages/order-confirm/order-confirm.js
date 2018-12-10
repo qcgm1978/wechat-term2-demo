@@ -42,7 +42,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -88,7 +88,7 @@ Page({
     }
   },
   //跳转配送时间详情页
-  showDeliveryTime: function () {
+  showDeliveryTime: function() {
     wx.navigateTo({
       url: '../deliveryTimeDetail/deliveryTimeDetail'
     })
@@ -140,7 +140,7 @@ Page({
       address: getApp().globalData.address,
       phone: app.getPhone(),
       profileName: getApp().globalData.authWechat.authMerchantList[0].userName,
-      discountTotalAmount: utils.getFixedNum(options.totalDiscount,2),
+      discountTotalAmount: utils.getFixedNum(options.totalDiscount, 2),
       totalBeforePromotion: utils.getFixedNum(Number(options.total) + Number(options.totalDiscount), 2)
     })
   },
@@ -228,7 +228,7 @@ Page({
       console.log(err);
     })
   },
-  
+
   createOrder(itemId) {
     // if (this.inTimeRange()) {
     //   return this.setData({
@@ -301,7 +301,7 @@ Page({
         }
         //itemUnit补全
         for (let j = 0; j < orderItems[i].items.length; j++) {
-          orderItems[i].items[j].itemUnit = orderItems[i].items[j].itemUnit ? orderItems[i].items[j].itemUnit:orderItems[i].items[j].saleUnit
+          orderItems[i].items[j].itemUnit = orderItems[i].items[j].itemUnit ? orderItems[i].items[j].itemUnit : orderItems[i].items[j].saleUnit
         }
       }
 
@@ -315,7 +315,7 @@ Page({
         locationId: String(locationId),
         orderItemSource: getApp().globalData.items ? getApp().globalData.items.orderItemSource : 0,
         usePoint,
-        totalAmount: /*0.01||*/this.data.total,
+        totalAmount: /*0.01||*/ this.data.total,
         receiverInfo: {
           receiverName,
           receiverCellPhone,
@@ -326,8 +326,10 @@ Page({
       console.log(JSON.stringify(tempdata))
       const isWechat = this.data.checked[0]
       utils.submitOrder({
-        eventDetail: { 
-          items:orderItems.reduce((accumulator, group) =>accumulator.concat(group.items.map(item => ({...item,itemPro:''}))), []),
+        eventDetail: {
+          items: orderItems.reduce((accumulator, group) => accumulator.concat(group.items.map(item => ({ ...item,
+            itemPro: ''
+          }))), []),
           points: usePoint
         },
       })
@@ -364,8 +366,8 @@ Page({
           wx.redirectTo({
             url: `/pages/${isToCheckstand ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
-        } else { }
-      }).catch(err => {
+        } else {}
+      }).catch((err) => {
         // todo test 409
         // err=409;
         if (err === 409) { //price or putShelfFlg change
@@ -376,20 +378,22 @@ Page({
           this.setData({
             prompt: this.changedTxt
           })
-        } else {
+        } else if (err !== 406) {
           console.log(err);
           this.setData({
             prompt: this.failTxt
           })
         }
-        this.setData({
-          isFailed: true
-        });
-        wx.hideLoading();
+        if (err !== 406) {
+          this.setData({
+            isFailed: true
+          });
+          wx.hideLoading();
+        }
       })
     })
   },
-  isNotFullCredits(){
+  isNotFullCredits() {
     return this.data.actual !== '0.00'
   },
   closePopup() {
@@ -405,12 +409,12 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () { },
+  onReady: function() {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function (options) {
+  onShow: function(options) {
     utils.checkNetwork().then(utils.requestStatisLoad);
   },
   onHide() {
@@ -423,21 +427,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

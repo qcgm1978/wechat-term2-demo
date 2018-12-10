@@ -7,11 +7,10 @@
 <import src="./promotionInfo.wxml" />
 <view wx:if='{{trolley.length}}' style="height: 100%;">
   <scroll-view scroll-y style="height:85%;" bindscrolltoupper='upper' bindscrolltolower="lower" scroll-into-view="{{toView}}" scroll-top="{{scrollTop}}" bindscroll="scroll">
-    <!-- <view wx:for='{{trolley}}' wx:key='{{index}}'> -->
-    <view wx:for='{{trolley}}' wx:for-index="groupIndex" wx:key='*this' wx:for-item="trollyGroup" style='margin-top:15rpx;margin-bottom:0rpx;'>
+    <view wx:for='{{trolley}}' wx:for-index="groupIndex" wx:key='unique' wx:for-item="trollyGroup" style='margin-top:15rpx;margin-bottom:0rpx;'>
       <view wx:if="{{trollyGroup.combinationFlag == '0'}}">
 
-        <view wx:for='{{trollyGroup.items}}' wx:key='*this'>
+        <view wx:for='{{trollyGroup.items}}' wx:key='unique'>
           <view style='display: flex; flex-direction: column; '>
             <view class='center padding trolley-container regular bgc' style="padding-left: 0; ">
               <view class='column' style='margin-top:auto;position:relative;'>
@@ -101,10 +100,10 @@
             <!-- <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;"> -->
             <image catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' src='./img/del.png' class='del' style="width: 48rpx;height: 48rpx; margin-right:40rpx; margin-top:5rpx;"></image>
           </view>
-          <view wx:for='{{trollyGroup.items}}'>
+          <view wx:for='{{trollyGroup.items}}' wx:key='unique'>
             <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx; ">
 
-              <view style="position: relative;">
+              <view style="position: relative;  margin-left:34rpx;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
@@ -135,7 +134,7 @@
           <template is="promotionInfo" data="{{trollyGroup}}"  wx:if="{{trollyGroup.cartCombinationPromotions.length >0}}"/>
 
           <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'>
-            <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx; ">
+            <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx;">
 
               <view style="position: relative;">
                 <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
@@ -224,7 +223,7 @@
       <view class='line'></view>
       <view class='padding' style='padding:18rpx 0rpx;'>
         <scroll-view scroll-y style="height: 674rpx;">
-          <view wx:for='{{promotionOptions}}' wx:key='{{index}}' style='padding:18rpx 18rpx; '>
+          <view wx:for='{{promotionOptions}}' wx:key='unique' style='padding:18rpx 18rpx; '>
             <radio style='transform:scale(.8); margin-left: -80rpx;' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
               <view style="width:800rpx;font-size: 36rpx; padding-left:10rpx;word-wrap:break-word;">{{item.promotionName}}</view>
             </radio>

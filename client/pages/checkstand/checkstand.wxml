@@ -1,3 +1,7 @@
+<import src="../../template/freeze.wxml" />
+<freeze-time is-to-open='{{isToOpen}}' >
+</freeze-time>
+<template is="freeze" data='{{isFreezing}}'/>
 <view class='column' style="margin-top: 64rpx;">
   <text>需支付</text>
   <text class='dollar total'>{{orderTotalAmount}}</text>
