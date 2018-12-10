@@ -14,17 +14,17 @@
           <view style='display: flex; flex-direction: column; '>
             <view class='center padding trolley-container regular bgc' style="padding-left: 0; ">
               <view class='column' style='margin-top:auto;position:relative;'>
-                <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && !item.isfree&&!item.notHasInventory}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}'
+                <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && !item.isfree&&!item.inventoryCount===0}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}'
                   style='transform:scale(.8);'>
                 </radio>
-                <text wx:elif='{{trollyGroup.putShelvesFlg && item.isfree&&!item.notHasInventory}}' class='radio trolley-invalid regular'></text>
+                <text wx:elif='{{trollyGroup.putShelvesFlg && item.isfree&&item.inventoryCount!==0}}' class='radio trolley-invalid regular'></text>
                 <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;'>失效</text>
               </view>
               <view style="position: relative;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <view wx:if='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
-                <view wx:elif='{{item.notHasInventory}}' class='trolley-soldout regular center-center'>售罄</view>
+                <view wx:elif='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>售罄</view>
               </view>
               <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <view style='display:flex;  width:100%;'>
@@ -61,7 +61,6 @@
                   <view style="position: relative;">
                     <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                     </image>
-                    <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
                   </view>
                   <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
                     <view style='display:flex;  width:100%;'>
@@ -91,7 +90,7 @@
         <view style='display: flex; flex-direction: column; margin-bottom:0;' >
           <view class='promotion' style='margin-bottom: 0; display: flex; align-items:center; justify-content:space-between;'>
             <view>
-              <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}"  color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); margin:auto 8rpx 2rpx;' wx:if='{{trollyGroup.putShelvesFlg||!item.notHasInventory}}'>
+              <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}"  color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); margin:auto 8rpx 2rpx;' wx:if='{{trollyGroup.putShelvesFlg||item.inventoryCount!==0}}'>
               </radio>
               <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;margin:auto 8rpx 8rpx'>失效</text>
               <view class='promotion-1' style='height:34rpx;'>{{trollyGroup.suiteTitle}}</view>

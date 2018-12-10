@@ -65,7 +65,7 @@ module.exports = {
           "itemSpecification": "550ml*24",
           "promotionTypes": null,
           "saleUnit": "箱(24个)",
-          notHasInventory: '@boolean'
+          inventoryCount: '@integer(0,10)',
         }
       ]
     })
@@ -104,7 +104,7 @@ module.exports = {
           "itemCategoryName": " 可口可乐",
           "priceLevel": "47",
           "putShelvesFlg": true,
-          notHasInventory: true,
+          inventoryCount: '@integer(0,10)',
           "promotionTypes": null,
           "saleUnitExchange": 24,
           "purchaseType": "",
