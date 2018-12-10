@@ -80,20 +80,20 @@
   <view style="z-index: 10; width: 100%; margin-top:5rpx;">
     <view class='bgc padding' wx:if='{{!isReturn}}'>
       <view class='money-amount '>
-        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0 0 0 16rpx;">
+        <view class='regular money' style="display:flex; justify-content: space-between; width: 100%; margin: 0;">
           <view>商品金额</view>
           <view class='dollar'>{{filters.toFix(order.totalAmount)}}</view>
         </view>
       </view>
 
-      <view class='regular money-amount money ' style="margin: 0 0 0 16rpx;">
+      <view class='regular money-amount money ' >
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>促销优惠</view>
           <view class='dollar-minus'>{{filters.toFix(order.discountTotalAmount)}}</view>
         </view>
       </view>
 
-      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' style="margin: 0 0 0 16rpx;">
+      <view class='regular money-amount money ' hidden='{{notShowDiscountInfo||isToPay || !order.payment.usePoint}}' >
 
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>积分抵扣</view>
@@ -101,7 +101,7 @@
             <text class='dollar-minus'>{{filters.toFix(order.payment.usePoint/100)}}</text>)</view>
         </view>
       </view>
-      <view class='regular money-amount money ' style="margin: 0 0 0 16rpx;">
+      <view class='regular money-amount money ' >
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>应付金额</view>
           <view class='dollar'>{{filters.toFix(isReturn?order.orderReturn.refundCashAmount:order.payment.cashAmount)}}</view>
@@ -134,14 +134,14 @@
           </view>
         </view>
       </view>
-      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}' style="margin: 0 16rpx;">
+      <view class='regular money-amount money' hidden='{{notShowDiscountInfo||isToPay}}' >
         <view style="display:flex; justify-content: space-between; width: 100%; ">
           <view>
             <text style="color:#888">创建时间：</text>{{order.createTime}}</view>
         </view>
 
       </view>
-      <view class='regular money-amount money' style="margin: 0 16rpx;">
+      <view class='regular money-amount money' >
         <view style="display:flex; width: 100%; align-items:center;">
           <block>
             <text style="color:#888">配送时间：</text>

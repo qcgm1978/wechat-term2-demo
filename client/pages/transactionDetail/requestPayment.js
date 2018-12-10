@@ -52,9 +52,9 @@ export function requestPayment(evt) {
         url: paymentUrl,
         postData: {
           orderId: this.options.orderId,
-          merchantId:getApp().getMerchantId(),
+          merchantId: getApp().getMerchantId(),
           jsCode: code ? code : getApp().globalData.token.jscode,
-          paymentMethodId:1,
+          paymentMethodId: 1,
         }
       })
     })
@@ -78,15 +78,15 @@ export function requestPayment(evt) {
         signType: payargs.signType,
         paySign: payargs.paySign,
         success() {
-            return wx.redirectTo({
-              url: `/pages/transactionDetail/transactionDetail?orderId=${getApp().globalData.orderId}`,
-            })
+          return wx.redirectTo({
+            url: `/pages/transactionDetail/transactionDetail?orderId=${getApp().globalData.orderId}`,
+          })
         },
         fail(err) {
           // do nothing and wait next perhaps paying
           console.log(err)
           wx.showToast({
-            icon:'loading',
+            icon: 'loading',
             title: '交易未成功',
           })
           // debugger;
@@ -103,10 +103,12 @@ export function requestPayment(evt) {
       // do nothing and wait next perhaps paying
       console.log(err)
       debugger;
-      wx.showToast({
-        icon: 'none',
-        title: '交易失败，您可以选择继续提交订单',
-      });
+      if (err !== 406) {
+        wx.showToast({
+          icon: 'none',
+          title: '交易失败，您可以选择继续提交订单',
+        });
+      }
       this.setData({
         loading: false
       })
