@@ -3,7 +3,7 @@
 </freeze-time>
 <template is="freeze" data='{{isFreezing}}'/>
 <wxs module="filters" src="../../utils/math.wxs"></wxs>
- <scroll-view scroll-y style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; height:{{windowHeight-102}}rpx;'>
+ <scroll-view scroll-y style='display: flex; flex-direction: column; position:relative; width:{{windowWidth}}rpx; height:{{windowHeight-102-(isFreezing?34*2:0)}}rpx;'>
   <view id="main" class='main-view'>
     <text class='medium' style="color: #fff;position:relative;top:50rpx;left:95rpx;">{{payStyle[orderStatus]}}<text class='topay-comment' wx:if='{{payStyle[orderStatus]==="等待付款"}}'>{{expireTime}} 订单将自动取消</text></text>
     <text wx:if='{{isCanceled&&orderCancelSource=="平台取消"}}' style='color: #fff;position:relative;top:50rpx;left:95rpx;font-size:32rpx;'>\n{{orderCancelSource}}</text>
