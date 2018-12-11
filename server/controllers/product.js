@@ -104,7 +104,7 @@ module.exports = {
           "itemCategoryName": " 可口可乐",
           "priceLevel": "47",
           "putShelvesFlg": true,
-          inventoryCount: '@integer(0,10)',
+          inventoryCount: 0,
           "promotionTypes": null,
           "saleUnitExchange": 24,
           "purchaseType": "",
