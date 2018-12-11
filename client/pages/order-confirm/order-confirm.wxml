@@ -149,7 +149,7 @@
         <view class='medium' style='width:100%;overflow:auto;'>共有{{pointBalance}}积分，</view>
         <view class='medium' style='width:100%;overflow:auto;'>可用{{points}}积分，抵￥{{maxDeduction}}</view>
       </view>
-      <text wx:else>共有{{pointBalance}}积分，未达到20000积分不可用</text>
+      <text wx:else>共有{{pointBalance}}积分，未达到{{availablePointDrop}}积分不可用</text>
       <view>
         <checkbox-ios id='checkbox-ios' bindchangechecked="onChangeChecked" enable-tap='{{pointBalance}}'>
           <!-- 这部分内容将被放置在组件 <slot> 的位置上 -->
