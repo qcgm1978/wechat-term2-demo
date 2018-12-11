@@ -75,7 +75,7 @@ const apiURLs = {
   backendUrlVerifyCode: baseUrl + '/auth/sms/',
   backendUrlPhoneLogin: baseUrl + '/auth/sms',
 
-  getBanners: `${baseUrl}/mall/banners/{category}`,
+  getBanners: `${baseUrl}/mall/banners/{category}/{locationId}`,
   getPromoteInfo: `${baseUrl}/mall/promotions/item`,
   getCombinationList: `${baseUrl}/mall/promotions/combinationList`,
   calcPromote: `${baseUrl}/mall/promotions/calc`,

@@ -349,7 +349,8 @@ Page({
   getBanners: function() {
     return new Promise((resolve, reject) => {
       getRequest(getBanners, {
-          category: "merchant_home"
+          category: "merchant_home",
+        locationId: getApp().globalData.merchant.locationId
         }).then(data => {
           if (data && data.result) {
             this.setData({
