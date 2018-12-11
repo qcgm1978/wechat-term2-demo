@@ -52,7 +52,7 @@ Page({
     }
     if (!this.data.disableBuy) {
       getApp().globalData.items = this.data.trolley.reduce((accumulator, item) => {
-        if (item.checked) {
+        if (item.checked && item.putShelvesFlg) {
           item.count = 1
           accumulator.push(item)
         }
