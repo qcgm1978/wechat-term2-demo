@@ -438,7 +438,9 @@ Page({
               }
               item.price = utils.getFixedNum(item.price, 2)
             });
-
+            if (result[i].cartCombinationPromotions && result[i].cartCombinationPromotions.length > 0 && result[i].cartCombinationPromotions[0] && !result[i].cartCombinationPromotions[0].activeFlg) {
+              result[i].putShelvesFlg = false
+            }
             if (result[i].putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(result[i].groupId))) {
               result[i].checked = true;
             } else {
