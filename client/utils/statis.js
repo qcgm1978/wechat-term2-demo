@@ -28,7 +28,8 @@ export const urlObj = {
   // http://192.168.2.53:8081/b2b/orderdetail/repeat
 };
 let statisToken = wx.getStorageSync('statis').token || '';
-let sessionId = '', phone = '';
+let sessionId = '',
+  phone = '';
 const generateGuid = () => {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -47,7 +48,7 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
   header: {
     'Content-Type': 'application/json'
   },
-  success: function (result) {
+  success: function(result) {
     const token = result.data.jhd_token;
     if (token === undefined) {
       return reject(result)
@@ -94,10 +95,10 @@ export const requestStatis = (postData = {}) => {
       header: {
         'Content-Type': 'application/json'
       },
-      success: function (result) {
+      success: function(result) {
         if (result.statusCode === 401 && result.data.error === 'invalid_token') {
           getToken().then(() => requestStatis(data))
-        } else { }
+        } else {}
 
       }
     })
@@ -139,22 +140,26 @@ export const requestStatisEnter = (systemInfo) => {
     }
   });
 }
-export const requestStatisLoad = () => requestStatis({
-  url: urlObj.load,
-  event: 'evn_open_page',
-});
+export const requestStatisLoad = (postData) => {
+  debugger
+  return requestStatis({
+    url: urlObj.load,
+    event: 'evn_open_page',
+    ...postData
+  })
+}
 export const requestStatisUnload = ({
   nextUrl
 } = {
-    nextUrl: ''
-  }) => requestStatis({
-    url: urlObj.unload,
-    pageUrl: getCurrentPages().slice(-1)[0].route,
-    event: 'evn_quit_page',
-    eventDetail: '',
-    time: new Date().getTime(),
-    nextUrl
-  });
+  nextUrl: ''
+}) => requestStatis({
+  url: urlObj.unload,
+  pageUrl: getCurrentPages().slice(-1)[0].route,
+  event: 'evn_quit_page',
+  eventDetail: '',
+  time: new Date().getTime(),
+  nextUrl
+});
 export const requestStatisDispose = () => requestStatis({
   url: urlObj.dispose,
   event: 'evn_hide_app',

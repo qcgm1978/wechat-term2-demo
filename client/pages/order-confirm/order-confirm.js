@@ -59,6 +59,7 @@ Page({
         options,
         points,
         pointBalance: data.result.pointBalance,
+        availablePointDrop: data.result.availablePointDrop
       });
     });
     if (getApp().globalData.items) {
@@ -109,9 +110,9 @@ Page({
   updateData({
     options,
     points,
-    pointBalance
+    pointBalance,
+    availablePointDrop
   }) {
-    // let points = getApp().globalData.merchant.pointBalance;
     points = points / 100 > options.total ? (options.total * 100) : points;
     if (points == 0) {
       this.selectComponent("#checkbox-ios").setData({
@@ -131,6 +132,7 @@ Page({
 
       storeName: getApp().globalData.merchant.merchantStoreName,
       pointBalance,
+      availablePointDrop,
       points,
       maxDeduction: credit,
       usedPoints: points,
