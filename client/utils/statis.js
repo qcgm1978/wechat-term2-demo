@@ -141,7 +141,7 @@ export const requestStatisEnter = (systemInfo) => {
   });
 }
 export const requestStatisLoad = (postData) => {
-  debugger
+  // debugger
   return requestStatis({
     url: urlObj.load,
     event: 'evn_open_page',
