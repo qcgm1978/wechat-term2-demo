@@ -292,6 +292,11 @@ Page({
             });
             this.setComposeProducts({
               index: obj.index,
+              prop: 'quantity',
+              data: 1
+            });
+            this.setComposeProducts({
+              index: obj.index,
               prop: 'categoryCode',
               data: items.categoryCode
             });
