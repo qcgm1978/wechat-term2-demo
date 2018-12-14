@@ -41,7 +41,7 @@
     <view class='column' style="align-items: left;margin-left: 20rpx;">
       <view class='center' style="align-items: center;">
         <view class='foot-txt1' style='font-size:24rpx;color:#383838; '>套装价</view>
-        <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{enableVisible?totalPrice:0}}</view>
+        <view class='foot-txt2' style='font-size:40rpx;color:#EE711F; margin-right:0;width:200rpx;'>¥{{enableVisible?totalPrice-totalDiscountAmount:0}}</view>
       </view>
       <view class='foot-txt3' wx:if='{{enableVisible && totalDiscountAmount}}'>已省{{totalDiscountAmount}}</view>
     </view>
