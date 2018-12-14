@@ -35,7 +35,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function (options) {
-    utils.checkNetwork().then(utils.requestStatisLoad);
+    utils.checkNetwork().then(_ => utils.requestStatisLoad({ orderId: this.options.orderId }));
   },
   onHide() {
     utils.requestStatisUnload();
