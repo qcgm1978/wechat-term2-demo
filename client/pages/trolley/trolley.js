@@ -39,7 +39,7 @@ Page({
   scrollDataLoading: false,
   scrollViewY: 0,
   enablePullDownRefresh: false,
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -62,7 +62,9 @@ Page({
       utils.buyTrolley({
         eventDetail: {
           items: getApp().globalData.items.reduce((accumulator, group) =>
-            accumulator.concat(group.items.map(item => ({ ...item, itemPro: '' }))), [])
+            accumulator.concat(group.items.map(item => ({ ...item,
+              itemPro: ''
+            }))), [])
         }
       })
       wx.navigateTo({
@@ -104,7 +106,7 @@ Page({
       url: '/pages/home/home',
     })
   },
-  upper() { },
+  upper() {},
   lower() {
     // if (!this.lowerEnable || this.scrollDataLoading) {
     //   return
@@ -281,7 +283,7 @@ Page({
       } else {
         rightPromotion = trolleyGroup.cartCombinationPromotions[0]
       }
-      if (rightPromotion /*&& rightPromotion.activeFlg*/) {
+      if (rightPromotion /*&& rightPromotion.activeFlg*/ ) {
         trolleyGroup.cartCombinationPromotions[0] = rightPromotion
       } else {
         trolleyGroup.cartCombinationPromotions = null
@@ -309,7 +311,7 @@ Page({
             [suiteTitle]: this.getSuteTitle(this.data.trolley[index]),
           })
         })
-        .catch((e) => { })
+        .catch((e) => {})
 
     } else {
       let suiteTitle = "trolley[" + index + "].suiteTitle"
@@ -322,7 +324,7 @@ Page({
     return new Promise((resolve, reject) => {
       if (trolleyGroup && trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.cartCombinationPromotions && trolleyGroup.cartCombinationPromotions.length > 0) {
         let rightPromotion = trolleyGroup.cartCombinationPromotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
-        if (rightPromotion /*&& rightPromotion.activeFlg*/) {
+        if (rightPromotion /*&& rightPromotion.activeFlg*/ ) {
           trolleyGroup.cartCombinationPromotions[0] = rightPromotion
         } else {
           trolleyGroup.cartCombinationPromotions = null
@@ -405,11 +407,11 @@ Page({
     this.scrollDataLoading = true
     return new Promise((resolve, reject) => {
       utils.getRequest(getCart, {
-        merchantId: app.getMerchantId(),
-        locationId: getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "",
-        start: this.start,
-        limit: this.limit
-      })
+          merchantId: app.getMerchantId(),
+          locationId: getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "",
+          start: this.start,
+          limit: this.limit
+        })
         .then((data) => {
           if (adjustResult) {
             return this.fillPromotionInfo(data)
@@ -509,43 +511,43 @@ Page({
     }
     utils.postRequest({
 
-      METHOD: 'DELETE',
-      url: Api.removeCart,
-      config: {
-        merchantId: app.getMerchantId()
-      },
-      data: {
-        groupIds: [
-          groupId
-        ]
-      }
-    }).then(data => {
-      return new Promise((resolve, reject) => {
-        wx.showToast({
-          title: '删除成功',
-          icon: 'success',
-          duration: 2000
-        });
-        const index = this.selectedRadio.indexOf(groupId);
-        if (index !== -1) {
-          this.selectedRadio.splice(index, 1);
+        METHOD: 'DELETE',
+        url: Api.removeCart,
+        config: {
+          merchantId: app.getMerchantId()
+        },
+        data: {
+          groupIds: [
+            groupId
+          ]
         }
-        this.setMoneyData(this.selectedRadio);
-        const trolley = this.data.trolley.reduce((accumulator, item) => {
-          if (item.groupId !== groupId) {
-            accumulator.push(item)
+      }).then(data => {
+        return new Promise((resolve, reject) => {
+          wx.showToast({
+            title: '删除成功',
+            icon: 'success',
+            duration: 2000
+          });
+          const index = this.selectedRadio.indexOf(groupId);
+          if (index !== -1) {
+            this.selectedRadio.splice(index, 1);
           }
-          return accumulator;
-        }, [])
-        this.setData({
-          trolley
-        });
-        utils.updateTrolleyNum({
-          resolve,
-          merchantId: getApp().getMerchantId()
+          this.setMoneyData(this.selectedRadio);
+          const trolley = this.data.trolley.reduce((accumulator, item) => {
+            if (item.groupId !== groupId) {
+              accumulator.push(item)
+            }
+            return accumulator;
+          }, [])
+          this.setData({
+            trolley
+          });
+          utils.updateTrolleyNum({
+            resolve,
+            merchantId: getApp().getMerchantId()
+          })
         })
       })
-    })
       .then(data => {
         // debugger;
       })
@@ -595,7 +597,7 @@ Page({
       return item;
     })
 
-    if (trolley[index].checked) { } else {
+    if (trolley[index].checked) {} else {
       trolley[index].checked = true
       this.selectedRadio.push(trolley[index].groupId);
     }
@@ -614,14 +616,14 @@ Page({
         utils.updateTrolleyNum();
         this.start = 0
         this.getTrolley()
-          .then((data) => { })
-          .catch((e) => { })
+          .then((data) => {})
+          .catch((e) => {})
       })
   },
-  onReady: function () {
+  onReady: function() {
 
   },
-  onShow: function () {
+  onShow: function() {
     this.start = 0;
     if (getApp().globalData.toggleMerchant) {
       this.selectedRadio = [];
@@ -687,27 +689,27 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  selectPromotion: function (e) {
+  selectPromotion: function(e) {
     const index = e.currentTarget.dataset.index;
     for (let i = 0; i < this.data.promotionOptions.length; i++) {
       let prop = "promotionOptions[" + i + "].checked"
@@ -745,8 +747,8 @@ Page({
       .then(data => {
         this.start = 0
         this.getTrolley()
-          .then((data) => { })
-          .catch((e) => { })
+          .then((data) => {})
+          .catch((e) => {})
       })
   },
 
@@ -784,7 +786,7 @@ Page({
         }
 
       })
-      .catch((e) => { })
+      .catch((e) => {})
   },
 
   updateTrolley(trolley, index, count, itemIndex) {
@@ -882,12 +884,12 @@ Page({
         locationId: getApp().globalData.merchant ? getApp().globalData.merchant.locationId : "",
       }
       return utils.postRequest({
-        url: getPromotionList,
-        config: {
-          merchantId: app.getMerchantId()
-        },
-        data: postData
-      })
+          url: getPromotionList,
+          config: {
+            merchantId: app.getMerchantId()
+          },
+          data: postData
+        })
         .then((data) => {
           for (let i = 0; i < data.result.length; i++) {
             data.result[i].promotions.sort(this.compare)
@@ -900,5 +902,11 @@ Page({
   },
   scroll(event) {
     this.scrollViewY = event.detail.scrollTop
+  },
+  bindinput() {
+    debugger
+  },
+  preventBubble() {
+    debugger
   }
 })
