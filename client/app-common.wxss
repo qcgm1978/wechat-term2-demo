@@ -247,7 +247,9 @@ button::after {
 .column-start {
   align-items: flex-start;
 }
-
+.a-i-c{
+  align-items:center;
+}
 .decimal-dot::before{
   content:'.'
 }
