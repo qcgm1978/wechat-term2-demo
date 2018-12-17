@@ -586,7 +586,7 @@ Page({
     if ((currentNum === 1) && isMinus) {
       return;
     }
-    const num = isMinus ? (currentNum - 1) : (currentNum + 1);
+    const num = e.detail.value ? e.detail.value:(isMinus ? (currentNum - 1) : (currentNum + 1));
 
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
@@ -607,8 +607,8 @@ Page({
     })
 
     let itemIndex = currentTrolley.items.findIndex(item => item.itemId === dataset.itemid)
-    // this.setMoneyData(this.selectedRadio);
-    this.updateTrolley(trolley, index, isMinus ? -1 : 1, itemIndex)
+    const skuQuantity = e.detail.value ? e.detail.value:(isMinus ? -1 : 1)
+    this.updateTrolley(trolley, index, skuQuantity, itemIndex)
       .then((para) => {
         return utils.addToTrolleyByGroup(para)
       })
@@ -904,9 +904,12 @@ Page({
     this.scrollViewY = event.detail.scrollTop
   },
   bindinput() {
-    debugger
+    // debugger
   },
   preventBubble() {
-    debugger
+    // debugger
+  },
+  bindblur(e){
+    this.plusMinus(e)
   }
 })

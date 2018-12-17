@@ -44,7 +44,7 @@
                   <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
                   <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
                     <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
-                    <input type="number" value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' style="font-size: 26rpx;" />
+                    <input type="number" value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'/>
                     <!-- <text class='plus-minus center-center btn-txt-1' style="font-size: 26rpx;">{{item.quantity}}</text> -->
                     <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
                   </view>
@@ -125,7 +125,7 @@
                   <!-- <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text> -->
                   <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
                     <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
-                    <input type="number" value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' style="font-size: 26rpx;" />
+                    <input type="number" value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'/>
                     <!-- <text class='plus-minus center-center btn-txt-1' style="font-size: 26rpx;">{{item.quantity}}</text> -->
                     <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
                   </view>
