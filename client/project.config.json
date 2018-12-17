@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 15,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -118,7 +118,7 @@
 					"id": 13,
 					"name": "promoteOptionsKind-multi",
 					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
-					"query": "promoteInfo={\"promotionId\":\"18958\",\"promotionName\":\"滑县单品类+单品类促销减test\",\"startTime\":\"Wed Sep 05 00:00:00 CST 2018\",\"endTime\":\"Fri Nov 30 00:00:00 CST 2018\",\"promotionDescription\":\"11 酒 : 1102 啤酒 : 1102004 中普满三件+ : 01 食品 : 0102 饮料 : 010203 功能性饮料满两件立减10.3元\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg\",\"itemName\":\"中普啤酒瓶超爽8度\",\"itemSpecification\":\"490ml*12\",\"price\":15,\"itemId\":\"4442\",\"categoryId\":\"1102004\",\"isKind\":true}&kind=2"
+					"query": "promoteInfo={\"promotionId\":\"19081\",\"promotionName\":\"单品类组合3A+4B赠A3\",\"startTime\":\"Tue Nov 20 00:00:00 CST 2018\",\"endTime\":\"Tue Dec 18 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"1\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3455.png\",\"itemName\":\"芬达橙汁拉罐\",\"itemSpecification\":\"330ml*12\",\"price\":22,\"itemId\":\"3455\",\"categoryId\":\"1201016\",\"isKind\":true}&kind=2"
 				},
 				{
 					"id": 14,
