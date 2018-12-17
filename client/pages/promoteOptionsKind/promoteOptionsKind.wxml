@@ -1,7 +1,7 @@
 <import src="../../template/freeze.wxml" />
-<freeze-time is-to-open='{{isToOpen}}' >
+<freeze-time is-to-open='{{isToOpen}}'>
 </freeze-time>
-<template is="freeze" data='{{isFreezing}}'/>
+<template is="freeze" data='{{isFreezing}}' />
 <import src="../../template/list.wxml" />
 <view class="promote-msg regular" id="promotion-msg-id" style='padding-left: 24rpx; background-color: #ffffff; color:#333333; font-size:26rpx;'>
   {{promoteMsg}}
@@ -17,13 +17,13 @@
 <!-- <view class='line' style='height:2rpx;'></view> -->
 <scroll-view scroll-y style='height:{{scrollHeight}}rpx;'>
   <view hidden='{{!tabs[0]}}'>
-    <view wx:for='{{items.itemList}}' wx:key='*this' >
+    <view wx:for='{{items.itemList}}' wx:key='index'>
       <template is="msgItem" data="{{item,index,enableChecked:enableChecked[0],isQuantity}}" />
 
     </view>
   </view>
   <view hidden='{{!tabs[1]}}'>
-    <view wx:for='{{composeProducts.itemList}}' wx:key='*this' >
+    <view wx:for='{{composeProducts.itemList}}' wx:key='index'>
       <template is="msgItem" data="{{item,index,enableChecked:enableChecked[1],isQuantity}}" />
 
     </view>
@@ -31,7 +31,7 @@
 </scroll-view>
 <view class='bgc center btns regular padding-vertical-10  mgt fixed-position' style='z-index:10;'>
   <view class='center-center' style='justify-content:left; margin-right: 20rpx;'>
-   <view class='center-center' style='flex-grow:1; margin-left:24rpx;' bindtap='gotoTrolley'>
+    <view class='center-center' style='flex-grow:1; margin-left:24rpx;' bindtap='gotoTrolley'>
       <image src='{{imgTrolly}}' style='width:54rpx;height:54rpx;'></image>
       <view class='medium cart-num center-center' style='color: #fff;' wx:if='{{badge}}'>
         {{badge}}
@@ -48,16 +48,21 @@
   </view>
   <button bindtap='addToTrolley' class="without-back-image" style='padding:0;opacity:{{enableVisible?1:0.5}}'>加入进货单</button>
 </view>
-<view class='promote-container'  wx:if="{{!showPromoteDetail}}">
+<view class='promote-container' wx:if="{{!showPromoteDetail}}">
   <view style='display: flex; overflow:hidden;max-width:90%;'>
     <view class='' style='display: flex; align-items: center;margin-left: 24rpx; font-size:24rpx; color:#333333;white-space:nowrap;'>搭配商品</view>
-    <view wx:for='{{selectedProductList}}' wx:key='index'>
-      <view style='position: relative;' wx:if='{{index<3}}'>
+    <view wx:for='{{selectedProductList}}' wx:key='unique'>
+      <view style='position: relative;' wx:if='{{index<3&&!item.isGift}}'>
         <image src='./images/donate.png' style='width:36rpx; height:36rpx;' wx:if="{{item.isGift}}"></image>
         <image class='thumbnail' mode='aspectFit' src='{{item.itemImageAddress1}}'></image>
-        <image mode='aspectFit' style='width: 32rpx; height: 32rpx; position: absolute; left:60rpx; top:20rpx;' src='../../images/zeng.png' wx:if="{{item.isGift}}"></image>
+        <image mode='aspectFit' style='width: 32rpx; height: 32rpx; position: absolute; right:17rpx; top:20rpx;' src='../../images/zeng.png' wx:if="{{item.isGift}}"></image>
       </view>
-      <view class='three-dots  thumbnail' wx:elif='{{index===3}}'>...</view>
+      <view class='three-dots  thumbnail' wx:elif='{{(!item.isGift&&index===3)}}'>...</view>
+      <view style='position: relative;' class='center a-i-c' wx:elif='{{item.isGift}}'>
+        <image src='../promoteOptions/images/donate.png' style='width:36rpx; height:36rpx;'></image>
+        <image class='thumbnail' mode='aspectFit' src='{{item.itemImageAddress1}}'></image>
+        <image mode='aspectFit' style='width: 32rpx; height: 32rpx; position: absolute; right:17rpx; top:20rpx;' src='../../images/zeng.png'></image>
+      </view>
     </view>
   </view>
   <image class='promote-arrow' src='../../images/up-arrow.png' bindtap='togglePromoteDetail'></image>
@@ -71,13 +76,17 @@
 
   <scroll-view class="scroll-view_H center" scroll-x style="width: 100%" style='white-space: nowrap;padding:0;box-sizing:border-box;'>
     <view style='display: flex; flex-direction: row;  '>
-      <view wx:for='{{selectedProductList}}' wx:key='*this' style='width: 150rpx; height:auto; padding:10rpx;border:1px solid rgb(236,236,236); margin: 10rpx;position: relative;'>
-        <image style='width: 32rpx; height: 32rpx; position: absolute; left:130rpx; top:10rpx;' src='../../images/zeng.png' wx:if="{{item.isGift}}"></image>
-        <image style='width: 120rpx; height: 120rpx;  margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
-        <view class='buys-price' >¥{{item.price}}</view>
-        <view style='display: flex; justify-content: space-between;'>
-          <view style='white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.itemName}}</view>
-          <view style='white-space:nowrap'>x{{item.quantity||1}}</view>
+      <view wx:for='{{selectedProductList}}' wx:key='index' class='center a-i-c'>
+        <image src='../promoteOptions/images/donate.png' style='width:36rpx; height:36rpx;' wx:if="{{item.isGift}}"></image>
+        <view style='width: 150rpx; height:auto; padding:10rpx;border:1px solid rgb(236,236,236); margin: 10rpx;position: relative;'>
+
+          <image style='width: 32rpx; height: 32rpx; position: absolute; right:17rpx; top:10rpx;' src='../../images/zeng.png' wx:if="{{item.isGift}}"></image>
+          <image style='width: 120rpx; height: 120rpx;  margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
+          <view class='buys-price'>¥{{item.price}}</view>
+          <view style='display: flex; justify-content: space-between;'>
+            <view style='white-space: nowrap;overflow: hidden;text-overflow: ellipsis;'>{{item.itemName}}</view>
+            <view style='white-space:nowrap'>x{{item.quantity||1}}</view>
+          </view>
         </view>
       </view>
       <!-- </view> -->
