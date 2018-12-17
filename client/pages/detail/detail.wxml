@@ -15,7 +15,8 @@
     </swiper>
     <view>
       <view class='padding medium bgc'>
-        <view class='product-price'>￥{{product.price}}
+        <view class='product-price'>
+          <text style='text-decoration:{{promoteInfoList[0].promotionType=="2"?"line-through":"none"}};'>￥{{product.price}}</text>
           <text class='saleUnit regular unit-color'>/{{product.saleUnit}}</text>
         </view>
         <view class='product-name'>{{product.itemName}}</view>
@@ -29,7 +30,7 @@
           </view>
           <view class='line' style='margin:0 24rpx; width:92%;'></view>
         </view>
-        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='*this' >
+        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='index' >
           <view class='center promotion-container padding-prom regular bgc ' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <!-- <text class='promotion'></text> -->
             <image style='width:64rpx; height:32rpx; margin-right:16rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
@@ -110,7 +111,9 @@
         <image src='{{product.itemImageAddress1?product.itemImageAddress1:defImg}}' class='goods-pic' mode='aspectFit'></image>
         <view>
           <view class='product-name' style="width: 444rpx;">{{product.item_brand}}</view>
-          <text class='dollar product-price'>{{product.price}}<text class='popup-unit unit-color'>/{{product.saleUnit}}</text>
+          <text class=' product-price'>
+          <text style='text-decoration:{{promoteInfoList[0].promotionType=="2"?"line-through":"none"}};'>￥{{product.price}}</text>
+          <text class='popup-unit unit-color'>/{{product.saleUnit}}</text>
           </text>
           
         </view>
