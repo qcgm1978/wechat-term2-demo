@@ -71,14 +71,9 @@ Page({
     if ((currentNum === 1) && isMinus) {
       return;
     }
-    const num = isMinus ? (currentNum - 1) : (currentNum + 1);
-
-    // this.callPromotionCacl([this.data.product], 0, num)
-    //   .then((data)=>{ 
+    const num = e.detail.value ? e.detail.value : (isMinus ? (currentNum - 1) : (currentNum + 1))
+    // const skuQuantity = e.detail.value ? e.detail.value : (isMinus ? -1 : 1)
     let discountAmount = 0
-    // if (data.cartCombinationPromotions && data.cartCombinationPromotions.length > 0 && data.cartCombinationPromotions[0].discountAmount){
-    //   discountAmount = utils.getFixedNum(data.cartCombinationPromotions[0].discountAmount)
-    // }
     let totalMoney = num * this.data.product.price
     let currentMoney = totalMoney - discountAmount
     let remaining = this.data.minAmount - currentMoney;
@@ -520,4 +515,7 @@ Page({
   },
 
   emptyFunc: function () { },
+  bindinput(e){
+    this.plusMinus(e)  
+  }
 })

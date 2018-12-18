@@ -234,8 +234,3 @@ page {
   letter-spacing: 0;
   line-height: 44rpx;
 }
-.num-input{
-  min-height:auto;
-text-align:center;
-
-}

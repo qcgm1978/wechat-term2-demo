@@ -1,12 +1,12 @@
 <import src="../../template/freeze.wxml" />
-<freeze-time is-to-open='{{isToOpen}}' >
+<freeze-time is-to-open='{{isToOpen}}'>
 </freeze-time>
-<template is="freeze" data='{{isFreezing}}'/>
+<template is="freeze" data='{{isFreezing}}' />
 <view style='display: flex;flex-direction: column;' class='{{isSelecting?"indexFixed":""}}'>
   <view class='product-card'>
     <view hidden='{{!isSelecting}}' class='mask' style='background-color: #000;opacity:.3; z-index:10;'></view>
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
-    <image wx:if='{{promoteInfoList[0].promotionType=="1"}}' src='./img/gift.png' class='detail-gift'></image>
+      <image wx:if='{{promoteInfoList[0].promotionType=="1"}}' src='./img/gift.png' class='detail-gift'></image>
       <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
         <swiper-item class='center-center' style='height:100%;'>
           <image bind:tap='preview' data-src="{{item}}" src="{{item}}" class="slide-image" style="max-height:100%;" mode='aspectFit' />
@@ -30,7 +30,7 @@
           </view>
           <view class='line' style='margin:0 24rpx; width:92%;'></view>
         </view>
-        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='index' >
+        <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='index'>
           <view class='center promotion-container padding-prom regular bgc ' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <!-- <text class='promotion'></text> -->
             <image style='width:64rpx; height:32rpx; margin-right:16rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
@@ -52,7 +52,7 @@
       <view class='center promotion-container padding-big regular bgc' style='margin-top:15rpx;'>
         <text class='promotion' style="align-self: start;">类别 </text>
         <view class='promotion-list' style='margin-left:16rpx;'>
-          <view class='center' >
+          <view class='center'>
             <text class='ellipse' style='width:490rpx;'>{{product.itemCategoryName}}</text>
             <text class='promotion-type'></text>
           </view>
@@ -115,7 +115,7 @@
           <text style='text-decoration:{{promoteInfoList[0].promotionType=="2"?"line-through":"none"}};'>￥{{product.price}}</text>
           <text class='popup-unit unit-color'>/{{product.saleUnit}}</text>
           </text>
-          
+
         </view>
         <image src='../../images/close.png' class='close-popup' catch:tap='closePopup'></image>
       </view>
@@ -132,7 +132,9 @@
               <text>购买数量</text>
               <view class='center' style='align-items:center'>
                 <image src='./img/minus.png' class='plus-minus center-center' style='opacity:{{quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
-                <text class='plus-minus center-center btn-txt' style="font-size: 32rpx;">{{quantity}}</text>
+                <input type="number" value='{{quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
+                />
+                <!-- <text class='plus-minus center-center btn-txt' style="font-size: 32rpx;">{{quantity}}</text> -->
                 <image src='./img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
               </view>
             </view>
