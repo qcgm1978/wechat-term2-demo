@@ -71,7 +71,7 @@ Page({
     if ((currentNum === 1) && isMinus) {
       return;
     }
-    const num = e.detail.value ? e.detail.value : (isMinus ? (currentNum - 1) : (currentNum + 1))
+    const num = e.detail.value === undefined ? (isMinus ? (currentNum - 1) : (currentNum + 1)) : e.detail.value 
     // const skuQuantity = e.detail.value ? e.detail.value : (isMinus ? -1 : 1)
     let discountAmount = 0
     let totalMoney = num * this.data.product.price
@@ -516,6 +516,12 @@ Page({
 
   emptyFunc: function () { },
   bindinput(e){
+    this.plusMinus(e)  
+  },
+  bindblur(e) {
+    if (e.detail.value === '' || e.detail.value === '0'){
+      e.detail.value = 1
+    }
     this.plusMinus(e)  
   }
 })

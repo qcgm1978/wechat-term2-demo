@@ -326,7 +326,7 @@ Page({
       url: '/pages/trolley/trolley'
     })
   },
-  bindinput(e) {
+  bindblur(e) {
     this.plusMinus(e)
   }
 })

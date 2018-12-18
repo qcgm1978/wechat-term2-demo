@@ -586,8 +586,8 @@ Page({
     if ((currentNum === 1) && isMinus) {
       return;
     }
-    const num = e.detail.value ? e.detail.value:(isMinus ? (currentNum - 1) : (currentNum + 1));
-    let iniVal=0
+    const num = e.detail.value ? e.detail.value : (isMinus ? (currentNum - 1) : (currentNum + 1));
+    let iniVal = 0
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
         const currentSku = item.items.find(item => item.itemId === dataset.itemid)
@@ -597,7 +597,6 @@ Page({
       }
       return item;
     })
-
     if (trolley[index].checked) {} else {
       trolley[index].checked = true
       this.selectedRadio.push(trolley[index].groupId);
@@ -608,7 +607,7 @@ Page({
     })
 
     let itemIndex = currentTrolley.items.findIndex(item => item.itemId === dataset.itemid)
-    const skuQuantity = e.detail.value ? (e.detail.value-iniVal):(isMinus ? -1 : 1)
+    const skuQuantity = e.detail.value ? (e.detail.value - iniVal) : (isMinus ? -1 : 1)
     this.updateTrolley(trolley, index, skuQuantity, itemIndex)
       .then((para) => {
         return utils.addToTrolleyByGroup(para)
@@ -906,11 +905,14 @@ Page({
   },
   bindinput(e) {
     // debugger
-    this.plusMinus(e)
   },
   preventBubble() {
     // debugger
   },
-  bindblur(e){
+  bindblur(e) {
+    if (e.detail.value === '0') {
+      e.detail.value = 1
+    }
+    this.plusMinus(e) 
   }
 })

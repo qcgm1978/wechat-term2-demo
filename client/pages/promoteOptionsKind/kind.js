@@ -104,7 +104,7 @@ export default {
       if (!isMinus && !this.enablePlus()) {
         return
       }
-      const data = e.detail.value ? +e.detail.value : (isMinus ? (currentNum - 1) : (currentNum + 1))
+      const data = e.detail.value === undefined ? (isMinus ? (currentNum - 1) : (currentNum + 1)) : +e.detail.value
       this.setSelectedNum(!isMinus, data)
       if ((currentNum === 2 && isMinus) || (currentNum === 1)) {
         this.setComposeProducts({
