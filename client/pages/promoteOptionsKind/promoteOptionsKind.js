@@ -29,12 +29,12 @@ Page({
     showPromoteDetail: false
   },
 
-  setScrollHeight: function(){
+  setScrollHeight: function() {
 
     const query = wx.createSelectorQuery()
     query.select('#promotion-msg-id').boundingClientRect((res) => {
       this.setData({
-        scrollHeight: getApp().globalData.systemInfo.deviceWindowHeight - (res.height + 8 + 42 + 85 + 53 ) * 2
+        scrollHeight: getApp().globalData.systemInfo.deviceWindowHeight - (res.height + 8 + 42 + 85 + 53) * 2
       })
     })
     query.exec()
@@ -51,7 +51,7 @@ Page({
     promoteInfo = JSON.parse(options.promoteInfo)
     this.promoteInfo = promoteInfo;
     this.product = product
-    const offset=4
+    const offset = 4
 
     setTimeout(this.setScrollHeight, 1000);
 
@@ -144,40 +144,40 @@ Page({
       [`${kind}.itemList[${itemIndex}].active`]: false,
       [`${kind}.itemList[${itemIndex}].addUnactive`]: false,
     })
-      for (let i = 0; i < composeProducts.length; i++) {
-        if (itemId == composeProducts[i].itemId) {
-          if (composeProducts[i].checked) {
-            if (!this.data.isKind) {
-              var item = `${kind}.itemList[` + i + '].checked'
-              this.setData({
-                [item]: false
-              })
-            }
-          }
-          var item = `${kind}.itemList[` + i + '].checked'
-          this.setData({
-            [item]: !composeProducts[i].checked
-          })
-          this.setComposeProducts({
-            index: i,
-            prop: 'categoryCode',
-            data: this.data[kind].categoryCode
-          })
-          let selectedProductList = []
-          if (composeProducts[i].checked) {
-            selectedProductList = [...this.data.selectedProductList, composeProducts[i]]
-          } else {
-            selectedProductList = this.data.selectedProductList.filter(item => {
-              return (item.itemId !== composeProducts[i].itemId) && !item.isGift
+    for (let i = 0; i < composeProducts.length; i++) {
+      if (itemId == composeProducts[i].itemId) {
+        if (composeProducts[i].checked) {
+          if (!this.data.isKind) {
+            var item = `${kind}.itemList[` + i + '].checked'
+            this.setData({
+              [item]: false
             })
           }
-          this.setData({
-            selectedProductList,
-          })
-          this.calcPromote(composeProducts[i]);
-          break;
         }
+        var item = `${kind}.itemList[` + i + '].checked'
+        this.setData({
+          [item]: !composeProducts[i].checked
+        })
+        this.setComposeProducts({
+          index: i,
+          prop: 'categoryCode',
+          data: this.data[kind].categoryCode
+        })
+        let selectedProductList = []
+        if (composeProducts[i].checked) {
+          selectedProductList = [...this.data.selectedProductList, composeProducts[i]]
+        } else {
+          selectedProductList = this.data.selectedProductList.filter(item => {
+            return (item.itemId !== composeProducts[i].itemId) && !item.isGift
+          })
+        }
+        this.setData({
+          selectedProductList,
+        })
+        this.calcPromote(composeProducts[i]);
+        break;
       }
+    }
   },
   addToTrolley() {
     if (this.enableChecked()) {
@@ -199,7 +199,7 @@ Page({
       categoryCode: item.categoryCode
     }));
     let count = 1
-    if (arr.length == 1){
+    if (arr.length == 1) {
       count = arr[0].quantity
       arr[0].quantity = 1
     }
@@ -282,7 +282,7 @@ Page({
           this.setData({
             composeProducts,
             items,
-            isQuantity: data.result.promotionBase===1
+            isQuantity: data.result.promotionBase === 1
           })
           if (Object.keys(obj).length) {
             this.setComposeProducts({
@@ -312,7 +312,7 @@ Page({
             enableChecked
           })
           this.minNum = data.result.minNumber
-          if(!this.enableChecked()){
+          if (!this.enableChecked()) {
             const currentItem = this.getCurrentData(obj.index)
             this.calcPromote(currentItem);
           }
@@ -326,4 +326,7 @@ Page({
       url: '/pages/trolley/trolley'
     })
   },
+  bindinput(e) {
+    this.plusMinus(e)
+  }
 })

@@ -20,7 +20,7 @@ export default {
       const selectedNum = this.data.selectedNum.map((item, index) => {
         const kindIndex = this.getCurrentTabsIndex()
         if (index === kindIndex) {
-          item = isPlus ? (item + quantity) : (item - quantity)
+          item = quantity>1?quantity:(isPlus ? (item + quantity) : (item - quantity))
         }
         return item;
       })
@@ -87,6 +87,13 @@ export default {
       const type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
       if (!currentTrolley.checked) {
+        if (e.detail.value){
+          this.setComposeProducts({
+            index,
+            prop: 'quantity',
+            data: this.getCurrentData(index).quantity||1
+          })
+        }
         return
       }
       const currentNum = currentTrolley.quantity || 1;
@@ -97,7 +104,8 @@ export default {
       if (!isMinus && !this.enablePlus()) {
         return
       }
-      this.setSelectedNum(!isMinus)
+      const data = e.detail.value ? +e.detail.value : (isMinus ? (currentNum - 1) : (currentNum + 1))
+      this.setSelectedNum(!isMinus, data)
       if ((currentNum === 2 && isMinus) || (currentNum === 1)) {
         this.setComposeProducts({
           index,
@@ -105,13 +113,7 @@ export default {
           data: !isMinus
         })
       }
-      const data = isMinus ? (currentNum - 1) : (currentNum + 1);
       const enableChecked = this.enableChecked()
-      // this.setComposeProducts({
-      //   index,
-      //   prop: 'addUnactive',
-      //   data: !enableChecked
-      // })
       this.setData({
         enableChecked: this.data.enableChecked.map((item, index) => {
           const kindIndex = this.getCurrentTabsIndex();

@@ -14,7 +14,6 @@
   <view class='{{tabs[1]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{1}}'>{{composeProducts.categoryName}}
   </view>
 </view>
-<!-- <view class='line' style='height:2rpx;'></view> -->
 <scroll-view scroll-y style='height:{{scrollHeight}}rpx;'>
   <view hidden='{{!tabs[0]}}'>
     <view wx:for='{{items.itemList}}' wx:key='index'>
