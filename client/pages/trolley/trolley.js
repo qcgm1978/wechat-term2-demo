@@ -587,11 +587,12 @@ Page({
       return;
     }
     const num = e.detail.value ? e.detail.value:(isMinus ? (currentNum - 1) : (currentNum + 1));
-
+    let iniVal=0
     const trolley = this.data.trolley.map((item, ind) => {
       if (ind === index) {
-        //item.count = num;
-        item.items.find(item => item.itemId === dataset.itemid).quantity = num
+        const currentSku = item.items.find(item => item.itemId === dataset.itemid)
+        iniVal = currentSku.quantity
+        currentSku.quantity = num
         item.suitePrice = this.getSuitePrice(item);
       }
       return item;
@@ -607,7 +608,7 @@ Page({
     })
 
     let itemIndex = currentTrolley.items.findIndex(item => item.itemId === dataset.itemid)
-    const skuQuantity = e.detail.value ? e.detail.value:(isMinus ? -1 : 1)
+    const skuQuantity = e.detail.value ? (e.detail.value-iniVal):(isMinus ? -1 : 1)
     this.updateTrolley(trolley, index, skuQuantity, itemIndex)
       .then((para) => {
         return utils.addToTrolleyByGroup(para)
@@ -903,13 +904,13 @@ Page({
   scroll(event) {
     this.scrollViewY = event.detail.scrollTop
   },
-  bindinput() {
+  bindinput(e) {
     // debugger
+    this.plusMinus(e)
   },
   preventBubble() {
     // debugger
   },
   bindblur(e){
-    this.plusMinus(e)
   }
 })

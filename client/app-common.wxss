@@ -282,10 +282,11 @@ width:100%; */
   box-sizing:border-box;
 
 }
-.btn-txt-1{
+.plus-minus.btn-txt-1{
   border-top: 2rpx solid #D1D1D2;
   border-bottom: 2rpx solid #D1D1D2;
   box-sizing:border-box;
+  width:80rpx;
 }
 .num-input{
   min-height:auto;
