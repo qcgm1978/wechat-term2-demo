@@ -35,6 +35,7 @@
             <!-- <text class='promotion'></text> -->
             <image style='width:64rpx; height:32rpx; margin-right:16rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
+            <text class='still-promote light ellipse'>{{promoteInfo.promotionDescription}}</text>
             <view class='promotion-list'>
               <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
                 <text class='promotion-type'>{{item.type}}</text>

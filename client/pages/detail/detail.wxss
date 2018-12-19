@@ -399,3 +399,8 @@ position:absolute;
 z-index:10;
 
 }
+.still-promote{
+  font-size: 24rpx;
+color: #F2741F;
+letter-spacing: 0;
+}
