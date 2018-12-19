@@ -387,14 +387,21 @@ Page({
       .then(data => {
         this.callPromotionCacl(data, 0, 10000 || this.data.quantity).then(data => {
           if (data.length) {
-            console.log(data[0].cartCombinationPromotions[0].giftItems[0])
-            this.setData({
-              giftItems: data[0].cartCombinationPromotions[0].giftItems.map((item,index)=>({
-                ...item,
-                itemName: item.giftItemName,
-                checked:!index
-              }))
-            })
+            const cartCombinationPromotions = data[0].cartCombinationPromotions[0]
+            try {
+              console.log(data[0])
+              this.setData({
+                giftItems: cartCombinationPromotions.giftItems.map((item, index) => ({
+                  ...item,
+                  itemName: item.giftItemName,
+                  checked: !index
+                }))
+              })
+            } catch (e) {
+              this.setData({
+                reduced: cartCombinationPromotions.discountAmount
+              })
+            }
           }
         })
       })
@@ -537,17 +544,17 @@ Page({
     }
     this.plusMinus(e)
   },
-  radioChange(e){
+  radioChange(e) {
     this.setData({
-      giftItems: this.data.giftItems.map((item,index)=>{
+      giftItems: this.data.giftItems.map((item, index) => {
         item.checked = index === +e.detail.value
         return item
       })
     })
   },
-  toggleGifts(){
+  toggleGifts() {
     this.setData({
-      isSelectingGift:!this.data.isSelectingGift
+      isSelectingGift: !this.data.isSelectingGift
     })
   }
 })

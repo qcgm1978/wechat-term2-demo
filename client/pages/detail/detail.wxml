@@ -146,7 +146,8 @@
       </view>
       <view class=' subtotal '>小计:{{quantity+product.saleUnit}} 金额：¥{{currentMoney}}
         <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view>
-        <text wx:if='{{giftItems.length}}' class='still-link' catch:tap='toggleGifts'>可省￥50；可送赠品 ></text>
+        <text wx:if='{{giftItems.length}}' class='still-link' catch:tap='toggleGifts'>可送赠品 ></text>
+        <text wx:if='{{reduced}}' class='still-link' >已省￥{{reduced}}</text>
       </view>
 
     </view>
