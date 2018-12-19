@@ -103,7 +103,7 @@ export const requestStatis = (postData = {}) => {
       }
     })
   }).catch(e => {
-    debugger
+    // debugger
     console.log(e.error)
   });
 }

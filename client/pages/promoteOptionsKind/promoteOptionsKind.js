@@ -124,6 +124,12 @@ Page({
     const toSelected = !composeProducts[itemIndex].checked
     const quantity = composeProducts[itemIndex].quantity
     if (!toSelected) {
+      console.log(false)
+      this.setData({
+        [`${kind}.itemList[${itemIndex}].quantity`]: 0,
+      })
+    }else{
+      console.log(true)
       this.setData({
         [`${kind}.itemList[${itemIndex}].quantity`]: 1,
       })

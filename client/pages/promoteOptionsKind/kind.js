@@ -180,6 +180,11 @@ export default {
       let group = {}
 
       let groupItems = []
+      if (this.data.selectedProductList.length>1){
+        group.promotions = [{
+          promotionId: this.promoteInfo.promotionId
+        }]
+      }
       for (let i = 0; i < this.data.selectedProductList.length; i++) {
         if (!this.data.selectedProductList[i].isGift){
           let item1 = {}
@@ -189,14 +194,21 @@ export default {
           item1.categoryCode = item.categoryCode
           item1.quantity = item.quantity || item.minQuantity
           item1.unitPrice = item.price
+          if(i==0){
+            item1.itemPromotions = [{
+              itemPromotionId: this.promoteInfo.promotionId
+            }]
+          }
           groupItems.push(item1)
         }
       }
       group.groupId = ""
       group.items = groupItems
-      group.promotions = [{
-        promotionId: this.promoteInfo.promotionId
-      }]
+      // if (groupItems.length>1){
+      //   group.promotions = [{
+      //     promotionId: this.promoteInfo.promotionId
+      //   }]
+      // }
       itemGroups.push(group)
       promoteUtil.calcPromote({
           itemGroups
