@@ -37,6 +37,51 @@ module.exports = {
     }
 
   },
+  calc: async ctx => {
+    const orderId = ctx.params.orderId;
+    const merchantId = ctx.params.merchantId;
+    if (!orderId || !merchantId) {
+      try {
+
+        ctx.state = Mock.mock({
+          'result|10': [{
+            "groupId": "",
+            "totalDiscountAmount": 0,
+            "promotionActives": [
+              {
+                "promotionId": "19103",
+                "itemId": "3467",
+                "discountAmount": null,
+                "discountPercentage": null,
+                "promotionType": 1,
+                "promotionName": "单品A满5件赠A1",
+                "promotionDescription": "",
+                "combinationFlag": "0",
+                "promotionKind": "1",
+                "giftItems|10": [
+                  {
+                    "giftItemId": "3496",
+                    "giftItemName": "七喜六联",
+                    "quantity": 1,
+                    "itemSpecification": "330ml*24",
+                    "price": "40",
+                    "itemUnit": "个",
+                    "lotNumber": "",
+                    "itemImageAddress1": "@image"
+                  }
+                ]
+              }
+            ]
+          }]
+        })
+      } catch (e) {
+        ctx.state.result = e.message;
+      } finally {
+
+      }
+    }
+
+  },
   kind: async ctx => {
     const orderId = ctx.params.orderId;
     const merchantId = ctx.params.merchantId;

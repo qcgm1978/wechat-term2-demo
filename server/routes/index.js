@@ -80,4 +80,5 @@ router.post('/v1/mall/order/onlinePayment', controllers.order.pay);
 router.post('/v1/mall/promotions/selectGoods', controllers.promotion.goods)
 router.post('/v1/mall/promotions/selectCombGoods', controllers.promotion.kind)
 router.post('/v1/mall/promotions/item', controllers.promotion.item)
+router.post('/v1/mall/promotions/calc', controllers.promotion.calc)
 module.exports = router

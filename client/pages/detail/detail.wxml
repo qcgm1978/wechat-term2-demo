@@ -176,11 +176,17 @@
     <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"buy-btn":"buy-selecting"}} {{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}} '>{{buyTxt}}</button>
   </view>
 </view>
-<view wx:for='{{giftItems}}' wx:key='index' class='gift-container'>
+<view class='gift-container'>
   <view class='center a-i-c'>
     <image src='../../images/right-arrow.png' class='left-arrow'></image>
     <view class='select-gift'>选择赠品</view>
   </view>
   <view class='line'></view>
-  <template is="msgItem" data="{{item,index,isDetail:true,enableChecked:enableChecked[0],isQuantity}}" />
+  <scroll-view scroll-y style='height:950rpx;'>
+    <radio-group class="radio-group" bindchange="radioChange">
+      <block wx:for='{{giftItems}}' wx:key='index'>
+        <template is="msgItem" data="{{item,index,isDetail:true,enableChecked:enableChecked[0],isQuantity}}" />
+      </block>
+    </radio-group>
+  </scroll-view>
 </view>

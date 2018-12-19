@@ -389,10 +389,10 @@ Page({
           if (data.length) {
             console.log(data[0].cartCombinationPromotions[0].giftItems[0])
             this.setData({
-              giftItems: data[0].cartCombinationPromotions[0].giftItems.map(item=>({
+              giftItems: data[0].cartCombinationPromotions[0].giftItems.map((item,index)=>({
                 ...item,
                 itemName: item.giftItemName,
-
+                checked:!index
               }))
             })
           }
@@ -536,5 +536,13 @@ Page({
       e.detail.value = 1
     }
     this.plusMinus(e)
+  },
+  radioChange(e){
+    this.setData({
+      giftItems: this.data.giftItems.map((item,index)=>{
+        item.checked = index === +e.detail.value
+        return item
+      })
+    })
   }
 })
