@@ -544,5 +544,10 @@ Page({
         return item
       })
     })
+  },
+  toggleGifts(){
+    this.setData({
+      isSelectingGift:!this.data.isSelectingGift
+    })
   }
 })

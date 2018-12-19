@@ -146,7 +146,7 @@
       </view>
       <view class=' subtotal '>小计:{{quantity+product.saleUnit}} 金额：¥{{currentMoney}}
         <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view>
-        <text class='still-link'>可省￥50；可送赠品 ></text>
+        <text wx:if='{{giftItems.length}}' class='still-link' catch:tap='toggleGifts'>可省￥50；可送赠品 ></text>
       </view>
 
     </view>
@@ -176,9 +176,9 @@
     <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"buy-btn":"buy-selecting"}} {{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}} '>{{buyTxt}}</button>
   </view>
 </view>
-<view class='gift-container'>
-  <view class='center a-i-c'>
-    <image src='../../images/right-arrow.png' class='left-arrow'></image>
+<view wx:if='{{isSelectingGift}}' class='gift-container'>
+  <view class='center a-i-c' style="padding: 12px 0;">
+    <image src='../../images/right-arrow.png' class='left-arrow' catch:tap='toggleGifts'></image>
     <view class='select-gift'>选择赠品</view>
   </view>
   <view class='line'></view>

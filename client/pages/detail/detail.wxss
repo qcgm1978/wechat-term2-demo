@@ -416,6 +416,8 @@ z-index:30;
 bottom:0;
 background: #FFFFFF;
 border-radius: 16rpx 16rpx 0px 0px;
+width:100%;
+
 }
 .gift-unit{
   font-size: 24rpx;
@@ -427,6 +429,7 @@ line-height: 40rpx;
   width: 64rpx;
   height: 64rpx;
   transform: rotate3d(0,1,0,180deg);
+  z-index: 10;
 }
 .select-gift{
   flex-grow:1;
