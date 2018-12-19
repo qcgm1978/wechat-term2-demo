@@ -36,12 +36,12 @@ Page({
       specification: '',
       num: 1
 
-    },],
+    }, ],
     icon: '../../images/trolley-full.png',
     imgManjian: "../../images/manjian.png",
     imgManzeng: "../../images/manzeng.png",
   },
-  relatedChange(e) { },
+  relatedChange(e) {},
   showPromotion(e) {
     const index = e.currentTarget.dataset.index
     const isKind = e.currentTarget.dataset.isKind
@@ -71,7 +71,7 @@ Page({
     if ((currentNum === 1) && isMinus) {
       return;
     }
-    const num = e.detail.value === undefined ? (isMinus ? (currentNum - 1) : (currentNum + 1)) : e.detail.value 
+    const num = e.detail.value === undefined ? (isMinus ? (currentNum - 1) : (currentNum + 1)) : e.detail.value
     // const skuQuantity = e.detail.value ? e.detail.value : (isMinus ? -1 : 1)
     let discountAmount = 0
     let totalMoney = num * this.data.product.price
@@ -88,9 +88,6 @@ Page({
       buyTxt: enableBuy ? '立即购买' : `还差￥${remaining}可购买`,
       enableBuy
     })
-    // })
-    // .catch((e) => { })
-
   },
 
   callPromotionCacl(trollyList, i, num) {
@@ -127,7 +124,7 @@ Page({
           } else {
             trollyList[i].cartCombinationPromotions = null
           }
-          resolve(trollyList[i])
+          resolve(trollyList)
         })
         .catch(() => {
           reject()
@@ -192,7 +189,7 @@ Page({
         const related = this.data.product
         utils.addcart({
           itemId: related.itemId,
-          itemPro: related.itemSpecification||'',
+          itemPro: related.itemSpecification || '',
           itemName: related.itemName,
           price: related.price
         })
@@ -224,7 +221,8 @@ Page({
         this.setData({
           product: result,
           currentMoney: result.price * this.data.quantity
-        });
+        })
+        return data.result
       } else {
         if (data instanceof Array) {
           this.setData({
@@ -327,7 +325,7 @@ Page({
         const product = this.data.product
         utils.buySku({
           itemId: product.itemId,
-          itemPro: product.promotionTypes||'',
+          itemPro: product.promotionTypes || '',
           itemName: product.itemName,
           price: product.unitPrice
         })
@@ -339,7 +337,7 @@ Page({
             arr.giftItems[0].itemId = arr.giftItems[0].giftItemId
             arr.giftItems[0].itemName = arr.giftItems[0].giftItemName
             arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity
-          }else{
+          } else {
             this.data.currentMoney = this.data.currentMoney - arr.discountAmount
           }
           itemGroups[0].cartCombinationPromotions = [arr]
@@ -352,7 +350,7 @@ Page({
           url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${arr && arr.discountAmount && arr.discountAmount != 0 ? arr.discountAmount : 0}`,
         });
       })
-      .catch(() => { })
+      .catch(() => {})
 
 
   },
@@ -369,10 +367,10 @@ Page({
       url: dataset.url,
     })
   },
-  preventTouchMove: function (e) {
+  preventTouchMove: function(e) {
     //debugger;
   },
-  onLoad: function (options) {
+  onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -384,7 +382,22 @@ Page({
           top: getApp().globalData.systemInfo.deviceWindowHeight - 750
         })
         this.getPromoteInfo(options)
-      });
+        return data
+      })
+      .then(data => {
+        this.callPromotionCacl(data, 0, 10000 || this.data.quantity).then(data => {
+          if (data.length) {
+            console.log(data[0].cartCombinationPromotions[0].giftItems[0])
+            this.setData({
+              giftItems: data[0].cartCombinationPromotions[0].giftItems.map(item=>({
+                ...item,
+                itemName: item.giftItemName,
+
+              }))
+            })
+          }
+        })
+      })
     this.getRelated(options);
     if (getApp().globalData.badge > 0) {
       this.setData({
@@ -397,14 +410,14 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
     utils.checkNetwork().then(utils.requestStatisLoad);
   },
   onHide() {
@@ -414,51 +427,51 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   },
-  gotoTrolley: function () {
+  gotoTrolley: function() {
     wx.switchTab({
       url: '/pages/trolley/trolley'
     })
   },
 
-  getPromoteInfo: function ({
+  getPromoteInfo: function({
     itemId,
     categoryId
   }) {
     utils.postRequest({
-      url: getPromoteInfo,
-      data: {
-        merchantId: getApp().getMerchantId(),
-        locationId: getApp().globalData.merchant.locationId,
-        items: [{
-          categoryCode: categoryId ? categoryId : "",
-          itemId: itemId
-        }],
-      }
-    })
+        url: getPromoteInfo,
+        data: {
+          merchantId: getApp().getMerchantId(),
+          locationId: getApp().globalData.merchant.locationId,
+          items: [{
+            categoryCode: categoryId ? categoryId : "",
+            itemId: itemId
+          }],
+        }
+      })
       .then((data) => {
 
         if (data.result[0].promotionItems.length > 0) {
@@ -502,9 +515,9 @@ Page({
       .catch(errorCode => {
         console.log(errorCode)
         utils.errorHander(errorCode, this.getPromoteInfo, this.emptyFunc, {
-          itemId,
-          categoryId
-        })
+            itemId,
+            categoryId
+          })
           .then(() => {
 
           })
@@ -514,14 +527,14 @@ Page({
       })
   },
 
-  emptyFunc: function () { },
-  bindinput(e){
-    this.plusMinus(e)  
+  emptyFunc: function() {},
+  bindinput(e) {
+    this.plusMinus(e)
   },
   bindblur(e) {
-    if (e.detail.value === '' || e.detail.value === '0'){
+    if (e.detail.value === '' || e.detail.value === '0') {
       e.detail.value = 1
     }
-    this.plusMinus(e)  
+    this.plusMinus(e)
   }
 })

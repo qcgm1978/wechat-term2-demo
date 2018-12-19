@@ -3,7 +3,7 @@
   <view class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
     <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
-    <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
+    <image src='{{item.itemImageAddress1 }}' mode='aspectFit' class='list-img'></image>
     <view class='column regular list-container'>
       <text class='list-name'>{{item.itemName}}</text>
       <view class='list-spec' style='width: 100%; display:flex; flex-direction:row; justify-content: space-between;'>
@@ -11,8 +11,9 @@
         <view wx:if='{{isKind}}' style='display:flex;'> x{{item.minQuantity}}/套</view>
       </view>
       <view class='center trolley-bottom'>
-        <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /></text>
-        <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}">
+        <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /><text class='gift-unit' wx:if='{{isDetail}}'>/{{item.itemUnit}}</text></text>
+        
+        <view wx:if='{{!isDetail&&!item.isfree}}' class='center' style='align-items:center; ' >
           <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
           <input disabled='{{!item.checked}}' type="number" maxlength='5' value='{{item.quantity||1}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{index}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
           />

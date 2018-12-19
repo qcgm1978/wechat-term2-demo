@@ -1,3 +1,4 @@
+@import '../../template/list.wxss';
 .promotion-tab {
   font-size: 32rpx;
   color: #707070;
@@ -18,9 +19,4 @@
   /* border: 1px solid rgb(236, 236, 236); */
   /* display: inline-block; *//* font-size: 26rpx; */
   color: #666;
-}
-.trolley-bottom {
-  /* margin-top: 46rpx; */
-  justify-content: space-between;
-  width: 100%;
 }

@@ -1,31 +1,7 @@
 @import './kind.wxss';
 
-image {
-  width: 180rpx;
-  height: 180rpx;
-}
 
-.list-container {
-  margin-left: 30rpx;
-  justify-content: space-between;
-  align-items: flex-start;
-}
 
-.list-name {
-  font-size: 28rpx;
-  color: #333;
-  width: 470rpx;
-}
-
-.list-spec {
-  font-size: 24rpx;
-  color: #949494;
-}
-
-.list-price {
-  font-size: 32rpx;
-  color: #ee711f;
-}
 
 .btn-container {
   width: 100%;

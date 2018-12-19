@@ -1,3 +1,4 @@
+<import src="../../template/list.wxml" />
 <import src="../../template/freeze.wxml" />
 <freeze-time is-to-open='{{isToOpen}}'>
 </freeze-time>
@@ -133,7 +134,7 @@
               <text>购买数量</text>
               <view class='center' style='align-items:center'>
                 <image src='./img/minus.png' class='plus-minus center-center' style='opacity:{{quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
-                <input type="number" maxlength='5' value='{{quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
+                <input type="number" maxlength='5' value='{{quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx; width:124rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
                 />
                 <!-- <text class='plus-minus center-center btn-txt' style="font-size: 32rpx;">{{quantity}}</text> -->
                 <image src='./img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
@@ -143,11 +144,9 @@
         </scroll-view>
 
       </view>
-      <view style='padding-top:0;'>
-        <view class='padding subtotal ' style='padding-top:0;'>小计:{{quantity+product.saleUnit}} 金额：¥{{currentMoney}}
-          <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view>
-        </view>
-
+      <view class=' subtotal '>小计:{{quantity+product.saleUnit}} 金额：¥{{currentMoney}}
+        <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view>
+        <text class='still-link'>可省￥50；可送赠品 ></text>
       </view>
 
     </view>
@@ -176,4 +175,12 @@
     <button id="btnAddToTrolley" bindtap='addToTrolley' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"with-back-image":"without-back-image"}} {{isSelecting?"selecting-btn":""}} '>加入进货单</button>
     <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"buy-btn":"buy-selecting"}} {{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}} '>{{buyTxt}}</button>
   </view>
+</view>
+<view wx:for='{{giftItems}}' wx:key='index' class='gift-container'>
+  <view class='center a-i-c'>
+    <image src='../../images/right-arrow.png' class='left-arrow'></image>
+    <view class='select-gift'>选择赠品</view>
+  </view>
+  <view class='line'></view>
+  <template is="msgItem" data="{{item,index,isDetail:true,enableChecked:enableChecked[0],isQuantity}}" />
 </view>
