@@ -390,20 +390,22 @@ Page({
             const cartCombinationPromotions = data[0].cartCombinationPromotions[0]
             if (cartCombinationPromotions.promotionType === 1) { //满赠
               console.log(data[0])
+              const giftItems = cartCombinationPromotions.giftItems.reduce((accumulator, item, index) => {
+                const checked = item.inventoryCount > 0 && !accumulator.hasElected
+                if (checked) {
+                  accumulator.hasElected = true
+                }
+                accumulator.push({
+                  ...item,
+                  itemName: item.giftItemName,
+                  checked,
+                  itemId: item.giftItemId
+                })
+                return accumulator
+              }, [])
               this.setData({
-                giftItems: cartCombinationPromotions.giftItems.reduce((accumulator, item, index) => {
-                  const checked = item.inventoryCount > 0 && !accumulator.notHasElected
-                  if(checked){
-                    accumulator.notHasElected=true
-                  }
-                  accumulator.push( {
-                    ...item,
-                    itemName: item.giftItemName,
-                    checked,
-                    itemId: item.giftItemId
-                  })
-                  return accumulator
-                }, [])
+                giftItems,
+                hasGift: giftItems.hasElected
               })
             } else if (cartCombinationPromotions.promotionType === 2) { //满减
               this.setData({

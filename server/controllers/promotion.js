@@ -69,6 +69,7 @@ module.exports = {
                     "lotNumber": "",
                     "itemImageAddress1": "@image",
                     inventoryCount: '@integer(0,1)',
+                    // inventoryCount: 0,
                   }
                 ]
               }
