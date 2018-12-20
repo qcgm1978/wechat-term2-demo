@@ -3,7 +3,23 @@ var Mock = require('mockjs');
 
 module.exports = {
   item: async ctx => {
-    ctx.state.result = [{ "itemId": "3473", "promotionItems": [{ "promotionId": "18947", "promotionName": "内黄单品促销满数量折test", "startTime": "Wed Sep 26 00:00:00 CST 2018", "endTime": "Thu Oct 31 00:00:00 CST 2019", "promotionDescription": "七喜 1L*12满3件打折98.365125%", "promotionType": "2", "combinationFlag": "0", promotionKind: 1 }] }]
+    ctx.state = Mock.mock({
+      'result': [{
+        "itemId": "3473",
+        "promotionItems|10": [
+          {
+            "promotionId": "18947" + '@increment()',
+            "promotionName": "内黄单品促销满数量折test",
+            "startTime": "Wed Sep 26 00:00:00 CST 2018",
+            "endTime": "Thu Oct 31 00:00:00 CST 2019",
+            "promotionDescription": "七喜 1L*12满3件打折98.365125%",
+            "promotionType": "2",
+            "combinationFlag": "0",
+            promotionKind: 1
+          }
+        ]
+      }]
+    })
   },
   goods: async ctx => {
     const orderId = ctx.params.orderId;
@@ -74,6 +90,29 @@ module.exports = {
                 ]
               }
             ]
+          }]
+        })
+      } catch (e) {
+        ctx.state.result = e.message;
+      } finally {
+
+      }
+    }
+
+  },
+  calcAmount: async ctx => {
+    const orderId = ctx.params.orderId;
+    const merchantId = ctx.params.merchantId;
+    if (!orderId || !merchantId) {
+      try {
+
+        ctx.state = Mock.mock({
+          'result|10': [{
+            promotionId: '18947' + '@increment(-1)',
+            limitMaxAmount: '@integer(500,1000)',
+            availableAmount: '@float(50,1000,0,2)',
+            limitMaxCount: '@integer(5,10)',
+            availableCount: '@integer(1,5)',
           }]
         })
       } catch (e) {

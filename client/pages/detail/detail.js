@@ -8,6 +8,7 @@ import {
 const getProductItem = Api.getProductItem,
   getRelated = Api.getRelated,
   calcPromote = Api.calcPromote,
+  calcAmount = Api.calcAmount,
   getPromoteInfo = Api.getPromoteInfo;
 
 Page({
@@ -381,7 +382,14 @@ Page({
         this.setData({
           top: getApp().globalData.systemInfo.deviceWindowHeight - 750
         })
+        return data
+      })
+      .then(data => {
         this.getPromoteInfo(options)
+        return data
+      })
+      .then(data => {
+        this.getPromoteAmount(data)
         return data
       })
       .then(data => {
@@ -423,7 +431,52 @@ Page({
       });
     }
   },
+  getPromoteAmount({
+    itemId,
+    categoryId
+  }) {
+    utils.postRequest({
+        url: calcAmount,
+        data: {
+          merchantId: getApp().getMerchantId(),
+          locationId: getApp().globalData.merchant.locationId,
+          items: [{
+            categoryCode: categoryId ? categoryId : "",
+            itemId: itemId
+          }],
+        }
+      })
+      .then((data) => {
+        if (data.result.length > 0) {
+          const promoteInfoList = this.data.promoteInfoList.map(item => {
+            const amount = data.result.find(it => it.promotionId === item.promotionId)
+            if (amount) {
+              item.availableAmount = amount.availableAmount
+              item.availableCount = amount.availableCount
 
+            }
+            return item
+          })
+          this.setData({
+            promoteInfoList
+          })
+        }
+      })
+      .catch(errorCode => {
+        console.log(errorCode)
+        utils.errorHander(errorCode, this.getPromoteInfo, this.emptyFunc, {
+            itemId,
+            categoryId
+          })
+          .then(() => {
+
+          })
+          .catch(() => {
+
+          })
+      })
+
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
