@@ -319,7 +319,7 @@ Page({
     para.locationId = getApp().globalData.merchant.locationId + ""
     para.merchantId = getApp().getMerchantId()
     para.itemGroups = itemGroups
-    // 获取促销信息
+    // 获取促销信息 todo what after selecting gift
     promoteUtil.calcPromote(para)
       .then(arr => {
         const product = this.data.product
@@ -386,18 +386,19 @@ Page({
       })
       .then(data => {
         this.callPromotionCacl(data, 0, 10000 || this.data.quantity).then(data => {
-          if (data.length) {
+          if (data[0].cartCombinationPromotions) {
             const cartCombinationPromotions = data[0].cartCombinationPromotions[0]
-            try {
+            if (cartCombinationPromotions.promotionType===1){//满赠
               console.log(data[0])
               this.setData({
                 giftItems: cartCombinationPromotions.giftItems.map((item, index) => ({
                   ...item,
                   itemName: item.giftItemName,
-                  checked: !index
+                  checked: !index,
+                  itemId:item.giftItemId
                 }))
               })
-            } catch (e) {
+            } else if (cartCombinationPromotions.promotionType === 2) {//满减
               this.setData({
                 reduced: cartCombinationPromotions.discountAmount
               })
