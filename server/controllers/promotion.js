@@ -67,7 +67,8 @@ module.exports = {
                     "price": "40",
                     "itemUnit": "个",
                     "lotNumber": "",
-                    "itemImageAddress1": "@image"
+                    "itemImageAddress1": "@image",
+                    inventoryCount: '@integer(0,1)',
                   }
                 ]
               }
