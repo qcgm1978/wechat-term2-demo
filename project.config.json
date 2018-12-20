@@ -4,14 +4,15 @@
 	"miniprogramRoot": "client/",
 	"qcloudRoot": "server/",
 	"setting": {
-		"urlCheck": true,
+		"urlCheck": false,
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"autoAudits": false
 	},
 	"appid": "wx44aeb10d0359834d",
-	"projectname": "jhd-o2o-mall",
+	"projectname": "stockout",
 	"condition": {
 		"search": {
 			"current": -1,
