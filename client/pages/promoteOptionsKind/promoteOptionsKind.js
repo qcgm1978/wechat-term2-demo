@@ -124,6 +124,12 @@ Page({
     const toSelected = !composeProducts[itemIndex].checked
     const quantity = composeProducts[itemIndex].quantity
     if (!toSelected) {
+      console.log(false)
+      this.setData({
+        [`${kind}.itemList[${itemIndex}].quantity`]: 0,
+      })
+    }else{
+      console.log(true)
       this.setData({
         [`${kind}.itemList[${itemIndex}].quantity`]: 1,
       })
@@ -289,6 +295,11 @@ Page({
               index: obj.index,
               prop: 'checked',
               data: true
+            });
+            this.setComposeProducts({
+              index: obj.index,
+              prop: 'quantity',
+              data: 1
             });
             this.setComposeProducts({
               index: obj.index,

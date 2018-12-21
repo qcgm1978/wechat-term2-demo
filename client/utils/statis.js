@@ -48,7 +48,7 @@ const getToken = () => new Promise((resolve, reject) => wx.request({
   header: {
     'Content-Type': 'application/json'
   },
-  success: function(result) {
+  success: function (result) {
     const token = result.data.jhd_token;
     if (token === undefined) {
       return reject(result)
@@ -95,16 +95,16 @@ export const requestStatis = (postData = {}) => {
       header: {
         'Content-Type': 'application/json'
       },
-      success: function(result) {
+      success: function (result) {
         if (result.statusCode === 401 && result.data.error === 'invalid_token') {
           getToken().then(() => requestStatis(data))
-        } else {}
+        } else { }
 
       }
     })
   }).catch(e => {
     // debugger
-    // console.log(e.error)
+    console.log(e.error)
   });
 }
 export const requestStatisEnter = (systemInfo) => {
@@ -151,15 +151,15 @@ export const requestStatisLoad = (postData) => {
 export const requestStatisUnload = ({
   nextUrl
 } = {
-  nextUrl: ''
-}) => requestStatis({
-  url: urlObj.unload,
-  pageUrl: getCurrentPages().slice(-1)[0].route,
-  event: 'evn_quit_page',
-  eventDetail: '',
-  time: new Date().getTime(),
-  nextUrl
-});
+    nextUrl: ''
+  }) => requestStatis({
+    url: urlObj.unload,
+    pageUrl: getCurrentPages().slice(-1)[0].route,
+    event: 'evn_quit_page',
+    eventDetail: '',
+    time: new Date().getTime(),
+    nextUrl
+  });
 export const requestStatisDispose = () => requestStatis({
   url: urlObj.dispose,
   event: 'evn_hide_app',

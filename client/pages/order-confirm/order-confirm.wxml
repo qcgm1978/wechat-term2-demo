@@ -1,7 +1,7 @@
 <import src="../../template/freeze.wxml" />
-<freeze-time is-to-open='{{isToOpen}}' >
+<freeze-time is-to-open='{{isToOpen}}'>
 </freeze-time>
-<template is="freeze" data='{{isFreezing}}'/>
+<template is="freeze" data='{{isFreezing}}' />
 <import src="../../template/price.wxml" />
 <scroll-view scroll-y style="height:{{height-53*2}}rpx; white-space:nowrap;">
   <view class='regular bgc ' style="padding: 32rpx;">
@@ -31,12 +31,12 @@
   </view>
   <view class='line'></view>
   <view class='padding bgc center order-item-container'>
-    <text class='regular  confirm-title'>在线支付<text class='confirm-comment'>在线支付成功的订单仅支持全部拒收</text></text>
+    <text class='regular  confirm-title'>在线支付</text>
     <radio catch:tap='radioClick' class="radio" data-index='{{0}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{checked[0]}}" color='{{checked[0]?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center; padding-right:12rpx;'>
     </radio>
   </view>
   <view class='bgc' style='padding:0 24rpx;'>
-  <view class='line'></view>
+    <view class='line'></view>
   </view>
   <view class='padding bgc center order-item-container'>
     <text class='regular confirm-title '>货到付款</text>
@@ -56,7 +56,9 @@
             <view style='display:flex; justify-content: space-between; background-color: white; margin-top: 0rpx; align-items:center;' wx:if="{{orderGroup.combinationFlag}}">
               <view style=''>
                 <view class='suite-1' style='height:34rpx;'>套装</view>
-                <view class='dollar suite-2' style='height:34rpx;'><template is="price" data="{{price:orderGroup.suitePrice}}" /></view>
+                <view class='dollar suite-2' style='height:34rpx;'>
+                  <template is="price" data="{{price:orderGroup.suitePrice}}" />
+                </view>
               </view>
               <view class='suite-3'>x{{orderGroup.count}}</view>
             </view>
@@ -95,13 +97,14 @@
 
                     <image src='{{gift.itemImageAddress1?gift.itemImageAddress1:defImg}}' style="width: 180rpx;height: 180rpx;border-radius: 8rpx;margin-right:14rpx;background:#fff;" mode='aspectFit'></image>
                     <view class='column' style="justify-content: space-between; align-items:left; width:100%;">
-                      <view class='column column-start'  style='width:100%;'>
+                      <view class='column column-start' style='width:100%;'>
                         <view class='darker-gray-chars item-name regular' style='width:auto; display: flex;'>
                           <view class='free-gift' style='font-size: 24rpx;'>赠品</view>{{gift.giftItemName}}</view>
                         <text class='regular item-standard' style='width:100%; margin-top:8rpx;'>规格：{{gift.itemSpecification}}</text>
                       </view>
                       <view class='darker-gray-chars center' style="justify-content:space-between; width:100%;">
-                        <text class='confirm-price'>￥<template is="price" data="{{price:'0'}}" /><text class='dollar medium' style='text-decoration:line-through; color:#999999;'>{{gift.price}}<text class='sales-unit'>/个</text></text> </text>
+                        <text class='confirm-price'>￥<template is="price" data="{{price:'0'}}" /><text class='dollar medium' style='text-decoration:line-through; color:#999999;'>{{gift.price}}<text class='sales-unit'>/个</text></text>
+                        </text>
                         <text>x{{gift.quantity}}</text>
                       </view>
                     </view>
@@ -185,8 +188,11 @@
 
   </view>
 </scroll-view>
-<view class='padding mgt bgc center order-item-container confirm-view' >
-  <text class='medium dollar' style='color:#EE711F;font-size: 44rpx;'><template is="price" data="{{price:actual,fontSize:32}}" /></text>
+<view class='padding mgt bgc center order-item-container confirm-view'>
+  <view class='column' style='align-items:flex-start;'>
+    <text class='medium dollar' style='color:#EE711F;font-size: 44rpx;'><template is="price" data="{{price:actual,fontSize:32}}" /></text>
+    <text class='confirm-comment'>在线支付成功的订单仅支持全部拒收</text>
+  </view>
   <button class='medium submit regular' style='opacity:{{enableCreateOrder?1:0.5}}' catch:tap='createOrder'>提交订单</button>
 </view>
 <block wx:if="{{isFailed}}">
