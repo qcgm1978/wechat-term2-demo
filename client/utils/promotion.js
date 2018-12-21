@@ -28,7 +28,8 @@ exports.calcPromote = calcPromoteFunc = function (postData) {
           } else {
             ret = calcPromoteInfo.promotionActives && calcPromoteInfo.promotionActives.length > 0 ? calcPromoteInfo.promotionActives[0] : null
           }
-          resolve(calcPromoteInfo.promotionActives ? ret : calcPromoteInfo.promotionActives[0])
+          resolve(ret)
+          // resolve(calcPromoteInfo.promotionActives ? ret : calcPromoteInfo.promotionActives[0])
         } else {
           reject()
         }

@@ -299,7 +299,10 @@ Page({
       return;
     }
     this.data.product.quantity = this.data.quantity
-    if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId) {
+    const selectedId = this.data.giftItems.find(item => item.checked).giftItemId
+    if (selectedId) {
+      this.data.product.itemPromotions[0].itemPromotionId = selectedId
+    } else if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId) {
       this.data.product.itemPromotions[0].itemPromotionId = this.data.product.itemPromotions[0].promotionId
     }
     let itemGroups = []
@@ -385,18 +388,19 @@ Page({
         return data
       })
       .then(data => {
-        this.getPromoteInfo(options)
-        return data
+        return this.getPromoteInfo(options)
+      })
+      .then(({promotionIds}) => {
+        return this.getPromoteAmount({ promotionIds }) //extend promoteInfoList. todo maybe del getPromoteInfo call
       })
       .then(data => {
-        this.getPromoteAmount(data)
-        return data
-      })
-      .then(data => {
+        this.setData({
+          promoteInfoList: data
+        })
         this.callPromotionCacl(data, 0, 10000 || this.data.quantity).then(data => {
           if (data[0].cartCombinationPromotions) {
             const cartCombinationPromotions = data[0].cartCombinationPromotions[0]
-            if (cartCombinationPromotions.promotionType === 1) { //满赠
+            if (cartCombinationPromotions.promotionType === '1') { //满赠
               console.log(data[0])
               const giftItems = cartCombinationPromotions.giftItems.reduce((accumulator, item, index) => {
                 const checked = item.inventoryCount > 0 && !accumulator.hasElected
@@ -415,7 +419,7 @@ Page({
                 giftItems,
                 hasGift: giftItems.hasElected
               })
-            } else if (cartCombinationPromotions.promotionType === 2) { //满减
+            } else if (cartCombinationPromotions.promotionType === '2') { //满减
               this.setData({
                 reduced: cartCombinationPromotions.discountAmount
               })
@@ -431,19 +435,14 @@ Page({
       });
     }
   },
-  getPromoteAmount({
-    itemId,
-    categoryId
-  }) {
-    utils.postRequest({
+  getPromoteAmount({ promotionIds }) {
+    return utils.postRequest({
         url: calcAmount,
         data: {
+          ...getApp().globalData.merchant,
+          promotionId: promotionIds.join(','),
           merchantId: getApp().getMerchantId(),
           locationId: getApp().globalData.merchant.locationId,
-          items: [{
-            categoryCode: categoryId ? categoryId : "",
-            itemId: itemId
-          }],
         }
       })
       .then((data) => {
@@ -457,14 +456,12 @@ Page({
             }
             return item
           })
-          this.setData({
-            promoteInfoList
-          })
+          return promoteInfoList
         }
       })
       .catch(errorCode => {
         console.log(errorCode)
-        utils.errorHander(errorCode, this.getPromoteInfo, this.emptyFunc, {
+        utils.errorHander(errorCode, this.getPromoteAmount, this.emptyFunc, {
             itemId,
             categoryId
           })
@@ -531,7 +528,7 @@ Page({
     itemId,
     categoryId
   }) {
-    utils.postRequest({
+    return utils.postRequest({
         url: getPromoteInfo,
         data: {
           merchantId: getApp().getMerchantId(),
@@ -543,7 +540,6 @@ Page({
         }
       })
       .then((data) => {
-
         if (data.result[0].promotionItems.length > 0) {
           this.setData({
             //promoteInfo: data.result[0].promotionItems[0],
@@ -553,8 +549,9 @@ Page({
           })
           const items = data.result[0].promotionItems
           const {
-            hasPromotion = false, skuKind = false, skuKindKindCategory = false
+            hasPromotion = false, skuKind = false, skuKindKindCategory = false, promotionIds = []
           } = items.reduce((accumulator, item) => {
+            accumulator.promotionIds.push(item.promotionId)
             if (item.combinationFlag === "0") {
               if (item.promotionKind === '1') {
                 accumulator.sku = true;
@@ -569,13 +566,17 @@ Page({
               }
             }
             return accumulator
-          }, {})
+          }, {
+            promotionIds: []
+          })
           this.setData({
             hasPromotion,
             skuKind,
             skuKindKindCategory
           })
-
+          return {
+            promotionIds
+          }
         } else {
           this.setData({
             hasPromotion: false
