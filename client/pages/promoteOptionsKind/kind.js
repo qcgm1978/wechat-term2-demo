@@ -181,34 +181,43 @@ export default {
 
       let groupItems = []
       if (this.data.selectedProductList.length>1){
+        for (let i = 0; i < this.data.selectedProductList.length; i++) {
+          if (!this.data.selectedProductList[i].isGift){
+            let item1 = {}
+            const item = this.data.selectedProductList[i];
+            item1.itemId = item.itemId
+            item1.brandId = ""
+            item1.categoryCode = item.categoryCode
+            item1.quantity = item.quantity || item.minQuantity
+            item1.unitPrice = item.price
+            groupItems.push(item1)
+          }
+        }
         group.promotions = [{
           promotionId: this.promoteInfo.promotionId
         }]
-      }
-      for (let i = 0; i < this.data.selectedProductList.length; i++) {
-        if (!this.data.selectedProductList[i].isGift){
-          let item1 = {}
-          const item = this.data.selectedProductList[i];
-          item1.itemId = item.itemId
-          item1.brandId = ""
-          item1.categoryCode = item.categoryCode
-          item1.quantity = item.quantity || item.minQuantity
-          item1.unitPrice = item.price
-          if(i==0){
+      }else{
+        for (let i = 0; i < this.data.selectedProductList.length; i++) {
+          if (!this.data.selectedProductList[i].isGift) {
+            let item1 = {}
+            const item = this.data.selectedProductList[i];
+            item1.itemId = item.itemId
+            item1.brandId = ""
+            item1.categoryCode = item.categoryCode
+            item1.quantity = item.quantity || item.minQuantity
+            item1.unitPrice = item.price
             item1.itemPromotions = [{
               itemPromotionId: this.promoteInfo.promotionId
             }]
+            groupItems.push(item1)
           }
-          groupItems.push(item1)
         }
       }
       group.groupId = ""
       group.items = groupItems
-      // if (groupItems.length>1){
-      //   group.promotions = [{
-      //     promotionId: this.promoteInfo.promotionId
-      //   }]
-      // }
+      // group.promotions = [{
+      //   promotionId: this.promoteInfo.promotionId
+      // }]
       itemGroups.push(group)
       promoteUtil.calcPromote({
           itemGroups
