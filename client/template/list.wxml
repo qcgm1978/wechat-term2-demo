@@ -1,7 +1,7 @@
 <import src="./price.wxml" />
 <template name="msgItem">
   <view class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
-    <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
+    <radio disabled='{{item.inventoryCount===0}}' catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
     <view style="position: relative;">
       <image src='{{item.itemImageAddress1 }}' mode='aspectFit' class='list-img'></image>

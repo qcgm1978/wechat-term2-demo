@@ -371,7 +371,7 @@
 }
 
 .promotion-2 {
-  width: 500rpx;
+  width: 420rpx;
 }
 
 .saleUnit {

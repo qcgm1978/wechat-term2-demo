@@ -27,7 +27,7 @@
       <view class='bgc' style="margin-top: 16rpx;">
         <view wx:if='{{promoteInfoList.length}}'>
           <view class='center promotion-container padding regular bgc '>
-            <text style='color:#333;'>促销 <text style='font-size:24rpx; color:#949494; margin-left:16rpx;'>在购物车可修改促销信息</text></text>
+            <text style='color:#333;'>促销 <text style='font-size:24rpx; color:#949494; margin-left:16rpx;'>我们将在进货单为您选择最优惠的促销</text></text>
           </view>
           <view class='line' style='margin:0 24rpx; width:92%;'></view>
         </view>

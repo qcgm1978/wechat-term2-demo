@@ -13,9 +13,9 @@ module.exports = {
             "startTime": "Wed Sep 26 00:00:00 CST 2018",
             "endTime": "Thu Oct 31 00:00:00 CST 2019",
             "promotionDescription": "七喜 1L*12满3件打折98.365125%",
-            "promotionType": "2",
-            "combinationFlag": "0",
-            promotionKind: 1
+            "promotionType": "@pick(['2','1'])",
+            "combinationFlag": "@pick(['0','1'])",
+            promotionKind: "@pick(['2','1'])"
           }
         ]
       }]
@@ -105,14 +105,14 @@ module.exports = {
     const merchantId = ctx.params.merchantId;
     if (!orderId || !merchantId) {
       try {
-
+        const bool = Mock.Random.boolean()
         ctx.state = Mock.mock({
           'result|10': [{
             promotionId: '18947' + '@increment(-1)',
             limitMaxAmount: '@integer(500,1000)',
-            availableAmount: '@float(50,1000,0,2)',
             limitMaxCount: '@integer(5,10)',
-            availableCount: '@integer(1,5)',
+            availableAmount: bool ? '@float(50,1000,0,2)' : '',
+            availableCount: bool ? '' : '@integer(1,5)',
           }]
         })
       } catch (e) {
