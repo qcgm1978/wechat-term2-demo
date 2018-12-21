@@ -299,9 +299,10 @@ Page({
       return;
     }
     this.data.product.quantity = this.data.quantity
-    const selectedItem = this.data.giftItems.find(item => item.checked)
+    const selectedItem = this.data.giftItems.find(item => item.checked)//todo how to judge giftItem
+    // this.data.product.itemPromotions[0].itemPromotionId = selectedItem.giftItemId
     if (selectedItem) {
-      this.data.product.itemPromotions[0].itemPromotionId = selectedItem.giftItemId
+      this.data.product.itemPromotions[0].itemPromotionId = this.data.promotionId
     } else if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId) {
       this.data.product.itemPromotions[0].itemPromotionId = this.data.product.itemPromotions[0].promotionId
     }
@@ -417,7 +418,8 @@ Page({
               }, [])
               this.setData({
                 giftItems,
-                hasGift: !!giftItems.hasElected
+                hasGift: !!giftItems.hasElected,
+                promotionId: cartCombinationPromotions.promotionId
               })
             } else if (cartCombinationPromotions.promotionType === '2') { //满减
               this.setData({
