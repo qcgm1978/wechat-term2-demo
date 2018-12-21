@@ -67,7 +67,7 @@ module.exports = {
               {
                 "promotionId": "19103",
                 "itemId": "3467",
-                "discountAmount": null,
+                "discountAmount": '@integer(10,100)',
                 "discountPercentage": null,
                 "promotionType": "@pick(['2','1'])",
                 "promotionName": "单品A满5件赠A1",

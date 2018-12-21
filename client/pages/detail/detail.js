@@ -299,9 +299,9 @@ Page({
       return;
     }
     this.data.product.quantity = this.data.quantity
-    const selectedId = this.data.giftItems.find(item => item.checked).giftItemId
-    if (selectedId) {
-      this.data.product.itemPromotions[0].itemPromotionId = selectedId
+    const selectedItem = this.data.giftItems.find(item => item.checked)
+    if (selectedItem) {
+      this.data.product.itemPromotions[0].itemPromotionId = selectedItem.giftItemId
     } else if (this.data.product.itemPromotions && this.data.product.itemPromotions[0] && this.data.product.itemPromotions[0].promotionId) {
       this.data.product.itemPromotions[0].itemPromotionId = this.data.product.itemPromotions[0].promotionId
     }
@@ -417,7 +417,7 @@ Page({
               }, [])
               this.setData({
                 giftItems,
-                hasGift: giftItems.hasElected
+                hasGift: !!giftItems.hasElected
               })
             } else if (cartCombinationPromotions.promotionType === '2') { //满减
               this.setData({
@@ -615,8 +615,6 @@ Page({
         return item
       })
     })
-    // todo how to get gift itemId
-    // this.data.giftItems.find(item => item.checked).giftItemId
   },
   toggleGifts() {
     this.setData({
