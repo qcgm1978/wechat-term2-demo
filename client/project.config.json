@@ -118,7 +118,7 @@
 					"id": 13,
 					"name": "promoteOptionsKind-multi",
 					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
-					"query": "promoteInfo={\"promotionId\":\"19081\",\"promotionName\":\"单品类组合3A+4B赠A3\",\"startTime\":\"Tue Nov 20 00:00:00 CST 2018\",\"endTime\":\"Tue Dec 18 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"1\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3455.png\",\"itemName\":\"芬达橙汁拉罐\",\"itemSpecification\":\"330ml*12\",\"price\":22,\"itemId\":\"3455\",\"categoryId\":\"1201016\",\"isKind\":true}&kind=2"
+					"query": "promoteInfo={\"promotionId\":\"19079\",\"promotionName\":\"单品类组合2A+4B减5元\",\"startTime\":\"Tue Nov 20 00:00:00 CST 2018\",\"endTime\":\"Mon Dec 31 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/6073.jpg\",\"itemName\":\"喜盈盈简装番茄味薯片\",\"itemSpecification\":\"95g*40\",\"price\":1.8,\"itemId\":\"6073\",\"categoryId\":\"1808006\",\"isKind\":true}&kind=2"
 				},
 				{
 					"id": 14,
