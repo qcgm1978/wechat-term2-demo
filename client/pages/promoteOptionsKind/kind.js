@@ -16,11 +16,11 @@ export default {
         tabs: this.data.tabs.map((item, index) => index === e.target.dataset.index)
       })
     },
-    setSelectedNum(isPlus = true, quantity = 1) {
+    setSelectedNum(changed) {
       const selectedNum = this.data.selectedNum.map((item, index) => {
         const kindIndex = this.getCurrentTabsIndex()
         if (index === kindIndex) {
-          item = quantity>1?quantity:(isPlus ? (item + quantity) : (item - quantity))
+          item += changed
         }
         return item;
       })
@@ -86,17 +86,17 @@ export default {
       const index = dataset.index
       const type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
+      const currentNum = currentTrolley.quantity || 1;
       if (!currentTrolley.checked) {
         if (e.detail.value){
           this.setComposeProducts({
             index,
             prop: 'quantity',
-            data: this.getCurrentData(index).quantity||1
+            data: currentNum
           })
         }
         return
       }
-      const currentNum = currentTrolley.quantity || 1;
       const isMinus = (type === 'minus');
       if ((currentNum === 1) && isMinus) {
         return;
@@ -104,8 +104,9 @@ export default {
       if (!isMinus && !this.enablePlus()) {
         return
       }
-      const data = e.detail.value === undefined ? (isMinus ? (currentNum - 1) : (currentNum + 1)) : +e.detail.value
-      this.setSelectedNum(!isMinus, data)
+      const isInputChange = e.detail.value !== undefined
+      const changed = isInputChange ? (+e.detail.value - currentNum) : (isMinus ?  - 1 :  1)
+      this.setSelectedNum(changed)
       if ((currentNum === 2 && isMinus) || (currentNum === 1)) {
         this.setComposeProducts({
           index,
@@ -120,7 +121,7 @@ export default {
           return kindIndex === index ? enableChecked : item
         })
       })
-      
+      const data=currentNum+changed
       this.setComposeProducts({
         index,
         prop: 'quantity',

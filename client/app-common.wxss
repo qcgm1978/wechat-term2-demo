@@ -287,6 +287,8 @@ width:100%; */
   border-bottom: 2rpx solid #D1D1D2;
   box-sizing:border-box;
   width:80rpx;
+  display:table-cell;
+
 }
 .num-input{
   min-height:auto;

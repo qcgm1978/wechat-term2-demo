@@ -3,7 +3,7 @@
 </freeze-time>
 <template is="freeze" data='{{isFreezing}}' />
 <import src="../../template/price.wxml" />
-<scroll-view scroll-y style="height:{{height-53*2}}rpx; white-space:nowrap;">
+<scroll-view scroll-y style="height:{{height-65*2}}rpx; white-space:nowrap;">
   <view class='regular bgc ' style="padding: 32rpx;">
     <view class='trans-shop' wx:if='{{isReturn}}'>
       <view class='trans-shop-lable regular'>{{salesReturn}}</view>
@@ -191,7 +191,7 @@
 <view class='padding mgt bgc center order-item-container confirm-view'>
   <view class='column' style='align-items:flex-start;'>
     <text class='medium dollar' style='color:#EE711F;font-size: 44rpx;'><template is="price" data="{{price:actual,fontSize:32}}" /></text>
-    <text class='confirm-comment'>在线支付成功的订单仅支持全部拒收</text>
+    <text class='confirm-comment'>交易成功后订单只支持全部拒收</text>
   </view>
   <button class='medium submit regular' style='opacity:{{enableCreateOrder?1:0.5}}' catch:tap='createOrder'>提交订单</button>
 </view>
