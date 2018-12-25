@@ -35,6 +35,15 @@ Page({
         "pageUrl": ""
       },
     ],
+    defImgUrls: [{
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home1.jpeg",
+      "pageUrl": ""
+    },
+    {
+      "imageUrl": "https://stg-statics.jihuiduo.cn/miniapp_banners/merchant_home2.jpeg",
+      "pageUrl": ""
+    },
+    ],
     defImg: getApp().globalData.defaultImg,
     imgManjian: "img/manjian.png",
     imgManzeng: "img/manzeng.png",
@@ -72,6 +81,11 @@ Page({
           productList: []
         })
         this.getProductList(locationId)
+        this.getBanners().catch(err=>{
+          this.setData({
+            imgUrls: this.data.defImgUrls
+          })
+        })
       })
       .then(updateTrolleyNum)
       .then(data => {
