@@ -910,7 +910,7 @@ Page({
     // debugger
   },
   bindblur(e) {
-    if (e.detail.value === '0') {
+    if (+e.detail.value === 0) {
       e.detail.value = 1
     }
     this.plusMinus(e) 
