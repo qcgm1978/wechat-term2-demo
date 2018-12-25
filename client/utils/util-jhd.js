@@ -109,9 +109,24 @@ var postRequest = function({
       }
     }
     showLoading()
+    const {
+      provinceId,
+      cityId,
+      countyId,
+      locationId,
+      channelId,
+    } = getApp().globalData.merchant
     wx.request({
       url: url,
-      data: postData || data,
+      data: {
+        provinceId,
+        cityId,
+        countyId,
+        locationId,
+        channelId,
+        merchantId:getApp().getMerchantId(),
+        ...(postData || data)
+      },
       method: METHOD,
       header: {
         'Authorization': 'Bearer ' + getApp().globalData.token.accessToken,
@@ -307,8 +322,8 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
   const merchantId = getApp().getMerchantId();
   const locationId = String(getApp().globalData.merchant.locationId);
   //废除count，用quantity
-  for (let i = 0; i < groupList.addGroupList.length; i++){
-    for (let j = 0; j < groupList.addGroupList[i].addItemList.length; j++){
+  for (let i = 0; i < groupList.addGroupList.length; i++) {
+    for (let j = 0; j < groupList.addGroupList[i].addItemList.length; j++) {
       groupList.addGroupList[i].addItemList[j].quantity = groupList.addGroupList[i].addItemList[j].quantity * groupList.addGroupList[i].count
     }
     //delete groupList.addGroupList[i]["count"]
@@ -344,7 +359,7 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
       .then(data => {
         hideLoading();
       })
-      
+
       .catch(errorCode => {
         reject(errorCode)
       });

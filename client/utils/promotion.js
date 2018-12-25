@@ -14,7 +14,7 @@ exports.calcPromote = calcPromoteFunc = function(postData) {
   }
   const items = postData.itemGroups.reduce((accumulator, item) => accumulator.concat(item.items), [])
   postData = {
-    ...getApp().globalData.merchant,
+    // ...getApp().globalData.merchant,
     items
   }
   return new Promise((resolve, reject) => {
@@ -26,7 +26,7 @@ exports.calcPromote = calcPromoteFunc = function(postData) {
       .then(data => {
         if (data.status === 200) {
           // console.log(JSON.stringify(data))
-          let calcPromoteInfo = data.result[0]
+          let calcPromoteInfo = data.result.promotionGroups[0]
           let ret = null
           if (items[0].promotions && items[0].promotions.length > 0 && items[0].promotions[0] && items[0].promotions[0].promotionId) {
             ret = calcPromoteInfo.promotionActives.find(item => item.promotionId === items[0].promotions[0].promotionId)

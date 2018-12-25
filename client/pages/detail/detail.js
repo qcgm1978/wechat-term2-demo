@@ -104,6 +104,12 @@ Page({
       item.categoryCode = trollyList[i].itemCategoryCode
       item.quantity = num
       item.unitPrice = trollyList[i].price
+      item = {
+        ...item,
+        seriesCode: '',
+        itemId: '',
+        unitPrice: '',
+      }
       groupItems.push(item)
 
       group.groupId = ""
@@ -544,7 +550,7 @@ Page({
     })
   },
 
-  getPromoteInfo: function({
+  getPromoteInfo({
     itemId,
     categoryId
   }) {
@@ -554,6 +560,8 @@ Page({
           merchantId: getApp().getMerchantId(),
           locationId: getApp().globalData.merchant.locationId,
           items: [{
+            // brandId,
+            seriesCode:'todo',//todo where it from
             categoryCode: categoryId ? categoryId : "",
             itemId: itemId
           }],
@@ -562,10 +570,10 @@ Page({
       .then((data) => {
         if (data.result[0].promotionItems.length > 0) {
           this.setData({
-            //promoteInfo: data.result[0].promotionItems[0],
             promoteInfoList: data.result[0].promotionItems,
             "product.itemPromotions": data.result[0].promotionItems,
-            hasConsumedGift: data.result[0].promotionItems.some(promoteInfo => promoteInfo.promotionType !== "2")
+            hasConsumedGift: data.result[0].promotionItems.some(promoteInfo => promoteInfo.promotionType !== "2"),
+            prototionId: itemId
           })
           const items = data.result[0].promotionItems
           const {

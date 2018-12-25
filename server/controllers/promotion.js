@@ -15,7 +15,9 @@ module.exports = {
             "promotionDescription": "七喜 1L*12满3件打折98.365125%",
             "promotionType": "@pick(['2','1'])",
             "combinationFlag": "@pick(['0','1'])",
-            promotionKind: "@pick(['2','1'])"
+            promotionKind: "@pick(['2','1'])",
+            limitMaxAmount: 'uesless',
+            limitMaxCount: 'uesless'
           }
         ]
       }]
@@ -59,39 +61,61 @@ module.exports = {
     if (!orderId || !merchantId) {
       try {
 
-        ctx.state = Mock.mock({
-          'result|10': [{
-            "groupId": "",
-            "totalDiscountAmount": 0,
-            "promotionActives": [
-              {
-                "promotionId": "19103",
-                "itemId": "3467",
-                "discountAmount": '@integer(10,100)',
-                "discountPercentage": null,
-                // "promotionType": "@pick(['2','1'])",
-                "promotionType": "1",
-                "promotionName": "单品A满5件赠A1",
-                "promotionDescription": "",
-                "combinationFlag": "0",
-                "promotionKind": "1",
-                "giftItems|10": [
-                  {
-                    "giftItemId": "3496",
-                    "giftItemName": "七喜六联",
-                    "quantity": 1,
-                    "itemSpecification": "330ml*24",
-                    "price": "40",
-                    "itemUnit": "个",
-                    "lotNumber": "",
-                    "itemImageAddress1": "@image",
-                    inventoryCount: '@integer(0,1)',
-                    // inventoryCount: 0,
-                  }
-                ]
-              }
-            ]
+        ctx.state.result = Mock.mock({
+          promotionGroups: [{
+            totalDiscountAmount: 0,
+            promotions: [{
+              promotionId: "19103",
+              itemId: "3467",
+              discountAmount: '@integer(10,100)',
+              discountPercentage: null,
+              // "promotionType": "@pick(['2','1'])",
+              //       "promotionType": "1",
+              promotionName: "单品A满5件赠A1",
+              combinationFlag: '0',
+              promotionDescription: '',
+              promotionKind: '1',
+              giftItems: [{
+                giftItemId: "3496",
+                giftItemName: "七喜六联",
+                quantity: 1,
+                itemUnit: "个",
+                lotNumber: ''
+              }]
+            }]
           }]
+          // 'result|10': [{
+          //   "groupId": "",
+          //   "totalDiscountAmount": 0,
+          //   "promotionActives": [
+          //     {
+          //       "promotionId": "19103",
+          //       "itemId": "3467",
+          //       "discountAmount": '@integer(10,100)',
+          //       "discountPercentage": null,
+          //       // "promotionType": "@pick(['2','1'])",
+          //       "promotionType": "1",
+          //       "promotionName": "单品A满5件赠A1",
+          //       "promotionDescription": "",
+          //       "combinationFlag": "0",
+          //       "promotionKind": "1",
+          //       "giftItems|10": [
+          //         {
+          //           "giftItemId": "3496",
+          //           "giftItemName": "七喜六联",
+          //           "quantity": 1,
+          //           "itemSpecification": "330ml*24",
+          //           "price": "40",
+          //           "itemUnit": "个",
+          //           "lotNumber": "",
+          //           "itemImageAddress1": "@image",
+          //           inventoryCount: '@integer(0,1)',
+          //           // inventoryCount: 0,
+          //         }
+          //       ]
+          //     }
+          //   ]
+          // }]
         })
       } catch (e) {
         ctx.state.result = e.message;
