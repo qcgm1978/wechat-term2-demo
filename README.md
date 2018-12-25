@@ -17,3 +17,22 @@ order item to product detai; orderList item to order page; order confirm disable
 min the len of order:1
 
 409 status code indicates price changed
+
+2018-12-25
+
+- requireFlag judge
+
+- "单品或单品类促销区分
+1, 单品促销   2:单品类促销 3:系列促销  4:品牌促销   
+    - 3,4: add field brandId/seriesCode
+    - 送光了，售罄：根据商品是否为赠品确定
+
+2, interface:
+    访销促销计算：返回促销列表，包括赠品列表
+    选取单品、单品类组合： 增加了按系列、品牌分类
+
+3，商品促销列表： 3:系列促销  4:品牌促销
+
+4，促销可用额次：
+
+5, 进货单：add, list, remove,

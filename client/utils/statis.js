@@ -104,7 +104,7 @@ export const requestStatis = (postData = {}) => {
     })
   }).catch(e => {
     // debugger
-    console.log(e.error)
+    // console.log(e.error)
   });
 }
 export const requestStatisEnter = (systemInfo) => {

@@ -298,8 +298,10 @@ Page({
       // todo cancel amount restriction to test payment
       return;
     }
+    this.toggleGifts()
+    return
     this.data.product.quantity = this.data.quantity
-    const selectedItem = this.data.giftItems.find(item => item.checked)//todo how to judge giftItem
+    const selectedItem = this.data.giftItems.find(item => item.checked) //todo how to judge giftItem
     // this.data.product.itemPromotions[0].itemPromotionId = selectedItem.giftItemId
     if (selectedItem) {
       this.data.product.itemPromotions[0].itemPromotionId = this.data.promotionId
@@ -391,43 +393,22 @@ Page({
       .then(data => {
         return this.getPromoteInfo(options)
       })
-      .then(({promotionIds}) => {
-        return this.getPromoteAmount({ promotionIds }) //extend promoteInfoList. todo maybe del getPromoteInfo call
+      .then(({
+        promotionIds
+      }) => {
+        return this.getPromoteAmount({
+          promotionIds
+        }) //extend promoteInfoList. todo maybe del getPromoteInfo call
       })
       .then(data => {
         this.setData({
           promoteInfoList: data
         })
-        this.callPromotionCacl(data, 0, 10000 || this.data.quantity).then(data => {
-          if (data[0].cartCombinationPromotions) {
-            const cartCombinationPromotions = data[0].cartCombinationPromotions[0]
-            if (cartCombinationPromotions.promotionType === '1') { //满赠
-              console.log(data[0])
-              const giftItems = cartCombinationPromotions.giftItems.reduce((accumulator, item, index) => {
-                const checked = item.inventoryCount > 0 && !accumulator.hasElected
-                if (checked) {
-                  accumulator.hasElected = true
-                }
-                accumulator.push({
-                  ...item,
-                  itemName: item.giftItemName,
-                  checked,
-                  itemId: item.giftItemId
-                })
-                return accumulator
-              }, [])
-              this.setData({
-                giftItems,
-                hasGift: !!giftItems.hasElected,
-                promotionId: cartCombinationPromotions.promotionId
-              })
-            } else if (cartCombinationPromotions.promotionType === '2') { //满减
-              this.setData({
-                reduced: cartCombinationPromotions.discountAmount
-              })
-            }
-          }
+        this.calc({
+          data,
+          quantity: 1
         })
+
       })
     this.getRelated(options);
     if (getApp().globalData.badge > 0) {
@@ -437,7 +418,44 @@ Page({
       });
     }
   },
-  getPromoteAmount({ promotionIds }) {
+  calc({
+    data,
+    quantity = this.data.quantity
+  }) {
+    this.callPromotionCacl(data, 0, quantity).then(data => {
+      if (data[0].cartCombinationPromotions) {
+        const cartCombinationPromotions = data[0].cartCombinationPromotions[0]
+        if (cartCombinationPromotions.promotionType === '1') { //满赠
+          console.log(data[0])
+          const giftItems = cartCombinationPromotions.giftItems.reduce((accumulator, item, index) => {
+            const checked = item.inventoryCount > 0 && !accumulator.hasElected
+            if (checked) {
+              accumulator.hasElected = true
+            }
+            accumulator.push({
+              ...item,
+              itemName: item.giftItemName,
+              checked,
+              itemId: item.giftItemId
+            })
+            return accumulator
+          }, [])
+          this.setData({
+            giftItems,
+            hasGift: !!giftItems.hasElected,
+            promotionId: cartCombinationPromotions.promotionId
+          })
+        } else if (cartCombinationPromotions.promotionType === '2') { //满减
+          this.setData({
+            reduced: cartCombinationPromotions.discountAmount
+          })
+        }
+      }
+    })
+  },
+  getPromoteAmount({
+    promotionIds
+  }) {
     return utils.postRequest({
         url: calcAmount,
         data: {
@@ -608,6 +626,10 @@ Page({
     if (e.detail.value === '' || e.detail.value === '0') {
       e.detail.value = 1
     }
+    this.calc({
+      data: this.data.promoteInfoList,
+      quantity: this.data.quantity
+    })
     this.plusMinus(e)
   },
   radioChange(e) {
