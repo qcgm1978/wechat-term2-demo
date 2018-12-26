@@ -434,7 +434,6 @@ Page({
           for (let i = 0; i < result.length; i++) {
             this.adjustCartCombinationPromotions1(result[i], i)
             result[i].putShelvesFlg = true
-            result[i].activeFlg = true
             result[i].items.map((item, index) => {
               if (!item.putShelvesFlg) {
                 result[i].putShelvesFlg = false;
