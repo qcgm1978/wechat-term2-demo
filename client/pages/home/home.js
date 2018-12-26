@@ -229,15 +229,16 @@ Page({
     wx.setNavigationBarTitle({
       title: navigationBarTitle
     });
-    this.getBanners()
-      .then(data => {})
-      .catch(err => {});
+    // this.getBanners()
+    //   .then(data => {})
+    //   .catch(err => {});
 
     const merchant = getApp().globalData.merchant;
     const hasLocationId = merchant ? Promise.resolve({
       result: merchant
     }) : getMerchant();
     hasLocationId
+      .then(this.getBanners)
       .then(data => {
         if (data.result) {
           const merchant = data.result;
@@ -360,8 +361,8 @@ Page({
       })
     }
   },
-  getBanners: function() {
-    return new Promise((resolve, reject) => {
+  getBanners(data) {
+    new Promise((resolve, reject) => {
       getRequest(getBanners, {
           category: "merchant_home",
         locationId: getApp().globalData.merchant.locationId
@@ -377,5 +378,6 @@ Page({
           reject()
         });
     })
+    return data
   },
 })
