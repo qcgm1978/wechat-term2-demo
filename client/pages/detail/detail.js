@@ -115,7 +115,7 @@ Page({
       group.groupId = ""
       group.items = groupItems
       if (trollyList[i].combinationFlag) {
-        group.promotions = trollyList[i].promotions
+        group.promotions = trollyList[i]
       } else {
         group.promotions = trollyList[i].cartCombinationPromotions
       }
@@ -301,11 +301,11 @@ Page({
       })
     }
     if (!this.data.enableBuy) {
-      // todo cancel amount restriction to test payment
       return;
     }
     this.toggleGifts()
-    return
+  },
+  navigateToConfirm(){
     this.data.product.quantity = this.data.quantity
     const selectedItem = this.data.giftItems.find(item => item.checked) //todo how to judge giftItem
     // this.data.product.itemPromotions[0].itemPromotionId = selectedItem.giftItemId
@@ -322,7 +322,7 @@ Page({
     group.checked = true
     group.cartCombinationPromotions = null
     group.items = [this.data.product]
-    group.promotions = null
+    group.promotions = { promotionId : this.data.promotionId}
     group.putShelvesFlg = this.data.product.putShelvesFlg
     group.suitePrice = this.data.product.price
 
@@ -346,7 +346,13 @@ Page({
       })
       .then(arr => {
         if (arr) {
-          if (arr.giftItems && arr.giftItems[0]) {
+          if (arr.giftItems && selectedItem) {
+            // todo how set to map line 281 in order-confirm.js
+            // arr.giftItems=arr.giftItems.map(item=>{
+            //   if (item.itemId === selectedItem.giftItemId){
+                
+            //   }
+            // })
             arr.giftItems[0].itemId = arr.giftItems[0].giftItemId
             arr.giftItems[0].itemName = arr.giftItems[0].giftItemName
             arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity
@@ -363,9 +369,7 @@ Page({
           url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${arr && arr.discountAmount && arr.discountAmount != 0 ? arr.discountAmount : 0}`,
         });
       })
-      .catch(() => {})
-
-
+      .catch(() => { })
   },
   navigateTo(evt) {
     const dataset = evt.currentTarget.dataset;
@@ -631,7 +635,7 @@ Page({
     this.plusMinus(e)
   },
   bindblur(e) {
-    if (e.detail.value === '' || e.detail.value === '0') {
+    if (e.detail.value === '' || +e.detail.value === 0) {
       e.detail.value = 1
     }
     this.calc({

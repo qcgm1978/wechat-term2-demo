@@ -181,6 +181,7 @@
   <view class='center a-i-c' style="padding: 12px 0;">
     <image src='../../images/right-arrow.png' class='left-arrow' catch:tap='toggleGifts'></image>
     <view class='select-gift'>选择赠品</view>
+    <text class='confirm' catch:tap='navigateToConfirm'>确认</text>
   </view>
   <view class='line'></view>
   <scroll-view scroll-y style='height:950rpx;'>

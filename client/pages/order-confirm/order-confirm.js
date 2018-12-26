@@ -278,6 +278,7 @@ Page({
             }
           }
           if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length > 0) {
+            // todo how judge which gift is selected?
             for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++) {
               orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
               // if (!orderItems[i].combinationFlag) {
@@ -325,7 +326,7 @@ Page({
         },
       }
 
-      console.log(JSON.stringify(tempdata))
+      // console.log(JSON.stringify(tempdata))
       const isWechat = this.data.checked[0]
       utils.submitOrder({
         eventDetail: {

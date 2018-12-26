@@ -60,25 +60,30 @@ module.exports = {
     const merchantId = ctx.params.merchantId;
     if (!orderId || !merchantId) {
       try {
-
+        const quantity = ctx.request.body.items[0].quantity
         ctx.state.result = Mock.mock({
           promotionGroups: [{
             totalDiscountAmount: 0,
             promotions: [{
-              promotionId: "19103",
+              promotionId: "189471",
               itemId: "3467",
               discountAmount: '@integer(10,100)',
               discountPercentage: null,
               // "promotionType": "@pick(['2','1'])",
-              //       "promotionType": "1",
+              "promotionType": "1",
               promotionName: "单品A满5件赠A1",
               combinationFlag: '0',
               promotionDescription: '',
               promotionKind: '1',
-              giftItems: [{
-                giftItemId: "3496",
+              [quantity > 1 ? `giftItems|${quantity}` : `giftItems`]: [{
+                giftItemId: "@range(3496,3506,1)" + '',
+                // giftItemId: "3490" + '@increment(1)',
                 giftItemName: "七喜六联",
                 quantity: 1,
+                inventoryCount: '@integer(0,1)',
+                "price": "40",
+                "itemSpecification": "330ml*24",
+                "itemImageAddress1": "@image",
                 itemUnit: "个",
                 lotNumber: ''
               }]
