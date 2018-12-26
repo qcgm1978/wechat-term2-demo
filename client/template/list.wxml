@@ -18,8 +18,8 @@
 
         <view wx:if='{{!isDetail&&!item.isfree}}' class='center' style='align-items:center; '>
           <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
-          <input disabled='{{!item.checked}}' type="number" maxlength='5' value='{{item.quantity||1}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{index}}' data-itemid='{{item.itemId}}'
-            data-enabled='{{trollyGroup.putShelvesFlg}}' />
+          <input disabled='{{!item.checked}}' type="number" maxlength='5' value='{{item.quantity||1}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur'  bindfocus='bindfocus' style="font-size: 26rpx;" data-index='{{index}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
+          />
           <!-- <text class='plus-minus center-center btn-txt-1' style="font-size: 26rpx;">{{item.quantity||1}}</text> -->
           <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
         </view>

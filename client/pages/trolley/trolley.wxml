@@ -14,7 +14,7 @@
           <view style='display: flex; flex-direction: column; '>
             <view class='center padding trolley-container regular bgc' style="padding-left: 0; ">
               <view class='column' style='margin-top:auto;position:relative;'>
-                <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && !item.isfree}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}'
+                <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg && !item.isfree}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}'
                   style='transform:scale(.8);'>
                 </radio>
                 <text wx:elif='{{trollyGroup.putShelvesFlg && item.isfree}}' class='radio trolley-invalid regular'></text>
@@ -42,10 +42,11 @@
 
                   <text wx:if='{{trollyGroup.putShelvesFlg}}' class='dollar medium trolley-price'><template is="price" data="{{price:item.price}}" /><text class='regular sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
                   <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
-                  <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
-                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
-                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'/>
-                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
+                  <view wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
+                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
+                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
+                    />
+                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>                  
                   </view>
                 </view>
               </view>
@@ -91,7 +92,7 @@
           <view class='promotion' style='margin-bottom: 0; display: flex; align-items:center; justify-content:space-between;'>
             <view>
               <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); margin:auto 8rpx 2rpx;'
-                wx:if='{{trollyGroup.putShelvesFlg}}'>
+                wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'>
               </radio>
               <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;margin:auto 8rpx 8rpx'>失效</text>
               <view class='promotion-1' style='height:34rpx;'>{{trollyGroup.suiteTitle}}</view>
@@ -122,10 +123,11 @@
                 <view class='center trolley-bottom'>
                   <text class='dollar medium trolley-price'>{{item.price}}<text class='sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
                   <!-- <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text> -->
-                  <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
-                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
-                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'/>
-                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
+                  <view wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
+                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
+                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
+                    />
+                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
                   </view>
                 </view>
               </view>
@@ -213,23 +215,24 @@
     <button catch:tap='gotoSort'>去商城逛逛</button>
   </view>
 </view>
-
-<view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0;'>
-  <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.3;' catch:tap='closePopup'></view>
-  <view class='select-goods bgc ' style='bottom:0rpx;z-index: 21;'>
-    <view class='center padding' style='justify-content:space-between;'>
-      <view style='font-size:32rpx; margin-left:0rpx;'>切换促销</view>
-      <image src='../../images/close.png' class='close-popup' style='margin-right:4rpx;' catch:tap='closePopup'></image>
-    </view>
-    <view class='line'></view>
-    <view class='padding' style='padding:18rpx 0rpx;'>
-      <scroll-view scroll-y style="height: 674rpx;">
-        <view wx:for='{{promotionOptions}}' wx:key='unique' style='padding:18rpx 18rpx; '>
-          <radio style='transform:scale(.8); margin-left: -80rpx;' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
-            <view style="width:800rpx;font-size: 36rpx; padding-left:10rpx;word-wrap:break-word;">{{item.promotionName}}</view>
-          </radio>
-        </view>
-      </scroll-view>
+<!-- <cover-view style='position:relative;z-index:10;'> -->
+  <view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0; z-index:10;'>
+    <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.3;' catch:tap='closePopup'></view>
+    <view class='select-goods bgc ' style='bottom:0rpx;z-index: 21;'>
+      <view class='center padding' style='justify-content:space-between;'>
+        <view style='font-size:32rpx; margin-left:0rpx;'>切换促销</view>
+        <image src='../../images/close.png' class='close-popup' style='margin-right:4rpx;' catch:tap='closePopup'></image>
+      </view>
+      <view class='line'></view>
+      <view class='padding' style='padding:18rpx 0rpx;'>
+        <scroll-view scroll-y style="height: 674rpx;">
+          <view wx:for='{{promotionOptions}}' wx:key='unique' style='padding:18rpx 18rpx; '>
+            <radio style='transform:scale(.8); margin-left: -80rpx;' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
+              <view style="width:800rpx;font-size: 36rpx; padding-left:10rpx;word-wrap:break-word;">{{item.promotionName}}</view>
+            </radio>
+          </view>
+        </scroll-view>
+      </view>
     </view>
   </view>
-</view>
+<!-- </cover-view> -->
