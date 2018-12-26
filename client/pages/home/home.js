@@ -81,11 +81,11 @@ Page({
           productList: []
         })
         this.getProductList(locationId)
-        this.getBanners().catch(err=>{
-          this.setData({
-            imgUrls: this.data.defImgUrls
-          })
-        })
+        return locationId
+      })
+      .then(locationId=>{
+        this.getBanners()
+        return locationId
       })
       .then(updateTrolleyNum)
       .then(data => {
@@ -229,9 +229,6 @@ Page({
     wx.setNavigationBarTitle({
       title: navigationBarTitle
     });
-    // this.getBanners()
-    //   .then(data => {})
-    //   .catch(err => {});
 
     const merchant = getApp().globalData.merchant;
     const hasLocationId = merchant ? Promise.resolve({
@@ -374,10 +371,12 @@ Page({
           }
           resolve()
         })
-        .catch(errorCode => {
-          reject()
-        });
+        .catch(err => {
+          this.setData({
+            imgUrls: this.data.defImgUrls
+          })
+        })
     })
-    return data
+    return Promise.resolve(data)
   },
 })
