@@ -42,11 +42,11 @@
 
                   <text wx:if='{{trollyGroup.putShelvesFlg}}' class='dollar medium trolley-price'><template is="price" data="{{price:item.price}}" /><text class='regular sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
                   <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
-                  <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
-                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
-                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
+                  <view wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
+                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
+                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
                     />
-                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
+                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>                  
                   </view>
                 </view>
               </view>
@@ -123,11 +123,11 @@
                 <view class='center trolley-bottom'>
                   <text class='dollar medium trolley-price'>{{item.price}}<text class='sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
                   <!-- <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text> -->
-                  <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
-                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
-                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
+                  <view wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
+                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
+                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
                     />
-                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>
+                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
                   </view>
                 </view>
               </view>
