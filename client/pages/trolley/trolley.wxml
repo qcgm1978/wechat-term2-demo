@@ -215,8 +215,8 @@
     <button catch:tap='gotoSort'>去商城逛逛</button>
   </view>
 </view>
-<cover-view style='position:relative;z-index:10;'>
-  <view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0;'>
+<!-- <cover-view style='position:relative;z-index:10;'> -->
+  <view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0; z-index:10;'>
     <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.3;' catch:tap='closePopup'></view>
     <view class='select-goods bgc ' style='bottom:0rpx;z-index: 21;'>
       <view class='center padding' style='justify-content:space-between;'>
@@ -235,4 +235,4 @@
       </view>
     </view>
   </view>
-</cover-view>
+<!-- </cover-view> -->
