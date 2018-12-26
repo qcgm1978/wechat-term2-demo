@@ -23,24 +23,24 @@
               <view style="position: relative;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
-                <view wx:if='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
+                <view wx:if='{{!trollyGroup.putShelvesFlg &&!trollyGroup.activeFlg}}' class='trolley-soldout regular center-center'>已下架</view>
               </view>
               <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <view style='display:flex;  width:100%;'>
                   <text class='promotion-1' style='display:inline-block; margin-left:0;' wx:if='{{item.isfree}}'>赠品</text>
-                  <text class='trolley-name {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
+                  <text class='trolley-name {{trollyGroup.activeFlg!=null && trollyGroup.activeFlg==false?"trolley-opacity":""}}'>{{item.itemName}}</text>
                   <text></text>
                 </view>
 
                 <view class='center trolley-middle'>
-                  <text class='trolley-spec {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
+                  <text class='trolley-spec {{trollyGroup.activeFlg!=null && trollyGroup.activeFlg==false?"trolley-opacity":""}}'>规格：{{item.itemSpecification}}</text>
                   <view catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' class='center-center' style="width: 80rpx;height: 80rpx;">
                     <image src='./img/del.png' class='del {{trollyGroup.putShelvesFlg?"":""}}' wx:if="{{!item.isfree}}"></image>
                   </view>
                 </view>
                 <view class='center trolley-bottom'>
 
-                  <text wx:if='{{trollyGroup.putShelvesFlg}}' class='dollar medium trolley-price'><template is="price" data="{{price:item.price}}" /><text class='regular sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
+                  <text wx:if='{{trollyGroup.putShelvesFlg &&trollyGroup.activeFlg}}}' class='dollar medium trolley-price'><template is="price" data="{{price:item.price}}" /><text class='regular sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
                   <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
                   <view wx:if='{{trollyGroup.putShelvesFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
                     <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg}}'></image>

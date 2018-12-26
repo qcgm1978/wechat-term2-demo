@@ -441,6 +441,11 @@ Page({
               item.price = utils.getFixedNum(item.price, 2)
             });
             if (result[i].cartCombinationPromotions && result[i].cartCombinationPromotions.length > 0 && result[i].cartCombinationPromotions[0] && result[i].cartCombinationPromotions[0].activeFlg == false) {
+              if (result[i].putShelvesFlg == false){
+                result[i].activeFlg = false
+              }else{
+                result[i].activeFlg = true
+              }
               result[i].putShelvesFlg = false
             }
             if (result[i].putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(result[i].groupId))) {
