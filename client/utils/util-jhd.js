@@ -439,5 +439,6 @@ module.exports = {
   getFixedNum,
   updateTrolleyNum,
   getMerchant,
+  getLoadingState: _ => isLoading,
   ...Freezing
 }
