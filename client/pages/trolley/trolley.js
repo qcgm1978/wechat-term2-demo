@@ -434,6 +434,7 @@ Page({
           for (let i = 0; i < result.length; i++) {
             this.adjustCartCombinationPromotions1(result[i], i)
             result[i].putShelvesFlg = true
+            result[i].activeFlg = true
             result[i].items.map((item, index) => {
               if (!item.putShelvesFlg) {
                 result[i].putShelvesFlg = false;
@@ -442,11 +443,6 @@ Page({
             });
             if (result[i].cartCombinationPromotions && result[i].cartCombinationPromotions.length > 0 && result[i].cartCombinationPromotions[0] && result[i].cartCombinationPromotions[0].activeFlg == false) {
               result[i].activeFlg = false
-              // if (result[i].putShelvesFlg == false){
-              //   result[i].activeFlg = false
-              // }else{
-              //   result[i].activeFlg = true
-              // }
               // result[i].putShelvesFlg = false
             }else{
               result[i].activeFlg = true
