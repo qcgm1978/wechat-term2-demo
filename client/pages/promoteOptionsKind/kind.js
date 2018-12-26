@@ -9,9 +9,13 @@ export default {
     selectedNum: [0, 0],
     enableChecked: [true, true],
     dataLoading : false,
+    isInputing: false
   },
   methods: {
     toggleKind(e) {
+      if (this.data.isInputing){
+        return
+      }
       this.setData({
         tabs: this.data.tabs.map((item, index) => index === e.target.dataset.index)
       })
@@ -95,13 +99,22 @@ export default {
             data: currentNum
           })
         }
+        this.setData({
+          isInputing: false
+        })
         return
       }
       const isMinus = (type === 'minus');
       if ((currentNum === 1) && isMinus) {
+        this.setData({
+          isInputing: false
+        })
         return;
       }
       if (!isMinus && !this.enablePlus()) {
+        this.setData({
+          isInputing: false
+        })
         return
       }
       const isInputChange = e.detail.value !== undefined
@@ -153,7 +166,12 @@ export default {
         })
     },
     calcPromote(currentTrolley) {
-      if (this.data.dataLoading) return
+      if (this.data.dataLoading) {
+        this.setData({
+          isInputing: false
+        })
+        return
+      }
       this.setData({
         dataLoading: true
       })
@@ -164,7 +182,8 @@ export default {
         const selectedProductList = this.data.selectedProductList.filter(item => {
           wx.hideLoading()
           this.setData({
-            dataLoading: false
+            dataLoading: false,
+            isInputing: false
           })
           return !item.isGift
         })
@@ -174,7 +193,8 @@ export default {
         })
         wx.hideLoading()
         this.setData({
-          dataLoading: false
+          dataLoading: false,
+          isInputing: false
         })
         return;
       }
@@ -249,12 +269,14 @@ export default {
           }
           wx.hideLoading()
           this.setData({
-            dataLoading: false
+            dataLoading: false,
+            isInputing:false
           })
         })
         .catch(() => {
           this.setData({
-            dataLoading: false
+            dataLoading: false,
+            isInputing: false
           })
           wx.hideLoading()
         })

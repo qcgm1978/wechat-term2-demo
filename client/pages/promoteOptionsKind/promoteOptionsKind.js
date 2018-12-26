@@ -128,7 +128,7 @@ Page({
       this.setData({
         [`${kind}.itemList[${itemIndex}].quantity`]: 0,
       })
-    }else{
+    } else {
       console.log(true)
       this.setData({
         [`${kind}.itemList[${itemIndex}].quantity`]: 1,
@@ -329,6 +329,11 @@ Page({
   gotoTrolley: function() {
     wx.switchTab({
       url: '/pages/trolley/trolley'
+    })
+  },
+  bindfocus() {
+    this.setData({
+      isInputing: true
     })
   },
   bindblur(e) {
