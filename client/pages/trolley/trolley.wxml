@@ -14,7 +14,7 @@
           <view style='display: flex; flex-direction: column; '>
             <view class='center padding trolley-container regular bgc' style="padding-left: 0; ">
               <view class='column' style='margin-top:auto;position:relative;'>
-                <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && !item.isfree}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}'
+                <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg && !item.isfree}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}'
                   style='transform:scale(.8);'>
                 </radio>
                 <text wx:elif='{{trollyGroup.putShelvesFlg && item.isfree}}' class='radio trolley-invalid regular'></text>
@@ -92,7 +92,7 @@
           <view class='promotion' style='margin-bottom: 0; display: flex; align-items:center; justify-content:space-between;'>
             <view>
               <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); margin:auto 8rpx 2rpx;'
-                wx:if='{{trollyGroup.putShelvesFlg}}'>
+                wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'>
               </radio>
               <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;margin:auto 8rpx 8rpx'>失效</text>
               <view class='promotion-1' style='height:34rpx;'>{{trollyGroup.suiteTitle}}</view>
