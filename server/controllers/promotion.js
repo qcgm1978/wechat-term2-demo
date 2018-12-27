@@ -168,6 +168,14 @@ module.exports = {
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
             categoryMinQuantity: '@natural(2,5)',
+            seriesCode: '@string()',
+            seriesName: '@cword(3,5)',
+            brandId: '@natural(3)',
+            brandName: '@cword(3,5)',
+            seriesMinAmount: '@float(0,500,0,2)',
+            seriesMinQuantity: '@natural(2,5)',
+            brandMinAmount: '@float(0,500,0,2)',
+            brandMinQuantity: '@natural(2,5)',
             'itemList|6-10': [
 
               {
@@ -189,6 +197,14 @@ module.exports = {
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
             categoryMinQuantity: '@natural(2,5)',
+            seriesCode: '@string()',
+            seriesName: '@cword(3,5)',
+            brandId: '@natural(3)',
+            brandName: '@cword(3,5)',
+            seriesMinAmount: '@float(0,500,0,2)',
+            seriesMinQuantity: '@natural(2,5)',
+            brandMinAmount: '@float(0,500,0,2)',
+            brandMinQuantity: '@natural(2,5)',
             'itemList|6-10': [
 
               {

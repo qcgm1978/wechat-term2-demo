@@ -357,4 +357,10 @@
 }
 
 .required-series {
+  padding: 16rpx 32rpx;
+  font-size: 24rpx;
+  color: #c28330;
+  letter-spacing: 0;
+  background: #fdb658;
+  border-radius: 4rpx;
 }

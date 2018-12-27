@@ -265,17 +265,22 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
+          const promotionBase = data.result.promotionBase
           const composeProducts = (data.result.combinationItems || []).map(item => ({
             ...item,
-            itemList:item.itemList.map(it=>({
+            required: item.requireFlag && (promotionBase === 1 ? (item.seriesMinQuantity || item.brandMinQuantity) : (item.seriesMinAmount || item.brandMinAmount)),
+            itemList: item.itemList.map(it => ({
               ...it,
               quantity: 1,
-              checked: it.requireFlag
+              checked: it.requireFlag,
             }))
           }))
-          const items = { 
-            ...(data.result.items || data.result.item),
-            itemList: (data.result.items || data.result.item).itemList.map(item => ({
+          const resultItems = data.result.items || data.result.item
+          // isBrand is global effective
+          const type = (!!resultItems.brandName) ? '品牌' : '系列'
+          const items = {
+            ...resultItems,
+            itemList: resultItems.itemList.map(item => ({
               ...item,
               quantity: 1,
               checked: item.requireFlag
@@ -294,6 +299,8 @@ Page({
             }, {});
           }
           this.setData({
+            type,
+            promotionBase,
             composeProducts,
             items,
             isQuantity: data.result.promotionBase === 1

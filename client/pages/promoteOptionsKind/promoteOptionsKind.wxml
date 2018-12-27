@@ -7,23 +7,32 @@
   {{promoteMsg}}
 </view>
 <view class='line'></view>
-<view class='required-series'>必选系列，该系列至少选择4款商品</view>
 <view wx:if='{{items.itemList.length&&composeProducts.length}}' class='center regular promotion-tab bgc' style='justify-content:space-around;'>
   <view class='{{tabs[0]?"selected":"unselected"}} center' catch:tap='toggleKind' data-index='{{0}}'>{{items.categoryName}}
-  <image wx:if='{{items.requireFlag}}' src='./images/required.png' class='required-tab'></image>
+    <image wx:if='{{items.requireFlag}}' src='./images/required.png' class='required-tab'></image>
   </view>
   <view wx:for='{{composeProducts}}' wx:key='index' class='{{tabs[index+1]?"selected":"unselected"}} center' catch:tap='toggleKind' data-index='{{index+1}}'>{{item.categoryName}}
-  <image wx:if='{{item.requireFlag}}' src='./images/required.png' class='required-tab'></image>
+    <image wx:if='{{item.requireFlag}}' src='./images/required.png' class='required-tab'></image>
   </view>
 </view>
 <scroll-view scroll-y style='height:{{scrollHeight}}rpx;'>
   <view hidden='{{!tabs[0]}}'>
+    <view wx:if='{{items.requireFlag}}' class='required-series'>
+      <block wx:if='{{promotionBase === 1}}'>必选{{type}}，该{{type}}至少选择{{items.seriesMinQuantity || items.brandMinQuantity}}款商品</block>
+      <block wx:elif='{{promotionBase === 2}}'>必选{{type}}，该{{type}}至少选择{{items.seriesMinAmount || items.brandMinAmount}}元</block>
+
+    </view>
     <view wx:for='{{items.itemList}}' wx:key='index'>
       <template is="msgItem" data="{{item,index,enableChecked:enableChecked[0],isQuantity}}" />
 
     </view>
   </view>
   <view wx:for='{{composeProducts}}' wx:key='index' hidden='{{!tabs[index+1]}}'>
+    <view wx:if='{{item.requireFlag}}' class='required-series'>
+      <block wx:if='{{promotionBase === 1}}'>必选{{type}}，该{{type}}至少选择{{item.seriesMinQuantity || item.brandMinQuantity}}款商品</block>
+      <block wx:elif='{{promotionBase === 2}}'>必选{{type}}，该{{type}}至少选择{{item.seriesMinAmount || item.brandMinAmount}}元</block>
+
+    </view>
     <view wx:for='{{item.itemList}}' wx:key='index'>
       <template is="msgItem" data="{{item,index,enableChecked:enableChecked[1],isQuantity}}" />
     </view>
