@@ -56,6 +56,7 @@ Page({
       tmpProduct.price = this.data.product.price
       tmpProduct.itemId = this.data.product.itemId
       tmpProduct.categoryId = this.data.product.itemCategoryCode
+      tmpProduct.seriesCode = this.data.product.seriesCode
       tmpProduct.isKind = isKind
       const kindStr = isKind ? 'Kind' : ''
       wx.navigateTo({
