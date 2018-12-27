@@ -193,7 +193,8 @@ export default {
       let group = {}
 
       let groupItems = []
-      if (this.data.selectedProductList.length>1){
+      // todo maybe only one condition is needed
+      if (true||this.data.selectedProductList.length>1){
         for (let i = 0; i < this.data.selectedProductList.length; i++) {
           if (!this.data.selectedProductList[i].isGift){
             let item1 = {}
@@ -206,9 +207,9 @@ export default {
             groupItems.push(item1)
           }
         }
-        group.promotions = [{
+        group.promotions = {
           promotionId: this.promoteInfo.promotionId
-        }]
+        }
       }else{
         for (let i = 0; i < this.data.selectedProductList.length; i++) {
           if (!this.data.selectedProductList[i].isGift) {

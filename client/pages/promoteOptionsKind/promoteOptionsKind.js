@@ -263,7 +263,7 @@ Page({
             required: item.requireFlag && (promotionBase === 1 ? (item.seriesMinQuantity || item.brandMinQuantity) : (item.seriesMinAmount || item.brandMinAmount)),
             itemList: item.itemList.map(it => ({
               ...it,
-              quantity: 1,
+              quantity: it.minQuantity||1,
               checked: it.requireFlag,
             }))
           }))
@@ -274,7 +274,7 @@ Page({
             ...resultItems,
             itemList: resultItems.itemList.map(item => ({
               ...item,
-              quantity: 1,
+              quantity: item.minQuantity||1,
               checked: item.requireFlag
             }))
           }

@@ -60,7 +60,7 @@ module.exports = {
     const merchantId = ctx.params.merchantId;
     if (!orderId || !merchantId) {
       try {
-        const quantity = ctx.request.body.items[0].quantity
+        const quantity = ctx.request.body.items instanceof Array ? ctx.request.body.items[0].quantity : 1
         ctx.state.result = Mock.mock({
           promotionGroups: [{
             totalDiscountAmount: 0,
@@ -89,38 +89,6 @@ module.exports = {
               }]
             }]
           }]
-          // 'result|10': [{
-          //   "groupId": "",
-          //   "totalDiscountAmount": 0,
-          //   "promotionActives": [
-          //     {
-          //       "promotionId": "19103",
-          //       "itemId": "3467",
-          //       "discountAmount": '@integer(10,100)',
-          //       "discountPercentage": null,
-          //       // "promotionType": "@pick(['2','1'])",
-          //       "promotionType": "1",
-          //       "promotionName": "单品A满5件赠A1",
-          //       "promotionDescription": "",
-          //       "combinationFlag": "0",
-          //       "promotionKind": "1",
-          //       "giftItems|10": [
-          //         {
-          //           "giftItemId": "3496",
-          //           "giftItemName": "七喜六联",
-          //           "quantity": 1,
-          //           "itemSpecification": "330ml*24",
-          //           "price": "40",
-          //           "itemUnit": "个",
-          //           "lotNumber": "",
-          //           "itemImageAddress1": "@image",
-          //           inventoryCount: '@integer(0,1)',
-          //           // inventoryCount: 0,
-          //         }
-          //       ]
-          //     }
-          //   ]
-          // }]
         })
       } catch (e) {
         ctx.state.result = e.message;
@@ -182,7 +150,7 @@ module.exports = {
               {
                 "itemId": '@natural(3)',
                 "itemName": "@cword(5,10)",
-                "minQuantity": "@integer(0,1)",
+                "minQuantity": "@integer(0,5)",
                 minAmount: '@float(0,500,0,2)',
                 "itemUnit": "@string('套盒',1)",
                 "price": '@float(0,500,0,2)',
@@ -219,6 +187,7 @@ module.exports = {
                 "itemImageAddress1": '@image',
                 requireFlag: '@boolean()',
                 inventoryCount: '@integer(0,1)',
+                "minQuantity": "@integer(0,5)",
               }
             ]
           }]
