@@ -8,10 +8,10 @@
 </view>
 <view class='line'></view>
 <view wx:if='{{items.itemList.length&&composeProducts.length}}' class='center regular promotion-tab bgc' style='justify-content:space-around;'>
-  <view class='{{tabs[0]?"selected":"unselected"}} center' catch:tap='toggleKind' data-index='{{0}}'>{{items.categoryName}}
+  <view class='{{tabs[0]?"selected":"unselected"}} center' catch:tap='toggleKind' data-index='{{0}}'>{{items.categoryName||items.brandName||items.seriesName}}
     <image wx:if='{{items.requireFlag}}' src='./images/required.png' class='required-tab'></image>
   </view>
-  <view wx:for='{{composeProducts}}' wx:key='index' class='{{tabs[index+1]?"selected":"unselected"}} center' catch:tap='toggleKind' data-index='{{index+1}}'>{{item.categoryName}}
+  <view wx:for='{{composeProducts}}' wx:key='index' class='{{tabs[index+1]?"selected":"unselected"}} center' catch:tap='toggleKind' data-index='{{index+1}}'>{{item.categoryName||item.brandName||item.seriesName}}
     <image wx:if='{{item.requireFlag}}' src='./images/required.png' class='required-tab'></image>
   </view>
 </view>

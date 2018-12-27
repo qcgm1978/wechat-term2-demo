@@ -166,7 +166,8 @@ module.exports = {
           "items": {
             requireFlag: '@boolean()',
             categoryCode: '@natural(10,20)',
-            categoryName: '@cword(3,5)',
+            // categoryName: '@cword(3,5)',
+            categoryName: '',
             categoryMinQuantity: '@natural(2,5)',
             seriesCode: '@string()',
             seriesName: '@cword(3,5)',
@@ -195,7 +196,8 @@ module.exports = {
           "combinationItems|2": [{
             requireFlag: '@boolean()',
             categoryCode: '@natural(10,20)',
-            categoryName: '@cword(3,5)',
+            // categoryName: '@cword(3,5)',
+            categoryName: '',
             categoryMinQuantity: '@natural(2,5)',
             seriesCode: '@string()',
             seriesName: '@cword(3,5)',
