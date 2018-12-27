@@ -99,16 +99,15 @@ Page({
       let groupItems = []
 
       let item = {}
-      item.itemId = trollyList[i].itemId
-      item.brandId = ""
+      item.itemId = this.data.product.itemId
+      item.brandId = this.data.product.itemBrandId
       item.categoryCode = trollyList[i].itemCategoryCode
       item.quantity = num
       item.unitPrice = trollyList[i].price
       item = {
         ...item,
-        seriesCode: '',
-        itemId: '',
-        unitPrice: '',
+        seriesCode: this.data.product.seriesCode,
+        unitPrice: this.data.product.price,
       }
       groupItems.push(item)
 
@@ -469,7 +468,7 @@ Page({
     return utils.postRequest({
         url: calcAmount,
         data: {
-          ...getApp().globalData.merchant,
+          // ...getApp().globalData.merchant,
           promotionId: promotionIds.join(','),
           merchantId: getApp().getMerchantId(),
           locationId: getApp().globalData.merchant.locationId,

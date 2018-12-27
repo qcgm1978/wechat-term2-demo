@@ -65,6 +65,7 @@ router.get('/v1/mall/category', controllers.product.category)
 router.get('/v1/mall/items/hot', controllers.product.list)
 // 获取商品详情
 router.get('/v1/mall/items', controllers.product.detail)
+router.get('/v1/mall/items/:itemId/related', controllers.product.related)
 router.get('/v1/product/:merchantId/:orderId', controllers.product.detail)
 // 显示订单
 router.post('/v1/mall/order/list', controllers.order.list);
