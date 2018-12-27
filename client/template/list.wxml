@@ -1,11 +1,11 @@
 <import src="./price.wxml" />
 <template name="msgItem">
   <view class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
-    <radio disabled='{{item.inventoryCount===0}}' catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
+    <radio disabled='{{item.inventoryCount===0}}' checked="{{item.inventoryCount!==0&&item.checked}}" catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
     <view style="position: relative;">
       <image src='{{item.itemImageAddress1 }}' mode='aspectFit' class='list-img'></image>
-      <view wx:if='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>送光了</view>
+      <view wx:if='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>{{isDetail?'送光了':'售罄'}}</view>
     </view>
     <view class='column regular list-container'>
       <text class='list-name'>{{item.itemName}}</text>
@@ -14,7 +14,7 @@
         <view wx:if='{{isKind}}' style='display:flex;'> x{{item.minQuantity}}/套</view>
       </view>
       <view class='center trolley-bottom'>
-        <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /><text class='gift-unit' wx:if='{{isDetail}}'>/{{item.itemUnit}}</text></text>
+        <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /><text class='gift-unit' >/{{item.itemUnit}}</text></text>
 
         <view wx:if='{{!isDetail&&!item.isfree}}' class='center a-i-c' style='margin-right:24rpx;'>
           <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
@@ -24,7 +24,10 @@
           <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
         </view>
       </view>
-        <view wx:if='{{item.requireFlag}}' class='required'>必选商品</view>
+        <view wx:if='{{item.requireFlag}}' class='required'>必选商品
+          <text wx:if='{{item.minQuantity}}'>，至少{{(item.minQuantity+item.itemUnit)}}以上</text>
+          <text wx:elif='{{item.minAmount}}'>，至少{{(item.minAmount+'元')}}以上</text>
+        </view>
     </view>
   </view>
 </template>

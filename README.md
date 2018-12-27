@@ -37,3 +37,7 @@ interface:
     4，促销可用额次：
 
     5, 进货单：add, list, remove,
+
+    todo
+    1, inventoryCount in item of kind
+    2, where is categoryCode request para from 

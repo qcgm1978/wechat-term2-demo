@@ -164,6 +164,7 @@ module.exports = {
           promotionBase: 2,
           minNumber: '@integer(1000,2000)',
           "items": {
+            requireFlag: '@boolean()',
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
             categoryMinQuantity: '@natural(2,5)',
@@ -172,16 +173,19 @@ module.exports = {
               {
                 "itemId": '@natural(3)',
                 "itemName": "@cword(5,10)",
-                "minQuantity": "@natural(1,5)",
-                "itemUnit": "",
+                "minQuantity": "@integer(0,1)",
+                minAmount: '@float(0,500,0,2)',
+                "itemUnit": "@string('套盒',1)",
                 "price": '@float(0,500,0,2)',
                 "itemSpecification": '@cword(2,8)',
                 "itemImageAddress1": '@image',
-                requireFlag: '@boolean()'
+                requireFlag: '@boolean()',
+                inventoryCount: '@integer(0,1)',
               }
             ]
           },
           "combinationItems|2": [{
+            requireFlag: '@boolean()',
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
             categoryMinQuantity: '@natural(2,5)',
@@ -190,12 +194,13 @@ module.exports = {
               {
                 "itemId": '@natural(3)',
                 "itemName": "@cword(5,10)",
-                "minQuantity": "@natural(1,5)",
-                "itemUnit": "",
+                minAmount: '@float(0,500,0,2)',
+                "itemUnit": "@string('套盒',1)",
                 "price": '@float(0,500,0,2)',
                 "itemSpecification": '@cword(2,8)',
                 "itemImageAddress1": '@image',
-                requireFlag: '@boolean()'
+                requireFlag: '@boolean()',
+                inventoryCount: '@integer(0,1)',
               }
             ]
           }]

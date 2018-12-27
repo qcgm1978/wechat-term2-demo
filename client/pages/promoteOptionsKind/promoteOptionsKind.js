@@ -265,8 +265,19 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
-          const composeProducts = data.result.combinationItems || []
-          const items = data.result.items || data.result.item
+          const composeProducts = (data.result.combinationItems || []).map(item => ({
+            ...item,
+            quantity: 1,
+            checked: item.requireFlag
+          }))
+          const items = { 
+            ...(data.result.items || data.result.item),
+            itemList: (data.result.items || data.result.item).itemList.map(item => ({
+              ...item,
+              quantity: 1,
+              checked: item.requireFlag
+            }))
+          }
           let obj = {}
           if (this.data.isKind) {
             obj = items.itemList.reduce((accumulator, item, index) => {
