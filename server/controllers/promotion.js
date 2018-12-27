@@ -176,11 +176,12 @@ module.exports = {
                 "itemUnit": "",
                 "price": '@float(0,500,0,2)',
                 "itemSpecification": '@cword(2,8)',
-                "itemImageAddress1": '@image'
+                "itemImageAddress1": '@image',
+                requireFlag: '@boolean()'
               }
             ]
           },
-          "combinationItems": {
+          "combinationItems|2": [{
             categoryCode: '@natural(10,20)',
             categoryName: '@cword(3,5)',
             categoryMinQuantity: '@natural(2,5)',
@@ -193,10 +194,11 @@ module.exports = {
                 "itemUnit": "",
                 "price": '@float(0,500,0,2)',
                 "itemSpecification": '@cword(2,8)',
-                "itemImageAddress1": '@image'
+                "itemImageAddress1": '@image',
+                requireFlag: '@boolean()'
               }
             ]
-          }
+          }]
         })
       } catch (e) {
         ctx.state.result = e.message;

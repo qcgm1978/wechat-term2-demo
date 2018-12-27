@@ -5,7 +5,7 @@ export default {
     scrollHeight:0,
     totalDiscountAmount: 0,
     enableVisible: false,
-    tabs: [true, false],
+    tabs: [true, false,false],
     selectedNum: [0, 0],
     enableChecked: [true, true],
     dataLoading : false,

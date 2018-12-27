@@ -20,6 +20,11 @@
     "pages/userAgreement/userAgreement",
     "pages/deliveryTimeDetail/deliveryTimeDetail"
   ],
+  "permission": {
+    "scope.userLocation": {
+      "desc": "导航"
+    }
+  },
   "window": {
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTextStyle": "black",
