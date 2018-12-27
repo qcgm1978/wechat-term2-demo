@@ -338,5 +338,8 @@ Page({
   },
   bindblur(e) {
     this.plusMinus(e)
+    this.setData({
+      isInputing: false
+    })
   }
 })

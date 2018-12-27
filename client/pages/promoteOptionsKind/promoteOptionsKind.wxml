@@ -11,7 +11,7 @@
 
   <view class='{{tabs[0]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{0}}'>{{items.categoryName}}
   </view>
-  <view wx:for='{{composeProducts}}' wx:key='index' class='{{tabs[1]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{1}}'>{{item.categoryName}}
+  <view wx:for='{{composeProducts}}' wx:key='index' class='{{tabs[index+1]?"selected":"unselected"}}' catch:tap='toggleKind' data-index='{{index+1}}'>{{item.categoryName}}
   </view>
 </view>
 <scroll-view scroll-y style='height:{{scrollHeight}}rpx;'>
@@ -21,11 +21,11 @@
 
     </view>
   </view>
-  <view hidden='{{!tabs[1]}}'>
-    <view wx:for='{{composeProducts.itemList}}' wx:key='index'>
+  <view wx:for='{{composeProducts}}' wx:key='index' hidden='{{!tabs[index]}}'>
+    <view wx:for='{{item.itemList}}' wx:key='index'>
       <template is="msgItem" data="{{item,index,enableChecked:enableChecked[1],isQuantity}}" />
-
     </view>
+
   </view>
 </scroll-view>
 <view class='bgc center btns regular padding-vertical-10  mgt fixed-position' style='z-index:10;'>

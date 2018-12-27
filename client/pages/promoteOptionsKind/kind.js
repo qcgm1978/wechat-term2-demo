@@ -99,22 +99,16 @@ export default {
             data: currentNum
           })
         }
-        this.setData({
-          isInputing: false
-        })
+        
         return
       }
       const isMinus = (type === 'minus');
       if ((currentNum === 1) && isMinus) {
-        this.setData({
-          isInputing: false
-        })
+        
         return;
       }
       if (!isMinus && !this.enablePlus()) {
-        this.setData({
-          isInputing: false
-        })
+        
         return
       }
       const isInputChange = e.detail.value !== undefined
@@ -167,9 +161,7 @@ export default {
     },
     calcPromote(currentTrolley) {
       if (this.data.dataLoading) {
-        this.setData({
-          isInputing: false
-        })
+        
         return
       }
       this.setData({
@@ -183,7 +175,6 @@ export default {
           wx.hideLoading()
           this.setData({
             dataLoading: false,
-            isInputing: false
           })
           return !item.isGift
         })
@@ -194,7 +185,6 @@ export default {
         wx.hideLoading()
         this.setData({
           dataLoading: false,
-          isInputing: false
         })
         return;
       }
@@ -270,13 +260,11 @@ export default {
           wx.hideLoading()
           this.setData({
             dataLoading: false,
-            isInputing:false
           })
         })
         .catch(() => {
           this.setData({
             dataLoading: false,
-            isInputing: false
           })
           wx.hideLoading()
         })
