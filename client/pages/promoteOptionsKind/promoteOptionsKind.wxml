@@ -21,7 +21,7 @@
 
     </view>
   </view>
-  <view wx:for='{{composeProducts}}' wx:key='index' hidden='{{!tabs[index]}}'>
+  <view wx:for='{{composeProducts}}' wx:key='index' hidden='{{!tabs[index+1]}}'>
     <view wx:for='{{item.itemList}}' wx:key='index'>
       <template is="msgItem" data="{{item,index,enableChecked:enableChecked[1],isQuantity}}" />
     </view>
