@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 19,
+			"current": 13,
 			"list": [
 				{
 					"id": -1,
@@ -118,7 +118,7 @@
 					"id": 13,
 					"name": "promoteOptionsKind-multi",
 					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
-					"query": "promoteInfo={\"promotionId\":\"19079\",\"promotionName\":\"单品类组合2A+4B减5元\",\"startTime\":\"Tue Nov 20 00:00:00 CST 2018\",\"endTime\":\"Mon Dec 31 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3455.png\",\"itemName\":\"芬达橙汁拉罐\",\"itemSpecification\":\"330ml*12\",\"price\":22,\"itemId\":\"3455\",\"categoryId\":\"1201016\",\"isKind\":true}&kind=2"
+					"query": "promoteInfo={\"promotionId\":\"19079\",\"promotionName\":\"单品类组合2A+4B减5元\",\"startTime\":\"Tue Nov 20 00:00:00 CST 2018\",\"endTime\":\"Mon Dec 31 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"2\"}&product={\"itemImageAddress1\":\"https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3455.png\",\"itemName\":\"芬达橙汁拉罐\",\"itemSpecification\":\"330ml*12\",\"price\":22,\"itemId\":\"3455\",\"categoryId\":\"1201016\",\"seriesCode\":\"22777\",\"isKind\":true}&kind=2"
 				},
 				{
 					"id": 14,

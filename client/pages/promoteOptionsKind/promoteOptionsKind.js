@@ -77,6 +77,7 @@ Page({
     let paraData = {
       itemId: product.itemId,
       categoryId: product.categoryId,
+      seriesCode: product.seriesCode,
       promoteInfo
     }
     this.getComposeProducts(paraData)
@@ -239,27 +240,18 @@ Page({
   getComposeProducts: function({
     itemId,
     categoryId,
+    seriesCode,
     promoteInfo
   }) {
-    let tmpData = {
-      merchantId: getApp().getMerchantId(),
-      locationId: getApp().globalData.merchant.locationId,
-      promotionId: promoteInfo.promotionId,
-      item: {
-        categoryCode: categoryId,
-        itemId: itemId
-      },
-    }
-
+    
     utils.postRequest({
         url: this.data.isKind ? selectGoodsKind : selectGoods,
         data: {
-          merchantId: getApp().getMerchantId(),
-          locationId: getApp().globalData.merchant.locationId,
           promotionId: promoteInfo.promotionId,
           item: {
             categoryCode: categoryId,
-            itemId: itemId
+            itemId,
+            seriesCode
           },
         }
       })
