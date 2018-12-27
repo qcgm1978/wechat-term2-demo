@@ -1,5 +1,6 @@
 import {
-  Api
+  Api,
+  env
 } from './envConf.js'
 const baseUrl = Api.statistics
 export const urlObj = {
@@ -99,7 +100,6 @@ export const requestStatis = (postData = {}) => {
         if (result.statusCode === 401 && result.data.error === 'invalid_token') {
           getToken().then(() => requestStatis(data))
         } else { }
-
       }
     })
   }).catch(e => {
@@ -108,6 +108,9 @@ export const requestStatis = (postData = {}) => {
   });
 }
 export const requestStatisEnter = (systemInfo) => {
+  if (env === -1) {//todo can be del 
+    return
+  }
   let longitude = '',
     latitude = '';
   wx.getLocation({
