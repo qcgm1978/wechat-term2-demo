@@ -39,5 +39,5 @@ interface:
     5, 进货单：add, list, remove,
 
     todo
-    1, inventoryCount in item of kind
+    1, 
     2, where is categoryCode request para from 

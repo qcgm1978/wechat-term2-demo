@@ -267,8 +267,11 @@ Page({
         if (data.status === 200) {
           const composeProducts = (data.result.combinationItems || []).map(item => ({
             ...item,
-            quantity: 1,
-            checked: item.requireFlag
+            itemList:item.itemList.map(it=>({
+              ...it,
+              quantity: 1,
+              checked: it.requireFlag
+            }))
           }))
           const items = { 
             ...(data.result.items || data.result.item),

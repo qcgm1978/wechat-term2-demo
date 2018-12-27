@@ -23,6 +23,7 @@
 }
 
 .required-tab {
-  width: 88rpx;
-  height: 44rpx;
+  width: 72rpx;
+  height: 26rpx;
+  /* transform: translate(0, -6rpx); */
 }
