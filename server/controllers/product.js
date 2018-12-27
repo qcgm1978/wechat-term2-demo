@@ -103,11 +103,12 @@ module.exports = {
   related: async ctx => {
     let productId = + ctx.params.orderId;
     let product
-    ctx.state.result = [
-      Mock.mock({
+    ctx.state = Mock.mock({
+      'result|10': [{
+
         itemBrandId: '@string("number",5)',
         seriesCode: '@string("number",5)',
-        "itemId": "3467",
+        "itemId": "346" + '@increment(1)',
         "itemName": "冰露纯悦包装饮用水（纸箱）",
         "itemSpecification": "550ml*24",
         "itemBrand": "可口可乐",
@@ -140,8 +141,7 @@ module.exports = {
         "height": "",
         "weight": "",
         "isConsignedGood": "N"
-      }),
-
-    ];
+      }]
+    })
   }
 }
