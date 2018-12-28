@@ -75,6 +75,7 @@ router.post('/v1/mall/order/count', controllers.order.count);
 
 router.get('/v1/mall/order/:merchantId/:orderId', controllers.order.detail);
 // 商品添加到购物车列表
+router.get('/v1/mall/cart/:merchantId/:locationId', controllers.trolley.list)
 router.post('/v1/trolley/list', controllers.trolley.add)
 router.post('/v1/mall/order/onlinePayment', controllers.order.pay);
 
