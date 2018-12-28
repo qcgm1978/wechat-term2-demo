@@ -1,31 +1,30 @@
 {
-    "status": 200,
-    "message": "OK",
-    "result": {
-        "promotionId": "19057",
-        "promotionBase": 1,
-        "minNumber": 6,
-        "item": {
-            "itemId": "1810",
-            "itemName": "美汁源果粒橙450ml",
-            "minQuantity": "4",
-            "itemUnit": "箱(12个)",
-            "price": 30,
-            "itemSpecification": "450ml*12",
-            "itemCategoryCode": "1205001",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1810.png"
-        },
-        "conbinationItems": [
-            {
-                "itemId": "4442",
-                "itemName": "中普啤酒瓶超爽8度",
-                "minQuantity": "2",
-                "itemUnit": "",
-                "price": 15,
-                "itemSpecification": "490ml*12",
-                "itemCategoryCode": "1102004",
-                "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg"
-            }
-        ]
-    }
+    "items": [
+        {
+            "itemId": "1067",
+            "itemName": "豫鸣一级大豆油",
+            "itemSpecification": "20L*1",
+            "itemBrand": "阳光油脂",
+            "saleUnit": "箱(1个)",
+            "stockUnit": "个",
+            "saleSku": "6958641500257",
+            "stockSku": "6936152910000",
+            "itemImageAddress1": "",
+            "itemImageAddress2": "",
+            "itemImageAddress3": "",
+            "itemImageAddress4": "",
+            "itemImageAddress5": "",
+            "applayScope": "",
+            "salesDescription": "",
+            "itemLocationCollection": "140,145,146,12,130,119,122,143,144,79,87,18,86,127,128,129,131,132,133,134,135,136,137,138,139,72,73,75,76,20,40,44,46,49,54,55,56,57",
+            "itemCategoryCode": "1401001",
+            "itemOrigin": "",
+            "itemExpirationDays": "",
+            "putShelvesDate": "",
+            "putShelvesFlg": false,
+            "price": 120,
+            "quantity": 2,
+            "addTime": "2018-12-25T22:22:17.240+0000"
+        }
+    ]
 }
