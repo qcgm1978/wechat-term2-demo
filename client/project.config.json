@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 13,
+			"current": 15,
 			"list": [
 				{
 					"id": -1,
@@ -130,7 +130,7 @@
 					"id": 15,
 					"name": "promoteOptions",
 					"pathName": "pages/promoteOptions/promoteOptions",
-					"query": "promoteInfo={\"promotionId\":\"19057\",\"promotionName\":\"单品组合2A+4B赠A1\",\"startTime\":\"Tue Nov 20 00:00:00 CST 2018\",\"endTime\":\"Tue Dec 18 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"1\",\"combinationFlag\":\"1\",\"promotionKind\":\"1\"}&product={\"itemImageAddress1\":\"http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1810.png\",\"itemName\":\"美汁源果粒橙450ml\",\"itemSpecification\":\"450ml*12\",\"price\":30,\"itemId\":\"1810\",\"categoryId\":\"1205001\",\"isKind\":false}&kind=1"
+					"query": "promoteInfo={\"promotionId\":\"19057\",\"promotionName\":\"单品组合2A+4B赠A1\",\"startTime\":\"Tue Nov 20 00:00:00 CST 2018\",\"endTime\":\"Tue Dec 18 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"1\",\"combinationFlag\":\"1\",\"promotionKind\":\"1\"}&product={\"itemImageAddress1\":\"http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1810.png\",\"itemName\":\"美汁源果粒橙450ml\",\"itemSpecification\":\"450ml*12\",\"price\":30,\"itemId\":\"1810\",\"categoryId\":\"1205001\",\"seriesCode\":\"22777\",\"isKind\":false}&kind=1"
 				},
 				{
 					"id": 16,

@@ -4,7 +4,7 @@
     <radio wx:if='{{item.inventoryCount!==0}}' disabled='{{item.inventoryCount===0||item.requireFlag}}' checked="{{item.inventoryCount!==0&&item.checked}}" catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}'
       style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
-    <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;margin:auto 8rpx 8rpx'>失效</text>
+    <text wx:else class='trolley-invalid regular' style='width:50rpx; font-size:20rpx;min-width:48rpx;display:flex;align-items:center; background:initial; margin-right:14rpx;'>失效</text>
     <view style="position: relative;">
       <image src='{{item.itemImageAddress1 }}' mode='aspectFit' class='list-img'></image>
       <view wx:if='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>{{isDetail?'送光了':'售罄'}}</view>

@@ -304,7 +304,3 @@ text-align:center;
   background: #e6e6e9;
   border-radius: 7.2rpx;
 }
-.radio {
-  transform: scale(0.6);
-  margin: auto 8rpx 92rpx;
-}
