@@ -243,7 +243,7 @@ Page({
     seriesCode,
     promoteInfo
   }) {
-    
+
     utils.postRequest({
         url: this.data.isKind ? selectGoodsKind : selectGoods,
         data: {
@@ -257,13 +257,15 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
-          const promotionBase = data.result.promotionBase
+          const promotionBase = data.result.promotionBase //扣减依据 - 数量/金额 （1: 数量,  2:金额）
+          const isQuantity = promotionBase === 1
           const composeProducts = (data.result.combinationItems || []).map(item => ({
             ...item,
             required: item.requireFlag && (promotionBase === 1 ? (item.seriesMinQuantity || item.brandMinQuantity) : (item.seriesMinAmount || item.brandMinAmount)),
             itemList: item.itemList.map(it => ({
               ...it,
-              quantity: it.minQuantity||1,
+              quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1,
+              // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
               checked: it.requireFlag,
             }))
           }))
@@ -272,10 +274,11 @@ Page({
           const type = (!!resultItems.brandName) ? '品牌' : '系列'
           const items = {
             ...resultItems,
-            itemList: resultItems.itemList.map(item => ({
-              ...item,
-              quantity: item.minQuantity||1,
-              checked: item.requireFlag
+            itemList: resultItems.itemList.map(it => ({
+              ...it,
+              quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1,
+              // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
+              checked: it.requireFlag
             }))
           }
           let obj = {}
@@ -295,7 +298,7 @@ Page({
             promotionBase,
             composeProducts,
             items,
-            isQuantity: data.result.promotionBase === 1
+            isQuantity
           })
           if (Object.keys(obj).length) {
             this.setComposeProducts({
