@@ -2,12 +2,7 @@
   opacity: 0.3;
 }
 
-.trolley-invalid {
-  font-size: 18rpx;
-  color: #707070;
-  background: #e6e6e9;
-  border-radius: 7.2rpx;
-}
+
 
 .trolley-not-buy {
   font-size: 24rpx;
@@ -48,10 +43,7 @@
   height: 208rpx;
 }
 
-.radio {
-  transform: scale(0.6);
-  margin: auto 8rpx 92rpx;
-}
+
 
 .trolley-name {
   font-size: 26rpx;

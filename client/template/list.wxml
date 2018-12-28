@@ -1,8 +1,10 @@
 <import src="./price.wxml" />
 <template name="msgItem">
   <view class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
-    <radio disabled='{{item.inventoryCount===0||item.requireFlag}}' checked="{{item.inventoryCount!==0&&item.checked}}" catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
+    <radio wx:if='{{item.inventoryCount!==0}}' disabled='{{item.inventoryCount===0||item.requireFlag}}' checked="{{item.inventoryCount!==0&&item.checked}}" catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}'
+      style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
+    <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;margin:auto 8rpx 8rpx'>失效</text>
     <view style="position: relative;">
       <image src='{{item.itemImageAddress1 }}' mode='aspectFit' class='list-img'></image>
       <view wx:if='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>{{isDetail?'送光了':'售罄'}}</view>
@@ -24,10 +26,10 @@
           <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
         </view>
       </view>
-        <view wx:if='{{item.requireFlag}}' class='required'>必选商品
-          <text wx:if='{{item.minQuantity}}'>，至少{{(item.minQuantity+item.itemUnit)}}以上</text>
-          <text wx:elif='{{item.minAmount}}'>，至少{{(item.minAmount+'元')}}以上</text>
-        </view>
+      <view wx:if='{{item.requireFlag}}' class='required'>必选商品
+        <text wx:if='{{item.minQuantity}}'>，至少{{(item.minQuantity+item.itemUnit)}}以上</text>
+        <text wx:elif='{{item.minAmount}}'>，至少{{(item.minAmount+'元')}}以上</text>
+      </view>
     </view>
   </view>
 </template>

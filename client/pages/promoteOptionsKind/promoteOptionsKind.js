@@ -264,7 +264,7 @@ Page({
             required: item.requireFlag && (promotionBase === 1 ? (item.seriesMinQuantity || item.brandMinQuantity) : (item.seriesMinAmount || item.brandMinAmount)),
             itemList: item.itemList.map(it => ({
               ...it,
-              quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1,
+              quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.price)) || 1,
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
               checked: it.requireFlag,
             }))
@@ -276,7 +276,7 @@ Page({
             ...resultItems,
             itemList: resultItems.itemList.map(it => ({
               ...it,
-              quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1,
+              quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.price)) || 1,
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
               checked: it.requireFlag
             }))
