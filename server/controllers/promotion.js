@@ -34,17 +34,25 @@ module.exports = {
           promotionBase: 1,
           minNumber: '@integer(2,5)',
           "item": { "itemId": "4442", "itemName": "中普啤酒瓶超爽8度", "minQuantity": "1", "itemUnit": "箱(12个)", "price": 15, "itemSpecification": "490ml*12", "itemCategoryCode": "1102004", "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg" },
-          "conbinationItems": [{
-            categoryCode: '@natural(10,20)',
-            categoryName: '@cword(3,5)',
-            categoryMinQuantity: '@natural(1,5)',
-            'itemList|6-10': [
+          "conbinationItems|10": [{
+            "itemId": "4442",
+            "itemName": "中普啤酒瓶超爽8度",
+            "minQuantity": "2",
+            "itemUnit": "",
+            "price": 15,
+            "itemSpecification": "490ml*12",
+            "itemCategoryCode": "1102004",
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg"
+            // categoryCode: '@natural(10,20)',
+            // categoryName: '@cword(3,5)',
+            // categoryMinQuantity: '@natural(1,5)',
+            // 'itemList|6-10': [
 
-              {
-                "itemId": '@natural(3)',
-                "itemName": "@cword(5,10)", "minQuantity": "1", "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
-              }
-            ]
+            //   {
+            //     "itemId": '@natural(3)',
+            //     "itemName": "@cword(5,10)", "minQuantity": "1", "itemUnit": "", "price": '@float(0,500,0,2)', "itemSpecification": '@cword(2,8)', "itemCategoryCode": null, "itemImageAddress1": '@image'
+            //   }
+            // ]
           }]
         })
       } catch (e) {
