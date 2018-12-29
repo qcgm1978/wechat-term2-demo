@@ -73,6 +73,7 @@ module.exports = {
           promotionGroups: [{
             totalDiscountAmount: 0,
             'promotions|10': [{
+
               promotionId: "189471",
               itemId: "3467",
               discountAmount: '@integer(10,100)',

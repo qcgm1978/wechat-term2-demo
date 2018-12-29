@@ -223,23 +223,15 @@ Page({
       for (let j = 0; j < trollyList.length; j++) {
         let item = {}
         item.itemId = trollyList[j].items[0].itemId
-        item.brandId = ""
+        item.brandId = trollyList[j].items[0].itemBrandId
         item.seriesCode = trollyList[j].items[0].seriesCode
         item.quantity = trollyList[j].items[0].quantity * (trollyList[j].count ? trollyList[j].count : 1)
-        item.unitPrice = trollyList[j].items[0].price
+        item.unitPrice = +trollyList[j].items[0].price
         groupItems.push(item)
       }
 
       group.groupId = trollyList[0].groupId
       group.items = groupItems
-      if (trollyList[0].combinationFlag) {
-        group.promotions = trollyList[i].promotions
-      } else {
-        group.items[0].itemPromotions = trollyList[0].cartCombinationPromotions
-        if (group.items[0].itemPromotions && group.items[0].itemPromotions.length > 0 && group.items[0].itemPromotions[0]) {
-          group.items[0].itemPromotions[0].itemPromotionId = group.items[0].itemPromotions[0].promotionId
-        }
-      }
       itemGroups.push(group)
       promoteUtil.calcPromote({
           itemGroups

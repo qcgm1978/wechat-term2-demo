@@ -232,11 +232,6 @@ Page({
   },
 
   createOrder(itemId) {
-    // if (this.inTimeRange()) {
-    //   return this.setData({
-    //     enableCreateOrder: false
-    //   })
-    // }
     return new Promise((resolve, reject) => {
       wx.showLoading({
         title: '正在创建订单...',

@@ -28,6 +28,8 @@ module.exports = {
       {
         "items|10": [
           {
+            seriesCode: '@string("number",4)',
+            itemBrandId: '@string("lower",10)',
             "itemId": "@integer(1000,9999)",
             "itemName": "美汁源爽粒花语槐花",
             "itemSpecification": "420ml*12",
