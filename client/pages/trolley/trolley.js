@@ -394,31 +394,40 @@ Page({
         })
     })
   },
-  processMiddleTier(data) {
-    const extendedData={
-      "groupId": "6ba9fc3c026711e9ac015979ba8a54ad",
-      "promotions": [
-        {
-          "promotionId": "19011"
-        }
-      ],
-      "cartCombinationPromotions": [
-        {
-          "promotionId": "19011",
-          "promotionType": "2",
-          "promotionName": "单品A满10件减5元",
-          "promotionDescription": "",
-          "discountAmount": 0,
-          "combinationFlag": "0",
-          "promotionKind": "1",
-          "giftItems": null,
-          "activeFlg": false
-        }
-      ],
+  makeGroupId(length) {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < length; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  },
+  generateExtendedData() {
+    const generateId = parseInt(Math.random() * 100000)
+    return {
+      "groupId": this.makeGroupId(32),
+      "promotions": [{
+        "promotionId": generateId
+      }],
+      "cartCombinationPromotions": [{
+        "promotionId": generateId,
+        "promotionType": "2",
+        "promotionName": "单品A满10件减5元",
+        "promotionDescription": "",
+        "discountAmount": 0,
+        "combinationFlag": "0",
+        "promotionKind": "1",
+        "giftItems": null,
+        "activeFlg": false
+      }],
       "addTime": "2018-12-18T01:51:22.270+0000"
     }
+  },
+  processMiddleTier(data) {
+
     data.result = data.result.items.map(item => ({
-      ...extendedData,
+      ...this.generateExtendedData(),
       items: [item]
     }))
     return data

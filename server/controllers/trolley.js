@@ -28,7 +28,7 @@ module.exports = {
       {
         "items|10": [
           {
-            "itemId": "3461",
+            "itemId": "@integer(1000,9999)",
             "itemName": "美汁源爽粒花语槐花",
             "itemSpecification": "420ml*12",
             "itemBrand": "可口可乐",
