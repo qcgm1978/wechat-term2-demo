@@ -403,31 +403,21 @@ Page({
 
     return text;
   },
-  generateExtendedData() {
+  generateExtendedData({itemId}) {
     const generateId = parseInt(Math.random() * 100000)
     return {
-      "groupId": this.makeGroupId(32),
+      "groupId": itemId,
       "promotions": [{
         "promotionId": generateId
       }],
-      "cartCombinationPromotions": [{
-        "promotionId": generateId,
-        "promotionType": "2",
-        "promotionName": "单品A满10件减5元",
-        "promotionDescription": "",
-        "discountAmount": 0,
-        "combinationFlag": "0",
-        "promotionKind": "1",
-        "giftItems": null,
-        "activeFlg": false
-      }],
+      "cartCombinationPromotions": [],
       "addTime": "2018-12-18T01:51:22.270+0000"
     }
   },
   processMiddleTier(data) {
 
     data.result = data.result.items.map(item => ({
-      ...this.generateExtendedData(),
+      ...this.generateExtendedData({itemId:item.itemId}),
       items: [item]
     }))
     return data
