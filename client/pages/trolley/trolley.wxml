@@ -188,7 +188,7 @@
       <block wx:if='{{selectedLen}}'>
         <text></text>
         <view class='center' style="align-items: center;">
-          <text catch:tap='addOn'>可享6个优惠，可送2个赠品</text>
+          <text catch:tap='addOn'>可享{{cartCombinationPromotions.len}}个优惠，可送{{cartCombinationPromotions.gifts}}个赠品</text>
           <image src='./img/arrow.png' class='trolley-arrow'></image>
         </view>
       </block>

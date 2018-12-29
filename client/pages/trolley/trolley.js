@@ -99,12 +99,18 @@ Page({
     this.setData({
       trolley,
     })
-    // if (!this.data.disableBuy){
-    // promoteUtil.calcPromote({
-    //   itemGroups
-    // })
-    this.calc(trolley)
-    // }
+    if (this.data.checkAll) {
+      this.calc(trolley).then(arr => {
+        this.setData({
+          cartCombinationPromotions: {
+            len:arr.length,
+            gifts: arr.reduce((accumulator, item) => {
+              return accumulator + item.giftItems.length
+            },0)
+          }
+        })
+      })
+    }
   },
   gotoSort() {
     wx.switchTab({
@@ -238,15 +244,15 @@ Page({
         }
       }
       itemGroups.push(group)
-      promises.push(promoteUtil.calcPromote({
-        itemGroups
-      }))
+      // promises.push(promoteUtil.calcPromote({
+      //   itemGroups
+      // }))
 
-      Promise.all([promises[0]])
+      promoteUtil.calcPromote({
+        itemGroups
+      })
         .then(arr => {
-          this.setData({
-            cartCombinationPromotions:arr
-          })
+
           // if (arr[0]) {
           //   trollyList[i].cartCombinationPromotions = arr
           // } else {
