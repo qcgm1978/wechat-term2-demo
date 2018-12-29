@@ -1006,7 +1006,10 @@ Page({
   },
   bindblur(e) {
     if (+e.detail.value === 0) {
-      e.detail.value = 1
+      e.detail.value = '1'
+    }
+    if (this.data.trolley[e.currentTarget.dataset.index].items[0].quantity === +e.detail.value){
+      return
     }
     this.plusMinus(e)
   }
