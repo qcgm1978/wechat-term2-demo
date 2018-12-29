@@ -394,7 +394,35 @@ Page({
         })
     })
   },
-
+  processMiddleTier(data) {
+    const extendedData={
+      "groupId": "6ba9fc3c026711e9ac015979ba8a54ad",
+      "promotions": [
+        {
+          "promotionId": "19011"
+        }
+      ],
+      "cartCombinationPromotions": [
+        {
+          "promotionId": "19011",
+          "promotionType": "2",
+          "promotionName": "单品A满10件减5元",
+          "promotionDescription": "",
+          "discountAmount": 0,
+          "combinationFlag": "0",
+          "promotionKind": "1",
+          "giftItems": null,
+          "activeFlg": false
+        }
+      ],
+      "addTime": "2018-12-18T01:51:22.270+0000"
+    }
+    data.result = data.result.items.map(item => ({
+      ...extendedData,
+      items: [item]
+    }))
+    return data
+  },
   getTrolley(adjustResult = false) {
 
     let temdata = {
@@ -413,6 +441,7 @@ Page({
           limit: this.limit
         })
         .then((data) => {
+          data = this.processMiddleTier(data)
           if (adjustResult) {
             return this.fillPromotionInfo(data)
           } else {
@@ -443,7 +472,7 @@ Page({
             if (result[i].cartCombinationPromotions && result[i].cartCombinationPromotions.length > 0 && result[i].cartCombinationPromotions[0] && result[i].cartCombinationPromotions[0].activeFlg == false) {
               result[i].activeFlg = false
               // result[i].putShelvesFlg = false
-            }else{
+            } else {
               result[i].activeFlg = true
             }
             if (result[i].putShelvesFlg && (this.data.checkAll || this.selectedRadio.includes(result[i].groupId))) {
@@ -916,6 +945,6 @@ Page({
     if (+e.detail.value === 0) {
       e.detail.value = 1
     }
-    this.plusMinus(e) 
+    this.plusMinus(e)
   }
 })
