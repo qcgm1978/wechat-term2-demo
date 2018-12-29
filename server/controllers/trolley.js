@@ -49,8 +49,8 @@ module.exports = {
             "itemExpirationDays": "",
             "putShelvesDate": "2018/11/01 14:08:22",
             "putShelvesFlg": true,
-            "price": 40,
-            "quantity": 1,
+            "price": 10,
+            "quantity": '@integer(2,3)',
             "addTime": "2018-12-18T01:51:22.270+0000"
           }
         ],

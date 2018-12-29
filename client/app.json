@@ -18,7 +18,8 @@
     "pages/promoteOptions/promoteOptions",
     "pages/promoteOptionsKind/promoteOptionsKind",
     "pages/userAgreement/userAgreement",
-    "pages/deliveryTimeDetail/deliveryTimeDetail"
+    "pages/deliveryTimeDetail/deliveryTimeDetail",
+    "pages/promotionActivity/promotionActivity"
   ],
   "permission": {
     "scope.userLocation": {
@@ -35,7 +36,7 @@
   "tabBar": {
     "color": "#919090",
     "selectedColor": "#eb6112",
-    "backgroundColor":"#fff",
+    "backgroundColor": "#fff",
     "list": [
       {
         "pagePath": "pages/home/home",
@@ -63,7 +64,7 @@
       }
     ]
   },
-  "usingComponents":{
+  "usingComponents": {
     "freeze-time": "/component/freeze-time/freeze-time"
   }
 }

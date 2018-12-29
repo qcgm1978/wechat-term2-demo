@@ -100,15 +100,12 @@ Page({
       trolley,
     })
     if (this.data.checkAll) {
-      this.calc(trolley).then(arr => {
-        this.setData({
-          cartCombinationPromotions: {
-            len:arr.length,
-            gifts: arr.reduce((accumulator, item) => {
-              return accumulator + item.giftItems.length
-            },0)
-          }
-        })
+      this.calc(trolley)
+    } else {
+      this.setData({
+        cartCombinationPromotions: {
+
+        }
       })
     }
   },
@@ -244,25 +241,29 @@ Page({
         }
       }
       itemGroups.push(group)
-      // promises.push(promoteUtil.calcPromote({
-      //   itemGroups
-      // }))
-
       promoteUtil.calcPromote({
-        itemGroups
-      })
+          itemGroups
+        })
         .then(arr => {
-
-          // if (arr[0]) {
-          //   trollyList[i].cartCombinationPromotions = arr
-          // } else {
-          //   trollyList[i].cartCombinationPromotions = null
-          // }
+          this.setData({
+            cartCombinationPromotions: {
+              len: arr.length,
+              gifts: arr.reduce((accumulator, item) => {
+                return accumulator + item.giftItems.length
+              }, 0),
+              data:arr
+            }
+          })
           resolve(arr)
         })
         .catch(err => {
           reject()
         })
+    })
+  },
+  toPromotionActivity(){
+    wx.navigateTo({
+      url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.cartCombinationPromotions)}`,
     })
   },
   callPromotionCacl(trollyList, i) {

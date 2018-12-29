@@ -184,15 +184,14 @@
       </block>
       <text wx:else>订单最低起定价:¥500</text>
     </view>
-    <view class='center trolley-calc padding' style='visibility:{{disableBuy?"visible":"hidden"}}; background:rgb(251,241,222	)'>
-      <block wx:if='{{selectedLen}}'>
+    <view wx:if='{{cartCombinationPromotions.len}}' class='center trolley-calc padding' style='background:rgb(251,241,222	)'>
+      <block >
         <text></text>
-        <view class='center' style="align-items: center;">
-          <text catch:tap='addOn'>可享{{cartCombinationPromotions.len}}个优惠，可送{{cartCombinationPromotions.gifts}}个赠品</text>
+        <view catch:tap='toPromotionActivity' class='center' style="align-items: center;">
+          <text >可享{{cartCombinationPromotions.len}}个优惠，可送{{cartCombinationPromotions.gifts}}个赠品</text>
           <image src='./img/arrow.png' class='trolley-arrow'></image>
         </view>
       </block>
-      <!-- <text wx:else>订单最低起定价:¥500</text> -->
     </view>
     <view class='center trolley-confirm bottom-box-shadow'>
       <radio style='transform:scale(.74);' value="{{item.name}}" checked='{{checkAll}}' catch:tap='selectAll' color='{{checkAll?"#EE711F":"#D1D1D2"}}'>

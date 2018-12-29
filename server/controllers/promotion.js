@@ -72,7 +72,7 @@ module.exports = {
         ctx.state.result = Mock.mock({
           promotionGroups: [{
             totalDiscountAmount: 0,
-            promotions: [{
+            'promotions|10': [{
               promotionId: "189471",
               itemId: "3467",
               discountAmount: '@integer(10,100)',
