@@ -200,7 +200,7 @@ Page({
       trolley,
       checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg).length,
     })
-
+    this.calc(trolley)
   },
   turnPage(e) {
     const itemId = e.currentTarget.dataset.itemid;
@@ -713,10 +713,10 @@ Page({
       })
       .then(badge => {
         utils.updateTrolleyNum();
-        this.start = 0
-        this.getTrolley()
-          .then((data) => {})
-          .catch((e) => {})
+      })
+      .then(this.getTrolley)
+      .then(trolley=>{
+        this.calc(trolley)
       })
   },
   onReady: function() {
@@ -768,6 +768,10 @@ Page({
         this.setData({
           trolley
         })
+        return trolley
+      })
+      .then(trolley=>{
+        this.calc(trolley)
       })
       .catch(e => {
         getApp().globalData.checkedTrolley = [];
