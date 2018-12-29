@@ -96,10 +96,15 @@ Page({
       return item;
     });
     this.setMoneyData(this.selectedRadio)
-
     this.setData({
       trolley,
     })
+    // if (!this.data.disableBuy){
+    // promoteUtil.calcPromote({
+    //   itemGroups
+    // })
+    this.calc(trolley)
+    // }
   },
   gotoSort() {
     wx.switchTab({
@@ -201,7 +206,59 @@ Page({
       url: `/pages/detail/detail?itemId=${itemId}&categoryId=${itemCategoryCode}`,
     })
   },
+  calc(trollyList) {
+    return new Promise((resolve, reject) => {
+      trollyList = trollyList.filter(item => item.checked && item.putShelvesFlg)
+      if (!trollyList.length) {
+        return resolve([])
+      }
+      let promises = []
+      let itemGroups = []
+      let group = {}
 
+      let groupItems = []
+      for (let j = 0; j < trollyList.length; j++) {
+        let item = {}
+        item.itemId = trollyList[j].items[0].itemId
+        item.brandId = ""
+        item.seriesCode = trollyList[j].items[0].seriesCode
+        item.quantity = trollyList[j].items[0].quantity * (trollyList[j].count ? trollyList[j].count : 1)
+        item.unitPrice = trollyList[j].items[0].price
+        groupItems.push(item)
+      }
+
+      group.groupId = trollyList[0].groupId
+      group.items = groupItems
+      if (trollyList[0].combinationFlag) {
+        group.promotions = trollyList[i].promotions
+      } else {
+        group.items[0].itemPromotions = trollyList[0].cartCombinationPromotions
+        if (group.items[0].itemPromotions && group.items[0].itemPromotions.length > 0 && group.items[0].itemPromotions[0]) {
+          group.items[0].itemPromotions[0].itemPromotionId = group.items[0].itemPromotions[0].promotionId
+        }
+      }
+      itemGroups.push(group)
+      promises.push(promoteUtil.calcPromote({
+        itemGroups
+      }))
+
+      Promise.all([promises[0]])
+        .then(arr => {
+          this.setData({
+            cartCombinationPromotions:arr
+          })
+          // if (arr[0]) {
+          //   trollyList[i].cartCombinationPromotions = arr
+          // } else {
+          //   trollyList[i].cartCombinationPromotions = null
+          // }
+          resolve(arr)
+        })
+        .catch(err => {
+          reject()
+        })
+    })
+  },
   callPromotionCacl(trollyList, i) {
     return new Promise((resolve, reject) => {
       let promises = []
@@ -230,11 +287,11 @@ Page({
         }
       }
       itemGroups.push(group)
-      promises.push(promoteUtil.calcPromote({
-        itemGroups
-      }))
+      // promises.push(promoteUtil.calcPromote({
+      //   itemGroups
+      // }))
 
-      Promise.all(promises)
+      Promise.all([promises[0]])
         .then(arr => {
           if (arr[0]) {
             trollyList[i].cartCombinationPromotions = arr
@@ -290,28 +347,28 @@ Page({
       }
     }
     if (trolleyGroup.items.length == 1 && trolleyGroup.cartCombinationPromotions == null) {
-      this.getPromotionList(trolleyGroup)
-        .then((data) => {
-          let rightPromotion = null
-          if (trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.promotions[0] && trolleyGroup.promotions[0].promotionId) {
-            rightPromotion = data.result[0].promotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
-          } else {
-            rightPromotion = data.result[0].promotions[0]
-          }
+      // this.getPromotionList(trolleyGroup)
+      // .then((data) => {
+      //   let rightPromotion = null
+      //   if (trolleyGroup.promotions && trolleyGroup.promotions.length > 0 && trolleyGroup.promotions[0] && trolleyGroup.promotions[0].promotionId) {
+      //     rightPromotion = data.result[0].promotions.find(item => item.promotionId === trolleyGroup.promotions[0].promotionId)
+      //   } else {
+      //     rightPromotion = data.result[0].promotions[0]
+      //   }
 
-          trolleyGroup.cartCombinationPromotions = [rightPromotion]
-          this.removeKindPromotionForSingleProduct(trolleyGroup)
-          trolleyGroup.promotions = [rightPromotion]
-          let suiteTitle = "trolley[" + index + "].suiteTitle"
-          let cartCombinationPromotions = "trolley[" + index + "].cartCombinationPromotions"
-          this.setData({
-            [cartCombinationPromotions]: [rightPromotion]
-          })
-          this.setData({
-            [suiteTitle]: this.getSuteTitle(this.data.trolley[index]),
-          })
-        })
-        .catch((e) => {})
+      //   trolleyGroup.cartCombinationPromotions = [rightPromotion]
+      //   this.removeKindPromotionForSingleProduct(trolleyGroup)
+      //   trolleyGroup.promotions = [rightPromotion]
+      //   let suiteTitle = "trolley[" + index + "].suiteTitle"
+      //   let cartCombinationPromotions = "trolley[" + index + "].cartCombinationPromotions"
+      //   this.setData({
+      //     [cartCombinationPromotions]: [rightPromotion]
+      //   })
+      //   this.setData({
+      //     [suiteTitle]: this.getSuteTitle(this.data.trolley[index]),
+      //   })
+      // })
+      // .catch((e) => {})
 
     } else {
       let suiteTitle = "trolley[" + index + "].suiteTitle"
@@ -367,8 +424,8 @@ Page({
           promises.push(this.callPromotionCacl(trolley, i))
         }
       }
-      Promise.all(promises)
-        .then((result) => {
+      // Promise.all(promises)
+      promises[0].then((result) => {
           resolve(data)
         })
         .catch((e) => {
@@ -403,7 +460,9 @@ Page({
 
     return text;
   },
-  generateExtendedData({itemId}) {
+  generateExtendedData({
+    itemId
+  }) {
     const generateId = parseInt(Math.random() * 100000)
     return {
       "groupId": itemId,
@@ -417,7 +476,9 @@ Page({
   processMiddleTier(data) {
 
     data.result = data.result.items.map(item => ({
-      ...this.generateExtendedData({itemId:item.itemId}),
+      ...this.generateExtendedData({
+        itemId: item.itemId
+      }),
       items: [item]
     }))
     return data
