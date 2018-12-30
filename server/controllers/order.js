@@ -213,7 +213,7 @@ module.exports = {
    * 
    */
   list: async ctx => {
-    if (ctx.request.body.orderStatus.includes(6)) {
+    if (!ctx.request.body.orderStatus || ctx.request.body.orderStatus.includes(6)) {
       ctx.state.result = Mock.mock({
         "orderTotalCount": 10,
         "orders|10": [
@@ -233,7 +233,7 @@ module.exports = {
                 "groupId": "7aa3952adb4411e88f58e13c69f60a3d",
                 "promotionId": null,
                 "discountAmount": 0,
-                "items": [
+                "items|10": [
                   {
                     "itemId": "3351",
                     "itemSku": null,

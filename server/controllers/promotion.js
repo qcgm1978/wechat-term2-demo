@@ -68,7 +68,8 @@ module.exports = {
     const merchantId = ctx.params.merchantId;
     if (!orderId || !merchantId) {
       try {
-        const quantity = ctx.request.body.items instanceof Array ? ctx.request.body.items[0].quantity : 1
+        let quantity = ctx.request.body.items instanceof Array ? ctx.request.body.items[0].quantity : 1
+        quantity = 10
         ctx.state.result = Mock.mock({
           promotionGroups: [{
             totalDiscountAmount: 0,
@@ -78,9 +79,9 @@ module.exports = {
               itemId: "3467",
               discountAmount: '@integer(10,100)',
               discountPercentage: null,
-              // "promotionType": "@pick(['2','1'])",
-              "promotionType": "1",
-              promotionName: "单品A满5件赠A1",
+              "promotionType": "@pick(['2','1'])",
+              // "promotionType": "1",
+              promotionName: "单品A满5件赠A1 or minuse 100",
               combinationFlag: '0',
               promotionDescription: '',
               promotionKind: '1',

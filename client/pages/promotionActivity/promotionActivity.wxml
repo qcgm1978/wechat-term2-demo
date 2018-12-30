@@ -1,0 +1,15 @@
+<block wx:for='{{promotions}}' wx:key='index'>
+  <view class='center a-i-c container-activity'>
+    <image class='presentImg' src='{{item.promotionType=="2"?imgManjian:imgManzeng}}'></image>
+    <text class='name'>{{item.promotionName}}</text>
+    <text class='detail' wx:if='{{item.promotionType=="2"}}'>可省{{item.discountAmount}}元</text>
+    <view wx:else class='center a-i-c'>
+      <text class='detail'>更换赠品</text>
+      <image src='../trolley/img/arrow.png' class='arrow'></image>
+    </view>
+  </view>
+  <scroll-view scroll-x wx:if='{{item.promotionType!=="2"}}' class='center a-i-c container-activity'>
+    <image wx:for='{{item.giftItems}}' src='{{item.itemImageAddress1}}' class='img' mode='aspectFit'></image>
+  </scroll-view>
+  <view class='line'></view>
+</block>

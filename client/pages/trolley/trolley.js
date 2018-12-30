@@ -255,7 +255,8 @@ Page({
   },
   toPromotionActivity(){
     wx.navigateTo({
-      url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.cartCombinationPromotions)}`,
+      // url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.cartCombinationPromotions)}`,
+      url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.trolley)}`,
     })
   },
   callPromotionCacl(trollyList, i) {

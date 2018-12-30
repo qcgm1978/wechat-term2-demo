@@ -22,6 +22,8 @@ const iniGlobalData = {
   isActiveTime: true,
   orderId: '',
   defaultImg: '/images/default.png',
+  imgManjian: "/images/manjian.png",
+  imgManzeng: "/images/manzeng.png",
   /**
    * 待发货
    */

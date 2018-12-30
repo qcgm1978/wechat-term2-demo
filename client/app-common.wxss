@@ -304,3 +304,6 @@ text-align:center;
   background: #e6e6e9;
   border-radius: 7.2rpx;
 }
+.presentImg{
+  width:64rpx; height:32rpx; margin-right:16rpx;
+}

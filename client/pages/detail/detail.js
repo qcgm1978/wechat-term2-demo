@@ -39,8 +39,8 @@ Page({
 
     }, ],
     icon: '../../images/trolley-full.png',
-    imgManjian: "../../images/manjian.png",
-    imgManzeng: "../../images/manzeng.png",
+    imgManjian: app.globalData.imgManjian,
+    imgManzeng:app.globalData.imgManzeng,
   },
   relatedChange(e) {},
   showPromotion(e) {

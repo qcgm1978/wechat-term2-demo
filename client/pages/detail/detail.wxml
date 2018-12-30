@@ -32,7 +32,7 @@
         </view>
         <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='index'>
           <view class='center promotion-container padding-prom regular bgc ' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
-            <image style='width:64rpx; height:32rpx; margin-right:16rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
+            <image class='presentImg' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
             <text wx:if='{{promoteInfo.availableAmount||promoteInfo.availableCount}}' class='still-promote light ellipse'>还可优惠{{promoteInfo.availableAmount?(promoteInfo.availableAmount+'元'):(promoteInfo.availableCount+'次')}}</text>
             <view class='promotion-list'>
