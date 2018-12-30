@@ -1,0 +1,39 @@
+.gift-container {
+  position: fixed;
+  z-index: 30;
+  bottom: 0;
+  background: #fff;
+  border-radius: 16rpx 16rpx 0px 0px;
+  width: 100%;
+}
+
+.gift-unit {
+  font-size: 24rpx;
+  color: #2a2a2a;
+  letter-spacing: 0;
+  line-height: 40rpx;
+}
+
+.left-arrow {
+  width: 64rpx;
+  height: 64rpx;
+  transform: rotate3d(0, 1, 0, 180deg);
+  z-index: 10;
+}
+
+.select-gift {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 32rpx;
+  color: #333;
+  letter-spacing: 0;
+  line-height: 48rpx;
+  /* transform: translateX(-64rpx); */
+}
+
+.confirm {
+  font-size: 32rpx;
+  color: #eb6113;
+  letter-spacing: 0;
+  margin-right:32rpx
+}

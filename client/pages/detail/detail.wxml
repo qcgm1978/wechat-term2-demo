@@ -1,5 +1,5 @@
-<import src="../../template/list.wxml" />
 <import src="../../template/freeze.wxml" />
+<import src="../../template/select-present.wxml" />
 <freeze-time is-to-open='{{isToOpen}}'>
 </freeze-time>
 <template is="freeze" data='{{isFreezing}}' />
@@ -144,9 +144,9 @@
       </view>
       <view class=' subtotal '>小计:{{quantity+product.saleUnit}} 金额：¥{{currentMoney}}
         <view wx:if="{{discountAmount!==0}}">已省: ¥{{discountAmount}}</view>
-        <text wx:if='{{giftItems.length && hasGift}}' class='still-link' >可送赠品</text>
+        <text wx:if='{{giftItems.length && hasGift}}' class='still-link'>可送赠品</text>
         <text wx:elif='{{giftItems.length}}' class='still-link'>赠品已赠完</text>
-        <text wx:if='{{reduced}}' class='still-link' >已省￥{{reduced}}</text>
+        <text wx:if='{{reduced}}' class='still-link'>已省￥{{reduced}}</text>
       </view>
 
     </view>
@@ -175,18 +175,4 @@
     <button bind:tap='buy' disabled='{{!product.putShelvesFlg}}' class='{{product.putShelvesFlg?"buy-btn":"buy-selecting"}} {{(!isSelecting||enableBuy)?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}} '>{{buyTxt}}</button>
   </view>
 </view>
-<view wx:if='{{isSelectingGift}}' class='gift-container'>
-  <view class='center a-i-c' style="padding: 12px 0;">
-    <image src='../../images/right-arrow.png' class='left-arrow' catch:tap='toggleGifts'></image>
-    <view class='select-gift'>选择赠品</view>
-    <text class='confirm' catch:tap='navigateToConfirm'>确认</text>
-  </view>
-  <view class='line'></view>
-  <scroll-view scroll-y style='height:950rpx;'>
-    <radio-group class="radio-group" bindchange="radioChange">
-      <block wx:for='{{giftItems}}' wx:key='index'>
-        <template is="msgItem" data="{{item,index,isDetail:true,enableChecked:enableChecked[0],isQuantity}}" />
-      </block>
-    </radio-group>
-  </scroll-view>
-</view>
+<template is="gift" data="{{isSelectingGift,radioChange,giftItems}}" />

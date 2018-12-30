@@ -24,6 +24,38 @@ Page({
     })
     })
   },
+  selectGift(e){
+    const giftItems = this.data.promotions[e.currentTarget.dataset.index].giftItems.reduce((accumulator, item, index) => {
+      const checked = item.inventoryCount > 0 && !accumulator.hasElected
+      if (checked) {
+        accumulator.hasElected = true
+      }
+      accumulator.push({
+        ...item,
+        itemName: item.giftItemName,
+        checked,
+        itemId: item.giftItemId
+      })
+      return accumulator
+    }, [])
+    this.setData({
+      isSelectingGift:true,
+      giftItems
+    })
+  },
+  radioChange(e) {
+    this.setData({
+      giftItems: this.data.giftItems.map((item, index) => {
+        item.checked = index === +e.detail.value
+        return item
+      })
+    })
+  },
+  toggleGifts() {
+    this.setData({
+      isSelectingGift: !this.data.isSelectingGift
+    })
+  },
   calc(trollyList) {
     return new Promise((resolve, reject) => {
       trollyList = trollyList.filter(item => item.checked && item.putShelvesFlg)

@@ -126,8 +126,8 @@ Page({
 
       Promise.all(promises)
         .then(arr => {
-          if (arr[0]) {
-            trollyList[i].cartCombinationPromotions = arr
+          if (arr.length) {
+            trollyList[i].cartCombinationPromotions = arr[0]
           } else {
             trollyList[i].cartCombinationPromotions = null
           }
