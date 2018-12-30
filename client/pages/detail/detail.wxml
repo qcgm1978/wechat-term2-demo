@@ -23,7 +23,6 @@
         <view class='product-name'>{{product.itemName}}</view>
         <view class='product-spec regular'>规格：{{product.itemSpecification}}</view>
       </view>
-      <!-- <view class='line'></view> -->
       <view class='bgc' style="margin-top: 16rpx;">
         <view wx:if='{{promoteInfoList.length}}'>
           <view class='center promotion-container padding regular bgc '>
@@ -33,7 +32,6 @@
         </view>
         <view wx:for='{{promoteInfoList}}' wx:for-item="promoteInfo" wx:key='index'>
           <view class='center promotion-container padding-prom regular bgc ' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
-            <!-- <text class='promotion'></text> -->
             <image style='width:64rpx; height:32rpx; margin-right:16rpx;' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
             <text wx:if='{{promoteInfo.availableAmount||promoteInfo.availableCount}}' class='still-promote light ellipse'>还可优惠{{promoteInfo.availableAmount?(promoteInfo.availableAmount+'元'):(promoteInfo.availableCount+'次')}}</text>
