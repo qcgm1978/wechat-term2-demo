@@ -1,5 +1,6 @@
 <import src="/template/list.wxml" />
 <template name="gift">
+  <view wx:if='{{isSelectingGift}}' class='mask'></view>
   <view wx:if='{{isSelectingGift}}' class='gift-container'>
     <view class='center a-i-c' style="padding: 12px 0;">
       <image src='../../images/right-arrow.png' class='left-arrow' catch:tap='toggleGifts'></image>
@@ -7,7 +8,7 @@
       <text wx:if='{{isDetail}}' class='confirm' catch:tap='navigateToConfirm'>确认</text>
     </view>
     <view class='line'></view>
-    <scroll-view scroll-y style='height:950rpx;'>
+    <scroll-view scroll-y style='height:850rpx;'>
       <radio-group class="radio-group" bindchange="radioChange">
         <block wx:for='{{giftItems}}' wx:key='index'>
           <template is="msgItem" data="{{item,index,isDetail:true,enableChecked:enableChecked[0],isQuantity}}" />

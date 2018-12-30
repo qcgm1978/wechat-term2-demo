@@ -5,7 +5,7 @@
 <template is="freeze" data='{{isFreezing}}' />
 <view style='display: flex;flex-direction: column;' class='{{isSelecting?"indexFixed":""}}'>
   <view class='product-card'>
-    <view hidden='{{!isSelecting}}' class='mask' style='background-color: #000;opacity:.3; z-index:10;'></view>
+    <view hidden='{{!isSelecting}}' class='mask'></view>
     <swiper indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}" class='bgc' style="height: 750rpx;">
       <image wx:if='{{promoteInfoList[0].promotionType=="1"}}' src='./img/gift.png' class='detail-gift'></image>
       <block wx:for="{{product.itemImageAddress}}" wx:key='{{index}}'>
