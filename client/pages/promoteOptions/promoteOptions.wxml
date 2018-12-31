@@ -7,10 +7,10 @@
   {{promoteMsg}}
 </view>
 <view class='line'></view>
-<view wx:for='{{composeProducts}}' wx:key='*this' class='center padding bgc mgt' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}' bind:tap='turnPage'>
+<view wx:for='{{composeProducts}}' wx:key='index' class='center padding bgc mgt' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}' bind:tap='turnPage'>
   <radio catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" checked="{{item.checked}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8); display: flex; align-items: center;'>
   </radio>
-  <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
+  <image class="list-img" src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
   <view class='column regular list-container'>
     <text class='list-name'>{{item.itemName}}</text>
     <view class='list-spec' style='width: 100%; display:flex; flex-direction:row; justify-content: space-between;'>
@@ -48,7 +48,7 @@
 <view class='promote-container' wx:if="{{!showPromoteDetail}}">
   <view style='display: flex; '>
     <view class='' style='display: flex; align-items: center;margin-left: 24rpx; font-size:24rpx; color:#333333'>搭配商品</view>
-    <view wx:for='{{selectedProductList}}' wx:key='*this'>
+    <view wx:for='{{selectedProductList}}' wx:key='index'>
       <view style='position: relative;' class='center a-i-c'>
         <image src='./images/donate.png' style='width:36rpx; height:36rpx;' wx:if="{{item.isGift}}"></image>
         <image style='width: 80rpx; height: 80rpx; border:1px solid rgb(236,236,236); margin: 10rpx;' src='{{item.itemImageAddress1}}'></image>
