@@ -278,20 +278,8 @@ Page({
               ...it,
               quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.price)) || 1,
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
-              checked: it.requireFlag
+              checked: it.requireFlag || it.itemId === this.product.itemId
             }))
-          }
-          let obj = {}
-          if (this.data.isKind) {
-            obj = items.itemList.reduce((accumulator, item, index) => {
-              if (item.itemId === this.product.itemId) {
-                accumulator = {
-                  price: item.price,
-                  index
-                };
-              }
-              return accumulator
-            }, {});
           }
           this.setData({
             type,
@@ -300,26 +288,20 @@ Page({
             items,
             isQuantity
           })
-          if (Object.keys(obj).length) {
-            this.setComposeProducts({
-              index: obj.index,
-              prop: 'checked',
-              data: true
+          let arr = []
+          if (this.data.isKind) {
+            arr = this.getAllItemLists().map((item, index) => {
+              return item.filter(it => it.checked || it.itemId === this.product.itemId)
             });
-            this.setComposeProducts({
-              index: obj.index,
-              prop: 'quantity',
-              data: 1
-            });
-            this.setComposeProducts({
-              index: obj.index,
-              prop: 'categoryCode',
-              data: items.categoryCode
-            });
+          }
+          if (arr.length) {
+            const selectedProductList = arr.reduce((accumulator, item) => accumulator.concat(item), [])
+            const totalPrice=selectedProductList.reduce((accumulator,item)=>accumulator+item.price*item.quantity,0)
             this.setData({
-              selectedNum: [1, 0],
-              totalPrice: utils.getFixedNum(obj.price, 2),
-              selectedProductList: [this.data.items.itemList[obj.index]]
+              selectedNum: arr.map(item=>item.length),
+              totalPrice: utils.getFixedNum(totalPrice, 2),
+              enableVisible:true,
+              selectedProductList
             })
           }
           const enableChecked = [...this.data.enableChecked]
@@ -334,8 +316,8 @@ Page({
           })
           this.minNum = data.result.minNumber
           if (!this.enableChecked()) {
-            const currentItem = this.getCurrentData(obj.index)
-            this.calcPromote(currentItem);
+            // const currentItem = this.getCurrentData(obj.index)
+            this.calcPromote(arr);
           }
         } else {}
       }).catch(err => {

@@ -69,6 +69,34 @@ export default {
       const kindData = this.getCurrentKindName()
       return this.data[kindData].itemList;
     },
+    getAllItemLists(){
+      return [this.data.items.itemList].concat(this.data.composeProducts.map(item => item.itemList))
+    },
+    setListProps({
+      arr,
+      prop,
+      data
+    }) {
+      arr.map((item,index)=>{
+        if(index){
+          this.setData({
+            [`composeProducts.[${index-1}.${prop}`]: data
+          })
+        }else{
+          this.setData({
+            [`items.[${index - 1}.${prop}`]: data
+          })
+        }
+      })
+      this.data.items.concat(this.data.composeProducts)
+      const kindIndex = this.getCurrentTabsIndex();
+      const kind = kindIndex ? `composeProducts` : `items`
+      const currentItem = `${kind}.itemList[${index}]`
+      this.setData({
+        [`${currentItem}.${prop}`]: data
+      })
+
+    },
     setComposeProducts({
       index,
       prop,
