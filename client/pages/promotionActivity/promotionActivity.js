@@ -1,10 +1,6 @@
 import promoteUtil from "../../utils/promotion.js";
 const app=getApp()
 Page({
-
-  /**
-   * Page initial data
-   */
   data: {
     imgManjian: app.globalData.imgManjian,
     imgManzeng: app.globalData.imgManzeng,
