@@ -14,7 +14,7 @@ Page({
     // this.setData({
     //   promotions: JSON.parse(options.data).data
     // })
-    this.calc(JSON.parse(options.data)).then(promotions=>{
+    this.calc(JSON.parse(options.data)).then((promotions)=>{
       this.setData({
       promotions
     })
@@ -79,7 +79,8 @@ Page({
       promoteUtil.calcPromote({
         itemGroups
       })
-        .then(arr => {
+        .then(data => {
+          const arr=data.promotions
           this.setData({
             cartCombinationPromotions: {
               len: arr.length,

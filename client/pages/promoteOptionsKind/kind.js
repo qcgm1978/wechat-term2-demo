@@ -2,18 +2,31 @@ import utils from "../../utils/util.js";
 import promoteUtil from "../../utils/promotion.js";
 export default {
   data: {
-    scrollHeight:0,
+    scrollHeight: 0,
     totalDiscountAmount: 0,
     enableVisible: false,
-    tabs: [true, false,false],
+    tabs: [true, false, false],
     selectedNum: [0, 0],
     enableChecked: [true, true],
-    dataLoading : false,
+    dataLoading: false,
     isInputing: false
   },
   methods: {
+    convertKindData(data) {
+      return {
+        ...data,
+        result: {
+          ...data.result,
+          items: {
+            ...data.result.item,
+            itemList: data.result.conbinationItems
+          },
+          combinationItems: []
+        }
+      }
+    },
     toggleKind(e) {
-      if (this.data.isInputing){
+      if (this.data.isInputing) {
         return
       }
       this.setData({
@@ -69,7 +82,7 @@ export default {
       const kindData = this.getCurrentKindName()
       return this.data[kindData].itemList;
     },
-    getAllItemLists(){
+    getAllItemLists() {
       return [this.data.items.itemList].concat(this.data.composeProducts.map(item => item.itemList))
     },
     setListProps({
@@ -77,12 +90,12 @@ export default {
       prop,
       data
     }) {
-      arr.map((item,index)=>{
-        if(index){
+      arr.map((item, index) => {
+        if (index) {
           this.setData({
             [`composeProducts.[${index-1}.${prop}`]: data
           })
-        }else{
+        } else {
           this.setData({
             [`items.[${index - 1}.${prop}`]: data
           })
@@ -108,7 +121,7 @@ export default {
       this.setData({
         [`${currentItem}.${prop}`]: data
       })
-      
+
     },
     getCurrentData(index) {
       return this.getCurrentKind()[index];
@@ -120,27 +133,27 @@ export default {
       const currentTrolley = this.getCurrentData(index);
       const currentNum = currentTrolley.quantity || 1;
       if (!currentTrolley.checked) {
-        if (e.detail.value){
+        if (e.detail.value) {
           this.setComposeProducts({
             index,
             prop: 'quantity',
             data: currentNum
           })
         }
-        
+
         return
       }
       const isMinus = (type === 'minus');
       if ((currentNum === 1) && isMinus) {
-        
+
         return;
       }
       if (!isMinus && !this.enablePlus()) {
-        
+
         return
       }
       const isInputChange = e.detail.value !== undefined
-      const changed = isInputChange ? (+e.detail.value - currentNum) : (isMinus ?  - 1 :  1)
+      const changed = isInputChange ? (+e.detail.value - currentNum) : (isMinus ? -1 : 1)
       this.setSelectedNum(changed)
       if ((currentNum === 2 && isMinus) || (currentNum === 1)) {
         this.setComposeProducts({
@@ -156,7 +169,7 @@ export default {
           return kindIndex === index ? enableChecked : item
         })
       })
-      const data=currentNum+changed
+      const data = currentNum + changed
       this.setComposeProducts({
         index,
         prop: 'quantity',
@@ -176,20 +189,20 @@ export default {
     getItemNum(item) {
       return this.data.isKind ? (item.quantity || 1) : item.minQuantity;
     },
-    getTotalPrice(){
+    getTotalPrice() {
       const seletedItems = this.data.items.itemList.concat(this.data.composeProducts.itemList || []).filter(item => item.checked)
       return seletedItems.reduce((accumulator, item) => Number(accumulator) + Number(item.price * (item.quantity || 1)), 0)
     },
     setPrice(currentTrolley) {
-        const totalPrice=this.getTotalPrice()
-        this.setData({
-          totalPrice: utils.getFixedNum(totalPrice, 2),
-          enableVisible: true
-        })
+      const totalPrice = this.getTotalPrice()
+      this.setData({
+        totalPrice: utils.getFixedNum(totalPrice, 2),
+        enableVisible: true
+      })
     },
     calcPromote(currentTrolley) {
       if (this.data.dataLoading) {
-        
+
         return
       }
       this.setData({
@@ -198,7 +211,7 @@ export default {
       wx.showLoading({
         title: '请等待',
       })
-      if (this.data.isQuantity ? this.enableAddTrolley():this.enableChecked()) {
+      if (this.data.isQuantity ? this.enableAddTrolley() : this.enableChecked()) {
         const selectedProductList = this.data.selectedProductList.filter(item => {
           wx.hideLoading()
           this.setData({
@@ -222,9 +235,9 @@ export default {
 
       let groupItems = []
       // todo maybe only one condition is needed
-      if (true||this.data.selectedProductList.length>1){
+      if (true || this.data.selectedProductList.length > 1) {
         for (let i = 0; i < this.data.selectedProductList.length; i++) {
-          if (!this.data.selectedProductList[i].isGift){
+          if (!this.data.selectedProductList[i].isGift) {
             let item1 = {}
             const item = this.data.selectedProductList[i];
             item1.itemId = item.itemId
@@ -238,7 +251,7 @@ export default {
         group.promotions = {
           promotionId: this.promoteInfo.promotionId
         }
-      }else{
+      } else {
         for (let i = 0; i < this.data.selectedProductList.length; i++) {
           if (!this.data.selectedProductList[i].isGift) {
             let item1 = {}
@@ -266,16 +279,23 @@ export default {
         })
         .then((promoteResult) => {
           //满赠
-          if (promoteResult.giftItems && promoteResult.giftItems.length > 0) {
-            promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
-            promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
+          if (promoteResult.promotions && promoteResult.promotions.length > 0) {
+            // promoteResult.giftItems[0].minQuantity = promoteResult.giftItems[0].quantity
+            // promoteResult.giftItems[0].itemName = promoteResult.giftItems[0].giftItemName
 
-            promoteResult.giftItems[0].price = 0
-            promoteResult.giftItems[0].isGift = true
+            // promoteResult.giftItems[0].price = 0
+            // promoteResult.giftItems[0].isGift = true
             let productListWithoutGift = this.data.selectedProductList.filter(item => {
               return !item.isGift
             })
-            const selectedProductList = [...productListWithoutGift, promoteResult.giftItems[0]]
+            const giftItem = promoteResult.promotions[0].giftItems[0]
+            const selectedProductList = [...productListWithoutGift, {
+              ...giftItem,
+              price: 0,
+              isGift: true,
+              minQuantity: giftItem.quantity,
+              itemName: giftItem.giftItemName
+            }]
             this.setData({
               selectedProductList,
               totalDiscountAmount: promoteResult.totalDiscountAmount || 0
@@ -283,7 +303,7 @@ export default {
 
           } else if (promoteResult.discountAmount > 0) { //满减
             this.setData({
-              totalDiscountAmount: utils.getFixedNum(promoteResult.discountAmount,2),
+              totalDiscountAmount: utils.getFixedNum(promoteResult.discountAmount, 2),
             })
           }
           wx.hideLoading()

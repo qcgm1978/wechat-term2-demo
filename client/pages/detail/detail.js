@@ -58,7 +58,8 @@ Page({
       tmpProduct.categoryId = this.data.product.itemCategoryCode
       tmpProduct.seriesCode = this.data.product.seriesCode
       tmpProduct.isKind = isKind
-      const kindStr = isKind ? 'Kind' : ''
+      // const kindStr = isKind ? 'Kind' : ''
+      const kindStr = 'Kind'
       wx.navigateTo({
         url: `/pages/promoteOptions${kindStr}/promoteOptions${kindStr}?promoteInfo=` + JSON.stringify(this.data.promoteInfoList[index]) + "&product=" + JSON.stringify(tmpProduct) + '&kind=' + this.data.promoteInfoList[index].promotionKind,
       })
@@ -126,8 +127,8 @@ Page({
 
       Promise.all(promises)
         .then(arr => {
-          if (arr.length) {
-            trollyList[i].cartCombinationPromotions = arr[0]
+          if (arr[0].promotions.length) {
+            trollyList[i].cartCombinationPromotions = arr[0].promotions
           } else {
             trollyList[i].cartCombinationPromotions = null
           }

@@ -15,7 +15,8 @@ module.exports = {
             "promotionDescription": "七喜 1L*12满3件打折98.365125%",
             "promotionType": "@pick(['2','1'])",
             "combinationFlag": "@pick(['0','1'])",
-            promotionKind: "@pick(['2','1'])",
+            // promotionKind: "@pick(['2','1'])",
+            promotionKind: "1",
             limitMaxAmount: 'uesless',
             limitMaxCount: 'uesless'
           }

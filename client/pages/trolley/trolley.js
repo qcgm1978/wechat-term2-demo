@@ -237,6 +237,7 @@ Page({
           itemGroups
         })
         .then(arr => {
+          arr=arr.promotions
           this.setData({
             cartCombinationPromotions: {
               len: arr.length,

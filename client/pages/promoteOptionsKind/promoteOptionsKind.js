@@ -257,6 +257,9 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
+          if(!this.data.isKind){
+            data=this.convertKindData(data)
+          }
           const promotionBase = data.result.promotionBase //扣减依据 - 数量/金额 （1: 数量,  2:金额）
           const isQuantity = promotionBase === 1
           const composeProducts = (data.result.combinationItems || []).map(item => ({
@@ -289,11 +292,11 @@ Page({
             isQuantity
           })
           let arr = []
-          if (this.data.isKind) {
+          // if (this.data.isKind) {
             arr = this.getAllItemLists().map((item, index) => {
               return item.filter(it => it.checked || it.itemId === this.product.itemId)
             });
-          }
+          // }
           if (arr.length) {
             const selectedProductList = arr.reduce((accumulator, item) => accumulator.concat(item), [])
             const totalPrice=selectedProductList.reduce((accumulator,item)=>accumulator+item.price*item.quantity,0)
