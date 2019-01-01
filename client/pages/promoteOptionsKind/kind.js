@@ -33,6 +33,9 @@ export default {
         tabs: this.data.tabs.map((item, index) => index === e.target.dataset.index)
       })
     },
+    getMinCount(item){
+      return (this.data.isQuantity ? item.minQuantity : Math.ceil(item.minAmount / item.price)) || 1
+    },
     setSelectedNum(changed) {
       const selectedNum = this.data.selectedNum.map((item, index) => {
         const kindIndex = this.getCurrentTabsIndex()
@@ -135,7 +138,10 @@ export default {
       const type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
       const currentNum = currentTrolley.quantity || 1;
-      if (!currentTrolley.checked && item.inventoryCount !== 0) {
+      if (currentTrolley.inventoryCount === 0){
+        return
+      }
+      if (!currentTrolley.checked) {
         if (e.detail.value) {
           this.setComposeProducts({
             index,
@@ -172,7 +178,10 @@ export default {
           return kindIndex === index ? enableChecked : item
         })
       })
-      const data = currentNum + changed
+      const data = +currentNum + changed
+      if(data<this.getMinCount(currentTrolley)){
+        return
+      }
       this.setComposeProducts({
         index,
         prop: 'quantity',

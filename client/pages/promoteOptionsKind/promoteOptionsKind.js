@@ -255,17 +255,20 @@ Page({
       })
       .then(data => {
         if (data.status === 200) {
-          if(!this.data.isKind){
-            data=this.convertKindData(data)
+          if (!this.data.isKind) {
+            data = this.convertKindData(data)
           }
           const promotionBase = data.result.promotionBase //扣减依据 - 数量/金额 （1: 数量,  2:金额）
           const isQuantity = promotionBase === 1
+          this.setData({
+            isQuantity
+          })
           const composeProducts = (data.result.combinationItems || []).map(item => ({
             ...item,
             required: item.requireFlag && (promotionBase === 1 ? (item.seriesMinQuantity || item.brandMinQuantity) : (item.seriesMinAmount || item.brandMinAmount)),
             itemList: item.itemList.map(it => ({
               ...it,
-              quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.price)) || 1,
+              quantity: this.getMinCount(it),
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
               checked: it.requireFlag,
             }))
@@ -277,7 +280,7 @@ Page({
             ...resultItems,
             itemList: resultItems.itemList.map(it => ({
               ...it,
-              quantity: (isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.price)) || 1,
+              quantity: this.getMinCount(it),
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
               checked: it.requireFlag || it.itemId === this.product.itemId
             }))
@@ -288,21 +291,19 @@ Page({
             composeProducts,
             items,
             isQuantity,
-            tabs: Array(composeProducts.length+1).fill('').map((_, index) => !index)
+            tabs: Array(composeProducts.length + 1).fill('').map((_, index) => !index)
           })
           let arr = []
-          // if (this.data.isKind) {
-            arr = this.getAllItemLists().map((item, index) => {
-              return item.filter(it => it.checked || it.itemId === this.product.itemId)
-            });
-          // }
+          arr = this.getAllItemLists().map((item, index) => {
+            return item.filter(it => it.checked || it.itemId === this.product.itemId)
+          })
           if (arr.length) {
             const selectedProductList = arr.reduce((accumulator, item) => accumulator.concat(item), [])
-            const totalPrice=selectedProductList.reduce((accumulator,item)=>accumulator+item.price*item.quantity,0)
+            const totalPrice = selectedProductList.reduce((accumulator, item) => accumulator + item.price * item.quantity, 0)
             this.setData({
-              selectedNum: arr.map(item=>item.length),
+              selectedNum: arr.map(item => item.length),
               totalPrice: utils.getFixedNum(totalPrice, 2),
-              enableVisible:true,
+              enableVisible: true,
               selectedProductList
             })
           }
@@ -342,5 +343,5 @@ Page({
       isInputing: false
     })
   },
-  bindinput(){}
+  bindinput() {}
 })
