@@ -53,7 +53,20 @@ module.exports = {
   },
 
   list: async ctx => {
-    ctx.state.data = await DB.query("SELECT * FROM product;")
+    // ctx.state.data = await DB.query("SELECT * FROM product;")
+    ctx.state = Mock.mock({
+      'result|20': [{
+        "itemId": "3467",
+        "itemName": "冰露纯悦包装饮用水（纸箱）",
+        "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3467.jpg",
+        "price": 19,
+        "itemCategoryCode": "1204001",
+        "putShelvesFlg": true,
+        "itemSpecification": "550ml*24",
+        "promotionTypes": null,
+        "saleUnit": "箱(24个)"
+      }]
+    })
   },
 
   detail: async ctx => {

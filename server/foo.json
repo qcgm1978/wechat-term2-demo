@@ -1,30 +1,249 @@
 {
-    "items": [
+    "status": 200,
+    "message": "OK",
+    "result": [
         {
-            "itemId": "1067",
-            "itemName": "豫鸣一级大豆油",
-            "itemSpecification": "20L*1",
-            "itemBrand": "阳光油脂",
-            "saleUnit": "箱(1个)",
-            "stockUnit": "个",
-            "saleSku": "6958641500257",
-            "stockSku": "6936152910000",
-            "itemImageAddress1": "",
-            "itemImageAddress2": "",
-            "itemImageAddress3": "",
-            "itemImageAddress4": "",
-            "itemImageAddress5": "",
-            "applayScope": "",
-            "salesDescription": "",
-            "itemLocationCollection": "140,145,146,12,130,119,122,143,144,79,87,18,86,127,128,129,131,132,133,134,135,136,137,138,139,72,73,75,76,20,40,44,46,49,54,55,56,57",
-            "itemCategoryCode": "1401001",
-            "itemOrigin": "",
-            "itemExpirationDays": "",
-            "putShelvesDate": "",
-            "putShelvesFlg": false,
-            "price": 120,
-            "quantity": 2,
-            "addTime": "2018-12-25T22:22:17.240+0000"
+            "itemId": "3467",
+            "itemName": "冰露纯悦包装饮用水（纸箱）",
+            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3467.jpg",
+            "price": 19,
+            "itemCategoryCode": "1204001",
+            "putShelvesFlg": true,
+            "itemSpecification": "550ml*24",
+            "promotionTypes": null,
+            "saleUnit": "箱(24个)"
+        },
+        {
+            "itemId": "5911",
+            "itemName": "惠百真无芯卷纸本色750g（10+2）*16",
+            "itemImageAddress1": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/5911.png",
+            "price": 144,
+            "itemCategoryCode": "2301001",
+            "putShelvesFlg": true,
+            "itemSpecification": "750g*12*16",
+            "promotionTypes": null,
+            "saleUnit": "箱(16个)"
+        },
+        {
+            "itemId": "3461",
+            "itemName": "美汁源爽粒花语槐花",
+            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3461.jpg",
+            "price": 36,
+            "itemCategoryCode": "1205014",
+            "putShelvesFlg": true,
+            "itemSpecification": "420ml*12",
+            "promotionTypes": [
+                "2",
+                "2",
+                "2",
+                "2"
+            ],
+            "saleUnit": "箱(12个)"
+        },
+        {
+            "itemId": "1810",
+            "itemName": "美汁源果粒橙450ml",
+            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1810.png",
+            "price": 30,
+            "itemCategoryCode": "1205001",
+            "putShelvesFlg": true,
+            "itemSpecification": "450ml*12",
+            "promotionTypes": [
+                "1",
+                "1"
+            ],
+            "saleUnit": "箱(12个)"
+        },
+        {
+            "itemId": "4441",
+            "itemName": "中普纯生态熟啤酒瓶8度",
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E8%8F%A0%E8%90%9D%E5%95%A4320ml%2A24.jpeg",
+            "price": 25,
+            "itemCategoryCode": "1102004",
+            "putShelvesFlg": true,
+            "itemSpecification": "490ml*12",
+            "promotionTypes": null,
+            "saleUnit": "箱(12个)"
+        },
+        {
+            "itemId": "6276",
+            "itemName": "泸州绿波",
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E7%82%B9%E5%BF%83.png",
+            "price": 1320,
+            "itemCategoryCode": "1101010",
+            "putShelvesFlg": true,
+            "itemSpecification": "500ml*12",
+            "promotionTypes": [
+                "2"
+            ],
+            "saleUnit": "箱(12个)"
+        },
+        {
+            "itemId": "382",
+            "itemName": "300粒小米锅巴1*40",
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/WechatIMG20.png",
+            "price": 58.5,
+            "itemCategoryCode": "1806004",
+            "putShelvesFlg": true,
+            "itemSpecification": "1*40",
+            "promotionTypes": [
+                "2"
+            ],
+            "saleUnit": "个"
+        },
+        {
+            "itemId": "3562",
+            "itemName": "零度可乐摩登罐",
+            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3562.jpg",
+            "price": 53,
+            "itemCategoryCode": "1201001",
+            "putShelvesFlg": true,
+            "itemSpecification": "330ml*24",
+            "promotionTypes": null,
+            "saleUnit": "箱(24个)"
+        },
+        {
+            "itemId": "3514",
+            "itemName": "惠百真蒸鲜生东北大米（新）",
+            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3514.png",
+            "price": 174,
+            "itemCategoryCode": "1402002",
+            "putShelvesFlg": true,
+            "itemSpecification": "5kg*6",
+            "promotionTypes": null,
+            "saleUnit": "包(6个)"
+        },
+        {
+            "itemId": "1805",
+            "itemName": "芬达500ml",
+            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1805.png",
+            "price": 50,
+            "itemCategoryCode": "1201018",
+            "putShelvesFlg": true,
+            "itemSpecification": "500ml*24",
+            "promotionTypes": [
+                "2",
+                "2"
+            ],
+            "saleUnit": "箱(24个)"
+        },
+        {
+            "itemId": "4451",
+            "itemName": "雪碧易拉罐",
+            "itemImageAddress1": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/4451.png",
+            "price": 40,
+            "itemCategoryCode": "1201017",
+            "putShelvesFlg": true,
+            "itemSpecification": "330ml*4*6",
+            "promotionTypes": null,
+            "saleUnit": "箱(24个)"
+        },
+        {
+            "itemId": "3455",
+            "itemName": "芬达橙汁拉罐",
+            "itemImageAddress1": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3455.png",
+            "price": 22,
+            "itemCategoryCode": "1201016",
+            "putShelvesFlg": true,
+            "itemSpecification": "330ml*12",
+            "promotionTypes": [
+                "2"
+            ],
+            "saleUnit": "箱(12个)"
+        },
+        {
+            "itemId": "3473",
+            "itemName": "七喜",
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%B8%83%E5%96%9C1.jpg",
+            "price": 38,
+            "itemCategoryCode": "1201013",
+            "putShelvesFlg": true,
+            "itemSpecification": "1L*12",
+            "promotionTypes": [
+                "2"
+            ],
+            "saleUnit": "箱(12个)"
+        },
+        {
+            "itemId": "2243",
+            "itemName": "七喜2L",
+            "itemImageAddress1": "https://gss0.bdstatic.com/70cFsjip0QIZ8tyhnq/logo-zhidao.gif",
+            "price": 30,
+            "itemCategoryCode": "1201012",
+            "putShelvesFlg": true,
+            "itemSpecification": "1*6",
+            "promotionTypes": null,
+            "saleUnit": "箱(6个)"
+        },
+        {
+            "itemId": "2241",
+            "itemName": "美年达柚子600ml 1*24",
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png",
+            "price": 50,
+            "itemCategoryCode": "1201011",
+            "putShelvesFlg": true,
+            "itemSpecification": "1*24",
+            "promotionTypes": null,
+            "saleUnit": "箱(24个)"
+        },
+        {
+            "itemId": "6069",
+            "itemName": "七喜柠檬六联",
+            "itemImageAddress1": "https://ss0.bdstatic.com/k4oZeXSm1A5BphGlnYG/newmusic/lovesong.png",
+            "price": 40,
+            "itemCategoryCode": "1201010",
+            "putShelvesFlg": true,
+            "itemSpecification": "330ml*24",
+            "promotionTypes": null,
+            "saleUnit": "箱(24个)"
+        },
+        {
+            "itemId": "6078",
+            "itemName": "喜盈盈手撕面包礼盒手提袋礼品装550g",
+            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/6078.jpg",
+            "price": 16,
+            "itemCategoryCode": "1808007",
+            "putShelvesFlg": true,
+            "itemSpecification": "1*12",
+            "promotionTypes": null,
+            "saleUnit": "箱(1个)"
+        },
+        {
+            "itemId": "6075",
+            "itemName": "喜盈盈袋装巴厘岛风味虾肉片原味",
+            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/6075.jpg",
+            "price": 0.01,
+            "itemCategoryCode": "1808006",
+            "putShelvesFlg": true,
+            "itemSpecification": "10g*20*10",
+            "promotionTypes": [
+                "2"
+            ],
+            "saleUnit": "箱(20个)"
+        },
+        {
+            "itemId": "5921",
+            "itemName": "上好佳日式鱼果海苔味7G*200",
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/WechatIMG20.png",
+            "price": 0.35,
+            "itemCategoryCode": "1808003",
+            "putShelvesFlg": true,
+            "itemSpecification": "1*200",
+            "promotionTypes": [
+                "2"
+            ],
+            "saleUnit": "箱(1个)"
+        },
+        {
+            "itemId": "5919",
+            "itemName": "上好佳鲜虾条35G*40",
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E7%82%B9%E5%BF%83.png",
+            "price": 2.25,
+            "itemCategoryCode": "1808002",
+            "putShelvesFlg": true,
+            "itemSpecification": "1*40",
+            "promotionTypes": null,
+            "saleUnit": "箱(1个)"
         }
     ]
 }

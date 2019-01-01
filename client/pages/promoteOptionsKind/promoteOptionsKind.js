@@ -120,7 +120,7 @@ Page({
   radioClick(e) {
     const itemId = e.currentTarget.dataset.itemid;
     const itemIndex = e.currentTarget.dataset.index;
-    const kind = this.getCurrentKindName()
+    const kind = this.getCurrentKindStr()
     const composeProducts = this.getCurrentKind();
     const toSelected = !composeProducts[itemIndex].checked
     const quantity = composeProducts[itemIndex].quantity
@@ -342,5 +342,6 @@ Page({
     this.setData({
       isInputing: false
     })
-  }
+  },
+  bindinput(){}
 })

@@ -71,16 +71,20 @@ export default {
     getCurrentTabsIndex() {
       return this.data.tabs.indexOf(true);
     },
+    getCurrentKindStr() {
+      const kindIndex = this.getCurrentTabsIndex();
+      return kindIndex ? `composeProducts[${kindIndex - 1}]` : 'items'
+    },
     getCurrentKindName() {
       const kindIndex = this.getCurrentTabsIndex();
-      return kindIndex ? 'composeProducts' : 'items'
+      return kindIndex ? this.data[`composeProducts`][kindIndex - 1] : this.data.items
     },
     getCurrentKindMin(kindName = this.getCurrentKindName()) {
-      return this.data[kindName].categoryMinQuantity
+      return kindName.categoryMinQuantity
     },
     getCurrentKind() {
       const kindData = this.getCurrentKindName()
-      return this.data[kindData].itemList;
+      return kindData.itemList;
     },
     getAllItemLists() {
       return [this.data.items.itemList].concat(this.data.composeProducts.map(item => item.itemList))
@@ -115,8 +119,7 @@ export default {
       prop,
       data
     }) {
-      const kindIndex = this.getCurrentTabsIndex();
-      const kind = kindIndex ? `composeProducts` : `items`
+      const kind = this.getCurrentKindStr()
       const currentItem = `${kind}.itemList[${index}]`
       this.setData({
         [`${currentItem}.${prop}`]: data
@@ -132,7 +135,7 @@ export default {
       const type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
       const currentNum = currentTrolley.quantity || 1;
-      if (!currentTrolley.checked) {
+      if (!currentTrolley.checked && item.inventoryCount !== 0) {
         if (e.detail.value) {
           this.setComposeProducts({
             index,

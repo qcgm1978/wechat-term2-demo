@@ -309,7 +309,8 @@ module.exports = {
     if (ctx.request.body.orderId && ctx.request.body.merchantId) {
 
       ctx.state.data = {
-        status: 200
+        status: 200,
+        result: 'Cancel sucessfully'
       }
     }
   },

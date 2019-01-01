@@ -70,12 +70,15 @@ router.get('/v1/product/:merchantId/:orderId', controllers.product.detail)
 // 显示订单
 router.post('/v1/mall/order/list', controllers.order.list);
 router.post('/v1/order/create', controllers.order.create);
-router.post('/v1/order/cancel', controllers.order.cancel);
+router.post('/v1/mall/order/cancel', controllers.order.cancel);
 router.post('/v1/mall/order/count', controllers.order.count);
 
 router.get('/v1/mall/order/:merchantId/:orderId', controllers.order.detail);
+
 // 商品添加到购物车列表
 router.get('/v1/mall/cart/:merchantId/:locationId', controllers.trolley.list)
+router.post('/v1/mall/cart/add/:merchantId/:locationId', controllers.trolley.add)
+router.delete('/v1/mall/cart/remove/:merchantId', controllers.trolley.remove)
 router.get('/v1/mall/cart/count/:merchantId/:locationId', controllers.trolley.count)
 router.post('/v1/trolley/list', controllers.trolley.add)
 router.post('/v1/mall/order/onlinePayment', controllers.order.pay);

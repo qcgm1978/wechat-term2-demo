@@ -7,9 +7,22 @@ module.exports = {
    * 
    */
   add: async ctx => {
-    if (ctx.request.body.item_id) {
+    if (ctx.request.body.addItemList) {
       ctx.state.data = {
-        status: 200
+        status: 200,
+        result: 'OK'
+      }
+    } else {
+      ctx.state.data = {
+        msg: 'no id'
+      }
+    }
+  },
+  remove: async ctx => {
+    if (ctx.request.body.itemIds) {
+      ctx.state.data = {
+        status: 200,
+        result: 'OK'
       }
     } else {
       ctx.state.data = {
