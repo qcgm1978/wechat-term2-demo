@@ -78,15 +78,15 @@ export default {
       const kindIndex = this.getCurrentTabsIndex();
       return kindIndex ? `composeProducts[${kindIndex - 1}]` : 'items'
     },
-    getCurrentKindName() {
+    getCurrentKindData() {
       const kindIndex = this.getCurrentTabsIndex();
       return kindIndex ? this.data[`composeProducts`][kindIndex - 1] : this.data.items
     },
-    getCurrentKindMin(kindName = this.getCurrentKindName()) {
+    getCurrentKindMin(kindName = this.getCurrentKindData()) {
       return kindName.categoryMinQuantity
     },
     getCurrentKind() {
-      const kindData = this.getCurrentKindName()
+      const kindData = this.getCurrentKindData()
       return kindData.itemList;
     },
     getAllItemLists() {

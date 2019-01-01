@@ -160,7 +160,7 @@ Page({
         this.setComposeProducts({
           index: i,
           prop: 'categoryCode',
-          data: this.data[kind].categoryCode
+          data: this.getCurrentKindData().categoryCode
         })
         let selectedProductList = []
         if (composeProducts[i].checked) {
