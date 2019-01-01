@@ -8,6 +8,8 @@
 
 .promotion-tab view {
   padding: 18rpx 0;
+  min-width:30%;
+  justify-content:center;
 }
 
 .promotion-tab view.selected {

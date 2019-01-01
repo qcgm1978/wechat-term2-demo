@@ -186,7 +186,7 @@ module.exports = {
               }
             ]
           },
-          "combinationItems|2": [{
+          "combinationItems|5": [{
             requireFlag: '@boolean()',
             categoryCode: '@natural(10,20)',
             // categoryName: '@cword(3,5)',

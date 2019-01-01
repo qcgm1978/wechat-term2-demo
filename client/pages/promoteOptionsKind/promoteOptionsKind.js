@@ -56,11 +56,9 @@ Page({
     setTimeout(this.setScrollHeight, 1000);
 
     this.setData({
-      //scrollHeight: wx.getSystemInfoSync().windowHeight * 2 - (46 + 6 + 33 + 71 + 44) * 2 - offset,
       scrollHeight: getApp().globalData.systemInfo.deviceWindowHeight - (42 + 8 + 42 + 85 + 53) * 2 - offset,
       promoteMsg: promoteInfo.promotionName,
       items: product,
-      // 'selectedProductList[0]': product,
       totalPrice: 0,
       isKind: product.isKind,
       kind: options.kind
@@ -289,7 +287,8 @@ Page({
             promotionBase,
             composeProducts,
             items,
-            isQuantity
+            isQuantity,
+            tabs: Array(composeProducts.length+1).fill('').map((_, index) => !index)
           })
           let arr = []
           // if (this.data.isKind) {
