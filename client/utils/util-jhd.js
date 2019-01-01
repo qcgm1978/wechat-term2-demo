@@ -124,7 +124,7 @@ var postRequest = function({
         countyId,
         locationId,
         channelId,
-        merchantId:getApp().getMerchantId(),
+        merchantId: getApp().getMerchantId(),
         ...(postData || data)
       },
       method: METHOD,
@@ -342,7 +342,7 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
     postRequest({
         url: Api.addTrolley,
         config,
-        data: groupList
+        data: groupList.addGroupList[0]
       })
       .then(ret => {
         if (enableChecked) {

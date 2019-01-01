@@ -17,6 +17,12 @@ module.exports = {
       }
     }
   },
+  count: async ctx => {
+    ctx.state.result = Mock.mock({
+      count: '@integer(5,10)'
+    })
+
+  },
 
   /**
    * 拉取购物车商品列表

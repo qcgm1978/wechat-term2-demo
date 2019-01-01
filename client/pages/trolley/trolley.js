@@ -610,7 +610,7 @@ Page({
           merchantId: app.getMerchantId()
         },
         data: {
-          groupIds: [
+          itemIds: [
             groupId
           ]
         }
