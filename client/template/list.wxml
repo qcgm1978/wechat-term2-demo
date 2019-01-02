@@ -1,7 +1,7 @@
 <import src="./price.wxml" />
 <template name="msgItem">
   <view class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
-    <radio wx:if='{{item.inventoryCount!==0}}' disabled='{{item.inventoryCount===0||item.requireFlag}}' checked="{{item.inventoryCount!==0&&item.checked}}" catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}'
+    <radio wx:if='{{item.inventoryCount!==0}}' disabled='{{item.requireFlag}}' checked="{{item.checked}}" catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}'
       style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
     <text wx:else class='trolley-invalid regular' style='width:50rpx; font-size:20rpx;min-width:48rpx;display:flex;align-items:center; background:initial; margin-right:14rpx;'>失效</text>
@@ -21,7 +21,7 @@
         <view wx:if='{{!isDetail&&!item.isfree}}' class='center a-i-c' style='margin-right:24rpx;'>
           <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
           <input disabled='{{!item.checked}}' type="number" maxlength='5' value='{{item.quantity||1}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' bindfocus='bindfocus' style="font-size: 26rpx;" data-index='{{index}}'
-            data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}' />
+            data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}' data-type='input'/>
           <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
         </view>
       </view>

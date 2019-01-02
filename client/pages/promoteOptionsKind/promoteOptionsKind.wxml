@@ -10,11 +10,11 @@
 <scroll-view scroll-x>
   <view wx:if='{{items.itemList.length&&composeProducts.length}}' class='center regular promotion-tab bgc'>
     <view class='{{tabs[0]?"selected":"unselected"}} center' catch:tap='toggleKind' data-index='{{0}}'>
-      <text>{{items.categoryName||items.brandName||items.seriesName}}</text>
+      <text class='ellipse'>{{items.categoryName||items.brandName||items.seriesName}}</text>
       <image wx:if='{{items.requireFlag}}' src='./images/required.png' class='required-tab'></image>
     </view>
     <view wx:for='{{composeProducts}}' wx:key='index' class='{{tabs[index+1]?"selected":"unselected"}} center ellipse' catch:tap='toggleKind' data-index='{{index+1}}'>
-      <text>{{item.categoryName||item.brandName||item.seriesName}}</text>
+      <text class='ellipse'>{{item.categoryName||item.brandName||item.seriesName}}</text>
       <image wx:if='{{item.requireFlag}}' src='./images/required.png' class='required-tab'></image>
     </view>
   </view>

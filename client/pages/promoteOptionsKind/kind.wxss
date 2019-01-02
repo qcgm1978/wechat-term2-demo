@@ -3,18 +3,19 @@
 .promotion-tab {
   font-size: 32rpx;
   color: #707070;
-  /* border-bottom: 1rpx #f7f8fa solid; */
 }
 
 .promotion-tab view {
-  /* padding: 18rpx 0; */
-  min-width:30%;
-  justify-content:center;
-  flex-grow:1;
+  min-width: 30%;
+  justify-content: center;
+  flex-grow: 1;
+  position: relative;
 }
-.promotion-tab view text{
+
+.promotion-tab view text {
   padding: 18rpx 0;
 }
+
 .promotion-tab view.selected text {
   border-bottom: 4rpx #eb6113 solid;
   color: #eb6113;
@@ -30,5 +31,7 @@
 .required-tab {
   width: 72rpx;
   height: 26rpx;
+  position: absolute;
+  right: 0;
   /* transform: translate(0, -6rpx); */
 }

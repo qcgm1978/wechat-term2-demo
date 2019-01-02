@@ -123,9 +123,8 @@ export default {
       data
     }) {
       const kind = this.getCurrentKindStr()
-      const currentItem = `${kind}.itemList[${index}]`
       this.setData({
-        [`${currentItem}.${prop}`]: data
+        [`${kind}.itemList[${index}].${prop}`]: data
       })
 
     },
@@ -137,12 +136,13 @@ export default {
       const index = dataset.index
       const type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
-      const currentNum = currentTrolley.quantity || 1;
+      const currentNum = currentTrolley.quantity 
+      const value = +e.detail.value
       if (currentTrolley.inventoryCount === 0) {
         return
       }
       if (!currentTrolley.checked) {
-        if (e.detail.value) {
+        if (value) {
           this.setComposeProducts({
             index,
             prop: 'quantity',
@@ -153,7 +153,7 @@ export default {
         return
       }
       const isMinus = (type === 'minus');
-      if ((currentNum === 1) && isMinus) {
+      if ((currentNum === currentTrolley.minQuantity) && isMinus) {
 
         return;
       }
@@ -161,8 +161,15 @@ export default {
 
         return
       }
+      if (type === 'input' && value < currentTrolley.minQuantity){
+        return this.setComposeProducts({
+          index,
+          prop: 'quantity',
+          data: currentTrolley.minQuantity
+        })
+      }
       const isInputChange = e.detail.value !== undefined
-      const changed = isInputChange ? (+e.detail.value - currentNum) : (isMinus ? -1 : 1)
+      const changed = isInputChange ? (value - currentNum) : (isMinus ? -1 : 1)
       this.setSelectedNum(changed)
       if ((currentNum === 2 && isMinus) || (currentNum === 1)) {
         this.setComposeProducts({

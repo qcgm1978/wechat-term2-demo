@@ -120,18 +120,19 @@ Page({
     const itemIndex = e.currentTarget.dataset.index;
     const kind = this.getCurrentKindStr()
     const composeProducts = this.getCurrentKind();
-    const toSelected = !composeProducts[itemIndex].checked
-    const quantity = composeProducts[itemIndex].quantity
+    const currentTrolley = composeProducts[itemIndex]
+    const toSelected = !currentTrolley.checked
+    const quantity = currentTrolley.quantity
     if (!toSelected) {
       console.log(false)
       this.setData({
-        [`${kind}.itemList[${itemIndex}].quantity`]: 0,
+        [`${kind}.itemList[${itemIndex}].quantity`]: currentTrolley.minQuantity,
       })
     } else {
       console.log(true)
-      this.setData({
-        [`${kind}.itemList[${itemIndex}].quantity`]: 1,
-      })
+      // this.setData({
+      //   [`${kind}.itemList[${itemIndex}].quantity`]: 1,
+      // })
     }
     this.setSelectedNum(toSelected ? 1 : -quantity)
     const enableChecked = this.enableChecked()
@@ -269,6 +270,7 @@ Page({
             itemList: item.itemList.map(it => ({
               ...it,
               quantity: this.getMinCount(it),
+              minQuantity:this.getMinCount(it),
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
               checked: it.requireFlag,
             }))
@@ -281,6 +283,7 @@ Page({
             itemList: resultItems.itemList.map(it => ({
               ...it,
               quantity: this.getMinCount(it),
+              minQuantity: this.getMinCount(it),
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
               checked: it.requireFlag || it.itemId === this.product.itemId
             }))
@@ -293,8 +296,12 @@ Page({
             isQuantity,
             tabs: Array(composeProducts.length + 1).fill('').map((_, index) => !index)
           })
+          let enablePromotion = true
           let arr = []
           arr = this.getAllItemLists().map((item, index) => {
+            if (item.filter(it => it.requireFlag && (it.inventoryCount===0)).length){
+              enablePromotion=false
+            }
             return item.filter(it => it.checked || it.itemId === this.product.itemId)
           })
           if (arr.length) {
@@ -315,10 +322,11 @@ Page({
             enableChecked[0] = false
           }
           this.setData({
-            enableChecked
+            enableChecked,
+            enablePromotion
           })
           this.minNum = data.result.minNumber
-          if (!this.enableChecked()) {
+          if (!this.enableChecked() && this.data.enablePromotion) {
             // const currentItem = this.getCurrentData(obj.index)
             this.calcPromote(arr);
           }

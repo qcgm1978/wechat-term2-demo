@@ -155,7 +155,8 @@ module.exports = {
         ctx.state.result = Mock.mock({
           promotionId: '@natural(3)',
           promotionBase: '@pick([1,2])',
-          minNumber: '@integer(1000,2000)',
+          // minNumber: '@integer(1000,2000)',
+          minNumber: '@integer(5,10)',
           "items": {
             requireFlag: '@boolean()',
             categoryCode: '@natural(10,20)',
@@ -165,7 +166,7 @@ module.exports = {
             seriesCode: '@string()',
             seriesName: '@cword(3,5)',
             brandId: '@natural(3)',
-            brandName: '@cword(3,5)',
+            brandName: '@cword(10,50)',
             seriesMinAmount: '@float(0,500,0,2)',
             seriesMinQuantity: '@natural(2,5)',
             brandMinAmount: '@float(0,500,0,2)',
@@ -182,11 +183,12 @@ module.exports = {
                 "itemSpecification": '@cword(2,8)',
                 "itemImageAddress1": '@image',
                 requireFlag: '@boolean()',
-                inventoryCount: '@integer(0,1)',
+                // inventoryCount: '@integer(0,1)',
+                inventoryCount: 1,
               }
             ]
           },
-          "combinationItems": [{
+          "combinationItems|5": [{
             requireFlag: '@boolean()',
             categoryCode: '@natural(10,20)',
             // categoryName: '@cword(3,5)',
@@ -195,7 +197,7 @@ module.exports = {
             seriesCode: '@string()',
             seriesName: '@cword(3,5)',
             brandId: '@natural(3)',
-            brandName: '@cword(3,5)',
+            brandName: '@cword(10,50)',
             seriesMinAmount: '@float(0,500,0,2)',
             seriesMinQuantity: '@natural(2,5)',
             brandMinAmount: '@float(0,500,0,2)',
@@ -211,7 +213,8 @@ module.exports = {
                 "itemSpecification": '@cword(2,8)',
                 "itemImageAddress1": '@image',
                 requireFlag: '@boolean()',
-                inventoryCount: '@integer(0,1)',
+                // inventoryCount: '@integer(0,1)',
+                inventoryCount: 1,
                 "minQuantity": "@integer(0,5)",
               }
             ]
