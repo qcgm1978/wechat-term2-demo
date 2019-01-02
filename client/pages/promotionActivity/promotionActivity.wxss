@@ -39,8 +39,9 @@
 }
 
 .thumbnail {
-  width: 80rpx;
-  height: 80rpx;
+  width: 180rpx;
+  min-width: 180rpx;
+  max-height: 180rpx;
   margin: 10rpx;
   text-align: center;
   border: 1px solid rgb(236, 236, 236);
