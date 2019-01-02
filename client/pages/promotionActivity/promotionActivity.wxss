@@ -1,5 +1,6 @@
 @import '../../template/select-gift.wxss';
 @import '../../template/list.wxss';
+
 .name {
   font-size: 26rpx;
   color: #333;
@@ -20,17 +21,27 @@
 
 .img {
   width: 180rpx;
+  min-width: 180rpx;
   max-height: 180rpx;
-  border: 2rpx solid #F0F1F5;
-border-radius: 2rpx;
-margin-left: 8rpx;
+  border: 2rpx solid #f0f1f5;
+  border-radius: 2rpx;
+  margin-left: 8rpx;
 }
 
 .container-activity {
   padding: 24rpx;
   white-space: nowrap;
-  box-sizing:border-box;
+  box-sizing: border-box;
 }
-.line{
+
+.line {
   height: 16rpx;
+}
+
+.thumbnail {
+  width: 80rpx;
+  height: 80rpx;
+  margin: 10rpx;
+  text-align: center;
+  border: 1px solid rgb(236, 236, 236);
 }

@@ -89,9 +89,15 @@ module.exports = {
           promotionGroups: [{
             totalDiscountAmount: 0,
             'promotions|10': [{
+              'items|10': [
+                {
 
+                  itemId: "3467",
+                  itemName: '@word(3,5)',
+                  itemPicUrl: '@image'
+                }
+              ],
               promotionId: "189471",
-              itemId: "3467",
               discountAmount: '@integer(10,100)',
               discountPercentage: null,
               "promotionType": "@pick(['2','1'])",
