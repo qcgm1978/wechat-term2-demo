@@ -303,7 +303,7 @@ Page({
             this.setData({
               selectedNum: arr.map(item => item.length),
               totalPrice: utils.getFixedNum(totalPrice, 2),
-              enableVisible: true,
+              // enableVisible: true,
               selectedProductList
             })
           }
