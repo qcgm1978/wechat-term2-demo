@@ -7,12 +7,15 @@
 }
 
 .promotion-tab view {
-  padding: 18rpx 0;
+  /* padding: 18rpx 0; */
   min-width:30%;
   justify-content:center;
+  flex-grow:1;
 }
-
-.promotion-tab view.selected {
+.promotion-tab view text{
+  padding: 18rpx 0;
+}
+.promotion-tab view.selected text {
   border-bottom: 4rpx #eb6113 solid;
   color: #eb6113;
 }

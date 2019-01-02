@@ -30,7 +30,7 @@ export default {
         return
       }
       this.setData({
-        tabs: this.data.tabs.map((item, index) => index === e.target.dataset.index)
+        tabs: this.data.tabs.map((item, index) => index === e.currentTarget.dataset.index)
       })
     },
     getMinCount(item) {
