@@ -10,6 +10,7 @@
   justify-content: center;
   flex-grow: 1;
   position: relative;
+  padding:0 36rpx;
 }
 
 .promotion-tab view text {
