@@ -1,7 +1,7 @@
 <import src="./price.wxml" />
 <template name="msgItem">
   <view class='center padding bgc mgt' data-itemid='{{item.itemId}}'>
-    <radio wx:if='{{item.inventoryCount!==0}}' disabled='{{item.requireFlag}}' checked="{{item.checked}}" catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}'
+    <radio wx:if='{{item.inventoryCount!=0}}' disabled='{{item.requireFlag}}' checked="{{item.checked}}" catch:tap='radioClick' class="radio" data-index='{{index}}' data-itemid='{{item.itemId}}' value="{{index}}" color='{{item.checked?"#EE711F":"#D1D1D2"}}'
       style='transform:scale(.8); display: flex; align-items: center;'>
     </radio>
     <text wx:else class='trolley-invalid regular' style='width:50rpx; font-size:20rpx;min-width:48rpx;display:flex;align-items:center; background:initial; margin-right:14rpx;'>失效</text>
