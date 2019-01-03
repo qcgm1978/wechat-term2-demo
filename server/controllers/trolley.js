@@ -47,6 +47,7 @@ module.exports = {
       {
         "items|10": [
           {
+            inventoryCount: '@integer(0,1)',
             seriesCode: '@string("number",4)',
             itemBrandId: '@string("lower",10)',
             "itemId": "@integer(1000,9999)",

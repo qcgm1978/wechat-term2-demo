@@ -24,6 +24,7 @@
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <view wx:if='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
+                <view wx:elif='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>售罄</view>
               </view>
               <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <view style='display:flex;  width:100%;'>
@@ -46,7 +47,7 @@
                     <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
                     <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
                     />
-                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>                  
+                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
                   </view>
                 </view>
               </view>
@@ -109,6 +110,7 @@
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
+                <view wx:elif='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>售罄</view>
               </view>
               <view class='column trolley-right' style='width:300rpx;' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <view style='display:flex; width:100%;'>
@@ -185,10 +187,10 @@
       <text wx:else>订单最低起定价:¥500</text>
     </view>
     <view wx:if='{{cartCombinationPromotions.len}}' class='center trolley-calc padding' style='background:rgb(251,241,222	)'>
-      <block >
+      <block>
         <text></text>
         <view catch:tap='toPromotionActivity' class='center' style="align-items: center;">
-          <text >可享{{cartCombinationPromotions.len}}个优惠，可送{{cartCombinationPromotions.gifts}}个赠品</text>
+          <text>可享{{cartCombinationPromotions.len}}个优惠，可送{{cartCombinationPromotions.gifts}}个赠品</text>
           <image src='./img/arrow.png' class='trolley-arrow'></image>
         </view>
       </block>
@@ -225,23 +227,23 @@
   </view>
 </view>
 <!-- <cover-view style='position:relative;z-index:10;'> -->
-  <view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0; z-index:10;'>
-    <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.3;' catch:tap='closePopup'></view>
-    <view class='select-goods bgc ' style='bottom:0rpx;z-index: 21;'>
-      <view class='center padding' style='justify-content:space-between;'>
-        <view style='font-size:32rpx; margin-left:0rpx;'>切换促销</view>
-        <image src='../../images/close.png' class='close-popup' style='margin-right:4rpx;' catch:tap='closePopup'></image>
-      </view>
-      <view class='line'></view>
-      <view class='padding' style='padding:18rpx 0rpx;'>
-        <scroll-view scroll-y style="height: 674rpx;">
-          <view wx:for='{{promotionOptions}}' wx:key='unique' style='padding:18rpx 18rpx; '>
-            <radio style='transform:scale(.8); margin-left: -80rpx;' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
-              <view style="width:800rpx;font-size: 36rpx; padding-left:10rpx;word-wrap:break-word;">{{item.promotionName}}</view>
-            </radio>
-          </view>
-        </scroll-view>
-      </view>
+<view wx:if='{{isSelecting}}' style='position: fixed; height: 100%; width:100%;top:0; left: 0; z-index:10;'>
+  <view wx:if='{{isSelecting}}' class='mask' style='background-color: #000;opacity:.3;' catch:tap='closePopup'></view>
+  <view class='select-goods bgc ' style='bottom:0rpx;z-index: 21;'>
+    <view class='center padding' style='justify-content:space-between;'>
+      <view style='font-size:32rpx; margin-left:0rpx;'>切换促销</view>
+      <image src='../../images/close.png' class='close-popup' style='margin-right:4rpx;' catch:tap='closePopup'></image>
+    </view>
+    <view class='line'></view>
+    <view class='padding' style='padding:18rpx 0rpx;'>
+      <scroll-view scroll-y style="height: 674rpx;">
+        <view wx:for='{{promotionOptions}}' wx:key='unique' style='padding:18rpx 18rpx; '>
+          <radio style='transform:scale(.8); margin-left: -80rpx;' value="{{index}}" checked='{{item.checked}}' data-index='{{index}}' catch:tap='selectPromotion' color='{{item.checked?"#EE711F":"#D1D1D2"}}'>
+            <view style="width:800rpx;font-size: 36rpx; padding-left:10rpx;word-wrap:break-word;">{{item.promotionName}}</view>
+          </radio>
+        </view>
+      </scroll-view>
     </view>
   </view>
+</view>
 <!-- </cover-view> -->
