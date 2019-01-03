@@ -93,13 +93,14 @@
           <swiper-item class='column' style=' margin:0 6rpx;justify-content:center;'>
             <view class='center-center' style="width: 100%;height:150rpx;justify-content:center;">
               <image mode='aspectFit' src="{{item.itemImageAddress1?item.itemImageAddress1:defImg}}" class="slide-image" style="border-radius: 8rpx;width:218rpx;max-height:100%;" />
+              <image wx:if='{{item.promotionTypes[0]=="1"}}' src='./img/gift-small.png' class='related-gift'></image>
             </view>
             <view class='regular relative-name' style="justify-content:center;text-align:center;">{{item.itemName}}</view>
             <view class='center' style="width: 100%;justify-content:center;">
-              <view class='relative-money dollar'>{{item.price}}
+              <view class='relative-money'>
+                <text class='dollar {{item.promotionTypes[0]=="2"?"l-t":""}}'>{{item.price}}</text>
                 <text class='related-unit unit-color'>/{{item.saleUnit}}</text>
               </view>
-              <!-- <text class='promotion-type'>{{item.itemSpecification}}</text> -->
             </view>
           </swiper-item>
         </view>

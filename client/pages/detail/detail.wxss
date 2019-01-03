@@ -8,8 +8,6 @@
   width: 100%;
 }
 
-
-
 .selecting-btn {
   width: 344rpx !important;
 }
@@ -399,9 +397,16 @@
   z-index: 10;
 }
 
+.related-gift {
+  width: 50rpx;
+  height: 43rpx;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
 .still-promote {
   font-size: 24rpx;
   color: #f2741f;
   letter-spacing: 0;
 }
-
