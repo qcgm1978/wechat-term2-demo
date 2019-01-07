@@ -1,6 +1,8 @@
 const DB = require('../utils/db.js')
 const Mock = require('mockjs');
-
+let bool = Mock.Random.boolean()
+bool = false//only given gifts
+// bool = true//only money off
 module.exports = {
   item: async ctx => {
     ctx.state = Mock.mock({
@@ -14,7 +16,7 @@ module.exports = {
             "endTime": "Thu Oct 31 00:00:00 CST 2019",
             "promotionDescription": "七喜 1L*12满3件打折98.365125%",
             // "promotionType": "@pick(['2','1'])",
-            "promotionType": "1",
+            "promotionType": bool ? '2' : "1",
             "combinationFlag": "@pick(['0','1'])",
             // promotionKind: "@pick(['2','1'])",
             promotionKind: "1",
@@ -136,7 +138,6 @@ module.exports = {
     const merchantId = ctx.params.merchantId;
     if (!orderId || !merchantId) {
       try {
-        const bool = Mock.Random.boolean()
         ctx.state = Mock.mock({
           'result|10': [{
             promotionId: '18947' + '@increment(-1)',

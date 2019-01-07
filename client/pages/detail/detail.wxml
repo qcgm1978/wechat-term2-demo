@@ -34,7 +34,7 @@
           <view class='center promotion-container padding-prom regular bgc ' data-index='{{index}}' data-is-kind='{{(promoteInfo.combinationFlag==="0"&&promoteInfo.promotionKind==="2")||(promoteInfo.combinationFlag==="1"&&promoteInfo.promotionKind==="2")}}' catch:tap='showPromotion'>
             <image class='presentImg' src='{{promoteInfo.promotionType=="2"?imgManjian:imgManzeng}}'></image>
             <text class='promotion-2'>{{promoteInfo.promotionName}}</text>
-            <text wx:if='{{promoteInfo.availableAmount||promoteInfo.availableCount}}' class='still-promote light ellipse'>还可优惠{{promoteInfo.availableAmount?(promoteInfo.availableAmount+'元'):(promoteInfo.availableCount+'次')}}</text>
+            <text wx:if='{{promoteInfo.availableAmount||promoteInfo.availableCount}}' class='still-promote light ellipse'>还可优惠{{promoteInfo.availableCount?(promoteInfo.availableCount+(promoteInfo.promotionType=="1"?'赠品':'次')):(promoteInfo.availableAmount+'元')}}</text>
             <view class='promotion-list'>
               <view class='center' wx:for='{{product.item_location_collection}}' wx:key='index' wx:if='{{index<3}}' style="height: 36rpx;">
                 <text class='promotion-type'>{{item.type}}</text>
