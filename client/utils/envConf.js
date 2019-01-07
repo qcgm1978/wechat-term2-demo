@@ -80,7 +80,7 @@ const apiURLs = {
   getCombinationList: `${baseUrl}/mall/promotions/combinationList`,
   calcPromote: `${baseUrl}/promotions/getImitationCalc`,
   // calcPromote: `${baseUrl}/mall/promotions/calc`,
-  calcAmount: `${baseUrl}/mall/promotions/calcAmount`,
+  calcAmount: `${baseUrl}/promotions/getPromotionAvailableAmount`,
   selectGoods: `${localNodejs || baseUrl}/mall/promotions/selectGoods`,
   selectGoodsKind: `${localNodejs || baseUrl}/mall/promotions/selectCombGoods`,
   getPromotionList: `${localNodejs || baseUrl}/mall/promotions/selectPromotions`,
