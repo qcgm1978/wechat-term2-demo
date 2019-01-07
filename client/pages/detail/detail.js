@@ -406,7 +406,7 @@ Page({
       })
       .then(({
         promotionIds
-      }) => {
+      }={}) => {
         return this.getPromoteAmount({
           promotionIds
         }) //extend promoteInfoList. todo maybe del getPromoteInfo call
@@ -566,7 +566,7 @@ Page({
           locationId: getApp().globalData.merchant.locationId,
           items: [{
             // brandId,
-            seriesCode:'todo',//todo where it from
+            seriesCode: this.data.product.seriesCode,
             categoryCode: categoryId ? categoryId : "",
             itemId: itemId
           }],
@@ -623,10 +623,10 @@ Page({
             categoryId
           })
           .then(() => {
-
+            debugger
           })
-          .catch(() => {
-
+          .catch(err => {
+            throw(err)
           })
       })
   },

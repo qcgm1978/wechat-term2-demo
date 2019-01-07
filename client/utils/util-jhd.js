@@ -168,7 +168,7 @@ var getRequest = function(url, data) {
       }
     }
     wx.request({
-      url: url,
+      url: `${url}&merchantId=${getApp().getMerchantId()}`,
       method: 'GET',
       header: {
         'Authorization': 'Bearer ' + (data.accessToken ? data.accessToken : getApp().globalData.token.accessToken),

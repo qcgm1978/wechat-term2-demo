@@ -130,7 +130,8 @@ Page({
       getRequest(getHot, {
         locationId,
         start: this.start,
-        limit: this.limit
+        limit: this.limit,
+        merchantId: getApp().getMerchantId()
       }).then(result => {
         let data = result.result;
         if (result.status === 200) {
@@ -244,6 +245,13 @@ Page({
         return getApp().globalData.merchant;
       })
       .then(this.setStores)
+      .then(data => {
+        wx.setStorage({
+          key: 'globalData',
+          data: getApp().globalData,
+        });
+        wx.hideLoading();
+      })
       .then(this.getProductList)
       .then(() => {
         return updateTrolleyNum()
@@ -258,13 +266,7 @@ Page({
           });
         }
       })
-      .then(data => {
-        wx.setStorage({
-          key: 'globalData',
-          data: getApp().globalData,
-        });
-        wx.hideLoading();
-      })
+      
       .catch(err => {
         console.log(err)
         wx.hideLoading();
