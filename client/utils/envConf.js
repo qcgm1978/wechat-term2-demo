@@ -5,7 +5,7 @@ const EVN = {
   "PRO": 2
 }
 
-var env = EVN.LOCAL //update this value for different env
+var env = EVN.STG //update this value for different env
 
 var baseUrl = ""
 var addrUrl = ""
@@ -13,7 +13,7 @@ var clientSecret = ""
 let statistics = ''
 let localNodejs = ''
 switch (env) {
-  case EVN.LOCAL:
+  case EVN.STG:
     {
       baseUrl = 'http://localhost:5757/v1'
       baseUrl = 'http://10.3.0.98:5757/v1';

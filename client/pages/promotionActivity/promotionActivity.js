@@ -97,6 +97,7 @@ Page({
         })
     })
   },
+  
   /**
    * Lifecycle function--Called when page is initially rendered
    */
@@ -108,7 +109,7 @@ Page({
    * Lifecycle function--Called when page show
    */
   onShow: function() {
-
+    // console.log(getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : '' )
   },
 
   /**
@@ -142,7 +143,14 @@ Page({
   /**
    * Called when user click on the top right corner to share
    */
-  onShareAppMessage: function() {
-
-  }
+  onShareAppMessage(res) {
+    // if (res.from === 'button') {
+    //   // 来自页面内转发按钮
+    //   console.log(res.target)
+    // }
+    // return {
+    //   title: '自定义转发标题',
+    //   path: '/page/user?id=123'
+    // }
+  },
 })
