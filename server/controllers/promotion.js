@@ -100,6 +100,7 @@ module.exports = {
                   itemPicUrl: '@image'
                 }
               ],
+              isTransactionPromotion: "@pick([0,1])",//整单：1，非整单：0
               promotionId: "189471",
               discountAmount: '@integer(10,100)',
               discountPercentage: null,

@@ -10,7 +10,7 @@
         <image src='../trolley/img/arrow.png' class='arrow'></image>
       </view>
     </view>
-    <scroll-view scroll-x class='container-activity'>
+    <scroll-view scroll-x class='container-activity' wx:if="{{promotion.isTransactionPromotion!==1}}">
       <view class='center a-i-c '>
         <image wx:if='{{index<2||(promotion.promotionType==="2")}}' wx:for='{{promotion.items}}' wx:key='index' src='{{item.itemPicUrl}}' class='img' mode='aspectFit'></image>
         <view wx:if='{{promotion.promotionType!=="2" && promotion.giftItems.length}}' style='position: relative;' class='center a-i-c'>
