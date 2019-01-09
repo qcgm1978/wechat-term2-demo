@@ -54,11 +54,11 @@ module.exports = {
             "itemName": "@ctitle(5,10)",
             "itemSpecification": "420ml*12",
             "itemBrand": "可口可乐",
-            "saleUnit": "箱(12个)",
+            "saleUnit": "@pick(['箱','盒'])(@integer(5,10)个)",
             "stockUnit": "个",
             "saleSku": "6956416205147",
             "stockSku": "6956416205147",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3461.jpg",
+            "itemImageAddress1": "@image",
             "itemImageAddress2": "",
             "itemImageAddress3": "",
             "itemImageAddress4": "",
@@ -71,7 +71,7 @@ module.exports = {
             "itemExpirationDays": "",
             "putShelvesDate": "2018/11/01 14:08:22",
             "putShelvesFlg": true,
-            "price": 10,
+            "price": '@integer(10,20)',
             "quantity": '@integer(2,3)',
             "addTime": "2018-12-18T01:51:22.270+0000"
           }
