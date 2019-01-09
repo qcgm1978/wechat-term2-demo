@@ -23,7 +23,9 @@ module.exports = async (ctx, next) => {
             "address": null,
             "loginMallFlg": 1,
             "activeFlg": 1,
-            "pointBalance": 5000
+            "pointBalance": 5000,
+            availablePoint: 20000,
+            availablePointDrop: 2000
         }
     }
 }

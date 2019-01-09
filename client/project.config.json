@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 18,
+			"current": 6,
 			"list": [
 				{
 					"id": -1,
@@ -76,7 +76,7 @@
 					"id": 6,
 					"name": "order-confirm",
 					"pathName": "pages/order-confirm/order-confirm",
-					"query": "total=6250.00&totalDiscount=0.00&itemId=3351"
+					"query": "total=6250.00&orderTotalAmount=0.00&itemId=3351"
 				},
 				{
 					"id": -1,

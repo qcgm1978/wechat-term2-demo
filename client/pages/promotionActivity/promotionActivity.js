@@ -21,7 +21,8 @@ Page({
     })
   },
   selectGift(e){
-    const giftItems = this.data.promotions[e.currentTarget.dataset.index].giftItems.reduce((accumulator, item, index) => {
+    this.index = e.currentTarget.dataset.index
+    const giftItems = this.data.promotions[this.index].giftItems.reduce((accumulator, item, index) => {
       const checked = item.inventoryCount > 0 && !accumulator.hasElected
       if (checked) {
         accumulator.hasElected = true
@@ -49,7 +50,8 @@ Page({
   },
   toggleGifts() {
     this.setData({
-      isSelectingGift: !this.data.isSelectingGift
+      isSelectingGift: !this.data.isSelectingGift,
+      [`promotions[${this.index}].giftItems`]: this.data.giftItems
     })
   },
   calc(trollyList) {
@@ -123,7 +125,8 @@ Page({
    * Lifecycle function--Called when page unload
    */
   onUnload: function() {
-
+    // save gifts selection state for generating order
+    getApp().globalData.activityItems=this.data.promotions
   },
 
   /**

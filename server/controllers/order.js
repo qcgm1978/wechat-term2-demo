@@ -315,10 +315,12 @@ module.exports = {
     }
   },
   create: async ctx => {
+    // ctx.status = 409
+    ctx.status = 406
     ctx.state.data = {
       message: '',
       orderId: '123456',
-      orderTotalAmount: 200
+      totalAmount: 200
     }
   },
   pay: async ctx => {
