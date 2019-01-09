@@ -40,7 +40,7 @@ Page({
     }, ],
     icon: '../../images/trolley-full.png',
     imgManjian: app.globalData.imgManjian,
-    imgManzeng:app.globalData.imgManzeng,
+    imgManzeng: app.globalData.imgManzeng,
   },
   relatedChange(e) {},
   showPromotion(e) {
@@ -306,7 +306,7 @@ Page({
     }
     this.toggleGifts()
   },
-  navigateToConfirm(){
+  navigateToConfirm() {
     this.data.product.quantity = this.data.quantity
     const selectedItem = this.data.giftItems.find(item => item.checked) //todo how to judge giftItem
     // this.data.product.itemPromotions[0].itemPromotionId = selectedItem.giftItemId
@@ -323,7 +323,9 @@ Page({
     group.checked = true
     group.cartCombinationPromotions = null
     group.items = [this.data.product]
-    group.promotions = { promotionId : this.data.promotionId}
+    group.promotions = {
+      promotionId: this.data.promotionId
+    }
     group.putShelvesFlg = this.data.product.putShelvesFlg
     group.suitePrice = this.data.product.price
 
@@ -351,7 +353,7 @@ Page({
             // todo how set to map line 281 in order-confirm.js
             // arr.giftItems=arr.giftItems.map(item=>{
             //   if (item.itemId === selectedItem.giftItemId){
-                
+
             //   }
             // })
             arr.giftItems[0].itemId = arr.giftItems[0].giftItemId
@@ -370,7 +372,7 @@ Page({
           url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${arr && arr.discountAmount && arr.discountAmount != 0 ? arr.discountAmount : 0}`,
         });
       })
-      .catch(() => { })
+      .catch(() => {})
   },
   navigateTo(evt) {
     const dataset = evt.currentTarget.dataset;
@@ -406,20 +408,21 @@ Page({
       })
       .then(({
         promotionIds
-      }={}) => {
+      } = {}) => {
         return this.getPromoteAmount({
           promotionIds
         }) //extend promoteInfoList. todo maybe del getPromoteInfo call
       })
       .then(data => {
-        this.setData({
-          promoteInfoList: data
-        })
-        this.calc({
-          data,
-          quantity: 1
-        })
-
+        if (data !== null) {
+          this.setData({
+            promoteInfoList: data
+          })
+          this.calc({
+            data,
+            quantity: 1
+          })
+        }
       })
     this.getRelated(options);
     if (getApp().globalData.badge > 0) {
@@ -467,6 +470,9 @@ Page({
   getPromoteAmount({
     promotionIds
   }) {
+    if (!(promotionIds instanceof Array)) {
+      return null
+    }
     return utils.postRequest({
         url: calcAmount,
         data: {
@@ -626,7 +632,7 @@ Page({
             debugger
           })
           .catch(err => {
-            throw(err)
+            throw (err)
           })
       })
   },
