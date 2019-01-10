@@ -178,4 +178,4 @@
     <button bind:tap='buy' disabled='{{!product.putShelvesFlg||product.inventoryCount===0}}' class='{{(product.putShelvesFlg&&product.inventoryCount!==0&&(!isSelecting||enableBuy))?"buy-btn":"buy-selecting"}} {{isSelecting?"selecting-btn":""}} '>{{buyTxt}}</button>
   </view>
 </view>
-<template is="gift" data="{{isSelectingGift,radioChange,giftItems}}" />
+<template is="gift" data="{{isSelectingGift,radioChange,giftItems,isDetail:true}}" />

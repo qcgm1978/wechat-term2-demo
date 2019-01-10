@@ -231,8 +231,11 @@ Page({
       console.log(err);
     })
   },
-
-  createOrder(itemId) {
+  goOnBuying(){
+    this.closePopup()
+    this.createOrder()
+  },
+  createOrder() {
     return new Promise((resolve, reject) => {
       wx.showLoading({
         title: '正在创建订单...',
@@ -379,8 +382,10 @@ Page({
             prompt: this.changedTxt
           })
         } else if (err.statusCode === 417) {//stockout
+          const message = JSON.parse(err.data.result.message)
+          const isGiftStockout = message.every(item => item.isGifted)
           return this.setData({
-            isStockout: true,
+            [isGiftStockout ?'isGiftStockout':'isStockout']: true,
             stockoutList: JSON.parse(err.data.result.message)
           })
         }else if (err !== 406) {
@@ -403,7 +408,9 @@ Page({
   },
   closePopup() {
     this.setData({
-      isFailed: false
+      isFailed: false,
+      isStockou:false,
+      isGiftStockout:false
     });
     if (this.changedTxt === this.data.prompt) {
       wx.navigateBack({
@@ -412,8 +419,8 @@ Page({
     }
   },
   navigateBack() {
+    debugger
     wx.navigateBack({
-
     })
   },
   /**

@@ -308,7 +308,7 @@ Page({
   },
   navigateToConfirm() {
     this.data.product.quantity = this.data.quantity
-    const selectedItem = this.data.giftItems.find(item => item.checked) //todo how to judge giftItem
+    const selectedItem = (this.data.giftItems||[]).find(item => item.checked) //todo how to judge giftItem
     // this.data.product.itemPromotions[0].itemPromotionId = selectedItem.giftItemId
     if (selectedItem) {
       this.data.product.itemPromotions[0].itemPromotionId = this.data.promotionId
@@ -372,7 +372,12 @@ Page({
           url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${arr && arr.discountAmount && arr.discountAmount != 0 ? arr.discountAmount : 0}`,
         });
       })
-      .catch(() => {})
+      .catch(() => {
+        //todo temp turn to next page
+        wx.navigateTo({
+          url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0}`,
+        });
+      })
   },
   navigateTo(evt) {
     const dataset = evt.currentTarget.dataset;
@@ -660,8 +665,12 @@ Page({
     })
   },
   toggleGifts() {
-    this.setData({
-      isSelectingGift: !this.data.isSelectingGift
-    })
+    if (this.data.promoteInfoList.length) {
+      this.setData({
+        isSelectingGift: !this.data.isSelectingGift
+      })
+    } else {
+      this.navigateToConfirm()
+    }
   }
 })
