@@ -84,7 +84,7 @@ Page({
     });
     const trolley = this.data.trolley.map((item, index) => {
       item.checked = this.data.checkAll
-      if (this.data.checkAll && item.putShelvesFlg && !item.inventoryCount === 0) {
+      if (this.data.checkAll && item.putShelvesFlg && item.inventoryCount !== 0) {
         if (!this.selectedRadio.includes(item.groupId))
           this.selectedRadio.push(item.groupId);
       } else {
@@ -480,7 +480,8 @@ Page({
       ...this.generateExtendedData({
         itemId: item.itemId
       }),
-      items: [item]
+      items: [item],
+      inventoryCount: item.inventoryCount
     }))
     return data
   },
