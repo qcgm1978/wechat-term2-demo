@@ -3,247 +3,492 @@
     "message": "OK",
     "result": [
         {
-            "itemId": "3467",
-            "itemName": "冰露纯悦包装饮用水（纸箱）",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3467.jpg",
-            "price": 19,
-            "itemCategoryCode": "1204001",
-            "putShelvesFlg": true,
-            "itemSpecification": "550ml*24",
-            "promotionTypes": null,
-            "saleUnit": "箱(24个)"
-        },
-        {
-            "itemId": "5911",
-            "itemName": "惠百真无芯卷纸本色750g（10+2）*16",
-            "itemImageAddress1": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/5911.png",
-            "price": 144,
-            "itemCategoryCode": "2301001",
-            "putShelvesFlg": true,
-            "itemSpecification": "750g*12*16",
-            "promotionTypes": null,
-            "saleUnit": "箱(16个)"
-        },
-        {
-            "itemId": "3461",
-            "itemName": "美汁源爽粒花语槐花",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3461.jpg",
-            "price": 36,
-            "itemCategoryCode": "1205014",
-            "putShelvesFlg": true,
-            "itemSpecification": "420ml*12",
-            "promotionTypes": [
-                "2",
-                "2",
-                "2",
-                "2"
+            "itemCategoryId": "320669",
+            "itemCategoryCode": "11",
+            "itemCategoryName": " 酒",
+            "itemCategoryHierarchy": 1,
+            "itemCategoryParent": "",
+            "childCategory": [
+                {
+                    "itemCategoryId": "320674",
+                    "itemCategoryCode": "1102",
+                    "itemCategoryName": " 啤酒",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320669",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "321153",
+                            "itemCategoryCode": "1102004",
+                            "itemCategoryName": " 中普",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320674",
+                            "childCategory": [],
+                            "itemCategoryPath": "11 酒 : 1102 啤酒 : 1102004 中普",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg"
+                        }
+                    ],
+                    "itemCategoryPath": "11 酒 : 1102 啤酒",
+                    "itemCategoryImage": null
+                },
+                {
+                    "itemCategoryId": "320670",
+                    "itemCategoryCode": "1101",
+                    "itemCategoryName": " 白酒",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320669",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "321227",
+                            "itemCategoryCode": "1101010",
+                            "itemCategoryName": " 泸州",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320670",
+                            "childCategory": [],
+                            "itemCategoryPath": "11 酒 : 1101 白酒 : 1101010 泸州",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E7%82%B9%E5%BF%83.png"
+                        }
+                    ],
+                    "itemCategoryPath": "11 酒 : 1101 白酒",
+                    "itemCategoryImage": null
+                }
             ],
-            "saleUnit": "箱(12个)"
+            "itemCategoryPath": "11 酒",
+            "itemCategoryImage": null
         },
         {
-            "itemId": "1810",
-            "itemName": "美汁源果粒橙450ml",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1810.png",
-            "price": 30,
-            "itemCategoryCode": "1205001",
-            "putShelvesFlg": true,
-            "itemSpecification": "450ml*12",
-            "promotionTypes": [
-                "1",
-                "1"
+            "itemCategoryId": "320678",
+            "itemCategoryCode": "12",
+            "itemCategoryName": " 饮料",
+            "itemCategoryHierarchy": 1,
+            "itemCategoryParent": "",
+            "childCategory": [
+                {
+                    "itemCategoryId": "320679",
+                    "itemCategoryCode": "1201",
+                    "itemCategoryName": " 碳酸饮料",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320678",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "321180",
+                            "itemCategoryCode": "1201012",
+                            "itemCategoryName": " 百事2L*6系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201012 百事2L*6系列",
+                            "itemCategoryImage": "https://gss0.bdstatic.com/70cFsjip0QIZ8tyhnq/logo-zhidao.gif"
+                        },
+                        {
+                            "itemCategoryId": "321177",
+                            "itemCategoryCode": "1201009",
+                            "itemCategoryName": " 百事330ml系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201009 百事330ml系列",
+                            "itemCategoryImage": "https://gss0.bdstatic.com/70cFsjip0QIZ8tyhnq/logo-zhidao.gif"
+                        },
+                        {
+                            "itemCategoryId": "320869",
+                            "itemCategoryCode": "1201001",
+                            "itemCategoryName": " 可口可乐",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201001 可口可乐",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/4478.jpg"
+                        },
+                        {
+                            "itemCategoryId": "321181",
+                            "itemCategoryCode": "1201013",
+                            "itemCategoryName": " 百事1L*12系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201013 百事1L*12系列",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%B8%83%E5%96%9C1.jpg"
+                        },
+                        {
+                            "itemCategoryId": "321185",
+                            "itemCategoryCode": "1201016",
+                            "itemCategoryName": " 可口可乐碳酸-330ml*12系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201016 可口可乐碳酸-330ml*12系列",
+                            "itemCategoryImage": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3453.png"
+                        },
+                        {
+                            "itemCategoryId": "321179",
+                            "itemCategoryCode": "1201011",
+                            "itemCategoryName": " 百事600ml系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201011 百事600ml系列",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png"
+                        },
+                        {
+                            "itemCategoryId": "321178",
+                            "itemCategoryCode": "1201010",
+                            "itemCategoryName": " 百事330ml六联系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201010 百事330ml六联系列",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E6%83%A0%E7%99%BE%E7%9C%9F%E6%96%B0%E9%85%8D%E6%96%B9%E6%B4%97%E6%B4%81%E7%B2%BE.png"
+                        },
+                        {
+                            "itemCategoryId": "321186",
+                            "itemCategoryCode": "1201017",
+                            "itemCategoryName": " 可口可乐碳酸-330ml*4*6系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201017 可口可乐碳酸-330ml*4*6系列",
+                            "itemCategoryImage": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3598.png"
+                        },
+                        {
+                            "itemCategoryId": "321187",
+                            "itemCategoryCode": "1201018",
+                            "itemCategoryName": " 可口可乐碳酸-500ml*24系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320679",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201018 可口可乐碳酸-500ml*24系列",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1803.png"
+                        }
+                    ],
+                    "itemCategoryPath": "12 饮料 : 1201 碳酸饮料",
+                    "itemCategoryImage": null
+                },
+                {
+                    "itemCategoryId": "320683",
+                    "itemCategoryCode": "1205",
+                    "itemCategoryName": " 果汁",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320678",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "320890",
+                            "itemCategoryCode": "1205001",
+                            "itemCategoryName": " 可口可乐",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320683",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1205 果汁 : 1205001 可口可乐",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1808.png"
+                        },
+                        {
+                            "itemCategoryId": "321191",
+                            "itemCategoryCode": "1205014",
+                            "itemCategoryName": " 美汁源果汁-420ml*12系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320683",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1205 果汁 : 1205014 美汁源果汁-420ml*12系列",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3462.png"
+                        }
+                    ],
+                    "itemCategoryPath": "12 饮料 : 1205 果汁",
+                    "itemCategoryImage": null
+                },
+                {
+                    "itemCategoryId": "320680",
+                    "itemCategoryCode": "1202",
+                    "itemCategoryName": " 茶/咖啡饮料",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320678",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "321172",
+                            "itemCategoryCode": "1202012",
+                            "itemCategoryName": " 茶/咖啡饮料-今麦郎1L*8系列",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320680",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1202 茶/咖啡饮料 : 1202012 茶/咖啡饮料-今麦郎1L*8系列",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%BB%8A%E9%BA%A6%E9%83%8E%E7%BA%A2%E8%8C%B61.jpg"
+                        },
+                        {
+                            "itemCategoryId": "320872",
+                            "itemCategoryCode": "1202003",
+                            "itemCategoryName": " 加多宝",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320680",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1202 茶/咖啡饮料 : 1202003 加多宝",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E6%B1%B0%E6%B8%8D1.jpg"
+                        }
+                    ],
+                    "itemCategoryPath": "12 饮料 : 1202 茶/咖啡饮料",
+                    "itemCategoryImage": null
+                },
+                {
+                    "itemCategoryId": "320681",
+                    "itemCategoryCode": "1203",
+                    "itemCategoryName": " 功能性饮料",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320678",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "321042",
+                            "itemCategoryCode": "1203011",
+                            "itemCategoryName": " CNPOWER",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320681",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1203 功能性饮料 : 1203011 CNPOWER",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png"
+                        },
+                        {
+                            "itemCategoryId": "320973",
+                            "itemCategoryCode": "1203007",
+                            "itemCategoryName": " 中沃",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320681",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1203 功能性饮料 : 1203007 中沃",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png"
+                        },
+                        {
+                            "itemCategoryId": "320882",
+                            "itemCategoryCode": "1203005",
+                            "itemCategoryName": " 脉动",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320681",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1203 功能性饮料 : 1203005 脉动",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E5%8A%A0%E5%A4%9A%E5%AE%9D2.jpg"
+                        }
+                    ],
+                    "itemCategoryPath": "12 饮料 : 1203 功能性饮料",
+                    "itemCategoryImage": null
+                },
+                {
+                    "itemCategoryId": "320682",
+                    "itemCategoryCode": "1204",
+                    "itemCategoryName": " 饮用水",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320678",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "320884",
+                            "itemCategoryCode": "1204001",
+                            "itemCategoryName": " 可口可乐",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320682",
+                            "childCategory": [],
+                            "itemCategoryPath": "12 饮料 : 1204 饮用水 : 1204001 可口可乐",
+                            "itemCategoryImage": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3559.jpg"
+                        }
+                    ],
+                    "itemCategoryPath": "12 饮料 : 1204 饮用水",
+                    "itemCategoryImage": null
+                }
             ],
-            "saleUnit": "箱(12个)"
+            "itemCategoryPath": "12 饮料",
+            "itemCategoryImage": null
         },
         {
-            "itemId": "4441",
-            "itemName": "中普纯生态熟啤酒瓶8度",
-            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E8%8F%A0%E8%90%9D%E5%95%A4320ml%2A24.jpeg",
-            "price": 25,
-            "itemCategoryCode": "1102004",
-            "putShelvesFlg": true,
-            "itemSpecification": "490ml*12",
-            "promotionTypes": null,
-            "saleUnit": "箱(12个)"
-        },
-        {
-            "itemId": "6276",
-            "itemName": "泸州绿波",
-            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E7%82%B9%E5%BF%83.png",
-            "price": 1320,
-            "itemCategoryCode": "1101010",
-            "putShelvesFlg": true,
-            "itemSpecification": "500ml*12",
-            "promotionTypes": [
-                "2"
+            "itemCategoryId": "320684",
+            "itemCategoryCode": "13",
+            "itemCategoryName": " 奶制品",
+            "itemCategoryHierarchy": 1,
+            "itemCategoryParent": "",
+            "childCategory": [
+                {
+                    "itemCategoryId": "320694",
+                    "itemCategoryCode": "1303",
+                    "itemCategoryName": " 乳酸饮品",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320684",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "321218",
+                            "itemCategoryCode": "1303011",
+                            "itemCategoryName": " 乐牛",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320694",
+                            "childCategory": [],
+                            "itemCategoryPath": "13 奶制品 : 1303 乳酸饮品 : 1303011 乐牛",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E8%8F%A0%E8%90%9D%E5%95%A41.jpg"
+                        }
+                    ],
+                    "itemCategoryPath": "13 奶制品 : 1303 乳酸饮品",
+                    "itemCategoryImage": null
+                }
             ],
-            "saleUnit": "箱(12个)"
+            "itemCategoryPath": "13 奶制品",
+            "itemCategoryImage": null
         },
         {
-            "itemId": "382",
-            "itemName": "300粒小米锅巴1*40",
-            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/WechatIMG20.png",
-            "price": 58.5,
-            "itemCategoryCode": "1806004",
-            "putShelvesFlg": true,
-            "itemSpecification": "1*40",
-            "promotionTypes": [
-                "2"
+            "itemCategoryId": "320699",
+            "itemCategoryCode": "14",
+            "itemCategoryName": " 基础民生食品",
+            "itemCategoryHierarchy": 1,
+            "itemCategoryParent": "",
+            "childCategory": [
+                {
+                    "itemCategoryId": "320700",
+                    "itemCategoryCode": "1401",
+                    "itemCategoryName": " 食用油",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320699",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "320703",
+                            "itemCategoryCode": "1401003",
+                            "itemCategoryName": " 惠百真",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320700",
+                            "childCategory": [],
+                            "itemCategoryPath": "14 基础民生食品 : 1401 食用油 : 1401003 惠百真",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/271.png"
+                        },
+                        {
+                            "itemCategoryId": "321046",
+                            "itemCategoryCode": "1401009",
+                            "itemCategoryName": "香满园",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320700",
+                            "childCategory": [],
+                            "itemCategoryPath": "14 基础民生食品 : 1401 食用油 : 1401009香满园",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E9%BC%8E%E4%B8%80%E7%BA%A7%E5%A4%A7%E8%B1%86%E6%B2%B9.png"
+                        },
+                        {
+                            "itemCategoryId": "320701",
+                            "itemCategoryCode": "1401001",
+                            "itemCategoryName": " 阳光油脂",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320700",
+                            "childCategory": [],
+                            "itemCategoryPath": "14 基础民生食品 : 1401 食用油 : 1401001 阳光油脂",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E9%BC%8E%E5%A4%A7%E8%B1%86%E6%B2%B91.jpg"
+                        }
+                    ],
+                    "itemCategoryPath": "14 基础民生食品 : 1401 食用油",
+                    "itemCategoryImage": null
+                },
+                {
+                    "itemCategoryId": "320706",
+                    "itemCategoryCode": "1402",
+                    "itemCategoryName": " 米",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320699",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "321045",
+                            "itemCategoryCode": "1402002",
+                            "itemCategoryName": " 惠百真大米",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320706",
+                            "childCategory": [],
+                            "itemCategoryPath": "14 基础民生食品 : 14 基础民生食品 : 1402 米 : 1402002 惠百真大米",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3514.png"
+                        }
+                    ],
+                    "itemCategoryPath": "14 基础民生食品 : 14 基础民生食品 : 1402 米",
+                    "itemCategoryImage": null
+                }
             ],
-            "saleUnit": "个"
+            "itemCategoryPath": "14 基础民生食品",
+            "itemCategoryImage": null
         },
         {
-            "itemId": "3562",
-            "itemName": "零度可乐摩登罐",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3562.jpg",
-            "price": 53,
-            "itemCategoryCode": "1201001",
-            "putShelvesFlg": true,
-            "itemSpecification": "330ml*24",
-            "promotionTypes": null,
-            "saleUnit": "箱(24个)"
-        },
-        {
-            "itemId": "3514",
-            "itemName": "惠百真蒸鲜生东北大米（新）",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3514.png",
-            "price": 174,
-            "itemCategoryCode": "1402002",
-            "putShelvesFlg": true,
-            "itemSpecification": "5kg*6",
-            "promotionTypes": null,
-            "saleUnit": "包(6个)"
-        },
-        {
-            "itemId": "1805",
-            "itemName": "芬达500ml",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1805.png",
-            "price": 50,
-            "itemCategoryCode": "1201018",
-            "putShelvesFlg": true,
-            "itemSpecification": "500ml*24",
-            "promotionTypes": [
-                "2",
-                "2"
+            "itemCategoryId": "320729",
+            "itemCategoryCode": "18",
+            "itemCategoryName": " 休闲食品",
+            "itemCategoryHierarchy": 1,
+            "itemCategoryParent": "",
+            "childCategory": [
+                {
+                    "itemCategoryId": "321096",
+                    "itemCategoryCode": "1808",
+                    "itemCategoryName": " 糕点膨化",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320729",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "321223",
+                            "itemCategoryCode": "1808006",
+                            "itemCategoryName": " 喜盈盈",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "321096",
+                            "childCategory": [],
+                            "itemCategoryPath": "18 休闲食品 : 1808 糕点膨化 : 1808006 喜盈盈",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/6073.jpg"
+                        },
+                        {
+                            "itemCategoryId": "321211",
+                            "itemCategoryCode": "1808002",
+                            "itemCategoryName": " 上好佳35G",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "321096",
+                            "childCategory": [],
+                            "itemCategoryPath": "18 休闲食品 : 1808 糕点膨化 : 1808002 上好佳35G",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png"
+                        },
+                        {
+                            "itemCategoryId": "321229",
+                            "itemCategoryCode": "1808007",
+                            "itemCategoryName": "喜盈盈手撕面包",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "321096",
+                            "childCategory": [],
+                            "itemCategoryPath": "18 休闲食品 : 1808 糕点膨化 : 1808007喜盈盈手撕面包",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/6078.jpg"
+                        },
+                        {
+                            "itemCategoryId": "321213",
+                            "itemCategoryCode": "1808003",
+                            "itemCategoryName": " 上好佳6-7G",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "321096",
+                            "childCategory": [],
+                            "itemCategoryPath": "18 休闲食品 : 1808 糕点膨化 : 1808003 上好佳6-7G",
+                            "itemCategoryImage": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/WechatIMG20.png"
+                        }
+                    ],
+                    "itemCategoryPath": "18 休闲食品 : 1808 糕点膨化",
+                    "itemCategoryImage": null
+                }
             ],
-            "saleUnit": "箱(24个)"
+            "itemCategoryPath": "18 休闲食品",
+            "itemCategoryImage": null
         },
         {
-            "itemId": "4451",
-            "itemName": "雪碧易拉罐",
-            "itemImageAddress1": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/4451.png",
-            "price": 40,
-            "itemCategoryCode": "1201017",
-            "putShelvesFlg": true,
-            "itemSpecification": "330ml*4*6",
-            "promotionTypes": null,
-            "saleUnit": "箱(24个)"
-        },
-        {
-            "itemId": "3455",
-            "itemName": "芬达橙汁拉罐",
-            "itemImageAddress1": "https://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3455.png",
-            "price": 22,
-            "itemCategoryCode": "1201016",
-            "putShelvesFlg": true,
-            "itemSpecification": "330ml*12",
-            "promotionTypes": [
-                "2"
+            "itemCategoryId": "320753",
+            "itemCategoryCode": "23",
+            "itemCategoryName": " 纸类",
+            "itemCategoryHierarchy": 1,
+            "itemCategoryParent": "",
+            "childCategory": [
+                {
+                    "itemCategoryId": "320754",
+                    "itemCategoryCode": "2301",
+                    "itemCategoryName": " 卫生纸",
+                    "itemCategoryHierarchy": 2,
+                    "itemCategoryParent": "320753",
+                    "childCategory": [
+                        {
+                            "itemCategoryId": "320924",
+                            "itemCategoryCode": "2301001",
+                            "itemCategoryName": " 惠百真",
+                            "itemCategoryHierarchy": 3,
+                            "itemCategoryParent": "320754",
+                            "childCategory": [],
+                            "itemCategoryPath": "23 纸类 : 2301 卫生纸 : 2301001 惠百真",
+                            "itemCategoryImage": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/5912.jpg"
+                        }
+                    ],
+                    "itemCategoryPath": "23 纸类 : 2301 卫生纸",
+                    "itemCategoryImage": null
+                }
             ],
-            "saleUnit": "箱(12个)"
-        },
-        {
-            "itemId": "3473",
-            "itemName": "七喜",
-            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%B8%83%E5%96%9C1.jpg",
-            "price": 38,
-            "itemCategoryCode": "1201013",
-            "putShelvesFlg": true,
-            "itemSpecification": "1L*12",
-            "promotionTypes": [
-                "2"
-            ],
-            "saleUnit": "箱(12个)"
-        },
-        {
-            "itemId": "2243",
-            "itemName": "七喜2L",
-            "itemImageAddress1": "https://gss0.bdstatic.com/70cFsjip0QIZ8tyhnq/logo-zhidao.gif",
-            "price": 30,
-            "itemCategoryCode": "1201012",
-            "putShelvesFlg": true,
-            "itemSpecification": "1*6",
-            "promotionTypes": null,
-            "saleUnit": "箱(6个)"
-        },
-        {
-            "itemId": "2241",
-            "itemName": "美年达柚子600ml 1*24",
-            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/Snip20180703_5.png",
-            "price": 50,
-            "itemCategoryCode": "1201011",
-            "putShelvesFlg": true,
-            "itemSpecification": "1*24",
-            "promotionTypes": null,
-            "saleUnit": "箱(24个)"
-        },
-        {
-            "itemId": "6069",
-            "itemName": "七喜柠檬六联",
-            "itemImageAddress1": "https://ss0.bdstatic.com/k4oZeXSm1A5BphGlnYG/newmusic/lovesong.png",
-            "price": 40,
-            "itemCategoryCode": "1201010",
-            "putShelvesFlg": true,
-            "itemSpecification": "330ml*24",
-            "promotionTypes": null,
-            "saleUnit": "箱(24个)"
-        },
-        {
-            "itemId": "6078",
-            "itemName": "喜盈盈手撕面包礼盒手提袋礼品装550g",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/6078.jpg",
-            "price": 16,
-            "itemCategoryCode": "1808007",
-            "putShelvesFlg": true,
-            "itemSpecification": "1*12",
-            "promotionTypes": null,
-            "saleUnit": "箱(1个)"
-        },
-        {
-            "itemId": "6075",
-            "itemName": "喜盈盈袋装巴厘岛风味虾肉片原味",
-            "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/6075.jpg",
-            "price": 0.01,
-            "itemCategoryCode": "1808006",
-            "putShelvesFlg": true,
-            "itemSpecification": "10g*20*10",
-            "promotionTypes": [
-                "2"
-            ],
-            "saleUnit": "箱(20个)"
-        },
-        {
-            "itemId": "5921",
-            "itemName": "上好佳日式鱼果海苔味7G*200",
-            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/WechatIMG20.png",
-            "price": 0.35,
-            "itemCategoryCode": "1808003",
-            "putShelvesFlg": true,
-            "itemSpecification": "1*200",
-            "promotionTypes": [
-                "2"
-            ],
-            "saleUnit": "箱(1个)"
-        },
-        {
-            "itemId": "5919",
-            "itemName": "上好佳鲜虾条35G*40",
-            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E7%82%B9%E5%BF%83.png",
-            "price": 2.25,
-            "itemCategoryCode": "1808002",
-            "putShelvesFlg": true,
-            "itemSpecification": "1*40",
-            "promotionTypes": null,
-            "saleUnit": "箱(1个)"
+            "itemCategoryPath": "23 纸类",
+            "itemCategoryImage": null
         }
     ]
 }

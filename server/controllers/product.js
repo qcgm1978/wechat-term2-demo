@@ -5,50 +5,45 @@ module.exports = {
   category: async ctx => {
     const params = ctx.params;
     if (ctx.query.locationId && ctx.query.categoryDeep) {
-      ctx.state.result = [
-        {
-          first: '1-1',
-          val: [
-            {
-              second: '1-2-1',
-              val: [{
-                third: '1-2-3-1',
-                categoryId: 1,
-                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
-              }]
-            },
-            {
-              second: '1-2-2',
-              val: [{
-                categoryId: 1,
-                third: '2-2-3-1',
-                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
-              }, {
-                categoryId: 1,
-                third: '2-2-3-2',
-                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
-              }, {
-                categoryId: 1,
-                third: '2-2-3-3',
-                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
-              }]
-            }
-          ]
-        },
-        {
-          first: '1-2',
-          val: [
-            {
-              second: '2-1',
-              val: [{
-                categoryId: 1,
-                third: '3-1',
-                val: 'http://cnvod.cnr.cn/audio2017/ondemand/img/1100/20180605/1528185342546.jpg'
-              }]
-            }
-          ]
-        }
-      ]
+      ctx.state = Mock.mock({
+        'result|10': [
+          {
+            "itemCategoryId": "320678",
+            "itemCategoryCode": "12",
+            "itemCategoryName": "@cword(2,5)",
+            "itemCategoryHierarchy": 1,
+            "itemCategoryParent": "",
+            "childCategory|10": [
+              {
+                "itemCategoryId": "320679",
+                "itemCategoryCode": "1201",
+                "itemCategoryName": " 碳酸饮料",
+                "itemCategoryHierarchy": 2,
+                "itemCategoryParent": "320678",
+                "childCategory|10": [
+                  {
+                    "itemCategoryId": "321180",
+                    "itemCategoryCode": "1201012",
+                    "itemCategoryName": "@cword(5,20)",
+                    "itemCategoryHierarchy": 3,
+                    "itemCategoryParent": "320679",
+                    "childCategory": [],
+                    "itemCategoryPath": "12 饮料 : 1201 碳酸饮料 : 1201012 百事2L*6系列",
+                    "itemCategoryImage": "@image"
+                  },
+
+                ],
+                "itemCategoryPath": "12 饮料 : 1201 碳酸饮料",
+                "itemCategoryImage": null
+              },
+
+            ],
+            "itemCategoryPath": "12 饮料",
+            "itemCategoryImage": null
+          },
+
+        ]
+      })
     }
   },
 
