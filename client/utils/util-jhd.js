@@ -139,8 +139,12 @@ var postRequest = function({
         if (res.statusCode !== HTTP_SUCCSESS) {
           if (res.statusCode === FREEZING_TIME) {
             Freezing.verifyFreezing(res.statusCode)
+          } else if (res.statusCode === 417) {
+            reject(res);
+
+          } else {
+            reject(res.statusCode);
           }
-          reject(res.statusCode);
         } else {
           resolve(res.data);
         }

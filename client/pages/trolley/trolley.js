@@ -84,7 +84,7 @@ Page({
     });
     const trolley = this.data.trolley.map((item, index) => {
       item.checked = this.data.checkAll
-      if (this.data.checkAll && item.putShelvesFlg) {
+      if (this.data.checkAll && item.putShelvesFlg && !item.inventoryCount === 0) {
         if (!this.selectedRadio.includes(item.groupId))
           this.selectedRadio.push(item.groupId);
       } else {
@@ -198,7 +198,7 @@ Page({
     });
     this.setData({
       trolley,
-      checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg).length,
+      checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg || !item.inventoryCount === 0).length,
     })
     this.calc(trolley)
   },
@@ -554,7 +554,7 @@ Page({
           this.setData({
             trolley,
             hasOrders: trolley.length,
-            checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg).length,
+            checkAll: this.selectedRadio.length === trolley.filter(item => item.putShelvesFlg || !item.inventoryCount === 0).length,
           });
           this.setMoneyData(this.selectedRadio);
 

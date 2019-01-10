@@ -21,6 +21,7 @@ Page({
     isVisible: true,
     isReturn: false,
     isFailed: false,
+    isStockout: false,
     checked: [true, false],
     total: '',
     textarea: '',
@@ -42,7 +43,7 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     if (!getApp().globalData.registerStatus) {
       wx.reLaunch({
         url: '/pages/login/login',
@@ -89,7 +90,7 @@ Page({
     }
   },
   //跳转配送时间详情页
-  showDeliveryTime: function() {
+  showDeliveryTime: function () {
     wx.navigateTo({
       url: '../deliveryTimeDetail/deliveryTimeDetail'
     })
@@ -325,7 +326,8 @@ Page({
       const isWechat = this.data.checked[0]
       utils.submitOrder({
         eventDetail: {
-          items: orderItems.reduce((accumulator, group) => accumulator.concat(group.items.map(item => ({ ...item,
+          items: orderItems.reduce((accumulator, group) => accumulator.concat(group.items.map(item => ({
+            ...item,
             itemPro: ''
           }))), []),
           points: usePoint
@@ -364,8 +366,8 @@ Page({
           wx.redirectTo({
             url: `/pages/${isToCheckstand ? 'checkstand/checkstand' : 'order-success/order-success'}?orderId=${data.result.orderId}&orderTotalAmount=${data.result.totalAmount}`,
           })
-        } else {}
-      }).catch((err) => {
+        } 
+      }).catch(err => {
         // todo test 409
         // err=409;
         if (err === 409) { //price or putShelfFlg change
@@ -376,7 +378,12 @@ Page({
           this.setData({
             prompt: this.changedTxt
           })
-        } else if (err !== 406) {
+        } else if (err.statusCode === 417) {//stockout
+          return this.setData({
+            isStockout: true,
+            stockoutList: JSON.parse(err.data.result.message)
+          })
+        }else if (err !== 406) {
           console.log(err);
           this.setData({
             prompt: this.failTxt
@@ -404,15 +411,20 @@ Page({
       });
     }
   },
+  navigateBack() {
+    wx.navigateBack({
+
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {},
+  onReady: function () { },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function(options) {
+  onShow: function (options) {
     utils.checkNetwork().then(utils.requestStatisLoad);
   },
   onHide() {
@@ -425,21 +437,21 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

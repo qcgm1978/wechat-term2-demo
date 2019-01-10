@@ -205,3 +205,22 @@
     </view>
   </view>
 </block>
+<block wx:if="{{isStockout}}">
+  <view class='popup-container grey-overlay'></view>
+  <view class=' center-center popup-container stockout'>
+    <view class='column bgc regular stockout-container'>
+    <text class='title'>抱歉，以下商品库存不足，请根据库存量修改</text>
+    <scroll-view scroll-y style="height:512rpx;">
+      <view wx:for='{{stockoutList}}' wx:key='*this' class='center stock-item'>
+        <image mode='aspectFit' src='{{item.itemIcon}}'></image>
+        <text class='stockout-name ellipse two-lines'>{{item.itemName}}</text>
+        <view class='column stockout-inventory'>
+          <text>库存</text>
+          <text>{{item.quantity}}</text>
+        </view>
+      </view>
+      </scroll-view>
+      <button class='regular' catch:tap='navigateBack'>去修改</button>
+    </view>
+  </view>
+</block>
