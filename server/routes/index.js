@@ -58,7 +58,6 @@ router.get('/comment', controllers.comment.list)
 
 router.get('/v1/mall/banners/merchant_home', controllers.other.merchant_home)
 // router.get('/v1/mall/cart/:merchantId/:locationId', controllers.other.cart)
-// router.get('/v1/mall/cart/count/:merchantId/:locationId', controllers.other.count)
 router.post('/v1/mall/promotions/calc', controllers.other.calc)
 router.post('/v1/mall/promotions/selectPromotions', controllers.other.selectPromotions)
 // 获取商品列表
