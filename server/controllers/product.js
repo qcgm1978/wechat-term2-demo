@@ -61,6 +61,7 @@ module.exports = {
           "promotionTypes": null,
           "saleUnit": "箱(24个)",
           inventoryCount: '@integer(0,10)',
+          inventoryCount: 0,
         }
       ]
     })

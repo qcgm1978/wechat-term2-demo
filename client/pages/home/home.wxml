@@ -49,7 +49,9 @@
         <!-- <text>+</text> -->
       </image>
     </view>
-    <view class='product-add-button' catchtap='addToTrolley' data-index='{{index}}' data-putshelvesflg="{{pitem.putShelvesFlg}}" data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
+    <view class='product-add-button' catchtap='addToTrolley' data-index='{{index}}' data-putshelvesflg="{{pitem.putShelvesFlg}}"
+data-putshelvesflg="{{pitem.inventoryCount}}"
+     data-itemid="{{pitem.itemId}}" data-categorycode="{{pitem.itemCategoryCode}}">
     </view>
   </navigator>
 </view>

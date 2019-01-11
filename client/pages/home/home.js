@@ -156,13 +156,11 @@ Page({
     });
   },
   addToTrolley(event) {
-    if (!event.currentTarget.dataset.putshelvesflg) return
+    if (!event.currentTarget.dataset.putshelvesflg && (event.currentTarget.dataset.inventoryCount!==0)) return
     return new Promise((resolve, reject) => {
       const dataset = event.currentTarget.dataset
       const itemId = dataset.itemid;
       const categoryCode = dataset.categorycode
-
-
       const arr = [{
         itemId: itemId,
         quantity: 1,

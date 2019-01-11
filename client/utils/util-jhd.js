@@ -171,7 +171,7 @@ var getRequest = function(url, data) {
         url = url.replace(`{${prop}}`, data[prop]);
       }
     }
-    const merchantId = url.includes('?')?`&merchantId=${ getApp().getMerchantId()}`:``
+    const merchantId = url.includes('?') ? `&merchantId=${ getApp().getMerchantId()}` : ``
     wx.request({
       url: `${url}${merchantId}`,
       method: 'GET',
@@ -336,7 +336,6 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
   const data = {
       merchantId,
       locationId,
-      updateAddTime,
       addGroupList: groupList
     },
     config = {
@@ -347,7 +346,10 @@ const addToTrolleyByGroup = (groupList, quantity = 1, enableChecked = true, upda
     postRequest({
         url: Api.addTrolley,
         config,
-        data: groupList.addGroupList[0]
+        data: {
+          ...groupList.addGroupList[0],
+          updateAddTime,
+        }
       })
       .then(ret => {
         if (enableChecked) {
