@@ -483,7 +483,7 @@ Page({
         url: calcAmount,
         data: {
           // ...getApp().globalData.merchant,
-          promotionId: promotionIds.join(','),
+          promotionIds: promotionIds.join(','),
           merchantId: getApp().getMerchantId(),
           locationId: getApp().globalData.merchant.locationId,
         }
