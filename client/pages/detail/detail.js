@@ -25,6 +25,7 @@ Page({
     hasPromotion: false,
     unionPromotion: false,
     promoteInfo: {},
+    giftItems:[],
     promoteInfoList: [],
     autoplay: true,
     interval: 3000,
@@ -104,7 +105,7 @@ Page({
       item.itemId = this.data.product.itemId
       item.brandId = this.data.product.itemBrandId
       item.categoryCode = trollyList[i].itemCategoryCode
-      item.quantity = num
+      item.quantity = +num
       item.unitPrice = trollyList[i].price
       item = {
         ...item,
@@ -665,7 +666,8 @@ Page({
     })
   },
   toggleGifts() {
-    if (this.data.promoteInfoList.length) {
+    // promotionType == "1"
+    if (this.data.giftItems.length) {
       this.setData({
         isSelectingGift: !this.data.isSelectingGift
       })

@@ -233,6 +233,8 @@ Page({
   },
   goOnBuying(){
     this.closePopup()
+    // todo remove the promotionId and giftItem of the item with inverntoryCount===0
+    
     this.createOrder()
   },
   createOrder() {
