@@ -329,8 +329,8 @@ module.exports = {
         itemId: 1841,
         itemName: '惠百真护色香氛洗衣液洗衣液',
         quantity: 5,
-        // "isGifted": '@boolean'
-        "isGifted": true
+        "isGifted": '@boolean'
+        // "isGifted": true
       }]
     })
     ctx.state.result = {

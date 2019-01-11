@@ -164,8 +164,8 @@
   </view>
   <view style='height:118rpx; background-color:rgb(255,255,255);'>
   </view>
-  <text class='sold-out btn-container center-center fixed-position-text' wx:if='{{!product.putShelvesFlg}}'>该商品已下架</text>
-  <text class='sold-out btn-container center-center fixed-position-text' wx:elif='{{product.inventoryCount===0}}'>该商品已售罄，努力补货中</text>
+  <text class='sold-out btn-container center-center fixed-position-text' wx:if='{{product.inventoryCount===0}}'>该商品已售罄，努力补货中</text>
+  <text class='sold-out btn-container center-center fixed-position-text' wx:elif='{{!product.putShelvesFlg}}'>该商品已下架</text>
   <!-- wx:if='{{!promotion}}'  wx:if='{{!isSelecting}}'-->
   <view class='bgc center btns regular padding-vertical mgt btn-container fixed-position' style='opacity:{{product.putShelvesFlg?1:1}}; {{isSelecting?"":"box-shadow:0 -2rpx 10rpx 0 rgba(0,0,0,0.05);"}} z-index:20;'>
     <view class='center-center' style='flex-grow:1;' bindtap='gotoTrolley'>

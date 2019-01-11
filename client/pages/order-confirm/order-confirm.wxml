@@ -213,7 +213,8 @@
       <scroll-view scroll-y style="height:512rpx;">
         <view wx:for='{{stockoutList}}' wx:key='*this' class='center stock-item'>
           <image mode='aspectFit' src='{{item.itemIcon}}'></image>
-          <text class='stockout-name ellipse two-lines'>{{item.itemName}}</text>
+          <text class='stockout-name ellipse' wx:if='{{item.isGifted}}' style='color: #EE711F;'>{{'赠品'}}</text>
+          <text class='stockout-name ellipse'>{{item.itemName}}</text>
           <view class='column stockout-inventory'>
             <text>库存</text>
             <text>{{item.quantity}}</text>

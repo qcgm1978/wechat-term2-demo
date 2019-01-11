@@ -23,8 +23,8 @@
               <view style="position: relative;">
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
-                <view wx:if='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
-                <view wx:elif='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>售罄</view>
+                <view wx:if='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center'>售罄</view>
+                <view wx:elif='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
               </view>
               <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <view style='display:flex;  width:100%;'>

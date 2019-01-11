@@ -41,3 +41,12 @@ interface:
     todo
     1, 
     2, where is categoryCode request para from 
+
+    2019-01-11
+
+    1，activity-trolley: 
+        show '赠品已赠完' if length===0
+        show the gift inventoryCount isn't 0
+
+    2, trolley:
+        hide the add, minus btn if inventory is 0

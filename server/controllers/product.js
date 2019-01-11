@@ -56,11 +56,12 @@ module.exports = {
           "itemImageAddress1": "http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/3467.jpg",
           "price": 19,
           "itemCategoryCode": "1204001",
-          "putShelvesFlg": '@boolean',
           "itemSpecification": "550ml*24",
           "promotionTypes": null,
           "saleUnit": "箱(24个)",
-          inventoryCount: '@integer(0,10)',
+          // "putShelvesFlg": '@boolean',
+          // inventoryCount: '@integer(0,10)',
+          "putShelvesFlg": false,
           inventoryCount: 0,
         }
       ]
@@ -73,6 +74,7 @@ module.exports = {
     let product
     ctx.state.result = [
       Mock.mock({
+        "putShelvesFlg": false,
         inventoryCount: 0,
         itemBrandId: '@string("number",5)',
         seriesCode: '@string("number",5)',
@@ -99,7 +101,6 @@ module.exports = {
         "price": 19,
         "itemCategoryName": " 可口可乐",
         "priceLevel": "47",
-        "putShelvesFlg": true,
         "promotionTypes": null,
         "saleUnitExchange": 24,
         "purchaseType": "",

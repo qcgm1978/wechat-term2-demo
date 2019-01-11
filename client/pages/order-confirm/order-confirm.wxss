@@ -233,7 +233,7 @@ page {
   font-size: 24rpx;
   color: #333;
   letter-spacing: 0;
-  max-width: 322rpx;
+  max-width: 283rpx;
   margin-right: auto;
   margin-left: 16rpx;
 }

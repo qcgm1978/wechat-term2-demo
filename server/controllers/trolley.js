@@ -47,7 +47,10 @@ module.exports = {
       {
         "items|10": [
           {
-            inventoryCount: '@integer(0,1)',
+            // inventoryCount: '@integer(0,1)',
+            "putShelvesFlg": true,
+            "putShelvesFlg": false,
+            inventoryCount: 0,
             seriesCode: '@string("number",4)',
             itemBrandId: '@string("lower",10)',
             "itemId": "@integer(1000,9999)",
@@ -70,7 +73,6 @@ module.exports = {
             "itemOrigin": "",
             "itemExpirationDays": "",
             "putShelvesDate": "2018/11/01 14:08:22",
-            "putShelvesFlg": true,
             "price": '@integer(100,200)',
             "quantity": '@integer(2,3)',
             "addTime": "2018-12-18T01:51:22.270+0000"
