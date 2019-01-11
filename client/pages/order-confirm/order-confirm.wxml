@@ -207,13 +207,13 @@
 </block>
 <block wx:if="{{isStockout||isGiftStockout}}">
   <view class='popup-container grey-overlay' catch:tap='closePopup'></view>
-  <view wx:if='{{isStockout}}' class=' center-center popup-container stockout'>
+  <view class=' center-center popup-container stockout'>
     <view class='column bgc regular stockout-container'>
       <text class='title'>抱歉，以下商品库存不足，请根据库存量修改</text>
       <scroll-view scroll-y style="height:512rpx;">
         <view wx:for='{{stockoutList}}' wx:key='*this' class='center stock-item'>
           <image mode='aspectFit' src='{{item.itemIcon}}'></image>
-          <text class='stockout-name ellipse' wx:if='{{item.isGifted}}' style='color: #EE711F;'>{{'赠品'}}</text>
+          <text class='stockout-name ellipse' wx:if='{{item.isGift}}' style='color: #EE711F;'>{{'赠品'}}</text>
           <text class='stockout-name ellipse'>{{item.itemName}}</text>
           <view class='column stockout-inventory'>
             <text>库存</text>
@@ -221,10 +221,14 @@
           </view>
         </view>
       </scroll-view>
-      <button class='regular' catch:tap='navigateBack'>去修改</button>
+      <button wx:if='{{missingGifts.length<stockoutList.length}}' class='regular' catch:tap='navigateBack'>去修改</button>
+      <view wx:else class='center a-i-c giftout'>
+        <button class='regular think' catch:tap='navigateBack'>去修改</button>
+        <button class='regular' catch:tap='goOnBuying' style='margin-left:20rpx;'>继续购买</button>
+      </view>
     </view>
   </view>
-  <view wx:else class=' center-center popup-container stockout giftout'>
+  <!-- <view wx:else class=' center-center popup-container stockout giftout'>
     <view class='column bgc regular stockout-container'>
       <text class='title'>订单中有赠品送光了，您是否继续提交订单?</text>
       <view class='center a-i-c'>
@@ -232,5 +236,5 @@
         <button class='regular' catch:tap='goOnBuying' style='margin-left:20rpx;'>继续购买</button>
       </view>
     </view>
-  </view>
+  </view> -->
 </block>

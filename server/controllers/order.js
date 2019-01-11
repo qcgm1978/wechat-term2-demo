@@ -326,11 +326,11 @@ module.exports = {
     const result = Mock.mock({
       "message|10": [{
         itemIcon: 'https://stg-statics.jihuiduo.cn/jhb_images/%E6%83%A0%E7%99%BE%E7%9C%9F%E6%B4%97%E8%A1%A3%E6%B6%B21.jpg',
-        itemId: 1841,
+        itemId: '3467',
         itemName: '惠百真护色香氛洗衣液洗衣液',
         quantity: 5,
-        "isGifted": '@boolean'
-        // "isGifted": true
+        // "isGift": '@boolean'
+        "isGift": true
       }]
     })
     ctx.state.result = {

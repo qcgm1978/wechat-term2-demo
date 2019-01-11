@@ -25,7 +25,7 @@ Page({
     hasPromotion: false,
     unionPromotion: false,
     promoteInfo: {},
-    giftItems:[],
+    giftItems: [],
     promoteInfoList: [],
     autoplay: true,
     interval: 3000,
@@ -309,7 +309,7 @@ Page({
   },
   navigateToConfirm() {
     this.data.product.quantity = this.data.quantity
-    const selectedItem = (this.data.giftItems||[]).find(item => item.checked) //todo how to judge giftItem
+    const selectedItem = (this.data.giftItems || []).find(item => item.checked) //todo how to judge giftItem
     // this.data.product.itemPromotions[0].itemPromotionId = selectedItem.giftItemId
     if (selectedItem) {
       this.data.product.itemPromotions[0].itemPromotionId = this.data.promotionId
@@ -505,8 +505,8 @@ Page({
       .catch(errorCode => {
         console.log(errorCode)
         utils.errorHander(errorCode, this.getPromoteAmount, this.emptyFunc, {
-            itemId,
-            categoryId
+            itemId: this.data.product.itemId,
+            categoryId: this.data.product.categoryId
           })
           .then(() => {
 

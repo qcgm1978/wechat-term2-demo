@@ -44,7 +44,7 @@ interface:
 
     2019-01-11
 
-    1，activity-trolley: 
+    1，activity-trolley:(done) 
         show '赠品已赠完' if length===0
         show the gift inventoryCount isn't 0
 

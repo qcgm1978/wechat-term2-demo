@@ -257,10 +257,10 @@ page {
   margin-top: 24rpx;
 }
 
-.stockout.giftout button {
+.stockout .giftout button {
   width: 230rpx;
 }
-.stockout.giftout button{
+.stockout .giftout button{
   border-radius: 8rpx;
 }
 .stockout button.think {
