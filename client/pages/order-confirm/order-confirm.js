@@ -12,8 +12,8 @@ Page({
     pointBalance: 0,
     usedPoints: 0,
     heightGoods: 212 * 2 + 54, //height-8-74*2-211*2-53*2
-    height: '100%',
-    top: '100%',
+    height: getApp().globalData.systemInfo.deviceWindowHeight,
+    top: getApp().globalData.systemInfo.deviceWindowHeight,
     credit: 0,
     actual: 0,
     enableCreateOrder: true,
