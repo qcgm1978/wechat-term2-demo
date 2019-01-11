@@ -88,18 +88,11 @@ module.exports = {
       try {
         let quantity = ctx.request.body.items instanceof Array ? ctx.request.body.items[0].quantity : 1
         quantity = 10
+        quantity = 2
         ctx.state.result = Mock.mock({
           promotionGroups: [{
             totalDiscountAmount: 0,
-            'promotions|10': [{
-              'items|10': [
-                {
-
-                  itemId: "3467",
-                  itemName: '@word(3,5)',
-                  itemPicUrl: '@image'
-                }
-              ],
+            'promotions|20': [{
               isTransactionPromotion: "@pick([0,1])",//整单：1，非整单：0
               promotionId: "189471",
               discountAmount: '@integer(10,100)',
@@ -110,6 +103,14 @@ module.exports = {
               combinationFlag: '0',
               promotionDescription: '',
               promotionKind: '1',
+              'items|10': [
+                {
+
+                  itemId: "3467",
+                  itemName: '@word(3,5)',
+                  itemPicUrl: '@image'
+                }
+              ],
               [quantity > 1 ? `giftItems|${quantity}` : `giftItems`]: [{
                 giftItemId: "@range(3496,3506,1)" + '',
                 // giftItemId: "3490" + '@increment(1)',

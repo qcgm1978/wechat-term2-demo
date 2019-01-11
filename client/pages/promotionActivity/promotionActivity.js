@@ -16,7 +16,10 @@ Page({
     // })
     this.calc(JSON.parse(options.data)).then((promotions)=>{
       this.setData({
-      promotions
+        promotions: promotions.map(item=>({
+          ...item,
+          visibleGifts: item.giftItems.filter(it=>it.inventoryCount!=='0')
+        }))
     })
     })
   },

@@ -6,7 +6,7 @@
       <text class='name'>{{promotion.promotionName}}</text>
       <text class='detail' wx:if='{{promotion.promotionType=="2"}}'>可省{{promotion.discountAmount}}元</text>
       <view catch:tap='selectGift' wx:else class='center a-i-c' data-index='{{index}}'>
-        <text class='detail'>更换赠品</text>
+        <text class='detail'>{{promotion.visibleGifts.length?'更换赠品':'赠品已赠完'}}</text>
         <image src='../trolley/img/arrow.png' class='arrow'></image>
       </view>
     </view>
@@ -15,9 +15,9 @@
         <image wx:if='{{index<2||(promotion.promotionType==="2")}}' wx:for='{{promotion.items}}' wx:key='index' src='{{item.itemPicUrl}}' class='img' mode='aspectFit'></image>
         <view wx:if='{{promotion.promotionType!=="2" && promotion.giftItems.length}}' style='position: relative;' class='center a-i-c'>
           <image src='../promoteOptions/images/donate.png' style='width:36rpx; height:36rpx; margin:0 16rpx;'></image>
-          <view wx:if='{{promotion.giftItems[0].inventoryCount==="0"}}' class='trolley-soldout regular center-center' style='left:calc(100% + 60rpx);'>{{'送光了'}}</view>
+          <view wx:if='{{promotion.visibleGifts.length===0}}' class='trolley-soldout regular center-center' style='left:calc(100% + 60rpx);'>{{'送光了'}}</view>
           <view wx:else>
-            <image class='thumbnail' mode='aspectFit' src='{{promotion.giftItems[0].itemImageAddress1}}'></image>
+            <image class='thumbnail' mode='aspectFit' src='{{promotion.visibleGifts[0].itemImageAddress1}}'></image>
             <image mode='aspectFit' style='width: 32rpx; height: 32rpx; position: absolute; right:17rpx; top:20rpx;' src='../../images/zeng.png'></image>
           </view>
         </view>

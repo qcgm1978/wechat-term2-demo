@@ -49,4 +49,4 @@ interface:
         show the gift inventoryCount isn't 0
 
     2, trolley:
-        hide the add, minus btn if inventory is 0
+        hide the add, minus btn if inventory is 0 (done)
