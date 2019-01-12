@@ -50,7 +50,7 @@ export default {
           .then(arr => {
             let soldOutNumber = 0
             for (let i = 0; i < arr.length; i++) {
-              if (!arr[i][0].putShelvesFlg) {
+              if (!arr[i][0].putShelvesFlg || !arr[i][0].inventoryCount) {
                 soldOutNumber++
               }
             }
@@ -238,7 +238,7 @@ export default {
             })
           } else if (data.flag == 2) {
             //全部售完
-            util.showModal(`您想购买的商品已下架，无法再次购买`, false);
+            util.showModal(`您想购买的商品已失效，无法再次购买`, false);
           }
         })
 

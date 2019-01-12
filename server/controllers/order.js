@@ -38,9 +38,11 @@ module.exports = {
   detail: async ctx => {
     const orderId = ctx.params.orderId;
     const merchantId = ctx.params.merchantId;
+    let isCompleted = false
+    isCompleted = true
     if (!orderId || !merchantId) {
       ctx.state.data = 'no data'
-    } else if (orderId === '181101112552053870') {
+    } else if (isCompleted) {
       ctx.state.result = Mock.mock({
         "orderId": "181101112552053870",
         orderStatus: 'COMPLETED',
@@ -103,7 +105,8 @@ module.exports = {
     else {
       ctx.state.result = {
         "orderId": "181029143259643356",
-        "orderStatus": "TO_PAY",
+        "expireTime": new Date().getTime() + 1000 * 60 * 60 * 12,
+        "orderStatus": "UNPAY",
         // "orderStatus": "WAIT_RECEIVE",
         "totalAmount": 6250,
         "actualAmount": 0,

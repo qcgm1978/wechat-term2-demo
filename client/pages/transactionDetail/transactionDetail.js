@@ -226,7 +226,7 @@ Page({
       orderStatus,
       isCanceled,
       isReturnOrder,
-      orderCancelSource: orderCancelSourceObj[orderCancelSource],
+      orderCancelSource: orderCancelSourceObj[orderCancelSource]||'',
       remark: (orderStatus === 'COMPLETED' && this.data.order.actualAmount !== this.data.order.payment.cashAmount) ? `(待入账)` : ''
 
     });

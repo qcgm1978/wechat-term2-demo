@@ -72,13 +72,17 @@ module.exports = {
   detail: async ctx => {
     let productId = + ctx.params.orderId;
     let product
+    let inventoryCount = 0, putShelvesFlg = true
+    // inventoryCount = 1
+    // putShelvesFlg = false
+    const itemId = ctx.query.itemIds
     ctx.state.result = [
       Mock.mock({
-        "putShelvesFlg": false,
-        inventoryCount: 0,
+        putShelvesFlg,
+        inventoryCount,
         itemBrandId: '@string("number",5)',
         seriesCode: '@string("number",5)',
-        "itemId": "3467",
+        itemId,
         "itemName": "冰露纯悦包装饮用水（纸箱）",
         "itemSpecification": "550ml*24",
         "itemBrand": "可口可乐",
