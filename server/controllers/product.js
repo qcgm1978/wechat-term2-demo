@@ -48,6 +48,7 @@ module.exports = {
   },
 
   list: async ctx => {
+    let inventoryCount = Mock.Random.integer(0, 10), putShelvesFlg = true
     ctx.state = Mock.mock({
       'result|20': [
         {
@@ -61,8 +62,8 @@ module.exports = {
           "saleUnit": "箱(24个)",
           // "putShelvesFlg": '@boolean',
           // inventoryCount: '@integer(0,10)',
-          "putShelvesFlg": false,
-          inventoryCount: 0,
+          putShelvesFlg,
+          inventoryCount,
         }
       ]
     })
@@ -73,7 +74,7 @@ module.exports = {
     let productId = + ctx.params.orderId;
     let product
     let inventoryCount = 0, putShelvesFlg = true
-    // inventoryCount = 1
+    // inventoryCount = Mock.Random.integer(0, 10)
     // putShelvesFlg = false
     const itemId = ctx.query.itemIds
     ctx.state.result = [
