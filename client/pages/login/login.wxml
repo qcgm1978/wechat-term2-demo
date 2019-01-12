@@ -24,7 +24,7 @@
   <view class='checkbox-container'>
     <view class='checkbox-container-row'>
       <checkbox-group class='checkbox-left' bindchange="checkboxChange">
-        <label class="checkbox-content hori-align" wx:for="{{item}}">
+        <label class="checkbox-content hori-align" wx:for="{{item}}" wx:key='*this'>
           <checkbox  style='transform:scale(.7);' value="{{item.value}}" checked="{{item.checked}}"/>
           <view>{{item.name}}</view>
         </label>
