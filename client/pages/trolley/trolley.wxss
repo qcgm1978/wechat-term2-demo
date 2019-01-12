@@ -226,5 +226,5 @@ page {
 
 .radio {
   transform: scale(0.6);
-  margin: auto 8rpx 92rpx;
+  margin: auto 8rpx;
 }

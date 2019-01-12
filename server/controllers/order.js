@@ -315,26 +315,30 @@ module.exports = {
     }
   },
   create: async ctx => {
-    // ctx.status = 409
-    ctx.status = 406
-    ctx.state.data = {
-      message: '',
-      orderId: '123456',
-      totalAmount: 200
-    }
-    ctx.state.status = 417
-    const result = Mock.mock({
-      "message|10": [{
-        itemIcon: 'https://stg-statics.jihuiduo.cn/jhb_images/%E6%83%A0%E7%99%BE%E7%9C%9F%E6%B4%97%E8%A1%A3%E6%B6%B21.jpg',
-        itemId: '3467',
-        itemName: '惠百真护色香氛洗衣液洗衣液',
-        quantity: 5,
-        // "isGift": '@boolean'
-        "isGift": true
-      }]
-    })
-    ctx.state.result = {
-      message: JSON.stringify(result.message)
+    this.currentInventory = this.currentInventory === undefined ? Mock.Random.integer(0, 9) : this.currentInventory
+    if (ctx.request.body.orderItems[0].items[0].quantity === this.currentInventory) {
+      ctx.state.data = {
+        message: '',
+        orderId: '123456',
+        totalAmount: ctx.request.body.cashAmount
+      }
+    } else {
+      // ctx.status = 409
+      ctx.status = 406
+      ctx.state.status = 417//inventoryCount no satisfying
+      const result = Mock.mock({
+        "message|10": [{
+          itemIcon: 'https://stg-statics.jihuiduo.cn/jhb_images/%E6%83%A0%E7%99%BE%E7%9C%9F%E6%B4%97%E8%A1%A3%E6%B6%B21.jpg',
+          itemId: '3467',
+          itemName: '惠百真护色香氛洗衣液洗衣液',
+          quantity: this.currentInventory,
+          "isGift": '@boolean'
+          // "isGift": true
+        }]
+      })
+      ctx.state.result = {
+        message: JSON.stringify(result.message)
+      }
     }
 
     // "items|10": [

@@ -16,7 +16,7 @@ switch (env) {
   case EVN.LOCAL:
     baseUrl = 'http://localhost:5757/v1'
     // baseUrl = 'http://10.3.0.98:5757/v1'
-    // baseUrl = 'http://192.168.16.71:5757/v1';
+    baseUrl = 'http://192.168.16.71:5757/v1';
     statistics = `http://192.168.2.58:8081`
     break;
   case EVN.DEV:

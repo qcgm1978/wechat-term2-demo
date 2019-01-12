@@ -45,12 +45,12 @@ module.exports = {
     ctx.state = Mock.mock({
       "result":
       {
-        "items|10": [
+        "items|20": [
           {
             // inventoryCount: '@integer(0,1)',
-            "putShelvesFlg": true,
             "putShelvesFlg": false,
-            inventoryCount: 0,
+            "putShelvesFlg": true,
+            inventoryCount: '@integer(0,2)',
             seriesCode: '@string("number",4)',
             itemBrandId: '@string("lower",10)',
             "itemId": "@integer(1000,9999)",
@@ -62,6 +62,7 @@ module.exports = {
             "saleSku": "6956416205147",
             "stockSku": "6956416205147",
             "itemImageAddress1": "@image",
+            "itemImageAddress1": 'https://stg-statics.jihuiduo.cn/jhb_images/%E6%83%A0%E7%99%BE%E7%9C%9F%E6%B4%97%E8%A1%A3%E6%B6%B21.jpg',
             "itemImageAddress2": "",
             "itemImageAddress3": "",
             "itemImageAddress4": "",

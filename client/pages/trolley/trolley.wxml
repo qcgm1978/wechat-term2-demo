@@ -13,7 +13,7 @@
         <view wx:for='{{trollyGroup.items}}' wx:key='unique'>
           <view style='display: flex; flex-direction: column; '>
             <view class='center padding trolley-container regular bgc' style="padding-left: 0; ">
-              <view class='column' style='margin-top:auto;position:relative;'>
+              <view class='center-center'>
                 <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg && !item.isfree&&(item.inventoryCount!==0)}}'
                   color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}' style='transform:scale(.8);'>
                 </radio>
