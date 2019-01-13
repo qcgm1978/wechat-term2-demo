@@ -48,3 +48,5 @@ interface:
 
     2, trolley:
         hide the add, minus btn if inventory is 0 (done)
+
+        chrome://extensions/?id=jglfehaddibdnfchgicahpdifopgihcb
