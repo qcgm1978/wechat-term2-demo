@@ -10,7 +10,7 @@ yarn-error.log*
 selenium-debug.log
 jspm/jspm_packages/
 jspm/build*
-
+server/assets
 # Editor directories and files
 .idea
 *.suo
