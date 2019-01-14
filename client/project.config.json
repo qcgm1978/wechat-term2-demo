@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 24,
 			"list": [
 				{
 					"id": -1,
@@ -179,6 +179,12 @@
 					"name": "detail-dev",
 					"pathName": "pages/detail/detail",
 					"query": "itemId=3473&categoryId=1201013"
+				},
+				{
+					"id": -1,
+					"name": "detail-dev1",
+					"pathName": "pages/detail/detail",
+					"query": "itemId=3496&categoryId=1201013"
 				}
 			]
 		}

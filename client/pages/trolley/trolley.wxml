@@ -49,7 +49,7 @@
                   <text wx:else class='regular trolley-not-buy'>宝贝已{{item.inventoryCount===0?'售罄':'下架'}}不能购买</text>
                   <view wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg&&!item.isfree&&(item.inventoryCount!==0)}}' class='center' style='align-items:center;' catch:tap='preventBubble'>
                     <image src='./img/reduce2.png' class='plus-minus minus-padding center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg&&(item.inventoryCount!==0)}}'></image>
-                    <input type="number" maxlength='{{maxlength}}' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
+                    <input type="number" maxlength='{{maxLength}}' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
                     />
                     <image src='./img/add2.png' class='plus-minus plus-padding center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg&&(item.inventoryCount!==0)}}'></image>
                   </view>
