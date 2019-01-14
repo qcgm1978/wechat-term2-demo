@@ -36,3 +36,19 @@
   right: 0;
   /* transform: translate(0, -6rpx); */
 }
+.trolley-bottom {
+  /* margin-top: 46rpx; */
+  justify-content: space-between;
+  width: 100%;
+}
+.minus-padding {
+  padding-top:12rpx;
+  padding-left:16rpx;
+  padding-bottom:12rpx;
+}
+
+.plus-padding {
+  padding-top:12rpx;
+  padding-right:16rpx;
+  padding-bottom:12rpx;
+}

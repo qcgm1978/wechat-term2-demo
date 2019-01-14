@@ -398,10 +398,16 @@ Page({
   },
   onLoad: function(options) {
     if (!getApp().globalData.registerStatus) {
-      wx.reLaunch({
+      return wx.reLaunch({
         url: '/pages/login/login',
       })
     }
+    if (getApp().globalData.authWechat.potentialUser){
+      return wx.reLaunch({
+        url: '/pages/home-enter/home-enter',
+      })
+    }
+
     this.getProduct(options)
       .then(data => {
         this.setData({

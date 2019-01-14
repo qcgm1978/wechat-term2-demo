@@ -19,10 +19,10 @@
         <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /><text class='gift-unit' >/{{item.itemUnit}}</text></text>
 
         <view wx:if='{{!isDetail&&!item.isfree}}' class='center a-i-c' style='margin-right:24rpx;'>
-          <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
+          <image src='../trolley/img/reduce2.png' class='plus-minus  minus-padding center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
           <input disabled='{{!item.checked}}' type="number" maxlength='5' value='{{item.quantity||1}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' bindfocus='bindfocus' style="font-size: 26rpx;" data-index='{{index}}'
             data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}' data-type='input'/>
-          <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
+          <image src='../trolley/img/add2.png' class='plus-minus plus-padding center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
         </view>
       </view>
       <view wx:if='{{item.requireFlag}}' class='required'>必选商品
