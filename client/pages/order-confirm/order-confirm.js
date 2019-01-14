@@ -276,26 +276,27 @@ Page({
         }
 
         orderItems[i].cartGroupId = orderItems[i].groupId
-
+        // including promotion
         if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]) {
           orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount ? orderItems[i].cartCombinationPromotions[0].discountAmount : "0"
           orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].discountPercentage
+          // minus
           if (orderItems[i].discountAmount && orderItems[i].discountAmount > 0) {
             sumDiscount += orderItems[i].discountAmount
           }
           for (let j = 0; j < orderItems[i].items.length; j++) {
             orderItems[i].items[j].unit = orderItems[i].items[j].saleUnit
             orderItems[i].items[j].itemUnit = orderItems[i].items[j].saleUnit
-
-            if (orderItems[i].combinationFlag) {
+            
+            if (orderItems[i].combinationFlag) {// judge combination
               orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
-            } else {
+            } else {//sku promotion
               orderItems[i].items[j].promotionId = orderItems[i].promotionId
               orderItems[i].items[j].discountAmount = orderItems[i].discountAmount
               orderItems[i].items[j].discountPercentage = orderItems[i].discountPercentage
             }
           }
-          if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length > 0) {
+          if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length > 0) {//including gifts
             // todo how judge which gift is selected?
             for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++) {
               orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
@@ -314,7 +315,7 @@ Page({
           }
         }
 
-
+        // del promotion props wihtout combination
         if (!orderItems[i].combinationFlag) {
           delete orderItems[i]["promotionId"]
           delete orderItems[i]["discountAmount"]
@@ -346,7 +347,7 @@ Page({
 
       // console.log(JSON.stringify(tempdata))
       const isWechat = this.data.checked[0]
-      utils.submitOrder({
+      utils.submitOrder({//statis
         eventDetail: {
           items: orderItems.reduce((accumulator, group) => accumulator.concat(group.items.map(item => ({
             ...item,
