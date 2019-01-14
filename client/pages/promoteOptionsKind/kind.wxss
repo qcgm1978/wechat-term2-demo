@@ -24,3 +24,14 @@
   justify-content: space-between;
   width: 100%;
 }
+.minus-padding {
+  padding-top:12rpx;
+  padding-left:16rpx;
+  padding-bottom:12rpx;
+}
+
+.plus-padding {
+  padding-top:12rpx;
+  padding-right:16rpx;
+  padding-bottom:12rpx;
+}
