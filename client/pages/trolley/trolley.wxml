@@ -100,7 +100,7 @@
               </radio>
               <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;margin:auto 8rpx 8rpx'>失效</text>
               <view class='promotion-1' style='height:34rpx;'>{{trollyGroup.suiteTitle}}</view>
-              <view class='promotion-2' style='height:30rpx;display:inline-block;'>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</view>
+              <view class='promotion-2' style='height:30rpx;display:inline-block;width: 500rpx;'>{{trollyGroup.cartCombinationPromotions[0].promotionName}}</view>
             </view>
 
             <!-- <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;"> -->
