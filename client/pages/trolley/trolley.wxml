@@ -12,7 +12,7 @@
 
         <view wx:for='{{trollyGroup.items}}' wx:key='unique'>
           <view style='display: flex; flex-direction: column; '>
-            <view class='center padding trolley-container regular bgc' style="padding-left: 0; ">
+            <view class='center padding trolley-container regular bgc' style="padding-left: 0; padding-right:16rpx; padding-bottom: 0;">
               <view class='column' style='margin-top:auto;position:relative;'>
                 <radio catch:tap='radioClick' class="radio" data-index='{{groupIndex}}' data-groupid='{{trollyGroup.groupId}}' value="{{groupIndex}}" checked="{{trollyGroup.checked}}" wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg && !item.isfree}}' color='{{trollyGroup.checked?"#EE711F":"#D1D1D2"}}'
                   style='transform:scale(.8);'>
@@ -20,33 +20,35 @@
                 <text wx:elif='{{trollyGroup.putShelvesFlg && item.isfree}}' class='radio trolley-invalid regular'></text>
                 <text wx:else class='radio trolley-invalid regular' style='width:50rpx; font-size:24rpx;'>失效</text>
               </view>
-              <view style="position: relative;">
+              <view style="position: relative;"  bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <view wx:if='{{!trollyGroup.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
               </view>
-              <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
-                <view style='display:flex;  width:100%;'>
-                  <text class='promotion-1' style='display:inline-block; margin-left:0;' wx:if='{{item.isfree}}'>赠品</text>
-                  <text class='trolley-name {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
-                  <text></text>
-                </view>
+              <view class='column trolley-right '>
+                <view style='display:flex; flex-direction: column; width:100%;' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
+                  <view style='display:flex;  width:100%;'>
+                    <text class='promotion-1' style='display:inline-block; margin-left:0;' wx:if='{{item.isfree}}'>赠品</text>
+                    <text class='trolley-name {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>{{item.itemName}}</text>
+                    <text></text>
+                  </view>
 
-                <view class='center trolley-middle'>
-                  <text class='trolley-spec {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
-                  <view catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' class='center-center' style="width: 80rpx;height: 80rpx;">
-                    <image src='./img/del.png' class='del {{trollyGroup.putShelvesFlg?"":""}}' wx:if="{{!item.isfree}}"></image>
+                  <view class='center trolley-middle'>
+                    <text class='trolley-spec {{trollyGroup.putShelvesFlg?"":"trolley-opacity"}}'>规格：{{item.itemSpecification}}</text>
+                    <view catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' class='center-center' style="width: 70rpx;height: 80rpx;">
+                      <image src='./img/del.png' class='del {{trollyGroup.putShelvesFlg?"":""}}' wx:if="{{!item.isfree}}"></image>
+                    </view>
                   </view>
                 </view>
                 <view class='center trolley-bottom'>
 
-                  <text wx:if='{{trollyGroup.putShelvesFlg}}' class='dollar medium trolley-price'><template is="price" data="{{price:item.price}}" /><text class='regular sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
+                  <text wx:if='{{trollyGroup.putShelvesFlg}}' class='dollar medium trolley-price' style='padding-top:12rpx;'><template is="price" data="{{price:item.price}}" /><text class='regular sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
                   <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text>
                   <view wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
-                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
-                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
+                    <image src='./img/reduce2.png' class='plus-minus minus-padding center-center' style='opacity:{{item.quantity===1?0.5:1}}; padding-left' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
+                    <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx; " data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
                     />
-                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>                  
+                    <image src='./img/add2.png' class='plus-minus plus-padding center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
                   </view>
                 </view>
               </view>
@@ -58,20 +60,22 @@
             <view class='promotion' style='font-size:24rpx; padding-bottom:0rpx;margin-bottom:0;' wx:if="{{trollyGroup.cartCombinationPromotions[0].promotionType == '1'}}">
               <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'>
                 <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx; ">
-                  <view style="position: relative;">
+                  <view style="position: relative;"  bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
                     <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                     </image>
                     <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
                   </view>
-                  <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
-                    <view style='display:flex;  width:100%;'>
-                      <text class='promotion-1' style="display:inline-block; margin-left:0;">赠品</text>
-                      <text class='trolley-name' style='width:380rpx;  margin-left:8rpx;'>{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemName}}</text>
-                    </view>
+                  <view class='column trolley-right '>
+                    <view style='display:flex; flex-direction: column; width:100%;'  bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
+                      <view style='display:flex;  width:100%;'>
+                        <text class='promotion-1' style="display:inline-block; margin-left:0;">赠品</text>
+                        <text class='trolley-name' style='width:380rpx;  margin-left:8rpx;'>{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemName}}</text>
+                      </view>
 
-                    <view class='center trolley-middle'>
-                      <text class='trolley-spec '>规格：{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemSpecification}}</text>
+                      <view class='center trolley-middle'>
+                        <text class='trolley-spec '>规格：{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemSpecification}}</text>
 
+                      </view>
                     </view>
                     <view class='center trolley-bottom'>
                       <view style='width:auto; margin-top:10rpx;'>
@@ -100,34 +104,36 @@
             </view>
 
             <!-- <view catch:tap='promptDel' data-itemid='{{item.itemId}}' data-index='{{index}}' class='center-center' style="width: 80rpx;height: 80rpx;"> -->
-            <image catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' src='./img/del.png' class='del' style="width: 48rpx;height: 48rpx; margin-right:40rpx; margin-top:5rpx;"></image>
+            <image catch:tap='promptDel' data-groupid='{{trollyGroup.groupId}}' data-index='{{groupIndex}}' src='./img/del.png' class='del' style="width: 48rpx;height: 48rpx; margin-right:25rpx; margin-top:5rpx;"></image>
           </view>
           <view wx:for='{{trollyGroup.items}}' wx:key='unique'>
-            <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx; ">
+            <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx;  padding-right:16rpx; padding-bottom: 0;">
 
-              <view style="position: relative;  margin-left:34rpx;">
+              <view style="position: relative;  margin-left:34rpx;" bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
                 <image src='{{item.itemImageAddress1?(item.itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view>
               </view>
-              <view class='column trolley-right' style='width:300rpx;' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
-                <view style='display:flex; width:100%;'>
-                  <text class='promotion-1' style="display:inline-block; margin-left:0;" wx:if="{{item.isfree}}">赠品</text>
-                  <text class='trolley-name ' style='width:100%; margin-left:8rpx;'>{{item.itemName}}</text>
-                </view>
+              <view class='column trolley-right' style='width:300rpx;'>
+                <view style='display:flex; flex-direction: column; width:100%;' bind:tap='turnPage' data-itemid='{{item.itemId}}' data-categorycode='{{item.itemCategoryCode}}'>
+                  <view style='display:flex; width:100%;'>
+                    <text class='promotion-1' style="display:inline-block; margin-left:0;" wx:if="{{item.isfree}}">赠品</text>
+                    <text class='trolley-name ' style='width:100%; margin-left:8rpx;'>{{item.itemName}}</text>
+                  </view>
 
-                <view class='center trolley-middle'>
-                  <text class='trolley-spec '>规格：{{item.itemSpecification}}</text>
-                  <!-- <text class='trolley-spec ' style='margin-right: 30rpx;'>x{{item.quantity}}/套</text> -->
+                  <view class='center trolley-middle'>
+                    <text class='trolley-spec '>规格：{{item.itemSpecification}}</text>
+                    <!-- <text class='trolley-spec ' style='margin-right: 30rpx;'>x{{item.quantity}}/套</text> -->
+                  </view>
                 </view>
                 <view class='center trolley-bottom'>
-                  <text class='dollar medium trolley-price'>{{item.price}}<text class='sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
+                  <text class='dollar medium trolley-price' style='padding-top:12rpx;' >{{item.price}}<text class='sales-unit' style='color:#999999;'>/{{item.saleUnit}}</text></text>
                   <!-- <text wx:else class='regular trolley-not-buy'>宝贝已下架不能购买</text> -->
                   <view wx:if='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}' class='center' style='align-items:center; ' wx:if="{{!item.isfree}}" catch:tap='preventBubble'>
-                    <image src='../detail/img/minus.png' class='plus-minus center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
+                    <image src='./img/reduce2.png' class='plus-minus minus-padding center-center' style='opacity:{{item.quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-type='minus' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
                     <input type="number" maxlength='5' value='{{item.quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'
                     />
-                    <image src='../detail/img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
+                    <image src='./img/add2.png' class='plus-minus plus-padding center-center' catch:tap='plusMinus' data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg && trollyGroup.activeFlg}}'></image>
                   </view>
                 </view>
               </view>
@@ -139,20 +145,22 @@
           <view wx:if='{{trollyGroup.cartCombinationPromotions[0].giftItems.length>0}}'>
             <view class='center padding trolley-container regular bgc' style="padding-left: 40rpx;">
 
-              <view style="position: relative;">
+              <view style="position: relative;" bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
                 <image src='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1?(trollyGroup.cartCombinationPromotions[0].giftItems[0].itemImageAddress1+"?x-oss-process=style/180w"):defImg}}' class='goods-img ' mode='aspectFit'>
                 </image>
                 <!-- <view wx:if='{{!item.putShelvesFlg}}' class='trolley-soldout regular center-center'>已下架</view> -->
               </view>
-              <view class='column trolley-right ' bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
-                <view style='display:flex; width:100%;'>
-                  <text class='promotion-1' style="display:inline-block; margin-left:0;">赠品</text>
-                  <text class='trolley-name ' style=' margin-left:8rpx;'>{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemName}}</text>
-                </view>
+              <view class='column trolley-right '>
+                <view style='display:flex; flex-direction: column; width:100%;' bind:tap='turnPage' data-itemid='{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemId}}'>
+                  <view style='display:flex; width:100%;'>
+                    <text class='promotion-1' style="display:inline-block; margin-left:0;">赠品</text>
+                    <text class='trolley-name ' style=' margin-left:8rpx;'>{{trollyGroup.cartCombinationPromotions[0].giftItems[0].giftItemName}}</text>
+                  </view>
 
-                <view class='center trolley-middle'>
-                  <text class='trolley-spec '>规格：{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemSpecification}}</text>
+                  <view class='center trolley-middle'>
+                    <text class='trolley-spec '>规格：{{trollyGroup.cartCombinationPromotions[0].giftItems[0].itemSpecification}}</text>
 
+                  </view>
                 </view>
                 <view class='center trolley-bottom'>
                   <view style='width:auto; margin-top:10rpx;'>
@@ -194,7 +202,7 @@
 
           <text class='dollar trolley-num medium'><template is="price" data="{{price:currentMoney,fontSize:28}}" /></text>
         </view>
-        <view style='display: flex; flex-direction: row;' wx:if="{{totalDiscountMoney!=0}}">
+        <view style='display: flex; flex-direction: row; font-size:24rpx;' wx:if="{{totalDiscountMoney!=0}}">
           <view>金额</view>
           <view>¥{{filters.toFix(overallMoney)}}</view>
           <view>已省</view>

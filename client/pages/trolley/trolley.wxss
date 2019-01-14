@@ -28,7 +28,7 @@
   flex-flow: 1;
   flex-grow: 1;
   align-items: flex-start;
-  margin-left:16rpx;
+  margin-left:12rpx;
 }
 
 .trolley-middle {
@@ -50,7 +50,7 @@
 
 .radio {
   transform: scale(0.6);
-  margin: auto 8rpx 92rpx;
+  margin: auto 0rpx 110rpx 8rpx;
 }
 
 .trolley-name {
@@ -82,7 +82,7 @@
 }
 
 .plus-minus {
-  width: 40rpx;
+  width: 44rpx;
   height: 40rpx;
   /* border: 1px solid rgb(236, 236, 236); */
   /* display: inline-block; *//* font-size: 26rpx; */
@@ -233,4 +233,15 @@ page {
   font-size: 24rpx;
   letter-spacing: 0;
   line-height: 44rpx;
+}
+.minus-padding {
+  padding-top:12rpx;
+  padding-left:16rpx;
+  padding-bottom:12rpx;
+}
+
+.plus-padding {
+  padding-top:12rpx;
+  padding-right:16rpx;
+  padding-bottom:12rpx;
 }
