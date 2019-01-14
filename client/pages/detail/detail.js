@@ -18,6 +18,7 @@ Page({
     discountAmount: 0,
     badge: 0,
     quantity: 1,
+    maxLength: getApp().globalData.maxLength,
     product: {},
     enableBuy: false,
     promotion: false,
@@ -361,7 +362,7 @@ Page({
             arr.giftItems[0].itemName = arr.giftItems[0].giftItemName
             arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity
           } else {
-            this.data.currentMoney = this.data.currentMoney - arr.discountAmount
+            this.data.currentMoney = this.data.currentMoney - arr.totalDiscountAmount
           }
           itemGroups[0].cartCombinationPromotions = [arr]
         } else {
@@ -426,7 +427,7 @@ Page({
         }) //extend promoteInfoList. todo maybe del getPromoteInfo call
       })
       .then(data => {
-        if (data !== null) {
+        if (data) {
           this.setData({
             promoteInfoList: data
           })

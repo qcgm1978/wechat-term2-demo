@@ -369,6 +369,7 @@ export default {
             item.brandId = ""
             item.categoryCode = orderGroup.items[j].categoryId
             item.categoryId = orderGroup.items[j].categoryId
+            item.seriesCode = orderGroup.items[j].seriesCode//todo seriesCode missing
             item.promotionId = orderGroup.items[j].promotionId ? orderGroup.items[j].promotionId : orderGroup.promotionId
             item.quantity = orderGroup.items[j].quantity
             item.unitPrice = orderGroup.items[j].unitPrice

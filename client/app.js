@@ -1,5 +1,5 @@
 import {
-  Api
+  Api,env
 } from './utils/envConf.js';
 import {
   getRequest,
@@ -18,6 +18,7 @@ let userInfo
 const iniGlobalData = {
   currentIndex: 0,
   badge: 0,
+  maxLength:env?5:7,
   toggleMerchant: false,
   isActiveTime: true,
   orderId: '',

@@ -84,8 +84,8 @@ Page({
     } else {
       this.getProduct({
         ...options,
-        quantity:10
-        }).then(data => {
+        quantity: 10
+      }).then(data => {
         this.setData({
           heightGoods: this.data.data[0].combinationFlag ? 212 * 2 + 54 : 212 * 2 + 54
         })
@@ -238,7 +238,9 @@ Page({
     this.closePopup()
     // todo remove the promotionId and giftItem of the item with inverntoryCount===0
 
-    this.createOrder({ enable:true})
+    this.createOrder({
+      enable: true
+    })
   },
   createOrder(decreaseGift = {
     enable: false
@@ -254,13 +256,13 @@ Page({
       let orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
       if (decreaseGift.enable) {
         orderItems = orderItems.map(item => {
-          const itemIds = this.data.stockoutList.map(item=>item.itemId)
+          const itemIds = this.data.stockoutList.map(item => item.itemId)
           const missingItem = item.items.find(it => itemIds.includes(it.itemId))
           return missingItem ? {
             ...item,
-            items:item.items.map(item=>({
+            items: item.items.map(item => ({
               ...item,
-              quantity: item.itemId === missingItem.itemId ? this.data.stockoutList[itemIds.indexOf(missingItem.itemId)].quantity:item.quantity
+              quantity: item.itemId === missingItem.itemId ? this.data.stockoutList[itemIds.indexOf(missingItem.itemId)].quantity : item.quantity
             }))
           } : item
         })
@@ -287,16 +289,16 @@ Page({
           for (let j = 0; j < orderItems[i].items.length; j++) {
             orderItems[i].items[j].unit = orderItems[i].items[j].saleUnit
             orderItems[i].items[j].itemUnit = orderItems[i].items[j].saleUnit
-            
-            if (orderItems[i].combinationFlag) {// judge combination
+
+            if (orderItems[i].combinationFlag) { // judge combination
               orderItems[i].items[j].quantity = orderItems[i].items[j].quantity * orderItems[i].count
-            } else {//sku promotion
+            } else { //sku promotion
               orderItems[i].items[j].promotionId = orderItems[i].promotionId
               orderItems[i].items[j].discountAmount = orderItems[i].discountAmount
               orderItems[i].items[j].discountPercentage = orderItems[i].discountPercentage
             }
           }
-          if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length > 0) {//including gifts
+          if (orderItems[i].cartCombinationPromotions[0].giftItems && orderItems[i].cartCombinationPromotions[0].giftItems.length > 0) { //including gifts
             // todo how judge which gift is selected?
             for (let j = 0; j < orderItems[i].cartCombinationPromotions[0].giftItems.length; j++) {
               orderItems[i].cartCombinationPromotions[0].giftItems[j].isGift = true
@@ -347,7 +349,7 @@ Page({
 
       // console.log(JSON.stringify(tempdata))
       const isWechat = this.data.checked[0]
-      utils.submitOrder({//statis
+      utils.submitOrder({ //statis
         eventDetail: {
           items: orderItems.reduce((accumulator, group) => accumulator.concat(group.items.map(item => ({
             ...item,
@@ -356,6 +358,11 @@ Page({
           points: usePoint
         },
       })
+      // todo test inventory count inadequate
+      // const firstItem = orderItems[0].items[0]
+      // if (firstItem.quantity !== firstItem.inventoryCount) {
+      //   firstItem.quantity = 200000
+      // }
       utils.postRequest({
         url: createOrder,
         data: {
@@ -402,11 +409,21 @@ Page({
             prompt: this.changedTxt
           })
         } else if (err.statusCode === 417) { //stockout
-          const message = JSON.parse(err.data.result.message)
+          let message = null
+          try {
+            if (err.data instanceof Object) {
+              message = JSON.parse(err.data.message)
+            } else {
+              message = JSON.parse(JSON.parse(err.data.split('content:')[1]).message)
+            }
+          } catch (e) {
+            debugger
+            return
+          }
           const isGiftStockout = message.every(item => item.isGift)
           return this.setData({
             [isGiftStockout ? 'isGiftStockout' : 'isStockout']: true,
-            stockoutList: JSON.parse(err.data.result.message),
+            stockoutList: message,
             missingGifts: message.filter(item => item.isGift)
           })
         } else if (err !== 406) {

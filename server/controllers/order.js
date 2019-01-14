@@ -318,7 +318,7 @@ module.exports = {
     }
   },
   create: async ctx => {
-    this.currentInventory = this.currentInventory === undefined ? Mock.Random.integer(0, 9) : this.currentInventory
+    this.currentInventory = this.currentInventory === undefined ? (Mock.Random.increment() - 1) : this.currentInventory
     if (ctx.request.body.orderItems[0].items[0].quantity === this.currentInventory) {
       ctx.state.data = {
         message: '',
@@ -332,11 +332,11 @@ module.exports = {
       const result = Mock.mock({
         "message|10": [{
           itemIcon: 'https://stg-statics.jihuiduo.cn/jhb_images/%E6%83%A0%E7%99%BE%E7%9C%9F%E6%B4%97%E8%A1%A3%E6%B6%B21.jpg',
-          itemId: '3467',
+          itemId: ctx.request.body.orderItems[0].items[0].itemId,
           itemName: '惠百真护色香氛洗衣液洗衣液',
           quantity: this.currentInventory,
-          "isGift": '@boolean'
-          // "isGift": true
+          "isGift": '@boolean',
+          "isGift": true
         }]
       })
       ctx.state.result = {

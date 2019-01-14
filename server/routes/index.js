@@ -90,6 +90,6 @@ router.post('/v1/mall/order/onlinePayment', controllers.order.pay);
 router.post('/v1/mall/promotions/selectGoods', controllers.promotion.goods)
 router.post('/v1/mall/promotions/selectCombGoods', controllers.promotion.kind)
 router.post('/v1/mall/promotions/item', controllers.promotion.item)
-router.post('/v1/promotions/getImitationCalc', controllers.promotion.calc)
-router.post('/v1/promotions/getPromotionAvailableAmount', controllers.promotion.calcAmount)
+router.post('/v1/mall/promotions/getImitationCalc', controllers.promotion.calc)
+router.post('/v1/mall/promotions/getPromotionAvailableAmount', controllers.promotion.calcAmount)
 module.exports = router

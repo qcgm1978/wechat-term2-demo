@@ -20,6 +20,7 @@ Page({
     defImg: getApp().globalData.defaultImg,
     trolley: [],
     minAmount: 500,
+    maxLength: getApp().globalData.maxLength,
     height: getApp().globalData.systemInfo.windowHeight > 960 ? getApp().globalData.systemInfo.windowHeight - (38 + 52) * 2 - 38 : 960,
     currentMoney: 0,
     hasOrders: true,
@@ -706,9 +707,9 @@ Page({
       .then((para) => {
         return utils.addToTrolleyByGroup(para)
       })
-      .then(badge => {
-        utils.updateTrolleyNum();
-      })
+      // .then(badge => {
+      //   utils.updateTrolleyNum();
+      // })
       .then(this.getTrolley)
       .then(trolley=>{
         this.calc(trolley)

@@ -133,7 +133,7 @@
               <text>购买数量</text>
               <view class='center' style='align-items:center'>
                 <image src='./img/minus.png' class='plus-minus center-center' style='opacity:{{quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
-                <input type="number" maxlength='5' value='{{quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx; width:124rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
+                <input type="number" maxlength='{{maxLength}}' value='{{quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx; width:124rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
                 />
                 <!-- <text class='plus-minus center-center btn-txt' style="font-size: 32rpx;">{{quantity}}</text> -->
                 <image src='./img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>

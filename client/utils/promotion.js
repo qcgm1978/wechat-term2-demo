@@ -27,14 +27,14 @@ exports.calcPromote = calcPromoteFunc = function(postData) {
       .then(data => {
         if (data.status === 200) {
           // console.log(JSON.stringify(data))
-          let calcPromoteInfo = data.result.promotionGroups[0]
-          let ret = null
-          if (true/*items[0].promotions && items[0].promotions.length > 0 && items[0].promotions[0] && items[0].promotions[0].promotionId*/) {
-            ret = calcPromoteInfo.promotions
-            // ret = calcPromoteInfo.promotions.find(item => item.promotionId === promotionId)
-          } else {
-            // ret = calcPromoteInfo.promotionActives && calcPromoteInfo.promotionActives.length > 0 ? calcPromoteInfo.promotionActives[0] : null
-          }
+          let calcPromoteInfo = data.result[0]
+          // let ret = null
+          // if (true/*items[0].promotions && items[0].promotions.length > 0 && items[0].promotions[0] && items[0].promotions[0].promotionId*/) {
+          //   ret = calcPromoteInfo.promotions
+          //   // ret = calcPromoteInfo.promotions.find(item => item.promotionId === promotionId)
+          // } else {
+          //   // ret = calcPromoteInfo.promotionActives && calcPromoteInfo.promotionActives.length > 0 ? calcPromoteInfo.promotionActives[0] : null
+          // }
           resolve(calcPromoteInfo)
           // resolve(calcPromoteInfo.promotionActives ? ret : calcPromoteInfo.promotionActives[0])
         } else {
