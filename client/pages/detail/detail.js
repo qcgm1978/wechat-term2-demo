@@ -71,7 +71,7 @@ Page({
     const dataset = e.currentTarget.dataset;
     const index = dataset.index,
       type = dataset.type;
-    const currentNum = this.data.quantity;
+    const currentNum = Number(this.data.quantity);
     const isMinus = (type === 'minus');
     if ((currentNum === 1) && isMinus) {
       return;
