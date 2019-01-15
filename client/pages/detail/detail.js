@@ -417,7 +417,10 @@ Page({
         return data
       })
       .then(data => {
-        return this.getPromoteInfo(options)
+        return this.getPromoteInfo({
+          ...options,
+          brandId:data[0].itemBrandId
+        })
       })
       .then(({
         promotionIds
@@ -576,7 +579,8 @@ Page({
 
   getPromoteInfo({
     itemId,
-    categoryId
+    categoryId,
+    brandId
   }) {
     return utils.postRequest({
         url: getPromoteInfo,
@@ -584,7 +588,7 @@ Page({
           merchantId: getApp().getMerchantId(),
           locationId: getApp().globalData.merchant.locationId,
           items: [{
-            // brandId,
+            brandId,
             seriesCode: this.data.product.seriesCode,
             categoryCode: categoryId ? categoryId : "",
             itemId: itemId
