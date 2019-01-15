@@ -238,14 +238,14 @@ Page({
           itemGroups
         })
         .then(arr => {
-          arr=arr.promotions
+          arr = arr.promotions
           this.setData({
             cartCombinationPromotions: {
               len: arr.length,
               gifts: arr.reduce((accumulator, item) => {
                 return accumulator + item.giftItems.length
               }, 0),
-              data:arr
+              data: arr
             }
           })
           resolve(arr)
@@ -255,7 +255,7 @@ Page({
         })
     })
   },
-  toPromotionActivity(){
+  toPromotionActivity() {
     wx.navigateTo({
       // url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.cartCombinationPromotions)}`,
       url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.trolley)}`,
@@ -476,15 +476,19 @@ Page({
     }
   },
   processMiddleTier(data) {
+    if (data.result.items) {
 
-    data.result = data.result.items.map(item => ({
-      ...this.generateExtendedData({
-        itemId: item.itemId
-      }),
-      items: [item],
-      inventoryCount: item.inventoryCount
-    }))
-    return data
+      data.result = data.result.items.map(item => ({
+        ...this.generateExtendedData({
+          itemId: item.itemId
+        }),
+        items: [item],
+        inventoryCount: item.inventoryCount
+      }))
+      return data
+    }else{
+      return []
+    }
   },
   getTrolley(adjustResult = false) {
 
@@ -504,11 +508,15 @@ Page({
           limit: this.limit
         })
         .then((data) => {
+          try{
           data = this.processMiddleTier(data)
           if (adjustResult) {
             return this.fillPromotionInfo(data)
           } else {
             return data
+          }
+          }catch(e){
+            return []
           }
         })
         .then((data) => {
@@ -711,7 +719,7 @@ Page({
       //   utils.updateTrolleyNum();
       // })
       .then(this.getTrolley)
-      .then(trolley=>{
+      .then(trolley => {
         this.calc(trolley)
       })
   },
@@ -766,7 +774,7 @@ Page({
         })
         return trolley
       })
-      .then(trolley=>{
+      .then(trolley => {
         this.calc(trolley)
       })
       .catch(e => {
@@ -1012,7 +1020,7 @@ Page({
     if (+e.detail.value === 0) {
       e.detail.value = '1'
     }
-    if (this.data.trolley[e.currentTarget.dataset.index].items[0].quantity === +e.detail.value){
+    if (this.data.trolley[e.currentTarget.dataset.index].items[0].quantity === +e.detail.value) {
       return
     }
     this.plusMinus(e)
