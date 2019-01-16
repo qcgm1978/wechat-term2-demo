@@ -91,8 +91,8 @@ module.exports = {
         let quantity = ctx.request.body.items instanceof Array ? ctx.request.body.items[0].quantity : 1
         quantity = 10
         quantity = 2
-        ctx.state.result = Mock.mock({
-          promotionGroups: [{
+        ctx.state = Mock.mock({
+          'result': [{
             totalDiscountAmount: 0,
             'promotions|20': [{
               isTransactionPromotion: "@pick([0,1])",//整单：1，非整单：0

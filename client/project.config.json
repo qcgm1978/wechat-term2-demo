@@ -34,7 +34,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 25,
+			"current": 21,
 			"list": [
 				{
 					"id": -1,
@@ -166,7 +166,7 @@
 					"id": 21,
 					"name": "promoteOptions",
 					"pathName": "pages/promoteOptionsKind/promoteOptionsKind",
-					"query": "promoteInfo={\"promotionId\":\"19057\",\"promotionName\":\"单品组合2A+4B赠A1\",\"startTime\":\"Tue Nov 20 00:00:00 CST 2018\",\"endTime\":\"Tue Dec 18 00:00:00 CST 2018\",\"promotionDescription\":\"\",\"promotionType\":\"1\",\"combinationFlag\":\"1\",\"promotionKind\":\"1\"}&product={\"itemImageAddress1\":\"http://pro-img-jihuiduo.oss-cn-beijing.aliyuncs.com/sku_image/1810.png\",\"itemName\":\"美汁源果粒橙450ml\",\"itemSpecification\":\"450ml*12\",\"price\":30,\"itemId\":\"1810\",\"categoryId\":\"1205001\",\"seriesCode\":\"22777\",\"isKind\":false}&kind=1"
+					"query": "promoteInfo={\"promotionId\":\"27\",\"promotionName\":\"研发测试-七喜单品促销满5件减2元\",\"startTime\":\"Tue Jan 08 00:00:00 CST 2019\",\"endTime\":\"Sun Mar 31 00:00:00 CST 2019\",\"promotionDescription\":\"政策说明:研发测试-七喜单品促销满5件减2元\",\"promotionType\":\"2\",\"combinationFlag\":\"1\",\"promotionKind\":\"1\"}&product={\"itemImageAddress1\":\"http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%B8%83%E5%96%9C1.jpg\",\"itemName\":\"七喜\",\"itemSpecification\":\"1L*12\",\"price\":32.22,\"itemId\":\"3473\",\"categoryId\":\"1201013\",\"seriesCode\":\"17\",\"isKind\":false}&kind=1"
 				},
 				{
 					"id": -1,

@@ -50,3 +50,7 @@ interface:
         hide the add, minus btn if inventory is 0 (done)
 
         chrome://extensions/?id=jglfehaddibdnfchgicahpdifopgihcb
+
+    2019-01-16
+
+    1，add num to gift popup

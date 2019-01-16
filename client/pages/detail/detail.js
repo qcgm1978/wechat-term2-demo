@@ -608,6 +608,10 @@ Page({
             hasPromotion = false, skuKind = false, skuKindKindCategory = false, promotionIds = []
           } = items.reduce((accumulator, item) => {
             accumulator.promotionIds.push(item.promotionId)
+              // 单品促销：combinationFlag=0   promotionKind=1
+              // 单品 + 单品组合促销：combinationFlag = 1 promotionKind = 1
+              // 单品类促销：combinationFlag = 0   promotionKind = 2
+              // 单品类 + 单品类组合促销：combinationFlag = 1   promotionKind = 2
             if (item.combinationFlag === "0") {
               if (item.promotionKind === '1') {
                 accumulator.sku = true;

@@ -16,7 +16,7 @@
         <view wx:if='{{isKind}}' style='display:flex;'> x{{item.minQuantity}}/套</view>
       </view>
       <view class='center trolley-bottom'>
-        <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /><text class='gift-unit' >/{{item.itemUnit}}</text></text>
+        <text class='dollar medium list-price'><template is="price" data="{{price:item.price}}" /><text class='gift-unit' wx:if='{{item.itemUnit}}'>/{{item.itemUnit}}</text></text>
 
         <view wx:if='{{!isDetail&&!item.isfree}}' class='center a-i-c' style='margin-right:24rpx;'>
           <image src='../trolley/img/reduce2.png' class='plus-minus  minus-padding center-center' style='opacity:{{item.active?1:0.5}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>

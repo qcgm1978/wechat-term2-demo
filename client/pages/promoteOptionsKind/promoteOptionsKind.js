@@ -146,14 +146,7 @@ Page({
     })
     for (let i = 0; i < composeProducts.length; i++) {
       if (itemId == composeProducts[i].itemId) {
-        if (composeProducts[i].checked) {
-          if (!this.data.isKind) {
-            var item = `${kind}.itemList[` + i + '].checked'
-            this.setData({
-              [item]: false
-            })
-          }
-        }
+        
         var item = `${kind}.itemList[` + i + '].checked'
         this.setData({
           [item]: !composeProducts[i].checked

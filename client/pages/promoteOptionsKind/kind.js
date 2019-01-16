@@ -19,7 +19,11 @@ export default {
           ...data.result,
           items: {
             ...data.result.item,
-            itemList: data.result.conbinationItems
+            categoryCode: data.result.item.itemCategoryCode,
+            itemList: data.result.conbinationItems.map(item=>({
+              ...item,
+              categoryCode:item.itemCategoryCode
+            }))
           },
           combinationItems: []
         }
@@ -260,15 +264,15 @@ export default {
 
       let groupItems = []
       // todo maybe only one condition is needed
-      if (true || this.data.selectedProductList.length > 1) {
+      if (this.data.selectedProductList.length > 1) {
         for (let i = 0; i < this.data.selectedProductList.length; i++) {
           if (!this.data.selectedProductList[i].isGift) {
             let item1 = {}
             const item = this.data.selectedProductList[i];
             item1.itemId = item.itemId
-            item1.brandId = ""
-            item1.categoryCode = item.categoryCode
-            item1.quantity = item.quantity || item.minQuantity
+            item1.brandId = item.brandId || item.itemBrandId
+            item1.seriesCode = item.seriesCode
+            item1.quantity = item.quantity || item.minQuantity||1
             item1.unitPrice = item.price
             groupItems.push(item1)
           }
@@ -282,9 +286,9 @@ export default {
             let item1 = {}
             const item = this.data.selectedProductList[i];
             item1.itemId = item.itemId
-            item1.brandId = ""
+            item1.brandId = item.brandId || item.itemBrandId
             item1.categoryCode = item.categoryCode
-            item1.quantity = item.quantity || item.minQuantity
+            item1.quantity = item.quantity || item.minQuantity||1
             item1.unitPrice = item.price
             item1.itemPromotions = [{
               itemPromotionId: this.promoteInfo.promotionId
