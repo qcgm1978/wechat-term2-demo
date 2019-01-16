@@ -39,6 +39,7 @@ module.exports = {
           minNumber: '@integer(2,5)',
           "item": {
             requireFlag: '@boolean()',
+            requireFlag: false,
             minAmount: '@float(0,500,0,2)',
             "itemId": '@natural(4)',
             "itemName": "中普啤酒瓶超爽8度",
@@ -51,6 +52,7 @@ module.exports = {
           },
           "conbinationItems|10": [{
             requireFlag: '@boolean()',
+            requireFlag: false,
             minAmount: '@float(0,500,0,2)',
             inventoryCount: '@integer(0,1)',
             "itemId": '@natural(4)',
