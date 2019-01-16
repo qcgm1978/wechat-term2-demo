@@ -91,8 +91,9 @@
       <swiper bindchange='relatedChange' indicator-dots="{{false}}" indicator-active-color='#FDB658' autoplay="{{true}}" interval="{{interval}}" display-multiple-items='{{related.length>3?3:related.length}}' duration="{{duration}}" class='padding'>
         <view catch:tap='navigateTo' data-index='{{index}}' wx:for="{{related}}" wx:key='{{index}}' data-url='{{"../detail/detail?itemId="+item.itemId+"&categoryId="+item.itemCategoryCode}}'>
           <swiper-item class='column' style=' margin:0 6rpx;justify-content:center;'>
-            <view class='center-center' style="width: 100%;height:150rpx;justify-content:center;">
+            <view class='center-center' style="width: 100%;height:150rpx;justify-content:center; position:relative;">
               <image mode='aspectFit' src="{{item.itemImageAddress1?item.itemImageAddress1:defImg}}" class="slide-image" style="border-radius: 8rpx;width:218rpx;max-height:100%;" />
+              <view wx:if='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center' style="width: 144rpx;height: 144rpx;font-size:32rpx;">售罄</view>
               <image wx:if='{{item.promotionTypes[0]=="1"}}' src='./img/gift-small.png' class='related-gift'></image>
             </view>
             <view class='regular relative-name' style="justify-content:center;text-align:center;">{{item.itemName}}</view>
@@ -133,8 +134,8 @@
               <text>购买数量</text>
               <view class='center' style='align-items:center'>
                 <image src='./img/minus.png' class='plus-minus center-center' style='opacity:{{quantity===1?0.5:1}};' catch:tap='plusMinus' data-index='{{index}}' data-type='minus'></image>
-                <input type="number" maxlength='{{maxLength}}' value='{{quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx; width:124rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}' data-enabled='{{trollyGroup.putShelvesFlg}}'
-                />
+                <input type="number" maxlength='{{maxLength}}' value='{{quantity}}' class='num-input plus-minus center-center btn-txt-1' bindinput='bindinput' bindblur='bindblur' style="font-size: 26rpx; width:124rpx;" data-index='{{groupIndex}}' data-itemid='{{item.itemId}}'
+                  data-enabled='{{trollyGroup.putShelvesFlg}}' />
                 <!-- <text class='plus-minus center-center btn-txt' style="font-size: 32rpx;">{{quantity}}</text> -->
                 <image src='./img/add.png' class='plus-minus center-center' catch:tap='plusMinus' data-index='{{index}}'></image>
               </view>

@@ -61,9 +61,8 @@ module.exports = {
           "promotionTypes": null,
           "saleUnit": "箱(24个)",
           // "putShelvesFlg": '@boolean',
-          // inventoryCount: '@integer(0,10)',
           putShelvesFlg,
-          inventoryCount,
+          inventoryCount: '@pick([0, 1])',
         }
       ]
     })
@@ -125,7 +124,7 @@ module.exports = {
     let product
     ctx.state = Mock.mock({
       'result|10': [{
-        inventoryCount: 0,
+        inventoryCount: '@pick([0,1])',
         itemBrandId: '@string("number",5)',
         seriesCode: '@string("number",5)',
         "itemId": "346" + '@increment(1)',
@@ -151,7 +150,8 @@ module.exports = {
         "price": 19,
         "itemCategoryName": " 可口可乐",
         "priceLevel": "47",
-        "putShelvesFlg": true,
+        putShelvesFlg: true,
+        putShelvesFlg: '@boolean()',
         // "promotionTypes": ['2', '1', '3'],
         "promotionTypes": "@pick([['1', '2', '3'], ['2', '1', '3']])",
         "saleUnitExchange": 24,
