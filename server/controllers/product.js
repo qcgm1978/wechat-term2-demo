@@ -72,13 +72,13 @@ module.exports = {
   detail: async ctx => {
     let productId = + ctx.params.orderId;
     let product
-    let inventoryCount = 0, putShelvesFlg = true
+    let inventoryCount = '@pick([0,1])', putShelvesFlg = true
     // inventoryCount = Mock.Random.integer(0, 10)
-    inventoryCount = Mock.Random.increment()
+    // inventoryCount = Mock.Random.increment()
     // putShelvesFlg = false
     const itemId = ctx.query.itemIds
-    ctx.state.result = [
-      Mock.mock({
+    ctx.state = Mock.mock({
+      [`result${ctx.query.categoryCd ? '|10' : ''}`]: [{
         putShelvesFlg,
         inventoryCount,
         itemBrandId: '@string("number",5)',
@@ -115,9 +115,8 @@ module.exports = {
         "height": "",
         "weight": "",
         "isConsignedGood": "N"
-      }),
-
-    ];
+      }],
+    })
   },
   related: async ctx => {
     let productId = + ctx.params.orderId;

@@ -1,9 +1,12 @@
 <import src="../../template/freeze.wxml" />
-<freeze-time is-to-open='{{isToOpen}}' >
+<freeze-time is-to-open='{{isToOpen}}'>
 </freeze-time>
-<template is="freeze" data='{{isFreezing}}'/>
+<template is="freeze" data='{{isFreezing}}' />
 <view catch:tap='turnPage' wx:for='{{product}}' wx:key='*this' class='center padding24 bgc ' data-itemid='{{item.itemId}}' style='margin-top:2rpx;'>
-  <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
+  <view style='position: relative;'>
+    <image src='{{item.itemImageAddress1 }}' mode='aspectFit'></image>
+    <view wx:if='{{item.inventoryCount===0}}' class='trolley-soldout regular center-center' style="width: 144rpx;height: 144rpx;font-size:32rpx;">售罄</view>
+  </view>
   <view class='column regular list-container'>
     <view class='column' style='align-items:flex-start;'>
       <text class='list-name'>{{item.itemName}}</text>
