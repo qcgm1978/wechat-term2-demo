@@ -41,14 +41,14 @@ module.exports = {
             requireFlag: '@boolean()',
             requireFlag: false,
             minAmount: '@float(0,500,0,2)',
-            "itemId": '@natural(4)',
+            "itemId": '3473',
             "itemName": "中普啤酒瓶超爽8度",
             "minQuantity": "1",
             "itemUnit": "箱(12个)",
             "price": 15,
             "itemSpecification": "490ml*12",
             "itemCategoryCode": "1102004",
-            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E9%87%91%E6%98%9F%E5%95%A4%E9%85%92.jpg"
+            "itemImageAddress1": "http://stg-img-jihuiduo.oss-cn-beijing.aliyuncs.com/jhb_images/%E4%B8%83%E5%96%9C1.jpg"
           },
           "conbinationItems|10": [{
             requireFlag: '@boolean()',

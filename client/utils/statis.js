@@ -75,7 +75,7 @@ export const requestStatis = (postData = {}) => {
   const setToken = statisToken ? () => Promise.resolve(statisToken) : getToken;
   setToken().then(statisToken => {
     //使用access_token,获取java后台数据
-    const userId = getApp().getMerchantId() || '';
+    const merchantId = getApp().getMerchantId() || '';
     // phone = phone === '' ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : phone
     phone = wx.getStorageSync('authWechat') ? wx.getStorageSync('authWechat').authMerchantList[0].cellPhone : 0
     postData.eventDetail = postData.eventDetail ? JSON.stringify(postData.eventDetail) : ''
@@ -85,6 +85,7 @@ export const requestStatis = (postData = {}) => {
       // phone,
       sessionId,
       userId: phone,
+      merchantId,
       pageUrl: postData.pageUrl || getCurrentPages().slice(-1)[0].route,
       time: new Date().getTime(),
       preUrl: getCurrentPages().slice(-2, -1)[0] ? getCurrentPages().slice(-2, -1)[0].route : '' //getCurrentPages().slice(-1)[0].route

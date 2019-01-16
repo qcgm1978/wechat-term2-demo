@@ -20,10 +20,12 @@ export default {
           items: {
             ...data.result.item,
             categoryCode: data.result.item.itemCategoryCode,
-            itemList: data.result.conbinationItems.map(item=>({
+            itemList: [{
+              ...data.result.item
+            }].concat(data.result.conbinationItems.map(item => ({
               ...item,
-              categoryCode:item.itemCategoryCode
-            }))
+              categoryCode: item.itemCategoryCode
+            })))
           },
           combinationItems: []
         }
@@ -140,7 +142,7 @@ export default {
       const index = dataset.index
       const type = dataset.type;
       const currentTrolley = this.getCurrentData(index);
-      const currentNum = currentTrolley.quantity 
+      const currentNum = currentTrolley.quantity
       const value = +e.detail.value
       if (currentTrolley.inventoryCount === 0) {
         return
@@ -165,7 +167,7 @@ export default {
 
         return
       }
-      if (type === 'input' && value < currentTrolley.minQuantity){
+      if (type === 'input' && value < currentTrolley.minQuantity) {
         return this.setComposeProducts({
           index,
           prop: 'quantity',
@@ -272,7 +274,7 @@ export default {
             item1.itemId = item.itemId
             item1.brandId = item.brandId || item.itemBrandId
             item1.seriesCode = item.seriesCode
-            item1.quantity = item.quantity || item.minQuantity||1
+            item1.quantity = item.quantity || item.minQuantity || 1
             item1.unitPrice = item.price
             groupItems.push(item1)
           }
@@ -288,7 +290,7 @@ export default {
             item1.itemId = item.itemId
             item1.brandId = item.brandId || item.itemBrandId
             item1.categoryCode = item.categoryCode
-            item1.quantity = item.quantity || item.minQuantity||1
+            item1.quantity = item.quantity || item.minQuantity || 1
             item1.unitPrice = item.price
             item1.itemPromotions = [{
               itemPromotionId: this.promoteInfo.promotionId

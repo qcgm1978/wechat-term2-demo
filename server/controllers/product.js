@@ -74,7 +74,7 @@ module.exports = {
     let productId = + ctx.params.orderId;
     let product
     let inventoryCount = 0, putShelvesFlg = true
-    inventoryCount = Mock.Random.integer(0, 10)
+    // inventoryCount = Mock.Random.integer(0, 10)
     inventoryCount = Mock.Random.increment()
     // putShelvesFlg = false
     const itemId = ctx.query.itemIds

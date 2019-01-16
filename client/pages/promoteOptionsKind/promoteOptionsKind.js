@@ -303,8 +303,9 @@ Page({
             this.setData({
               selectedNum: arr.map(item => item.length),
               totalPrice: utils.getFixedNum(totalPrice, 2),
+              selectedProductList
               // enableVisible: true,
-              selectedProductList: (this.data.isKind ? [] :[this.product]).concat(selectedProductList)
+              // selectedProductList: (this.data.isKind ? [] :[this.product]).concat(selectedProductList)
             })
           }
           const enableChecked = [...this.data.enableChecked]
