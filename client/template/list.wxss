@@ -39,3 +39,15 @@ image.list-img {
   box-sizing: border-box;
   width: 100%;
 }
+
+.original-price {
+  font-size: 24rpx;
+  color: #b8b8b8;
+  margin-left: 10rpx;
+}
+
+.list-quantity {
+  margin-right: 32rpx;
+  font-size: 24rpx;
+  color: #949494;
+}

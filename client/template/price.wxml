@@ -1,4 +1,9 @@
 <wxs module="filters" src="../utils/math.wxs"></wxs>
 <template name="price">
-  <text>{{filters.parseInt(price)}}<text class='decimal-dot' style='font-size:{{fontSize||"24"}}rpx'>{{filters.getDecimals(price)}}</text></text>
+  <block wx:if='{{isMinus}}' style='position:relative;'>
+    <text>0<text class='decimal-dot' style='font-size:{{fontSize||"24"}}rpx'>00</text></text>
+  </block>
+  <block wx:else>
+    <text>{{filters.parseInt(price)}}<text class='decimal-dot' style='font-size:{{fontSize||"24"}}rpx'>{{filters.getDecimals(price)}}</text></text>
+  </block>
 </template>
