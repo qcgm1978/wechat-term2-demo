@@ -112,7 +112,7 @@
       <block>
         <text></text>
         <view catch:tap='toPromotionActivity' class='center' style="align-items: center;">
-          <text>可享{{cartCombinationPromotions.len}}个优惠，可送{{cartCombinationPromotions.gifts}}个赠品</text>
+          <text>可享{{cartCombinationPromotions.len}}个优惠<block wx:if='{{cartCombinationPromotions.giftsGiven.length}}'>，可送{{cartCombinationPromotions.giftsGiven.length}}个赠品</block></text>
           <image src='./img/arrow.png' class='trolley-arrow'></image>
         </view>
       </block>

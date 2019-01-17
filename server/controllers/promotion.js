@@ -5,6 +5,7 @@ bool = false//only given gifts
 // bool = true//only money off
 module.exports = {
   item: async ctx => {
+    // bool = '@boolean()'
     ctx.state = Mock.mock({
       'result': [{
         "itemId": "3473",
@@ -17,6 +18,7 @@ module.exports = {
             "promotionDescription": "七喜 1L*12满3件打折98.365125%",
             // "promotionType": "@pick(['2','1'])",
             "promotionType": bool ? '2' : "1",
+            // "promotionType": bool ? '2' : "1",
             "combinationFlag": "@pick(['0','1'])",
             // promotionKind: "@pick(['2','1'])",
             promotionKind: "1",
@@ -86,6 +88,9 @@ module.exports = {
   calc: async ctx => {
     const orderId = ctx.params.orderId;
     const merchantId = ctx.params.merchantId;
+    let promotionType = "@pick(['2','1'])"
+    promotionType = '1'
+    promotionType = '2'
     if (!orderId || !merchantId) {
       try {
         let quantity = ctx.request.body.items instanceof Array ? ctx.request.body.items[0].quantity : 1
@@ -99,8 +104,7 @@ module.exports = {
               promotionId: "189471",
               discountAmount: '@integer(10,100)',
               discountPercentage: null,
-              "promotionType": "@pick(['2','1'])",
-              // "promotionType": "1",
+              promotionType,
               promotionName: "单品A满5件赠A1 or minuse 100",
               combinationFlag: '0',
               promotionDescription: '',

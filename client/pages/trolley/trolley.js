@@ -245,6 +245,7 @@ Page({
               gifts: arr.reduce((accumulator, item) => {
                 return accumulator + item.giftItems.length
               }, 0),
+              giftsGiven: arr.filter(item => item.promotionType == "1"),
               data: arr
             }
           })
