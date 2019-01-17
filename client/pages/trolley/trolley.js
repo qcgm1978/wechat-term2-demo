@@ -732,8 +732,6 @@ Page({
       this.selectedRadio = [];
       getApp().globalData.toggleMerchant = false;
     }
-
-
     this.getTrolley(true)
       .then(data => {
         getApp().globalData.checkedTrolley.map(item => {
@@ -759,16 +757,20 @@ Page({
         this.setData({
           dataLoaded: true
         })
-        this.setMoneyData(this.selectedRadio)
 
         const trolley = this.data.trolley.map((item, index) => {
-          if (this.selectedRadio.includes(item.groupId)) {
+          if (this.selectedRadio.includes(item.groupId) && item.putShelvesFlg&&(item.inventoryCount!==0)) {
             item.checked = true;
           } else {
             item.checked = false;
+            if (this.selectedRadio.includes(item.groupId)){
+                const ind=this.selectedRadio.indexOf(item.groupId)
+                this.selectedRadio=this.selectedRadio.slice(0,ind).concat(this.selectedRadio.slice(ind+1))
+            }
           }
           return item;
         });
+        this.setMoneyData(this.selectedRadio)
         this.setData({
           trolley
         })
