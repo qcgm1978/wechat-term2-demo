@@ -242,10 +242,10 @@ Page({
           this.setData({
             cartCombinationPromotions: {
               len: arr.length,
-              gifts: arr.reduce((accumulator, item) => {
-                return accumulator + item.giftItems.length
-              }, 0),
-              giftsGiven: arr.filter(item => item.promotionType == "1"),
+              // gifts: arr.reduce((accumulator, item) => {
+              //   return accumulator + item.giftItems.length
+              // }, 0),
+              giftsGiven: arr.filter(item => item.promotionType === 1),
               data: arr
             }
           })
@@ -254,7 +254,7 @@ Page({
         .catch(err => {
           reject()
         })
-    })
+    }).then(promotions => getApp().globalData.activityItems = promotions)
   },
   toPromotionActivity() {
     wx.navigateTo({

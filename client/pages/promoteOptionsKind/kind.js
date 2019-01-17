@@ -266,7 +266,7 @@ export default {
 
       let groupItems = []
       // todo maybe only one condition is needed
-      if (this.data.selectedProductList.length > 1) {
+      if (true||this.data.selectedProductList.length > 1) {
         for (let i = 0; i < this.data.selectedProductList.length; i++) {
           if (!this.data.selectedProductList[i].isGift) {
             let item1 = {}

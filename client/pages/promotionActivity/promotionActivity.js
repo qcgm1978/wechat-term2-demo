@@ -1,29 +1,25 @@
 import promoteUtil from "../../utils/promotion.js";
-const app=getApp()
+const app = getApp()
 Page({
   data: {
     imgManjian: app.globalData.imgManjian,
     imgManzeng: app.globalData.imgManzeng,
   },
-
-  /**
-   * Lifecycle function--Called when page load
-   */
   onLoad: function(options) {
     // todo whether request data or based on passing data
     // this.setData({
     //   promotions: JSON.parse(options.data).data
     // })
-    this.calc(JSON.parse(options.data)).then((promotions)=>{
+    this.calc(JSON.parse(options.data)).then((promotions) => {
       this.setData({
-        promotions: promotions.map(item=>({
+        promotions: promotions.map(item => ({
           ...item,
-          visibleGifts: item.giftItems.filter(it=>it.inventoryCount!=='0')
+          visibleGifts: item.giftItems && item.giftItems.filter(it => it.inventoryCount !== '0')
         }))
-    })
+      })
     })
   },
-  selectGift(e){
+  selectGift(e) {
     this.index = e.currentTarget.dataset.index
     const giftItems = this.data.promotions[this.index].giftItems.reduce((accumulator, item, index) => {
       const checked = item.inventoryCount > 0 && !accumulator.hasElected
@@ -39,7 +35,7 @@ Page({
       return accumulator
     }, [])
     this.setData({
-      isSelectingGift:true,
+      isSelectingGift: true,
       giftItems
     })
   },
@@ -82,16 +78,16 @@ Page({
       group.items = groupItems
       itemGroups.push(group)
       promoteUtil.calcPromote({
-        itemGroups
-      })
+          itemGroups
+        })
         .then(data => {
-          const arr=data.promotions
+          const arr = data.promotions
           this.setData({
             cartCombinationPromotions: {
               len: arr.length,
-              gifts: arr.reduce((accumulator, item) => {
-                return accumulator + item.giftItems.length
-              }, 0),
+              // gifts: arr.reduce((accumulator, item) => {
+              //   return accumulator + item.giftItems.length
+              // }, 0),
               data: arr
             }
           })
@@ -102,7 +98,7 @@ Page({
         })
     })
   },
-  
+
   /**
    * Lifecycle function--Called when page is initially rendered
    */
@@ -129,7 +125,7 @@ Page({
    */
   onUnload: function() {
     // save gifts selection state for generating order
-    getApp().globalData.activityItems=this.data.promotions
+    getApp().globalData.activityItems = this.data.promotions
   },
 
   /**
