@@ -377,7 +377,7 @@ Page({
       .catch(() => {
         //todo temp turn to next page
         wx.navigateTo({
-          url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=0}`,
+          url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${0}`,
         });
       })
   },
