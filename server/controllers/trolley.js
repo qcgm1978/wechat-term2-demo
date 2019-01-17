@@ -42,15 +42,18 @@ module.exports = {
    * 
    */
   list: async ctx => {
+    let inventoryCount = '@integer(0,1)'
+    // inventoryCount= '@integer(0,1)'
+    // inventoryCount= '@integer(0,2)'
+    inventoryCount = 0
     ctx.state = Mock.mock({
       "result":
       {
-        "items|20": [
+        "items": [
           {
-            // inventoryCount: '@integer(0,1)',
             "putShelvesFlg": false,
             "putShelvesFlg": true,
-            inventoryCount: '@integer(0,2)',
+            inventoryCount,
             seriesCode: '@string("number",4)',
             itemBrandId: '@string("lower",10)',
             "itemId": "@integer(1000,9999)",

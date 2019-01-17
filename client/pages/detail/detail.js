@@ -375,7 +375,7 @@ Page({
         });
       })
       .catch(() => {
-        //todo temp turn to next page
+        //todo temp turn to next page, maybe not redirect if promotion error occurs
         wx.navigateTo({
           url: `../order-confirm/order-confirm?itemId=${this.data.product.itemId}&orderStatus=&total=${this.data.currentMoney}&quantity=${this.data.quantity}&totalDiscount=${0}`,
         });
