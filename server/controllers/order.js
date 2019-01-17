@@ -318,17 +318,23 @@ module.exports = {
     }
   },
   create: async ctx => {
-    this.currentInventory = this.currentInventory === undefined ? (Mock.Random.increment() - 1) : this.currentInventory
-    if (ctx.request.body.orderItems[0].items[0].quantity === this.currentInventory) {
+    ctx.state.status = 200
+    // ctx.state.status = 409
+    // ctx.state.status = 406
+    // ctx.state.status = 417//inventoryCount no satisfying
+    if (ctx.state.status === 417) {
+
+      this.currentInventory = this.currentInventory === undefined ? (Mock.Random.increment() - 1) : this.currentInventory
+    } else {
+      this.currentInventory = ctx.request.body.orderItems[0].items[0].inventoryCount
+    }
+    if (+ctx.request.body.orderItems[0].items[0].quantity <= this.currentInventory) {
       ctx.state.data = {
         message: '',
         orderId: '123456',
         totalAmount: ctx.request.body.cashAmount
       }
     } else {
-      // ctx.status = 409
-      ctx.status = 406
-      ctx.state.status = 417//inventoryCount no satisfying
       const result = Mock.mock({
         "message|10": [{
           itemIcon: 'https://stg-statics.jihuiduo.cn/jhb_images/%E6%83%A0%E7%99%BE%E7%9C%9F%E6%B4%97%E8%A1%A3%E6%B6%B21.jpg',
@@ -339,9 +345,7 @@ module.exports = {
           "isGift": true
         }]
       })
-      ctx.state.result = {
-        message: JSON.stringify(result.message)
-      }
+      ctx.state.message = JSON.stringify(result.message)
     }
 
     // "items|10": [

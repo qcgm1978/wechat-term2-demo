@@ -20,7 +20,7 @@ module.exports = async function (ctx, next) {
         // debugger;
         ctx.status = ctx.state.status || 200
         ctx.body = ctx.body ? ctx.body : {
-            "message": "OK",
+            "message": ctx.state.message || "OK",
             status: ctx.state.status || 200,
             result: ctx.state.result !== undefined ? ctx.state.result : (ctx.state.data || {})
         }

@@ -76,6 +76,7 @@ module.exports = {
     // inventoryCount = Mock.Random.integer(0, 10)
     // inventoryCount = Mock.Random.increment()
     inventoryCount = 1
+    inventoryCount = 20
     // putShelvesFlg = false
     const itemId = ctx.query.itemIds
     ctx.state = Mock.mock({
