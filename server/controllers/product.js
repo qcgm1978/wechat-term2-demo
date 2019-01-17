@@ -103,7 +103,7 @@ module.exports = {
         "itemOrigin": "",
         "itemExpirationDays": "",
         "putShelvesDate": "2018/10/29 14:31:05",
-        "price": 19,
+        "price": 118.2,
         "itemCategoryName": " 可口可乐",
         "priceLevel": "47",
         "promotionTypes": null,

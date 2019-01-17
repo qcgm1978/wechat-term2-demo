@@ -24,7 +24,7 @@ module.exports = async (ctx, next) => {
             "loginMallFlg": 1,
             "activeFlg": 1,
             "pointBalance": 5000,
-            availablePoint: 20000,
+            availablePoint: 693002,
             availablePointDrop: 2000
         }
     }

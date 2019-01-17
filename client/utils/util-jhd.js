@@ -388,7 +388,7 @@ const updateTrolleyNum = ({
 }) => {
 
   return getRequest(Api.getCartCount, {
-      merchantId,
+      merchantId: getApp().getMerchantId(),
       locationId: getApp().globalData.merchant.locationId
     })
     .then(data => {

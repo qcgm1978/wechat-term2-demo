@@ -89,7 +89,7 @@ export default {
       return kindIndex ? this.data[`composeProducts`][kindIndex - 1] : this.data.items
     },
     getCurrentKindMin(kindName = this.getCurrentKindData()) {
-      return kindName.categoryMinQuantity
+      return kindName.minQuantity
     },
     getCurrentKind() {
       const kindData = this.getCurrentKindData()
