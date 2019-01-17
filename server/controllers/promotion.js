@@ -6,10 +6,14 @@ bool = false//only given gifts
 module.exports = {
   item: async ctx => {
     // bool = '@boolean()'
+    let num = '|10'
+    if (ctx.request.body.items.length === 1) {
+      num = ''
+    }
     ctx.state = Mock.mock({
       'result': [{
         "itemId": "3473",
-        "promotionItems|10": [
+        [`promotionItems${num}`]: [
           {
             "promotionId": "18947" + '@increment()',
             "promotionName": "内黄单品促销满数量折test",
@@ -90,7 +94,9 @@ module.exports = {
     const merchantId = ctx.params.merchantId;
     let promotionType = "@pick(['2','1'])"
     promotionType = '1'
-    promotionType = '2'
+    // promotionType = '2'
+    let inventoryCount = '@pick(["0","1"])'
+    // inventoryCount = 1
     if (!orderId || !merchantId) {
       try {
         let quantity = ctx.request.body.items instanceof Array ? ctx.request.body.items[0].quantity : 1
@@ -122,8 +128,7 @@ module.exports = {
                 // giftItemId: "3490" + '@increment(1)',
                 giftItemName: "七喜六联",
                 quantity: 1,
-                inventoryCount: '@pick(["0","1"])',
-                // inventoryCount: '0',
+                inventoryCount,
                 "price": "40",
                 "itemSpecification": "330ml*24",
                 "itemImageAddress1": "@image",

@@ -403,7 +403,7 @@ Page({
         url: '/pages/login/login',
       })
     }
-    if (getApp().globalData.authWechat.potentialUser){
+    if (getApp().globalData.authWechat.potentialUser) {
       return wx.reLaunch({
         url: '/pages/home-enter/home-enter',
       })
@@ -419,7 +419,7 @@ Page({
       .then(data => {
         return this.getPromoteInfo({
           ...options,
-          brandId:data[0].itemBrandId
+          brandId: data[0].itemBrandId
         })
       })
       .then(({
@@ -454,7 +454,7 @@ Page({
   }) {
     this.callPromotionCacl(data, 0, quantity).then(data => {
       if (data[0].cartCombinationPromotions) {
-        const cartCombinationPromotions = data[0].cartCombinationPromotions[0]
+        const cartCombinationPromotions = data[0].cartCombinationPromotions[0]//单品只会返一个promotion
         if (cartCombinationPromotions.promotionType === '1') { //满赠
           console.log(data[0])
           const giftItems = cartCombinationPromotions.giftItems.reduce((accumulator, item, index) => {
@@ -608,10 +608,10 @@ Page({
             hasPromotion = false, skuKind = false, skuKindKindCategory = false, promotionIds = []
           } = items.reduce((accumulator, item) => {
             accumulator.promotionIds.push(item.promotionId)
-              // 单品促销：combinationFlag=0   promotionKind=1
-              // 单品 + 单品组合促销：combinationFlag = 1 promotionKind = 1
-              // 单品类促销：combinationFlag = 0   promotionKind = 2
-              // 单品类 + 单品类组合促销：combinationFlag = 1   promotionKind = 2
+            // 单品促销：combinationFlag=0   promotionKind=1
+            // 单品 + 单品组合促销：combinationFlag = 1 promotionKind = 1
+            // 单品类促销：combinationFlag = 0   promotionKind = 2
+            // 单品类 + 单品类组合促销：combinationFlag = 1   promotionKind = 2
             if (item.combinationFlag === "0") {
               if (item.promotionKind === '1') {
                 accumulator.sku = true;
@@ -689,5 +689,6 @@ Page({
     } else {
       this.navigateToConfirm()
     }
-  }
+  },
+  radioClick:_=> _
 })
