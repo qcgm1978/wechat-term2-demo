@@ -205,14 +205,6 @@ Page({
         result.itemImageAddress.length === 0 && result.itemImageAddress.push(this.data.defImg);
         result.quantity = quantity;
         let dataWrapper = [{
-          // "groupId": "",
-          // "count": 1,
-          // "combinationFlag": false,
-          // "checked": true,
-          // "cartCombinationPromotions": null,
-          // "promotions": null,
-          // "putShelvesFlg": true,
-          // "suitePrice": 6250,
           items: [result]
         }];
         // todo create array with multi ele
@@ -309,16 +301,17 @@ Page({
       for (let i = 0; i < orderItems.length; i++) {
         orderItems[i].discountAmount = "0"
         if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]) {
-          orderItems[i].promotionId = orderItems[i].cartCombinationPromotions[0].promotionId
+          orderItems[i].promotionId = orderItems[i].promotions.promotionId
+          orderItems[i].isTransactionPromotion = orderItems[i].isTransactionPromotion
         } else {
-          orderItems[i].promotionId = ""
+          // orderItems[i].promotionId = ""
         }
 
         orderItems[i].cartGroupId = orderItems[i].groupId
         // including promotion
         if (orderItems[i].cartCombinationPromotions && orderItems[i].cartCombinationPromotions.length > 0 && orderItems[i].cartCombinationPromotions[0]) {
           orderItems[i].discountAmount = orderItems[i].cartCombinationPromotions[0].discountAmount ? orderItems[i].cartCombinationPromotions[0].discountAmount : "0"
-          orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].discountPercentage
+          orderItems[i].discountPercentage = orderItems[i].cartCombinationPromotions[0].promotions[0].discountPercentage
           // minus
           if (orderItems[i].discountAmount && orderItems[i].discountAmount > 0) {
             sumDiscount += orderItems[i].discountAmount
@@ -347,19 +340,14 @@ Page({
               orderItems[i].cartCombinationPromotions[0].giftItems[j].unit = "个"
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemUnit = "个"
               orderItems[i].cartCombinationPromotions[0].giftItems[j].saleUnit = "个"
-              orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemId
+              orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId = orderItems[i].cartCombinationPromotions[0].giftItems[j].itemId
               orderItems[i].cartCombinationPromotions[0].giftItems[j].itemName = orderItems[i].cartCombinationPromotions[0].giftItems[j].giftItemName
               orderItems[i].items.push(orderItems[i].cartCombinationPromotions[0].giftItems[j])
             }
           }
         }
 
-        // del promotion props wihtout combination
-        if (!orderItems[i].combinationFlag) {
-          delete orderItems[i]["promotionId"]
-          delete orderItems[i]["discountAmount"]
-          delete orderItems[i]["discountPercentage"]
-        }
+      
         //itemUnit补全
         for (let j = 0; j < orderItems[i].items.length; j++) {
           orderItems[i].items[j].itemUnit = orderItems[i].items[j].itemUnit ? orderItems[i].items[j].itemUnit : orderItems[i].items[j].saleUnit

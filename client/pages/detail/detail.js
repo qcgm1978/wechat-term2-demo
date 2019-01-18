@@ -350,24 +350,17 @@ Page({
         return arr
       })
       .then(arr => {
-        if (arr) {
-          if (arr.giftItems && selectedItem) {
-            // todo how set to map line 281 in order-confirm.js
-            // arr.giftItems=arr.giftItems.map(item=>{
-            //   if (item.itemId === selectedItem.giftItemId){
-
-            //   }
-            // })
-            arr.giftItems[0].itemId = arr.giftItems[0].giftItemId
-            arr.giftItems[0].itemName = arr.giftItems[0].giftItemName
-            arr.giftItems[0].mainQuantity = arr.giftItems[0].quantity
-          } else {
-            this.data.currentMoney = this.data.currentMoney - arr.totalDiscountAmount
-          }
-          itemGroups[0].cartCombinationPromotions = [arr]
+        if (selectedItem) {
+          arr.giftItems = [{
+            ...selectedItem,
+            itemId: selectedItem.giftItemId,
+            itemName: selectedItem.giftItemName
+          }]
         } else {
-
+          this.data.currentMoney = this.data.currentMoney - arr.totalDiscountAmount
         }
+        itemGroups[0].cartCombinationPromotions = [arr]
+        itemGroups[0].isTransactionPromotion = arr.promotions[0].isTransactionPromotion
         getApp().globalData.items = itemGroups;
         getApp().globalData.items.orderItemSource = 0;
         wx.navigateTo({
@@ -454,7 +447,7 @@ Page({
   }) {
     this.callPromotionCacl(data, 0, quantity).then(data => {
       if (data[0].cartCombinationPromotions) {
-        const cartCombinationPromotions = data[0].cartCombinationPromotions[0]//单品只会返一个promotion
+        const cartCombinationPromotions = data[0].cartCombinationPromotions[0] //单品只会返一个promotion
         if (cartCombinationPromotions.promotionType === '1') { //满赠
           console.log(data[0])
           const giftItems = cartCombinationPromotions.giftItems.reduce((accumulator, item, index) => {
@@ -690,5 +683,5 @@ Page({
       this.navigateToConfirm()
     }
   },
-  radioClick:_=> _
+  radioClick: _ => _
 })

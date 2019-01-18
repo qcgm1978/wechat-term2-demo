@@ -96,7 +96,7 @@ module.exports = {
     promotionType = '1'
     // promotionType = '2'
     let inventoryCount = '@pick(["0","1"])'
-    // inventoryCount = 1
+    inventoryCount = 1
     if (!orderId || !merchantId) {
       try {
         let quantity = ctx.request.body.items instanceof Array ? ctx.request.body.items[0].quantity : 1
@@ -109,7 +109,7 @@ module.exports = {
               isTransactionPromotion: "@pick([0,1])",//整单：1，非整单：0
               promotionId: "189471",
               discountAmount: '@integer(10,100)',
-              discountPercentage: null,
+              discountPercentage: '@float(0,100,2,2)',
               promotionType,
               promotionName: "单品A满5件赠A1 or minuse 100",
               combinationFlag: '0',
