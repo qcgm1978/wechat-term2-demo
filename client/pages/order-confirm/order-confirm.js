@@ -242,6 +242,42 @@ Page({
       enable: true
     })
   },
+  extendOrderItems(orderItems) {
+    if (getCurrentPages().slice(-2, -1)[0].route.includes('trolley')) {
+      const activityItems = getApp().globalData.activityItems //trolley promotions 
+      let promotionItemIds = [], nonPromotionItems=[]
+      const promotionItems = activityItems.map(item => {
+        return {
+          ...item,
+          items: [
+            ...item.items.map(it => {
+              const currentItem = orderItems.find(n => {
+                return n.groupId === it.itemId
+              }).items[0]
+              promotionItemIds.push(it.itemId)
+              return {
+                ...it,
+                quantity: currentItem.quantity,
+                itemUnit: currentItem.saleUnit
+              }
+            }),
+            ...item.giftItems.map(it => ({
+              ...it,
+              isGift: true,
+              itemId: it.giftItemId
+            }))
+          ]
+        }
+      })
+      //build non-promotion items group
+       nonPromotionItems=orderItems.filter(item=>!promotionItemIds.includes(item.groupId)).map(item=>({
+        ...item,
+        itemUnit: item.saleUnit
+      }))
+      orderItems = promotionItems.concat(nonPromotionItems)
+    }
+    return orderItems
+  },
   createOrder(decreaseGift = {
     enable: false
   }) {
@@ -253,7 +289,8 @@ Page({
       const receiverName = app.getName(),
         receiverCellPhone = app.getPhone(),
         receiverAddress = getApp().globalData.address
-      let orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [getApp().globalData.items ? getApp().globalData.items : this.data.data[0]];
+      let orderItems = getApp().globalData.items instanceof Array ? getApp().globalData.items : [this.data.data[0]];
+      orderItems = this.extendOrderItems(orderItems)
       if (decreaseGift.enable) {
         orderItems = orderItems.map(item => {
           const itemIds = this.data.stockoutList.map(item => item.itemId)
