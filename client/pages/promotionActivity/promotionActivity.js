@@ -7,17 +7,24 @@ Page({
   },
   onLoad: function(options) {
     // todo whether request data or based on passing data
-    // this.setData({
-    //   promotions: JSON.parse(options.data).data
-    // })
-    this.calc(JSON.parse(options.data)).then((promotions) => {
+    const data = JSON.parse(options.data)
+    if (data.len) {
       this.setData({
-        promotions: promotions.map(item => ({
+        promotions: data.data.map(item => ({
           ...item,
           visibleGifts: item.giftItems && item.giftItems.filter(it => it.inventoryCount !== '0')
         }))
       })
-    })
+    } else {
+      this.calc(data).then((promotions) => {
+        this.setData({
+          promotions: promotions.map(item => ({
+            ...item,
+            visibleGifts: item.giftItems && item.giftItems.filter(it => it.inventoryCount !== '0')
+          }))
+        })
+      })
+    }
   },
   selectGift(e) {
     this.index = e.currentTarget.dataset.index

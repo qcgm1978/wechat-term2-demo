@@ -304,7 +304,7 @@ Page({
           orderItems[i].promotionId = orderItems[i].promotions.promotionId
           orderItems[i].isTransactionPromotion = orderItems[i].isTransactionPromotion
         } else {
-          // orderItems[i].promotionId = ""
+          // orderItems[i].promotionId = ""//todo to verify the buying without promotion from detail page
         }
 
         orderItems[i].cartGroupId = orderItems[i].groupId

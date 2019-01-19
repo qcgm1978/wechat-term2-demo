@@ -13,12 +13,12 @@ export default {
   methods: {
     getProduct(itemId, categoryCd) {
       const locationId = getApp().globalData.merchant.locationId;
-      return util.getRequest(getProductItem + "&start=0&limit=1000", {
+      return util.getRequest(getProductItem + "&start=0&limit=1000", {//why add start and limit params?
         locationId,
         categoryCd: categoryCd ? categoryCd : '',
         itemIds: itemId ? itemId : '',
       }).then(data => {
-        if (data.status === 200) {
+        if (data.status === 200) {//why multi product items return with one item request?
           let inStock = []
           for (let i = 0; i < data.result.length; i++) {
             if (itemId == data.result[i].itemId) {

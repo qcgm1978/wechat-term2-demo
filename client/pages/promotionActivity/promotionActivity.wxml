@@ -1,10 +1,11 @@
 <import src="../../template/select-present.wxml" />
+<wxs module="filters" src="../../utils/math.wxs"></wxs>
 <view class='{{isSelectingGift?"indexFixed":""}}'>
   <block wx:for='{{promotions}}' wx:key='index' wx:for-item='promotion'>
     <view class='center a-i-c container-activity'>
       <image class='presentImg' src='{{promotion.promotionType=="2"?imgManjian:imgManzeng}}'></image>
       <text class='name'>{{promotion.promotionName}}</text>
-      <text class='detail' wx:if='{{promotion.promotionType=="2"}}'>可省{{promotion.discountAmount}}元</text>
+      <text class='detail' wx:if='{{promotion.promotionType=="2"}}'>可省{{filters.toFix(promotion.discountAmount)}}元</text>
       <view catch:tap='selectGift' wx:else class='center a-i-c' data-index='{{index}}'>
         <text class='detail'>{{promotion.visibleGifts.length?'更换赠品':'赠品已赠完'}}</text>
         <image src='../trolley/img/arrow.png' class='arrow'></image>

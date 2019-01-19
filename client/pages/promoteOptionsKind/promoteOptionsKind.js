@@ -265,7 +265,7 @@ Page({
               quantity: this.getMinCount(it),
               minQuantity:this.getMinCount(it),
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
-              checked: it.requireFlag,
+              checked: it.requireFlag&&(it.inventoryCount!==0),
             }))
           }))
           const resultItems = data.result.items || data.result.item
@@ -278,7 +278,7 @@ Page({
               quantity: this.getMinCount(it),
               minQuantity: this.getMinCount(it),
               // quantity: it.requireFlag ? ((isQuantity ? it.minQuantity : Math.ceil(it.minAmount / it.itemPrice)) || 1) : 1,
-              checked: it.requireFlag || it.itemId === this.product.itemId
+              checked: (it.requireFlag || it.itemId === this.product.itemId) && (it.inventoryCount !== 0)
             }))
           }
           this.setData({

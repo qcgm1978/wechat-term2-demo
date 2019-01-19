@@ -327,6 +327,7 @@ module.exports = {
       this.currentInventory = this.currentInventory === undefined ? (Mock.Random.increment() - 1) : this.currentInventory
     } else {
       this.currentInventory = ctx.request.body.orderItems[0].items[0].inventoryCount
+      this.currentInventory = 5000
     }
     if (+ctx.request.body.orderItems[0].items[0].quantity <= this.currentInventory) {
       ctx.state.data = {

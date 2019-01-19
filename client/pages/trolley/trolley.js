@@ -84,11 +84,12 @@ Page({
       checkAll: !this.data.checkAll
     });
     const trolley = this.data.trolley.map((item, index) => {
-      item.checked = this.data.checkAll
       if (this.data.checkAll && item.putShelvesFlg && item.inventoryCount !== 0) {
+        item.checked = this.data.checkAll
         if (!this.selectedRadio.includes(item.groupId))
           this.selectedRadio.push(item.groupId);
       } else {
+        item.checked = false
         const ind = this.selectedRadio.indexOf(item.groupId);
         if (ind !== -1) {
           this.selectedRadio.splice(ind, 1)
@@ -258,8 +259,8 @@ Page({
   },
   toPromotionActivity() {
     wx.navigateTo({
-      // url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.cartCombinationPromotions)}`,
-      url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.trolley)}`,
+      url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.cartCombinationPromotions)}`,
+      // url: `../promotionActivity/promotionActivity?data=${JSON.stringify(this.data.trolley)}`,
     })
   },
   callPromotionCacl(trollyList, i) {
@@ -487,7 +488,7 @@ Page({
         inventoryCount: item.inventoryCount
       }))
       return data
-    }else{
+    } else {
       return []
     }
   },
@@ -509,14 +510,14 @@ Page({
           limit: this.limit
         })
         .then((data) => {
-          try{
-          data = this.processMiddleTier(data)
-          if (adjustResult) {
-            return this.fillPromotionInfo(data)
-          } else {
-            return data
-          }
-          }catch(e){
+          try {
+            data = this.processMiddleTier(data)
+            if (adjustResult) {
+              return this.fillPromotionInfo(data)
+            } else {
+              return data
+            }
+          } catch (e) {
             return []
           }
         })
@@ -760,13 +761,13 @@ Page({
         })
 
         const trolley = this.data.trolley.map((item, index) => {
-          if (this.selectedRadio.includes(item.groupId) && item.putShelvesFlg&&(item.inventoryCount!==0)) {
+          if (this.selectedRadio.includes(item.groupId) && item.putShelvesFlg && (item.inventoryCount !== 0)) {
             item.checked = true;
           } else {
             item.checked = false;
-            if (this.selectedRadio.includes(item.groupId)){
-                const ind=this.selectedRadio.indexOf(item.groupId)
-                this.selectedRadio=this.selectedRadio.slice(0,ind).concat(this.selectedRadio.slice(ind+1))
+            if (this.selectedRadio.includes(item.groupId)) {
+              const ind = this.selectedRadio.indexOf(item.groupId)
+              this.selectedRadio = this.selectedRadio.slice(0, ind).concat(this.selectedRadio.slice(ind + 1))
             }
           }
           return item;
